@@ -1,98 +1,94 @@
 # Usage guide
 
-## First run
+## Setup and preparation
 
-Start Looking Glass, read the generated superadmin password from the log, sign
-in on the admin portal, and change the password. Create DM/admin accounts and
-viewer accounts as required. Campaign owners manage their own campaigns and
-assign viewers from the campaign page. Portal ports follow your configuration.
+Start Looking Glass, sign in with the initial superadmin account and change its
+password. Create admin/DM and viewer accounts. Create a campaign, import maps,
+and assign viewers from its campaign page. Ports follow your configuration.
+The original single-map import accepts an image, optional Foundry VTT / UVTT
+walls, and an optional name. The additional batch section accepts multiple
+images and independent wall files; see campaign-batch-import.md.
 
-## Preparing maps
+## Saved sources and dropdown values
 
-Create a campaign, then use its single-map import for one image and optional
-Foundry VTT / UVTT walls. A single-set wall source can be applied automatically;
-a multi-set source is saved for explicit selection. For several images and
-independent wall files, use **Import multiple maps and assign walls** on the
-same page. See [the batch workflow](campaign-batch-import.md).
+Save wall sources once in the campaign, choose a saved source and wall set,
+and apply. Wall sets are naturally alphabetised while retaining their original
+import indices. Applying does not ask for confirmation. The same source/set can
+be used for several maps; applying affects only its target map. The removed
+one-off importer is not restored by this update.
 
-## Saved wall sources
+Valid selected values stay visible after Apply, source-list refresh and page
+reload. Browser-local choices are keyed by page, target map and (for wall sets)
+source ID. A choice is restored only if its option still exists and the dropdown
+is ready. Changing source cannot restore a set from a different source. Choosing
+the blank option explicitly clears that preference. The map switch remains
+server/URL-authoritative, not restored to a different map by browser storage.
+Browser storage can be unavailable; the controls still work without persistence.
+This is UI selection memory, not a database association inferred from the menu.
 
-In **Walls → Saved wall sources**, save a supported Foundry database/JSON,
-UVTT, or supported pack. Choose the saved source, then a wall set. Lists use
-case-insensitive alphabetical/numeric ordering and preserve original scene
-indices. One database can supply different sets to different maps. Reusing a
-saved source requires no re-upload within the same campaign. Duplicate uploaded
-bytes use the existing server deduplication; a changed source becomes a new one.
+## Wall legend: Show and Enabled
 
-**Apply selected wall set** takes effect immediately: there is no confirmation.
-The same applies to campaign wall assignments and Apply alignment. If optional
-pack-image controls are present, opting in replaces artwork immediately too.
-Otherwise artwork is retained. Blank the viewer before changing boundaries:
-existing reveal clicks are retained and recalculated against the new walls.
+Each type has two independent controls:
 
-The duplicate one-off wall import form, its Import walls and Clear buttons,
-and their JavaScript handlers have been removed. Import through Saved wall
-sources instead. The old API endpoints remain available for existing clients.
-Delete source still confirms; deleting a reusable source does not remove walls
-or artwork already copied to maps. Sources remain private to their campaign.
+- **Show** immediately shows/hides that category in the DM overlay only. It is
+  remembered in this browser per map. Hiding it does not remove its boundaries.
+- **Enabled** controls whether the type participates in area calculations after
+  **Apply wall types**. These settings are saved per map on the server, survive
+  reload/reimport and affect both DM area detection and player composites.
 
-## Wall legend and alignment
+Disabled segments remain stored and are displayed passively unless hidden.
+They can be re-enabled without reimport. Ethereal walls never block even when
+Enabled is checked. Door and secret-door boundaries also require Doors split
+areas. The overall Show walls toggle still controls the entire DM overlay.
+Changing boundaries can merge rooms and expand previous reveals. Blank the
+viewer before applying boundary changes during play. Apply is immediate.
 
-The map editor displays a six-type wall legend:
+The legend colours are magenta normal walls, blue doors, purple dashed secret
+doors, green windows/terrain, yellow dashed invisible walls and grey passive/
+ethereal walls. Alignment uses image=(wall-offset)*scale. Apply alignment after
+adjusting scale, offset or nudges; no confirmation is shown.
 
-| Type | Colour/style | Meaning |
-|---|---|---|
-| Normal | Magenta solid | Separates areas |
-| Door | Blue solid | Follows Doors split areas |
-| Secret door | Purple dashed | Follows Doors split areas |
-| Window/terrain | Green solid | Separates areas |
-| Invisible | Yellow dashed | Blocks movement |
-| Ethereal/passive | Grey dashed | Does not separate areas |
+## Opening an editor and revealing
 
-This is a visual colour/style key, not a new persistent wall-type filtering
-control. Show walls affects only the DM overlay. Doors split areas affects
-boundary calculation. Alignment maps source coordinates to the current image:
-`image = (wall - offset) * scale`. Use offsets, scales and nudges, then Apply
-alignment. Check the exact player preview after changing geometry.
+Artwork loads independently from map metadata. If metadata/walls or the mask
+fail, an explicit error and **Retry loading map** control are available. A
+15-second poll can also recover missing initial metadata. Artwork changes get
+new image URLs. If a failure persists, retain the visible error and inspect the
+server log rather than resetting the database. This update does not claim to
+repair arbitrary missing images or an unrepaired older schema.
 
-## Showing and switching battle maps
+Reveal and Reveal all warn if this map is not shown to players. They still save
+the operation on the edited map; they do not silently switch the active display.
+The warning uses the server's active-state response and a persistent not-shown
+notice, so it is not only a potentially stale initial browser indicator.
 
-Each campaign **Show**, editor **Show to players**, and editor map-switch
-selection asks the server afresh whether the target has restorable reveals.
-The response is not cached or reused across targets/selections.
+## Showing and switching maps
 
-- If no effective reveals remain, no dialog appears. The map is displayed
-  with reset reveals, discarding any old operation/undo history.
-- If effective saved reveals remain, the Restore / Reset / Cancel dialog
-  appears. Restore replays the checkpoint; Reset starts fully fogged; Cancel
-  leaves the current display unchanged.
-- A history containing only hide operations, reveal-then-hide, or a final Reset
-  does not count as restorable merely because operations exist.
+Every Show/editor map switch checks the target's live or last-displayed reveal
+state afresh. Empty or fully hidden histories start with reset reveals without
+a dialog. Restorable histories offer Restore/Reset/Cancel. Check failures make
+no display change. An editor dropdown switch activates its target before
+navigation; directly opening an editor remains edit-only. Blanking needs no
+restore choice. Display Reset clears old undo history; toolbar Reset remains
+undoable. Delete and toolbar-reset confirmations remain; Apply has none.
 
-The editor map-switch now activates the selected target before opening its
-editor. A cancelled choice or failed availability check keeps the current
-selection/display. Directly opening an editor URL is still an editing action,
-not automatic activation. Blanking needs no restore dialog.
+## Viewer framing
 
-A failed availability request never silently resets or displays a map. An active
-map is evaluated from its live operations; an inactive map is evaluated from its
-saved last-displayed checkpoint. Without a checkpoint there is no restore offer,
-including never-displayed maps with offline-prepared clicks: they start reset.
-Saved clicks are evaluated against current walls, not historical geometry.
+On each map/fog version change, the viewer fits and centers the bounding box of
+all currently revealed pixels with a small margin. It does not reveal additional
+pixels or send raw walls/images. With no revealed pixels it fits the full fogged
+map. Manual pan/zoom works until the next update; Fit and resize frame the current
+revealed region. With separated visible rooms it fits their combined extent,
+not just the most recently clicked room.
 
-## At the table
+## At the table and deployment
 
-Assign viewers, open the viewer portal, and show a map. Click a room in Reveal
-mode to reveal its wall-bounded area; Hide mode hides it. Undo, Reveal all and
-the separate toolbar Reset remain available. Toolbar Reset remains undoable;
-display Reset discards the previous history. Pan with right/Space drag and zoom
-with the wheel; F fits. Use Player preview or Open exact player image to inspect
-what players see. Blank sends viewers to the waiting screen. Players receive a
-server-composited fogged image, not the raw map or wall data.
+Click bounded rooms to reveal/hide; use Undo, Reveal all, Reset, player preview
+and Blank as needed. F fits, the wheel zooms and dragging pans. Always inspect
+the exact player preview after geometry changes.
 
-## Updating
-
-Deploy all files together, restart the server for the added display-options
-endpoint, and hard-reload DM/campaign tabs. This patch adds no schema migration;
-the previously deployed checkpoint/token schema must already be present. Read
-[the interaction notes](interaction-refinement.md) for checks and limitations.
+Stop the service and back up the data directory before installing. Restart to
+apply migration 4, then hard-reload DM and viewer tabs. Migration 4 adds a separate
+per-map wall-type settings table; it leaves migration 3, cache tokens, snapshots,
+source uploads and any legacy disabled_wall_types column intact. See
+map-controls.md and the Patch notes for compatibility and test limitations.

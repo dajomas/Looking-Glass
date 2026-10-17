@@ -12,6 +12,7 @@ from ...repositories import campaigns as campaigns_repo
 from ...repositories import fog_ops as fog_repo
 from ...repositories import maps as maps_repo
 from ...repositories import walls as walls_repo
+from ...services.wall_type_settings import disabled_for_map
 from ...services.map_display import activate, checkpoint_if_active
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, fog_inputs, map_for_manage
@@ -51,6 +52,8 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "work_width": max(1, math.ceil(m["width"] * scale)), "work_height": max(1, math.ceil(m["height"] * scale)),
         "fog_version": m["fog_version"], "walls_version": m["walls_version"],
         "walls_source": m["walls_source"],
+        "image_version": m["image_file"],
+        "disabled_wall_types": disabled_for_map(conn, m),
         "calibration": {"offset_x": ox, "offset_y": oy, "scale_x": sx, "scale_y": sy,
                         "doors_block": bool(m["doors_block"])},
         "walls": walls,
@@ -232,3 +235,8 @@ register_routes(router, _map_payload)
 from .display_options import register_display_options  # noqa: E402
 
 register_display_options(router)
+
+
+from .wall_types import register_wall_types  # noqa: E402
+
+register_wall_types(router, _map_payload)

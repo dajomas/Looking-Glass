@@ -128,6 +128,13 @@ MIGRATIONS: list[str] = [
         FROM maps m JOIN (SELECT * FROM fog_ops ORDER BY id) f ON f.map_id = m.id
         GROUP BY m.id;
     """,
+    # 4 - persistent per-map wall-type boundary settings (legacy column remains intact)
+    """
+    CREATE TABLE map_wall_type_settings (
+        map_id INTEGER PRIMARY KEY REFERENCES maps(id) ON DELETE CASCADE,
+        disabled_types TEXT NOT NULL DEFAULT '[]'
+    );
+    """,
 ]
 
 

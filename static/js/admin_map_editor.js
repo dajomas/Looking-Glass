@@ -14,6 +14,15 @@
   let maskImg = null;
   let maskKey = "";
   let busy = false;
+  let maskGeneration = 0, imageKey = "";
+  const hiddenTypes = new Set();
+  const typeNames = ["wall", "door", "secret", "window", "invisible", "ethereal"];
+  const visibilityKey = `lg:hidden-wall-types:${MAP_ID}`;
+  try {for (const k of JSON.parse(localStorage.getItem(visibilityKey) || "[]")) hiddenTypes.add(k);} catch (_) {}
+  function loadError(message) {
+    const el = $("map-load-error");
+    if (el) {el.textContent = message; el.hidden = !message;}
+  }
 
   const pz = new PanZoom(vp, stage, { onTap, onChange: () => svg.style.setProperty("--sw", (2 / pz.scale).toFixed(3)) });
 
@@ -59,8 +68,9 @@
     const c = cal();
     const paths = {};
     for (const [x1, y1, x2, y2, kind, blocks] of rawWalls) {
+      if (hiddenTypes.has(kind)) continue;
       let k = kind;
-      if (!blocks || ((kind === "door" || kind === "secret") && !c.doors_block)) k = "passive";
+      if (!blocks || (state?.disabled_wall_types || []).includes(kind) || ((kind === "door" || kind === "secret") && !c.doors_block)) k = "passive";
       const a = (x1 - c.offset_x) * c.scale_x, b = (y1 - c.offset_y) * c.scale_y;
       const d = (x2 - c.offset_x) * c.scale_x, e = (y2 - c.offset_y) * c.scale_y;
       (paths[k] ||= []).push(`M${a.toFixed(1)} ${b.toFixed(1)}L${d.toFixed(1)} ${e.toFixed(1)}`);
@@ -88,9 +98,11 @@
   async function loadMask() {
     const key = `${state.cache_token}-${state.walls_version}-${state.fog_version}`;
     if (key === maskKey) return;
+    const generation = ++maskGeneration;
     const im = new Image();
     im.src = `/api/maps/${MAP_ID}/fog.png?v=${key}`;
     await im.decode();
+    if (generation !== maskGeneration) return;
     maskImg = im; maskKey = key;
     drawFog();
   }
@@ -98,7 +110,9 @@
   function applyState(s) {
     const first = state === null;
     state = s;
-    if (first) img.src = `/api/maps/${MAP_ID}/image?v=${s.cache_token}`;
+    const nextImageKey = s.image_version || `${s.cache_token}-${s.width}-${s.height}`;
+    if (imageKey !== nextImageKey) {imageKey = nextImageKey; img.src = `/api/maps/${MAP_ID}/image?v=${encodeURIComponent(imageKey)}`;}
+    loadError("");
     if (first || s.width !== pz.w || s.height !== pz.h) {
       pz.setContentSize(s.width, s.height);
       svg.setAttribute("viewBox", `0 0 ${s.width} ${s.height}`);
@@ -109,12 +123,17 @@
     rawWalls = s.walls.map(([a, b, d, e, k, bl]) =>
       [a / c.scale_x + c.offset_x, b / c.scale_y + c.offset_y, d / c.scale_x + c.offset_x, e / c.scale_y + c.offset_y, k, bl]);
     fillCalibration(c);
+    for (const kind of typeNames) {
+      const input = document.querySelector(`[data-wall-enabled="${kind}"]`);
+      if (input) input.checked = !(s.disabled_wall_types || []).includes(kind);
+    }
     renderWalls();
     $("wall-count").textContent = s.walls.length;
     $("wall-source").textContent = s.walls_source || (s.walls.length ? "" : "- import a Foundry wall file to enable area reveal");
     $("op-count").textContent = s.op_count;
     updateLive(s);
-    loadMask().catch((e) => toast("Fog mask failed: " + e.message, "error"));
+    drawFog();
+    loadMask().catch((e) => loadError("Fog mask could not load: " + e.message + ". Use Retry loading map."));
   }
 
   function updateLive(s) {
@@ -122,6 +141,7 @@
     live.textContent = s.is_active ? "Live on viewer screen" : "Not shown";
     live.className = "pill " + (s.is_active ? "pill-live" : "");
     $("btn-show").disabled = s.is_active;
+    if ($("offline-reveal-warning")) $("offline-reveal-warning").hidden = s.is_active;
     $("live-viewers").textContent = `${s.live_viewers} player screen${s.live_viewers === 1 ? "" : "s"} connected`;
   }
 
@@ -133,7 +153,10 @@
       const res = await LGApi.post(`/api/maps/${MAP_ID}/${m}`, { x, y });
       applyState(res);
       const pct = (res.area_fraction * 100).toFixed(1);
-      if (res.leak_warning) {
+      if (m === "reveal" && !res.is_active) {
+        toast("Warning: this map is NOT shown to players. The reveal was saved on this map only." +
+          (res.leak_warning ? " The revealed area may also have a wall gap." : ""), "warn", 7000);
+      } else if (res.leak_warning) {
         toast(`That area covers ${pct}% of the map - the walls may have a gap. Ctrl+Z to undo.`, "warn", 7000);
       } else if (!state.walls.length) {
         toast("No walls imported: the whole map counts as one area.", "warn");
@@ -143,7 +166,11 @@
     });
   }
 
-  const simple = (path, msg) => run(async () => { applyState(await LGApi.post(`/api/maps/${MAP_ID}/${path}`)); toast(msg); });
+  const simple = (path, msg) => run(async () => {
+    const result = await LGApi.post(`/api/maps/${MAP_ID}/${path}`); applyState(result);
+    if (path === "reveal-all" && !result.is_active) toast("Warning: this map is NOT shown to players. Reveal all was saved on this map only.", "warn", 7000);
+    else toast(msg);
+  });
 
   $("btn-undo").onclick = () => simple("undo", "Undone");
   $("btn-reveal-all").onclick = () => simple("reveal-all", "Whole map revealed");
@@ -205,12 +232,39 @@
   });
 
   // ------------------------------------------------------------------ boot
-  img.onload = () => { if (state) pz.fit(); };
-  run(async () => applyState(await LGApi.get(`/api/maps/${MAP_ID}`)));
+  img.onload = () => {
+    if (!state) {pz.setContentSize(img.naturalWidth, img.naturalHeight); svg.setAttribute("viewBox", `0 0 ${img.naturalWidth} ${img.naturalHeight}`);}
+    pz.fit();
+  };
+  img.onerror = () => loadError("Map artwork could not load. Check the image file/server log and use Retry loading map.");
+  // Load artwork independently: a failed metadata request must not leave an empty viewport.
+  img.src = `/api/maps/${MAP_ID}/image?boot=${Date.now()}`;
+  async function reloadMap() {
+    try {applyState(await LGApi.get(`/api/maps/${MAP_ID}`));}
+    catch (error) {loadError("Map state/walls could not load: " + error.message + ". Use Retry loading map."); throw error;}
+  }
+  if ($("retry-map-load")) $("retry-map-load").onclick = () => run(async () => {
+    imageKey = ""; await reloadMap();
+  });
+  for (const input of document.querySelectorAll("[data-wall-show]")) {
+    input.checked = !hiddenTypes.has(input.dataset.wallShow);
+    input.onchange = () => {
+      const kind = input.dataset.wallShow;
+      if (input.checked) hiddenTypes.delete(kind); else hiddenTypes.add(kind);
+      try {localStorage.setItem(visibilityKey, JSON.stringify([...hiddenTypes]));} catch (_) {}
+      renderWalls();
+    };
+  }
+  $("apply-wall-types").onclick = () => run(async () => {
+    const disabled = [...document.querySelectorAll("[data-wall-enabled]")].filter(el => !el.checked).map(el => el.dataset.wallEnabled);
+    applyState(await LGApi.post(`/api/maps/${MAP_ID}/wall-types`, {disabled_wall_types: disabled}));
+    toast("Wall types applied; areas recalculated");
+  });
+  run(reloadMap);
   setInterval(async () => {
     try {
       const s = await LGApi.get(`/api/maps/${MAP_ID}`);
-      if (s.fog_version !== state.fog_version || s.walls_version !== state.walls_version) applyState(s);
+      if (!state || s.fog_version !== state.fog_version || s.walls_version !== state.walls_version) applyState(s);
       else updateLive(s);
     } catch (_) { /* ignore */ }
   }, 15000);

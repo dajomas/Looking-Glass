@@ -10,6 +10,19 @@
   let version = null;
   let refreshGeneration = 0;
   let userMoved = false;
+  let revealBounds = null;
+  function centerReveals() {
+    if (!revealBounds) {pz.fit(); return;}
+    const box = vp.getBoundingClientRect();
+    const sx = mapImg.naturalWidth / revealBounds.imageWidth;
+    const sy = mapImg.naturalHeight / revealBounds.imageHeight;
+    const b = revealBounds;
+    pz.scale = Math.max(pz.minScale, Math.min(pz.maxScale,
+      0.90 * Math.min(box.width / Math.max(1,b.width*sx), box.height / Math.max(1,b.height*sy))));
+    pz.x = box.width/2 - (b.x+b.width/2)*sx*pz.scale;
+    pz.y = box.height/2 - (b.y+b.height/2)*sy*pz.scale;
+    pz.apply();
+  }
   vp.addEventListener("pointerdown", () => (userMoved = true));
   vp.addEventListener("wheel", () => (userMoved = true), { passive: true });
 
@@ -38,7 +51,8 @@
     nameEl.textContent = s.map.name;
     waiting.hidden = true; stage.hidden = false;
     pz.setContentSize(next.naturalWidth, next.naturalHeight);
-    if (mapChanged || !userMoved) { userMoved = false; pz.fit(); }
+    revealBounds = s.map.revealed_bounds ? {...s.map.revealed_bounds, imageWidth:s.map.width, imageHeight:s.map.height} : null;
+    userMoved = false; centerReveals();
   }
 
   let ws = null, retry = 1000, pingTimer = null;
@@ -57,7 +71,7 @@
     };
   }
 
-  $("btn-fit").onclick = () => { userMoved = false; pz.fit(); };
+  $("btn-fit").onclick = () => { userMoved = false; centerReveals(); };
   $("btn-full").onclick = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
   window.addEventListener("keydown", (e) => { if (e.key.toLowerCase() === "f") $("btn-fit").click(); });
   // Auto-hide HUD when idle
@@ -66,6 +80,8 @@
   ["pointermove", "pointerdown", "keydown"].forEach((ev) => window.addEventListener(ev, wake));
   wake();
 
+  let resizeTimer;
+  window.addEventListener("resize", () => {clearTimeout(resizeTimer); resizeTimer=setTimeout(centerReveals,180);});
   stage.hidden = true;
   refresh().catch(console.error);
   connect();

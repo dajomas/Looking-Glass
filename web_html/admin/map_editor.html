@@ -28,6 +28,7 @@
 
   <div class="side-block">
     <h3>Fog</h3>
+    <p id="offline-reveal-warning" role="status" class="small" hidden>Warning: this map is not shown to players. Reveals affect this map only.</p>
     <div class="segmented" role="radiogroup" aria-label="Click mode">
       <label><input type="radio" name="mode" value="reveal" checked><span>Reveal area</span></label>
       <label><input type="radio" name="mode" value="hide"><span>Hide area</span></label>
@@ -72,17 +73,18 @@
         <p id="source-status" class="small" role="status" aria-live="polite"></p>
       </div>
     </details>
-    <section aria-labelledby="wall-legend-title" id="wall-legend">
-      <h4 id="wall-legend-title">Wall legend</h4>
-      <ul class="small" style="list-style:none;padding-left:0">
-        <li><span style="color:#ff5bd1">━━</span> Normal wall — blocks areas</li>
-        <li><span style="color:#46c0ff">━━</span> Door — follows Doors split areas</li>
-        <li><span style="color:#b07cff">┄┄</span> Secret door — follows Doors split areas</li>
-        <li><span style="color:#7cffb2">━━</span> Window / terrain — blocks areas</li>
-        <li><span style="color:#ffd36b">┄┄</span> Invisible wall — blocks movement</li>
-        <li><span style="color:#9aa3b5">┄┄</span> Ethereal / passive — does not block areas</li>
-      </ul>
-      <p class="muted small">Show walls controls the DM overlay only. Doors split areas controls whether door boundaries separate rooms.</p>
+    <section id="wall-legend" aria-labelledby="wall-legend-title">
+      <h4 id="wall-legend-title">Wall legend and types</h4>
+      <table class="table compact"><thead><tr><th>Type</th><th>Show</th><th>Enabled</th></tr></thead><tbody>
+        <tr><td><span style="color:#ff5bd1">━━</span> Normal wall</td><td><input type="checkbox" data-wall-show="wall" checked aria-label="Show Normal wall"></td><td><input type="checkbox" data-wall-enabled="wall" checked aria-label="Enable Normal wall"></td></tr>
+        <tr><td><span style="color:#46c0ff">━━</span> Door</td><td><input type="checkbox" data-wall-show="door" checked aria-label="Show Door"></td><td><input type="checkbox" data-wall-enabled="door" checked aria-label="Enable Door"></td></tr>
+        <tr><td><span style="color:#b07cff">┄┄</span> Secret door</td><td><input type="checkbox" data-wall-show="secret" checked aria-label="Show Secret door"></td><td><input type="checkbox" data-wall-enabled="secret" checked aria-label="Enable Secret door"></td></tr>
+        <tr><td><span style="color:#7cffb2">━━</span> Window / terrain</td><td><input type="checkbox" data-wall-show="window" checked aria-label="Show Window / terrain"></td><td><input type="checkbox" data-wall-enabled="window" checked aria-label="Enable Window / terrain"></td></tr>
+        <tr><td><span style="color:#ffd36b">┄┄</span> Invisible wall</td><td><input type="checkbox" data-wall-show="invisible" checked aria-label="Show Invisible wall"></td><td><input type="checkbox" data-wall-enabled="invisible" checked aria-label="Enable Invisible wall"></td></tr>
+        <tr><td><span style="color:#9aa3b5">┄┄</span> Ethereal</td><td><input type="checkbox" data-wall-show="ethereal" checked aria-label="Show Ethereal"></td><td><input type="checkbox" data-wall-enabled="ethereal" checked aria-label="Enable Ethereal"></td></tr>
+      </tbody></table>
+      <p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p>
+      <button type="button" id="apply-wall-types" class="primary">Apply wall types</button>
     </section>
     <details id="calibration">
       <summary>Alignment</summary>
@@ -115,6 +117,7 @@
       </form>
     </details>
   </div>
+<div class="side-block"><p id="map-load-error" role="alert" hidden></p><button type="button" id="retry-map-load">Retry loading map</button></div>
 </aside>
 
 <section class="viewport" id="viewport" tabindex="0" aria-label="Battle map">
@@ -138,6 +141,7 @@
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
 <script src="/static/js/api.js"></script>
 <script src="/static/js/pan_zoom.js"></script>
+<script src="/static/js/keep_select_values.js"></script>
 <script src="/static/js/admin_map_editor.js"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

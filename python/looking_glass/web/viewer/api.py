@@ -10,6 +10,7 @@ import logging
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse
 
+from ...services.reveal_bounds import revealed_bounds
 from ...repositories import campaigns as campaigns_repo
 from ...repositories import maps as maps_repo
 from ..access import campaign_for_view, fog_inputs
@@ -29,11 +30,13 @@ def state(ctx: CtxDep, user: UserDep, campaign_id: int):
     with ctx.db.connect() as conn:
         c = campaign_for_view(conn, user, campaign_id)
         m = maps_repo.get(conn, c["active_map_id"]) if c["active_map_id"] else None
+        if m is not None: spec, segments, ops = fog_inputs(ctx, conn, m["id"])
     if m is None:
         return {"ok": True, "campaign": c["name"], "map": None}
+    bounds = revealed_bounds(ctx.fog.mask(spec, segments, ops), m["width"], m["height"])
     version = _version(m)
     return {"ok": True, "campaign": c["name"],
-            "map": {"name": m["name"], "width": m["width"], "height": m["height"], "version": version,
+            "map": {"name": m["name"], "width": m["width"], "height": m["height"], "version": version, "revealed_bounds": bounds,
                     "image_url": f"/api/c/{campaign_id}/image?v={version}"}}
 
 
