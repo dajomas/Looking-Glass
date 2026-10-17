@@ -93,8 +93,8 @@ runtime dependencies or configuration keys are required. See
 
 ## Showing maps: reveal choice and cache isolation
 
-Both Show controls now ask whether to restore the last-displayed reveals,
-reset all reveals, or cancel. Saved checkpoints belong to one map instance;
+Show controls check whether effective saved reveals exist. When they do, choose
+Restore / Reset / Cancel; otherwise the target is shown with reset reveals. Saved checkpoints belong to one map instance;
 deleting and importing a map starts a new instance, even when SQLite reuses
 its numeric ID. See [the usage guide](docs/usage.md#choosing-reveals-when-showing-a-map)
 and [the patch notes](Patch/fog-display-state.md).
@@ -107,3 +107,14 @@ Foundry VTT / UVTT (Universal VTT) wall files, then explicitly assign a saved
 wall source and wall set to each new or existing campaign map. One wall source
 can be reused for many maps. No filename or selection-order pairing is assumed.
 See [the workflow](docs/campaign-batch-import.md).
+
+## Quick inverse mouse action
+
+In the admin map editor, a stationary right-click temporarily inverts the
+selected Reveal/Hide mode. Reveal mode + right-click hides; Hide mode + right-click
+reveals. The selected mode does not change. Left-click uses the selected mode.
+Right-drag still pans and never edits fog. See [mouse controls](docs/mouse-controls.md).
+
+The editor also performs a non-mutating state refresh after the first artwork
+load. This provides the refresh previously obtained through the reported Blank
+workaround without blanking the player screen or changing the active map.

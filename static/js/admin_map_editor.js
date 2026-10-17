@@ -24,7 +24,7 @@
     if (el) {el.textContent = message; el.hidden = !message;}
   }
 
-  const pz = new PanZoom(vp, stage, { onTap, onChange: () => svg.style.setProperty("--sw", (2 / pz.scale).toFixed(3)) });
+  const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: () => svg.style.setProperty("--sw", (2 / pz.scale).toFixed(3)) });
 
   // ------------------------------------------------------------------ UI helpers
   let toastTimer = null;
@@ -146,9 +146,10 @@
   }
 
   // ------------------------------------------------------------------ actions
-  function onTap(x, y) {
+  function onTap(x, y, event) {
     if (!state || x < 0 || y < 0 || x > state.width || y > state.height) return;
-    const m = mode();
+    const selectedMode = mode();
+    const m = event?.button === 2 ? (selectedMode === "reveal" ? "hide" : "reveal") : selectedMode;
     run(async () => {
       const res = await LGApi.post(`/api/maps/${MAP_ID}/${m}`, { x, y });
       applyState(res);
@@ -232,9 +233,18 @@
   });
 
   // ------------------------------------------------------------------ boot
+  let startupRefreshScheduled = false;
+  function refreshAfterArtwork() {
+    if (busy) {setTimeout(refreshAfterArtwork, 50); return;}
+    run(reloadMap);
+  }
   img.onload = () => {
     if (!state) {pz.setContentSize(img.naturalWidth, img.naturalHeight); svg.setAttribute("viewBox", `0 0 ${img.naturalWidth} ${img.naturalHeight}`);}
     pz.fit();
+    if (!startupRefreshScheduled) {
+      startupRefreshScheduled = true;
+      setTimeout(refreshAfterArtwork, 0);
+    }
   };
   img.onerror = () => loadError("Map artwork could not load. Check the image file/server log and use Retry loading map.");
   // Load artwork independently: a failed metadata request must not leave an empty viewport.

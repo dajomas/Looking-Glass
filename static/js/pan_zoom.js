@@ -9,6 +9,7 @@ window.PanZoom = class PanZoom {
     this.scale = 1; this.x = 0; this.y = 0;
     this.minScale = 0.02; this.maxScale = 8;
     this.onTap = opts.onTap || null;
+    this.secondaryTap = Boolean(opts.secondaryTap);
     this.onChange = opts.onChange || null;
     this.tapTolerance = 5;
     this.pointers = new Map();
@@ -69,7 +70,7 @@ window.PanZoom = class PanZoom {
     vp.addEventListener("pointerdown", (e) => {
       vp.setPointerCapture(e.pointerId);
       this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, button: e.button });
-      this.moved = this.pointers.size > 1 || e.button === 2 || e.button === 1 || this.spaceDown;
+      this.moved = this.pointers.size > 1 || (e.button === 2 && !this.secondaryTap) || e.button === 1 || this.spaceDown;
       if (this.pointers.size === 2) this._pinchStart = this._pinchInfo();
     });
     vp.addEventListener("pointermove", (e) => {
@@ -103,7 +104,7 @@ window.PanZoom = class PanZoom {
       this.pointers.delete(e.pointerId);
       vp.classList.remove("panning");
       if (this.pointers.size < 2) this._pinchStart = null;
-      if (e.type === "pointerup" && !this.moved && p.button === 0 && this.pointers.size === 0 && this.onTap) {
+      if (e.type === "pointerup" && !this.moved && e.button === p.button && (p.button === 0 || (this.secondaryTap && p.button === 2)) && this.pointers.size === 0 && this.onTap) {
         const pt = this.toImage(e.clientX, e.clientY);
         this.onTap(pt.x, pt.y, e);
       }
