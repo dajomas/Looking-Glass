@@ -1,0 +1,31 @@
+<section id="campaign-batch-import" data-campaign-id="{{ campaign.id }}" aria-labelledby="batch-import-title">
+  <h3 id="batch-import-title">Import multiple maps and assign walls</h3>
+  <p class="muted small">The single-map form above remains available. Upload map images and wall sources separately here, then choose a wall set for each map below. Nothing is matched or displayed automatically.</p>
+  <form id="batch-upload" class="row-form" enctype="multipart/form-data">
+    <label class="grow">Map images (multiple PNG, JPG, WEBP)
+      <input id="batch-map-files" type="file" accept="image/*" multiple>
+    </label>
+    <label class="grow">Foundry VTT / UVTT (Universal VTT) wall files (multiple)
+      <input id="batch-wall-files" type="file" accept=".json,.db,.uvtt,.dd2vtt,.df2vtt,.zip" multiple>
+    </label>
+    <button type="submit" class="primary">Import selected files</button>
+  </form>
+  <p class="muted small">You can upload only maps, only wall files, or both. Successful files are kept if another fails. After completion, reselect only failed files to retry; reimporting a successful map creates another map.</p>
+  <ul id="batch-import-results" aria-label="File import results"></ul>
+  <p id="batch-status" role="status" aria-live="polite"></p>
+  <h4>Assign wall sets to imported maps</h4>
+  <p class="muted small">Includes existing campaign maps and maps imported above. One saved source can supply different wall sets to different maps, or the same set to several maps. Blank the viewer before replacing walls: existing reveals are recalculated. Uploaded artwork is retained.</p>
+  <button id="batch-refresh-sources" type="button">Refresh saved wall sources</button>
+  <div style="overflow-x:auto">
+    <table class="table" id="batch-assignments">
+      <thead><tr><th>Map</th><th>Saved wall source</th><th>Wall set (alphabetical)</th><th>Auto-align</th><th>Result</th></tr></thead>
+      <tbody id="batch-assignment-rows"></tbody>
+    </table>
+  </div>
+  <button id="batch-apply-walls" type="button" class="primary" disabled>Apply selected wall assignments</button>
+  <p class="small"><a href="/campaigns/{{ campaign.id }}">Reload campaign list after importing</a> (also updates the Battle maps table above).</p>
+  <noscript><p>Batch upload and assignment need JavaScript. Use the single-map import above when JavaScript is disabled.</p></noscript>
+  <script id="batch-existing-maps" type="application/json">[
+    {% for m in maps %}{{ {"id": m.id, "name": m.name} | tojson }}{{ ',' if not loop.last }}{% endfor %}
+  ]</script>
+</section>

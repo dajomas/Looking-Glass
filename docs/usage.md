@@ -100,3 +100,24 @@ If loading fails, the error appears below the controls. Choose another source
 or press Refresh sources to retry. After updating the JavaScript, hard-reload
 existing editor tabs to discard the previous cached script. This selector fix
 requires no database migration and does not change saved wall or fog data.
+
+## Import multiple maps and assign walls on the campaign page
+
+Below the original single-map form, use **Import multiple maps and assign walls**:
+
+1. Choose several map images, several Foundry VTT / UVTT wall files, or both.
+2. Press **Import selected files**. Per-file results show success or failure.
+3. In the assignment table, choose a saved wall source for each target map,
+   then choose its wall set. Newly imported and existing campaign maps appear.
+4. Choose whether to auto-align each map. Wall sets are alphabetically ordered;
+   the same source/set may be reused across multiple maps.
+5. Press **Apply selected wall assignments** and confirm. Only rows with an
+   explicit wall-set selection are applied. Uploaded artwork is retained.
+
+Importing does not automatically assign wall sets or show maps to players.
+Successful files are kept if another fails. Retry only failed uploads; importing
+an image twice creates two maps. Successful wall assignments are deselected,
+while failed selections remain for retry. Reload the campaign to refresh the
+original Battle maps table or discover maps added in another tab.
+
+See [batch import details and limitations](campaign-batch-import.md).

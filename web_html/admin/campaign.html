@@ -72,10 +72,11 @@
   <form method="post" action="/campaigns/{{ campaign.id }}/maps" enctype="multipart/form-data" class="row-form">
     {% include "partials/_csrf.html" %}
     <label class="grow">Map image (PNG, JPG, WEBP) <input type="file" name="image" accept="image/*" required></label>
-    <label class="grow">Foundry VTT walls (optional) <input type="file" name="walls" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt"></label>
+    <label class="grow">Foundry VTT / UVTT (Universal VTT) walls (optional) <input type="file" name="walls" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt"></label>
     <label class="grow">Name <input name="name" maxlength="120" placeholder="defaults to file name"></label>
     <button class="primary" type="submit">Import</button>
   </form>
+  {% include "admin/_campaign_batch_import.html" %}
 </section>
 
 <div class="grid cols-2">
@@ -156,4 +157,6 @@
 {% block scripts %}
 {% include "partials/_map_display_dialog.html" %}
 <script src="/static/js/map_display_prompt.js"></script>
+<script src="/static/js/api.js"></script>
+<script src="/static/js/campaign_batch_import.js"></script>
 {% endblock %}

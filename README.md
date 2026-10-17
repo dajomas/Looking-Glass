@@ -98,3 +98,12 @@ reset all reveals, or cancel. Saved checkpoints belong to one map instance;
 deleting and importing a map starts a new instance, even when SQLite reuses
 its numeric ID. See [the usage guide](docs/usage.md#choosing-reveals-when-showing-a-map)
 and [the patch notes](Patch/fog-display-state.md).
+
+## Batch campaign imports and wall assignment
+
+The campaign page retains its single-map import and adds a separate **Import
+multiple maps and assign walls** section. Select multiple map images and/or
+Foundry VTT / UVTT (Universal VTT) wall files, then explicitly assign a saved
+wall source and wall set to each new or existing campaign map. One wall source
+can be reused for many maps. No filename or selection-order pairing is assumed.
+See [the workflow](docs/campaign-batch-import.md).
