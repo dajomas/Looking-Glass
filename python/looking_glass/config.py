@@ -20,7 +20,7 @@ DEFAULTS: dict[str, Any] = {
     "server": {
         "host": "0.0.0.0",
         "admin_port": 5000,
-        "viewer_port": 6000,
+        "viewer_port": 5100,
         "log_level": "info",
     },
     "storage": {
