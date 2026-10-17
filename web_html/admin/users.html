@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Users{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Users</h1></div>
+
+<section class="card">
+  <table class="table">
+    <thead><tr><th>User</th><th>Role / status</th><th>Campaign access</th><th>Password</th><th class="right"></th></tr></thead>
+    <tbody>
+    {% for u in users %}
+    <tr>
+      <td><strong>{{ u.username }}</strong>{% if u.id == user.id %} <span class="pill">you</span>{% endif %}
+        <div class="muted small">created {{ u.created_at }}</div></td>
+      <td>
+        <form method="post" action="/users/{{ u.id }}/update" class="inline user-edit">
+          {% include "partials/_csrf.html" %}
+          <input name="display_name" value="{{ u.display_name }}" placeholder="Display name" maxlength="120" aria-label="Display name">
+          <select name="role" aria-label="Role">
+            {% for r in roles %}<option value="{{ r.value }}" {{ 'selected' if r.value == u.role }}>{{ r.value }}</option>{% endfor %}
+          </select>
+          <label class="check"><input type="checkbox" name="active" value="true" {{ 'checked' if u.active }}> active</label>
+          <button type="submit">Save</button>
+        </form>
+      </td>
+      <td class="small">{{ assignments[u.id] | join(', ') if assignments[u.id] else '-' }}</td>
+      <td>
+        <form method="post" action="/users/{{ u.id }}/password" class="inline user-edit">
+          {% include "partials/_csrf.html" %}
+          <input name="password" type="text" placeholder="New password" minlength="{{ min_len }}" required autocomplete="off" aria-label="New password">
+          <label class="check"><input type="checkbox" name="must_change" value="true" checked> force change</label>
+          <button type="submit">Reset</button>
+        </form>
+      </td>
+      <td class="right">
+        {% if u.id != user.id %}
+        <form method="post" action="/users/{{ u.id }}/delete" class="inline" data-confirm="Delete user '{{ u.username }}'?">
+          {% include "partials/_csrf.html" %}
+          <button class="danger" type="submit">Delete</button>
+        </form>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h2>New user</h2>
+  <form method="post" action="/users" class="row-form">
+    {% include "partials/_csrf.html" %}
+    <label class="grow">Username <input name="username" required pattern="[A-Za-z0-9_.@\-]+" minlength="2" maxlength="64"></label>
+    <label class="grow">Display name <input name="display_name" maxlength="120"></label>
+    <label class="grow">Password <input name="password" type="text" required minlength="{{ min_len }}" autocomplete="off"></label>
+    <label>Role
+      <select name="role">{% for r in roles %}<option value="{{ r.value }}" {{ 'selected' if r.value == 'viewer' }}>{{ r.value }}</option>{% endfor %}</select>
+    </label>
+    <label class="check"><input type="checkbox" name="must_change" value="true" checked> force change</label>
+    <button class="primary" type="submit">Create</button>
+  </form>
+  <p class="muted small">superadmin: manages users (and every campaign) · admin: manages own campaigns and assigns viewers · viewer: views assigned campaigns only</p>
+</section>
+{% endblock %}

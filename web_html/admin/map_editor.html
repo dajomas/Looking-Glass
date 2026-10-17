@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}{{ map.name }} · fog editor{% endblock %}
+{% block body_class %}editor-page{% endblock %}
+{% block main_class %}editor{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css">{% endblock %}
+{% block content %}
+<aside class="sidebar" id="sidebar">
+  <div class="side-block">
+    <p class="crumbs"><a href="/">Campaigns</a> / <a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a></p>
+    <label class="sr-only" for="map-switch">Switch map</label>
+    <select id="map-switch">
+      {% for s in siblings %}<option value="{{ s.id }}" {{ 'selected' if s.id == map.id }}>{{ s.name }}</option>{% endfor %}
+    </select>
+  </div>
+
+  <div class="side-block">
+    <h3>Players</h3>
+    <div class="live-row">
+      <span id="live-state" class="pill">-</span>
+      <span id="live-viewers" class="muted small"></span>
+    </div>
+    <div class="btn-row">
+      <button id="btn-show" class="primary">Show to players</button>
+      <button id="btn-blank" title="Players see a waiting screen">Blank</button>
+    </div>
+    <a class="small" href="/api/maps/{{ map.id }}/viewer-preview" target="_blank" rel="noopener">Open exact player image &#8599;</a>
+  </div>
+
+  <div class="side-block">
+    <h3>Fog</h3>
+    <div class="segmented" role="radiogroup" aria-label="Click mode">
+      <label><input type="radio" name="mode" value="reveal" checked><span>Reveal area</span></label>
+      <label><input type="radio" name="mode" value="hide"><span>Hide area</span></label>
+    </div>
+    <p class="muted small">Click inside a room bounded by walls. Right-drag or Space-drag pans, the wheel zooms. Shortcuts: R / H mode, Ctrl+Z undo, F fit.</p>
+    <div class="btn-row">
+      <button id="btn-undo">Undo</button>
+      <button id="btn-reveal-all">Reveal all</button>
+      <button id="btn-reset" class="danger">Reset</button>
+    </div>
+    <label class="range">Fog opacity (DM view)
+      <input id="fog-opacity" type="range" min="0" max="1" step="0.05" value="{{ fog_opacity }}">
+    </label>
+    <label class="check"><input id="show-walls" type="checkbox" checked> Show walls</label>
+    <label class="check"><input id="show-preview" type="checkbox"> Player preview (opaque fog)</label>
+    <p class="small"><span id="op-count">{{ op_count }}</span> fog actions recorded</p>
+  </div>
+
+  <div class="side-block">
+    <h3>Walls</h3>
+    <p class="small"><strong id="wall-count">{{ map.wall_count }}</strong> segments
+      <span class="muted" id="wall-source">{{ map.walls_source }}</span></p>
+    <form id="wall-import" class="stack">
+      <label>Foundry VTT / Universal VTT file
+        <input id="wall-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
+      </label>
+      <label id="scene-pick" hidden>Scene <select id="scene-select"></select></label>
+      <label class="check"><input id="use-scene-cal" type="checkbox" checked> Auto-align from scene data</label>
+      <div class="btn-row">
+        <button type="submit" class="primary">Import walls</button>
+        <button type="button" id="btn-clear-walls" class="danger">Clear</button>
+      </div>
+    </form>
+    <details id="calibration">
+      <summary>Alignment</summary>
+      <p class="muted small">image = (wall &minus; offset) &times; scale</p>
+      <div class="cal-grid">
+        <label>Offset X <input id="cal-ox" type="number" step="any"></label>
+        <label>Offset Y <input id="cal-oy" type="number" step="any"></label>
+        <label>Scale X <input id="cal-sx" type="number" step="any" min="0.0001"></label>
+        <label>Scale Y <input id="cal-sy" type="number" step="any" min="0.0001"></label>
+      </div>
+      <div class="nudge" aria-label="Nudge walls">
+        <button type="button" data-nudge="0,-1" aria-label="Up">&#8593;</button>
+        <button type="button" data-nudge="-1,0" aria-label="Left">&#8592;</button>
+        <button type="button" data-nudge="1,0" aria-label="Right">&#8594;</button>
+        <button type="button" data-nudge="0,1" aria-label="Down">&#8595;</button>
+        <span class="muted small">Shift = 10px</span>
+      </div>
+      <label class="check"><input id="cal-doors" type="checkbox"> Doors split areas</label>
+      <button type="button" id="btn-cal-save" class="primary">Apply alignment</button>
+    </details>
+  </div>
+
+  <div class="side-block">
+    <details>
+      <summary>Replace map image</summary>
+      <form method="post" action="/maps/{{ map.id }}/image" enctype="multipart/form-data" class="stack">
+        {% include "partials/_csrf.html" %}
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Upload</button>
+      </form>
+    </details>
+  </div>
+</aside>
+
+<section class="viewport" id="viewport" tabindex="0" aria-label="Battle map">
+  <div class="stage" id="stage">
+    <img id="map-img" alt="{{ map.name }}" draggable="false">
+    <canvas id="fog-canvas"></canvas>
+    <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="zoom-ctl">
+    <button id="zoom-in" aria-label="Zoom in">+</button>
+    <button id="zoom-fit" aria-label="Fit">&#9635;</button>
+    <button id="zoom-out" aria-label="Zoom out">&minus;</button>
+  </div>
+  <div class="busy" id="busy" hidden>Working&hellip;</div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
+<script src="/static/js/api.js"></script>
+<script src="/static/js/pan_zoom.js"></script>
+<script src="/static/js/admin_map_editor.js"></script>
+{% endblock %}

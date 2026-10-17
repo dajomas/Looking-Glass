@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% block title %}{{ campaign.name }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="crumbs"><a href="/">Campaigns</a> /</p>
+    <h1>{{ campaign.name }}</h1>
+    {% if campaign.description %}<p class="muted">{{ campaign.description }}</p>{% endif %}
+  </div>
+  <div class="head-actions">
+    <span class="pill" title="Players connected right now">{{ live_viewers }} live viewer{{ '' if live_viewers == 1 else 's' }}</span>
+    <a class="button" href="#" data-viewer-link data-port="{{ viewer_port }}" data-path="/c/{{ campaign.id }}" target="_blank" rel="noopener">Viewer screen &#8599;</a>
+  </div>
+</div>
+
+<section class="card">
+  <div class="section-head">
+    <h2>Battle maps</h2>
+    <form method="post" action="/campaigns/{{ campaign.id }}/active" class="inline">
+      {% include "partials/_csrf.html" %}
+      <input type="hidden" name="map_id" value="">
+      <button type="submit" {{ 'disabled' if not campaign.active_map_id }} title="Players see a waiting screen">Blank viewer screen</button>
+    </form>
+  </div>
+  {% if maps %}
+  <table class="table">
+    <thead><tr><th></th><th>Name</th><th>Size</th><th>Walls</th><th>Shown to players</th><th class="right">Actions</th></tr></thead>
+    <tbody>
+    {% for m in maps %}
+      <tr class="{{ 'is-active' if campaign.active_map_id == m.id }}">
+        <td class="order">
+          <form method="post" action="/maps/{{ m.id }}/move" class="inline">{% include "partials/_csrf.html" %}<input type="hidden" name="direction" value="-1"><button class="icon" {{ 'disabled' if loop.first }} aria-label="Move up">&#9650;</button></form>
+          <form method="post" action="/maps/{{ m.id }}/move" class="inline">{% include "partials/_csrf.html" %}<input type="hidden" name="direction" value="1"><button class="icon" {{ 'disabled' if loop.last }} aria-label="Move down">&#9660;</button></form>
+        </td>
+        <td>
+          <form method="post" action="/maps/{{ m.id }}/rename" class="inline rename">
+            {% include "partials/_csrf.html" %}
+            <input name="name" value="{{ m.name }}" maxlength="120" required aria-label="Map name">
+            <button class="icon" type="submit" title="Rename">&#10003;</button>
+          </form>
+        </td>
+        <td class="muted">{{ m.width }}&times;{{ m.height }}</td>
+        <td>{% if m.wall_count %}{{ m.wall_count }}{% else %}<span class="muted">none</span>{% endif %}</td>
+        <td>
+          {% if campaign.active_map_id == m.id %}
+            <span class="pill pill-live">Live</span>
+          {% else %}
+          <form method="post" action="/campaigns/{{ campaign.id }}/active" class="inline">
+            {% include "partials/_csrf.html" %}
+            <input type="hidden" name="map_id" value="{{ m.id }}">
+            <button type="submit">Show</button>
+          </form>
+          {% endif %}
+        </td>
+        <td class="right nowrap">
+          <a class="button primary" href="/maps/{{ m.id }}">Open fog editor</a>
+          <form method="post" action="/maps/{{ m.id }}/delete" class="inline" data-confirm="Delete map '{{ m.name }}' and its fog state?">
+            {% include "partials/_csrf.html" %}
+            <button class="danger" type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No maps yet.</p>
+  {% endif %}
+
+  <h3>Import battle map</h3>
+  <form method="post" action="/campaigns/{{ campaign.id }}/maps" enctype="multipart/form-data" class="row-form">
+    {% include "partials/_csrf.html" %}
+    <label class="grow">Map image (PNG, JPG, WEBP) <input type="file" name="image" accept="image/*" required></label>
+    <label class="grow">Foundry VTT walls (optional) <input type="file" name="walls" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt"></label>
+    <label class="grow">Name <input name="name" maxlength="120" placeholder="defaults to file name"></label>
+    <button class="primary" type="submit">Import</button>
+  </form>
+</section>
+
+<div class="grid cols-2">
+<section class="card">
+  <h2>Viewers</h2>
+  <p class="muted">Users listed here can open this campaign on the viewer screen.</p>
+  {% if viewers %}
+  <table class="table compact">
+    <tbody>
+    {% for v in viewers %}
+      <tr>
+        <td>{{ v.display_name or v.username }} <span class="muted">@{{ v.username }}</span>{% if not v.active %} <span class="pill pill-off">disabled</span>{% endif %}</td>
+        <td class="right">
+          <form method="post" action="/campaigns/{{ campaign.id }}/viewers/{{ v.id }}/remove" class="inline">
+            {% include "partials/_csrf.html" %}
+            <button class="danger" type="submit">Remove</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="muted">Nobody assigned yet.</p>{% endif %}
+
+  {% if assignable %}
+  <form method="post" action="/campaigns/{{ campaign.id }}/viewers/add" class="row-form">
+    {% include "partials/_csrf.html" %}
+    <label class="grow">Add existing user
+      <select name="user_id">
+        {% for u in assignable %}<option value="{{ u.id }}">{{ u.username }}{% if u.display_name %} ({{ u.display_name }}){% endif %} - {{ u.role }}</option>{% endfor %}
+      </select>
+    </label>
+    <button type="submit">Add</button>
+  </form>
+  {% endif %}
+
+  {% if can_create_viewers %}
+  <details>
+    <summary>Create a new viewer account</summary>
+    <form method="post" action="/campaigns/{{ campaign.id }}/viewers/create" class="stack">
+      {% include "partials/_csrf.html" %}
+      <label>Username <input name="username" required pattern="[A-Za-z0-9_.@\-]+" minlength="2" maxlength="64"></label>
+      <label>Display name <input name="display_name" maxlength="120"></label>
+      <label>Temporary password <input name="password" type="text" required minlength="8" autocomplete="off"></label>
+      <p class="muted small">The player must change this password at first login.</p>
+      <button type="submit">Create &amp; assign</button>
+    </form>
+  </details>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h2>Settings</h2>
+  <form method="post" action="/campaigns/{{ campaign.id }}/update" class="stack">
+    {% include "partials/_csrf.html" %}
+    <label>Name <input name="name" value="{{ campaign.name }}" required maxlength="120"></label>
+    <label>Description <textarea name="description" rows="3" maxlength="2000">{{ campaign.description }}</textarea></label>
+    {% if admins %}
+    <label>Owner (DM)
+      <select name="owner_id">
+        {% for a in admins %}<option value="{{ a.id }}" {{ 'selected' if a.id == campaign.owner_id }}>{{ a.username }} ({{ a.role }})</option>{% endfor %}
+      </select>
+    </label>
+    {% endif %}
+    <button class="primary" type="submit">Save</button>
+  </form>
+  <details class="danger-zone">
+    <summary>Delete campaign</summary>
+    <form method="post" action="/campaigns/{{ campaign.id }}/delete" class="stack">
+      {% include "partials/_csrf.html" %}
+      <label>Type <strong>{{ campaign.name }}</strong> to confirm <input name="confirm" required autocomplete="off"></label>
+      <button class="danger" type="submit">Delete campaign and all maps</button>
+    </form>
+  </details>
+</section>
+</div>
+{% endblock %}

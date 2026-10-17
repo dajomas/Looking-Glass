@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Campaigns{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>Campaigns</h1>
+  <a class="button" href="#" data-viewer-link data-port="{{ viewer_port }}" target="_blank" rel="noopener">Open viewer screen &#8599;</a>
+</div>
+
+<div class="grid cols-3">
+  {% for c in campaigns %}
+  <a class="card campaign-card" href="/campaigns/{{ c.id }}">
+    <h2>{{ c.name }}</h2>
+    {% if c.description %}<p class="muted clamp">{{ c.description }}</p>{% endif %}
+    <dl class="facts">
+      <div><dt>Maps</dt><dd>{{ c.map_count }}</dd></div>
+      <div><dt>Viewers</dt><dd>{{ c.viewer_count }}</dd></div>
+      {% if user.role == 'superadmin' %}<div><dt>Owner</dt><dd>{{ c.owner_name or '-' }}</dd></div>{% endif %}
+    </dl>
+  </a>
+  {% else %}
+  <p class="muted">No campaigns yet. Create the first one below.</p>
+  {% endfor %}
+</div>
+
+<section class="card">
+  <h2>New campaign</h2>
+  <form method="post" action="/campaigns" class="row-form">
+    {% include "partials/_csrf.html" %}
+    <label class="grow">Name <input name="name" required maxlength="120"></label>
+    <label class="grow">Description <input name="description" maxlength="2000"></label>
+    <button class="primary" type="submit">Create</button>
+  </form>
+</section>
+{% endblock %}

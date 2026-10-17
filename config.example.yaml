@@ -1,0 +1,38 @@
+# Looking Glass configuration - copy to config.yaml and adjust.
+# Every key is optional; defaults are shown.
+
+server:
+  host: 0.0.0.0
+  admin_port: 5000        # DM portal (superadmin + admin)
+  viewer_port: 6000       # player screen (NB: browsers block 6000 by default - see docs/deployment.md)
+  log_level: info
+
+storage:
+  data_dir: data                 # relative to the repo root, or absolute
+  database: looking_glass.db     # relative to data_dir
+  max_upload_mb: 150
+  max_image_pixels: 400000000    # Pillow decompression-bomb guard
+
+security:
+  session_hours: 12
+  secure_cookies: false          # set true when served over HTTPS
+  initial_superadmin: superadmin # created on first start (password printed in the log or LG_SUPERADMIN_PASSWORD)
+  admins_can_create_viewers: true
+  min_password_length: 8
+  login_max_failures: 5
+  login_lockout_seconds: 300
+
+fog:
+  work_max_dim: 2048       # resolution for wall rasterising / area detection
+  wall_thickness: 3        # px at work resolution; closes small gaps between wall ends
+  leak_warn_fraction: 0.6  # warn when one click reveals more than 60% of the map
+  doors_block: true        # default for new maps (per-map toggle in the editor)
+  fog_color: "#000000"
+  feather_px: 2            # soft fog edge on the player image
+  admin_fog_opacity: 0.55
+
+viewer:
+  title: Looking Glass
+  max_image_dim: 4096      # player image is downscaled to fit
+  image_format: webp       # webp | jpeg | png
+  image_quality: 85

@@ -1,0 +1,18 @@
+# /etc/systemd/system/looking-glass.service
+[Unit]
+Description=Looking Glass - D&D fog of war
+After=network-online.target
+
+[Service]
+Type=simple
+User=lookingglass
+WorkingDirectory=/opt/looking-glass
+ExecStart=/opt/looking-glass/.venv/bin/python python/main.py --config /opt/looking-glass/config.yaml serve
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/looking-glass/data
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

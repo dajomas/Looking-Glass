@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Choose campaign{% endblock %}
+{% block content %}
+<div class="page-head"><h1>Your campaigns</h1></div>
+<div class="grid cols-3">
+  {% for c in campaigns %}
+  <a class="card campaign-card" href="/c/{{ c.id }}">
+    <h2>{{ c.name }}</h2>
+    {% if c.description %}<p class="muted clamp">{{ c.description }}</p>{% endif %}
+    <p class="small">DM: {{ c.owner_name or '-' }}</p>
+  </a>
+  {% else %}
+  <p class="muted">You have not been added to any campaign yet. Ask your DM to add you.</p>
+  {% endfor %}
+</div>
+{% endblock %}
