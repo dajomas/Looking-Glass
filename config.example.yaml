@@ -4,7 +4,7 @@
 server:
   host: 0.0.0.0
   admin_port: 5000        # DM portal (superadmin + admin)
-  viewer_port: 6000       # player screen (NB: browsers block 6000 by default - see docs/deployment.md)
+  viewer_port: 5100       # player screen 
   log_level: info
 
 storage:

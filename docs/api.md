@@ -29,7 +29,7 @@ HTML form posts (redirect with `?ok=` / `?err=`) cover campaigns
 maps (`/campaigns/{id}/maps`, `/maps/{id}/rename|move|image|delete`) and users
 (`/users`, `/users/{id}/update|password|delete`, superadmin only).
 
-## Viewer port (6000)
+## Viewer port (5100)
 
 | Method | Path | Purpose |
 |---|---|---|

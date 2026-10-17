@@ -19,7 +19,7 @@
 
 ## At the table
 
-- Open the viewer screen (`http://<host>:6000`) on the TV / table PC and log
+- Open the viewer screen (`http://<host>:5100`) on the TV / table PC and log
   in. With exactly one campaign it opens straight away. It shows a waiting
   screen until the DM shows a map.
 - In the editor, press **Show to players**. The map starts fully fogged.

@@ -5,7 +5,7 @@ All checks live in `python/looking_glass/rbac.py`.
 | Action | superadmin | admin | viewer |
 |---|:-:|:-:|:-:|
 | Log in on admin port (5000) | ✔ | ✔ | ✘ |
-| Log in on viewer port (6000) | ✔ | ✔ | ✔ |
+| Log in on viewer port (5100) | ✔ | ✔ | ✔ |
 | Create / edit / disable / delete users, set roles, reset passwords | ✔ | ✘ | ✘ |
 | Create campaigns | ✔ | ✔ | ✘ |
 | Manage a campaign (maps, walls, fog, settings, delete) | all campaigns | own campaigns | ✘ |

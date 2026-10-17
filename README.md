@@ -4,7 +4,7 @@ A fog of war tool for D&D battle maps. The DM imports a battle map plus its
 **Foundry VTT walls**, then clicks a room in the admin screen. The whole area
 enclosed by walls is revealed on the players' viewer screen, live.
 
-- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **6000**
+- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **5100**
 - **RBAC**: `superadmin` (manages users), `admin` (manages own campaigns and assigns viewers), `viewer` (views assigned campaigns only)
 - **SQLite3** storage, no external services
 - Multiple **campaigns**, each with multiple **battle maps**
@@ -28,11 +28,7 @@ log. You must change it at first login. Alternatively set
 | Portal | URL | Who |
 |---|---|---|
 | Admin (DM) | `http://<host>:5000` | superadmin, admin |
-| Viewer (players) | `http://<host>:6000` | anyone assigned to a campaign |
-
-> **Port 6000 caveat:** Chrome and Firefox block port 6000 (X11) by default with
-> `ERR_UNSAFE_PORT`. Use a reverse proxy, change `server.viewer_port`, or allow
-> the port in the browser. See [docs/deployment.md](docs/deployment.md).
+| Viewer (players) | `http://<host>:5100` | anyone assigned to a campaign |
 
 ## Repository layout
 

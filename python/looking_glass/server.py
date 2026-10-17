@@ -15,7 +15,7 @@ from .web.context import AppContext
 
 log = logging.getLogger("looking_glass")
 
-# Ports Chrome / Firefox refuse to open (ERR_UNSAFE_PORT). 6000 is X11.
+# Ports Chrome / Firefox refuse to open (ERR_UNSAFE_PORT).
 BROWSER_BLOCKED_PORTS = frozenset({
     1, 7, 9, 11, 13, 15, 17, 19, 20, 21, 22, 23, 25, 37, 42, 43, 53, 69, 77, 79, 87, 95, 101, 102, 103, 104,
     109, 110, 111, 113, 115, 117, 119, 123, 135, 137, 139, 143, 161, 179, 389, 427, 465, 512, 513, 514, 515,
