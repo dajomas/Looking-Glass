@@ -64,5 +64,5 @@
   stage.hidden = true;
   refresh().catch(console.error);
   connect();
-  setInterval(() => refresh().catch(() => {}), 60000); // safety net if a WS message is missed
+  setInterval(() => refresh().catch(() => {}), 40000); // safety net if a WS message is missed
 })();

@@ -32,7 +32,7 @@
     if (busy) return;
     setBusy(true);
     try { return await fn(); }
-    catch (err) { toast(err.message, "error", 6000); }
+    catch (err) { toast(err.message, "error", 4000); }
     finally { setBusy(false); }
   }
 
