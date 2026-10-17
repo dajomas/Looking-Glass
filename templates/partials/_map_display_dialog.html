@@ -1,0 +1,14 @@
+<dialog id="map-display-dialog" aria-labelledby="map-display-title">
+  <form method="dialog" class="stack">
+    <h2 id="map-display-title">Show battle map</h2>
+    <p id="map-display-question"></p>
+    <p>Restore returns to the reveals saved when this map was last shown.
+       Reset starts fully covered and permanently discards its reveal history.</p>
+    <p class="muted small">For a map not shown before, Restore keeps any reveals prepared in the editor.</p>
+    <div class="btn-row">
+      <button value="restore" type="submit">Restore last reveals</button>
+      <button value="reset" type="submit" class="danger">Reset reveals</button>
+      <button value="cancel" type="submit" autofocus>Cancel</button>
+    </div>
+  </form>
+</dialog>

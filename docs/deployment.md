@@ -61,35 +61,15 @@ All state is in `data/`: `looking_glass.db` (SQLite, WAL mode) plus
 `data/maps/`. `data/cache/` can be deleted at any time. For a consistent hot
 backup: `sqlite3 data/looking_glass.db ".backup backup.db"`.
 
-## Portable launchers
+## Reveal-state update (schema v3)
 
-Use `./run.sh` (Bash), `run.bat` (Windows Command Prompt), or `./run.ps1`
-(PowerShell). Bash users may first run `chmod +x run.sh`. Python 3.12+ must
-already be installed (3.14 is recommended). `LG_PYTHON` can specify the full
-path to an interpreter; it is an executable path, not a command with arguments.
-All launchers change to the repository directory, create `.venv` if needed,
-and install runtime requirements on first use or when requirements.txt changes.
-First setup needs package-index access; later launches do not run pip unless needed.
-Use `--install` to rerun pip, or `--no-install` to skip dependency setup for an
-already provisioned venv. Setup failures stop startup and preserve the exit code.
-No administrator privileges or global package installation are required.
+Stop the service and back up the entire data directory before applying the
+fog-display patch. Start the service to apply migration 3 automatically. Do not
+run old and new application versions concurrently against the same database.
+Rollback of the migration means restoring the pre-update backup with the old
+application, not decrementing `schema_version` by hand.
 
-Arguments are forwarded to the existing CLI, for example:
-
-```bash
-./run.sh --no-install -c config.yaml serve
-./run.sh create-user dm --role admin
-```
-
-```powershell
-./run.ps1 --no-install -c config.yaml serve
-```
-
-```bat
-run.bat --no-install -c config.yaml serve
-```
-
-Defaults remain admin 5000 and viewer 5100. Config-file settings and
-`LG_ADMIN_PORT` / `LG_VIEWER_PORT` overrides are respected; launchers do not
-force ports. Ctrl+C stops the tool. PowerShell must permit local scripts under
-your organization's execution policy; the launcher does not change that policy.
+Reload existing DM and viewer tabs after deployment to load the new prompt and
+viewer race guard. Old composite cache files are ignored by the new cache-key
+format; clearing the render cache while stopped is optional. No existing saved
+wall sources are removed by this migration.

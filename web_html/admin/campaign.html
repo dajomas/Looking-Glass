@@ -45,8 +45,9 @@
           {% if campaign.active_map_id == m.id %}
             <span class="pill pill-live">Live</span>
           {% else %}
-          <form method="post" action="/campaigns/{{ campaign.id }}/active" class="inline">
+          <form method="post" action="/campaigns/{{ campaign.id }}/active" class="inline" data-map-display data-map-name="{{ m.name }}">
             {% include "partials/_csrf.html" %}
+            <input type="hidden" name="fog_action" value="">
             <input type="hidden" name="map_id" value="{{ m.id }}">
             <button type="submit">Show</button>
           </form>
@@ -71,7 +72,7 @@
   <form method="post" action="/campaigns/{{ campaign.id }}/maps" enctype="multipart/form-data" class="row-form">
     {% include "partials/_csrf.html" %}
     <label class="grow">Map image (PNG, JPG, WEBP) <input type="file" name="image" accept="image/*" required></label>
-    <label class="grow">Foundry VTT walls (optional) <input type="file" name="walls" accept=".json,.db,.zip,.dd2vtt,.uvtt,.df2vtt"></label>
+    <label class="grow">Foundry VTT walls (optional) <input type="file" name="walls" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt"></label>
     <label class="grow">Name <input name="name" maxlength="120" placeholder="defaults to file name"></label>
     <button class="primary" type="submit">Import</button>
   </form>
@@ -151,4 +152,8 @@
   </details>
 </section>
 </div>
+{% endblock %}
+{% block scripts %}
+{% include "partials/_map_display_dialog.html" %}
+<script src="/static/js/map_display_prompt.js"></script>
 {% endblock %}

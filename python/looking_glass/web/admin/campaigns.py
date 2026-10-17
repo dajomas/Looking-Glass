@@ -16,6 +16,7 @@ from ...repositories import users as users_repo
 from ...repositories import walls as walls_repo
 from ...repositories import wall_sources as sources_repo
 from ...services import images
+from ...services.map_display import activate
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, map_for_manage
 from ..context import AppContext
@@ -107,15 +108,24 @@ async def delete_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
 
 @router.post("/campaigns/{campaign_id}/active")
 async def set_active(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
-                     map_id: Annotated[str, Form()] = ""):
+                     map_id: Annotated[str, Form()] = "",
+                     fog_action: Annotated[str, Form()] = ""):
     with ctx.db.connect() as conn:
         campaign_for_manage(conn, user, campaign_id)
-        mid = int(map_id) if map_id else None
+        try:
+            mid = int(map_id) if map_id else None
+        except ValueError as exc:
+            raise BadRequest("Invalid map ID.") from exc
         if mid is not None:
             m = maps_repo.get(conn, mid)
             if m is None or m["campaign_id"] != campaign_id:
                 raise BadRequest("Map does not belong to this campaign.")
-        campaigns_repo.set_active_map(conn, campaign_id, mid)
+        try:
+            activate(conn, campaign_id, mid, fog_action, user["id"])
+        except ValueError as exc:
+            raise BadRequest(str(exc))
+    if mid is not None:
+        ctx.fog.invalidate(mid)
     await notify.campaign_changed(ctx, campaign_id, "active-map")
     return _back(f"/campaigns/{campaign_id}", ok="Viewer screen updated" if mid else "Viewer screen blanked")
 

@@ -9,7 +9,7 @@
                  ┌──────────── one Python process ────────────┐
  DM browser ───► │ :5000  admin FastAPI app  ─┐               │
                  │                            ├─ AppContext ──┼─► SQLite (data/looking_glass.db)
- Player screen ─►│ :5100  viewer FastAPI app ─┘  (db, fog,     │   map images (data/maps/)
+ Player screen ─►│ :6000  viewer FastAPI app ─┘  (db, fog,     │   map images (data/maps/)
        ▲         │                               hub, settings)│   render cache (data/cache/)
        └── WS ───┤ EventHub: admin action → viewer WebSockets  │
                  └─────────────────────────────────────────────┘
@@ -120,19 +120,23 @@ Back up the application database along with map images. Source uploads increase
 DB size; deleting rows frees reusable pages but does not necessarily shrink the
 SQLite file. There is a per-file upload limit, not a total library quota.
 
-## Image and wall-type invariants (schema v3)
+## Map incarnation identity and display checkpoints (schema v3)
 
-Migration 3 appends `maps.disabled_wall_types` (JSON list, default `[]`),
-preserving migrations 1 and 2 verbatim. `services.wall_types` creates effective
-non-blocking copies of disabled segments for `web.access.fog_inputs`, shared
-by admin masks, click handling and viewer rendering. Raw wall segments stay
-unchanged; version bumps invalidate the existing caches.
+Migration 3 appends `maps.cache_token`, backfills existing maps with random
+128-bit tokens, and installs an insert trigger for future maps. Numeric map IDs
+may still be reused; cache identities cannot rely on those IDs alone.
 
-`services.pack_images` handles bounded ZIP assets and base64 image decoding.
-WallSet carries embedded image data, reference, and thumbnail status. Only the
-admin source API exposes availability metadata. Selected artwork is normalized
-by `services.images` and committed to the same map row before auto-calibration.
-Failed updates remove the newly staged file; successful updates delete the old
-file, invalidate fog caches and notify viewers. No external image fetching is
-implemented. Admin image responses use no-store and state supplies a versioned
-image URL. `python/launcher.py` is shared by the three platform wrappers.
+`map_fog_snapshots` stores the ordered operation list last displayed for each
+map, with an ON DELETE CASCADE foreign key. Existing operation lists are seeded
+on upgrade. `services/map_display.py` coordinates checkpoint/restore/reset and
+activation inside the caller's database transaction. Live fog operations refresh
+the active map's checkpoint; inactive edits do not overwrite it. Restore replays
+coordinates against current walls, not a historical wall geometry snapshot.
+
+Fog-engine memory and disk keys include map incarnation/image identity, relevant
+geometry and renderer configuration. Mask keys include both walls and fog
+versions. Legacy filenames are never read by the new renderer. Invalidation is
+serialised with render locks. Viewer URLs include the incarnation token; image
+responses are not browser-cacheable. Viewer refresh requests use generation IDs
+so an older asynchronous decode cannot overwrite newer display state or undo a
+blank-screen update.

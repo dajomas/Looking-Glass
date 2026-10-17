@@ -49,7 +49,7 @@ check the exact player preview and reset fog if appropriate.
 
 ## At the table
 
-- Open the viewer screen (`http://<host>:5100`) on the TV / table PC and log
+- Open the viewer screen (`http://<host>:6000`) on the TV / table PC and log
   in. With exactly one campaign it opens straight away. It shows a waiting
   screen until the DM shows a map.
 - In the editor, press **Show to players**. The map starts fully fogged.
@@ -64,66 +64,25 @@ check the exact player preview and reset fog if appropriate.
 - Viewers update live. They can pan (drag), zoom (wheel / pinch), fit (F) and
   go fullscreen. The HUD hides itself after 3 s.
 
-## Pack artwork and consistent screens
+## Choosing reveals when showing a map
 
-In Saved wall sources, save a `.db`, JSON, Universal VTT, or `.zip` pack,
-select its wall set, and optionally tick **Use image from this wall set on BOTH
-screens** before applying. Unticked (the default) retains your current artwork.
-Selection is reset when changing wall sets, preventing accidental reuse of a
-previous image choice. Applying replaces this map's walls; it does not alter
-other maps using the saved source.
+Click **Show** on a campaign page or **Show to players** in the editor. Before
+the map becomes live, choose:
 
-Supported artwork is a Foundry `background.src` or legacy `img` data URI,
-a Universal VTT base64 `image`, or a referenced file included in a ZIP alongside
-scene exports. ZIP references are matched by their full pack-root path or a
-path relative to the scene file. Paths are case-sensitive. Nested archives,
-absolute/traversal paths and duplicate normalized archive paths are rejected.
-ZIPs are limited to 2,000 entries and 150 MiB total expanded content; individual
-uploads and decoded images also obey `storage.max_upload_mb`. Unsupported
-metadata JSON is skipped. Supported images are validated using the normal
-image-import path and pixel limits.
+- **Restore last reveals**: restore the reveal operations saved while this
+  map was last displayed. Edits made while it was not displayed are not used
+  when a previous display checkpoint exists.
+- **Reset reveals**: start fully fogged and discard the old reveal/undo history.
+  This display reset is deliberately not undoable.
+- **Cancel** (or Escape): do not change the active map or its reveals.
 
-Foundry exports commonly contain only an external path and a small embedded
-`thumb`. When only that thumbnail is embedded, it is explicitly labelled as low
-resolution and never selected automatically. Upload the full-resolution art or
-include it in a ZIP for best results. URLs and local Foundry module paths are
-not fetched or read from the server filesystem. Existing databases are reusable
-without being uploaded again, because image metadata is parsed from saved bytes.
+For a never-displayed map, Restore keeps reveals prepared in the editor;
+Reset removes them. The separate editor Reset tool remains undoable.
+Blanking saves the outgoing map's display state and shows the waiting screen.
+Live reveal, hide, undo, and toolbar reset actions update its checkpoint.
+Merely opening an editor does not display its map and does not prompt.
 
-There is one canonical `maps.image_file` per map, not separate DM/player images.
-Every newly imported image is normalized to an oriented, static RGB PNG (first
-frame for animated inputs). Both admin artwork and viewer fog compositing use
-that file. The viewer may downscale/re-encode it and adds fog; it never receives
-an alternate scene image, the raw image endpoint, or wall data. Replacing artwork
-updates image dimensions, wall/fog versions and cache keys; admin refreshes its
-versioned image URL and viewers receive the existing refresh notification.
-The currently selected active map must be the map being compared: another map
-can still be edited while the viewer displays the campaign's active map.
-
-Auto-align uses the selected image dimensions. Disable auto-align to preserve
-manual offsets/scales. Applying artwork or changing boundaries retains fog
-history and replays it against the new geometry; blank the viewer first and
-reset fog if old reveals are inappropriate. Source deletion leaves copied map
-artwork and walls intact.
-
-## Wall legend and type controls
-
-| Type | Overlay | Boundary behavior when enabled |
-|---|---|---|
-| Normal wall | Magenta solid | Blocks areas |
-| Door | Blue solid | Blocks when Doors split areas is on |
-| Secret door | Purple dashed | Blocks when Doors split areas is on |
-| Window / terrain | Green solid | Blocks areas |
-| Invisible wall | Yellow dashed | Blocks areas |
-| Ethereal | Grey dashed | Never blocks (source semantics) |
-
-Each legend row has **Show** (DM overlay only, page-local) and **Enabled**
-(persistent per-map boundary participation). Press **Apply wall types** to save
-the Enabled switches and recalculate fog on the server. Disabled categories
-remain stored and visible at reduced opacity unless Show is unticked, so they
-can be re-enabled without re-import. Ethereal can be toggled but remains
-non-blocking even when enabled. The global Show walls checkbox still hides all
-overlays. The existing Doors split areas toggle is an additional gate for both
-door categories. Filters are independent of source selection and survive
-re-import. Disabling boundaries can merge rooms and expand prior reveals;
-confirmation warns to blank the viewer before recalculating.
+Deletion permanently removes that map's fog operations and checkpoint. Importing
+an image again creates a new map identity and does not restore a deleted map's
+history. On upgrade, existing operations become the initial checkpoint because
+older releases did not record a separate last-displayed snapshot.

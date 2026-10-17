@@ -16,6 +16,7 @@ The engine is storage-agnostic: callers pass in plain data.
 """
 
 import io
+import hashlib
 import math
 import threading
 from collections import OrderedDict
@@ -42,6 +43,14 @@ class MapSpec:
     doors_block: bool
     walls_version: int
     fog_version: int
+    cache_token: str = ""
+
+    @property
+    def identity(self) -> str:
+        # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
+        data = (self.cache_token, str(self.image_path), self.width, self.height,
+                self.calibration, self.doors_block)
+        return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
     def from_row(cls, row: Mapping[str, Any], maps_dir: Path) -> "MapSpec":
@@ -52,6 +61,7 @@ class MapSpec:
                                     row["wall_scale_x"], row["wall_scale_y"]),
             doors_block=bool(row["doors_block"]),
             walls_version=row["walls_version"], fog_version=row["fog_version"],
+            cache_token=row["cache_token"] if "cache_token" in row.keys() else "",
         )
 
 
@@ -119,8 +129,8 @@ class FogEngine:
         self.viewer_quality = int(viewer_cfg["image_quality"])
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self._areas: _LRU[tuple[int, int], AreaMap] = _LRU(8)
-        self._masks: _LRU[tuple[int, int], np.ndarray] = _LRU(16)
+        self._areas: _LRU[tuple, AreaMap] = _LRU(8)
+        self._masks: _LRU[tuple, np.ndarray] = _LRU(16)
         self._map_locks: dict[int, threading.RLock] = {}
         self._locks_guard = threading.Lock()
 
@@ -133,12 +143,19 @@ class FogEngine:
         return min(1.0, self.work_max_dim / max(width, height, 1))
 
     def invalidate(self, map_id: int) -> None:
-        self._areas.drop_map(map_id)
-        self._masks.drop_map(map_id)
-        for f in self.cache_dir.glob(f"viewer_{map_id}_*"):
-            f.unlink(missing_ok=True)
-        for f in self.cache_dir.glob(f"base_{map_id}_*"):
-            f.unlink(missing_ok=True)
+        with self._lock(map_id):
+            self._areas.drop_map(map_id)
+            self._masks.drop_map(map_id)
+            for f in self.cache_dir.glob(f"viewer_{map_id}_*"):
+                f.unlink(missing_ok=True)
+            for f in self.cache_dir.glob(f"base_{map_id}_*"):
+                f.unlink(missing_ok=True)
+
+    def cache_identity(self, spec: MapSpec) -> str:
+        config = ("fog-cache-v2", spec.identity, self.work_max_dim, self.thickness,
+                  self.feather, self.fog_rgb, self.viewer_max_dim,
+                  self.viewer_format, self.viewer_quality)
+        return hashlib.sha256(repr(config).encode()).hexdigest()[:32]
 
     @staticmethod
     def active_segments(segments: list[WallSegment], doors_block: bool) -> list[WallSegment]:
@@ -146,7 +163,7 @@ class FogEngine:
 
     # ------------------------------------------------------------- area map
     def area_map(self, spec: MapSpec, segments: list[WallSegment]) -> AreaMap:
-        key = (spec.id, spec.walls_version)
+        key = (spec.id, self.cache_identity(spec), spec.walls_version)
         cached = self._areas.get(key)
         if cached is not None:
             return cached
@@ -218,7 +235,7 @@ class FogEngine:
 
     def mask(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> np.ndarray:
         """Boolean revealed-mask at work resolution."""
-        key = (spec.id, spec.fog_version)
+        key = (spec.id, self.cache_identity(spec), spec.walls_version, spec.fog_version)
         cached = self._masks.get(key)
         if cached is not None:
             return cached
@@ -246,7 +263,7 @@ class FogEngine:
 
     # -------------------------------------------------------- viewer image
     def _base_image(self, spec: MapSpec) -> Image.Image:
-        path = self.cache_dir / f"base_{spec.id}_{spec.walls_version}.png"
+        path = self.cache_dir / f"base_{spec.id}_{self.cache_identity(spec)}_{spec.walls_version}.png"
         if path.exists():
             return Image.open(path).convert("RGB")
         with Image.open(spec.image_path) as src:
@@ -267,7 +284,7 @@ class FogEngine:
 
     def viewer_image(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> Path:
         """Composite the fogged map for players. Never exposes unrevealed pixels."""
-        out = self.cache_dir / f"viewer_{spec.id}_{spec.walls_version}_{spec.fog_version}.{self.viewer_ext}"
+        out = self.cache_dir / f"viewer_{spec.id}_{self.cache_identity(spec)}_{spec.walls_version}_{spec.fog_version}.{self.viewer_ext}"
         if out.exists():
             return out
         with self._lock(spec.id):

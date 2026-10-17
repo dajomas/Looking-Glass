@@ -8,15 +8,19 @@
 
   const pz = new PanZoom(vp, stage, {});
   let version = null;
+  let refreshGeneration = 0;
   let userMoved = false;
   vp.addEventListener("pointerdown", () => (userMoved = true));
   vp.addEventListener("wheel", () => (userMoved = true), { passive: true });
 
   async function refresh() {
-    const resp = await fetch(`/api/c/${CID}/state`, { credentials: "same-origin", headers: { Accept: "application/json" } });
+    const generation = ++refreshGeneration;
+    const resp = await fetch(`/api/c/${CID}/state`, { credentials: "same-origin", cache: "no-store", headers: { Accept: "application/json" } });
+    if (generation !== refreshGeneration) return;
     if (resp.status === 401) { location.href = "/login?next=" + encodeURIComponent(location.pathname); return; }
-    if (!resp.ok) { waiting.hidden = false; $("waiting-text").textContent = "This campaign is no longer available."; return; }
+    if (!resp.ok) { stage.hidden = true; waiting.hidden = false; $("waiting-text").textContent = "This campaign is no longer available."; return; }
     const s = await resp.json();
+    if (generation !== refreshGeneration) return;
     if (!s.map) {
       version = null;
       stage.hidden = true; waiting.hidden = false; nameEl.textContent = "";
@@ -28,6 +32,7 @@
     const next = new Image();
     next.src = s.map.image_url;
     await next.decode();
+    if (generation !== refreshGeneration) return;
     mapImg.src = next.src;
     version = s.map.version;
     nameEl.textContent = s.map.name;

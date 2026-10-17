@@ -109,7 +109,7 @@ def test_full_campaign_flow(env):
 
     # assign alice, show map
     dm.post(f"/campaigns/{cid}/viewers/add", data={"csrf_token": token, "user_id": 4})
-    assert dm.post(f"/api/campaigns/{cid}/active", json={"map_id": mid}, headers=hdr).json()["ok"]
+    assert dm.post(f"/api/campaigns/{cid}/active", json={"map_id": mid, "fog_action": "restore"}, headers=hdr).json()["ok"]
 
     alice = login(viewer, "alice", "alicepass")
     assert alice.get("/", follow_redirects=False).headers["location"] == f"/c/{cid}"

@@ -59,10 +59,8 @@
     const c = cal();
     const paths = {};
     for (const [x1, y1, x2, y2, kind, blocks] of rawWalls) {
-      const show = document.querySelector(`[data-wall-show="${kind}"]`);
-      if (show && !show.checked) continue;
       let k = kind;
-      if (!blocks || state.disabled_wall_types.includes(kind) || ((kind === "door" || kind === "secret") && !c.doors_block)) k = kind + " passive";
+      if (!blocks || ((kind === "door" || kind === "secret") && !c.doors_block)) k = "passive";
       const a = (x1 - c.offset_x) * c.scale_x, b = (y1 - c.offset_y) * c.scale_y;
       const d = (x2 - c.offset_x) * c.scale_x, e = (y2 - c.offset_y) * c.scale_y;
       (paths[k] ||= []).push(`M${a.toFixed(1)} ${b.toFixed(1)}L${d.toFixed(1)} ${e.toFixed(1)}`);
@@ -88,7 +86,7 @@
   }
 
   async function loadMask() {
-    const key = `${state.walls_version}-${state.fog_version}`;
+    const key = `${state.cache_token}-${state.walls_version}-${state.fog_version}`;
     if (key === maskKey) return;
     const im = new Image();
     im.src = `/api/maps/${MAP_ID}/fog.png?v=${key}`;
@@ -100,11 +98,7 @@
   function applyState(s) {
     const first = state === null;
     state = s;
-    const nextImage = new URL(s.image_url, location.origin).href;
-    if (img.src !== nextImage) img.src = nextImage;
-    for (const checkbox of document.querySelectorAll("[data-wall-enabled]")) {
-      checkbox.checked = !s.disabled_wall_types.includes(checkbox.dataset.wallEnabled);
-    }
+    if (first) img.src = `/api/maps/${MAP_ID}/image?v=${s.cache_token}`;
     if (first || s.width !== pz.w || s.height !== pz.h) {
       pz.setContentSize(s.width, s.height);
       svg.setAttribute("viewBox", `0 0 ${s.width} ${s.height}`);
@@ -156,8 +150,13 @@
   $("btn-reset").onclick = () => { if (confirm("Cover the whole map in fog again?")) simple("reset", "Fog reset"); };
 
   async function setActive(mapId) {
+    let fogAction = null;
+    if (mapId !== null) {
+      fogAction = await window.LGChooseFog(state ? state.name : "this map");
+      if (!fogAction) return;
+    }
     await run(async () => {
-      await LGApi.post(`/api/campaigns/${CAMPAIGN_ID}/active`, { map_id: mapId });
+      await LGApi.post(`/api/campaigns/${CAMPAIGN_ID}/active`, { map_id: mapId, fog_action: fogAction });
       applyState(await LGApi.get(`/api/maps/${MAP_ID}`));
       toast(mapId ? "Now showing this map to players" : "Viewer screen blanked");
     });
@@ -243,21 +242,11 @@
 
   // ------------------------------------------------------------------ boot
   img.onload = () => { if (state) pz.fit(); };
-  for (const checkbox of document.querySelectorAll("[data-wall-show]")) checkbox.addEventListener("change", renderWalls);
-  $("apply-wall-types").onclick = () => {
-    if (!confirm("Recalculate fog using the enabled wall types? Existing reveals may expand. Blank the viewer first if necessary.")) return;
-    run(async () => {
-      const disabled = [...document.querySelectorAll("[data-wall-enabled]")]
-        .filter(box => !box.checked).map(box => box.dataset.wallEnabled);
-      applyState(await LGApi.post(`/api/maps/${MAP_ID}/wall-types`, {disabled}));
-      toast("Wall types applied");
-    });
-  };
   run(async () => applyState(await LGApi.get(`/api/maps/${MAP_ID}`)));
   setInterval(async () => {
     try {
       const s = await LGApi.get(`/api/maps/${MAP_ID}`);
-      if (!state || s.fog_version !== state.fog_version || s.walls_version !== state.walls_version) applyState(s);
+      if (s.fog_version !== state.fog_version || s.walls_version !== state.walls_version) applyState(s);
       else updateLive(s);
     } catch (_) { /* ignore */ }
   }, 15000);

@@ -75,3 +75,46 @@ def test_viewer_image_hides_unrevealed_pixels(engine, tmp_path):
     path2 = engine.viewer_image(spec, segs, [])
     assert not np.asarray(Image.open(path2).convert("RGB")).any()
     assert not path.exists()                       # stale cache cleaned
+
+
+def test_reimport_same_id_and_versions_does_not_reuse_old_mask_or_image(engine, tmp_path):
+    from dataclasses import replace
+    old, segs = _setup(tmp_path)
+    old.cache_token = "old-incarnation"
+    engine.viewer_image(old, segs, [FogOp("reveal", 100, 100)])
+    new_image = tmp_path / "new.png"
+    Image.new("RGB", (400, 200), (0, 220, 0)).save(new_image)
+    new = replace(old, image_path=new_image, cache_token="new-incarnation")
+    # Even without invalidate(), the new incarnation cannot reuse old content.
+    out = engine.viewer_image(new, segs, [FogOp("reveal", 300, 100)])
+    arr = np.asarray(Image.open(out).convert("RGB"))
+    assert tuple(arr[100, 100]) == (0, 0, 0)
+    assert tuple(arr[100, 300]) == (0, 220, 0)
+
+
+def test_disk_cache_isolated_after_restart(engine, tmp_path):
+    from dataclasses import replace
+    old, segs = _setup(tmp_path)
+    old.cache_token = "old"
+    engine.viewer_image(old, segs, [FogOp("reveal_all")])
+    new = replace(old, cache_token="new")
+    restarted = FogEngine(dict(DEFAULTS["fog"], work_max_dim=400, feather_px=0),
+                          dict(DEFAULTS["viewer"], image_format="png"), engine.cache_dir)
+    out = restarted.viewer_image(new, segs, [])
+    assert not np.asarray(Image.open(out).convert("RGB")).any()
+
+
+def test_changed_walls_version_cannot_reuse_mask(engine, tmp_path):
+    spec, segs = _setup(tmp_path)
+    assert engine.mask(spec, [], [FogOp("reveal", 100, 100)]).all()
+    spec.walls_version += 1
+    assert not engine.mask(spec, segs, [FogOp("reveal", 100, 100)])[100, 300]
+
+
+def test_legacy_cache_filename_is_ignored(engine, tmp_path):
+    spec, segs = _setup(tmp_path)
+    legacy = engine.cache_dir / f"viewer_{spec.id}_{spec.walls_version}_{spec.fog_version}.png"
+    Image.new("RGB", (400, 200), (255, 0, 0)).save(legacy)
+    out = engine.viewer_image(spec, segs, [])
+    assert out != legacy
+    assert not np.asarray(Image.open(out).convert("RGB")).any()

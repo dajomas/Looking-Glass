@@ -4,7 +4,7 @@ A fog of war tool for D&D battle maps. The DM imports a battle map plus its
 **Foundry VTT walls**, then clicks a room in the admin screen. The whole area
 enclosed by walls is revealed on the players' viewer screen, live.
 
-- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **5100**
+- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **6000**
 - **RBAC**: `superadmin` (manages users), `admin` (manages own campaigns and assigns viewers), `viewer` (views assigned campaigns only)
 - **SQLite3** storage, no external services
 - Multiple **campaigns**, each with multiple **battle maps**
@@ -29,8 +29,11 @@ log. You must change it at first login. Alternatively set
 | Portal | URL | Who |
 |---|---|---|
 | Admin (DM) | `http://<host>:5000` | superadmin, admin |
-| Viewer (players) | `http://<host>:5100` | anyone assigned to a campaign |
+| Viewer (players) | `http://<host>:6000` | anyone assigned to a campaign |
 
+> **Port 6000 caveat:** Chrome and Firefox block port 6000 (X11) by default with
+> `ERR_UNSAFE_PORT`. Use a reverse proxy, change `server.viewer_port`, or allow
+> the port in the browser. See [docs/deployment.md](docs/deployment.md).
 
 ## Repository layout
 
@@ -88,37 +91,10 @@ Back up the stopped application's data directory before upgrading. No new
 runtime dependencies or configuration keys are required. See
 [wall import](docs/foundry-import.md) and [patch notes](Patch/wall-source-library.md).
 
-## Portable launchers
+## Showing maps: reveal choice and cache isolation
 
-Use `./run.sh` (Bash), `run.bat` (Windows Command Prompt), or `./run.ps1`
-(PowerShell). Bash users may first run `chmod +x run.sh`. Python 3.12+ must
-already be installed (3.14 is recommended). `LG_PYTHON` can specify the full
-path to an interpreter; it is an executable path, not a command with arguments.
-All launchers change to the repository directory, create `.venv` if needed,
-and install runtime requirements on first use or when requirements.txt changes.
-First setup needs package-index access; later launches do not run pip unless needed.
-Use `--install` to rerun pip, or `--no-install` to skip dependency setup for an
-already provisioned venv. Setup failures stop startup and preserve the exit code.
-No administrator privileges or global package installation are required.
-
-Arguments are forwarded to the existing CLI, for example:
-
-```bash
-./run.sh --no-install -c config.yaml serve
-./run.sh create-user dm --role admin
-```
-
-```powershell
-./run.ps1 --no-install -c config.yaml serve
-```
-
-```bat
-run.bat --no-install -c config.yaml serve
-```
-
-Defaults remain admin 5000 and viewer 5100. Config-file settings and
-`LG_ADMIN_PORT` / `LG_VIEWER_PORT` overrides are respected; launchers do not
-force ports. Ctrl+C stops the tool. PowerShell must permit local scripts under
-your organization's execution policy; the launcher does not change that policy.
-
-See [wall import](docs/foundry-import.md) for pack artwork and per-type controls.
+Both Show controls now ask whether to restore the last-displayed reveals,
+reset all reveals, or cancel. Saved checkpoints belong to one map instance;
+deleting and importing a map starts a new instance, even when SQLite reuses
+its numeric ID. See [the usage guide](docs/usage.md#choosing-reveals-when-showing-a-map)
+and [the patch notes](Patch/fog-display-state.md).

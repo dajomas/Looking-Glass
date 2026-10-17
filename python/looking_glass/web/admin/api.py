@@ -2,8 +2,7 @@
 
 import asyncio
 import math
-import json
-from typing import Annotated
+from typing import Annotated, Literal
 
 from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, Response
@@ -13,7 +12,7 @@ from ...repositories import campaigns as campaigns_repo
 from ...repositories import fog_ops as fog_repo
 from ...repositories import maps as maps_repo
 from ...repositories import walls as walls_repo
-from ...services.wall_types import WALL_TYPES, disabled_types
+from ...services.map_display import activate, checkpoint_if_active
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, fog_inputs, map_for_manage
 from ..deps import BadRequest, CsrfUserDep, CtxDep, UserDep
@@ -47,13 +46,11 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
     scale = ctx.fog.work_scale(m["width"], m["height"])
     return {
         "ok": True,
-        "id": m["id"], "name": m["name"], "campaign_id": m["campaign_id"],
+        "id": m["id"], "cache_token": m["cache_token"], "name": m["name"], "campaign_id": m["campaign_id"],
         "width": m["width"], "height": m["height"],
         "work_width": max(1, math.ceil(m["width"] * scale)), "work_height": max(1, math.ceil(m["height"] * scale)),
         "fog_version": m["fog_version"], "walls_version": m["walls_version"],
         "walls_source": m["walls_source"],
-        "image_url": f"/api/maps/{map_id}/image?v={m['walls_version']}",
-        "disabled_wall_types": disabled_types(m),
         "calibration": {"offset_x": ox, "offset_y": oy, "scale_x": sx, "scale_y": sy,
                         "doors_block": bool(m["doors_block"])},
         "walls": walls,
@@ -83,7 +80,7 @@ async def fog_mask(ctx: CtxDep, user: UserDep, map_id: int):
         map_for_manage(conn, user, map_id)
         spec, segs, ops = fog_inputs(ctx, conn, map_id)
     png = await asyncio.to_thread(ctx.fog.admin_mask_png, spec, segs, ops)
-    return Response(png, media_type="image/png", headers={"Cache-Control": "private, max-age=3600"})
+    return Response(png, media_type="image/png", headers={"Cache-Control": "no-store"})
 
 
 @router.get("/maps/{map_id}/viewer-preview")
@@ -113,6 +110,7 @@ async def _fog_op(ctx, user, map_id: int, op: str, point: Point | None = None) -
         else:
             fog_repo.add(conn, map_id, op, point.x if point else None, point.y if point else None, user["id"])
         maps_repo.bump_fog(conn, map_id)
+        checkpoint_if_active(conn, map_id)
         payload = {**_map_payload(ctx, conn, map_id), **info}
     await notify.map_changed(ctx, map_id, "fog")
     return payload
@@ -206,6 +204,7 @@ async def clear_walls(ctx: CtxDep, user: CsrfUserDep, map_id: int):
 
 class ActiveMapIn(BaseModel):
     map_id: int | None = None
+    fog_action: Literal["restore", "reset"] | None = None
 
 
 @router.post("/campaigns/{campaign_id}/active")
@@ -217,28 +216,14 @@ async def api_set_active(ctx: CtxDep, user: CsrfUserDep, campaign_id: int, body:
             m = maps_repo.get(conn, int(mid))
             if m is None or m["campaign_id"] != campaign_id:
                 raise BadRequest("Map does not belong to this campaign.")
-        campaigns_repo.set_active_map(conn, campaign_id, int(mid) if mid is not None else None)
+        try:
+            activate(conn, campaign_id, mid, body.fog_action, user["id"])
+        except ValueError as exc:
+            raise BadRequest(str(exc))
+    if mid is not None:
+        ctx.fog.invalidate(mid)
     await notify.campaign_changed(ctx, campaign_id, "active-map")
     return JSONResponse({"ok": True, "active_map_id": mid})
 
 
 register_routes(router, _map_payload)
-
-
-class WallTypesIn(BaseModel):
-    disabled: list[str] = Field(max_length=6)
-
-
-@router.post("/maps/{map_id}/wall-types")
-async def set_wall_types(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: WallTypesIn):
-    if any(kind not in WALL_TYPES for kind in body.disabled):
-        raise BadRequest("Unknown wall type.")
-    with ctx.db.connect() as conn:
-        map_for_manage(conn, user, map_id)
-        conn.execute("UPDATE maps SET disabled_wall_types = ?, walls_version = walls_version + 1, "
-                     "fog_version = fog_version + 1 WHERE id = ?",
-                     (json.dumps(sorted(set(body.disabled))), map_id))
-        payload = _map_payload(ctx, conn, map_id)
-    ctx.fog.invalidate(map_id)
-    await notify.map_changed(ctx, map_id, "walls")
-    return payload

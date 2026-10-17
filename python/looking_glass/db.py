@@ -108,11 +108,26 @@ MIGRATIONS: list[str] = [
         UNIQUE(campaign_id, sha256)
     );
     """,
-    # 3 - per-map wall type participation (stored segments remain unchanged)
+    # 3 - map incarnation identity and last-displayed fog checkpoints
     """
-    ALTER TABLE maps ADD COLUMN disabled_wall_types TEXT NOT NULL DEFAULT '[]';
+    ALTER TABLE maps ADD COLUMN cache_token TEXT NOT NULL DEFAULT '';
+    UPDATE maps SET cache_token = lower(hex(randomblob(16)));
+    CREATE TRIGGER maps_cache_token AFTER INSERT ON maps
+    WHEN NEW.cache_token = ''
+    BEGIN
+        UPDATE maps SET cache_token = lower(hex(randomblob(16))) WHERE id = NEW.id;
+    END;
+    CREATE TABLE map_fog_snapshots (
+        map_id INTEGER PRIMARY KEY REFERENCES maps(id) ON DELETE CASCADE,
+        operations TEXT NOT NULL,
+        updated_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+    -- Existing reveal history is the best available pre-upgrade checkpoint.
+    INSERT INTO map_fog_snapshots(map_id, operations)
+        SELECT m.id, json_group_array(json_object('op', f.op, 'x', f.x, 'y', f.y))
+        FROM maps m JOIN (SELECT * FROM fog_ops ORDER BY id) f ON f.map_id = m.id
+        GROUP BY m.id;
     """,
-
 ]
 
 

@@ -13,11 +13,15 @@ from fastapi.responses import FileResponse
 from ...repositories import campaigns as campaigns_repo
 from ...repositories import maps as maps_repo
 from ..access import campaign_for_view, fog_inputs
-from ..deps import CtxDep, NotFound, UserDep, cookie_name, resolve_user
+from ..deps import BadRequest, CtxDep, NotFound, UserDep, cookie_name, resolve_user
 from ... import rbac
 
 log = logging.getLogger(__name__)
 router = APIRouter()
+
+
+def _version(m):
+    return f"{m['id']}:{m['cache_token']}-{m['walls_version']}-{m['fog_version']}"
 
 
 @router.get("/api/c/{campaign_id}/state")
@@ -27,22 +31,31 @@ def state(ctx: CtxDep, user: UserDep, campaign_id: int):
         m = maps_repo.get(conn, c["active_map_id"]) if c["active_map_id"] else None
     if m is None:
         return {"ok": True, "campaign": c["name"], "map": None}
-    version = f"{m['id']}-{m['walls_version']}-{m['fog_version']}"
+    version = _version(m)
     return {"ok": True, "campaign": c["name"],
             "map": {"name": m["name"], "width": m["width"], "height": m["height"], "version": version,
                     "image_url": f"/api/c/{campaign_id}/image?v={version}"}}
 
 
 @router.get("/api/c/{campaign_id}/image")
-async def image(ctx: CtxDep, user: UserDep, campaign_id: int):
+async def image(ctx: CtxDep, user: UserDep, campaign_id: int, v: str | None = None):
     with ctx.db.connect() as conn:
         c = campaign_for_view(conn, user, campaign_id)
         if not c["active_map_id"]:
             raise NotFound("No map is being shown.")
+        m = maps_repo.get(conn, c["active_map_id"])
+        expected = _version(m)
+        if v is not None and v != expected:
+            raise BadRequest("Map display changed; refresh the campaign state.")
         spec, segs, ops = fog_inputs(ctx, conn, c["active_map_id"])
     path = await asyncio.to_thread(ctx.fog.viewer_image, spec, segs, ops)
+    with ctx.db.connect() as conn:
+        c = campaign_for_view(conn, user, campaign_id)
+        current = maps_repo.get(conn, c["active_map_id"]) if c["active_map_id"] else None
+        if current is None or _version(current) != expected:
+            raise BadRequest("Map display changed during rendering; refresh the campaign state.")
     return FileResponse(path, media_type=ctx.fog.viewer_media_type,
-                        headers={"Cache-Control": "private, max-age=86400"})
+                        headers={"Cache-Control": "no-store"})
 
 
 @router.websocket("/ws/c/{campaign_id}")
