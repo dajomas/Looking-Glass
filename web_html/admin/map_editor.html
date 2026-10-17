@@ -55,7 +55,7 @@
       <p class="muted small">Save a database once, then choose a wall set for each map in this campaign.</p>
       <form id="source-save" class="stack">
         <label>Save Foundry / Universal VTT source
-          <input id="source-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
+          <input id="source-file" type="file" accept=".json,.db,.zip,.dd2vtt,.uvtt,.df2vtt" required>
         </label>
         <button type="submit">Save source</button>
       </form>
@@ -63,6 +63,8 @@
         <label>Saved source <select id="saved-source" disabled></select></label>
         <label>Wall set <select id="saved-scene" disabled></select></label>
         <p id="saved-scene-info" class="muted small"></p>
+        <label class="check" id="pack-image-choice" hidden><input id="saved-pack-image" type="checkbox"> Use image from this wall set on BOTH screens</label>
+        <p id="pack-image-info" class="muted small"></p>
         <label class="check"><input id="saved-auto-align" type="checkbox" checked> Auto-align for this map</label>
         <div class="btn-row">
           <button id="source-apply" type="button" class="primary" disabled>Apply selected wall set</button>
@@ -75,7 +77,7 @@
     <p class="muted small">The import below is one-off. Use Saved wall sources to reuse a file without uploading it again.</p>
     <form id="wall-import" class="stack">
       <label>Foundry VTT / Universal VTT file
-        <input id="wall-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
+        <input id="wall-file" type="file" accept=".json,.db,.zip,.dd2vtt,.uvtt,.df2vtt" required>
       </label>
       <label id="scene-pick" hidden>Scene <select id="scene-select"></select></label>
       <label class="check"><input id="use-scene-cal" type="checkbox" checked> Auto-align from scene data</label>
@@ -84,6 +86,19 @@
         <button type="button" id="btn-clear-walls" class="danger">Clear</button>
       </div>
     </form>
+    <details open>
+      <summary>Wall types / legend</summary>
+      <p class="muted small">Show changes only the DM overlay. Enabled changes fog boundaries for both screens. Ethereal walls never block. Doors also obey Doors split areas.</p>
+      <table class="wall-legend"><thead><tr><th>Type</th><th>Show</th><th>Enabled</th></tr></thead><tbody>
+        <tr><td><span class="wall-swatch swatch-wall" style="--wall-color:#ff5bd1"></span>Normal wall</td><td><input type="checkbox" data-wall-show="wall" aria-label="Show Normal wall" checked></td><td><input type="checkbox" data-wall-enabled="wall" aria-label="Enable Normal wall" checked></td></tr>
+        <tr><td><span class="wall-swatch swatch-door" style="--wall-color:#46c0ff"></span>Door</td><td><input type="checkbox" data-wall-show="door" aria-label="Show Door" checked></td><td><input type="checkbox" data-wall-enabled="door" aria-label="Enable Door" checked></td></tr>
+        <tr><td><span class="wall-swatch swatch-secret" style="--wall-color:#b07cff"></span>Secret door</td><td><input type="checkbox" data-wall-show="secret" aria-label="Show Secret door" checked></td><td><input type="checkbox" data-wall-enabled="secret" aria-label="Enable Secret door" checked></td></tr>
+        <tr><td><span class="wall-swatch swatch-window" style="--wall-color:#7cffb2"></span>Window / terrain</td><td><input type="checkbox" data-wall-show="window" aria-label="Show Window / terrain" checked></td><td><input type="checkbox" data-wall-enabled="window" aria-label="Enable Window / terrain" checked></td></tr>
+        <tr><td><span class="wall-swatch swatch-invisible" style="--wall-color:#ffd36b"></span>Invisible wall</td><td><input type="checkbox" data-wall-show="invisible" aria-label="Show Invisible wall" checked></td><td><input type="checkbox" data-wall-enabled="invisible" aria-label="Enable Invisible wall" checked></td></tr>
+        <tr><td><span class="wall-swatch swatch-ethereal" style="--wall-color:#9aa3b5"></span>Ethereal</td><td><input type="checkbox" data-wall-show="ethereal" aria-label="Show Ethereal" checked></td><td><input type="checkbox" data-wall-enabled="ethereal" aria-label="Enable Ethereal" checked></td></tr>
+      </tbody></table>
+      <button id="apply-wall-types" type="button">Apply wall types</button>
+    </details>
     <details id="calibration">
       <summary>Alignment</summary>
       <p class="muted small">image = (wall &minus; offset) &times; scale</p>

@@ -7,6 +7,7 @@ from ..repositories import campaigns as campaigns_repo
 from ..repositories import fog_ops as fog_repo
 from ..repositories import maps as maps_repo
 from ..repositories import walls as walls_repo
+from ..services.wall_types import disabled_types, filter_segments
 from ..services.fog import MapSpec
 from ..services.wall_model import FogOp, WallSegment
 from .context import AppContext
@@ -42,5 +43,5 @@ def fog_inputs(ctx: AppContext, conn: sqlite3.Connection, map_id: int) -> tuple[
     if m is None:
         raise NotFound("Map not found.")
     return (MapSpec.from_row(m, ctx.settings.maps_dir),
-            walls_repo.list_for_map(conn, map_id),
+            filter_segments(walls_repo.list_for_map(conn, map_id), disabled_types(m)),
             fog_repo.list_for_map(conn, map_id))

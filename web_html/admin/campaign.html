@@ -71,7 +71,7 @@
   <form method="post" action="/campaigns/{{ campaign.id }}/maps" enctype="multipart/form-data" class="row-form">
     {% include "partials/_csrf.html" %}
     <label class="grow">Map image (PNG, JPG, WEBP) <input type="file" name="image" accept="image/*" required></label>
-    <label class="grow">Foundry VTT walls (optional) <input type="file" name="walls" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt"></label>
+    <label class="grow">Foundry VTT walls (optional) <input type="file" name="walls" accept=".json,.db,.zip,.dd2vtt,.uvtt,.df2vtt"></label>
     <label class="grow">Name <input name="name" maxlength="120" placeholder="defaults to file name"></label>
     <button class="primary" type="submit">Import</button>
   </form>

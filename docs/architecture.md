@@ -9,7 +9,7 @@
                  ┌──────────── one Python process ────────────┐
  DM browser ───► │ :5000  admin FastAPI app  ─┐               │
                  │                            ├─ AppContext ──┼─► SQLite (data/looking_glass.db)
- Player screen ─►│ :6000  viewer FastAPI app ─┘  (db, fog,     │   map images (data/maps/)
+ Player screen ─►│ :5100  viewer FastAPI app ─┘  (db, fog,     │   map images (data/maps/)
        ▲         │                               hub, settings)│   render cache (data/cache/)
        └── WS ───┤ EventHub: admin action → viewer WebSockets  │
                  └─────────────────────────────────────────────┘
@@ -119,3 +119,20 @@ configuration key is introduced. Existing one-off imports remain compatible.
 Back up the application database along with map images. Source uploads increase
 DB size; deleting rows frees reusable pages but does not necessarily shrink the
 SQLite file. There is a per-file upload limit, not a total library quota.
+
+## Image and wall-type invariants (schema v3)
+
+Migration 3 appends `maps.disabled_wall_types` (JSON list, default `[]`),
+preserving migrations 1 and 2 verbatim. `services.wall_types` creates effective
+non-blocking copies of disabled segments for `web.access.fog_inputs`, shared
+by admin masks, click handling and viewer rendering. Raw wall segments stay
+unchanged; version bumps invalidate the existing caches.
+
+`services.pack_images` handles bounded ZIP assets and base64 image decoding.
+WallSet carries embedded image data, reference, and thumbnail status. Only the
+admin source API exposes availability metadata. Selected artwork is normalized
+by `services.images` and committed to the same map row before auto-calibration.
+Failed updates remove the newly staged file; successful updates delete the old
+file, invalidate fog caches and notify viewers. No external image fetching is
+implemented. Admin image responses use no-store and state supplies a versioned
+image URL. `python/launcher.py` is shared by the three platform wrappers.

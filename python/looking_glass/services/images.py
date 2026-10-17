@@ -5,7 +5,7 @@ import uuid
 from dataclasses import dataclass
 from pathlib import Path
 
-from PIL import Image, UnidentifiedImageError
+from PIL import Image, ImageOps, UnidentifiedImageError
 
 ALLOWED_FORMATS = {"PNG": "png", "JPEG": "jpg", "WEBP": "webp", "GIF": "gif", "BMP": "bmp", "TIFF": "tif"}
 
@@ -33,15 +33,18 @@ def store_map_image(raw: bytes, maps_dir: Path, campaign_id: int) -> StoredImage
         with Image.open(io.BytesIO(raw)) as probe:
             probe.verify()
         with Image.open(io.BytesIO(raw)) as img:
-            fmt, (w, h) = img.format, img.size
+            fmt = img.format
+            img.seek(0)
+            canonical = ImageOps.exif_transpose(img).convert("RGB")
+            w, h = canonical.size
     except (UnidentifiedImageError, OSError, Image.DecompressionBombError) as exc:
         raise ImageImportError(f"Not a supported image: {exc}") from exc
     if fmt not in ALLOWED_FORMATS:
         raise ImageImportError(f"Unsupported image format {fmt}; use PNG, JPEG or WEBP")
-    rel = Path(str(campaign_id)) / f"{uuid.uuid4().hex}.{ALLOWED_FORMATS[fmt]}"
+    rel = Path(str(campaign_id)) / f"{uuid.uuid4().hex}.png"
     dest = maps_dir / rel
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_bytes(raw)
+    canonical.save(dest, "PNG")
     return StoredImage(rel.as_posix(), w, h)
 
 

@@ -11,7 +11,7 @@ from looking_glass.repositories import wall_sources as repo
 @pytest.fixture
 def source_db(tmp_path):
     db = Database(tmp_path / "library.db")
-    assert db.migrate() == 2
+    assert db.migrate() == len(MIGRATIONS)
     with db.connect() as conn:
         conn.execute("INSERT INTO campaigns (id, name) VALUES (1, 'A'), (2, 'B')")
     return db
@@ -25,8 +25,8 @@ def test_upgrade_v1_preserves_data(tmp_path):
     conn.execute("INSERT INTO schema_version VALUES (1)")
     conn.execute("INSERT INTO campaigns (name) VALUES ('Existing')")
     conn.commit(); conn.close()
-    assert db.migrate() == 2
-    assert db.migrate() == 2
+    assert db.migrate() == len(MIGRATIONS)
+    assert db.migrate() == len(MIGRATIONS)
     with db.connect() as conn:
         assert conn.execute("SELECT name FROM campaigns").fetchone()[0] == "Existing"
         assert conn.execute("SELECT count(*) FROM wall_sources").fetchone()[0] == 0
@@ -36,7 +36,7 @@ def test_round_trip_and_restart(source_db):
     with source_db.connect() as conn:
         saved = repo.save(conn, 1, "maps.db", b"immutable bytes", 13)
         sid = saved["id"]
-    assert Database(source_db.path).migrate() == 2
+    assert Database(source_db.path).migrate() == len(MIGRATIONS)
     with Database(source_db.path).connect() as conn:
         source = repo.get(conn, 1, sid)
         assert source["raw"] == b"immutable bytes"

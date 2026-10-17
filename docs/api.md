@@ -70,7 +70,7 @@ The existing one-off `/walls/inspect` and `/walls` APIs remain compatible and
 do not save their files automatically. The HTML map upload saves valid wall
 sources; a multi-set upload waits for selection instead of choosing index 0.
 
-## Viewer port (6000)
+## Viewer port (5100)
 
 | Method | Path | Purpose |
 |---|---|---|
@@ -79,3 +79,21 @@ sources; a multi-set upload waits for selection instead of choosing index 0.
 | WS | `/ws/c/{campaign}` | Pushes `{"type":"refresh","reason":...}`; send `ping` to keep alive |
 
 Both ports also serve `GET /healthz`.
+
+## Pack images and wall-type filters
+
+`GET /api/maps/{map_id}/wall-sources/{source_id}` scene objects additionally
+contain `image_available`, `image_is_thumbnail`, and `image_reference`.
+Only the authorized campaign manager can inspect these fields.
+`POST /api/maps/{map_id}/walls/from-source` accepts `use_pack_image` (boolean,
+default false) in addition to source_id, scene_index and use_scene_calibration.
+True requires valid embedded artwork; missing/invalid images return 400 without
+changing map walls/artwork. The selected artwork applies to both portals.
+
+`POST /api/maps/{map_id}/wall-types` accepts JSON `{"disabled":["door","secret"]}`.
+Allowed values are wall, door, secret, window, invisible, ethereal. Unknown
+values return 400; invalid body types return 422. Requires campaign-management
+permission and CSRF. Returns the ordinary updated map payload, now including
+`disabled_wall_types` and a versioned admin-only `image_url`. Existing direct
+one-off import endpoints are unchanged; use the saved-source flow for the
+optional pack image. No new source/image endpoint is registered on the viewer.

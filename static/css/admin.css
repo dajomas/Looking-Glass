@@ -48,3 +48,10 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
   main.editor { grid-template-columns: 1fr; }
   .viewport { height: 70vh; order: -1; }
 }
+
+/* Wall category color remains visible even when it is not an active boundary. */
+#walls-svg path.passive { opacity: .35; }
+.wall-legend { width: 100%; font-size: .8rem; }
+.wall-legend th, .wall-legend td { padding: .25rem; text-align: left; }
+.wall-swatch { display: inline-block; width: 1.3rem; margin-right: .4rem; border-top: 3px solid var(--wall-color); vertical-align: middle; }
+.swatch-secret, .swatch-invisible, .swatch-ethereal { border-top-style: dashed; }

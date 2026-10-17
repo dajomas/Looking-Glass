@@ -20,6 +20,9 @@
     scenes = [];
     placeholder(scene, "Choose a wall set");
     info.textContent = "";
+    document.getElementById("saved-pack-image").checked = false;
+    document.getElementById("pack-image-choice").hidden = true;
+    document.getElementById("pack-image-info").textContent = "";
   }
   function controls() {
     for (const el of panel.querySelectorAll("button, input, select")) el.disabled = busy;
@@ -63,6 +66,12 @@
     info.textContent = item ? `${item.scene_width || "?"} × ${item.scene_height || "?"} source pixels; ` +
       `suggested offset ${item.calibration.offset_x}, ${item.calibration.offset_y}; ` +
       `scale ${item.calibration.scale_x.toFixed(4)}, ${item.calibration.scale_y.toFixed(4)}` : "";
+    document.getElementById("saved-pack-image").checked = false;
+    document.getElementById("pack-image-choice").hidden = !item || !item.image_available;
+    document.getElementById("pack-image-info").textContent = !item ? "" : item.image_available ?
+      (item.image_is_thumbnail ? "Only an embedded thumbnail is available: low resolution. Your uploaded artwork is kept unless you opt in." :
+      "An embedded image is available. Your uploaded artwork is kept unless you opt in.") :
+      (item.image_reference ? `Artwork reference only: ${item.image_reference}. Include the asset in a ZIP pack or upload it yourself; URLs are not fetched.` : "No image in this wall set.");
     controls();
   });
   document.getElementById("source-save").addEventListener("submit", event => {
@@ -80,7 +89,9 @@
     if (!item || !source.value) return;
     if (!window.confirm(`Replace this map's walls with "${item.name}"? Existing fog actions will be replayed against the new walls; blank the player screen first if necessary.`)) return;
     const body = {source_id: Number(source.value), scene_index: item.index,
-      use_scene_calibration: document.getElementById("saved-auto-align").checked};
+      use_scene_calibration: document.getElementById("saved-auto-align").checked,
+      use_pack_image: document.getElementById("saved-pack-image").checked};
+    if (body.use_pack_image && !window.confirm("Replace the map image on BOTH admin and viewer screens with the pack image? Fog actions are retained and recalculated.")) return;
     run(async () => {
       await api.post(`${mapUrl}/walls/from-source`, body); window.location.reload();
     });

@@ -45,6 +45,9 @@ class WallSet:
     # Suggested calibration, before scaling to the actual image size
     origin_x: float = 0.0
     origin_y: float = 0.0
+    image_data: str = ""
+    image_reference: str = ""
+    image_is_thumbnail: bool = False
 
     def suggested_calibration(self, image_w: int, image_h: int) -> Calibration:
         sx = image_w / self.scene_width if self.scene_width else 1.0

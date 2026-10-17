@@ -108,6 +108,11 @@ MIGRATIONS: list[str] = [
         UNIQUE(campaign_id, sha256)
     );
     """,
+    # 3 - per-map wall type participation (stored segments remain unchanged)
+    """
+    ALTER TABLE maps ADD COLUMN disabled_wall_types TEXT NOT NULL DEFAULT '[]';
+    """,
+
 ]
 
 

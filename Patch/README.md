@@ -70,3 +70,11 @@ git commit -F Patch/COMMIT_MESSAGE.txt
 For rollback, restore pre-upgrade code and the stopped-service data backup.
 Do not manually decrement schema_version. The original user-supplied database
 is not redistributed; only its scene names and document counts are included.
+
+## Latest follow-up patch
+
+The patch based on b04a924 adds optional shared pack artwork, wall-type controls
+and portable launchers. See [the follow-up guide](image-wall-controls/README.md)
+and [its validation report](image-wall-controls/TEST_REPORT.md).
+`COMMIT_MESSAGE.txt` and `changes.patch` now describe that follow-up.
+Earlier reports in this folder describe the earlier wall-source feature only.

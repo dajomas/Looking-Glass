@@ -7,6 +7,9 @@ from fastapi import File, UploadFile
 from pydantic import BaseModel, Field
 
 from ...repositories import wall_sources as sources_repo
+from ...repositories import maps as maps_repo
+from ...services import images
+from ...services.pack_images import image_bytes
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, map_for_manage
 from ..deps import BadRequest, CsrfUserDep, CtxDep, UserDep
@@ -18,6 +21,7 @@ class SourceImportIn(BaseModel):
     source_id: int = Field(gt=0)
     scene_index: int = Field(ge=0)
     use_scene_calibration: bool = True
+    use_pack_image: bool = False
 
 
 def _source(conn, campaign_id, source_id):
@@ -72,6 +76,9 @@ def register_routes(router, map_payload):
                 "walls": len(ws.segments),
                 "doors": sum(w.kind in ("door", "secret") for w in ws.segments),
                 "scene_width": ws.scene_width, "scene_height": ws.scene_height,
+                "image_available": bool(ws.image_data),
+                "image_is_thumbnail": ws.image_is_thumbnail,
+                "image_reference": ws.image_reference,
                 "calibration": {k: getattr(cal, k) for k in
                                 ("offset_x", "offset_y", "scale_x", "scale_y")},
             })
@@ -82,13 +89,36 @@ def register_routes(router, map_payload):
         with ctx.db.connect() as conn:
             m, _ = map_for_manage(conn, user, map_id)
             source = _source(conn, m["campaign_id"], body.source_id)
-            try:
+        sets = await asyncio.to_thread(_parse, source["raw"], source["filename"])
+        if body.scene_index >= len(sets):
+            raise BadRequest("Wall set index out of range.")
+        stored = None
+        try:
+            if body.use_pack_image:
+                limit = int(ctx.settings.section("storage")["max_upload_mb"]) * 1024 * 1024
+                raw_image = image_bytes(sets[body.scene_index], limit)
+                stored = await asyncio.to_thread(images.store_map_image, raw_image,
+                                                 ctx.settings.maps_dir, m["campaign_id"])
+            with ctx.db.connect() as conn:
+                m, _ = map_for_manage(conn, user, map_id)
+                _source(conn, m["campaign_id"], body.source_id)
+                old_image = m["image_file"]
+                if stored:
+                    maps_repo.replace_image(conn, map_id, stored.relative_path, stored.width, stored.height)
+                    m = maps_repo.get(conn, map_id)
                 count, scene = apply_walls(ctx, conn, m, source["raw"], source["filename"],
                                            body.scene_index, body.use_scene_calibration)
-            except (WallImportError, ValueError, TypeError, OverflowError) as exc:
+                payload = {**map_payload(ctx, conn, map_id), "imported": count, "scene": scene,
+                           "source_id": source["id"]}
+        except BaseException as exc:
+            if stored:
+                images.delete_map_image(ctx.settings.maps_dir, stored.relative_path)
+            if isinstance(exc, (WallImportError, ValueError, TypeError, OverflowError)):
                 raise BadRequest(f"Cannot import wall source: {exc}") from exc
-            payload = {**map_payload(ctx, conn, map_id), "imported": count, "scene": scene,
-                       "source_id": source["id"]}
+            raise
+        if stored:
+            images.delete_map_image(ctx.settings.maps_dir, old_image)
+        ctx.fog.invalidate(map_id)
         await notify.map_changed(ctx, map_id, "walls")
         return payload
 

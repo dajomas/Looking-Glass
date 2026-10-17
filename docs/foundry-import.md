@@ -96,3 +96,67 @@ when you apply.
 A demo map and matching scene export are in `docs/examples/`
 (`demo-crypt.png`, `fvtt-Scene-demo-crypt.json`). The image is 1.5× the scene
 size, with 25 % padding.
+
+## Pack artwork and consistent screens
+
+In Saved wall sources, save a `.db`, JSON, Universal VTT, or `.zip` pack,
+select its wall set, and optionally tick **Use image from this wall set on BOTH
+screens** before applying. Unticked (the default) retains your current artwork.
+Selection is reset when changing wall sets, preventing accidental reuse of a
+previous image choice. Applying replaces this map's walls; it does not alter
+other maps using the saved source.
+
+Supported artwork is a Foundry `background.src` or legacy `img` data URI,
+a Universal VTT base64 `image`, or a referenced file included in a ZIP alongside
+scene exports. ZIP references are matched by their full pack-root path or a
+path relative to the scene file. Paths are case-sensitive. Nested archives,
+absolute/traversal paths and duplicate normalized archive paths are rejected.
+ZIPs are limited to 2,000 entries and 150 MiB total expanded content; individual
+uploads and decoded images also obey `storage.max_upload_mb`. Unsupported
+metadata JSON is skipped. Supported images are validated using the normal
+image-import path and pixel limits.
+
+Foundry exports commonly contain only an external path and a small embedded
+`thumb`. When only that thumbnail is embedded, it is explicitly labelled as low
+resolution and never selected automatically. Upload the full-resolution art or
+include it in a ZIP for best results. URLs and local Foundry module paths are
+not fetched or read from the server filesystem. Existing databases are reusable
+without being uploaded again, because image metadata is parsed from saved bytes.
+
+There is one canonical `maps.image_file` per map, not separate DM/player images.
+Every newly imported image is normalized to an oriented, static RGB PNG (first
+frame for animated inputs). Both admin artwork and viewer fog compositing use
+that file. The viewer may downscale/re-encode it and adds fog; it never receives
+an alternate scene image, the raw image endpoint, or wall data. Replacing artwork
+updates image dimensions, wall/fog versions and cache keys; admin refreshes its
+versioned image URL and viewers receive the existing refresh notification.
+The currently selected active map must be the map being compared: another map
+can still be edited while the viewer displays the campaign's active map.
+
+Auto-align uses the selected image dimensions. Disable auto-align to preserve
+manual offsets/scales. Applying artwork or changing boundaries retains fog
+history and replays it against the new geometry; blank the viewer first and
+reset fog if old reveals are inappropriate. Source deletion leaves copied map
+artwork and walls intact.
+
+## Wall legend and type controls
+
+| Type | Overlay | Boundary behavior when enabled |
+|---|---|---|
+| Normal wall | Magenta solid | Blocks areas |
+| Door | Blue solid | Blocks when Doors split areas is on |
+| Secret door | Purple dashed | Blocks when Doors split areas is on |
+| Window / terrain | Green solid | Blocks areas |
+| Invisible wall | Yellow dashed | Blocks areas |
+| Ethereal | Grey dashed | Never blocks (source semantics) |
+
+Each legend row has **Show** (DM overlay only, page-local) and **Enabled**
+(persistent per-map boundary participation). Press **Apply wall types** to save
+the Enabled switches and recalculate fog on the server. Disabled categories
+remain stored and visible at reduced opacity unless Show is unticked, so they
+can be re-enabled without re-import. Ethereal can be toggled but remains
+non-blocking even when enabled. The global Show walls checkbox still hides all
+overlays. The existing Doors split areas toggle is an additional gate for both
+door categories. Filters are independent of source selection and survive
+re-import. Disabling boundaries can merge rooms and expand prior reveals;
+confirmation warns to blank the viewer before recalculating.

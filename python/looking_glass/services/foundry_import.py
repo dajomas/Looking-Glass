@@ -119,6 +119,18 @@ def foundry_scene_origin(scene: dict) -> tuple[float, float]:
     return pad_x + off_x, pad_y + off_y
 
 
+def _scene_image(scene: dict) -> tuple[str, str, bool]:
+    bg = scene.get("background")
+    ref = (bg.get("src") if isinstance(bg, dict) else None) or scene.get("img") or ""
+    ref = ref if isinstance(ref, str) else ""
+    if ref.startswith("data:image/"):
+        return ref, "", False
+    thumb = scene.get("thumb")
+    if isinstance(thumb, str) and thumb.startswith("data:image/"):
+        return thumb, ref, True
+    return "", ref, False
+
+
 def _wallset_from_scene(scene: dict, fmt: str) -> WallSet:
     segments = _segments_from_wall_docs(scene.get("walls") or [])
     ox, oy = foundry_scene_origin(scene) if scene.get("width") else (0.0, 0.0)
@@ -130,6 +142,9 @@ def _wallset_from_scene(scene: dict, fmt: str) -> WallSet:
         scene_height=float(scene["height"]) if scene.get("height") else None,
         origin_x=ox,
         origin_y=oy,
+        image_data=_scene_image(scene)[0],
+        image_reference=_scene_image(scene)[1],
+        image_is_thumbnail=_scene_image(scene)[2],
     )
 
 
@@ -165,7 +180,8 @@ def _parse_uvtt(data: dict, name: str) -> WallSet:
             segments.append(WallSegment(x1, y1, x2, y2, "door", True))
     w = float(size.get("x", 0)) * ppg or None
     h = float(size.get("y", 0)) * ppg or None
-    return WallSet(name=name, segments=segments, source_format="uvtt", scene_width=w, scene_height=h)
+    return WallSet(name=name, segments=segments, source_format="uvtt", scene_width=w, scene_height=h,
+                   image_data=data.get("image", "") if isinstance(data.get("image", ""), str) else "")
 
 
 # ---------------------------------------------------------------------------
@@ -196,6 +212,9 @@ def _parse_ndjson(text: str) -> list[dict]:
 
 def parse_wall_file(raw: bytes, filename: str = "") -> list[WallSet]:
     """Parse an uploaded file into one or more WallSets (one per scene)."""
+    if raw.startswith(b"PK\x03\x04"):
+        from .pack_images import parse_zip_pack
+        return parse_zip_pack(raw, parse_wall_file)
     try:
         text = raw.decode("utf-8-sig")
     except UnicodeDecodeError as exc:
