@@ -2,122 +2,97 @@
 
 ## First run
 
-1. Start the server and read the generated `superadmin` password from the log.
-2. Log in on `http://<host>:5000` and change the password.
-3. **Users**: create an `admin` account for each DM and `viewer` accounts
-   for players. DMs can also create viewer accounts from a campaign page.
+Start Looking Glass, read the generated superadmin password from the log, sign
+in on the admin portal, and change the password. Create DM/admin accounts and
+viewer accounts as required. Campaign owners manage their own campaigns and
+assign viewers from the campaign page. Portal ports follow your configuration.
 
-## Preparing a session (DM)
+## Preparing maps
 
-1. **Campaigns → New campaign**.
-2. **Import battle map**: choose the image and, optionally, the Foundry wall
-   file in the same form. You land in the fog editor.
-3. Check the walls overlay: magenta = wall, blue = door, purple dashed =
-   secret door, green = window, yellow dashed = invisible. If needed, fix the
-   **Alignment**.
-4. Add players under **Viewers** on the campaign page.
+Create a campaign, then use its single-map import for one image and optional
+Foundry VTT / UVTT walls. A single-set wall source can be applied automatically;
+a multi-set source is saved for explicit selection. For several images and
+independent wall files, use **Import multiple maps and assign walls** on the
+same page. See [the batch workflow](campaign-batch-import.md).
 
-## Reuse one wall source across battle maps
+## Saved wall sources
 
-1. In a map editor, expand **Walls → Saved wall sources**.
-2. Choose your `.db`, `.json`, or Universal VTT file and press **Save source**.
-   If you already uploaded it alongside a map, it is already saved.
-3. Choose **Saved source**, then explicitly choose **Wall set**. The dropdown
-   lists wall sets alphabetically by scene name (case-insensitive, with numeric
-   ordering such as Room 2 before Room 10). It shows each scene's name, wall
-   count, door count, and original position in the source.
-   Selecting a source or wall set alone does not change the map.
-4. Leave **Auto-align for this map** enabled to derive offset and scale from
-   that scene and the current map image. Disable it to retain current alignment.
-5. Press **Apply selected wall set** and confirm replacement. The editor reloads
-   with the selected walls. Verify alignment before showing the map to players.
-6. Open or import another map in the same campaign. Choose the same saved source
-   and either the same or a different wall set; no second source upload is needed.
+In **Walls → Saved wall sources**, save a supported Foundry database/JSON,
+UVTT, or supported pack. Choose the saved source, then a wall set. Lists use
+case-insensitive alphabetical/numeric ordering and preserve original scene
+indices. One database can supply different sets to different maps. Reusing a
+saved source requires no re-upload within the same campaign. Duplicate uploaded
+bytes use the existing server deduplication; a changed source becomes a new one.
 
-A file uploaded with a map is automatically saved. For multiple wall sets,
-application waits for your explicit selection in the editor; for a single set,
-application remains automatic. The separate one-off import form does not save
-its file to the library.
+**Apply selected wall set** takes effect immediately: there is no confirmation.
+The same applies to campaign wall assignments and Apply alignment. If optional
+pack-image controls are present, opting in replaces artwork immediately too.
+Otherwise artwork is retained. Blank the viewer before changing boundaries:
+existing reveal clicks are retained and recalculated against the new walls.
 
-Sources persist across server restarts and are private to their campaign's
-managers. To use a file in another campaign, save it in that campaign too.
-Identical bytes uploaded twice in one campaign reuse the original source; a
-changed file is a new source. **Refresh sources** picks up changes from another
-tab. **Delete source** removes the reusable upload, not walls copied to maps.
+The duplicate one-off wall import form, its Import walls and Clear buttons,
+and their JavaScript handlers have been removed. Import through Saved wall
+sources instead. The old API endpoints remain available for existing clients.
+Delete source still confirms; deleting a reusable source does not remove walls
+or artwork already copied to maps. Sources remain private to their campaign.
 
-Replacing walls preserves existing fog actions and replays them against the new
-geometry. This can change what is visible. Blank the player screen first, then
-check the exact player preview and reset fog if appropriate.
+## Wall legend and alignment
+
+The map editor displays a six-type wall legend:
+
+| Type | Colour/style | Meaning |
+|---|---|---|
+| Normal | Magenta solid | Separates areas |
+| Door | Blue solid | Follows Doors split areas |
+| Secret door | Purple dashed | Follows Doors split areas |
+| Window/terrain | Green solid | Separates areas |
+| Invisible | Yellow dashed | Blocks movement |
+| Ethereal/passive | Grey dashed | Does not separate areas |
+
+This is a visual colour/style key, not a new persistent wall-type filtering
+control. Show walls affects only the DM overlay. Doors split areas affects
+boundary calculation. Alignment maps source coordinates to the current image:
+`image = (wall - offset) * scale`. Use offsets, scales and nudges, then Apply
+alignment. Check the exact player preview after changing geometry.
+
+## Showing and switching battle maps
+
+Each campaign **Show**, editor **Show to players**, and editor map-switch
+selection asks the server afresh whether the target has restorable reveals.
+The response is not cached or reused across targets/selections.
+
+- If no effective reveals remain, no dialog appears. The map is displayed
+  with reset reveals, discarding any old operation/undo history.
+- If effective saved reveals remain, the Restore / Reset / Cancel dialog
+  appears. Restore replays the checkpoint; Reset starts fully fogged; Cancel
+  leaves the current display unchanged.
+- A history containing only hide operations, reveal-then-hide, or a final Reset
+  does not count as restorable merely because operations exist.
+
+The editor map-switch now activates the selected target before opening its
+editor. A cancelled choice or failed availability check keeps the current
+selection/display. Directly opening an editor URL is still an editing action,
+not automatic activation. Blanking needs no restore dialog.
+
+A failed availability request never silently resets or displays a map. An active
+map is evaluated from its live operations; an inactive map is evaluated from its
+saved last-displayed checkpoint. Without a checkpoint there is no restore offer,
+including never-displayed maps with offline-prepared clicks: they start reset.
+Saved clicks are evaluated against current walls, not historical geometry.
 
 ## At the table
 
-- Open the viewer screen (`http://<host>:6000`) on the TV / table PC and log
-  in. With exactly one campaign it opens straight away. It shows a waiting
-  screen until the DM shows a map.
-- In the editor, press **Show to players**. The map starts fully fogged.
-- **Click a room** in *Reveal* mode to reveal the whole area enclosed by
-  walls. *Hide* mode (H) fogs an area again. **Undo** (Ctrl+Z),
-  **Reveal all** and **Reset** are available.
-- **Doors split areas** (under Alignment) controls whether opening a door
-  matters. Turn it off to treat rooms joined by doors as one area.
-- **Player preview** shows the fog fully opaque. *Open exact player image*
-  shows the actual composite.
-- **Blank** shows the waiting screen, e.g. while switching maps.
-- Viewers update live. They can pan (drag), zoom (wheel / pinch), fit (F) and
-  go fullscreen. The HUD hides itself after 3 s.
+Assign viewers, open the viewer portal, and show a map. Click a room in Reveal
+mode to reveal its wall-bounded area; Hide mode hides it. Undo, Reveal all and
+the separate toolbar Reset remain available. Toolbar Reset remains undoable;
+display Reset discards the previous history. Pan with right/Space drag and zoom
+with the wheel; F fits. Use Player preview or Open exact player image to inspect
+what players see. Blank sends viewers to the waiting screen. Players receive a
+server-composited fogged image, not the raw map or wall data.
 
-## Choosing reveals when showing a map
+## Updating
 
-Click **Show** on a campaign page or **Show to players** in the editor. Before
-the map becomes live, choose:
-
-- **Restore last reveals**: restore the reveal operations saved while this
-  map was last displayed. Edits made while it was not displayed are not used
-  when a previous display checkpoint exists.
-- **Reset reveals**: start fully fogged and discard the old reveal/undo history.
-  This display reset is deliberately not undoable.
-- **Cancel** (or Escape): do not change the active map or its reveals.
-
-For a never-displayed map, Restore keeps reveals prepared in the editor;
-Reset removes them. The separate editor Reset tool remains undoable.
-Blanking saves the outgoing map's display state and shows the waiting screen.
-Live reveal, hide, undo, and toolbar reset actions update its checkpoint.
-Merely opening an editor does not display its map and does not prompt.
-
-Deletion permanently removes that map's fog operations and checkpoint. Importing
-an image again creates a new map identity and does not restore a deleted map's
-history. On upgrade, existing operations become the initial checkpoint because
-older releases did not record a separate last-displayed snapshot.
-
-### Saved-source selector troubleshooting
-
-A saved source and its wall sets remain selectable even when this editor does
-not include the optional pack-image controls. Selecting a source loads its wall
-sets; Apply stays disabled until you explicitly select one. Changing sources
-clears the previous wall-set selection, so a stale selection cannot be applied.
-
-If loading fails, the error appears below the controls. Choose another source
-or press Refresh sources to retry. After updating the JavaScript, hard-reload
-existing editor tabs to discard the previous cached script. This selector fix
-requires no database migration and does not change saved wall or fog data.
-
-## Import multiple maps and assign walls on the campaign page
-
-Below the original single-map form, use **Import multiple maps and assign walls**:
-
-1. Choose several map images, several Foundry VTT / UVTT wall files, or both.
-2. Press **Import selected files**. Per-file results show success or failure.
-3. In the assignment table, choose a saved wall source for each target map,
-   then choose its wall set. Newly imported and existing campaign maps appear.
-4. Choose whether to auto-align each map. Wall sets are alphabetically ordered;
-   the same source/set may be reused across multiple maps.
-5. Press **Apply selected wall assignments** and confirm. Only rows with an
-   explicit wall-set selection are applied. Uploaded artwork is retained.
-
-Importing does not automatically assign wall sets or show maps to players.
-Successful files are kept if another fails. Retry only failed uploads; importing
-an image twice creates two maps. Successful wall assignments are deselected,
-while failed selections remain for retry. Reload the campaign to refresh the
-original Battle maps table or discover maps added in another tab.
-
-See [batch import details and limitations](campaign-batch-import.md).
+Deploy all files together, restart the server for the added display-options
+endpoint, and hard-reload DM/campaign tabs. This patch adds no schema migration;
+the previously deployed checkpoint/token schema must already be present. Read
+[the interaction notes](interaction-refinement.md) for checks and limitations.

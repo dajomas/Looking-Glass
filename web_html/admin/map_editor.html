@@ -72,18 +72,18 @@
         <p id="source-status" class="small" role="status" aria-live="polite"></p>
       </div>
     </details>
-    <p class="muted small">The import below is one-off. Use Saved wall sources to reuse a file without uploading it again.</p>
-    <form id="wall-import" class="stack">
-      <label>Foundry VTT / UVTT (Universal VTT) file
-        <input id="wall-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
-      </label>
-      <label id="scene-pick" hidden>Scene <select id="scene-select"></select></label>
-      <label class="check"><input id="use-scene-cal" type="checkbox" checked> Auto-align from scene data</label>
-      <div class="btn-row">
-        <button type="submit" class="primary">Import walls</button>
-        <button type="button" id="btn-clear-walls" class="danger">Clear</button>
-      </div>
-    </form>
+    <section aria-labelledby="wall-legend-title" id="wall-legend">
+      <h4 id="wall-legend-title">Wall legend</h4>
+      <ul class="small" style="list-style:none;padding-left:0">
+        <li><span style="color:#ff5bd1">━━</span> Normal wall — blocks areas</li>
+        <li><span style="color:#46c0ff">━━</span> Door — follows Doors split areas</li>
+        <li><span style="color:#b07cff">┄┄</span> Secret door — follows Doors split areas</li>
+        <li><span style="color:#7cffb2">━━</span> Window / terrain — blocks areas</li>
+        <li><span style="color:#ffd36b">┄┄</span> Invisible wall — blocks movement</li>
+        <li><span style="color:#9aa3b5">┄┄</span> Ethereal / passive — does not block areas</li>
+      </ul>
+      <p class="muted small">Show walls controls the DM overlay only. Doors split areas controls whether door boundaries separate rooms.</p>
+    </section>
     <details id="calibration">
       <summary>Alignment</summary>
       <p class="muted small">image = (wall &minus; offset) &times; scale</p>

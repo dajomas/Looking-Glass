@@ -150,15 +150,15 @@
   $("btn-reset").onclick = () => { if (confirm("Cover the whole map in fog again?")) simple("reset", "Fog reset"); };
 
   async function setActive(mapId) {
-    let fogAction = null;
-    if (mapId !== null) {
-      fogAction = await window.LGChooseFog(state ? state.name : "this map");
-      if (!fogAction) return;
-    }
-    await run(async () => {
-      await LGApi.post(`/api/campaigns/${CAMPAIGN_ID}/active`, { map_id: mapId, fog_action: fogAction });
-      applyState(await LGApi.get(`/api/maps/${MAP_ID}`));
+    return await run(async () => {
+      const name = mapId === MAP_ID && state ? state.name :
+        ($("map-switch").selectedOptions[0]?.textContent || "this map");
+      const fogAction = mapId === null ? null : await window.LGChooseFog(name, mapId);
+      if (mapId !== null && !fogAction) return false;
+      await LGApi.post(`/api/campaigns/${CAMPAIGN_ID}/active`, {map_id: mapId, fog_action: fogAction});
+      if (mapId === MAP_ID || mapId === null) applyState(await LGApi.get(`/api/maps/${MAP_ID}`));
       toast(mapId ? "Now showing this map to players" : "Viewer screen blanked");
+      return true;
     });
   }
   $("btn-show").onclick = () => setActive(MAP_ID);
@@ -167,50 +167,14 @@
   $("fog-opacity").oninput = drawFog;
   $("show-preview").onchange = drawFog;
   $("show-walls").onchange = (e) => (svg.style.display = e.target.checked ? "" : "none");
-  $("map-switch").onchange = (e) => (location.href = `/maps/${e.target.value}`);
+  $("map-switch").onchange = async (e) => {
+    const target = Number(e.target.value);
+    if (await setActive(target)) location.href = `/maps/${target}`;
+    else e.target.value = String(MAP_ID);
+  };
   $("zoom-in").onclick = () => pz.zoomCenter(1.25);
   $("zoom-out").onclick = () => pz.zoomCenter(0.8);
   $("zoom-fit").onclick = () => pz.fit();
-
-  // ------------------------------------------------------------------ walls import
-  $("wall-file").onchange = () => run(async () => {
-    const f = $("wall-file").files[0];
-    const pick = $("scene-pick"), sel = $("scene-select");
-    sel.innerHTML = ""; pick.hidden = true;
-    if (!f) return;
-    const fd = new FormData(); fd.append("file", f);
-    const res = await LGApi.post(`/api/maps/${MAP_ID}/walls/inspect`, fd);
-    for (const s of res.scenes) {
-      const o = document.createElement("option");
-      o.value = s.index;
-      o.textContent = `${s.name} - ${s.walls} walls, ${s.doors} doors`;
-      sel.appendChild(o);
-    }
-    pick.hidden = res.scenes.length < 2;
-    const s = res.scenes[0];
-    toast(`${res.scenes.length} scene(s) found (${s.format}). First: ${s.walls} walls.`);
-  });
-
-  $("wall-import").onsubmit = (ev) => {
-    ev.preventDefault();
-    const f = $("wall-file").files[0];
-    if (!f) return;
-    if (state.walls.length && !confirm("Replace the existing walls? Fog will be recalculated.")) return;
-    run(async () => {
-      const fd = new FormData();
-      fd.append("file", f);
-      fd.append("scene_index", $("scene-select").value || "0");
-      fd.append("use_scene_calibration", $("use-scene-cal").checked ? "true" : "false");
-      const res = await LGApi.post(`/api/maps/${MAP_ID}/walls`, fd);
-      applyState(res);
-      toast(`Imported ${res.imported} walls from "${res.scene}"`);
-    });
-  };
-
-  $("btn-clear-walls").onclick = () => {
-    if (!confirm("Remove all walls from this map?")) return;
-    run(async () => { applyState(await LGApi.del(`/api/maps/${MAP_ID}/walls`)); toast("Walls cleared"); });
-  };
 
   // ------------------------------------------------------------------ alignment
   ["cal-ox", "cal-oy", "cal-sx", "cal-sy", "cal-doors"].forEach((id) => $(id).addEventListener("input", renderWalls));

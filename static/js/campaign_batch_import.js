@@ -1,177 +1,148 @@
-/* Campaign uploads and explicit per-map wall assignment; existing endpoints only. */
+/* Batch import: one progress line, automatic Apply, explicit per-map mapping. */
 (function () {
   "use strict";
   const panel = document.getElementById("campaign-batch-import");
   if (!panel) return;
-  const api = window.LGApi;
-  const cid = panel.dataset.campaignId;
+  const api = window.LGApi, cid = panel.dataset.campaignId;
   const sourceUrl = `/api/campaigns/${cid}/wall-sources`;
   const rows = document.getElementById("batch-assignment-rows");
   const status = document.getElementById("batch-status");
-  const results = document.getElementById("batch-import-results");
-  const mapFiles = document.getElementById("batch-map-files");
-  const wallFiles = document.getElementById("batch-wall-files");
-  const applyButton = document.getElementById("batch-apply-walls");
-  const names = new Intl.Collator(undefined, {numeric: true, sensitivity: "base"});
-  const assignments = new Map();
-  let sources = [], busy = false;
-
-  function placeholder(select, label) { select.replaceChildren(new Option(label, "")); }
-  function selected(row) {
-    if (row.inspectedSource !== row.source.value || row.scene.value === "") return null;
-    return row.scenes.find(item => String(item.index) === row.scene.value) || null;
+  const imagesInput = document.getElementById("batch-map-files");
+  const wallsInput = document.getElementById("batch-wall-files");
+  const apply = document.getElementById("batch-apply-walls");
+  const oldLog = document.getElementById("batch-import-results");
+  if (oldLog) oldLog.remove();
+  const names = new Intl.Collator(undefined, {numeric:true, sensitivity:"base"});
+  let sources = [], busy = false, timer = null;
+  const maps = new Map();
+  function message(text, temporary = false) {
+    clearTimeout(timer); status.textContent = text;
+    if (temporary) timer = setTimeout(() => {status.textContent = "";}, 4000);
+  }
+  function placeholder(select, text) {select.replaceChildren(new Option(text, ""));}
+  function choice(row) {
+    return row.source.value === row.loaded && row.scene.value !== "" ?
+      row.scenes.find(s => String(s.index) === row.scene.value) : null;
   }
   function controls() {
     panel.setAttribute("aria-busy", String(busy));
-    for (const element of panel.querySelectorAll("input, select, button")) element.disabled = busy;
-    for (const row of assignments.values()) {
+    for (const el of panel.querySelectorAll("button,input,select")) el.disabled = busy;
+    for (const row of maps.values()) {
       row.source.disabled = busy || !sources.length;
-      row.scene.disabled = busy || !row.scenes.length || row.inspectedSource !== row.source.value;
+      row.scene.disabled = busy || !row.scenes.length || row.loaded !== row.source.value;
     }
-    applyButton.disabled = busy || ![...assignments.values()].some(selected);
+    apply.disabled = busy || ![...maps.values()].some(choice);
   }
-  async function run(task) {
+  async function run(fn) {
     if (busy) return;
-    busy = true; controls();
-    try { await task(); }
-    catch (error) { status.textContent = error.message || String(error); }
-    finally { busy = false; controls(); }
+    busy = true; clearTimeout(timer); controls();
+    try {await fn();} catch (error) {message(error.message || String(error), true);}
+    finally {busy = false; controls();}
   }
-  function clearScene(row) {
-    row.scenes = []; row.inspectedSource = "";
-    placeholder(row.scene, "Choose a wall set");
-    row.result.textContent = "";
+  function clear(row) {
+    row.scenes = []; row.loaded = ""; placeholder(row.scene, "Choose a wall set"); row.result.textContent = "";
   }
-  function populateSources(row) {
+  function populate(row) {
     const previous = row.source.value;
     placeholder(row.source, "Choose a saved source");
-    for (const item of sources) {
-      row.source.add(new Option(`${item.filename} (${item.scene_count} wall sets) [#${item.id}]`, String(item.id)));
-    }
-    if (sources.some(item => String(item.id) === previous)) row.source.value = previous;
-    else clearScene(row);
+    for (const s of sources) row.source.add(new Option(`${s.filename} (${s.scene_count} wall sets) [#${s.id}]`, String(s.id)));
+    if (sources.some(s => String(s.id) === previous)) row.source.value = previous;
+    else clear(row);
   }
-  async function refreshSources() {
+  async function refresh() {
     const data = await api.get(sourceUrl);
-    sources = [...data.sources].sort((a, b) => names.compare(a.filename, b.filename) || a.id - b.id);
-    for (const row of assignments.values()) populateSources(row);
+    sources = [...data.sources].sort((a,b) => names.compare(a.filename,b.filename) || a.id-b.id);
+    for (const row of maps.values()) populate(row);
   }
   async function inspect(row) {
-    clearScene(row);
-    const sourceId = row.source.value;
-    if (!sourceId) return;
+    clear(row); const id = row.source.value; if (!id) return;
     row.result.textContent = "Loading wall sets...";
     try {
-      const data = await api.get(`/api/maps/${row.id}/wall-sources/${sourceId}`);
-      if (row.source.value !== sourceId) return;
-      row.scenes = [...data.scenes].sort((a, b) => names.compare(a.name, b.name) || a.index - b.index);
-      row.inspectedSource = sourceId;
-      for (const item of row.scenes) {
-        row.scene.add(new Option(`${item.name} — ${item.walls} walls [${item.index + 1}]`, String(item.index)));
-      }
-      row.result.textContent = row.scenes.length ? "Choose a wall set; not applied yet." : "No wall sets found.";
-    } catch (error) {
-      row.result.textContent = error.message;
-      throw error;
-    }
+      const data = await api.get(`/api/maps/${row.id}/wall-sources/${id}`);
+      if (row.source.value !== id) return;
+      row.scenes = [...data.scenes].sort((a,b) => names.compare(a.name,b.name) || a.index-b.index);
+      row.loaded = id;
+      for (const s of row.scenes) row.scene.add(new Option(`${s.name} — ${s.walls} walls [${s.index+1}]`, String(s.index)));
+      row.result.textContent = row.scenes.length ? "Choose a wall set." : "No wall sets found.";
+    } catch(error) {row.result.textContent = error.message; throw error;}
   }
   function addMap(map) {
-    if (assignments.has(Number(map.id))) return;
-    const tr = document.createElement("tr"); tr.dataset.mapId = map.id;
-    const row = {id: Number(map.id), name: map.name, source: document.createElement("select"),
-      scene: document.createElement("select"), align: document.createElement("input"),
-      result: document.createElement("span"), scenes: [], inspectedSource: ""};
-    const link = document.createElement("a"); link.href = `/maps/${row.id}`; link.textContent = `${row.name} [#${row.id}]`;
-    row.source.setAttribute("aria-label", `Wall source for ${row.name}`);
-    row.scene.setAttribute("aria-label", `Wall set for ${row.name}`);
+    if (maps.has(Number(map.id))) return;
+    const row = {id:Number(map.id), name:map.name, scenes:[], loaded:"",
+      source:document.createElement("select"), scene:document.createElement("select"),
+      align:document.createElement("input"), result:document.createElement("span")};
     row.align.type = "checkbox"; row.align.checked = true;
-    row.align.setAttribute("aria-label", `Auto-align ${row.name}`);
-    for (const element of [link, row.source, row.scene, row.align, row.result]) {
-      const td = document.createElement("td"); td.append(element); tr.append(td);
+    row.source.setAttribute("aria-label", `Wall source for ${map.name}`);
+    row.scene.setAttribute("aria-label", `Wall set for ${map.name}`);
+    row.align.setAttribute("aria-label", `Auto-align ${map.name}`);
+    const link = document.createElement("a"); link.href = `/maps/${row.id}`; link.textContent = `${map.name} [#${row.id}]`;
+    const tr = document.createElement("tr"); tr.dataset.mapId = row.id;
+    for (const el of [link,row.source,row.scene,row.align,row.result]) {
+      const td = document.createElement("td"); td.append(el); tr.append(td);
     }
-    clearScene(row); populateSources(row); rows.append(tr); assignments.set(row.id, row);
+    clear(row); populate(row); rows.append(tr); maps.set(row.id,row);
     row.source.addEventListener("change", () => run(() => inspect(row)));
-    row.scene.addEventListener("change", () => {row.result.textContent = selected(row) ? "Selected; not applied yet." : ""; controls();});
+    row.scene.addEventListener("change", () => {row.result.textContent = choice(row) ? "Selected; not applied yet." : ""; controls();});
     controls();
   }
-  function log(filename, message) {
-    const li = document.createElement("li"); li.textContent = `${filename}: ${message}`; results.append(li);
-  }
-  async function uploadMap(file) {
-    const form = new FormData(); form.append("image", file);
-    const token = document.querySelector('meta[name="csrf-token"]').content;
-    form.append("csrf_token", token);
+  async function uploadImage(file) {
+    const form = new FormData(); form.append("image",file);
+    const token = document.querySelector('meta[name="csrf-token"]').content; form.append("csrf_token",token);
     let response;
-    try {
-      response = await fetch(`/campaigns/${cid}/maps`, {method: "POST", body: form,
-        credentials: "same-origin", headers: {"X-CSRF-Token": token}, redirect: "follow"});
-    } catch (_) {
-      throw new Error("Upload result unknown after connection failure. Check the campaign before retrying to avoid duplicates.");
-    }
-    const url = new URL(response.url, window.location.href);
-    const match = url.pathname.match(/^\/maps\/(\d+)\/?$/);
-    if (response.redirected && match && url.origin === window.location.origin) {
-      // The server created the map before redirecting; do not re-upload if its editor then fails.
-      return {id: Number(match[1]), name: file.name.replace(/\.[^.]+$/, "") || "Battle map",
-        warning: response.ok ? "" : `Map created, but editor returned HTTP ${response.status}; check the server log.`};
-    }
-    if (url.pathname === "/login") throw new Error("Session expired. Sign in and reload before retrying.");
-    throw new Error(url.searchParams.get("err") || `Map import failed (HTTP ${response.status}); check the campaign before retrying.`);
+    try {response = await fetch(`/campaigns/${cid}/maps`, {method:"POST", body:form,
+      credentials:"same-origin", redirect:"follow", headers:{"X-CSRF-Token":token}});}
+    catch (_) {throw new Error("Upload result unknown; check the campaign before retrying to avoid duplicates.");}
+    const url = new URL(response.url,location.href), id = url.pathname.match(/^\/maps\/(\d+)\/?$/);
+    if (response.redirected && id && url.origin === location.origin) return {
+      id:Number(id[1]), name:file.name.replace(/\.[^.]+$/,"") || "Battle map", warning:!response.ok};
+    throw new Error(url.searchParams.get("err") || `Upload failed (HTTP ${response.status}); check the campaign before retrying.`);
   }
   document.getElementById("batch-upload").addEventListener("submit", event => {
-    event.preventDefault();
-    const images = [...mapFiles.files], walls = [...wallFiles.files];
-    if (!images.length && !walls.length) {status.textContent = "Choose map images, wall files, or both."; return;}
+    event.preventDefault(); const images = [...imagesInput.files], walls = [...wallsInput.files];
+    if (!images.length && !walls.length) {message("Choose map images, wall files, or both.",true); return;}
     run(async () => {
-      let succeeded = 0, failed = 0;
+      let imageOk=0, wallOk=0, failed=0, warnings=0, number=0;
+      const total=images.length+walls.length;
       for (const file of walls) {
-        status.textContent = `Saving wall source: ${file.name}`;
-        try {
-          const form = new FormData(); form.append("file", file);
-          const data = await api.post(sourceUrl, form);
-          log(file.name, `saved wall source #${data.source.id}`); succeeded++;
-        } catch (error) {log(file.name, error.message); failed++;}
+        message(`Importing ${++number}/${total}: ${file.name}`);
+        try {const form=new FormData();form.append("file",file);await api.post(sourceUrl,form);wallOk++;}
+        catch (_) {failed++;}
       }
       for (const file of images) {
-        status.textContent = `Importing map: ${file.name}`;
-        try {
-          const map = await uploadMap(file); addMap(map);
-          log(file.name, `created map #${map.id}${map.warning ? "; " + map.warning : ""}`); succeeded++;
-        } catch (error) {log(file.name, error.message); failed++;}
+        message(`Importing ${++number}/${total}: ${file.name}`);
+        try {const map=await uploadImage(file);addMap(map);imageOk++;if(map.warning)warnings++;}
+        catch (_) {failed++;}
       }
-      mapFiles.value = ""; wallFiles.value = "";
-      const summary = `Import complete: ${succeeded} succeeded, ${failed} failed. Choose wall assignments below. Reselect only failed files to retry.`;
-      try {await refreshSources(); status.textContent = summary;}
-      catch (error) {status.textContent = `${summary} Source list refresh failed: ${error.message}. Use Refresh saved wall sources.`;}
+      imagesInput.value="";wallsInput.value="";
+      let refreshFailed=false;
+      try {await refresh();} catch (_) {refreshFailed=true;}
+      message(`Import complete: ${imageOk} maps, ${wallOk} wall sources imported; ${failed} failed, ${warnings} editor warnings.` +
+        (refreshFailed ? " Source refresh failed; use Refresh saved wall sources." : "") +
+        (failed ? " Check the campaign before retrying failed files." : ""),true);
     });
   });
-  document.getElementById("batch-refresh-sources").addEventListener("click", () => run(async () => {
-    await refreshSources(); status.textContent = "Saved wall sources refreshed. Newly imported maps are available below; reload the page to discover maps added in another tab.";
+  document.getElementById("batch-refresh-sources").addEventListener("click",()=>run(async()=>{
+    await refresh();message("Saved wall sources refreshed.",true);
   }));
-  applyButton.addEventListener("click", () => {
-    const pending = [...assignments.values()].filter(selected).map(row => ({row, item: selected(row),
-      sourceId: Number(row.source.value), autoAlign: row.align.checked}));
+  apply.addEventListener("click",()=>{
+    const pending=[...maps.values()].filter(choice).map(row=>({row,item:choice(row),source:Number(row.source.value),align:row.align.checked}));
     if (!pending.length || busy) return;
-    const list = pending.map(p => `${p.row.name} → ${p.item.name}`).join("\n");
-    if (!window.confirm(`Replace walls for these maps?\n${list}\n\nExisting reveals are retained and recalculated. Blank the viewer first. Map artwork is kept.`)) return;
-    run(async () => {
-      let succeeded = 0, failed = 0;
-      for (const {row, item, sourceId, autoAlign} of pending) {
-        row.result.textContent = "Applying...";
-        try {
-          const data = await api.post(`/api/maps/${row.id}/walls/from-source`, {
-            source_id: sourceId, scene_index: item.index, use_scene_calibration: autoAlign, use_pack_image: false});
-          row.result.textContent = `Applied ${data.imported} walls from ${data.scene}.`;
-          row.scene.value = ""; succeeded++;
-        } catch (error) {row.result.textContent = error.message; failed++;}
+    run(async()=>{
+      let ok=0,failed=0;
+      for(const p of pending){
+        p.row.result.textContent="Applying...";
+        try{
+          const data=await api.post(`/api/maps/${p.row.id}/walls/from-source`,{
+            source_id:p.source,scene_index:p.item.index,use_scene_calibration:p.align,use_pack_image:false});
+          p.row.result.textContent=`Applied ${data.imported} walls from ${data.scene}.`;p.row.scene.value="";ok++;
+        }catch(error){p.row.result.textContent=error.message;failed++;}
       }
-      status.textContent = `Wall assignments complete: ${succeeded} applied, ${failed} failed. Successful assignments are deselected; failed choices remain for retry.`;
+      message(`Wall assignments complete: ${ok} applied, ${failed} failed.`,true);
     });
   });
-  window.addEventListener("beforeunload", event => {if (busy) {event.preventDefault(); event.returnValue = "";}});
-  run(async () => {
-    for (const map of JSON.parse(document.getElementById("batch-existing-maps").textContent)) addMap(map);
-    await refreshSources();
-    status.textContent = "Ready. Import files or assign saved wall sets to campaign maps.";
+  window.addEventListener("beforeunload",event=>{if(busy){event.preventDefault();event.returnValue="";}});
+  run(async()=>{
+    for(const map of JSON.parse(document.getElementById("batch-existing-maps").textContent))addMap(map);
+    await refresh();message("");
   });
 })();

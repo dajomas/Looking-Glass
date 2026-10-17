@@ -1,80 +1,50 @@
 # Campaign batch map import and wall assignment
 
-## Existing and new inputs
+The original single-map form remains available. The additional batch panel
+accepts multiple images and separate Foundry VTT / UVTT wall files, or either
+kind alone. Wall files may be `.db`, `.json`, `.uvtt`, `.dd2vtt`, `.df2vtt`, or
+supported ZIP packs. Map names default to the image filenames.
 
-The existing **Import battle map** form still uploads one image, optional walls,
-and an optional name exactly as before. Its wall label and both map-editor
-wall-upload labels now explicitly say **UVTT (Universal VTT)** in addition to
-Foundry VTT. Foundry scene/database formats and UVTT remain distinct formats.
+## Upload progress
 
-The additional **Import multiple maps and assign walls** panel accepts:
+There is exactly one live import-status line. It shows the current file and
+its position, for example `Importing 2/4: ground-floor.png`. It is replaced for
+each file rather than creating a growing log. At completion it shows totals for
+imported maps, imported wall sources, failed files and editor warnings. The
+completion message disappears after four seconds. Starting a new operation
+cancels the previous message timer so it cannot erase new progress.
 
-- Multiple map images (PNG, JPEG, WEBP, or formats accepted by the image service).
-- Multiple separate wall files: `.db`, `.json`, `.uvtt`, `.dd2vtt`, `.df2vtt`,
-  and supported `.zip` packs.
-- Only images, only wall files, or a mixture. Existing saved sources also work.
+Files are processed sequentially through the existing endpoints. The batch is
+not an all-or-nothing transaction: successful files remain if another fails.
+File inputs clear after completion; reselect failed files only. The summary is
+brief and does not retain a detailed file-error log. If an upload loses its
+connection, check the campaign before retrying, because the server may already
+have created the map. Re-uploading a successful image creates another map.
 
-Map names default to their image filenames without the extension. Use the
-existing campaign Rename control for custom names. Batch mode imports separate
-artwork files: it deliberately does not substitute embedded pack artwork.
+## Assign walls
 
-## Import, then explicitly assign
+Existing maps and maps imported in the current tab appear in the assignment
+table. Select a saved source and wall set for each target, and choose auto-align
+per map. Wall sets are naturally alphabetised, but original scene indices remain
+the import keys. The same source or set can be reused across maps. No filename-
+or selection-order matching is assumed.
 
-Uploads run sequentially, one request per file, reusing the existing validated
-server endpoints and per-file size limits. Wall sources are saved first; map
-images are imported separately. No files are matched by filename, selection
-order, or scene position. Source deduplication remains the server's existing
-byte-based, campaign-scoped policy; image imports always create new maps.
+**Apply selected wall assignments** applies immediately, without confirmation.
+Only explicitly selected rows are changed; map artwork is retained. Successful
+assignments are deselected; failed choices remain for retry and their row errors
+remain visible. The total assignment summary disappears after four seconds.
+Changing source clears any stale wall-set selection. A failed source inspection
+leaves its source selector usable for retry.
 
-An assignment table contains existing campaign maps and maps just imported in
-this tab. For each map, select a saved source and then an alphabetically sorted
-wall set. Sorting is case-insensitive with natural numeric ordering. Original
-scene indices are preserved; bracketed numbers are original source positions,
-not the display order. Choose auto-alignment per map, then apply all selected
-rows after reviewing the confirmation. The same wall file can provide different
-sets to different maps, or the same set to several maps.
+Blank the viewer before changing walls during play: saved reveals are replayed
+against the new geometry. The batch panel does not activate maps itself. Reload
+the campaign to refresh the original Battle maps table or discover maps imported
+from another tab. Source refresh updates saved source lists without discarding
+valid choices. JavaScript is required for this panel, not the single-map form.
 
-Rows with no selected set are untouched. Assignment replaces the target map's
-walls, not other maps. Map artwork is always retained (`use_pack_image=false`).
-Existing wall-type settings, fog history, authorization and notifications follow
-the existing import endpoint. No campaign is activated by this panel. Blank the
-player display first when changing walls: previous reveal coordinates will be
-replayed against the new geometry. Check alignment in the fog editor afterward.
+## API and deployment
 
-## Failures and retries
-
-This is a per-file/per-map workflow, not an all-or-nothing batch transaction.
-Successful uploads remain when another file fails; every upload gets a result.
-File inputs are cleared after the queue finishes to discourage accidental
-reimport of successful images. Reselect only failed files. A lost connection can
-leave an uncertain result: check the campaign before retrying an image upload.
-If the map was created and its redirect reached an editor returning an HTTP
-error, the panel retains the map ID and reports the editor error as a warning
-instead of encouraging a duplicate upload.
-
-Successful wall assignments are deselected. Failed assignments retain their
-choices and show a row error, so Apply retries only remaining selections. Source
-changes clear stale wall-set choices. Canceling the confirmation sends no
-assignment requests. Inputs are temporarily disabled while operations run.
-
-Refresh saved wall sources fetches newly saved uploads from this or another tab.
-Reload the campaign to refresh the original Battle maps table and discover maps
-created in another tab. Reloading loses unsent choices. JavaScript is required
-for the new panel; the original single-map form is still available without it.
-
-## Deployment and API compatibility
-
-No database/schema or backend API change is included. In particular, this patch
-does not touch the prior cache-token migration repair. The new script reuses:
-
-- `POST /campaigns/{id}/maps` (multipart image; follows the existing map-editor redirect).
-- `GET/POST /api/campaigns/{id}/wall-sources` (saved source list/upload).
-- `GET /api/maps/{map}/wall-sources/{source}` (map-specific inspection/calibration).
-- `POST /api/maps/{map}/walls/from-source` (explicit source ID/scene index).
-
-The map-upload form includes the existing CSRF form token and header; the JSON
-wrapper supplies the header for source/assignment operations. Requests retain
-session cookies and existing campaign ownership checks. File names and scene
-names are rendered as text, not HTML. No new runtime dependencies are needed.
-Deploy the templates and new static script together, then hard-reload the
-campaign and map-editor pages. A reverse proxy's static cache may need purging.
+Uploads and assignments still reuse the existing campaign-scoped map/form,
+wall-source and from-source endpoints with session cookies and CSRF checks.
+Per-file limits and parser validation are unchanged. There is no new database
+migration. Deploy templates and static scripts together and hard-reload tabs.

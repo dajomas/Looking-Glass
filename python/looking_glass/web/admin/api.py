@@ -227,3 +227,8 @@ async def api_set_active(ctx: CtxDep, user: CsrfUserDep, campaign_id: int, body:
 
 
 register_routes(router, _map_payload)
+
+
+from .display_options import register_display_options  # noqa: E402
+
+register_display_options(router)
