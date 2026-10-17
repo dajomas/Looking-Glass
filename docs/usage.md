@@ -23,7 +23,9 @@
 2. Choose your `.db`, `.json`, or Universal VTT file and press **Save source**.
    If you already uploaded it alongside a map, it is already saved.
 3. Choose **Saved source**, then explicitly choose **Wall set**. The dropdown
-   shows each scene's name, wall count, door count, and position in the source.
+   lists wall sets alphabetically by scene name (case-insensitive, with numeric
+   ordering such as Room 2 before Room 10). It shows each scene's name, wall
+   count, door count, and original position in the source.
    Selecting a source or wall set alone does not change the map.
 4. Leave **Auto-align for this map** enabled to derive offset and scale from
    that scene and the current map image. Disable it to retain current alignment.
@@ -86,3 +88,15 @@ Deletion permanently removes that map's fog operations and checkpoint. Importing
 an image again creates a new map identity and does not restore a deleted map's
 history. On upgrade, existing operations become the initial checkpoint because
 older releases did not record a separate last-displayed snapshot.
+
+### Saved-source selector troubleshooting
+
+A saved source and its wall sets remain selectable even when this editor does
+not include the optional pack-image controls. Selecting a source loads its wall
+sets; Apply stays disabled until you explicitly select one. Changing sources
+clears the previous wall-set selection, so a stale selection cannot be applied.
+
+If loading fails, the error appears below the controls. Choose another source
+or press Refresh sources to retry. After updating the JavaScript, hard-reload
+existing editor tabs to discard the previous cached script. This selector fix
+requires no database migration and does not change saved wall or fog data.

@@ -23,7 +23,9 @@ it does not merge all scenes into one geometry.
 1. Open **Walls → Saved wall sources** in a map editor.
 2. Save the `.db` or JSON source. Saving validates the file but changes no walls.
 3. Select the saved source, then the desired wall set by scene name. Counts and
-   list positions help distinguish variants and duplicate names.
+   original source positions help distinguish variants and duplicate names.
+   Wall sets are shown alphabetically by name, ignoring case, with natural
+   numeric ordering. Equal names retain original source-index order.
 4. Choose whether to auto-align, then apply and confirm replacement.
 5. On another battle map in the same campaign, select the saved database again
    and choose the same or another wall set. The file is not uploaded again.
@@ -100,8 +102,10 @@ size, with 25 % padding.
 ## Pack artwork and consistent screens
 
 In Saved wall sources, save a `.db`, JSON, Universal VTT, or `.zip` pack,
-select its wall set, and optionally tick **Use image from this wall set on BOTH
-screens** before applying. Unticked (the default) retains your current artwork.
+select its wall set, and, when the optional pack-image controls are present,
+tick **Use image from this wall set on BOTH screens** before applying. If those
+controls are absent, wall selection still works and applying retains your
+current artwork. Unticked (the default) also retains your current artwork.
 Selection is reset when changing wall sets, preventing accidental reuse of a
 previous image choice. Applying replaces this map's walls; it does not alter
 other maps using the saved source.
@@ -160,3 +164,12 @@ overlays. The existing Doors split areas toggle is an additional gate for both
 door categories. Filters are independent of source selection and survive
 re-import. Disabling boundaries can merge rooms and expand prior reveals;
 confirmation warns to blank the viewer before recalculating.
+
+## Wall-set ordering and import identity
+
+Alphabetical sorting changes only the saved-source dropdown's presentation.
+Each option retains the parser's original zero-based `scene_index`; the number
+in square brackets is its original one-based source position, not its sorted
+position. Duplicate scene names remain separate selectable wall sets. Saved
+source bytes and backend scene ordering are not rewritten. The separate
+one-off file-import scene selector is unchanged by this patch.
