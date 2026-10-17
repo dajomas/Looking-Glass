@@ -1,0 +1,13 @@
+feat(foundry): add reusable campaign wall sources and wall-set selection
+
+Persist uploaded Foundry and Universal VTT wall files per campaign and
+allow maps to import an explicitly selected wall set from a saved source.
+
+- append SQLite migration 2 for immutable, deduplicated wall sources
+- add campaign-scoped source listing, inspection, import and deletion APIs
+- add saved-source and wall-set selectors to the map editor
+- keep each map's walls, calibration and fog operations independent
+- save multi-set map uploads without automatically choosing the first set
+- preserve applied map walls when a saved source is deleted
+- add repository and HTTP workflow regression tests
+- update README, usage, import, API and architecture documentation

@@ -95,6 +95,19 @@ MIGRATIONS: list[str] = [
     );
     CREATE INDEX idx_fog_ops_map ON fog_ops(map_id, id);
     """,
+    # 2 - reusable campaign-scoped wall source uploads
+    """
+    CREATE TABLE wall_sources (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        filename TEXT NOT NULL,
+        sha256 TEXT NOT NULL,
+        raw BLOB NOT NULL,
+        scene_count INTEGER NOT NULL,
+        created_at TEXT NOT NULL DEFAULT (datetime('now')),
+        UNIQUE(campaign_id, sha256)
+    );
+    """,
 ]
 
 

@@ -1,0 +1,1075 @@
+diff --git a/Patch/COMMIT_MESSAGE.txt b/Patch/COMMIT_MESSAGE.txt
+new file mode 100644
+--- /dev/null
++++ b/Patch/COMMIT_MESSAGE.txt
+@@ -0,0 +1,13 @@
++feat(foundry): add reusable campaign wall sources and wall-set selection
++
++Persist uploaded Foundry and Universal VTT wall files per campaign and
++allow maps to import an explicitly selected wall set from a saved source.
++
++- append SQLite migration 2 for immutable, deduplicated wall sources
++- add campaign-scoped source listing, inspection, import and deletion APIs
++- add saved-source and wall-set selectors to the map editor
++- keep each map's walls, calibration and fog operations independent
++- save multi-set map uploads without automatically choosing the first set
++- preserve applied map walls when a saved source is deleted
++- add repository and HTTP workflow regression tests
++- update README, usage, import, API and architecture documentation
+diff --git a/Patch/README.md b/Patch/README.md
+new file mode 100644
+--- /dev/null
++++ b/Patch/README.md
+@@ -0,0 +1,72 @@
++# Apply the reusable wall-source feature
++
++Base: features/development at 3b485d96e44ed24c5593a2b8437255c02778a917.
++This archive is a repository-root overlay of full changed/new files, not a full
++repository and not a database backup. It also contains changes.patch for review
++and application. Do not apply both the patch and overlay.
++
++## Recommended: apply the unified patch
++
++Extract the archive to a temporary directory, not directly over your checkout.
++In your existing clean repository:
++
++```bash
++git switch features/development
++git rev-parse HEAD
++# Confirm: 3b485d96e44ed24c5593a2b8437255c02778a917
++git status --short
++# Confirm no local changes that would be overwritten.
++
++# Substitute the actual extraction directory for /tmp/lg-wall-sources.
++git apply --check /tmp/lg-wall-sources/Patch/changes.patch
++git apply /tmp/lg-wall-sources/Patch/changes.patch
++git diff --check
++git diff --stat
++```
++
++Alternatively, after verifying the checkout and backing it up, copy the full
++files from the extracted archive into the repository root, preserving paths.
++Do not copy a second top-level directory around the existing repository.
++manifest.json lists payload paths, SHA-256 checksums and original Git blob hashes.
++Patch/changes.patch and manifest.json are packaging metadata and are not included
++in the unified patch itself.
++
++## Validate and start
++
++Stop Looking Glass and back up its whole data directory before first restart.
++Run tests against a disposable database; then start normally to migrate the
++real database from schema 1 to 2. No configuration change or additional runtime
++dependency is required. If containerized, rebuild the image with these files.
++
++```bash
++.venv/bin/pip install -r requirements-dev.txt
++(cd python && ../.venv/bin/python -m pytest -q)
++.venv/bin/python python/main.py
++```
++
++Read TEST_REPORT.md for checks performed here and tests still required. Run the
++browser acceptance checklist before a live session. Save an image with maps.db,
++then select a saved source and wall set in the editor; another map can choose
++the same source without re-uploading. Sources are shared within a campaign only.
++
++## Commit (local commands; no remote write was performed)
++
++After tests and review, explicitly stage the feature's changed and new files,
++then use the supplied commit message. If using the unified patch, the message
++and patch notes are already in the checkout:
++
++```bash
++git add README.md docs/api.md docs/architecture.md docs/foundry-import.md docs/usage.md
++git add python/looking_glass/db.py python/looking_glass/repositories/wall_sources.py
++git add python/looking_glass/web/admin/api.py python/looking_glass/web/admin/campaigns.py
++git add python/looking_glass/web/admin/wall_sources.py
++git add static/js/wall_source_library.js web_html/admin/map_editor.html
++git add python/tests/test_wall_sources_repository.py python/tests/test_wall_sources_web.py
++git add Patch/README.md Patch/wall-source-library.md Patch/TEST_REPORT.md
++git add Patch/COMMIT_MESSAGE.txt Patch/sample-database-summary.json
++git commit -F Patch/COMMIT_MESSAGE.txt
++```
++
++For rollback, restore pre-upgrade code and the stopped-service data backup.
++Do not manually decrement schema_version. The original user-supplied database
++is not redistributed; only its scene names and document counts are included.
+diff --git a/Patch/TEST_REPORT.md b/Patch/TEST_REPORT.md
+new file mode 100644
+--- /dev/null
++++ b/Patch/TEST_REPORT.md
+@@ -0,0 +1,53 @@
++# Validation report
++
++## Executed in the packaging environment
++
++- 12 repository/migration pytest cases passed (fresh schema, v1 upgrade,
++  idempotent migration, persistence across reconnect, same-campaign deduplication,
++  changed bytes, campaign isolation, filename normalization, cascade deletion,
++  preservation of copied map walls, monotonic IDs and transaction rollback).
++- All bundled Python files parsed successfully with ast.parse.
++- node --check passed for static/js/wall_source_library.js.
++- The four modified executable/template baselines were verified against the Git
++  blob hashes read from the exact target commit in the preceding inspection:
++  db.py, admin/api.py, admin/campaigns.py, and admin/map_editor.html.
++- README baseline matched its pinned Git blob hash. The remaining updated docs
++  preserve the project-file baseline and append the relevant feature sections.
++- Supplied maps.db structure inspected: 13 newline-delimited JSON scene
++  records with walls. Scene names/counts are in sample-database-summary.json.
++  This is structural input inspection, not a full-app import/render test.
++
++## Not executed here
++
++FastAPI installed in this environment: False.
++The complete application suite, new HTTP workflow test and browser/live-viewer
++checks were not run here. These are supplied validation steps, not claimed passes.
++A successful syntax check is not proof of working authentication or rendering.
++
++## Required checks in the complete repository
++
++```bash
++.venv/bin/pip install -r requirements-dev.txt
++cd python
++../.venv/bin/python -m pytest -q
++```
++
++The new HTTP regression test covers a multi-set map upload with no automatic
++first-set application, non-first scene import, reuse on a differently-sized map,
++independent calibration, same-source deduplication, keeping existing alignment,
++missing/negative/out-of-range indices, CSRF, cross-campaign access, another DM's
++access, absence on the viewer app, invalid input, and deletion preserving walls.
++
++## Manual browser acceptance
++
++1. Create a map with the supplied maps.db; confirm it has no auto-applied walls.
++2. Under Saved wall sources, select the source and one of its 13 wall sets.
++3. Apply it; verify wall overlay, alignment and exact player preview.
++4. Create another image-only map, select the same source and a different set.
++5. Repeat with the same wall set on both maps and verify independent alignment.
++6. Restart the server; verify the source is still available without re-uploading.
++7. Delete the source; verify both maps retain their already-applied walls.
++8. Check a second DM cannot list/inspect/apply the first DM's campaign sources.
++9. With an assigned live viewer, apply a set and confirm refresh notification.
++10. Test file-upload errors, an empty library, refresh from another tab, cancelled
++    replacement/deletion confirmations, and keyboard-accessible controls.
+diff --git a/Patch/sample-database-summary.json b/Patch/sample-database-summary.json
+new file mode 100644
+--- /dev/null
++++ b/Patch/sample-database-summary.json
+@@ -0,0 +1,58 @@
++{
++  "source": "user-supplied maps.db; original file not redistributed",
++  "records": 13,
++  "scenes": [
++    {
++      "name": "04 Asylum Tower",
++      "wall_documents": 249
++    },
++    {
++      "name": "01 Asylum Underground Chambers - Secrets Hidden",
++      "wall_documents": 195
++    },
++    {
++      "name": "05 Asylum Roof",
++      "wall_documents": 176
++    },
++    {
++      "name": "04 Asylum Tower - Clean",
++      "wall_documents": 156
++    },
++    {
++      "name": "02 Asylum Ground Floor - Secrets Hidden",
++      "wall_documents": 488
++    },
++    {
++      "name": "01 Asylum Underground Chambers",
++      "wall_documents": 403
++    },
++    {
++      "name": "01 Asylum Underground Chambers - Clean",
++      "wall_documents": 302
++    },
++    {
++      "name": "05 Asylum Roof - Clean",
++      "wall_documents": 133
++    },
++    {
++      "name": "03 Asylum Upper Floor",
++      "wall_documents": 356
++    },
++    {
++      "name": "02 Asylum Ground Floor",
++      "wall_documents": 481
++    },
++    {
++      "name": "03 Asylum Upper Floor - Secrets Hidden",
++      "wall_documents": 356
++    },
++    {
++      "name": "03 Asylum Upper Floor - Clean",
++      "wall_documents": 252
++    },
++    {
++      "name": "02 Asylum Ground Floor - Clean",
++      "wall_documents": 293
++    }
++  ]
++}
+diff --git a/Patch/wall-source-library.md b/Patch/wall-source-library.md
+new file mode 100644
+--- /dev/null
++++ b/Patch/wall-source-library.md
+@@ -0,0 +1,86 @@
++# Reusable wall sources and explicit wall-set selection
++
++## Target
++
++- Repository: dajomas/Looking-Glass
++- Branch: features/development
++- Base commit: 3b485d96e44ed24c5593a2b8437255c02778a917
++- Delivery: full changed/new files plus a unified patch; no remote commit made.
++
++## Problem and behavior
++
++The existing parser already understands multi-scene Foundry NeDB databases,
++including the supplied maps.db. The previous HTML map-upload path always
++applied scene index 0 and discarded the upload after import. The new library
++retains validated source bytes in the application database, scoped to a campaign.
++Each map can independently choose one of the file's non-empty scene wall sets.
++The original upload is immutable and is never modified by applying a wall set.
++
++Map creation with a single-set source continues to apply immediately and also
++saves the source. With multiple sets, the source is saved but no walls are
++applied until the DM selects a set in the editor. Image-only creation remains
++supported. Existing one-off map-editor imports are unchanged and do not save
++their upload automatically.
++
++## Files and responsibilities
++
++- python/looking_glass/db.py: append migration 2; preserve migration 1 byte for byte.
++- python/looking_glass/repositories/wall_sources.py: save, list, scoped lookup,
++  delete; SHA-256 deduplication and display-filename normalization.
++- python/looking_glass/web/admin/wall_sources.py: source API routes, source/map
++  authorization and explicit scene-index validation through existing import logic.
++- python/looking_glass/web/admin/api.py: register source routes on the admin API.
++- python/looking_glass/web/admin/campaigns.py: retain valid map-upload wall sources;
++  defer multi-set application rather than silently choosing the first scene.
++- web_html/admin/map_editor.html: accessible library controls, script inclusion.
++- static/js/wall_source_library.js: save, select, inspect, apply, refresh, delete;
++  explicit scene choice, request locking, safe text insertion and error status.
++- python/tests/test_wall_sources_repository.py: migration/persistence regression tests.
++- python/tests/test_wall_sources_web.py: full-app HTTP workflow regression test.
++- README.md and docs/{usage,foundry-import,api,architecture}.md: existing documents
++  updated with workflow, lifecycle, permissions, API and backup details.
++
++## Data and lifecycle
++
++Migration 2 creates wall_sources(id, campaign_id, filename, sha256, raw,
++scene_count, created_at). The raw upload is a BLOB; campaign deletion cascades
++source deletion. UNIQUE(campaign_id, sha256) deduplicates identical bytes while
++preserving the first uploaded filename. Changed content creates another source.
++AUTOINCREMENT prevents deleted source IDs from being reused in stale clients.
++
++Source deletion cannot remove already-applied map walls: application copies
++segments through the existing apply_walls path and computes map-specific
++calibration. Sources are not shared across campaigns. A user managing two
++campaigns must save the file separately in each. Raw source data is not served
++by these endpoints; list/inspection responses contain metadata only.
++
++Applying replaces only the target map's walls. Existing fog actions and the
++per-map door setting are retained. Automatic alignment can be disabled to keep
++the current map alignment. Fog is invalidated and viewers are notified after
++the transaction. The editor reloads to show the new geometry.
++
++## Safety and limitations
++
++- Blank players before replacing walls during play. Existing fog actions replay
++  against the replacement geometry and may reveal different areas.
++- There is no live source-to-map relationship, source rename, or in-place update.
++- New source IDs distinguish changed files with identical filenames.
++- Empty scenes are filtered by the existing importer; indices refer to returned
++  non-empty wall sets. Duplicate names remain distinct by index.
++- Source persistence obeys the existing per-file upload limit but adds no total
++  storage quota. Source deletion may not immediately shrink the SQLite file.
++- Foundry LevelDB directories and SQLite .db inputs are not newly supported.
++- Existing parser behavior is retained; unrelated import/parser edge cases are
++  outside this patch. No new third-party dependency or config key is required.
++- Source APIs use the existing campaign/map manage helpers and CSRF dependency,
++  and are registered on the admin router only.
++
++## Upgrade and rollback
++
++Stop the service and back up the complete application data directory before
++applying. Restart normally: Database.migrate() applies migration 2 once.
++Retain the database, map images and configuration in backups. Test on a copy
++before upgrading a live game. Restore the pre-upgrade database/data backup and
++matching code for rollback; do not edit schema_version or remove migration rows.
++
++See README.md in this Patch directory for application commands and test status.
+diff --git a/README.md b/README.md
+--- a/README.md
++++ b/README.md
+@@ -9,6 +9,7 @@
+ - **SQLite3** storage, no external services
+ - Multiple **campaigns**, each with multiple **battle maps**
+ - Imports **Foundry VTT** scene exports (v9 to v13+), NeDB `scenes.db`/`walls.db`, plain wall lists, and Universal VTT (`.dd2vtt` / `.uvtt`)
++- Reusable campaign-scoped wall sources: save one database and choose a wall set independently for each battle map
+ - **Area reveal / hide**, undo, reveal all, reset, a door toggle, and wall alignment tools
+ - Players only ever receive a **server-rendered, fogged image**. The raw map and walls never reach the viewer port.
+ 
+@@ -72,3 +73,20 @@
+ - [Foundry VTT wall import](docs/foundry-import.md)
+ - [HTTP API](docs/api.md)
+ - [Deployment (Podman, systemd, reverse proxy)](docs/deployment.md)
++
++## Reusing a walls database
++
++In the map editor, open **Walls → Saved wall sources**, save the Foundry database,
++choose the saved source and wall set, and press **Apply selected wall set**. On a
++second map in the same campaign, choose that saved source without uploading it
++again. Each map keeps independent walls, alignment, and fog operations.
++
++Uploading a multi-set source alongside a map saves it for explicit selection in
++the editor instead of silently applying the first set. Single-set map uploads
++continue to apply automatically and are also saved for reuse. One-off editor
++imports remain available and are not automatically saved.
++
++Schema migration 2 adds source uploads to the existing application database.
++Back up the stopped application's data directory before upgrading. No new
++runtime dependencies or configuration keys are required. See
++[wall import](docs/foundry-import.md) and [patch notes](Patch/wall-source-library.md).
+diff --git a/docs/api.md b/docs/api.md
+--- a/docs/api.md
++++ b/docs/api.md
+@@ -29,6 +29,47 @@
+ maps (`/campaigns/{id}/maps`, `/maps/{id}/rename|move|image|delete`) and users
+ (`/users`, `/users/{id}/update|password|delete`, superadmin only).
+ 
++## Reusable wall sources (admin port only)
++
++All routes below require manage permission for the campaign or map, including
++read-only source inspection. Writes require CSRF. Raw source bytes are never
++returned; these routes are not registered on the viewer application.
++
++| Method | Path | Body | Result |
++|---|---|---|---|
++| GET | `/api/campaigns/{id}/wall-sources` | none | `{"ok":true,"sources":[...]}` |
++| POST | `/api/campaigns/{id}/wall-sources` | multipart `file` | Validate and save; `{"ok":true,"source":{...}}` |
++| GET | `/api/maps/{map_id}/wall-sources/{source_id}` | none | Source summary and `scenes[]`, with map-specific suggested calibration |
++| POST | `/api/maps/{map_id}/walls/from-source` | JSON below | Existing map payload plus `imported`, `scene`, and `source_id` |
++| DELETE | `/api/campaigns/{id}/wall-sources/{source_id}` | none | `{"ok":true}`; does not remove map walls |
++
++```json
++{"source_id": 1, "scene_index": 0, "use_scene_calibration": true}
++```
++
++`source_id` and `scene_index` are required. Source IDs are positive; scene indices
++are zero-based, non-negative, and must be in range. `use_scene_calibration`
++defaults to true. Missing/invalid fields use FastAPI validation errors (422);
++unknown or cross-campaign sources and out-of-range indices return 400. Campaign
++and map authorization follows the existing access helpers.
++
++Source summaries contain `id`, `filename`, `scene_count`, and `created_at`.
++Scene entries contain `index`, `name`, `format`, `walls`, `doors`, `scene_width`,
++`scene_height`, and `calibration` (`offset_x/y`, `scale_x/y`). Empty scenes are
++filtered by the existing parser; indices refer to this returned list. Duplicate
++scene names remain separate choices, distinguished by index.
++
++Uploads obey `storage.max_upload_mb`. Identical bytes in the same campaign
++return the same source and retain its original filename. Sources are immutable:
++uploading changed bytes creates a new source. Source inspection and saving do
++not modify map walls, fog, or calibration. Applying copies walls to the target
++map only, invalidates its fog cache, and notifies viewers. Existing fog actions
++are preserved and replayed against the new geometry.
++
++The existing one-off `/walls/inspect` and `/walls` APIs remain compatible and
++do not save their files automatically. The HTML map upload saves valid wall
++sources; a multi-set upload waits for selection instead of choosing index 0.
++
+ ## Viewer port (6000)
+ 
+ | Method | Path | Purpose |
+diff --git a/docs/architecture.md b/docs/architecture.md
+--- a/docs/architecture.md
++++ b/docs/architecture.md
+@@ -85,3 +85,37 @@
+ `campaigns` (owner, active map), `campaign_viewers`, `maps` (image,
+ calibration, `doors_block`, `walls_version`, `fog_version`), `walls`,
+ `fog_ops`. Migrations are append-only in `db.MIGRATIONS`.
++
++## Reusable wall source library (schema v2)
++
++Migration 2 appends `wall_sources` without changing migration 1. Each row stores
++an immutable upload (`raw` BLOB), display filename, SHA-256, parsed non-empty
++scene count, and creation time. `campaign_id` is a cascading foreign key;
++`UNIQUE(campaign_id, sha256)` deduplicates identical bytes only within a campaign.
++IDs use AUTOINCREMENT to avoid reusing a deleted source's ID in stale clients.
++
++`repositories/wall_sources.py` owns source SQL. `web/admin/wall_sources.py`
++registers routes on the existing admin API router; campaign/map access helpers
++are called before exposing metadata or looking up sources. Writes use the same
++CSRF dependency as the existing map API. Source queries always include the
++campaign ID; a manager cannot import a source from another campaign even when
++able to manage both campaigns. Viewer routes and static asset permissions do
++not grant access to source BLOBs.
++
++The editor's `wall_source_library.js` manages independent source and scene
++selectors. It clears old options on source changes, disables controls during
++requests, requires an explicit wall-set choice, and inserts uploaded names as
++text rather than HTML. Applying uses the existing `apply_walls` service path,
++then notifies viewers and reloads the editor. Each target receives independent
++wall rows and calibration; maps do not hold a live reference to a source.
++Deleting the upload therefore cannot remove already-applied walls.
++
++Saving and inspection parse outside an active DB transaction using
++`asyncio.to_thread`. Application reuses the existing synchronous import path
++inside its transaction. Source bytes are never replaced in place, keeping scene
++indices stable for the selected source. No new third-party dependency or
++configuration key is introduced. Existing one-off imports remain compatible.
++
++Back up the application database along with map images. Source uploads increase
++DB size; deleting rows frees reusable pages but does not necessarily shrink the
++SQLite file. There is a per-file upload limit, not a total library quota.
+diff --git a/docs/foundry-import.md b/docs/foundry-import.md
+--- a/docs/foundry-import.md
++++ b/docs/foundry-import.md
+@@ -13,6 +13,44 @@
+ Foundry v11+ worlds use **LevelDB directories**, which can't be uploaded
+ directly. Use *Export Data* on the scene, or unpack with the official CLI:
+ `fvtt package unpack -n <world> --type World` gives JSON per scene.
++
++## Select a wall set and reuse the database
++
++A database may contain many scenes, including variants of the same location.
++Looking Glass treats each parsed, non-empty scene as an independent wall set;
++it does not merge all scenes into one geometry.
++
++1. Open **Walls → Saved wall sources** in a map editor.
++2. Save the `.db` or JSON source. Saving validates the file but changes no walls.
++3. Select the saved source, then the desired wall set by scene name. Counts and
++   list positions help distinguish variants and duplicate names.
++4. Choose whether to auto-align, then apply and confirm replacement.
++5. On another battle map in the same campaign, select the saved database again
++   and choose the same or another wall set. The file is not uploaded again.
++
++If the source is supplied while creating a map, it is saved automatically.
++Single-set sources are applied immediately. Multi-set sources wait for explicit
++selection in the editor. Sources saved before a restart remain available after
++restart. Existing one-off editor imports are not retroactively saved; save the
++file once through the library to make it reusable.
++
++Auto-alignment is calculated separately for each target image. Disabling it
++keeps the map's current offset and scale. Each apply replaces only the target
++map's walls, retaining its door setting and fog history. Blank players before
++changing walls during play: replaying old fog actions with new walls can reveal
++different areas. Reset fog and inspect the player preview as needed.
++
++The source is immutable. Identical bytes uploaded twice within a campaign reuse
++one entry (and its original filename); edited bytes create another entry even if
++the filename is the same. Source IDs in the menu distinguish identical filenames.
++Deleting a source does not delete walls already copied to maps. Deleting the
++campaign removes its saved sources. To reuse across campaigns, save the same
++file separately in each campaign; no cross-campaign sharing is enabled.
++
++Sources live as BLOBs in the application database, obey the existing per-file
++upload limit, and are included in database backups. There is no aggregate source
++quota; remove unused uploads if storage growth matters. LevelDB directories are
++still unsupported. The `.db` suffix alone does not imply SQLite support.
+ 
+ ## Wall types
+ 
+diff --git a/docs/usage.md b/docs/usage.md
+--- a/docs/usage.md
++++ b/docs/usage.md
+@@ -17,6 +17,36 @@
+    **Alignment**.
+ 4. Add players under **Viewers** on the campaign page.
+ 
++## Reuse one wall source across battle maps
++
++1. In a map editor, expand **Walls → Saved wall sources**.
++2. Choose your `.db`, `.json`, or Universal VTT file and press **Save source**.
++   If you already uploaded it alongside a map, it is already saved.
++3. Choose **Saved source**, then explicitly choose **Wall set**. The dropdown
++   shows each scene's name, wall count, door count, and position in the source.
++   Selecting a source or wall set alone does not change the map.
++4. Leave **Auto-align for this map** enabled to derive offset and scale from
++   that scene and the current map image. Disable it to retain current alignment.
++5. Press **Apply selected wall set** and confirm replacement. The editor reloads
++   with the selected walls. Verify alignment before showing the map to players.
++6. Open or import another map in the same campaign. Choose the same saved source
++   and either the same or a different wall set; no second source upload is needed.
++
++A file uploaded with a map is automatically saved. For multiple wall sets,
++application waits for your explicit selection in the editor; for a single set,
++application remains automatic. The separate one-off import form does not save
++its file to the library.
++
++Sources persist across server restarts and are private to their campaign's
++managers. To use a file in another campaign, save it in that campaign too.
++Identical bytes uploaded twice in one campaign reuse the original source; a
++changed file is a new source. **Refresh sources** picks up changes from another
++tab. **Delete source** removes the reusable upload, not walls copied to maps.
++
++Replacing walls preserves existing fog actions and replays them against the new
++geometry. This can change what is visible. Blank the player screen first, then
++check the exact player preview and reset fog if appropriate.
++
+ ## At the table
+ 
+ - Open the viewer screen (`http://<host>:6000`) on the TV / table PC and log
+diff --git a/python/looking_glass/db.py b/python/looking_glass/db.py
+--- a/python/looking_glass/db.py
++++ b/python/looking_glass/db.py
+@@ -95,6 +95,19 @@
+     );
+     CREATE INDEX idx_fog_ops_map ON fog_ops(map_id, id);
+     """,
++    # 2 - reusable campaign-scoped wall source uploads
++    """
++    CREATE TABLE wall_sources (
++        id INTEGER PRIMARY KEY AUTOINCREMENT,
++        campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
++        filename TEXT NOT NULL,
++        sha256 TEXT NOT NULL,
++        raw BLOB NOT NULL,
++        scene_count INTEGER NOT NULL,
++        created_at TEXT NOT NULL DEFAULT (datetime('now')),
++        UNIQUE(campaign_id, sha256)
++    );
++    """,
+ ]
+ 
+ 
+diff --git a/python/looking_glass/repositories/wall_sources.py b/python/looking_glass/repositories/wall_sources.py
+new file mode 100644
+--- /dev/null
++++ b/python/looking_glass/repositories/wall_sources.py
+@@ -0,0 +1,32 @@
++"""Immutable campaign-scoped source uploads; no map depends on source lifetime."""
++
++import hashlib
++import sqlite3
++
++
++def save(conn: sqlite3.Connection, campaign_id: int, filename: str, raw: bytes, scene_count: int):
++    digest = hashlib.sha256(raw).hexdigest()
++    filename = filename.replace("\\", "/").rsplit("/", 1)[-1][:255] or "walls"
++    conn.execute(
++        "INSERT INTO wall_sources (campaign_id, filename, sha256, raw, scene_count) "
++        "VALUES (?, ?, ?, ?, ?) ON CONFLICT(campaign_id, sha256) DO NOTHING",
++        (campaign_id, filename, digest, raw, scene_count),
++    )
++    return conn.execute("SELECT * FROM wall_sources WHERE campaign_id = ? AND sha256 = ?",
++                        (campaign_id, digest)).fetchone()
++
++
++def list_for_campaign(conn: sqlite3.Connection, campaign_id: int):
++    return conn.execute(
++        "SELECT id, filename, scene_count, created_at FROM wall_sources "
++        "WHERE campaign_id = ? ORDER BY filename COLLATE NOCASE, id", (campaign_id,)
++    ).fetchall()
++
++
++def get(conn: sqlite3.Connection, campaign_id: int, source_id: int):
++    return conn.execute("SELECT * FROM wall_sources WHERE campaign_id = ? AND id = ?",
++                        (campaign_id, source_id)).fetchone()
++
++
++def delete(conn: sqlite3.Connection, campaign_id: int, source_id: int):
++    conn.execute("DELETE FROM wall_sources WHERE campaign_id = ? AND id = ?", (campaign_id, source_id))
+diff --git a/python/looking_glass/web/admin/api.py b/python/looking_glass/web/admin/api.py
+--- a/python/looking_glass/web/admin/api.py
++++ b/python/looking_glass/web/admin/api.py
+@@ -17,6 +17,7 @@
+ from ..deps import BadRequest, CsrfUserDep, CtxDep, UserDep
+ from . import notify
+ from .campaigns import _read_upload, apply_walls
++from .wall_sources import register_routes
+ 
+ router = APIRouter(prefix="/api")
+ 
+@@ -215,3 +216,6 @@
+         campaigns_repo.set_active_map(conn, campaign_id, int(mid) if mid is not None else None)
+     await notify.campaign_changed(ctx, campaign_id, "active-map")
+     return JSONResponse({"ok": True, "active_map_id": mid})
++
++
++register_routes(router, _map_payload)
+diff --git a/python/looking_glass/web/admin/campaigns.py b/python/looking_glass/web/admin/campaigns.py
+--- a/python/looking_glass/web/admin/campaigns.py
++++ b/python/looking_glass/web/admin/campaigns.py
+@@ -14,6 +14,7 @@
+ from ...repositories import maps as maps_repo
+ from ...repositories import users as users_repo
+ from ...repositories import walls as walls_repo
++from ...repositories import wall_sources as sources_repo
+ from ...services import images
+ from ...services.foundry_import import WallImportError, parse_wall_file
+ from ..access import campaign_for_manage, map_for_manage
+@@ -184,9 +185,15 @@
+         if walls is not None and walls.filename:
+             wraw = await _read_upload(ctx, walls)
+             try:
+-                count, scene = apply_walls(ctx, conn, maps_repo.get(conn, mid), wraw, walls.filename)
+-                msg += f", {count} walls from '{scene}'"
+-            except (WallImportError, BadRequest) as exc:
++                sets = parse_wall_file(wraw, walls.filename)
++                sources_repo.save(conn, campaign_id, walls.filename, wraw, len(sets))
++                if len(sets) == 1:
++                    count, scene = apply_walls(ctx, conn, maps_repo.get(conn, mid), wraw, walls.filename)
++                    msg += f", {count} walls from '{scene}'"
++                else:
++                    msg += (f", wall source saved ({len(sets)} wall sets). "
++                            "Choose a source and wall set under Saved wall sources, then apply.")
++            except (WallImportError, BadRequest, ValueError, TypeError, OverflowError) as exc:
+                 msg += f" - walls not imported: {exc}"
+     return _back(f"/maps/{mid}", ok=msg)
+ 
+diff --git a/python/looking_glass/web/admin/wall_sources.py b/python/looking_glass/web/admin/wall_sources.py
+new file mode 100644
+--- /dev/null
++++ b/python/looking_glass/web/admin/wall_sources.py
+@@ -0,0 +1,101 @@
++"""Reusable source API, registered only on the admin router."""
++
++import asyncio
++from typing import Annotated
++
++from fastapi import File, UploadFile
++from pydantic import BaseModel, Field
++
++from ...repositories import wall_sources as sources_repo
++from ...services.foundry_import import WallImportError, parse_wall_file
++from ..access import campaign_for_manage, map_for_manage
++from ..deps import BadRequest, CsrfUserDep, CtxDep, UserDep
++from . import notify
++from .campaigns import _read_upload, apply_walls
++
++
++class SourceImportIn(BaseModel):
++    source_id: int = Field(gt=0)
++    scene_index: int = Field(ge=0)
++    use_scene_calibration: bool = True
++
++
++def _source(conn, campaign_id, source_id):
++    source = sources_repo.get(conn, campaign_id, source_id)
++    if source is None:
++        raise BadRequest("Wall source not found in this campaign.")
++    return source
++
++
++def _summary(source):
++    return {k: source[k] for k in ("id", "filename", "scene_count", "created_at")}
++
++
++def _parse(raw, filename):
++    try:
++        return parse_wall_file(raw, filename)
++    except (WallImportError, ValueError, TypeError, OverflowError) as exc:
++        raise BadRequest(f"Cannot read wall source: {exc}") from exc
++
++
++def register_routes(router, map_payload):
++    @router.get("/campaigns/{campaign_id}/wall-sources")
++    def list_sources(ctx: CtxDep, user: UserDep, campaign_id: int):
++        with ctx.db.connect() as conn:
++            campaign_for_manage(conn, user, campaign_id)
++            return {"ok": True, "sources": [_summary(s) for s in
++                    sources_repo.list_for_campaign(conn, campaign_id)]}
++
++    @router.post("/campaigns/{campaign_id}/wall-sources")
++    async def save_source(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
++                          file: Annotated[UploadFile, File()]):
++        with ctx.db.connect() as conn:
++            campaign_for_manage(conn, user, campaign_id)
++        raw = await _read_upload(ctx, file)
++        sets = await asyncio.to_thread(_parse, raw, file.filename or "walls")
++        with ctx.db.connect() as conn:
++            campaign_for_manage(conn, user, campaign_id)
++            source = sources_repo.save(conn, campaign_id, file.filename or "walls", raw, len(sets))
++            return {"ok": True, "source": _summary(source)}
++
++    @router.get("/maps/{map_id}/wall-sources/{source_id}")
++    async def inspect_source(ctx: CtxDep, user: UserDep, map_id: int, source_id: int):
++        with ctx.db.connect() as conn:
++            m, _ = map_for_manage(conn, user, map_id)
++            source = _source(conn, m["campaign_id"], source_id)
++        sets = await asyncio.to_thread(_parse, source["raw"], source["filename"])
++        scenes = []
++        for index, ws in enumerate(sets):
++            cal = ws.suggested_calibration(m["width"], m["height"])
++            scenes.append({
++                "index": index, "name": ws.name, "format": ws.source_format,
++                "walls": len(ws.segments),
++                "doors": sum(w.kind in ("door", "secret") for w in ws.segments),
++                "scene_width": ws.scene_width, "scene_height": ws.scene_height,
++                "calibration": {k: getattr(cal, k) for k in
++                                ("offset_x", "offset_y", "scale_x", "scale_y")},
++            })
++        return {"ok": True, "source": _summary(source), "scenes": scenes}
++
++    @router.post("/maps/{map_id}/walls/from-source")
++    async def import_source(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: SourceImportIn):
++        with ctx.db.connect() as conn:
++            m, _ = map_for_manage(conn, user, map_id)
++            source = _source(conn, m["campaign_id"], body.source_id)
++            try:
++                count, scene = apply_walls(ctx, conn, m, source["raw"], source["filename"],
++                                           body.scene_index, body.use_scene_calibration)
++            except (WallImportError, ValueError, TypeError, OverflowError) as exc:
++                raise BadRequest(f"Cannot import wall source: {exc}") from exc
++            payload = {**map_payload(ctx, conn, map_id), "imported": count, "scene": scene,
++                       "source_id": source["id"]}
++        await notify.map_changed(ctx, map_id, "walls")
++        return payload
++
++    @router.delete("/campaigns/{campaign_id}/wall-sources/{source_id}")
++    def delete_source(ctx: CtxDep, user: CsrfUserDep, campaign_id: int, source_id: int):
++        with ctx.db.connect() as conn:
++            campaign_for_manage(conn, user, campaign_id)
++            _source(conn, campaign_id, source_id)
++            sources_repo.delete(conn, campaign_id, source_id)
++        return {"ok": True}
+diff --git a/python/tests/test_wall_sources_repository.py b/python/tests/test_wall_sources_repository.py
+new file mode 100644
+--- /dev/null
++++ b/python/tests/test_wall_sources_repository.py
+@@ -0,0 +1,112 @@
++"""Source persistence and migration tests; no web framework required."""
++
++import sqlite3
++
++import pytest
++
++from looking_glass.db import Database, MIGRATIONS
++from looking_glass.repositories import wall_sources as repo
++
++
++@pytest.fixture
++def source_db(tmp_path):
++    db = Database(tmp_path / "library.db")
++    assert db.migrate() == 2
++    with db.connect() as conn:
++        conn.execute("INSERT INTO campaigns (id, name) VALUES (1, 'A'), (2, 'B')")
++    return db
++
++
++def test_upgrade_v1_preserves_data(tmp_path):
++    db = Database(tmp_path / "old.db")
++    conn = sqlite3.connect(db.path)
++    conn.executescript(MIGRATIONS[0])
++    conn.execute("CREATE TABLE schema_version (version INTEGER NOT NULL)")
++    conn.execute("INSERT INTO schema_version VALUES (1)")
++    conn.execute("INSERT INTO campaigns (name) VALUES ('Existing')")
++    conn.commit(); conn.close()
++    assert db.migrate() == 2
++    assert db.migrate() == 2
++    with db.connect() as conn:
++        assert conn.execute("SELECT name FROM campaigns").fetchone()[0] == "Existing"
++        assert conn.execute("SELECT count(*) FROM wall_sources").fetchone()[0] == 0
++
++
++def test_round_trip_and_restart(source_db):
++    with source_db.connect() as conn:
++        saved = repo.save(conn, 1, "maps.db", b"immutable bytes", 13)
++        sid = saved["id"]
++    assert Database(source_db.path).migrate() == 2
++    with Database(source_db.path).connect() as conn:
++        source = repo.get(conn, 1, sid)
++        assert source["raw"] == b"immutable bytes"
++        assert source["scene_count"] == 13
++        assert repo.list_for_campaign(conn, 1)[0]["filename"] == "maps.db"
++        assert "raw" not in repo.list_for_campaign(conn, 1)[0].keys()
++
++
++def test_dedup_retains_first_filename(source_db):
++    with source_db.connect() as conn:
++        a = repo.save(conn, 1, "first.db", b"same", 2)
++        b = repo.save(conn, 1, "renamed.db", b"same", 2)
++        assert a["id"] == b["id"]
++        assert b["filename"] == "first.db"
++        assert len(repo.list_for_campaign(conn, 1)) == 1
++
++
++def test_changed_content_is_new_source(source_db):
++    with source_db.connect() as conn:
++        a = repo.save(conn, 1, "maps.db", b"old", 2)
++        b = repo.save(conn, 1, "maps.db", b"new", 3)
++        assert a["id"] != b["id"]
++
++
++def test_campaign_isolation(source_db):
++    with source_db.connect() as conn:
++        a = repo.save(conn, 1, "maps.db", b"same", 2)
++        b = repo.save(conn, 2, "maps.db", b"same", 2)
++        assert a["id"] != b["id"]
++        assert repo.get(conn, 2, a["id"]) is None
++        repo.delete(conn, 2, a["id"])
++        assert repo.get(conn, 1, a["id"]) is not None
++
++
++@pytest.mark.parametrize("filename, expected", [
++    ("../../maps.db", "maps.db"),
++    ("C:\\exports\\maps.db", "maps.db"),
++    ("", "walls"),
++    ("a" * 300, "a" * 255),
++])
++def test_filename_normalization(source_db, filename, expected):
++    with source_db.connect() as conn:
++        assert repo.save(conn, 1, filename, b"x", 1)["filename"] == expected
++
++
++def test_campaign_delete_cascades(source_db):
++    with source_db.connect() as conn:
++        a = repo.save(conn, 1, "maps.db", b"one", 2)
++        b = repo.save(conn, 2, "maps.db", b"two", 2)
++        conn.execute("DELETE FROM campaigns WHERE id = 1")
++        assert repo.get(conn, 1, a["id"]) is None
++        assert repo.get(conn, 2, b["id"]) is not None
++
++
++def test_source_delete_keeps_map_walls_and_ids_not_reused(source_db):
++    with source_db.connect() as conn:
++        a = repo.save(conn, 1, "maps.db", b"one", 1)
++        conn.execute("INSERT INTO maps (id,campaign_id,name,image_file,width,height) "
++                     "VALUES (1,1,'Map','x.png',400,200)")
++        conn.execute("INSERT INTO walls (map_id,x1,y1,x2,y2) VALUES (1,0,0,10,10)")
++        repo.delete(conn, 1, a["id"])
++        b = repo.save(conn, 1, "maps.db", b"two", 1)
++        assert b["id"] > a["id"]
++        assert conn.execute("SELECT count(*) FROM walls WHERE map_id = 1").fetchone()[0] == 1
++
++
++def test_transaction_rollback(source_db):
++    with pytest.raises(RuntimeError):
++        with source_db.connect() as conn:
++            repo.save(conn, 1, "maps.db", b"rollback", 1)
++            raise RuntimeError("abort")
++    with source_db.connect() as conn:
++        assert not repo.list_for_campaign(conn, 1)
+diff --git a/python/tests/test_wall_sources_web.py b/python/tests/test_wall_sources_web.py
+new file mode 100644
+--- /dev/null
++++ b/python/tests/test_wall_sources_web.py
+@@ -0,0 +1,82 @@
++"""HTTP workflow regression tests, using the existing full-app fixtures."""
++
++import json
++
++from conftest import png_bytes, two_room_scene
++from test_web import env, login, csrf_of  # noqa: F401
++
++
++def _campaign(client, token, name):
++    r = client.post("/campaigns", data={"csrf_token": token, "name": name}, follow_redirects=False)
++    assert r.status_code == 303
++    return int(r.headers["location"].split("/")[2].split("?")[0])
++
++
++def _map(client, token, cid, size=(400, 200), walls=None):
++    files = {"image": ("map.png", png_bytes(*size), "image/png")}
++    if walls is not None:
++        files["walls"] = ("maps.db", walls, "application/octet-stream")
++    r = client.post(f"/campaigns/{cid}/maps", data={"csrf_token": token},
++                    files=files, follow_redirects=False)
++    assert r.status_code == 303, r.text
++    return int(r.headers["location"].split("/")[2].split("?")[0])
++
++
++def _database():
++    a = dict(two_room_scene(), _id="a", name="Cellar")
++    b = dict(two_room_scene(door=True), _id="b", name="Tower")
++    return "\n".join(json.dumps(s) for s in (a, b)).encode()
++
++
++def test_saved_source_reused_on_independent_maps(env):
++    ctx, admin, viewer = env
++    dm = login(admin, "dm", "dmpass123")
++    token = csrf_of(dm); hdr = {"X-CSRF-Token": token}
++    cid = _campaign(dm, token, "Source library")
++    mid1 = _map(dm, token, cid, walls=_database())
++    url = f"/api/campaigns/{cid}/wall-sources"
++    sources = dm.get(url).json()["sources"]
++    assert len(sources) == 1 and sources[0]["scene_count"] == 2
++    sid = sources[0]["id"]
++    assert dm.get(f"/api/maps/{mid1}").json()["walls"] == []
++    assert 'saved-wall-library' in dm.get(f"/maps/{mid1}").text
++    scenes = dm.get(f"/api/maps/{mid1}/wall-sources/{sid}").json()["scenes"]
++    assert [s["name"] for s in scenes] == ["Cellar", "Tower"]
++    result = dm.post(f"/api/maps/{mid1}/walls/from-source", headers=hdr,
++                     json={"source_id": sid, "scene_index": 1})
++    assert result.status_code == 200, result.text
++    assert result.json()["scene"] == "Tower" and result.json()["imported"] == 7
++    mid2 = _map(dm, token, cid, size=(800, 400))
++    r = dm.post(f"/api/maps/{mid2}/walls/from-source", headers=hdr,
++                json={"source_id": sid, "scene_index": 0})
++    assert r.status_code == 200 and r.json()["imported"] == 5
++    assert r.json()["calibration"]["scale_x"] == 2
++    before = dm.get(f"/api/maps/{mid1}").json()
++    assert before["calibration"]["scale_x"] == 1 and len(before["walls"]) == 7
++    # Duplicate bytes retain the original immutable source.
++    r = dm.post(url, headers=hdr, files={"file": ("renamed.db", _database())})
++    assert r.status_code == 200 and r.json()["source"]["id"] == sid
++    # A valid same-campaign import can keep existing calibration.
++    r = dm.post(f"/api/maps/{mid2}/walls/from-source", headers=hdr,
++                json={"source_id": sid, "scene_index": 1, "use_scene_calibration": False})
++    assert r.status_code == 200 and r.json()["calibration"]["scale_x"] == 2
++    for body, expected in [({"source_id": sid}, 422),
++                           ({"source_id": sid, "scene_index": -1}, 422),
++                           ({"source_id": sid, "scene_index": 999}, 400)]:
++        assert dm.post(f"/api/maps/{mid1}/walls/from-source", json=body, headers=hdr).status_code == expected
++    assert dm.post(f"/api/maps/{mid1}/walls/from-source",
++                   json={"source_id": sid, "scene_index": 0}).status_code == 403
++    other = _campaign(dm, token, "Other campaign")
++    other_map = _map(dm, token, other)
++    assert dm.get(f"/api/maps/{other_map}/wall-sources/{sid}").status_code == 400
++    assert dm.post(f"/api/maps/{other_map}/walls/from-source", headers=hdr,
++                   json={"source_id": sid, "scene_index": 0}).status_code == 400
++    dm2 = login(admin, "dm2", "dmpass123")
++    assert dm2.get(url).status_code == 403
++    alice = login(viewer, "alice", "alicepass")
++    assert alice.get(url).status_code == 404
++    assert dm.post(url, headers=hdr, files={"file": ("bad.db", b"not json")}).status_code == 400
++    assert dm.delete(f"{url}/{sid}", headers=hdr).status_code == 200
++    assert dm.get(url).json()["sources"] == []
++    assert dm.get(f"/api/maps/{mid1}").json()["walls"] == before["walls"]
++    assert dm.get(f"/api/maps/{mid1}/wall-sources/{sid}").status_code == 400
+diff --git a/static/js/wall_source_library.js b/static/js/wall_source_library.js
+new file mode 100644
+--- /dev/null
++++ b/static/js/wall_source_library.js
+@@ -0,0 +1,94 @@
++/* Campaign-scoped source library. Uploaded names are always text, not HTML. */
++(function () {
++  "use strict";
++  const panel = document.getElementById("saved-wall-library");
++  if (!panel || !window.LG_MAP) return;
++  const api = window.LGApi;
++  const mapUrl = `/api/maps/${window.LG_MAP.id}`;
++  const sourcesUrl = `/api/campaigns/${window.LG_MAP.campaign_id}/wall-sources`;
++  const source = document.getElementById("saved-source");
++  const scene = document.getElementById("saved-scene");
++  const info = document.getElementById("saved-scene-info");
++  const status = document.getElementById("source-status");
++  const apply = document.getElementById("source-apply");
++  const remove = document.getElementById("source-delete");
++  const file = document.getElementById("source-file");
++  let sources = [], scenes = [], busy = false;
++
++  function placeholder(select, label) { select.replaceChildren(new Option(label, "")); }
++  function clearScenes() {
++    scenes = [];
++    placeholder(scene, "Choose a wall set");
++    info.textContent = "";
++  }
++  function controls() {
++    for (const el of panel.querySelectorAll("button, input, select")) el.disabled = busy;
++    source.disabled = busy || !sources.length;
++    scene.disabled = busy || !scenes.length;
++    apply.disabled = busy || !source.value || scene.value === "";
++    remove.disabled = busy || !source.value;
++  }
++  async function run(task) {
++    if (busy) return;
++    busy = true; controls(); status.textContent = "Working...";
++    try { await task(); }
++    catch (error) { status.textContent = error.message || String(error); }
++    finally { busy = false; controls(); }
++  }
++  async function refresh(selected = "") {
++    clearScenes(); sources = []; placeholder(source, "Choose a saved source");
++    const data = await api.get(sourcesUrl);
++    sources = data.sources;
++    for (const item of sources) {
++      source.add(new Option(`${item.filename} (${item.scene_count} wall sets) [#${item.id}]`, String(item.id)));
++    }
++    if (sources.some(item => String(item.id) === String(selected))) {
++      source.value = String(selected); await inspect();
++    }
++    status.textContent = sources.length ? "Choose a source and wall set." : "No saved sources yet.";
++  }
++  async function inspect() {
++    clearScenes();
++    if (!source.value) { status.textContent = "Choose a saved source."; return; }
++    const data = await api.get(`${mapUrl}/wall-sources/${source.value}`);
++    scenes = data.scenes;
++    for (const item of scenes) {
++      scene.add(new Option(`${item.name} — ${item.walls} walls, ${item.doors} doors [${item.index + 1}]`, String(item.index)));
++    }
++    status.textContent = "Choose the wall set to apply. No walls have been changed.";
++  }
++  source.addEventListener("change", () => run(inspect));
++  scene.addEventListener("change", () => {
++    const item = scenes.find(s => String(s.index) === scene.value);
++    info.textContent = item ? `${item.scene_width || "?"} × ${item.scene_height || "?"} source pixels; ` +
++      `suggested offset ${item.calibration.offset_x}, ${item.calibration.offset_y}; ` +
++      `scale ${item.calibration.scale_x.toFixed(4)}, ${item.calibration.scale_y.toFixed(4)}` : "";
++    controls();
++  });
++  document.getElementById("source-save").addEventListener("submit", event => {
++    event.preventDefault(); if (!file.files.length) return;
++    run(async () => {
++      const form = new FormData(); form.append("file", file.files[0]);
++      const data = await api.post(sourcesUrl, form);
++      file.value = ""; await refresh(data.source.id);
++      status.textContent = "Source saved. Choose a wall set, then apply it to this map.";
++    });
++  });
++  document.getElementById("source-refresh").addEventListener("click", () => run(() => refresh()));
++  apply.addEventListener("click", () => {
++    const item = scenes.find(s => String(s.index) === scene.value);
++    if (!item || !source.value) return;
++    if (!window.confirm(`Replace this map's walls with "${item.name}"? Existing fog actions will be replayed against the new walls; blank the player screen first if necessary.`)) return;
++    const body = {source_id: Number(source.value), scene_index: item.index,
++      use_scene_calibration: document.getElementById("saved-auto-align").checked};
++    run(async () => {
++      await api.post(`${mapUrl}/walls/from-source`, body); window.location.reload();
++    });
++  });
++  remove.addEventListener("click", () => {
++    const item = sources.find(s => String(s.id) === source.value);
++    if (!item || !window.confirm(`Delete saved source "${item.filename}"? Walls already applied to maps will remain.`)) return;
++    run(async () => { await api.del(`${sourcesUrl}/${item.id}`); await refresh(); });
++  });
++  clearScenes(); run(() => refresh());
++})();
+diff --git a/web_html/admin/map_editor.html b/web_html/admin/map_editor.html
+--- a/web_html/admin/map_editor.html
++++ b/web_html/admin/map_editor.html
+@@ -50,6 +50,29 @@
+     <h3>Walls</h3>
+     <p class="small"><strong id="wall-count">{{ map.wall_count }}</strong> segments
+       <span class="muted" id="wall-source">{{ map.walls_source }}</span></p>
++    <details open id="saved-wall-library">
++      <summary>Saved wall sources</summary>
++      <p class="muted small">Save a database once, then choose a wall set for each map in this campaign.</p>
++      <form id="source-save" class="stack">
++        <label>Save Foundry / Universal VTT source
++          <input id="source-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
++        </label>
++        <button type="submit">Save source</button>
++      </form>
++      <div class="stack">
++        <label>Saved source <select id="saved-source" disabled></select></label>
++        <label>Wall set <select id="saved-scene" disabled></select></label>
++        <p id="saved-scene-info" class="muted small"></p>
++        <label class="check"><input id="saved-auto-align" type="checkbox" checked> Auto-align for this map</label>
++        <div class="btn-row">
++          <button id="source-apply" type="button" class="primary" disabled>Apply selected wall set</button>
++          <button id="source-refresh" type="button">Refresh sources</button>
++          <button id="source-delete" type="button" class="danger" disabled>Delete source</button>
++        </div>
++        <p id="source-status" class="small" role="status" aria-live="polite"></p>
++      </div>
++    </details>
++    <p class="muted small">The import below is one-off. Use Saved wall sources to reuse a file without uploading it again.</p>
+     <form id="wall-import" class="stack">
+       <label>Foundry VTT / Universal VTT file
+         <input id="wall-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
+@@ -114,4 +137,5 @@
+ <script src="/static/js/api.js"></script>
+ <script src="/static/js/pan_zoom.js"></script>
+ <script src="/static/js/admin_map_editor.js"></script>
++<script src="/static/js/wall_source_library.js"></script>
+ {% endblock %}

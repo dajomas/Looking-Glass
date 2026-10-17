@@ -4,11 +4,12 @@ A fog of war tool for D&D battle maps. The DM imports a battle map plus its
 **Foundry VTT walls**, then clicks a room in the admin screen. The whole area
 enclosed by walls is revealed on the players' viewer screen, live.
 
-- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **5100**
+- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **6000**
 - **RBAC**: `superadmin` (manages users), `admin` (manages own campaigns and assigns viewers), `viewer` (views assigned campaigns only)
 - **SQLite3** storage, no external services
 - Multiple **campaigns**, each with multiple **battle maps**
 - Imports **Foundry VTT** scene exports (v9 to v13+), NeDB `scenes.db`/`walls.db`, plain wall lists, and Universal VTT (`.dd2vtt` / `.uvtt`)
+- Reusable campaign-scoped wall sources: save one database and choose a wall set independently for each battle map
 - **Area reveal / hide**, undo, reveal all, reset, a door toggle, and wall alignment tools
 - Players only ever receive a **server-rendered, fogged image**. The raw map and walls never reach the viewer port.
 
@@ -28,7 +29,11 @@ log. You must change it at first login. Alternatively set
 | Portal | URL | Who |
 |---|---|---|
 | Admin (DM) | `http://<host>:5000` | superadmin, admin |
-| Viewer (players) | `http://<host>:5100` | anyone assigned to a campaign |
+| Viewer (players) | `http://<host>:6000` | anyone assigned to a campaign |
+
+> **Port 6000 caveat:** Chrome and Firefox block port 6000 (X11) by default with
+> `ERR_UNSAFE_PORT`. Use a reverse proxy, change `server.viewer_port`, or allow
+> the port in the browser. See [docs/deployment.md](docs/deployment.md).
 
 ## Repository layout
 
@@ -68,3 +73,20 @@ cd python && ../.venv/bin/python -m pytest -q
 - [Foundry VTT wall import](docs/foundry-import.md)
 - [HTTP API](docs/api.md)
 - [Deployment (Podman, systemd, reverse proxy)](docs/deployment.md)
+
+## Reusing a walls database
+
+In the map editor, open **Walls → Saved wall sources**, save the Foundry database,
+choose the saved source and wall set, and press **Apply selected wall set**. On a
+second map in the same campaign, choose that saved source without uploading it
+again. Each map keeps independent walls, alignment, and fog operations.
+
+Uploading a multi-set source alongside a map saves it for explicit selection in
+the editor instead of silently applying the first set. Single-set map uploads
+continue to apply automatically and are also saved for reuse. One-off editor
+imports remain available and are not automatically saved.
+
+Schema migration 2 adds source uploads to the existing application database.
+Back up the stopped application's data directory before upgrading. No new
+runtime dependencies or configuration keys are required. See
+[wall import](docs/foundry-import.md) and [patch notes](Patch/wall-source-library.md).

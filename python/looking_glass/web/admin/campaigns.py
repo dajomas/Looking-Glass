@@ -14,6 +14,7 @@ from ...repositories import campaigns as campaigns_repo
 from ...repositories import maps as maps_repo
 from ...repositories import users as users_repo
 from ...repositories import walls as walls_repo
+from ...repositories import wall_sources as sources_repo
 from ...services import images
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, map_for_manage
@@ -184,9 +185,15 @@ async def upload_map(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
         if walls is not None and walls.filename:
             wraw = await _read_upload(ctx, walls)
             try:
-                count, scene = apply_walls(ctx, conn, maps_repo.get(conn, mid), wraw, walls.filename)
-                msg += f", {count} walls from '{scene}'"
-            except (WallImportError, BadRequest) as exc:
+                sets = parse_wall_file(wraw, walls.filename)
+                sources_repo.save(conn, campaign_id, walls.filename, wraw, len(sets))
+                if len(sets) == 1:
+                    count, scene = apply_walls(ctx, conn, maps_repo.get(conn, mid), wraw, walls.filename)
+                    msg += f", {count} walls from '{scene}'"
+                else:
+                    msg += (f", wall source saved ({len(sets)} wall sets). "
+                            "Choose a source and wall set under Saved wall sources, then apply.")
+            except (WallImportError, BadRequest, ValueError, TypeError, OverflowError) as exc:
                 msg += f" - walls not imported: {exc}"
     return _back(f"/maps/{mid}", ok=msg)
 

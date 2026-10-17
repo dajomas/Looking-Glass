@@ -17,6 +17,7 @@ from ..access import campaign_for_manage, fog_inputs, map_for_manage
 from ..deps import BadRequest, CsrfUserDep, CtxDep, UserDep
 from . import notify
 from .campaigns import _read_upload, apply_walls
+from .wall_sources import register_routes
 
 router = APIRouter(prefix="/api")
 
@@ -215,3 +216,6 @@ async def api_set_active(ctx: CtxDep, user: CsrfUserDep, campaign_id: int, body:
         campaigns_repo.set_active_map(conn, campaign_id, int(mid) if mid is not None else None)
     await notify.campaign_changed(ctx, campaign_id, "active-map")
     return JSONResponse({"ok": True, "active_map_id": mid})
+
+
+register_routes(router, _map_payload)

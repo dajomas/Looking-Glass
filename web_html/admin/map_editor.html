@@ -50,6 +50,29 @@
     <h3>Walls</h3>
     <p class="small"><strong id="wall-count">{{ map.wall_count }}</strong> segments
       <span class="muted" id="wall-source">{{ map.walls_source }}</span></p>
+    <details open id="saved-wall-library">
+      <summary>Saved wall sources</summary>
+      <p class="muted small">Save a database once, then choose a wall set for each map in this campaign.</p>
+      <form id="source-save" class="stack">
+        <label>Save Foundry / Universal VTT source
+          <input id="source-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
+        </label>
+        <button type="submit">Save source</button>
+      </form>
+      <div class="stack">
+        <label>Saved source <select id="saved-source" disabled></select></label>
+        <label>Wall set <select id="saved-scene" disabled></select></label>
+        <p id="saved-scene-info" class="muted small"></p>
+        <label class="check"><input id="saved-auto-align" type="checkbox" checked> Auto-align for this map</label>
+        <div class="btn-row">
+          <button id="source-apply" type="button" class="primary" disabled>Apply selected wall set</button>
+          <button id="source-refresh" type="button">Refresh sources</button>
+          <button id="source-delete" type="button" class="danger" disabled>Delete source</button>
+        </div>
+        <p id="source-status" class="small" role="status" aria-live="polite"></p>
+      </div>
+    </details>
+    <p class="muted small">The import below is one-off. Use Saved wall sources to reuse a file without uploading it again.</p>
     <form id="wall-import" class="stack">
       <label>Foundry VTT / Universal VTT file
         <input id="wall-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
@@ -114,4 +137,5 @@
 <script src="/static/js/api.js"></script>
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/admin_map_editor.js"></script>
+<script src="/static/js/wall_source_library.js"></script>
 {% endblock %}
