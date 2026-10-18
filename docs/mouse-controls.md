@@ -59,7 +59,8 @@ clicks and touch taps retain the selected tool's behavior.
 
 The popup contains Endpoint 1 X/Y, Endpoint 2 X/Y, and all six wall types. Values
 are map-image coordinates; mouse zoom and endpoint snapping do not rescale or
-snap typed values. **Apply to draft** (or Enter in a coordinate field) makes one
+snap typed values. Coordinates outside the image are clamped to its edge when
+applying; existing outside endpoints are shown at the edge when opening Edit. **Apply to draft** (or Enter in a coordinate field) makes one
 undoable local edit; **Cancel** or Escape makes none. Tab and Shift+Tab stay
 inside the modal, and viewport shortcuts do not run while it is open.
 
@@ -67,3 +68,16 @@ After applying, use Undo/Redo as usual. Save wall set persists changes; Download
 UVTT includes unsaved draft edits without applying them to players. The existing
 screen-pixel wall-width controls, fog controls and player display are unchanged.
 See [wall-editor.md](wall-editor.md) for validation and save/boundary details.
+
+## Dedicated wall editor: clicks outside the artwork
+
+In Add wall mode, clicking outside the image (within the viewport) places the
+pending dot at the nearest image edge/corner. Both endpoints are clamped to
+X = 0..image width and Y = 0..image height, including when endpoint snapping is
+on. Panning or zooming never changes these bounds into browser-window bounds.
+
+Edit, right-click and Ctrl+left-click may select a visible imported wall outside
+the image. The dialog shows bounded coordinates, but Apply is still required to
+change the draft. Typed outside values are also clamped on Apply. Cancel/Escape
+leaves the original coordinates unchanged; Undo restores a corrected wall.
+If clamping would make both endpoints coincide, no edit is applied.

@@ -36,18 +36,20 @@ map_origin is zero. Reimport with auto-align restores the original size.
 ## Editing exact endpoints and wall type
 
 1. In the wall editor, choose **Edit** in the Tool menu and left-click/tap a wall,
-   or simply **right-click a wall from any selected tool**.
+   or use **right-click / Ctrl+left-click** from any selected tool.
 2. Click within 10 screen pixels of a wall. The nearest segment is selected;
    zoom in when several lines overlap. Right-drag still pans and does not select.
    The shortcut does not change the selected tool or perform its primary action.
    Opening the dialog cancels a pending Add-wall start. A miss leaves the draft
    and pending start unchanged. The browser context menu stays suppressed inside
    the map viewport; touch users can keep using Edit with a primary tap.
-3. The modal opens with the selected wall's full-precision Endpoint 1 X/Y,
-   Endpoint 2 X/Y and wall type. Coordinates are calibrated map-image pixels,
-   not screen pixels or grid units. Decimal and negative coordinates are allowed,
-   including endpoints outside the artwork, subject to the existing coordinate
-   limit of +/-10000000. All four numbers must be finite; endpoints must differ.
+3. The modal opens with Endpoint 1 X/Y, Endpoint 2 X/Y and the wall type.
+   Coordinates are calibrated map-image pixels, not screen pixels or grid units.
+   In-bounds decimals retain full precision. Existing outside endpoints are shown
+   at the nearest image edge with a correction notice; the draft remains unchanged
+   until Apply. Finite values typed outside the image are clamped on Apply to
+   X = 0..image width and Y = 0..image height. Missing/non-finite values are rejected.
+   The endpoints must still differ after clamping.
 4. Select any of the six wall types and choose **Apply to draft**, or press Enter
    in a coordinate field. Validation errors keep the dialog and draft unchanged.
 5. Use **Save wall set** to persist the draft and create/reuse its UVTT source,
@@ -63,12 +65,33 @@ input undo stays local to the input, and closing returns focus to the viewport.
 Coordinate-only edits preserve an imported segment's blocking flag. Changing its
 type uses the existing retyping rules: ethereal is non-blocking; other types are
 blocking. Map-level disabled types and Doors split areas still apply when saving.
-Snapping is not applied to typed coordinates, so the entered values stay exact.
+Endpoint snapping is not applied to typed coordinates. In-bounds values stay
+exact; image-edge clamping applies independently to out-of-bounds values.
 
 The popup does not send an HTTP request or autosave. Existing save/export APIs,
 CSRF checks, stale-save protection and boundary safety guidance remain unchanged.
 For installation and rollback, see [the Edit-tool patch note](../Patch/wall-editor-edit-tool.md)
 and [the right-click shortcut update](../Patch/wall-editor-right-click-edit.md).
+
+## Image-edge placement
+
+With Add wall selected, a click/tap outside the artwork but inside the viewport
+places the pending dot on the nearest image edge (or corner) instead of ignoring
+the click. The second endpoint follows the same rule. Endpoint snapping also
+uses bounded candidate coordinates, so an imported endpoint beyond the artwork
+cannot pull a new point outside it.
+
+Bounds are the image's coordinate rectangle: X from 0 through image width, Y
+from 0 through image height, inclusively. They are not the browser viewport edges.
+The same map coordinates are used after panning, zooming or fitting the map.
+A second click that would create a zero-length segment is rejected as before.
+
+A visible imported wall outside the artwork can be selected with Edit/right-click/
+Ctrl+left-click. Its endpoint fields show the edge-clamped positions. Apply makes
+that correction one undoable draft operation; Cancel/Escape preserves the original
+outside coordinates. Merely loading/selecting a wall does not rewrite stored data.
+Other unedited imported walls are retained, even if they extend beyond the image.
+Saving and exporting continue to use the existing APIs and data format.
 
 ## Boundaries and safety
 

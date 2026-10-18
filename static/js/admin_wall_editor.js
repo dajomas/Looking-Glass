@@ -76,18 +76,27 @@
     });
     return index;
   }
+  function imagePoint(x, y) {
+    return { x: Math.max(0, Math.min(state.width, x)), y: Math.max(0, Math.min(state.height, y)) };
+  }
+  function imageCoordinates(coords) {
+    const a = imagePoint(coords[0], coords[1]), b = imagePoint(coords[2], coords[3]);
+    return [a.x, a.y, b.x, b.y];
+  }
   function snapped(x, y) {
-    let pt = { x, y }, best = 10 / pz.scale;
+    const point = imagePoint(x, y);
+    let pt = point, best = 10 / pz.scale;
     if ($("snap-ends").checked) {
       for (const w of walls) for (const [a, b] of [[w[0], w[1]], [w[2], w[3]]]) {
-        const dist = Math.hypot(x - a, y - b);
-        if (dist <= best) { best = dist; pt = { x: a, y: b }; }
+        const candidate = imagePoint(a, b);
+        const dist = Math.hypot(point.x - candidate.x, point.y - candidate.y);
+        if (dist <= best) { best = dist; pt = candidate; }
       }
     }
     return pt;
   }
   function onTap(x, y, event) {
-    if (busy || editDialog.open || !state || x < 0 || y < 0 || x > state.width || y > state.height) return;
+    if (busy || editDialog.open || !state || !Number.isFinite(x) || !Number.isFinite(y)) return;
     // Secondary tap or Ctrl-primary tap edits from any tool; PanZoom filters drags.
     if (event?.button === 2 || (event?.button === 0 && event.ctrlKey)) {
       const index = nearest(x, y);
@@ -116,7 +125,13 @@
     editing = { index, before };
     start = null;
     render();
-    coordinateFields.forEach((input, i) => { input.value = String(before[i]); input.removeAttribute("aria-invalid"); });
+    const coords = imageCoordinates(before);
+    coordinateFields.forEach((input, i) => {
+      input.value = String(coords[i]); input.min = "0";
+      input.max = String(i % 2 === 0 ? state.width : state.height);
+      input.removeAttribute("aria-invalid");
+    });
+    $("wall-edit-clamp-note").hidden = coords.every((value, i) => value === before[i]);
     $("wall-edit-kind").value = before[4];
     $("wall-edit-title").textContent = `Edit wall ${index + 1}`;
     editError.textContent = ""; editError.hidden = true;
@@ -133,14 +148,17 @@
     if (!editing || busy || !state) return;
     editError.hidden = true;
     coordinateFields.forEach(input => input.removeAttribute("aria-invalid"));
-    const coords = coordinateFields.map(input => input.valueAsNumber);
-    const invalid = coords.findIndex(value => !Number.isFinite(value) || Math.abs(value) > 10000000);
+    const entered = coordinateFields.map(input => input.valueAsNumber);
+    const invalid = entered.findIndex(value => !Number.isFinite(value));
     if (invalid >= 0) {
-      editFailure("Enter all four coordinates as finite numbers between -10000000 and 10000000.", coordinateFields[invalid]);
+      editFailure("Enter all four coordinates as finite numbers.", coordinateFields[invalid]);
       return;
     }
+    const coords = imageCoordinates(entered);
+    coordinateFields.forEach((input, i) => { input.value = String(coords[i]); });
+    if (coords.some((value, i) => value !== entered[i])) $("wall-edit-clamp-note").hidden = false;
     if (coords[0] === coords[2] && coords[1] === coords[3]) {
-      editFailure("The two endpoints must differ.", coordinateFields[2]);
+      editFailure("The two endpoints must differ after moving outside points to the image edge.", coordinateFields[2]);
       return;
     }
     const kind = $("wall-edit-kind").value;
