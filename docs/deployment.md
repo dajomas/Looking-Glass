@@ -42,10 +42,8 @@ If the account already exists, do not recreate it. Ensure that the
 
 ### Install the application
 
-Replace `REPOSITORY_URL` with the repository's clone URL:
-
 ```bash
-sudo git clone REPOSITORY_URL /opt/looking-glass
+sudo git clone https://github.com/dajomas/Looking-Glass.git /opt/looking-glass
 cd /opt/looking-glass
 ```
 
