@@ -5,6 +5,9 @@
   const id = window.LG_MAP.id, url = `/api/maps/${id}/wall-editor`;
   const vp = $("wall-viewport"), stage = $("wall-stage"), svg = $("wall-overlay"), img = $("wall-image");
   const kinds = new Set(["wall", "door", "secret", "window", "invisible", "ethereal"]);
+  const editDialog = $("wall-edit-dialog"), editForm = $("wall-edit-form"), editError = $("wall-edit-error");
+  const coordinateFields = ["wall-edit-x1", "wall-edit-y1", "wall-edit-x2", "wall-edit-y2"].map($);
+  let editing = null;
   let state = null, walls = [], saved = "[]", start = null, undo = [], redo = [], busy = false;
   let wallWidth = 2;
   const pz = new PanZoom(vp, stage, { onTap, onChange: render });
@@ -79,7 +82,7 @@
     return pt;
   }
   function onTap(x, y) {
-    if (busy || !state || x < 0 || y < 0 || x > state.width || y > state.height) return;
+    if (busy || editDialog.open || !state || x < 0 || y < 0 || x > state.width || y > state.height) return;
     const tool = $("wall-tool").value, kind = $("wall-kind").value;
     if (tool === "add") {
       const pt = snapped(x, y);
@@ -89,11 +92,77 @@
     } else {
       const index = nearest(x, y);
       if (index < 0) { status("Click within 10 screen pixels of a wall."); return; }
+      if (tool === "edit") { openWallEdit(index); return; }
       const before = walls[index].slice();
       mutate({ index, before, after: tool === "remove" ? null : [...before.slice(0, 4), kind, kind !== "ethereal"] });
     }
     status("Draft changed. Save applies the walls; Download does not.");
   }
+  function openWallEdit(index) {
+    if (busy || editDialog.open || !walls[index]) return;
+    const before = walls[index].slice();
+    editing = { index, before };
+    start = null;
+    render();
+    coordinateFields.forEach((input, i) => { input.value = String(before[i]); input.removeAttribute("aria-invalid"); });
+    $("wall-edit-kind").value = before[4];
+    $("wall-edit-title").textContent = `Edit wall ${index + 1}`;
+    editError.textContent = ""; editError.hidden = true;
+    editDialog.showModal();
+    coordinateFields[0].focus();
+    coordinateFields[0].select();
+  }
+  function editFailure(message, input) {
+    editError.textContent = message; editError.hidden = false;
+    if (input) { input.setAttribute("aria-invalid", "true"); input.focus(); }
+  }
+  editForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    if (!editing || busy || !state) return;
+    editError.hidden = true;
+    coordinateFields.forEach(input => input.removeAttribute("aria-invalid"));
+    const coords = coordinateFields.map(input => input.valueAsNumber);
+    const invalid = coords.findIndex(value => !Number.isFinite(value) || Math.abs(value) > 10000000);
+    if (invalid >= 0) {
+      editFailure("Enter all four coordinates as finite numbers between -10000000 and 10000000.", coordinateFields[invalid]);
+      return;
+    }
+    if (coords[0] === coords[2] && coords[1] === coords[3]) {
+      editFailure("The two endpoints must differ.", coordinateFields[2]);
+      return;
+    }
+    const kind = $("wall-edit-kind").value;
+    if (!kinds.has(kind)) { editFailure("Choose a supported wall type.", $("wall-edit-kind")); return; }
+    const { index, before } = editing;
+    if (!walls[index] || JSON.stringify(walls[index]) !== JSON.stringify(before)) {
+      editFailure("The selected wall changed. Cancel and select it again.");
+      return;
+    }
+    // Moving an imported wall must not silently enable a passive segment.
+    const blocks = kind === "ethereal" ? false : kind === before[4] ? before[5] : true;
+    const after = [...coords, kind, blocks];
+    if (JSON.stringify(after) === JSON.stringify(before)) {
+      editDialog.close(); status("No changes made."); return;
+    }
+    mutate({ index, before, after });
+    editDialog.close();
+    status("Wall updated in draft. Save wall set applies it; Download does not.");
+  });
+  $("wall-edit-cancel").onclick = () => editDialog.close();
+  editDialog.addEventListener("close", () => {
+    if (!editDialog.open) { editing = null; vp.focus(); }
+  });
+  // Preserve native input undo and dialog Escape handling, not viewport shortcuts.
+  editDialog.addEventListener("keydown", (event) => {
+    event.stopPropagation();
+    if (event.key !== "Tab") return;
+    const first = coordinateFields[0], last = $("wall-edit-cancel");
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first.focus();
+    }
+  });
   function body() {
     const ppg = Number($("pixels-per-grid").value);
     if (!Number.isFinite(ppg) || ppg <= 0 || ppg > 1e7) throw new Error("Enter a positive pixels-per-grid value (up to 10000000).");
@@ -129,7 +198,7 @@
   $("wall-zoom-in").onclick = () => pz.zoomCenter(1.25); $("wall-zoom-out").onclick = () => pz.zoomCenter(0.8); $("wall-fit").onclick = () => pz.fit();
   window.addEventListener("beforeunload", (e) => { if (dirty()) { e.preventDefault(); e.returnValue = ""; } });
   window.addEventListener("keydown", (e) => {
-    if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if (editDialog.open || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
     if (e.key === "Escape") { start = null; render(); }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); $(e.shiftKey ? "wall-redo" : "wall-undo").click(); }
     if (e.key.toLowerCase() === "f") pz.fit();

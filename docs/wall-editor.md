@@ -8,7 +8,7 @@ walls, not an original uploaded source. Maps without walls can start from scratc
 
 Select Add wall and a type, then click its two endpoints. The nearest existing
 endpoint within 10 screen pixels is used when snapping is enabled. Escape cancels
-a pending start. Choose Remove wall or Change wall type, then click within
+a pending start. Choose Remove wall, Change wall type or Edit, then click within
 10 screen pixels of the target. Where lines overlap, the closest line wins;
 equally close lines prefer the most recently listed segment. Zoom in to disambiguate.
 Drag pans, wheel zooms, F fits. Undo/Redo covers up to 1000 draft operations;
@@ -33,11 +33,43 @@ units, not the overlay's position or size. Export coordinates are calibrated
 image pixels divided by pixels per grid; map_size uses the same units and
 map_origin is zero. Reimport with auto-align restores the original size.
 
+## Editing exact endpoints and wall type
+
+1. In the wall editor, choose **Edit** in the Tool menu.
+2. Click/tap within 10 screen pixels of a wall. The nearest segment is selected;
+   zoom in when several lines overlap. Dragging still pans and does not select.
+3. The modal opens with the selected wall's full-precision Endpoint 1 X/Y,
+   Endpoint 2 X/Y and wall type. Coordinates are calibrated map-image pixels,
+   not screen pixels or grid units. Decimal and negative coordinates are allowed,
+   including endpoints outside the artwork, subject to the existing coordinate
+   limit of +/-10000000. All four numbers must be finite; endpoints must differ.
+4. Select any of the six wall types and choose **Apply to draft**, or press Enter
+   in a coordinate field. Validation errors keep the dialog and draft unchanged.
+5. Use **Save wall set** to persist the draft and create/reuse its UVTT source,
+   or **Download UVTT** to export the unsaved draft without applying it.
+
+Applying changes is a single undoable operation covering both endpoints and type.
+The map overlay updates immediately, retaining the screen-space width/zoom fix.
+Cancel or Escape discards the dialog's fields without altering the draft, undo
+history, saved walls or player display. Applying unchanged values is also a no-op.
+The modal traps keyboard focus; Tab/Shift+Tab cycle through its fields/buttons,
+input undo stays local to the input, and closing returns focus to the viewport.
+
+Coordinate-only edits preserve an imported segment's blocking flag. Changing its
+type uses the existing retyping rules: ethereal is non-blocking; other types are
+blocking. Map-level disabled types and Doors split areas still apply when saving.
+Snapping is not applied to typed coordinates, so the entered values stay exact.
+
+The popup does not send an HTTP request or autosave. Existing save/export APIs,
+CSRF checks, stale-save protection and boundary safety guidance remain unchanged.
+For installation and rollback, see [the Edit-tool patch note](../Patch/wall-editor-edit-tool.md).
+
 ## Boundaries and safety
 
 All six kinds are editable, even if hidden or disabled in the fog editor.
-New/retyped ethereal segments have blocks=false; other kinds have blocks=true.
-Existing imported blocking flags are retained for untouched segments. Show/Enabled
+New/retyped ethereal segments have blocks=false; other new/retyped kinds have
+blocks=true. A coordinate-only Edit preserves the segment's imported blocking
+flag. Existing imported blocking flags are retained for untouched segments. Show/Enabled
 and Doors split areas remain map-level settings and are not baked into a wall set.
 Thus a saved set can be reused on a map with different boundary settings.
 

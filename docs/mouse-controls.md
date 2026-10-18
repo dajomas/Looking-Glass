@@ -40,3 +40,21 @@ Deployment changes JavaScript and documentation only. No schema migration or
 server route is added. Hard-reload the admin page after deploying both changed
 scripts together. If artwork/state still fail, retain the visible error and
 inspect the server log; the exact production cause has not been proven.
+
+## Dedicated wall editor: Edit tool
+
+These controls apply to the separate wall editor, not to fog Reveal/Hide modes.
+Choose **Edit** in the Tool menu, then left-click/tap within 10 screen pixels of
+an existing segment to open its endpoint/type dialog. The nearest segment wins;
+zoom in to distinguish overlapping lines. Dragging pans rather than opening it.
+
+The popup contains Endpoint 1 X/Y, Endpoint 2 X/Y, and all six wall types. Values
+are map-image coordinates; mouse zoom and endpoint snapping do not rescale or
+snap typed values. **Apply to draft** (or Enter in a coordinate field) makes one
+undoable local edit; **Cancel** or Escape makes none. Tab and Shift+Tab stay
+inside the modal, and viewport shortcuts do not run while it is open.
+
+After applying, use Undo/Redo as usual. Save wall set persists changes; Download
+UVTT includes unsaved draft edits without applying them to players. The existing
+screen-pixel wall-width controls, fog controls and player display are unchanged.
+See [wall-editor.md](wall-editor.md) for validation and save/boundary details.

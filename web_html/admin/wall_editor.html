@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · wall editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=wall-width-2"><link rel="stylesheet" href="/static/css/wall_editor.css?v=wall-width-3">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=wall-width-2"><link rel="stylesheet" href="/static/css/wall_editor.css?v=wall-edit-1">{% endblock %}
 {% block content %}
 <aside class="sidebar">
   <div class="side-block">
@@ -12,14 +12,14 @@
   </div>
   <fieldset id="wall-tools" disabled>
     <div class="side-block stack">
-      <label>Tool <select id="wall-tool"><option value="add">Add wall</option><option value="remove">Remove wall</option><option value="type">Change wall type</option></select></label>
+      <label>Tool <select id="wall-tool"><option value="add">Add wall</option><option value="remove">Remove wall</option><option value="type">Change wall type</option><option value="edit">Edit</option></select></label>
       <label>Wall type <select id="wall-kind"><option value="wall">Normal wall</option><option value="door">Door</option><option value="secret">Secret door</option><option value="window">Window / terrain</option><option value="invisible">Invisible wall</option><option value="ethereal">Ethereal (non-blocking)</option></select></label>
       <label class="range">Wall width (screen px)
         <input id="wall-width" type="range" min="0.5" max="10" step="0.5" value="2">
         <output id="wall-width-value" for="wall-width">2 px</output>
       </label>
       <label class="check"><input id="snap-ends" type="checkbox" checked> Snap to nearby endpoints (10 screen px)</label>
-      <p class="small">Add: click start and end. Remove or change type: click near a segment. Escape cancels a pending start. Drag to pan; wheel to zoom; F to fit.</p>
+      <p class="small">Add: click start and end. Remove, change type or Edit: click near a segment. Edit opens endpoint coordinates and type. Escape cancels a pending start or closes the edit dialog. Drag to pan; wheel to zoom; F to fit.</p>
       <div class="btn-row"><button id="wall-undo" type="button">Undo</button><button id="wall-redo" type="button">Redo</button></div>
       <p class="small" id="wall-count"></p>
       <ul class="wall-colours small" aria-label="Wall colours"><li data-kind="wall">Normal — magenta</li><li data-kind="door">Door — blue</li><li data-kind="secret">Secret — purple dashed</li><li data-kind="window">Window / terrain — green</li><li data-kind="invisible">Invisible — yellow dashed</li><li data-kind="ethereal">Ethereal — grey dashed</li></ul>
@@ -46,8 +46,36 @@
   <div class="stage" id="wall-stage"><img id="wall-image" alt="{{ map.name }}" draggable="false"><svg id="wall-overlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div>
   <div class="zoom-ctl"><button id="wall-zoom-in" aria-label="Zoom in">+</button><button id="wall-fit" aria-label="Fit map">Fit</button><button id="wall-zoom-out" aria-label="Zoom out">−</button></div>
 </section>
+<dialog id="wall-edit-dialog" aria-labelledby="wall-edit-title" aria-describedby="wall-edit-help">
+  <form id="wall-edit-form" class="stack" novalidate>
+    <h2 id="wall-edit-title">Edit wall</h2>
+    <p id="wall-edit-help" class="small muted">Coordinates are map-image pixels, not screen pixels. Apply updates the draft only; use Save wall set to persist it.</p>
+    <fieldset class="wall-edit-endpoint">
+      <legend>Endpoint 1</legend>
+      <label for="wall-edit-x1">X <input id="wall-edit-x1" name="x1" type="number" step="any" min="-10000000" max="10000000" required autofocus></label>
+      <label for="wall-edit-y1">Y <input id="wall-edit-y1" name="y1" type="number" step="any" min="-10000000" max="10000000" required></label>
+    </fieldset>
+    <fieldset class="wall-edit-endpoint">
+      <legend>Endpoint 2</legend>
+      <label for="wall-edit-x2">X <input id="wall-edit-x2" name="x2" type="number" step="any" min="-10000000" max="10000000" required></label>
+      <label for="wall-edit-y2">Y <input id="wall-edit-y2" name="y2" type="number" step="any" min="-10000000" max="10000000" required></label>
+    </fieldset>
+    <label for="wall-edit-kind">Wall type
+      <select id="wall-edit-kind" name="kind" required>
+        <option value="wall">Normal wall</option><option value="door">Door</option>
+        <option value="secret">Secret door</option><option value="window">Window / terrain</option>
+        <option value="invisible">Invisible wall</option><option value="ethereal">Ethereal (non-blocking)</option>
+      </select>
+    </label>
+    <p id="wall-edit-error" class="small" role="alert" hidden></p>
+    <div class="btn-row">
+      <button id="wall-edit-apply" type="submit" class="primary">Apply to draft</button>
+      <button id="wall-edit-cancel" type="button">Cancel</button>
+    </div>
+  </form>
+</dialog>
 {% endblock %}
 {% block scripts %}
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
-<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=wall-width-2"></script><script src="/static/js/admin_wall_editor.js?v=wall-width-3"></script>
+<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=wall-width-2"></script><script src="/static/js/admin_wall_editor.js?v=wall-edit-1"></script>
 {% endblock %}

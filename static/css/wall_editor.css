@@ -16,3 +16,9 @@
 .wall-colours [data-kind="invisible"] { color: #ffd36b; }
 .wall-colours [data-kind="ethereal"] { color: #9aa3b5; }
 #wall-status[data-error="true"] { color: #ff9696; }
+
+#wall-edit-dialog { width: min(32rem, calc(100vw - 2rem)); max-height: calc(100dvh - 2rem); overflow-y: auto; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+#wall-edit-dialog::backdrop { background: rgb(0 0 0 / .65); }
+#wall-edit-dialog .wall-edit-endpoint { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+#wall-edit-dialog input, #wall-edit-dialog select { width: 100%; }
+#wall-edit-error, #wall-edit-dialog [aria-invalid="true"] { color: #ff9696; }
