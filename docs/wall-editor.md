@@ -105,3 +105,21 @@ No schema migration is introduced. This patch targets commit
 ba2f4bf699d3e72e6f6988a718f9a93cbca04343 and assumes its existing migrations are healthy.
 It does not repair earlier migration collisions. See ../Patch/wall-editor-uvtt.md
 for installation, rollback and exact verification scope.
+
+## Wall width matches the fog editor
+
+The width slider uses the same screen-pixel base width in both editors. A normal
+wall at 2 px has the same thickness in the wall editor and fog editor; each
+0.5 px slider step changes the base width by 0.5 screen pixels in either editor.
+The width is independent of map-image resolution and is compensated on every
+zoom/redraw using `base_width / zoom_scale`.
+
+Doors and secret doors in the wall editor now use the fog editor's double-width
+category styling. At a 2 px base width these categories are 4 px wide. The fog
+editor still uses its existing passive styling for non-blocking/disabled walls.
+Dashed categories also use the same base-width-relative dash sizing.
+
+The default remains 2 px. Existing per-map browser preferences are retained, so
+if the width was previously increased to compensate for the mismatch, set it
+back to the desired value. Width changes do not affect saved wall coordinates,
+UVTT data, fog boundaries, or player images.

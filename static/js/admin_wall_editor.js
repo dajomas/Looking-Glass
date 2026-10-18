@@ -10,7 +10,6 @@
   const pz = new PanZoom(vp, stage, { onTap, onChange: render });
   LGWallAppearance(id, (width) => {
     wallWidth = width;
-    svg.style.setProperty("--wall-width", String(width));
     render();
   });
   const snapshot = () => JSON.stringify(walls);
@@ -25,6 +24,9 @@
   }
   function render() {
     if (!state) return;
+    // Same screen-pixel sizing as the fog editor: stage zoom scales this back up.
+    const baseWidth = wallWidth / pz.scale;
+    svg.style.setProperty("--wall-width", String(baseWidth));
     const paths = new Map();
     for (const [x1, y1, x2, y2, rawKind] of walls) {
       const kind = kinds.has(rawKind) ? rawKind : "wall";
@@ -35,7 +37,9 @@
     for (const [kind, lines] of paths) {
       const path = document.createElementNS(svg.namespaceURI, "path");
       path.setAttribute("class", `w-${kind}`); path.setAttribute("d", lines.join(""));
-      path.style.strokeWidth = `${wallWidth}px`;
+      const multiplier = kind === "door" || kind === "secret" ? 2 : 1;
+      path.style.strokeWidth = `${baseWidth * multiplier}px`;
+      path.style.vectorEffect = "none";
       svg.appendChild(path);
     }
     if (start) {
