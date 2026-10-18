@@ -1,152 +1,467 @@
 # Deployment
 
-## Bare metal (RHEL / Rocky)
+Looking Glass provides two portals:
+
+| Portal | Default port |
+|---|---|
+| Admin / DM | 5000 |
+| Viewer / players | 5100 |
+
+Choose one deployment method:
+
+- Native installation with systemd: follow sections 1 and 2.
+- Podman: follow section 4 instead.
+
+Configure networking as appropriate for either method. Do not run native and
+container instances against the same data directory simultaneously.
+
+## 1. Native installation (RHEL / Rocky)
+
+These instructions assume installation under `/opt/looking-glass` and a
+Python 3.14 executable named `python3.14`.
+
+Install Python using an appropriate repository or your preferred installation
+method. Where the packages are available:
 
 ```bash
-sudo dnf install python3.14            # or build / use uv: uv python install 3.14
-sudo useradd --system --home /opt/looking-glass lookingglass
-sudo git clone <repo> /opt/looking-glass && cd /opt/looking-glass
-sudo python3.14 -m venv .venv && sudo .venv/bin/pip install -r requirements.txt
-sudo cp config.example.yaml config.yaml
-sudo install -d -o lookingglass data
-sudo cp docs/examples/looking-glass.service /etc/systemd/system/
-sudo systemctl daemon-reload && sudo systemctl enable --now looking-glass
-sudo journalctl -u looking-glass | grep -A3 "initial superadmin"   # first password
-sudo firewall-cmd --permanent --add-port=5000/tcp --add-port=5100/tcp && sudo firewall-cmd --reload
+sudo dnf install git python3.14
 ```
 
-With SELinux enforcing on non-standard ports behind nginx:
-`sudo setsebool -P httpd_can_network_connect 1`.
+### Create the service account
 
-## systemd service
-
-After the bare-metal installation above, the supplied unit runs both portals as
-`lookingglass`, with admin port 5000 and viewer port 5100. The following paths
-assume the checkout and virtual environment are in `/opt/looking-glass`.
-
-### Install and start
-
-Review `/opt/looking-glass/config.yaml` before starting. Keep
-`server.viewer_port: 5100`. The service uses the virtual environment directly;
-there is no need to activate it or use a shell wrapper.
+For a new installation:
 
 ```bash
+sudo useradd --system --user-group \
+  --home-dir /opt/looking-glass \
+  --no-create-home lookingglass
+```
+
+If the account already exists, do not recreate it. Ensure that the
+`lookingglass` group also exists.
+
+### Install the application
+
+Replace `REPOSITORY_URL` with the repository's clone URL:
+
+```bash
+sudo git clone REPOSITORY_URL /opt/looking-glass
 cd /opt/looking-glass
-sudo install -d -m 0750 -o lookingglass -g lookingglass /opt/looking-glass/data
-sudo chown root:lookingglass /opt/looking-glass/config.yaml
-sudo chmod 0640 /opt/looking-glass/config.yaml
-sudo install -m 0644 docs/examples/looking-glass.service /etc/systemd/system/looking-glass.service
+```
+
+Check out the branch, tag or commit you intend to deploy before installing
+dependencies.
+
+```bash
+sudo python3.14 -m venv .venv
+sudo .venv/bin/pip install -r requirements.txt
+```
+
+The service account needs read and directory-traversal access to the checkout
+and virtual environment. Application code does not need to be writable by the
+service account.
+
+### Create and review the configuration
+
+For the first installation only:
+
+```bash
+sudo install -o root -g lookingglass -m 0640 \
+  config.example.yaml config.yaml
+```
+
+Do not repeat this command during upgrades: it would overwrite the existing
+configuration.
+
+Review the configuration before starting the application:
+
+```bash
+sudoedit /opt/looking-glass/config.yaml
+```
+
+Keep the viewer port set to 5100:
+
+```yaml
+server:
+  host: 0.0.0.0
+  admin_port: 5000
+  viewer_port: 5100
+```
+
+Use `host: 127.0.0.1` instead if both portals should be reachable only through
+a reverse proxy running on the same machine.
+
+Continue with the systemd setup below.
+
+## 2. systemd service
+
+The supplied service runs both portals as `lookingglass`, using the virtual
+environment directly. There is no need to activate the virtual environment
+or use a shell wrapper.
+
+### Prepare writable storage
+
+For a new installation:
+
+```bash
+sudo install -d -m 0750 -o lookingglass -g lookingglass \
+  /opt/looking-glass/data
+```
+
+If reusing an existing data directory, ensure that its existing files and
+subdirectories are also owned appropriately. Creating the directory alone
+does not repair ownership of existing contents.
+
+The service account must be able to:
+
+- Read the application, virtual environment and configuration.
+- Write the database, map files, saved wall sources and cache under `data/`.
+
+### Install and start the service
+
+Install the supplied unit once:
+
+```bash
+sudo install -m 0644 \
+  /opt/looking-glass/docs/examples/looking-glass.service \
+  /etc/systemd/system/looking-glass.service
+```
+
+Load the unit and enable/start the service:
+
+```bash
 sudo systemctl daemon-reload
 sudo systemctl enable --now looking-glass.service
+```
+
+Check startup:
+
+```bash
 sudo systemctl status looking-glass.service --no-pager
 ```
 
-The unit is provided in `docs/examples/looking-glass.service`:
+### Service paths and filesystem protection
 
-```ini
-# /etc/systemd/system/looking-glass.service
-[Unit]
-Description=Looking Glass - D&D fog of war
-After=network-online.target
+The supplied unit uses:
 
-[Service]
-Type=simple
-User=lookingglass
-WorkingDirectory=/opt/looking-glass
-ExecStart=/opt/looking-glass/.venv/bin/python python/main.py --config /opt/looking-glass/config.yaml serve
-Restart=on-failure
-NoNewPrivileges=true
-ProtectSystem=strict
-ReadWritePaths=/opt/looking-glass/data
-PrivateTmp=true
+| Setting | Value |
+|---|---|
+| User | `lookingglass` |
+| Working directory | `/opt/looking-glass` |
+| Python executable | `/opt/looking-glass/.venv/bin/python` |
+| Configuration | `/opt/looking-glass/config.yaml` |
+| Writable directory | `/opt/looking-glass/data` |
 
-[Install]
-WantedBy=multi-user.target
-```
+The canonical unit is `docs/examples/looking-glass.service`; it is not
+duplicated here.
 
 `ProtectSystem=strict` makes the filesystem read-only for the service except
-for `/opt/looking-glass/data`, where SQLite, maps, saved sources and cache live.
-The service account must be able to read the application, its virtual
-environment and config, and write the entire data directory. If reusing an
-existing installation, correct the ownership of existing data files too.
-If you move `storage.data_dir` or the database outside this directory, update
-`ReadWritePaths` in a systemd override and grant ownership there before starting.
-Changing the checkout location also requires updating `WorkingDirectory`,
-`ExecStart`, and `ReadWritePaths`.
+for locations permitted by `ReadWritePaths`.
 
-### Logs, credentials and maintenance
+If you move the checkout, adjust `WorkingDirectory`, `ExecStart` and
+`ReadWritePaths` in the unit or an appropriate override.
 
-```bash
-sudo journalctl -u looking-glass.service -b --no-pager
-sudo journalctl -u looking-glass.service -f
-sudo journalctl -u looking-glass.service --no-pager | grep -A3 "initial superadmin"
-sudo systemctl restart looking-glass.service
-sudo systemctl stop looking-glass.service
-```
+If `storage.data_dir` or the database is placed outside the default data
+directory, update `ReadWritePaths` and filesystem ownership before starting
+the service.
 
-On the first run with an empty database, the application logs the generated
-superadmin credentials. Change that password at first login and restrict access
-to the journal. Credentials are not generated again for an existing superadmin.
+## 3. Networking
 
-After changing only `config.yaml`, restart the service. After changing the unit
-or a drop-in, run `sudo systemctl daemon-reload` before restarting. For updates,
-stop the service, back up the complete data directory, update the code and
-virtual-environment dependencies, then start the service and check the journal.
-Do not run a second instance manually against the same data directory while the
-service is active.
+### Direct LAN access
 
-## Podman
+For clients connecting directly to the application:
+
+- Keep `server.host: 0.0.0.0`, or use the appropriate listening address.
+- Allow access to admin port 5000 only from trusted DM devices.
+- Allow access to viewer port 5100 from the player devices that need it.
+
+If using firewalld, the following opens both ports in its default zone:
 
 ```bash
-podman build -t looking-glass -f Containerfile .
-podman run -d --name looking-glass -p 5000:5000 -p 5100:5100 \
-  -e LG_SUPERADMIN_PASSWORD='change-me-now' \
-  -v lg-data:/app/data:Z looking-glass
-podman logs looking-glass
+sudo firewall-cmd --permanent \
+  --add-port=5000/tcp \
+  --add-port=5100/tcp
 ```
 
-Mount a config with `-v ./config.yaml:/app/config.yaml:ro,Z`.
-`podman generate systemd` or a Quadlet `.container` file makes it a service.
+Choose the appropriate zone and restrict access further where required.
+
+### Reverse proxy
+
+When nginx runs on the same host as the native application, use
+`server.host: 127.0.0.1` if direct access to the backend ports is not needed.
+
+Expose the proxy's HTTP/HTTPS ports rather than opening 5000 and 5100 to
+clients.
+
+For HTTPS access through firewalld:
+
+```bash
+sudo firewall-cmd --permanent --add-service=https
+```
+
+The direct-access and reverse-proxy rules above are alternatives. Apply only
+the rules required by your deployment.
+
+After making permanent firewalld changes, load them into the runtime
+configuration:
+
+```bash
+sudo firewall-cmd --reload
+```
+
+Do not run firewalld commands on systems that use another firewall manager.
 
 ### nginx example
 
-```nginx
-map $http_upgrade $connection_upgrade { default upgrade; '' close; }
+The following is an HTTPS configuration outline. Replace the example
+hostnames and certificate paths before using it.
 
-server {                         # DM portal
-    listen 443 ssl; server_name dm.example.lan;
-    client_max_body_size 200m;
-    location / { proxy_pass http://127.0.0.1:5000; proxy_set_header Host $host;
-                 proxy_set_header X-Forwarded-For $remote_addr; proxy_set_header X-Forwarded-Proto $scheme; }
+Place the `map` and `server` directives in nginx's HTTP configuration context:
+
+```nginx
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
 }
-server {                         # player screen
-    listen 443 ssl; server_name table.example.lan;
-    location / { proxy_pass http://127.0.0.1:5100; proxy_set_header Host $host;
-                 proxy_http_version 1.1; proxy_set_header Upgrade $http_upgrade;
-                 proxy_set_header Connection $connection_upgrade; proxy_read_timeout 1h; }
+
+server {
+    listen 443 ssl;
+    server_name dm.example.lan;
+
+    ssl_certificate     /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+
+    client_max_body_size 200m;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name table.example.lan;
+
+    ssl_certificate     /path/to/fullchain.pem;
+    ssl_certificate_key /path/to/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:5100;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_read_timeout 1h;
+    }
 }
 ```
 
-Set `security.secure_cookies: true` when serving over HTTPS. If you use one
-hostname for both portals, the "Viewer screen" links in the admin UI assume
-the viewer runs on `viewer_port` of the same host. With separate hostnames,
-just bookmark the viewer URL.
+Set the following in `config.yaml` when serving the application over HTTPS:
 
-## Backups
+```yaml
+security:
+  secure_cookies: true
+```
 
-All state is in `data/`: `looking_glass.db` (SQLite, WAL mode) plus
-`data/maps/`. `data/cache/` can be deleted at any time. For a consistent hot
-backup: `sqlite3 data/looking_glass.db ".backup backup.db"`.
+With separate portal hostnames, bookmark the viewer hostname directly.
+Admin UI links that assume the viewer is on port 5100 of the same host may
+not match a separate-hostname proxy arrangement.
 
-## Reveal-state update (schema v3)
+### SELinux and nginx
 
-Stop the service and back up the entire data directory before applying the
-fog-display patch. Start the service to apply migration 3 automatically. Do not
-run old and new application versions concurrently against the same database.
-Rollback of the migration means restoring the pre-update backup with the old
-application, not decrementing `schema_version` by hand.
+If SELinux is enforcing and prevents nginx from connecting to the backend,
+enable the appropriate network-connect permission:
 
-Reload existing DM and viewer tabs after deployment to load the new prompt and
-viewer race guard. Old composite cache files are ignored by the new cache-key
-format; clearing the render cache while stopped is optional. No existing saved
-wall sources are removed by this migration.
+```bash
+sudo setsebool -P httpd_can_network_connect 1
+```
+
+This is conditional proxy configuration, not a required step for every
+installation.
+
+## 4. Podman deployment
+
+This is an alternative to the native installation and its systemd unit.
+
+From the repository root:
+
+```bash
+podman build -t looking-glass -f Containerfile .
+```
+
+For direct access on ports 5000 and 5100:
+
+```bash
+podman run -d --name looking-glass \
+  -p 5000:5000 \
+  -p 5100:5100 \
+  -v lg-data:/app/data:Z \
+  looking-glass
+```
+
+For a reverse proxy running on the host, publish the backend ports on loopback
+instead:
+
+```bash
+podman run -d --name looking-glass \
+  -p 127.0.0.1:5000:5000 \
+  -p 127.0.0.1:5100:5100 \
+  -v lg-data:/app/data:Z \
+  looking-glass
+```
+
+Run only one of these container examples.
+
+View startup logs:
+
+```bash
+podman logs looking-glass
+```
+
+The first start with an empty database generates and logs the initial
+superadmin credentials.
+
+An optional configuration file can be mounted with:
+
+```text
+-v ./config.yaml:/app/config.yaml:ro,Z
+```
+
+Ensure that the container's application user can read the mounted file.
+
+For persistent container startup, configure a Podman Quadlet service. The
+native `looking-glass.service` supplied with the repository runs a checkout
+and virtual environment; it does not manage this container.
+
+## 5. Native-service operations
+
+The following are independent operations, not a sequence to run together.
+
+### View recent logs
+
+```bash
+sudo journalctl -u looking-glass.service -b --no-pager
+```
+
+### Follow logs continuously
+
+```bash
+sudo journalctl -u looking-glass.service -f
+```
+
+Press Ctrl+C to stop following the logs. This does not stop Looking Glass.
+
+### Retrieve initial credentials
+
+On the first run with an empty database:
+
+```bash
+sudo journalctl -u looking-glass.service --no-pager \
+  | grep -A3 "initial superadmin"
+```
+
+Change the generated password at first login and restrict access to the
+journal. Credentials are not generated again when the superadmin already
+exists.
+
+If `LG_SUPERADMIN_PASSWORD` was supplied for initial creation, the generated
+password message is not used.
+
+### Restart the service
+
+After changing application configuration:
+
+```bash
+sudo systemctl restart looking-glass.service
+```
+
+A change to `config.yaml` does not require `daemon-reload`.
+
+After changing a systemd unit or drop-in, run `systemctl daemon-reload` before
+restarting the service.
+
+### Stop the service
+
+```bash
+sudo systemctl stop looking-glass.service
+```
+
+### Start a stopped service
+
+```bash
+sudo systemctl start looking-glass.service
+```
+
+## 6. Backups and upgrades
+
+### Backups
+
+With the default configuration, application state is under:
+
+```text
+/opt/looking-glass/data/
+```
+
+This includes:
+
+- `looking_glass.db`: SQLite database.
+- Map artwork and reusable wall sources.
+- Render cache files.
+
+For a straightforward consistent backup:
+
+1. Stop the service.
+2. Back up the complete data directory and the configuration file.
+3. Store the backup securely outside the application directory.
+4. Start the service again.
+
+If storage paths were customized, include those locations too.
+
+For an online SQLite database backup, use SQLite's backup command rather
+than copying only the live database file. Back up map/source files as well;
+a database-only backup is not a complete application backup.
+
+Render-cache contents can be regenerated. Clear them only when the
+application is stopped.
+
+### Upgrades
+
+For a native installation:
+
+1. Stop the service.
+2. Back up all application data and configuration.
+3. Update the checkout to the intended revision.
+4. Update virtual-environment dependencies if required.
+5. Review configuration and unit-file changes.
+6. Run `systemctl daemon-reload` only if the unit or a drop-in changed.
+7. Start the service and inspect the journal.
+8. Reload existing DM and viewer tabs to load updated JavaScript and CSS.
+
+Do not run old and new application versions concurrently against the same
+database.
+
+Startup applies the pending database migrations for the installed revision.
+Rollback after a schema change may require restoring the pre-upgrade data
+backup together with the corresponding application version. Do not manually
+decrement `schema_version`.
+
+### Historical reveal-state upgrade
+
+The earlier fog-display update introduced schema migration 3, explicit
+reveal-state handling and revised composite-cache keys.
+
+For installations upgrading across that change:
+
+- Preserve a complete pre-upgrade backup.
+- Reload DM and viewer tabs after deployment.
+- Old composite-cache files are ignored by the revised cache-key format.
+- Clearing the render cache while stopped is optional.
+- Existing saved wall sources are retained.
