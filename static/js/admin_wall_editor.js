@@ -8,6 +8,11 @@
   const editDialog = $("wall-edit-dialog"), editForm = $("wall-edit-form"), editError = $("wall-edit-error");
   const coordinateFields = ["wall-edit-x1", "wall-edit-y1", "wall-edit-x2", "wall-edit-y2"].map($);
   let editing = null;
+  // A popup opened on pointerup may receive the later contextmenu event itself.
+  // Capture on the document so both viewport and modal events are cancelled.
+  document.addEventListener("contextmenu", (event) => {
+    if (vp.contains(event.target) || editDialog.contains(event.target)) event.preventDefault();
+  }, { capture: true });
   let state = null, walls = [], saved = "[]", start = null, undo = [], redo = [], busy = false;
   let wallWidth = 2;
   const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: render });
@@ -83,10 +88,10 @@
   }
   function onTap(x, y, event) {
     if (busy || editDialog.open || !state || x < 0 || y < 0 || x > state.width || y > state.height) return;
-    // A stationary secondary tap edits from any tool; PanZoom filters drags.
-    if (event?.button === 2) {
+    // Secondary tap or Ctrl-primary tap edits from any tool; PanZoom filters drags.
+    if (event?.button === 2 || (event?.button === 0 && event.ctrlKey)) {
       const index = nearest(x, y);
-      if (index < 0) { status("Right-click within 10 screen pixels of a wall to edit it."); return; }
+      if (index < 0) { status("Right-click or Ctrl+left-click within 10 screen pixels of a wall to edit it."); return; }
       openWallEdit(index);
       return;
     }
