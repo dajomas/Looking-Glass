@@ -1,0 +1,18 @@
+#wall-tools { border: 0; padding: 0; margin: 0; min-width: 0; }
+#wall-overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+#wall-overlay path { fill: none; stroke-width: 3; vector-effect: non-scaling-stroke; stroke-linecap: round; }
+#wall-overlay .wall-start { fill: #fff; stroke: #111; stroke-width: 1; vector-effect: non-scaling-stroke; }
+#wall-stage > img { width: 100%; height: 100%; display: block; user-select: none; }
+#wall-overlay .w-wall { stroke: #ff5bd1; }
+#wall-overlay .w-door { stroke: #46c0ff; }
+#wall-overlay .w-secret { stroke: #b07cff; stroke-dasharray: 6 4; }
+#wall-overlay .w-window { stroke: #7cffb2; }
+#wall-overlay .w-invisible { stroke: #ffd36b; stroke-dasharray: 6 4; }
+#wall-overlay .w-ethereal { stroke: #9aa3b5; stroke-dasharray: 3 4; }
+.wall-colours [data-kind="wall"] { color: #ff5bd1; }
+.wall-colours [data-kind="door"] { color: #46c0ff; }
+.wall-colours [data-kind="secret"] { color: #b07cff; }
+.wall-colours [data-kind="window"] { color: #7cffb2; }
+.wall-colours [data-kind="invisible"] { color: #ffd36b; }
+.wall-colours [data-kind="ethereal"] { color: #9aa3b5; }
+#wall-status[data-error="true"] { color: #ff9696; }

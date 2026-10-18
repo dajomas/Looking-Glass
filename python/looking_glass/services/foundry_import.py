@@ -166,6 +166,19 @@ def _parse_uvtt(data: dict, name: str) -> WallSet:
     def px(p: dict) -> tuple[float, float]:
         return (float(p["x"]) - ox) * ppg, (float(p["y"]) - oy) * ppg
 
+    from .uvtt_export import extension_segments
+    try:
+        extended = extension_segments(data, ppg, ox, oy)
+    except ValueError as exc:
+        raise WallImportError(str(exc)) from exc
+    if extended is not None:
+        ext_name = data["looking_glass"].get("name")
+        return WallSet(name=ext_name if isinstance(ext_name, str) and ext_name else name,
+                       segments=extended, source_format="uvtt",
+                       scene_width=float(size.get("x", 0)) * ppg or None,
+                       scene_height=float(size.get("y", 0)) * ppg or None,
+                       image_data=data.get("image", "") if isinstance(data.get("image", ""), str) else "")
+
     segments: list[WallSegment] = []
     for key in ("line_of_sight", "objects_line_of_sight"):
         for poly in data.get(key) or []:

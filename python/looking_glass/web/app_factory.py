@@ -10,6 +10,7 @@ from .admin import api as admin_api
 from .admin import campaigns as admin_campaigns
 from .admin import pages as admin_pages
 from .admin import users as admin_users
+from .admin import wall_editor as admin_wall_editor
 from .context import AppContext
 from .templating import build_templates
 from .viewer import api as viewer_api
@@ -48,6 +49,7 @@ def create_admin_app(ctx: AppContext) -> FastAPI:
     app.include_router(admin_campaigns.router)
     app.include_router(admin_users.router)
     app.include_router(admin_api.router)
+    app.include_router(admin_wall_editor.router)
     return app
 
 

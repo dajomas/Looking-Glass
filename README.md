@@ -4,7 +4,7 @@ A fog of war tool for D&D battle maps. The DM imports a battle map plus its
 **Foundry VTT walls**, then clicks a room in the admin screen. The whole area
 enclosed by walls is revealed on the players' viewer screen, live.
 
-- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **6000**
+- **Two entry points**: admin portal on port **5000**, viewer (player) screen on port **5100**
 - **RBAC**: `superadmin` (manages users), `admin` (manages own campaigns and assigns viewers), `viewer` (views assigned campaigns only)
 - **SQLite3** storage, no external services
 - Multiple **campaigns**, each with multiple **battle maps**
@@ -29,11 +29,7 @@ log. You must change it at first login. Alternatively set
 | Portal | URL | Who |
 |---|---|---|
 | Admin (DM) | `http://<host>:5000` | superadmin, admin |
-| Viewer (players) | `http://<host>:6000` | anyone assigned to a campaign |
-
-> **Port 6000 caveat:** Chrome and Firefox block port 6000 (X11) by default with
-> `ERR_UNSAFE_PORT`. Use a reverse proxy, change `server.viewer_port`, or allow
-> the port in the browser. See [docs/deployment.md](docs/deployment.md).
+| Viewer (players) | `http://<host>:5100` | anyone assigned to a campaign |
 
 ## Repository layout
 
@@ -118,3 +114,17 @@ Right-drag still pans and never edits fog. See [mouse controls](docs/mouse-contr
 The editor also performs a non-mutating state refresh after the first artwork
 load. This provides the refresh previously obtained through the reported Blank
 workaround without blanking the player screen or changing the active map.
+
+## Separate wall editor and UVTT export
+
+Open **Walls → Open wall editor** from a map's fog editor. Add or remove segments,
+choose all six supported wall types, change an existing segment's type and use
+Undo/Redo. **Save wall set** applies the geometry to this map and stores a reusable
+UVTT source. **Download UVTT (current draft)** exports without saving, optionally
+including the canonical map image. Original sources remain immutable.
+
+See [the wall editor guide](docs/wall-editor.md), [usage](docs/usage.md#separate-wall-editor-and-uvtt-saving),
+[API](docs/api.md#dedicated-wall-editor-and-uvtt-export-admin-only) and
+[patch notes](Patch/wall-editor-uvtt.md). No new migration, runtime dependency
+or configuration key is introduced. Blank players before saving changed boundaries:
+existing fog operations are replayed and can reveal different areas.

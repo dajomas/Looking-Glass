@@ -9,7 +9,7 @@
                  ┌──────────── one Python process ────────────┐
  DM browser ───► │ :5000  admin FastAPI app  ─┐               │
                  │                            ├─ AppContext ──┼─► SQLite (data/looking_glass.db)
- Player screen ─►│ :6000  viewer FastAPI app ─┘  (db, fog,     │   map images (data/maps/)
+ Player screen ─►│ :5100  viewer FastAPI app ─┘  (db, fog,     │   map images (data/maps/)
        ▲         │                               hub, settings)│   render cache (data/cache/)
        └── WS ───┤ EventHub: admin action → viewer WebSockets  │
                  └─────────────────────────────────────────────┘

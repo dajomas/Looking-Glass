@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}{{ map.name }} · wall editor{% endblock %}
+{% block body_class %}editor-page{% endblock %}
+{% block main_class %}editor{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css"><link rel="stylesheet" href="/static/css/wall_editor.css">{% endblock %}
+{% block content %}
+<aside class="sidebar">
+  <div class="side-block">
+    <p class="crumbs"><a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a></p>
+    <h2>{{ map.name }} — walls</h2><a href="/maps/{{ map.id }}">Back to fog editor</a>
+    <p class="small muted">Editing does not reveal fog or switch the players' map.</p>
+  </div>
+  <fieldset id="wall-tools" disabled>
+    <div class="side-block stack">
+      <label>Tool <select id="wall-tool"><option value="add">Add wall</option><option value="remove">Remove wall</option><option value="type">Change wall type</option></select></label>
+      <label>Wall type <select id="wall-kind"><option value="wall">Normal wall</option><option value="door">Door</option><option value="secret">Secret door</option><option value="window">Window / terrain</option><option value="invisible">Invisible wall</option><option value="ethereal">Ethereal (non-blocking)</option></select></label>
+      <label class="check"><input id="snap-ends" type="checkbox" checked> Snap to nearby endpoints (10 screen px)</label>
+      <p class="small">Add: click start and end. Remove or change type: click near a segment. Escape cancels a pending start. Drag to pan; wheel to zoom; F to fit.</p>
+      <div class="btn-row"><button id="wall-undo" type="button">Undo</button><button id="wall-redo" type="button">Redo</button></div>
+      <p class="small" id="wall-count"></p>
+      <ul class="wall-colours small" aria-label="Wall colours"><li data-kind="wall">Normal — magenta</li><li data-kind="door">Door — blue</li><li data-kind="secret">Secret — purple dashed</li><li data-kind="window">Window / terrain — green</li><li data-kind="invisible">Invisible — yellow dashed</li><li data-kind="ethereal">Ethereal — grey dashed</li></ul>
+    </div>
+    <div class="side-block stack">
+      <label>Pixels per grid <input id="pixels-per-grid" type="number" min="0.001" max="10000000" step="any" value="70"></label>
+      <button id="wall-save" type="button" class="primary">Save wall set</button>
+      <p class="small muted">Save applies these walls to this map and stores a reusable UVTT source in this campaign. Original sources remain unchanged.</p>
+      <label class="check"><input id="include-image" type="checkbox"> Include map image in download</label>
+      <button id="wall-download" type="button">Download UVTT (current draft)</button>
+      <p class="small muted">Download includes unsaved edits but does not apply or save them. Without an image it is a wall-only file.</p>
+      <p class="small">Saving boundaries can expand existing reveals. Blank players first during play, then inspect the player preview. Fog history and map type-enable settings are kept.</p>
+      <button id="wall-reload" type="button">Reload saved walls</button>
+    </div>
+  </fieldset>
+  <div class="side-block"><p id="wall-status" role="status" aria-live="polite">Loading walls…</p><button id="wall-retry" type="button" hidden>Retry loading</button></div>
+</aside>
+<section class="viewport" id="wall-viewport" tabindex="0" aria-label="Wall editing map">
+  <div class="stage" id="wall-stage"><img id="wall-image" alt="{{ map.name }}" draggable="false"><svg id="wall-overlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg></div>
+  <div class="zoom-ctl"><button id="wall-zoom-in" aria-label="Zoom in">+</button><button id="wall-fit" aria-label="Fit map">Fit</button><button id="wall-zoom-out" aria-label="Zoom out">−</button></div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
+<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/admin_wall_editor.js"></script>
+{% endblock %}
