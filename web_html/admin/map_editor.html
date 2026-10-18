@@ -14,7 +14,9 @@
   </div>
 
   <div class="side-block">
-    <h3>Players</h3>
+    <details id="players-panel" open class="sidebar-panel">
+      <summary>Players</summary>
+      <div class="panel-content">
     <div class="live-row">
       <span id="live-state" class="pill">-</span>
       <span id="live-viewers" class="muted small"></span>
@@ -24,10 +26,14 @@
       <button id="btn-blank" title="Players see a waiting screen">Blank</button>
     </div>
     <a class="small" href="/api/maps/{{ map.id }}/viewer-preview" target="_blank" rel="noopener">Open exact player image &#8599;</a>
+      </div>
+    </details>
   </div>
 
   <div class="side-block">
-    <h3>Fog</h3>
+    <details id="fog-panel" open class="sidebar-panel">
+      <summary>Fog</summary>
+      <div class="panel-content">
     <p id="offline-reveal-warning" role="status" class="small" hidden>Warning: this map is not shown to players. Reveals affect this map only.</p>
     <div class="segmented" role="radiogroup" aria-label="Click mode">
       <label><input type="radio" name="mode" value="reveal" checked><span>Reveal area</span></label>
@@ -45,10 +51,18 @@
     <label class="check"><input id="show-walls" type="checkbox" checked> Show walls</label>
     <label class="check"><input id="show-preview" type="checkbox"> Player preview (opaque fog)</label>
     <p class="small"><span id="op-count">{{ op_count }}</span> fog actions recorded</p>
+      </div>
+    </details>
   </div>
 
   <div class="side-block">
-    <h3>Walls</h3>
+    <details id="walls-panel" open class="sidebar-panel">
+      <summary>Walls</summary>
+      <div class="panel-content">
+    <label class="range">Wall width (screen px)
+        <input id="wall-width" type="range" min="0.5" max="10" step="0.5" value="2">
+        <output id="wall-width-value" for="wall-width">2 px</output>
+      </label>
     <p><a href="/maps/{{ map.id }}/walls">Open wall editor</a></p>
     <p class="small"><strong id="wall-count">{{ map.wall_count }}</strong> segments
       <span class="muted" id="wall-source">{{ map.walls_source }}</span></p>
@@ -74,8 +88,9 @@
         <p id="source-status" class="small" role="status" aria-live="polite"></p>
       </div>
     </details>
-    <section id="wall-legend" aria-labelledby="wall-legend-title">
-      <h4 id="wall-legend-title">Wall legend and types</h4>
+    <details id="wall-legend" open class="sidebar-panel">
+      <summary id="wall-legend-title">Wall legend and types</summary>
+      <div class="panel-content">
       <table class="table compact"><thead><tr><th>Type</th><th>Show</th><th>Enabled</th></tr></thead><tbody>
         <tr><td><span style="color:#ff5bd1">━━</span> Normal wall</td><td><input type="checkbox" data-wall-show="wall" checked aria-label="Show Normal wall"></td><td><input type="checkbox" data-wall-enabled="wall" checked aria-label="Enable Normal wall"></td></tr>
         <tr><td><span style="color:#46c0ff">━━</span> Door</td><td><input type="checkbox" data-wall-show="door" checked aria-label="Show Door"></td><td><input type="checkbox" data-wall-enabled="door" checked aria-label="Enable Door"></td></tr>
@@ -86,7 +101,8 @@
       </tbody></table>
       <p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p>
       <button type="button" id="apply-wall-types" class="primary">Apply wall types</button>
-    </section>
+      </div>
+    </details>
     <details id="calibration">
       <summary>Alignment</summary>
       <p class="muted small">image = (wall &minus; offset) &times; scale</p>
@@ -105,6 +121,8 @@
       </div>
       <label class="check"><input id="cal-doors" type="checkbox"> Doors split areas</label>
       <button type="button" id="btn-cal-save" class="primary">Apply alignment</button>
+    </details>
+      </div>
     </details>
   </div>
 
@@ -143,6 +161,7 @@
 <script src="/static/js/api.js"></script>
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/keep_select_values.js"></script>
+<script src="/static/js/wall_appearance.js"></script>
 <script src="/static/js/admin_map_editor.js"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

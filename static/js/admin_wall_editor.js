@@ -7,6 +7,7 @@
   const kinds = new Set(["wall", "door", "secret", "window", "invisible", "ethereal"]);
   let state = null, walls = [], saved = "[]", start = null, undo = [], redo = [], busy = false;
   const pz = new PanZoom(vp, stage, { onTap, onChange: render });
+  LGWallAppearance(id, (width) => svg.style.setProperty("--wall-width", String(width)));
   const snapshot = () => JSON.stringify(walls);
   const dirty = () => snapshot() !== saved;
   function status(text, error = false) { $("wall-status").textContent = text; $("wall-status").dataset.error = String(error); }

@@ -124,3 +124,31 @@ def test_viewer_centers_revealed_bounds(page):
     center=page.locator('#stage').evaluate("el=>{const m=new DOMMatrix(getComputedStyle(el).transform);return {x:m.a*330+m.e,y:m.d*130+m.f};}")
     assert center['x']==pytest.approx(400,abs=1)
     assert center['y']==pytest.approx(250,abs=1)
+
+
+def test_collapsible_battle_sidebar_panels(page):
+    state = editor(page)
+    pw.expect(page.locator('#walls-svg path')).to_have_count(2)
+    for panel, control in (("players-panel", "btn-show"), ("fog-panel", "fog-opacity"), ("wall-legend", "apply-wall-types"), ("walls-panel", "wall-width")):
+        summary = page.locator(f"#{panel} > summary")
+        summary.click()
+        pw.expect(page.locator(f"#{control}")).to_be_hidden()
+        summary.click()
+        pw.expect(page.locator(f"#{control}")).to_be_visible()
+    assert not state['posts'] and not state['errors']
+
+
+def test_wall_width_is_screen_constant_and_survives_reload(page):
+    state = editor(page)
+    pw.expect(page.locator('#walls-svg path')).to_have_count(2)
+    page.locator('#wall-width').evaluate("el => { el.value = '4'; el.dispatchEvent(new Event('input', {bubbles:true})); }")
+    def screen_width():
+        return page.locator('#walls-svg .w-wall').evaluate("el => parseFloat(getComputedStyle(el).strokeWidth) * el.getScreenCTM().a")
+    assert screen_width() == pytest.approx(4, abs=.01)
+    page.click('#zoom-in')
+    assert screen_width() == pytest.approx(4, abs=.01)
+    assert not state['posts'] and not state['errors']
+    page.reload()
+    pw.expect(page.locator('#walls-svg path')).to_have_count(2)
+    assert page.locator('#wall-width').input_value() == '4'
+    assert screen_width() == pytest.approx(4, abs=.01)

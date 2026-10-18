@@ -129,3 +129,18 @@ The UVTT core has fallback geometry; exact Looking Glass types and nonblocking
 segments use a versioned extension. Other VTTs may interpret extended types
 differently. See [wall editor details](wall-editor.md) and
 [patch notes](../Patch/wall-editor-uvtt.md). This patch adds no migration.
+
+## Sidebar panels and wall appearance
+
+On the battle map screen, Players, Fog, Walls, and the nested Wall legend and
+types panel can each be collapsed using their summary headings. They start
+expanded; Alignment and Replace map image retain their existing behavior.
+In the wall editor, Save and export below the tools is also collapsible and
+starts expanded. Collapsing panels does not reset controls or discard edits.
+
+Both editors have a Wall width slider (0.5–10 screen pixels), defaulting to the
+battle map's existing 2-pixel base width. The preference is saved per map in
+this browser and reused when opening either editor. Width stays constant while
+zooming. Battle-map doors and secret doors retain their double-width styling.
+This changes only the DM overlay, not fog boundary thickness, wall coordinates,
+UVTT exports, or the player image. Sidebar open/closed state resets on reload.

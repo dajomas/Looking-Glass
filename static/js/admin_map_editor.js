@@ -24,7 +24,12 @@
     if (el) {el.textContent = message; el.hidden = !message;}
   }
 
-  const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: () => svg.style.setProperty("--sw", (2 / pz.scale).toFixed(3)) });
+  let wallWidth = 2;
+  function updateWallWidth() {
+    svg.style.setProperty("--sw", String(wallWidth / pz.scale));
+  }
+  const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: updateWallWidth });
+  LGWallAppearance(MAP_ID, (width) => { wallWidth = width; updateWallWidth(); });
 
   // ------------------------------------------------------------------ UI helpers
   let toastTimer = null;

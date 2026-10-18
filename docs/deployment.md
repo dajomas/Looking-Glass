@@ -18,6 +18,83 @@ sudo firewall-cmd --permanent --add-port=5000/tcp --add-port=5100/tcp && sudo fi
 With SELinux enforcing on non-standard ports behind nginx:
 `sudo setsebool -P httpd_can_network_connect 1`.
 
+## systemd service
+
+After the bare-metal installation above, the supplied unit runs both portals as
+`lookingglass`, with admin port 5000 and viewer port 5100. The following paths
+assume the checkout and virtual environment are in `/opt/looking-glass`.
+
+### Install and start
+
+Review `/opt/looking-glass/config.yaml` before starting. Keep
+`server.viewer_port: 5100`. The service uses the virtual environment directly;
+there is no need to activate it or use a shell wrapper.
+
+```bash
+cd /opt/looking-glass
+sudo install -d -m 0750 -o lookingglass -g lookingglass /opt/looking-glass/data
+sudo chown root:lookingglass /opt/looking-glass/config.yaml
+sudo chmod 0640 /opt/looking-glass/config.yaml
+sudo install -m 0644 docs/examples/looking-glass.service /etc/systemd/system/looking-glass.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now looking-glass.service
+sudo systemctl status looking-glass.service --no-pager
+```
+
+The unit is provided in `docs/examples/looking-glass.service`:
+
+```ini
+# /etc/systemd/system/looking-glass.service
+[Unit]
+Description=Looking Glass - D&D fog of war
+After=network-online.target
+
+[Service]
+Type=simple
+User=lookingglass
+WorkingDirectory=/opt/looking-glass
+ExecStart=/opt/looking-glass/.venv/bin/python python/main.py --config /opt/looking-glass/config.yaml serve
+Restart=on-failure
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/opt/looking-glass/data
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
+`ProtectSystem=strict` makes the filesystem read-only for the service except
+for `/opt/looking-glass/data`, where SQLite, maps, saved sources and cache live.
+The service account must be able to read the application, its virtual
+environment and config, and write the entire data directory. If reusing an
+existing installation, correct the ownership of existing data files too.
+If you move `storage.data_dir` or the database outside this directory, update
+`ReadWritePaths` in a systemd override and grant ownership there before starting.
+Changing the checkout location also requires updating `WorkingDirectory`,
+`ExecStart`, and `ReadWritePaths`.
+
+### Logs, credentials and maintenance
+
+```bash
+sudo journalctl -u looking-glass.service -b --no-pager
+sudo journalctl -u looking-glass.service -f
+sudo journalctl -u looking-glass.service --no-pager | grep -A3 "initial superadmin"
+sudo systemctl restart looking-glass.service
+sudo systemctl stop looking-glass.service
+```
+
+On the first run with an empty database, the application logs the generated
+superadmin credentials. Change that password at first login and restrict access
+to the journal. Credentials are not generated again for an existing superadmin.
+
+After changing only `config.yaml`, restart the service. After changing the unit
+or a drop-in, run `sudo systemctl daemon-reload` before restarting. For updates,
+stop the service, back up the complete data directory, update the code and
+virtual-environment dependencies, then start the service and check the journal.
+Do not run a second instance manually against the same data directory while the
+service is active.
+
 ## Podman
 
 ```bash

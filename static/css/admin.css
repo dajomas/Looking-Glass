@@ -55,3 +55,8 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
 .wall-legend th, .wall-legend td { padding: .25rem; text-align: left; }
 .wall-swatch { display: inline-block; width: 1.3rem; margin-right: .4rem; border-top: 3px solid var(--wall-color); vertical-align: middle; }
 .swatch-secret, .swatch-invisible, .swatch-ethereal { border-top-style: dashed; }
+
+/* Keep native details semantics: closed panels must not become flex containers. */
+.sidebar-panel { width: 100%; }
+.sidebar-panel > summary { cursor: pointer; font-weight: 600; }
+.sidebar-panel > .panel-content { display: flex; flex-direction: column; gap: .55rem; margin-top: .55rem; }
