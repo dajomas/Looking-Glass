@@ -32,8 +32,9 @@ def test_battle_panels_and_control_ancestry():
         assert tag == "details" and "open" in attrs
     for ident, panel in (("btn-show", "players-panel"), ("fog-opacity", "fog-panel"), ("wall-width", "walls-panel"), ("calibration", "walls-panel"), ("apply-wall-types", "wall-legend")):
         assert ("details", panel) in page.nodes[ident][2]
-    for ident in ("saved-wall-library", "wall-legend", "calibration"):
-        assert ("details", "walls-panel") in page.nodes[ident][2]
+    assert ("details", "walls-panel") in page.nodes["calibration"][2]
+    for ident in ("saved-wall-library", "wall-legend"):
+        assert not any(tag == "details" for tag, _ in page.nodes[ident][2])
     assert "open" not in page.nodes["calibration"][1]
 
 

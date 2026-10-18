@@ -6,8 +6,13 @@
   const vp = $("wall-viewport"), stage = $("wall-stage"), svg = $("wall-overlay"), img = $("wall-image");
   const kinds = new Set(["wall", "door", "secret", "window", "invisible", "ethereal"]);
   let state = null, walls = [], saved = "[]", start = null, undo = [], redo = [], busy = false;
+  let wallWidth = 2;
   const pz = new PanZoom(vp, stage, { onTap, onChange: render });
-  LGWallAppearance(id, (width) => svg.style.setProperty("--wall-width", String(width)));
+  LGWallAppearance(id, (width) => {
+    wallWidth = width;
+    svg.style.setProperty("--wall-width", String(width));
+    render();
+  });
   const snapshot = () => JSON.stringify(walls);
   const dirty = () => snapshot() !== saved;
   function status(text, error = false) { $("wall-status").textContent = text; $("wall-status").dataset.error = String(error); }
@@ -29,7 +34,9 @@
     svg.replaceChildren();
     for (const [kind, lines] of paths) {
       const path = document.createElementNS(svg.namespaceURI, "path");
-      path.setAttribute("class", `w-${kind}`); path.setAttribute("d", lines.join("")); svg.appendChild(path);
+      path.setAttribute("class", `w-${kind}`); path.setAttribute("d", lines.join(""));
+      path.style.strokeWidth = `${wallWidth}px`;
+      svg.appendChild(path);
     }
     if (start) {
       const circle = document.createElementNS(svg.namespaceURI, "circle");

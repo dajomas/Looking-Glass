@@ -26,7 +26,13 @@
 
   let wallWidth = 2;
   function updateWallWidth() {
-    svg.style.setProperty("--sw", String(wallWidth / pz.scale));
+    const base = wallWidth / pz.scale;
+    svg.style.setProperty("--sw", String(base));
+    // Apply to existing paths too: changing a preference must not wait for a wall edit.
+    for (const path of svg.querySelectorAll("path")) {
+      const multiplier = path.classList.contains("w-door") || path.classList.contains("w-secret") ? 2 : 1;
+      path.style.strokeWidth = `${base * multiplier}px`;
+    }
   }
   const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: updateWallWidth });
   LGWallAppearance(MAP_ID, (width) => { wallWidth = width; updateWallWidth(); });
@@ -82,6 +88,7 @@
     }
     svg.innerHTML = Object.entries(paths)
       .map(([k, segs]) => `<path class="w-${k}" d="${segs.join("")}"/>`).join("");
+    updateWallWidth();
   }
 
   function drawFog() {

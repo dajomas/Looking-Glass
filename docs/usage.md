@@ -132,9 +132,10 @@ differently. See [wall editor details](wall-editor.md) and
 
 ## Sidebar panels and wall appearance
 
-On the battle map screen, Players, Fog, Walls, and the nested Wall legend and
-types panel can each be collapsed using their summary headings. They start
-expanded; Alignment and Replace map image retain their existing behavior.
+On the battle map screen, Players, Fog, Walls, Saved wall sources, and Wall
+legend and types are separate collapsible sidebar panels. Closing Walls does
+not hide Saved wall sources or Wall legend and types. They start expanded;
+Alignment remains inside Walls and Replace map image retains its behavior.
 In the wall editor, Save and export below the tools is also collapsible and
 starts expanded. Collapsing panels does not reset controls or discard edits.
 

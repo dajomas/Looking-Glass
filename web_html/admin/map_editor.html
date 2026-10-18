@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=wall-width-2">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -66,43 +66,6 @@
     <p><a href="/maps/{{ map.id }}/walls">Open wall editor</a></p>
     <p class="small"><strong id="wall-count">{{ map.wall_count }}</strong> segments
       <span class="muted" id="wall-source">{{ map.walls_source }}</span></p>
-    <details open id="saved-wall-library">
-      <summary>Saved wall sources</summary>
-      <p class="muted small">Save a database once, then choose a wall set for each map in this campaign.</p>
-      <form id="source-save" class="stack">
-        <label>Save Foundry VTT / UVTT (Universal VTT) source
-          <input id="source-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
-        </label>
-        <button type="submit">Save source</button>
-      </form>
-      <div class="stack">
-        <label>Saved source <select id="saved-source" disabled></select></label>
-        <label>Wall set <select id="saved-scene" disabled></select></label>
-        <p id="saved-scene-info" class="muted small"></p>
-        <label class="check"><input id="saved-auto-align" type="checkbox" checked> Auto-align for this map</label>
-        <div class="btn-row">
-          <button id="source-apply" type="button" class="primary" disabled>Apply selected wall set</button>
-          <button id="source-refresh" type="button">Refresh sources</button>
-          <button id="source-delete" type="button" class="danger" disabled>Delete source</button>
-        </div>
-        <p id="source-status" class="small" role="status" aria-live="polite"></p>
-      </div>
-    </details>
-    <details id="wall-legend" open class="sidebar-panel">
-      <summary id="wall-legend-title">Wall legend and types</summary>
-      <div class="panel-content">
-      <table class="table compact"><thead><tr><th>Type</th><th>Show</th><th>Enabled</th></tr></thead><tbody>
-        <tr><td><span style="color:#ff5bd1">━━</span> Normal wall</td><td><input type="checkbox" data-wall-show="wall" checked aria-label="Show Normal wall"></td><td><input type="checkbox" data-wall-enabled="wall" checked aria-label="Enable Normal wall"></td></tr>
-        <tr><td><span style="color:#46c0ff">━━</span> Door</td><td><input type="checkbox" data-wall-show="door" checked aria-label="Show Door"></td><td><input type="checkbox" data-wall-enabled="door" checked aria-label="Enable Door"></td></tr>
-        <tr><td><span style="color:#b07cff">┄┄</span> Secret door</td><td><input type="checkbox" data-wall-show="secret" checked aria-label="Show Secret door"></td><td><input type="checkbox" data-wall-enabled="secret" checked aria-label="Enable Secret door"></td></tr>
-        <tr><td><span style="color:#7cffb2">━━</span> Window / terrain</td><td><input type="checkbox" data-wall-show="window" checked aria-label="Show Window / terrain"></td><td><input type="checkbox" data-wall-enabled="window" checked aria-label="Enable Window / terrain"></td></tr>
-        <tr><td><span style="color:#ffd36b">┄┄</span> Invisible wall</td><td><input type="checkbox" data-wall-show="invisible" checked aria-label="Show Invisible wall"></td><td><input type="checkbox" data-wall-enabled="invisible" checked aria-label="Enable Invisible wall"></td></tr>
-        <tr><td><span style="color:#9aa3b5">┄┄</span> Ethereal</td><td><input type="checkbox" data-wall-show="ethereal" checked aria-label="Show Ethereal"></td><td><input type="checkbox" data-wall-enabled="ethereal" checked aria-label="Enable Ethereal"></td></tr>
-      </tbody></table>
-      <p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p>
-      <button type="button" id="apply-wall-types" class="primary">Apply wall types</button>
-      </div>
-    </details>
     <details id="calibration">
       <summary>Alignment</summary>
       <p class="muted small">image = (wall &minus; offset) &times; scale</p>
@@ -122,6 +85,51 @@
       <label class="check"><input id="cal-doors" type="checkbox"> Doors split areas</label>
       <button type="button" id="btn-cal-save" class="primary">Apply alignment</button>
     </details>
+      </div>
+    </details>
+  </div>
+
+  <div class="side-block">
+    <details open id="saved-wall-library" class="sidebar-panel">
+      <summary>Saved wall sources</summary>
+      <div class="panel-content">
+      <p class="muted small">Save a database once, then choose a wall set for each map in this campaign.</p>
+      <form id="source-save" class="stack">
+        <label>Save Foundry VTT / UVTT (Universal VTT) source
+          <input id="source-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
+        </label>
+        <button type="submit">Save source</button>
+      </form>
+      <div class="stack">
+        <label>Saved source <select id="saved-source" disabled></select></label>
+        <label>Wall set <select id="saved-scene" disabled></select></label>
+        <p id="saved-scene-info" class="muted small"></p>
+        <label class="check"><input id="saved-auto-align" type="checkbox" checked> Auto-align for this map</label>
+        <div class="btn-row">
+          <button id="source-apply" type="button" class="primary" disabled>Apply selected wall set</button>
+          <button id="source-refresh" type="button">Refresh sources</button>
+          <button id="source-delete" type="button" class="danger" disabled>Delete source</button>
+        </div>
+        <p id="source-status" class="small" role="status" aria-live="polite"></p>
+      </div>
+      </div>
+    </details>
+  </div>
+
+  <div class="side-block">
+    <details id="wall-legend" open class="sidebar-panel">
+      <summary id="wall-legend-title">Wall legend and types</summary>
+      <div class="panel-content">
+      <table class="table compact"><thead><tr><th>Type</th><th>Show</th><th>Enabled</th></tr></thead><tbody>
+        <tr><td><span style="color:#ff5bd1">━━</span> Normal wall</td><td><input type="checkbox" data-wall-show="wall" checked aria-label="Show Normal wall"></td><td><input type="checkbox" data-wall-enabled="wall" checked aria-label="Enable Normal wall"></td></tr>
+        <tr><td><span style="color:#46c0ff">━━</span> Door</td><td><input type="checkbox" data-wall-show="door" checked aria-label="Show Door"></td><td><input type="checkbox" data-wall-enabled="door" checked aria-label="Enable Door"></td></tr>
+        <tr><td><span style="color:#b07cff">┄┄</span> Secret door</td><td><input type="checkbox" data-wall-show="secret" checked aria-label="Show Secret door"></td><td><input type="checkbox" data-wall-enabled="secret" checked aria-label="Enable Secret door"></td></tr>
+        <tr><td><span style="color:#7cffb2">━━</span> Window / terrain</td><td><input type="checkbox" data-wall-show="window" checked aria-label="Show Window / terrain"></td><td><input type="checkbox" data-wall-enabled="window" checked aria-label="Enable Window / terrain"></td></tr>
+        <tr><td><span style="color:#ffd36b">┄┄</span> Invisible wall</td><td><input type="checkbox" data-wall-show="invisible" checked aria-label="Show Invisible wall"></td><td><input type="checkbox" data-wall-enabled="invisible" checked aria-label="Enable Invisible wall"></td></tr>
+        <tr><td><span style="color:#9aa3b5">┄┄</span> Ethereal</td><td><input type="checkbox" data-wall-show="ethereal" checked aria-label="Show Ethereal"></td><td><input type="checkbox" data-wall-enabled="ethereal" checked aria-label="Enable Ethereal"></td></tr>
+      </tbody></table>
+      <p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p>
+      <button type="button" id="apply-wall-types" class="primary">Apply wall types</button>
       </div>
     </details>
   </div>
@@ -161,7 +169,7 @@
 <script src="/static/js/api.js"></script>
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/keep_select_values.js"></script>
-<script src="/static/js/wall_appearance.js"></script>
-<script src="/static/js/admin_map_editor.js"></script>
+<script src="/static/js/wall_appearance.js?v=wall-width-2"></script>
+<script src="/static/js/admin_map_editor.js?v=wall-width-2"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

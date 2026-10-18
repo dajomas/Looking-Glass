@@ -11,17 +11,20 @@ window.LGWallAppearance = function (mapId, onChange) {
     if (valid(stored)) width = stored;
   } catch (_) { /* Storage may be unavailable; keep the usable default. */ }
   function update() {
-    input.value = String(width);
+    output.value = `${width} px`;
     output.textContent = `${width} px`;
     onChange(width);
   }
-  input.addEventListener("input", () => {
+  function readInput() {
     const next = Number(input.value);
     if (!valid(next)) return;
     width = next;
     try { localStorage.setItem(key, String(width)); } catch (_) {}
     update();
-  });
+  }
+  input.addEventListener("input", readInput);
+  input.addEventListener("change", readInput);
+  input.value = String(width);
   update();
   return { get width() { return width; } };
 };
