@@ -10,7 +10,7 @@
   let editing = null;
   let state = null, walls = [], saved = "[]", start = null, undo = [], redo = [], busy = false;
   let wallWidth = 2;
-  const pz = new PanZoom(vp, stage, { onTap, onChange: render });
+  const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: render });
   LGWallAppearance(id, (width) => {
     wallWidth = width;
     render();
@@ -81,8 +81,15 @@
     }
     return pt;
   }
-  function onTap(x, y) {
+  function onTap(x, y, event) {
     if (busy || editDialog.open || !state || x < 0 || y < 0 || x > state.width || y > state.height) return;
+    // A stationary secondary tap edits from any tool; PanZoom filters drags.
+    if (event?.button === 2) {
+      const index = nearest(x, y);
+      if (index < 0) { status("Right-click within 10 screen pixels of a wall to edit it."); return; }
+      openWallEdit(index);
+      return;
+    }
     const tool = $("wall-tool").value, kind = $("wall-kind").value;
     if (tool === "add") {
       const pt = snapped(x, y);

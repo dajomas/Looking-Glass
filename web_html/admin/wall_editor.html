@@ -19,7 +19,7 @@
         <output id="wall-width-value" for="wall-width">2 px</output>
       </label>
       <label class="check"><input id="snap-ends" type="checkbox" checked> Snap to nearby endpoints (10 screen px)</label>
-      <p class="small">Add: click start and end. Remove, change type or Edit: click near a segment. Edit opens endpoint coordinates and type. Escape cancels a pending start or closes the edit dialog. Drag to pan; wheel to zoom; F to fit.</p>
+      <p class="small">Add: click start and end. Remove, change type or Edit: click near a segment. Edit opens endpoint coordinates and type. Right-click a wall from any tool to edit it; right-drag pans. Escape cancels a pending start or closes the edit dialog. Drag to pan; wheel to zoom; F to fit.</p>
       <div class="btn-row"><button id="wall-undo" type="button">Undo</button><button id="wall-redo" type="button">Redo</button></div>
       <p class="small" id="wall-count"></p>
       <ul class="wall-colours small" aria-label="Wall colours"><li data-kind="wall">Normal — magenta</li><li data-kind="door">Door — blue</li><li data-kind="secret">Secret — purple dashed</li><li data-kind="window">Window / terrain — green</li><li data-kind="invisible">Invisible — yellow dashed</li><li data-kind="ethereal">Ethereal — grey dashed</li></ul>
@@ -77,5 +77,5 @@
 {% endblock %}
 {% block scripts %}
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
-<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=wall-width-2"></script><script src="/static/js/admin_wall_editor.js?v=wall-edit-1"></script>
+<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=wall-width-2"></script><script src="/static/js/admin_wall_editor.js?v=wall-right-click-edit-1"></script>
 {% endblock %}

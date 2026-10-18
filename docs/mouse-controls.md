@@ -45,8 +45,13 @@ inspect the server log; the exact production cause has not been proven.
 
 These controls apply to the separate wall editor, not to fog Reveal/Hide modes.
 Choose **Edit** in the Tool menu, then left-click/tap within 10 screen pixels of
-an existing segment to open its endpoint/type dialog. The nearest segment wins;
-zoom in to distinguish overlapping lines. Dragging pans rather than opening it.
+an existing segment to open its endpoint/type dialog. Alternatively, a stationary
+**right-click** within the same tolerance opens that dialog from any tool, without
+changing the selected tool or running Add/Remove/Change-type. The nearest segment
+wins; zoom in to distinguish overlapping lines. Right-drag still pans rather
+than opening the dialog. The browser context menu remains suppressed in the map
+viewport. Opening the dialog cancels a pending Add-wall start; right-clicking
+empty space preserves it. Primary/touch taps retain the selected tool's behavior.
 
 The popup contains Endpoint 1 X/Y, Endpoint 2 X/Y, and all six wall types. Values
 are map-image coordinates; mouse zoom and endpoint snapping do not rescale or

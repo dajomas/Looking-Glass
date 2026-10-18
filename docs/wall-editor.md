@@ -35,9 +35,14 @@ map_origin is zero. Reimport with auto-align restores the original size.
 
 ## Editing exact endpoints and wall type
 
-1. In the wall editor, choose **Edit** in the Tool menu.
-2. Click/tap within 10 screen pixels of a wall. The nearest segment is selected;
-   zoom in when several lines overlap. Dragging still pans and does not select.
+1. In the wall editor, choose **Edit** in the Tool menu and left-click/tap a wall,
+   or simply **right-click a wall from any selected tool**.
+2. Click within 10 screen pixels of a wall. The nearest segment is selected;
+   zoom in when several lines overlap. Right-drag still pans and does not select.
+   The shortcut does not change the selected tool or perform its primary action.
+   Opening the dialog cancels a pending Add-wall start. A miss leaves the draft
+   and pending start unchanged. The browser context menu stays suppressed inside
+   the map viewport; touch users can keep using Edit with a primary tap.
 3. The modal opens with the selected wall's full-precision Endpoint 1 X/Y,
    Endpoint 2 X/Y and wall type. Coordinates are calibrated map-image pixels,
    not screen pixels or grid units. Decimal and negative coordinates are allowed,
@@ -62,7 +67,8 @@ Snapping is not applied to typed coordinates, so the entered values stay exact.
 
 The popup does not send an HTTP request or autosave. Existing save/export APIs,
 CSRF checks, stale-save protection and boundary safety guidance remain unchanged.
-For installation and rollback, see [the Edit-tool patch note](../Patch/wall-editor-edit-tool.md).
+For installation and rollback, see [the Edit-tool patch note](../Patch/wall-editor-edit-tool.md)
+and [the right-click shortcut update](../Patch/wall-editor-right-click-edit.md).
 
 ## Boundaries and safety
 
