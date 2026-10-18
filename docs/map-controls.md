@@ -1,7 +1,5 @@
 # Map controls update
 
-Base: features/development at 0855070dea9e477d8db8ce3593b8259a9e43caf7.
-
 The update retains dropdown selections, implements independent wall-type overlay
 and boundary controls, hardens editor image/state loading, warns on offline
 reveals, and centers player display framing on the union of revealed pixels.

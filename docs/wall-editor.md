@@ -162,8 +162,7 @@ Empty edited sets are valid and can be saved/reimported.
 - web_html/admin/wall_editor.html and static/css/wall_editor.css: separate UI.
 - web/app_factory.py: mounts the router on the admin app only.
 
-No schema migration is introduced. This patch targets commit
-ba2f4bf699d3e72e6f6988a718f9a93cbca04343 and assumes its existing migrations are healthy.
+No schema migration is introduced. This patch targets the existing application and assumes its existing migrations are healthy.
 It does not repair earlier migration collisions. See ../Patch/wall-editor-uvtt.md
 for installation, rollback and exact verification scope.
 
