@@ -463,8 +463,9 @@ For installations upgrading across that change:
 - Old composite-cache files are ignored by the revised cache-key format.
 - Clearing the render cache while stopped is optional.
 - Existing saved wall sources are retained.
-## Door-arrow upgrade
 
-Stop the service and back up the SQLite database (including WAL files if applicable) before applying the patch. Install the changed files at repository-root-relative paths and restart both admin and viewer processes. Normal startup applies migration 5, adding the per-map arrow color with default `#46c0ff`. No new Python dependencies or configuration keys are required. Reload open admin pages to load the new color control and JavaScript. Existing viewer pages receive the updated image through the existing refresh/polling path.
+## Door-arrow controls upgrade
 
-The renderer uses a new cache identity, so old cached images are not reused. Clearing render caches is optional. For rollback restore the pre-upgrade database backup and previous code together; no down-migration is supplied.
+Stop both processes and back up the database/data before installing the cumulative door-arrow patch. Extract repository-root-relative changed files and restart normally. Startup applies migration 5 (arrow color) if needed, then migration 6 (enabled-by-default visibility). Existing color-only installations retain their chosen colors. Existing and newly created maps default to enabled. No new dependencies or configuration keys are required.
+
+Reload admin pages to load the adjacent checkbox and color selector. Toggle arrows off and on and verify both displays; confirm the previous color returns and revealed rooms are unchanged. The new cache identity avoids reusing older images; manual cache removal is optional. Roll back by restoring the previous code and matching database backup; no down-migration is provided.

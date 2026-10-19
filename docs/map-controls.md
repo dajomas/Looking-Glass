@@ -28,6 +28,7 @@ All visible regions are framed together; the last-clicked room is not privileged
 Automatic framing occurs on each new map/fog version, while pan/zoom remains usable
 between updates. Fully hidden maps use full-map framing.
 
-## Shared door arrow color
 
-The fog controls include **Door arrow color (shared with players)**. Unlike local wall-width and wall-visibility preferences, this is a server-persisted per-map setting. Default: admin ordinary-door blue (`#46c0ff`). Arrows remain visible independently of **Show walls** and appear in opaque player preview and the viewer image. Secret doors do not generate hints. See `usage.md` for eligibility rules.
+## Door arrows: shared visibility and color
+
+**Enable door arrows (shared with players)** is a checked-by-default checkbox immediately above **Door arrow color (shared with players)** in the fog controls. These are per-map server settings, unlike browser-local wall visibility/width preferences. Disable to remove arrows on both screens; re-enable to restore them in the saved color (`#46c0ff` by default). The disabled color input preserves its value. Hiding the admin wall overlay does not disable arrows. See `usage.md` for door eligibility and secret-door handling.

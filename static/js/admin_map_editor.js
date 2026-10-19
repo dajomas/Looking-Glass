@@ -45,7 +45,7 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => (toastEl.className = "toast"), ms);
   }
-  function setBusy(on) { busy = on; busyEl.hidden = !on; }
+  function setBusy(on) { busy = on; busyEl.hidden = !on; if (state) syncDoorArrowControls(); }
   const mode = () => document.querySelector('input[name="mode"]:checked').value;
 
   async function run(fn) {
@@ -125,7 +125,8 @@
   function applyState(s) {
     const first = state === null;
     state = s;
-    $("door-arrow-color").value = s.door_arrow_color;
+    syncDoorArrowControls();
+    $("door-arrows").hidden = !s.door_arrows_enabled;
     const nextImageKey = s.image_version || `${s.cache_token}-${s.width}-${s.height}`;
     if (imageKey !== nextImageKey) {imageKey = nextImageKey; img.src = `/api/maps/${MAP_ID}/image?v=${encodeURIComponent(imageKey)}`;}
     loadError("");
@@ -208,11 +209,22 @@
   $("btn-show").onclick = () => setActive(MAP_ID);
   $("btn-blank").onclick = () => setActive(null);
 
-  $("door-arrow-color").onchange = () => run(async () => {
-    try {
-      applyState(await LGApi.post(`/api/maps/${MAP_ID}/door-arrows`, {color: $("door-arrow-color").value}));
-    } finally { $("door-arrow-color").value = state.door_arrow_color; }
-  });
+  function syncDoorArrowControls() {
+    $("door-arrow-color").value = state.door_arrow_color;
+    $("door-arrows-enabled").checked = state.door_arrows_enabled;
+    $("door-arrow-color").disabled = busy || !state.door_arrows_enabled;
+    $("door-arrows-enabled").disabled = busy;
+  }
+  async function saveDoorArrows(change) {
+    if (busy || !state) { if (state) syncDoorArrowControls(); return; }
+    await run(async () => {
+      syncDoorArrowControls();
+      applyState(await LGApi.post(`/api/maps/${MAP_ID}/door-arrows`, change));
+    });
+    syncDoorArrowControls();
+  }
+  $("door-arrow-color").onchange = () => saveDoorArrows({color: $("door-arrow-color").value});
+  $("door-arrows-enabled").onchange = () => saveDoorArrows({enabled: $("door-arrows-enabled").checked});
   $("fog-opacity").oninput = drawFog;
   $("show-preview").onchange = drawFog;
   $("show-walls").onchange = (e) => (svg.style.display = e.target.checked ? "" : "none");

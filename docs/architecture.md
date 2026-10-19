@@ -141,10 +141,11 @@ responses are not browser-cacheable. Viewer refresh requests use generation IDs
 so an older asynchronous decode cannot overwrite newer display state or undo a
 blank-screen update.
 
-## Revealed-side door hints
 
-`FogEngine.door_arrow_overlay` uses the existing area labels and replayed revealed-label set, not the dilated fog mask, to classify the two sides of each ordinary blocking door. It transforms door endpoints through calibration and work scaling, probes outward from the midpoint along both normals, and requires two distinct nonzero labels with exactly one revealed. The arrow points back toward the midpoint from inside the revealed side. Its alpha is clipped to revealed open labels. Secret doors are excluded. Boundary-disabled doors are already marked nonblocking by `fog_inputs`.
+## Shared door arrows and visibility
 
-The same RGBA overlay is returned to the admin as a PNG above its fog canvas and composited into the viewer image. Admin loads use the existing generation guard and decode the fog mask and overlay before updating. Viewer images retain existing authorization and stale-version checks. `MapSpec` carries the per-map color; render identity includes the color and a door-arrow algorithm marker to prevent pre-upgrade disk cache reuse. Color updates bump the fog version, so ordinary live notifications and polling refresh the display.
+`MapSpec` carries server-persisted `door_arrow_color` and `door_arrows_enabled`. Migration 5 adds the color (default `#46c0ff`); migration 6 adds enabled visibility (`INTEGER NOT NULL DEFAULT 1`, constrained to 0/1). Migration 5 is unchanged from the original arrow patch, so upgrades from both baseline schema 4 and color-only schema 5 are supported.
 
-Migration 5 appends `maps.door_arrow_color TEXT NOT NULL DEFAULT '#46c0ff'`. It leaves walls, fog operation history, snapshots and prior migrations unchanged.
+The renderer uses undilated component labels and replayed fog operations. It samples the first open pixel on each side of an ordinary blocking door's midpoint along its normal, requires distinct labels and exactly one revealed side, and draws an arrow pointing back toward the door. Alpha is clipped to revealed open pixels. Secret doors are excluded. Disabled arrows return an empty RGBA overlay before area detection.
+
+Admin loads the overlay with its fog image using the existing generation guard. Viewers receive the same overlay baked into the server image, never hidden geometry. Color and enabled state are part of cache identity with an algorithm marker; saves bump the existing fog version to refresh connected viewers and polling clients. The admin control sends partial updates so toggling does not overwrite a saved color. Controls are disabled during outstanding writes and revert to confirmed state if saving fails.

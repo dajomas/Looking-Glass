@@ -139,6 +139,11 @@ MIGRATIONS: list[str] = [
     """
     ALTER TABLE maps ADD COLUMN door_arrow_color TEXT NOT NULL DEFAULT '#46c0ff';
     """,
+    # 6 - shared door arrow visibility (enabled by default)
+    """
+    ALTER TABLE maps ADD COLUMN door_arrows_enabled INTEGER NOT NULL DEFAULT 1
+        CHECK (door_arrows_enabled IN (0, 1));
+    """,
 ]
 
 

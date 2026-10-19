@@ -45,12 +45,13 @@ class MapSpec:
     fog_version: int
     cache_token: str = ""
     door_arrow_color: str = "#46c0ff"
+    door_arrows_enabled: bool = True
 
     @property
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
-                self.calibration, self.doors_block, self.door_arrow_color, "door-arrows-v1")
+                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, "door-arrows-v2")
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
@@ -63,6 +64,7 @@ class MapSpec:
             doors_block=bool(row["doors_block"]),
             walls_version=row["walls_version"], fog_version=row["fog_version"],
             door_arrow_color=row["door_arrow_color"] if "door_arrow_color" in row.keys() else "#46c0ff",
+            door_arrows_enabled=bool(row["door_arrows_enabled"]) if "door_arrows_enabled" in row.keys() else True,
             cache_token=row["cache_token"] if "cache_token" in row.keys() else "",
         )
 
@@ -285,12 +287,15 @@ class FogEngine:
         return {"jpg": "image/jpeg", "png": "image/png"}.get(self.viewer_ext, "image/webp")
 
     def door_arrow_overlay(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> Image.Image:
-        """Work-resolution RGBA arrows, clipped to the revealed side of ordinary doors."""
+        """Work-resolution arrows clipped to revealed open pixels; secret doors excluded."""
+        scale = self.work_scale(spec.width, spec.height)
+        w, h = max(1, math.ceil(spec.width * scale)), max(1, math.ceil(spec.height * scale))
+        overlay = Image.new("RGBA", (w, h))
+        if not spec.door_arrows_enabled or not spec.doors_block:
+            return overlay
         area = self.area_map(spec, segments)
         revealed = self.revealed_labels(area, ops)
-        h, w = area.shape
-        overlay = Image.new("RGBA", (w, h))
-        if not spec.doors_block or not revealed or len(revealed) == area.count:
+        if not revealed or len(revealed) == area.count:
             return overlay
         draw = ImageDraw.Draw(overlay)
 
@@ -310,13 +315,11 @@ class FogEngine:
                 continue
             nx, ny = -dy / length, dx / length
             mx, my = (x1 + x2) * area.scale / 2, (y1 + y2) * area.scale / 2
-            # Stop at the first open pixel on each side, never snap through walls.
             sides = []
             for sign in (-1, 1):
                 hit = None
                 for distance in range(1, self.thickness * 3 + 4):
-                    x, y = mx + sign * nx * distance, my + sign * ny * distance
-                    lab = sample(x, y)
+                    lab = sample(mx + sign * nx * distance, my + sign * ny * distance)
                     if lab:
                         hit = (lab, sign, distance)
                         break

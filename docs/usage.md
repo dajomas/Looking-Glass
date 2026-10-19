@@ -146,10 +146,9 @@ zooming. Battle-map doors and secret doors retain their double-width styling.
 This changes only the DM overlay, not fog boundary thickness, wall coordinates,
 UVTT exports, or the player image. Sidebar open/closed state resets on reload.
 
-## Door arrows to hidden rooms
 
-An ordinary door separating a revealed room from an unrevealed room receives an arrow on its revealed side, pointing toward the door. Arrows disappear when both rooms are revealed or hidden, and follow hide, undo, reset, restore and wall/alignment changes automatically. Reveal all leaves no hidden destinations and therefore no arrows.
+## Door arrow controls
 
-In the admin fog editor select **Door arrow color (shared with players)**. The saved per-map color defaults to `#46c0ff`, matching ordinary doors in the admin overlay. It applies to all connected viewers through the existing refresh mechanism; it is not a browser-only preference. Hiding the admin wall overlay does not hide the arrows. The exact player-image preview includes arrows.
+The admin fog controls contain **Enable door arrows (shared with players)** immediately above **Door arrow color (shared with players)**. Arrows are enabled by default for existing and new maps. Uncheck to hide arrows on both screens and in the exact player-image preview; check to restore them. The per-map preference survives reloads and restarts and is shared across admins/viewers. The color selector is disabled while arrows are off, but its saved color is retained. Default color: `#46c0ff`.
 
-Secret doors are deliberately excluded to avoid spoilers. Nonblocking/disabled doors, doors that do not split rooms, zero-length doors and map-edge segments without an area on both sides do not receive arrows. Detection uses the existing raster room topology: gaps that merge rooms or doors narrower than the work resolution can prevent a hint. In very tight spaces the arrow is clipped to revealed open pixels.
+Only ordinary blocking doors between distinct rooms with exactly one revealed side receive arrows. Arrows sit in the revealed room pointing toward the door, independent of the admin wall-overlay visibility. They follow reveal/hide/undo/reset/restore and wall calibration changes. Revealing both sides removes the arrow. Secret, nonblocking and disabled doors are excluded; map edges without open areas on both sides are excluded. Detection inherits the raster room topology's gap/resolution limitations, and tight spaces can clip arrows. Changing visibility or color does not reveal/hide rooms or add fog-history operations.

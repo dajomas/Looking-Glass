@@ -158,11 +158,11 @@ standard geometry. Ordinary UVTT and Foundry parsing remain unchanged.
 Unlike empty Foundry scenes, an explicitly empty UVTT set is retained.
 See [wall-editor.md](wall-editor.md) for fallback semantics and limitations.
 
-## Door arrow appearance and overlay
 
-The admin map JSON includes `door_arrow_color` (`#RRGGBB`).
+## Door arrow settings
 
-- `POST /api/maps/{map_id}/door-arrows`: authenticated campaign manager with CSRF token; JSON `{"color":"#46c0ff"}`. Only six-digit hexadecimal colors are accepted (422 otherwise). Saves a lower-case per-map color, increments `fog_version`, broadcasts the normal campaign refresh and returns the updated admin map payload. Does not add a fog operation or modify saved fog checkpoints.
-- `GET /api/maps/{map_id}/door-arrows.png`: authenticated campaign manager; transparent RGBA PNG at fog work resolution. Contains only the arrow overlay, with `Cache-Control: no-store`.
+Admin map payloads include `door_arrow_color` (`#RRGGBB`) and `door_arrows_enabled` (boolean, default true).
 
-The viewer API is unchanged: arrows are baked into the authorized fogged image. Viewers receive no wall segments or hidden room geometry. Color updates change the normal viewer version/image URL.
+`POST /api/maps/{map_id}/door-arrows` requires campaign-management permission and CSRF. It accepts partial JSON updates: `{"enabled":false}`, `{"color":"#46c0ff"}`, or both fields. Omitted/null fields preserve current values. Enabled must be a strict JSON boolean; color must be a six-digit hexadecimal string. Colors are normalized to lower case. The response is the updated map payload. Saving increments `fog_version` and broadcasts the existing viewer refresh without appending a fog action or modifying fog checkpoints.
+
+`GET /api/maps/{map_id}/door-arrows.png` requires management permission and returns a no-store transparent RGBA PNG at work resolution; it is fully transparent when disabled. Viewer API payloads do not change: the authorized fogged image includes arrows when enabled. No wall or hidden-room geometry is exposed to players.

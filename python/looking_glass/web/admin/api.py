@@ -53,6 +53,7 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "fog_version": m["fog_version"], "walls_version": m["walls_version"],
         "walls_source": m["walls_source"],
         "door_arrow_color": m["door_arrow_color"],
+        "door_arrows_enabled": bool(m["door_arrows_enabled"]),
         "image_version": m["image_file"],
         "disabled_wall_types": disabled_for_map(conn, m),
         "calibration": {"offset_x": ox, "offset_y": oy, "scale_x": sx, "scale_y": sy,
@@ -244,14 +245,18 @@ register_wall_types(router, _map_payload)
 
 
 class DoorArrowAppearanceIn(BaseModel):
-    color: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
+    color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
+    enabled: bool | None = Field(default=None, strict=True)
 
 
 @router.post("/maps/{map_id}/door-arrows")
 async def set_door_arrows(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: DoorArrowAppearanceIn):
     with ctx.db.connect() as conn:
-        map_for_manage(conn, user, map_id)
-        conn.execute("UPDATE maps SET door_arrow_color = ? WHERE id = ?", (body.color.lower(), map_id))
+        m, _ = map_for_manage(conn, user, map_id)
+        color = body.color.lower() if body.color is not None else m["door_arrow_color"]
+        enabled = body.enabled if body.enabled is not None else bool(m["door_arrows_enabled"])
+        conn.execute("UPDATE maps SET door_arrow_color = ?, door_arrows_enabled = ? WHERE id = ?",
+                     (color, int(enabled), map_id))
         maps_repo.bump_fog(conn, map_id)
         payload = _map_payload(ctx, conn, map_id)
     await notify.map_changed(ctx, map_id, "appearance")
