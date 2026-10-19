@@ -490,3 +490,10 @@ Verify all four admin/viewer combinations, including exact viewer-image preview,
 Apply the changed/new files to the supplied 1618eef source containing split arrow visibility and locked doors. Stop the application processes, back up code/data normally, extract at repository root and restart both processes so the new read-only endpoint is available. Reload viewer tabs to load the versioned zoom helper/display script. No database migration, new dependency or configuration setting is required; the existing schema remains unchanged.
 
 Verify focus/toggle on two revealed rooms, hidden-area no-op, manual pan then refit, Fit/F overview, resize, live hide/reset while focused, map switching/blanking, and drag/pinch suppression. Admin arrow visibility, viewer arrow visibility, lock/unlock and fog operations should be unchanged. See Patch/VIEWER_ROOM_ZOOM_VALIDATION.md for test limits. Rollback is the prior code version; this patch does not alter database contents/schema.
+
+
+## Admin-controlled viewer zoom upgrade
+
+Apply this changed-file archive to the supplied 13d62ae source (viewer room zoom already installed). Stop both processes, back up normally, extract at repository root, restart both processes and reload BOTH admin and viewer browser tabs. This is important: older viewer scripts ignore the new camera event type. No database migration, new dependency or configuration key is required. No rolled-back Center/Fit preferences are added.
+
+With a live viewer connected, double-click a revealed admin area in Reveal and Hide modes; verify room focus/overview in the viewer, no admin camera movement, and no fog action. Verify ordinary delayed singles, immediate right-click inverse mode, regular arrows, locked/unlocked double-clicks, viewer-local double-click/F, multi-viewer behavior, inactive-map rejection, hidden-area no-op, disconnected screens and stale map changes. See Patch/ADMIN_VIEWER_ZOOM_VALIDATION.md for automated checks and limits. Roll back to prior code; this increment does not change database schema/data.

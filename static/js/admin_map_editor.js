@@ -16,6 +16,7 @@
   let busy = false;
   const arrowHit = new LGDoorArrowHit();
   const doorTapQueue = new LGDoorTapQueue();
+  const areaTaps = new LGAdminAreaTaps();
   const stateKey = (s) => `${s.cache_token}-${s.walls_version}-${s.fog_version}-${Number(s.door_arrows_enabled)}`;
   let maskGeneration = 0, imageKey = "";
   const hiddenTypes = new Set();
@@ -29,6 +30,7 @@
 
   let wallWidth = 2;
   function updateWallWidth() {
+    areaTaps.cancel();
     const base = wallWidth / pz.scale;
     svg.style.setProperty("--sw", String(base));
     // Apply to existing paths too: changing a preference must not wait for a wall edit.
@@ -48,7 +50,7 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => (toastEl.className = "toast"), ms);
   }
-  function setBusy(on) { busy = on; if (on) doorTapQueue.cancel(); busyEl.hidden = !on; if (state) syncDoorArrowControls(); }
+  function setBusy(on) { busy = on; if (on) {doorTapQueue.cancel(); areaTaps.cancel();} busyEl.hidden = !on; if (state) syncDoorArrowControls(); }
   const mode = () => document.querySelector('input[name="mode"]:checked').value;
 
   async function run(fn) {
@@ -128,7 +130,7 @@
 
   function applyState(s) {
     const first = state === null;
-    doorTapQueue.cancel();
+    doorTapQueue.cancel(); areaTaps.cancel();
     state = s;
     syncDoorArrowControls();
     $("door-arrows").hidden = !s.door_arrows_enabled;
@@ -169,6 +171,34 @@
 
   // ------------------------------------------------------------------ actions
   function onTap(x, y, event) {
+    if (!state || busy || maskKey !== stateKey(state) || x<0 || y<0 || x>=state.width || y>=state.height) return;
+    const alpha = arrowHit.at(x,y,state,stateKey(state));
+    const door = LGManagedDoorHit(state,alpha,x,y,pz.scale,$("show-walls").checked,hiddenTypes);
+    if (door || alpha || event?.button !== 0) {
+      areaTaps.cancel(); performMapTap(x,y,event); return;
+    }
+    doorTapQueue.cancel();
+    const stamp = stateKey(state), selectedMode = mode();
+    const cx = Number.isFinite(event.clientX) ? event.clientX : x*pz.scale;
+    const cy = Number.isFinite(event.clientY) ? event.clientY : y*pz.scale;
+    areaTaps.tap(cx,cy,stamp,() => {
+      if (!state || busy || stamp !== stateKey(state) || mode() !== selectedMode) return;
+      performMapTap(x,y,event);
+    },() => {
+      if (!state || busy || stamp !== stateKey(state)) return;
+      const body = {x,y,cache_token:state.cache_token,walls_version:state.walls_version,fog_version:state.fog_version};
+      run(async () => {
+        let result;
+        try {result = await LGApi.post(`/api/maps/${MAP_ID}/viewer-zoom`,body);}
+        catch(error) {try {applyState(await LGApi.get(`/api/maps/${MAP_ID}`));} catch(_) {} throw error;}
+        if (result.reason === "not-revealed") toast("Only revealed areas can control viewer zoom.","warn");
+        else if (!result.viewers) toast("No viewer screens are connected.","warn");
+        else toast(`Zoom command sent to ${result.viewers} viewer screen${result.viewers===1 ? "" : "s"}.`);
+      });
+    });
+  }
+
+  function performMapTap(x, y, event) {
     if (!state || x < 0 || y < 0 || x > state.width || y > state.height) return;
     if (busy || maskKey !== stateKey(state)) return; // Never act on an old overlay.
     const alphaPoint = arrowHit.at(x, y, state, stateKey(state));
@@ -278,9 +308,15 @@
     const hit = state && !busy && !pz.pointers.size && arrowHit.at(point.x, point.y, state, stateKey(state));
     vp.style.cursor = hit ? "pointer" : "";
   });
-  vp.addEventListener("wheel", () => doorTapQueue.cancel(), {passive:true});
-  vp.addEventListener("pointermove", () => {if (pz.moved && pz.pointers.size) doorTapQueue.cancel();});
-  window.addEventListener("blur", () => doorTapQueue.cancel());
+  vp.addEventListener("wheel", () => {doorTapQueue.cancel(); areaTaps.cancel();}, {passive:true});
+  vp.addEventListener("pointerdown", event => {if (pz.spaceDown || pz.pointers.size>1 || event.button!==0) areaTaps.cancel();});
+  vp.addEventListener("pointercancel", () => areaTaps.cancel());
+  vp.addEventListener("dblclick", event => event.preventDefault());
+  window.addEventListener("keydown", () => areaTaps.cancel());
+  window.addEventListener("resize", () => areaTaps.cancel());
+  document.querySelectorAll('input[name="mode"]').forEach(input => input.addEventListener("change",() => areaTaps.cancel()));
+  vp.addEventListener("pointermove", () => {if (pz.moved && pz.pointers.size) {doorTapQueue.cancel(); areaTaps.cancel();}});
+  window.addEventListener("blur", () => {doorTapQueue.cancel(); areaTaps.cancel();});
   vp.addEventListener("pointerleave", () => {vp.style.cursor = "";});
   $("fog-opacity").oninput = drawFog;
   $("show-preview").onchange = drawFog;

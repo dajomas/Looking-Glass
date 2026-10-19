@@ -49,3 +49,8 @@ Admin and viewer arrow visibility are independent; Show walls is unchanged. The 
 ## Viewer area zoom and overview
 
 The viewer's double-click gesture focuses one revealed room, or toggles back to all revealed bounds if that room is already fitted/centered. Fit/F always selects overview. This is a local camera operation, not an admin Center/Fit toggle and not a reveal action. Viewer arrow visibility and admin arrow/door interaction controls remain independent and unchanged.
+
+
+## Remote viewer camera from admin
+
+Double-click a revealed area in the admin fog editor to toggle room focus/all-revealed overview in connected viewer screens, not in admin. Door/arrow gestures take priority. Ordinary primary area singles wait 400 ms; right-click mode inversion stays immediate. The map must already be live, and hidden areas do not send a camera command. Viewer-local double-click remains unchanged. No new Center/Fit toggles or persistent camera preferences are introduced.

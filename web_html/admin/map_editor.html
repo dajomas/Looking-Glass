@@ -39,7 +39,7 @@
       <label><input type="radio" name="mode" value="reveal" checked><span>Reveal area</span></label>
       <label><input type="radio" name="mode" value="hide"><span>Hide area</span></label>
     </div>
-    <p class="muted small">Click inside a room bounded by walls. Right-drag or Space-drag pans, the wheel zooms. Shortcuts: R / H mode, Ctrl+Z undo, F fit.</p>
+    <p class="muted small">Single-click inside a room to reveal/hide (400 ms delay). Double-click a revealed area to toggle viewer zoom without changing fog. Door/arrow gestures take priority. Right-drag or Space-drag pans, the wheel zooms. Shortcuts: R / H mode, Ctrl+Z undo, F fit.</p>
     <div class="btn-row">
       <button id="btn-undo">Undo</button>
       <button id="btn-reveal-all">Reveal all</button>
@@ -182,8 +182,9 @@
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/keep_select_values.js"></script>
 <script src="/static/js/wall_appearance.js?v=wall-width-2"></script>
+<script src="/static/js/admin_area_taps.js?v=admin-viewer-zoom-1"></script>
 <script src="/static/js/door_gestures.js?v=locked-doors-1"></script>
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
-<script src="/static/js/admin_map_editor.js?v=arrow-visibility-2"></script>
+<script src="/static/js/admin_map_editor.js?v=admin-viewer-zoom-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

@@ -150,3 +150,8 @@ Show door arrows (admin) controls the DM overlay/click targets; Show door arrows
 ## Viewer double-click room zoom
 
 In the player viewer, double-click a revealed room to fit and center that room. Double-click it again while it is already fitted and centered to return to the overview of all revealed areas. A double-click on another room focuses that room instead. Hidden areas do nothing. The Fit button/F shortcut always returns to the revealed-area overview. This is local read-only camera navigation: it never reveals fog or changes doors. See `docs/usage.md` and `Patch/viewer-room-zoom.md`.
+
+
+## Admin-controlled viewer zoom
+
+Double-click a revealed area in the admin fog editor to send the existing room-focus/overview toggle to connected viewer screens, without moving the admin camera. Ordinary area single-clicks wait 400 ms so the first click cannot reveal/hide fog before a double-click is recognized. Door and arrow gestures keep priority. Double-clicking directly in the viewer remains unchanged. The map must already be shown to players; hidden areas do not send commands. See `docs/usage.md` and `Patch/admin-viewer-zoom.md`.

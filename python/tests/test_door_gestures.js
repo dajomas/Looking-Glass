@@ -4,7 +4,7 @@ const tap=source.slice(source.indexOf("  function onTap("),source.indexOf("  con
 function makeClock(){let n=0;const tasks=new Map();return {setTimeout(fn){tasks.set(++n,fn);return n;},clearTimeout(id){tasks.delete(id);},flush(){const list=[...tasks.values()];tasks.clear();for(const fn of list)fn();}};}
 async function check(kind,{double=false,hit="arrow",stale=false}={}){
  const clock=makeClock(),calls=[];
- const ctx={window:clock,console};
+ const ctx={window:clock,console,areaTaps:{cancel(){}}};
  vm.runInNewContext(fs.readFileSync("static/js/door_gestures.js","utf8"),ctx);
  ctx.LGManagedDoorHit=ctx.window.LGManagedDoorHit;
  ctx.doorTapQueue=new ctx.window.LGDoorTapQueue(400,clock);

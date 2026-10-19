@@ -96,3 +96,8 @@ On the admin fog map, a locked arrow requires a double primary click/tap to unlo
 ## Viewer double-click area focus
 
 Viewer only: double primary click a revealed room/area to fit and center it; double-click again at its fitted/centered pose to return to all revealed areas. A different room becomes the new focus. The decision uses actual camera position/zoom, not just a remembered focus flag, so manually achieved matching poses toggle out too. Fit/F always returns to overview. Hidden areas do not respond. Two stationary touch taps use a 400-ms/12-screen-pixel pairing window; drag, Space-drag, pinch/multitouch, wheel, non-primary clicks and cancellation/blur invalidate pending gestures. No fog/door state is modified.
+
+
+## Admin area double-click -> viewer camera
+
+Admin ordinary area single primary click/tap: selected reveal/hide action after 400 ms. Two nearby clicks/taps within that time: cancel that single and toggle room focus/overview in connected viewers instead; no admin camera movement or fog change. Hidden areas are ignored for double-click zoom. Right-click inverse fog mode is still immediate. Door/arrow gestures keep their existing priority and meaning. Pan, Space-drag, pinch/multitouch, wheel/zoom, cancellations, mode/state changes and blur cancel pending area singles. Viewer-local double-click behavior remains unchanged.

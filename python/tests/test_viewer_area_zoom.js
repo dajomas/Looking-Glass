@@ -2,7 +2,7 @@ const assert=require("node:assert/strict"),fs=require("node:fs"),vm=require("nod
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 function response(data,status=200){return {ok:status>=200&&status<300,status,json:async()=>data};}
 function app(){
- const elements=new Map(),handlers=new Map(),intervals=[],timers=[],images=[],queries=[];let pz,now=0;
+ const elements=new Map(),handlers=new Map(),intervals=[],timers=[],images=[],queries=[];let pz,now=0,socket;
  const view={left:0,top:0,width:1000,height:600};
  const element=id=>{if(!elements.has(id))elements.set(id,{hidden:false,src:"",textContent:"",classList:{add(){},remove(){}},
    getBoundingClientRect:()=>view,addEventListener(type,fn){const key=id+":"+type;if(!handlers.has(key))handlers.set(key,[]);handlers.get(key).push(fn);},
@@ -14,7 +14,7 @@ function app(){
    Image:class{constructor(){this.naturalWidth=200;this.naturalHeight=100;images.push(this);}decode(){return Promise.resolve();}},
    PanZoom:class{constructor(v,s,opts){this.w=this.h=1;this.x=this.y=0;this.scale=1;this.minScale=.02;this.maxScale=8;this.opts=opts;this.pointers=new Map();pz=this;}
       setContentSize(w,h){this.w=w;this.h=h;}apply(){}fit(){this.scale=4.9;this.x=10;this.y=55;}},
-   WebSocket:class{},setInterval(fn,ms){intervals.push({fn,ms});},clearInterval(){},setTimeout(fn){timers.push(fn);return timers.length;},clearTimeout(){},
+   WebSocket:class{constructor(){socket=this;}},setInterval(fn,ms){intervals.push({fn,ms});},clearInterval(){},setTimeout(fn){timers.push(fn);return timers.length;},clearTimeout(){},
    fetch:async url=>{
     if(url.includes('/area-bounds?')){
       queries.push(url);const u=new URL(url,'http://test'),x=Number(u.searchParams.get('x'));
@@ -29,7 +29,7 @@ function app(){
  vm.runInNewContext(fs.readFileSync('static/js/viewer_display.js','utf8'),context);
  function fire(type,event={}){for(const fn of handlers.get('viewport:'+type)||[])fn(event);}
  function tap(x,y){now+=70;fire('pointerdown',{button:0});pz.opts.onTap(x/2,y/2,{button:0,clientX:x/2*pz.scale+pz.x,clientY:y/2*pz.scale+pz.y});}
- return {context,element,queries,view,a,b,get pz(){return pz;},
+ return {context,element,queries,view,a,b,remote:async msg=>{socket.onmessage({data:JSON.stringify(msg)});await tick();},get pz(){return pz;},
    pose:()=>({x:pz.x,y:pz.y,scale:pz.scale}),double:async(x,y)=>{tap(x,y);tap(x,y);await tick();},
    expected:bounds=>context.LGViewerAreaZoom.target(bounds,400,200,pz,view),
    poll:async()=>{await intervals.find(i=>i.ms===40000).fn();await tick();},
@@ -66,5 +66,21 @@ function near(actual,expected){for(const k of ['x','y','scale'])assert.ok(Math.a
  const geometry=v.context.LGViewerAreaZoom;
  const pz={w:200,h:100,minScale:.02,maxScale:8,scale:1,x:0,y:0};
  assert.equal(geometry.target(v.a,400,200,pz,{width:0,height:600}),null);
- console.log('Viewer room focus/toggle, other room, manual camera, hidden clicks, resize, refresh and stale-response tests passed');
+ const command=(id,x=100,version='1:token-1-1')=>({type:'viewer-zoom',command_id:id,version,point:{x,y:100}});
+ v=app();await tick();const globalPose=v.pose();
+ await v.remote(command('a'));near(v.pose(),v.expected(v.a));
+ await v.remote(command('b'));near(v.pose(),globalPose);
+ const requestCount=v.queries.length;await v.remote(command('b'));assert.equal(v.queries.length,requestCount);near(v.pose(),globalPose);
+ await v.remote(command('c',300));near(v.pose(),v.expected(v.b));
+ await v.double(300,100);near(v.pose(),globalPose); // local viewer gesture still works after remote control
+ v=app();await tick();const unchanged=v.pose();await v.remote(command('stale',100,'1:token-1-0'));near(v.pose(),unchanged);assert.equal(v.queries.length,0);
+ await v.remote({...command('bad'),point:{x:'100',y:100}});assert.equal(v.queries.length,0);
+ v=app();await tick();v.bump();await v.remote(command('new',300,'1:token-1-2'));near(v.pose(),v.expected(v.b));
+ v=app();await tick();v.delay();await v.remote(command('slow'));v.pz.x=123;v.pz.scale=2;v.fire('wheel');const userPose=v.pose();await v.resolve();near(v.pose(),userPose);
+ v=app();await tick();v.delay();await v.remote(command('slow-old'));await v.remote(command('newest',300));await v.resolve();near(v.pose(),v.expected(v.b));
+ const first=app(),second=app();await tick();await first.double(100,100);const secondOverview=second.pose();
+ await first.remote(command('shared'));await second.remote(command('shared'));
+ near(first.pose(),first.expected({x:10,y:10,width:380,height:180}));near(second.pose(),second.expected(second.a));
+ assert.notDeepEqual(second.pose(),secondOverview);
+ console.log('Viewer local and remote zoom, multi-viewer, duplicate/stale commands, cancellation and refresh tests passed');
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -11,6 +11,8 @@
   pz._onResize = () => {};
   const taps = new LGViewerDoubleTap();
   let version = null, refreshGeneration = 0, zoomGeneration = 0;
+  let interactionGeneration = 0, remoteGeneration = 0;
+  const remoteCommands = new Set();
   let revealBounds = null, currentMap = null, focusPoint = null, focusBounds = null;
   function target(bounds) {
     return currentMap ? LGViewerAreaZoom.target(bounds, currentMap.width, currentMap.height,
@@ -22,6 +24,7 @@
     else pz.fit();
   }
   function showOverview() {
+    ++interactionGeneration;
     ++zoomGeneration; taps.cancel(); focusPoint = focusBounds = null;
     centerReveals();
   }
@@ -61,14 +64,15 @@
     lookup(point,true);
   }
   vp.addEventListener("pointerdown", event => {
+    ++interactionGeneration;
     ++zoomGeneration;
     if (pz.spaceDown || pz.pointers.size > 1 || event.button !== 0) taps.cancel();
   });
-  vp.addEventListener("pointermove", () => {if (pz.moved && pz.pointers.size) cancelLookup(true);});
-  vp.addEventListener("pointercancel", () => cancelLookup());
-  vp.addEventListener("wheel", () => cancelLookup(true), {passive:true});
+  vp.addEventListener("pointermove", () => {if (pz.moved && pz.pointers.size) {++interactionGeneration; cancelLookup(true);}});
+  vp.addEventListener("pointercancel", () => {++interactionGeneration; cancelLookup();});
+  vp.addEventListener("wheel", () => {++interactionGeneration; cancelLookup(true);}, {passive:true});
   vp.addEventListener("dblclick", event => event.preventDefault());
-  window.addEventListener("blur", () => cancelLookup());
+  window.addEventListener("blur", () => {++interactionGeneration; cancelLookup();});
 
   async function refresh() {
     const generation = ++refreshGeneration;
@@ -102,6 +106,21 @@
     else centerReveals();
   }
 
+  async function remoteZoom(msg) {
+    if (typeof msg.command_id !== "string" || !msg.command_id || msg.command_id.length>128 ||
+        typeof msg.version !== "string" || !msg.point ||
+        !Number.isFinite(msg.point.x) || !Number.isFinite(msg.point.y) || remoteCommands.has(msg.command_id)) return;
+    remoteCommands.add(msg.command_id);
+    if (remoteCommands.size>64) remoteCommands.delete(remoteCommands.values().next().value);
+    const generation = ++remoteGeneration, interaction = interactionGeneration;
+    cancelLookup();
+    if (msg.version !== version || stage.hidden) await refresh();
+    if (generation !== remoteGeneration || interaction !== interactionGeneration ||
+        stage.hidden || msg.version !== version) return;
+    // Reuse the unchanged local double-click path, including authorized current-area lookup.
+    await lookup({x:msg.point.x,y:msg.point.y},true);
+  }
+
   let ws = null, retry = 1000, pingTimer = null;
   function connect() {
     const proto = location.protocol === "https:" ? "wss" : "ws";
@@ -110,6 +129,7 @@
     ws.onmessage = (ev) => {
       const msg = JSON.parse(ev.data);
       if (msg.type === "refresh") refresh().catch(console.error);
+      if (msg.type === "viewer-zoom") remoteZoom(msg).catch(console.error);
     };
     ws.onclose = (ev) => {
       dot.classList.remove("on"); clearInterval(pingTimer);
@@ -128,7 +148,7 @@
   wake();
 
   let resizeTimer;
-  window.addEventListener("resize", () => {clearTimeout(resizeTimer); resizeTimer=setTimeout(() => {
+  window.addEventListener("resize", () => {++interactionGeneration; clearTimeout(resizeTimer); resizeTimer=setTimeout(() => {
     cancelLookup();
     if (!stage.hidden && focusBounds) LGViewerAreaZoom.apply(pz,target(focusBounds));
     else {focusPoint = null; centerReveals();}

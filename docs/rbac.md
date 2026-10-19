@@ -32,3 +32,8 @@ Notes
 - Every state-changing request needs the session's CSRF token (hidden form
   field or `X-CSRF-Token` header). Cookies are `HttpOnly`, `SameSite=Lax`,
   and `Secure` when `security.secure_cookies: true`.
+
+
+## Remote viewer camera control
+
+Only a user allowed to manage the selected map's campaign may POST the new admin viewer-zoom command, with the existing admin session and CSRF token. The map must be the campaign's active map and the target must be currently revealed. Viewer accounts still have only their existing read-only local area-bounds navigation; no viewer-port mutation/control endpoint is added. Camera events are broadcast only to that campaign's subscribed sockets and revalidated through each viewer's authorized area lookup.
