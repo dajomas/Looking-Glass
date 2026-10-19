@@ -2,7 +2,7 @@
 import json
 from dataclasses import replace
 
-WALL_TYPES = ("wall", "door", "secret", "window", "invisible", "ethereal")
+WALL_TYPES = ("wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal")
 
 
 def disabled_types(row):
@@ -10,4 +10,4 @@ def disabled_types(row):
 
 
 def filter_segments(segments, disabled):
-    return [replace(s, blocks=False) if s.kind in disabled else s for s in segments]
+    return [replace(s, blocks=False) if (s.designed_kind or s.kind) in disabled else s for s in segments]

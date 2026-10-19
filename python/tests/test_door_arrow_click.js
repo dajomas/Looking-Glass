@@ -9,6 +9,7 @@ function setup({hit=true,button=0,mode="hide",stale=false,reject=false}={}) {
   const calls=[],notices=[];
   const ctx={state:{...state},busy:false,maskKey:stale?"old":"map-1-1",MAP_ID:1,
     stateKey:s=>`${s.cache_token}-${s.walls_version}-${s.fog_version}`,
+    LGManagedDoorHit:()=>null,pz:{scale:1},$:()=>({checked:true}),hiddenTypes:new Set(),doorTapQueue:{cancel(){}},
     mode:()=>mode,arrowHit:{at:()=>hit?{x:175.5,y:100.5}:null},
     LGApi:{post:async(path,body)=>{calls.push({path,body});if(reject)throw Error("stale");return {area_fraction:.2,is_active:true};},
       get:async()=>({refreshed:true})},

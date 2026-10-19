@@ -86,3 +86,8 @@ If clamping would make both endpoints coincide, no edit is applied.
 ## Clicking door arrows
 
 On the admin fog editor, left-click or tap a visible enabled door arrow to reveal its adjacent hidden room. The pointer cursor indicates a hit. This takes precedence over the current Hide mode without changing the selected mode; Ctrl+Z undoes it as an ordinary reveal. Right-click remains the inverse of the selected fog mode. Pan/zoom drags, Space-drag and pinch gestures retain their existing behavior. Transparent arrow-image pixels are not clickable. Viewer screens remain read-only.
+
+
+## Locked and unlocked doors
+
+On the admin fog map, a locked arrow requires a double primary click/tap to unlock and never reveals during that gesture. Its single click, and clicks on the locked wall segment, do nothing. A single unlocked arrow reveals normally; a double click/tap on an unlocked arrow or visible door segment locks without revealing. Managed door singles wait 400 ms to distinguish a double. A state change, another target/action, pan, wheel zoom or blur cancels pending clicks. Right-click on locked targets does nothing; unlocked targets retain inverse fog mode. Direct segment tolerance is 10 screen pixels. Viewer screens remain read-only. Reset restores authored door states; Ctrl+Z only undoes fog actions.

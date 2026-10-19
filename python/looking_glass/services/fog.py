@@ -30,7 +30,7 @@ from scipy import ndimage
 
 from .wall_model import Calibration, FogOp, WallSegment
 
-DOOR_KINDS = frozenset({"door", "secret"})
+DOOR_KINDS = frozenset({"door", "secret", "locked_door", "unlocked_door"})
 
 
 @dataclass(slots=True)
@@ -46,12 +46,13 @@ class MapSpec:
     cache_token: str = ""
     door_arrow_color: str = "#46c0ff"
     door_arrows_enabled: bool = True
+    locked_door_arrow_color: str = "#ff9f43"
 
     @property
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
-                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, "door-arrows-v3")
+                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, "door-arrows-v4")
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
@@ -63,6 +64,7 @@ class MapSpec:
                                     row["wall_scale_x"], row["wall_scale_y"]),
             doors_block=bool(row["doors_block"]),
             walls_version=row["walls_version"], fog_version=row["fog_version"],
+            locked_door_arrow_color=row["locked_door_arrow_color"] if "locked_door_arrow_color" in row.keys() else "#ff9f43",
             door_arrow_color=row["door_arrow_color"] if "door_arrow_color" in row.keys() else "#46c0ff",
             door_arrows_enabled=bool(row["door_arrows_enabled"]) if "door_arrows_enabled" in row.keys() else True,
             cache_token=row["cache_token"] if "cache_token" in row.keys() else "",

@@ -45,6 +45,9 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
     walls = [[round((s.x1 - ox) * sx, 2), round((s.y1 - oy) * sy, 2),
               round((s.x2 - ox) * sx, 2), round((s.y2 - oy) * sy, 2), s.kind, s.blocks] for s in segs]
     scale = ctx.fog.work_scale(m["width"], m["height"])
+    spec, boundary, ops = fog_inputs(ctx, conn, map_id)
+    from ...services.door_arrows import arrows as make_arrows
+    arrow_objects = make_arrows(ctx.fog, spec, boundary, ops)
     return {
         "ok": True,
         "id": m["id"], "cache_token": m["cache_token"], "name": m["name"], "campaign_id": m["campaign_id"],
@@ -54,6 +57,11 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "fog_version": m["fog_version"], "walls_version": m["walls_version"],
         "walls_source": m["walls_source"],
         "door_arrow_color": m["door_arrow_color"],
+        "locked_door_arrow_color": m["locked_door_arrow_color"],
+        "door_arrows": [{"wall_id": a.wall_id, "kind": a.kind, "polygon": a.polygon} for a in arrow_objects],
+        "managed_doors": [{"wall_id": s.id, "kind": s.kind,
+            "x1": (s.x1-ox)*sx, "y1": (s.y1-oy)*sy, "x2": (s.x2-ox)*sx, "y2": (s.y2-oy)*sy}
+            for s in segs if s.kind in ("locked_door", "unlocked_door")],
         "door_arrows_enabled": bool(m["door_arrows_enabled"]),
         "image_version": m["image_file"],
         "disabled_wall_types": disabled_for_map(conn, m),
@@ -170,7 +178,7 @@ async def inspect_walls(ctx: CtxDep, user: CsrfUserDep, map_id: int, file: Annot
         raise BadRequest(str(exc))
     return {"ok": True, "scenes": [
         {"index": i, "name": s.name, "format": s.source_format, "walls": len(s.segments),
-         "doors": sum(1 for w in s.segments if w.kind in ("door", "secret")),
+         "doors": sum(1 for w in s.segments if w.kind in ("door", "secret", "locked_door", "unlocked_door")),
          "scene_width": s.scene_width, "scene_height": s.scene_height,
          "calibration": vars_cal(s.suggested_calibration(m["width"], m["height"]))}
         for i, s in enumerate(sets)]}
@@ -246,6 +254,7 @@ register_wall_types(router, _map_payload)
 
 
 class DoorArrowAppearanceIn(BaseModel):
+    locked_color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
     color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
     enabled: bool | None = Field(default=None, strict=True)
 
@@ -253,11 +262,13 @@ class DoorArrowAppearanceIn(BaseModel):
 @router.post("/maps/{map_id}/door-arrows")
 async def set_door_arrows(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: DoorArrowAppearanceIn):
     with ctx.db.connect() as conn:
+        conn.execute("BEGIN IMMEDIATE")
         m, _ = map_for_manage(conn, user, map_id)
         color = body.color.lower() if body.color is not None else m["door_arrow_color"]
         enabled = body.enabled if body.enabled is not None else bool(m["door_arrows_enabled"])
-        conn.execute("UPDATE maps SET door_arrow_color = ?, door_arrows_enabled = ? WHERE id = ?",
-                     (color, int(enabled), map_id))
+        locked_color = body.locked_color.lower() if body.locked_color is not None else m["locked_door_arrow_color"]
+        conn.execute("UPDATE maps SET door_arrow_color = ?, door_arrows_enabled = ?, locked_door_arrow_color = ? WHERE id = ?",
+                     (color, int(enabled), locked_color, map_id))
         maps_repo.bump_fog(conn, map_id)
         payload = _map_payload(ctx, conn, map_id)
     await notify.map_changed(ctx, map_id, "appearance")
@@ -302,3 +313,7 @@ async def reveal_door_arrow(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: D
                    "leak_warning": res.leak_warning}
     await notify.map_changed(ctx, map_id, "fog")
     return payload
+
+
+from .door_states import register_door_states  # noqa: E402
+register_door_states(router, _map_payload)

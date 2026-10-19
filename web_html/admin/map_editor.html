@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=wall-width-2">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=locked-doors-1">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -50,10 +50,13 @@
     </label>
     <label class="check"><input id="show-walls" type="checkbox" checked> Show walls</label>
     <label class="check"><input id="door-arrows-enabled" type="checkbox" checked> Enable door arrows (shared with players)</label>
+    <label>Locked door arrow color (shared with players)
+      <input id="locked-door-arrow-color" type="color" value="#ff9f43">
+    </label>
     <label>Door arrow color (shared with players)
       <input id="door-arrow-color" type="color" value="#46c0ff">
     </label>
-    <p class="muted small">Click an arrow to reveal the room behind its door. Ctrl+Z undoes the reveal.</p>
+    <p class="muted small">Click a door arrow to reveal. Locked arrows: double-click to unlock only. Unlocked doors/arrows: double-click to lock. Reset restores designed door states. Ctrl+Z undoes fog reveals.</p>
     <label class="check"><input id="show-preview" type="checkbox"> Player preview (opaque fog)</label>
     <p class="small"><span id="op-count">{{ op_count }}</span> fog actions recorded</p>
       </div>
@@ -128,6 +131,8 @@
       <table class="table compact"><thead><tr><th>Type</th><th>Show</th><th>Enabled</th></tr></thead><tbody>
         <tr><td><span style="color:#ff5bd1">━━</span> Normal wall</td><td><input type="checkbox" data-wall-show="wall" checked aria-label="Show Normal wall"></td><td><input type="checkbox" data-wall-enabled="wall" checked aria-label="Enable Normal wall"></td></tr>
         <tr><td><span style="color:#46c0ff">━━</span> Door</td><td><input type="checkbox" data-wall-show="door" checked aria-label="Show Door"></td><td><input type="checkbox" data-wall-enabled="door" checked aria-label="Enable Door"></td></tr>
+        <tr><td><span style="color:#ff9f43">┄┄</span> Locked Door</td><td><input type="checkbox" data-wall-show="locked_door" checked aria-label="Show Locked Door"></td><td><input type="checkbox" data-wall-enabled="locked_door" checked aria-label="Enable Locked Door"></td></tr>
+        <tr><td><span style="color:#ff9f43">━━</span> Unlocked Door</td><td><input type="checkbox" data-wall-show="unlocked_door" checked aria-label="Show Unlocked Door"></td><td><input type="checkbox" data-wall-enabled="unlocked_door" checked aria-label="Enable Unlocked Door"></td></tr>
         <tr><td><span style="color:#b07cff">┄┄</span> Secret door</td><td><input type="checkbox" data-wall-show="secret" checked aria-label="Show Secret door"></td><td><input type="checkbox" data-wall-enabled="secret" checked aria-label="Enable Secret door"></td></tr>
         <tr><td><span style="color:#7cffb2">━━</span> Window / terrain</td><td><input type="checkbox" data-wall-show="window" checked aria-label="Show Window / terrain"></td><td><input type="checkbox" data-wall-enabled="window" checked aria-label="Enable Window / terrain"></td></tr>
         <tr><td><span style="color:#ffd36b">┄┄</span> Invisible wall</td><td><input type="checkbox" data-wall-show="invisible" checked aria-label="Show Invisible wall"></td><td><input type="checkbox" data-wall-enabled="invisible" checked aria-label="Enable Invisible wall"></td></tr>
@@ -176,7 +181,8 @@
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/keep_select_values.js"></script>
 <script src="/static/js/wall_appearance.js?v=wall-width-2"></script>
+<script src="/static/js/door_gestures.js?v=locked-doors-1"></script>
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
-<script src="/static/js/admin_map_editor.js?v=door-arrow-click-1"></script>
+<script src="/static/js/admin_map_editor.js?v=locked-doors-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

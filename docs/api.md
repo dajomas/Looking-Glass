@@ -168,3 +168,20 @@ Admin map payloads include `door_arrow_color` (`#RRGGBB`), `door_arrows_enabled`
 - `POST /api/maps/{map_id}/door-arrows/reveal`: authenticated campaign manager plus CSRF. Body: `{"x":175.5,"y":100.5,"cache_token":"<map incarnation>","walls_version":1,"fog_version":1}`. Coordinates identify the clicked visible arrow pixel in image space, not a client-selected target room. The server recomputes the enabled arrow and resolves a verified open pixel in the opposite hidden area. A successful request appends one ordinary reveal operation, bumps fog version, checkpoints if active, broadcasts normal refresh and returns the updated map payload with `area_fraction` and `leak_warning`.
 
 The click endpoint holds a SQLite write transaction across stamp validation and mutation. Stale incarnation/version stamps or a point with no enabled visible arrow return 400 without a fog write. Repeating the same click stamp is rejected after the first reveal. Management authorization is checked before topology use. Viewer endpoints remain unchanged and read-only: only composited imagery is delivered, never hidden target coordinates or wall geometry.
+
+
+## Locked and unlocked doors
+
+Wall edit/import/export type validation now accepts `locked_door` and `unlocked_door`. Existing wall row arrays remain `[x1,y1,x2,y2,kind,blocks]`. Runtime effective kinds are returned in fog-editor map state; the dedicated wall editor returns authored kinds. Admin-only map payloads additionally contain `managed_doors` (wall ID, effective kind and calibrated endpoints), `door_arrows` (wall ID, kind and work-space polygon), and `locked_door_arrow_color`. Viewer state schemas are unchanged; viewers receive composited arrow colors but no mutation capability.
+
+The existing management/CSRF-protected appearance endpoint `POST /api/maps/{map_id}/door-arrows` accepts optional `locked_color` (`#RRGGBB`, normalized lower-case), alongside existing `color` and `enabled`. Omitted/null fields preserve saved values. Saving bumps fog version and notifies active viewers without appending a fog operation.
+
+New management/CSRF-protected `POST /api/maps/{map_id}/door-action` body:
+
+```json
+{"x":175.5,"y":100.5,"wall_id":4,"gesture":"double","hit":"arrow","mode":"reveal","tolerance":10,"cache_token":"<map token>","walls_version":1,"fog_version":1}
+```
+
+`gesture` is single/double; `hit` is arrow/wall; `mode` is reveal/hide (default reveal). `tolerance` is an image-space wall-hit radius, >0 and <=500 (UI uses 10/screen scale). The server serializes map authorization, incarnation/version validation, current raster arrow/segment hit validation, and mutation in one SQLite write transaction. Wrong/stale targets return 400 with no fallback mutation. Responses are updated map state plus `door_action`: none, unlock, lock, reveal, or hide. Reveals/hides also include existing area fraction/leak-warning fields and active checkpoints.
+
+Locked singles and locked wall doubles return none. Locked arrow doubles unlock. Unlocked doubles lock without a fog action. Unlocked arrow singles reveal; segment singles honor mode. Runtime lock/unlock bumps wall/fog versions and broadcasts refresh, but never adds a reveal operation. The legacy arrow-reveal endpoint cannot reveal through a locked arrow. Viewer permissions remain unchanged. Reset deletes runtime overrides as part of restoring fog/design state.

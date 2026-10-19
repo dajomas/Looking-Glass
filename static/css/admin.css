@@ -60,3 +60,8 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
 .sidebar-panel { width: 100%; }
 .sidebar-panel > summary { cursor: pointer; font-weight: 600; }
 .sidebar-panel > .panel-content { display: flex; flex-direction: column; gap: .55rem; margin-top: .55rem; }
+
+#walls-svg .w-locked_door, #walls-svg .w-unlocked_door { stroke: #ff9f43; stroke-width: calc(var(--sw) * 2); }
+#walls-svg .w-locked_door { stroke-dasharray: calc(var(--sw) * 4); }
+#walls-svg .w-unlocked_door { stroke-dasharray: none; }
+.wall-colours [data-kind="locked_door"], .wall-colours [data-kind="unlocked_door"] { color: #ff9f43; }

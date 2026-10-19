@@ -34,6 +34,8 @@ def activate(conn, campaign_id: int, map_id: int | None, fog_action: str | None,
         checkpoint(conn, campaign["active_map_id"])
     if map_id is not None:
         if fog_action == "reset":
+            from .door_runtime import reset as reset_doors
+            reset_doors(conn, map_id)
             fog_repo.clear(conn, map_id)
         else:
             saved = conn.execute("SELECT operations FROM map_fog_snapshots WHERE map_id = ?", (map_id,)).fetchone()

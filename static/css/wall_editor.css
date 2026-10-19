@@ -22,3 +22,8 @@
 #wall-edit-dialog .wall-edit-endpoint { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
 #wall-edit-dialog input, #wall-edit-dialog select { width: 100%; }
 #wall-edit-error, #wall-edit-dialog [aria-invalid="true"] { color: #ff9696; }
+
+#wall-overlay .w-locked_door, #wall-overlay .w-unlocked_door { stroke: #ff9f43; stroke-width: calc(var(--wall-width) * 2); }
+#wall-overlay .w-locked_door { stroke-dasharray: calc(var(--wall-width) * 4); }
+#wall-overlay .w-unlocked_door { stroke-dasharray: none; }
+.wall-colours [data-kind="locked_door"], .wall-colours [data-kind="unlocked_door"] { color: #ff9f43; }

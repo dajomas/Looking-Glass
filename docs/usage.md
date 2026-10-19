@@ -156,3 +156,23 @@ Left-click or tap an arrow in the admin fog editor to reveal the hidden area beh
 Right-click keeps the normal inverse reveal/hide behavior rather than following the arrow. Drag, Space-drag and pinch remain pan/zoom gestures. Transparent space around an arrow is not a hit target. Clicks are ignored while the displayed fog/arrow overlay is loading or a write is in progress. A stale or rejected arrow click refreshes state and never falls through into a normal hide/reveal click. Viewer screens remain read-only; players cannot use arrows to change fog.
 
 Only ordinary blocking doors separating distinct raster rooms with exactly one revealed side receive arrows. Secret doors, nonblocking/disabled doors, and map-edge segments without open areas on both sides are excluded. Arrow pixels are clipped to revealed open areas, independently of admin wall-overlay visibility. Detection inherits room-reveal gap/resolution limitations; tight rooms may clip arrows. Arrows follow hide/reveal/undo/reset/restore and boundary changes. Changing arrow visibility/color does not modify room reveals or add fog operations.
+
+
+## Locked and unlocked doors
+
+Design doors in the wall editor using Locked Door (`locked_door`, dashed orange `#ff9f43`) or Unlocked Door (`unlocked_door`, solid orange `#ff9f43`). The fog editor shows the current play-time type; the wall editor shows the authored design.
+
+| Admin target | Single primary click/tap | Double primary click/tap |
+|---|---|---|
+| Locked door arrow | No action | Unlock only; destination fog stays unchanged |
+| Locked door segment | No action | No action; use its arrow to unlock |
+| Unlocked door arrow | Reveal the area behind the door, even in Hide mode | Lock only; do not reveal |
+| Unlocked door segment | Normal selected reveal/hide mode | Lock only; do not reveal |
+
+Managed door clicks wait 400 ms to distinguish a single from a double. Another target, a state change, another mutation, panning, wheel zoom or window blur cancels a pending click rather than allowing a delayed reveal on stale geometry. Drag/pinch behavior remains PanZoom behavior. Right-click on a locked target does nothing; right-click on an unlocked target retains the ordinary inverse fog mode. Direct segment hits use a 10-screen-pixel tolerance, adjusted for zoom. Hiding arrows prevents arrow interactions; visible unlocked segments can still be double-clicked to lock. Locked segments are protected from accidental single-click fog actions even when their overlay is hidden.
+
+Locked door arrow color is a separate server-saved per-map picker beside the regular arrow color. Its default matches orange door walls; changing it affects locked arrows on both admin and viewer screens, not wall colors. Unlocked arrows always use the regular arrow picker, not the locked-arrow picker. The existing global arrow enable/disable toggle covers all arrows. Secret doors still do not generate hints. Viewer accounts cannot change door/fog state.
+
+Locking and unlocking are persistent play-state changes, not fog-history actions; Ctrl+Z undoes reveals/hides but does not toggle locks. They preserve the revealed mask, even if Locked/Unlocked type boundary settings differ: boundary participation follows the authored type during play. Both door types still honor Doors split areas. Locks govern the door controls, not a DM's ability to manually reveal another room or use Reveal all.
+
+Reset both covers the map and restores every door's authored locked/unlocked type. Choosing Reset when activating a map does the same. Undoing a fog Reset can restore fog history but does not restore discarded runtime lock changes. Switching maps with Restore and restarting the service retain runtime states. Saving/replacing a wall design discards runtime overrides for that wall set and establishes a new designed state. UVTT export from the wall editor uses the authored design, not session overrides.

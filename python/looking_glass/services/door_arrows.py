@@ -10,6 +10,8 @@ class DoorArrow:
     source_label: int
     target: tuple[float, float]
     polygon: list[tuple[float, float]]  # work-pixel coordinates
+    wall_id: int = 0
+    kind: str = "door"
 
 
 def arrows(engine, spec, segments, ops):
@@ -22,7 +24,7 @@ def arrows(engine, spec, segments, ops):
     h, w = area.shape
     result = []
     for seg in segments:
-        if seg.kind != "door" or not seg.blocks:
+        if seg.kind not in ("door", "locked_door", "unlocked_door") or not seg.blocks:
             continue
         x1, y1 = spec.calibration.apply(seg.x1, seg.y1)
         x2, y2 = spec.calibration.apply(seg.x2, seg.y2)
@@ -59,7 +61,7 @@ def arrows(engine, spec, segments, ops):
             return (tip[0]+ux*back-uy*across, tip[1]+uy*back+ux*across)
         polygon = [point(0,0),point(size*.48,-size*.38),point(size*.48,-size*.14),
                    point(size,-size*.14),point(size,size*.14),point(size*.48,size*.14),point(size*.48,size*.38)]
-        result.append(DoorArrow(label, (target[3], target[4]), polygon))
+        result.append(DoorArrow(label, (target[3], target[4]), polygon, seg.id, seg.kind))
     return result
 
 
@@ -70,10 +72,10 @@ def overlay(engine, spec, segments, ops):
     items = arrows(engine, spec, segments, ops)
     if not items:
         return image
-    color = spec.door_arrow_color.lstrip("#")
-    rgb = tuple(int(color[i:i+2],16) for i in (0,2,4))
     draw = ImageDraw.Draw(image)
     for item in items:
+        color = (spec.locked_door_arrow_color if item.kind == "locked_door" else spec.door_arrow_color).lstrip("#")
+        rgb = tuple(int(color[i:i+2],16) for i in (0,2,4))
         draw.polygon(item.polygon, fill=(*rgb,255))
     area = engine.area_map(spec, segments)
     revealed = engine.revealed_labels(area, ops)
@@ -82,7 +84,7 @@ def overlay(engine, spec, segments, ops):
     return Image.fromarray(pixels)
 
 
-def target_at(engine, spec, segments, ops, x, y):
+def hit_at(engine, spec, segments, ops, x, y):
     """Return only the hidden adjacent room target for an actual visible arrow pixel."""
     if not (math.isfinite(x) and math.isfinite(y) and 0 <= x < spec.width and 0 <= y < spec.height):
         return None
@@ -99,5 +101,11 @@ def target_at(engine, spec, segments, ops, x, y):
         image = Image.new("L", (area.shape[1],area.shape[0]))
         ImageDraw.Draw(image).polygon(item.polygon,fill=255)
         if image.getpixel((px,py)):
-            return item.target
+            return item
     return None
+
+
+def target_at(engine, spec, segments, ops, x, y):
+    """Legacy reveal endpoint must never bypass a locked arrow."""
+    item = hit_at(engine, spec, segments, ops, x, y)
+    return item.target if item and item.kind != "locked_door" else None

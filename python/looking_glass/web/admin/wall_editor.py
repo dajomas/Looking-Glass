@@ -37,7 +37,7 @@ class DraftExportIn(WallEditIn):
 def _image_segments(conn, m):
     sx, sy, ox, oy = m["wall_scale_x"], m["wall_scale_y"], m["wall_offset_x"], m["wall_offset_y"]
     return [WallSegment((s.x1 - ox) * sx, (s.y1 - oy) * sy, (s.x2 - ox) * sx, (s.y2 - oy) * sy,
-                        s.kind, s.blocks) for s in walls_repo.list_for_map(conn, m["id"])]
+                        s.kind, s.blocks) for s in walls_repo.list_for_map(conn, m["id"], designed=True)]
 
 
 def _payload(conn, m):

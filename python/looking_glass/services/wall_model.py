@@ -9,7 +9,9 @@ class WallSegment:
     y1: float
     x2: float
     y2: float
-    kind: str = "wall"     # wall | door | secret | window | invisible | ethereal
+    kind: str = "wall"     # wall | door | locked_door | unlocked_door | secret | window | invisible | ethereal
+    id: int = field(default=0, compare=False, kw_only=True)
+    designed_kind: str = field(default="", compare=False, kw_only=True)
     blocks: bool = True    # whether it separates areas
 
 

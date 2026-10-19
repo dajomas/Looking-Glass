@@ -144,6 +144,23 @@ MIGRATIONS: list[str] = [
     ALTER TABLE maps ADD COLUMN door_arrows_enabled INTEGER NOT NULL DEFAULT 1
         CHECK (door_arrows_enabled IN (0, 1));
     """,
+    # 7 - reserved for the rolled-back viewer-layout migration; no viewer feature enabled
+    """SELECT 1;""",
+    # 8 - authored door types remain in walls; play-time states live separately
+    """
+    ALTER TABLE maps ADD COLUMN locked_door_arrow_color TEXT NOT NULL DEFAULT '#ff9f43';
+    CREATE TABLE door_runtime_states (
+        wall_id INTEGER PRIMARY KEY REFERENCES walls(id) ON DELETE CASCADE,
+        kind TEXT NOT NULL CHECK(kind IN ('locked_door','unlocked_door'))
+    );
+    CREATE TRIGGER reset_runtime_doors AFTER INSERT ON fog_ops
+    WHEN NEW.op='hide_all'
+    BEGIN
+        UPDATE maps SET walls_version=walls_version+1 WHERE id=NEW.map_id AND EXISTS (
+            SELECT 1 FROM door_runtime_states r JOIN walls w ON w.id=r.wall_id WHERE w.map_id=NEW.map_id);
+        DELETE FROM door_runtime_states WHERE wall_id IN (SELECT id FROM walls WHERE map_id=NEW.map_id);
+    END;
+    """,
 ]
 
 

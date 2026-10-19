@@ -50,7 +50,7 @@ map_origin is zero. Reimport with auto-align restores the original size.
    until Apply. Finite values typed outside the image are clamped on Apply to
    X = 0..image width and Y = 0..image height. Missing/non-finite values are rejected.
    The endpoints must still differ after clamping.
-4. Select any of the six wall types and choose **Apply to draft**, or press Enter
+4. Select any of the eight wall types and choose **Apply to draft**, or press Enter
    in a coordinate field. Validation errors keep the dialog and draft unchanged.
 5. Use **Save wall set** to persist the draft and create/reuse its UVTT source,
    or **Download UVTT** to export the unsaved draft without applying it.
@@ -95,7 +95,7 @@ Saving and exporting continue to use the existing APIs and data format.
 
 ## Boundaries and safety
 
-All six kinds are editable, even if hidden or disabled in the fog editor.
+All eight kinds are editable, even if hidden or disabled in the fog editor.
 New/retyped ethereal segments have blocks=false; other new/retyped kinds have
 blocks=true. A coordinate-only Edit preserves the segment's imported blocking
 flag. Existing imported blocking flags are retained for untouched segments. Show/Enabled
@@ -142,7 +142,7 @@ Normal doors are exported closed. No third-party VTT compatibility is claimed as
 The looking_glass extension has version=1, name, segments in grid units and a
 SHA-256 checksum of the core geometry/resolution fields. Each segment stores
 x1,y1,x2,y2,kind,blocks, preserving all kinds and passive segments. This is an
-application extension, not a claim that core UVTT standardizes all six types.
+application extension, not a claim that core UVTT standardizes all eight types.
 An unaware importer uses only fallback fields and may lose these distinctions.
 
 The checksum detects another program changing standard geometry while leaving
@@ -183,3 +183,12 @@ The default remains 2 px. Existing per-map browser preferences are retained, so
 if the width was previously increased to compensate for the mismatch, set it
 back to the desired value. Width changes do not affect saved wall coordinates,
 UVTT data, fog boundaries, or player images.
+
+
+## Locked and unlocked doors
+
+Both the Add/Change type selector and the endpoint-edit dialog include Locked Door and Unlocked Door. Locked Door uses dashed orange; Unlocked Door uses solid orange. Both use ordinary door-width strokes and can participate in area boundaries. Their Show and Enabled controls appear in the fog legend.
+
+The wall editor always loads authored door types, not temporary lock changes made in the fog editor. Saving sets the new design and replaces wall rows, clearing runtime overrides for those replaced rows. During play double-click a locked arrow to unlock without revealing; double-click an unlocked segment/arrow to lock. Reset restores authored types. To keep topology stable, type-enable settings follow the authored kind during runtime lock changes. Change and save the design to change that baseline.
+
+Looking Glass UVTT extension data round-trips both types exactly. In standard UVTT geometry both are exported as closed portals, so tools ignoring the extension see ordinary closed doors and may lose the lock distinction. A Foundry ordinary door with `ds: 2` imports as Locked Door; other ordinary doors keep their existing Door classification. Secret doors remain secret.

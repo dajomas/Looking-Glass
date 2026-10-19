@@ -59,7 +59,8 @@ still unsupported. The `.db` suffix alone does not imply SQLite support.
 | Foundry wall | Stored as | Splits areas? |
 |---|---|---|
 | Normal (move + sight) | `wall` | yes |
-| Door (`door: 1`) | `door` | per-map toggle **Doors split areas** (default on) |
+| Door (`door: 1`, not locked) | `door` | per-map toggle **Doors split areas** (default on) |
+| Locked door (`door: 1`, `ds: 2`) | `locked_door` | same door boundary toggle; unlock does not reveal |
 | Secret door (`door: 2`) | `secret` | same toggle |
 | Limited sight / window / terrain | `window` | yes |
 | Invisible (blocks movement, not sight) | `invisible` | yes |
@@ -149,6 +150,8 @@ artwork and walls intact.
 |---|---|---|
 | Normal wall | Magenta solid | Blocks areas |
 | Door | Blue solid | Blocks when Doors split areas is on |
+| Locked Door | Orange dashed | Same boundary rule; double-click its arrow to unlock only |
+| Unlocked Door | Orange solid | Same boundary rule; double-click to lock |
 | Secret door | Purple dashed | Blocks when Doors split areas is on |
 | Window / terrain | Green solid | Blocks areas |
 | Invisible wall | Yellow dashed | Blocks areas |
@@ -173,3 +176,8 @@ in square brackets is its original one-based source position, not its sorted
 position. Duplicate scene names remain separate selectable wall sets. Saved
 source bytes and backend scene ordering are not rewritten. The separate
 one-off file-import scene selector is unchanged by this patch.
+
+
+## Locked and unlocked doors
+
+Foundry ordinary doors with `ds: 2` are classified as Locked Door; other ordinary doors retain Door classification, and secret doors remain secret. Manually authored Locked/Unlocked Door types round-trip through the existing Looking Glass UVTT extension, including saved reusable sources. Standard UVTT fallback exports either as a closed portal, without promising that third-party importers preserve the lock distinction. The wall editor exports the authored design rather than runtime session overrides.

@@ -52,7 +52,7 @@ def classify_foundry_wall(doc: dict) -> tuple[str, bool]:
     v10 = _is_v10_values(doc)
 
     if door == 1:
-        return "door", True
+        return ("locked_door" if doc.get("ds") == 2 else "door"), True
     if door == 2:
         return "secret", True
     if not move and not sight:

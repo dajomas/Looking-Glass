@@ -34,3 +34,8 @@ between updates. Fully hidden maps use full-map framing.
 The fog panel's **Enable door arrows (shared with players)** checkbox defaults to checked and sits immediately above the color selector. Both preferences are saved per map on the server; disabling preserves the color. Hiding admin walls is independent.
 
 A primary click/tap on an arrow in the admin fog editor reveals the room on the other side of that door, overriding Hide mode only for that click. Ctrl+Z undoes it. Right-click still invokes the normal inverse mode; drags/pinches pan/zoom and do not follow arrows. Only visible arrow pixels are clickable. While fog/arrow images load or a mutation is pending, taps are ignored. Viewer arrows are display-only so players cannot change fog. See `usage.md` for details.
+
+
+## Locked and unlocked doors
+
+The fog panel adds Locked door arrow color next to the regular arrow color. It is shared per map, defaults to orange `#ff9f43`, and follows the existing arrow enable toggle. Unlocked arrows use the regular arrow picker; both wall types stay orange (locked dashed, unlocked solid). Legend Show/Enabled rows include both new types. Runtime boundary participation follows the authored kind to keep lock/unlock from revealing extra areas. Reset restores authored states. The rolled-back viewer Center/Fit controls are not part of this patch.

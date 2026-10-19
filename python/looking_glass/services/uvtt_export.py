@@ -7,7 +7,7 @@ from collections.abc import Iterable
 
 from .wall_model import WallSegment
 
-KINDS = ("wall", "door", "secret", "window", "invisible", "ethereal")
+KINDS = ("wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal")
 MAX_SEGMENTS = 100_000
 MAX_COORD = 10_000_000
 
@@ -61,7 +61,7 @@ def export_uvtt(segments: Iterable[WallSegment], width: int, height: int, name: 
         a, b = {"x": s.x1 / ppg, "y": s.y1 / ppg}, {"x": s.x2 / ppg, "y": s.y2 / ppg}
         if not s.blocks or s.kind == "ethereal":
             continue
-        if s.kind == "door":
+        if s.kind in ("door", "locked_door", "unlocked_door"):
             data["portals"].append({"position": {"x": (a["x"] + b["x"]) / 2, "y": (a["y"] + b["y"]) / 2},
                                     "bounds": [a, b], "rotation": math.atan2(s.y2 - s.y1, s.x2 - s.x1),
                                     "closed": True, "freestanding": False})

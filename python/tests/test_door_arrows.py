@@ -109,7 +109,7 @@ def test_upgrade_persistence(tmp_path,version):
         if version==6:c.execute("UPDATE maps SET door_arrows_enabled=0")
         c.execute("INSERT INTO fog_ops(map_id,op,x,y) VALUES(1,'reveal',100,100)")
         before=dict(c.execute("SELECT * FROM maps").fetchone())
-    assert db.migrate()==db.migrate()==6
+    assert db.migrate()==db.migrate()==len(MIGRATIONS)
     with db.connect() as c:
         row=c.execute("SELECT * FROM maps").fetchone()
         assert all(row[k]==v for k,v in before.items())

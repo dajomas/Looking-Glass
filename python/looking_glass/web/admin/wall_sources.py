@@ -74,7 +74,7 @@ def register_routes(router, map_payload):
             scenes.append({
                 "index": index, "name": ws.name, "format": ws.source_format,
                 "walls": len(ws.segments),
-                "doors": sum(w.kind in ("door", "secret") for w in ws.segments),
+                "doors": sum(w.kind in ("door", "secret", "locked_door", "unlocked_door") for w in ws.segments),
                 "scene_width": ws.scene_width, "scene_height": ws.scene_height,
                 "image_available": bool(ws.image_data),
                 "image_is_thumbnail": ws.image_is_thumbnail,

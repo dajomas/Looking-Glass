@@ -4,7 +4,7 @@
   const $ = (id) => document.getElementById(id);
   const id = window.LG_MAP.id, url = `/api/maps/${id}/wall-editor`;
   const vp = $("wall-viewport"), stage = $("wall-stage"), svg = $("wall-overlay"), img = $("wall-image");
-  const kinds = new Set(["wall", "door", "secret", "window", "invisible", "ethereal"]);
+  const kinds = new Set(["wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal"]);
   const editDialog = $("wall-edit-dialog"), editForm = $("wall-edit-form"), editError = $("wall-edit-error");
   const coordinateFields = ["wall-edit-x1", "wall-edit-y1", "wall-edit-x2", "wall-edit-y2"].map($);
   let editing = null;
@@ -45,7 +45,7 @@
     for (const [kind, lines] of paths) {
       const path = document.createElementNS(svg.namespaceURI, "path");
       path.setAttribute("class", `w-${kind}`); path.setAttribute("d", lines.join(""));
-      const multiplier = kind === "door" || kind === "secret" ? 2 : 1;
+      const multiplier = ["door", "secret", "locked_door", "unlocked_door"].includes(kind) ? 2 : 1;
       path.style.strokeWidth = `${baseWidth * multiplier}px`;
       path.style.vectorEffect = "none";
       svg.appendChild(path);

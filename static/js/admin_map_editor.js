@@ -15,10 +15,11 @@
   let maskKey = "";
   let busy = false;
   const arrowHit = new LGDoorArrowHit();
+  const doorTapQueue = new LGDoorTapQueue();
   const stateKey = (s) => `${s.cache_token}-${s.walls_version}-${s.fog_version}`;
   let maskGeneration = 0, imageKey = "";
   const hiddenTypes = new Set();
-  const typeNames = ["wall", "door", "secret", "window", "invisible", "ethereal"];
+  const typeNames = ["wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal"];
   const visibilityKey = `lg:hidden-wall-types:${MAP_ID}`;
   try {for (const k of JSON.parse(localStorage.getItem(visibilityKey) || "[]")) hiddenTypes.add(k);} catch (_) {}
   function loadError(message) {
@@ -32,7 +33,7 @@
     svg.style.setProperty("--sw", String(base));
     // Apply to existing paths too: changing a preference must not wait for a wall edit.
     for (const path of svg.querySelectorAll("path")) {
-      const multiplier = path.classList.contains("w-door") || path.classList.contains("w-secret") ? 2 : 1;
+      const multiplier = path.classList.contains("w-door") || path.classList.contains("w-secret") || path.classList.contains("w-locked_door") || path.classList.contains("w-unlocked_door") ? 2 : 1;
       path.style.strokeWidth = `${base * multiplier}px`;
     }
   }
@@ -47,7 +48,7 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => (toastEl.className = "toast"), ms);
   }
-  function setBusy(on) { busy = on; busyEl.hidden = !on; if (state) syncDoorArrowControls(); }
+  function setBusy(on) { busy = on; if (on) doorTapQueue.cancel(); busyEl.hidden = !on; if (state) syncDoorArrowControls(); }
   const mode = () => document.querySelector('input[name="mode"]:checked').value;
 
   async function run(fn) {
@@ -83,7 +84,7 @@
     for (const [x1, y1, x2, y2, kind, blocks] of rawWalls) {
       if (hiddenTypes.has(kind)) continue;
       let k = kind;
-      if (!blocks || (state?.disabled_wall_types || []).includes(kind) || ((kind === "door" || kind === "secret") && !c.doors_block)) k = "passive";
+      if (!blocks || (state?.disabled_wall_types || []).includes(kind) || (["door", "secret", "locked_door", "unlocked_door"].includes(kind) && !c.doors_block)) k = ["locked_door", "unlocked_door"].includes(kind) ? kind + " passive" : "passive";
       const a = (x1 - c.offset_x) * c.scale_x, b = (y1 - c.offset_y) * c.scale_y;
       const d = (x2 - c.offset_x) * c.scale_x, e = (y2 - c.offset_y) * c.scale_y;
       (paths[k] ||= []).push(`M${a.toFixed(1)} ${b.toFixed(1)}L${d.toFixed(1)} ${e.toFixed(1)}`);
@@ -127,6 +128,7 @@
 
   function applyState(s) {
     const first = state === null;
+    doorTapQueue.cancel();
     state = s;
     syncDoorArrowControls();
     $("door-arrows").hidden = !s.door_arrows_enabled;
@@ -169,7 +171,31 @@
   function onTap(x, y, event) {
     if (!state || x < 0 || y < 0 || x > state.width || y > state.height) return;
     if (busy || maskKey !== stateKey(state)) return; // Never act on an old overlay.
-    const arrow = event?.button !== 2 ? arrowHit.at(x, y, state, stateKey(state)) : null;
+    const alphaPoint = arrowHit.at(x, y, state, stateKey(state));
+    const managed = LGManagedDoorHit(state, alphaPoint, x, y, pz.scale, $("show-walls").checked, hiddenTypes);
+    if (managed?.blocked) return;
+    if (managed && event?.button !== 2) {
+      const stamp = stateKey(state);
+      const body = {...managed, mode: mode(), tolerance: Math.min(500, 10/pz.scale), cache_token: state.cache_token,
+        walls_version: state.walls_version, fog_version: state.fog_version};
+      const act = (gesture) => {
+        if (!state || busy || stamp !== stateKey(state)) return;
+        run(async () => {
+          let result;
+          try { result = await LGApi.post(`/api/maps/${MAP_ID}/door-action`, {...body, gesture}); }
+          catch (error) { try { applyState(await LGApi.get(`/api/maps/${MAP_ID}`)); } catch (_) {} throw error; }
+          applyState(result);
+          if (result.door_action === "reveal" || result.door_action === "hide") {
+            toast(result.is_active ? (result.door_action === "reveal" ? "Area revealed" : "Area hidden") : "Warning: this map is NOT shown to players. Fog action saved on this map only.", result.is_active ? "info" : "warn");
+          } else if (result.door_action !== "none") toast(result.door_action === "lock" ? "Door locked" : "Door unlocked; fog unchanged");
+        });
+      };
+      doorTapQueue.tap(`${managed.hit}:${managed.wall_id}`, stamp, () => act("single"), () => act("double"));
+      return;
+    }
+    if (managed?.kind === "locked_door") return;
+    doorTapQueue.cancel();
+    const arrow = event?.button !== 2 ? alphaPoint : null;
     const selectedMode = mode();
     const m = arrow ? "reveal" : (event?.button === 2 ? (selectedMode === "reveal" ? "hide" : "reveal") : selectedMode);
     const path = arrow ? "door-arrows/reveal" : m;
@@ -227,6 +253,8 @@
 
   function syncDoorArrowControls() {
     $("door-arrow-color").value = state.door_arrow_color;
+    $("locked-door-arrow-color").value = state.locked_door_arrow_color;
+    $("locked-door-arrow-color").disabled = busy || !state.door_arrows_enabled;
     $("door-arrows-enabled").checked = state.door_arrows_enabled;
     $("door-arrow-color").disabled = busy || !state.door_arrows_enabled;
     $("door-arrows-enabled").disabled = busy;
@@ -239,6 +267,7 @@
     });
     syncDoorArrowControls();
   }
+  $("locked-door-arrow-color").onchange = () => saveDoorArrows({locked_color: $("locked-door-arrow-color").value});
   $("door-arrow-color").onchange = () => saveDoorArrows({color: $("door-arrow-color").value});
   $("door-arrows-enabled").onchange = () => saveDoorArrows({enabled: $("door-arrows-enabled").checked});
   vp.addEventListener("pointermove", (event) => {
@@ -246,6 +275,9 @@
     const hit = state && !busy && !pz.pointers.size && arrowHit.at(point.x, point.y, state, stateKey(state));
     vp.style.cursor = hit ? "pointer" : "";
   });
+  vp.addEventListener("wheel", () => doorTapQueue.cancel(), {passive:true});
+  vp.addEventListener("pointermove", () => {if (pz.moved && pz.pointers.size) doorTapQueue.cancel();});
+  window.addEventListener("blur", () => doorTapQueue.cancel());
   vp.addEventListener("pointerleave", () => {vp.style.cursor = "";});
   $("fog-opacity").oninput = drawFog;
   $("show-preview").onchange = drawFog;

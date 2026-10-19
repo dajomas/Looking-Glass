@@ -23,11 +23,12 @@ def test_empty_roundtrip():
 def test_standard_fallback():
     data = export_uvtt([WallSegment(0, i * 10, 100, i * 10, k, k != "ethereal") for i, k in enumerate(KINDS)], 400, 200, "Types")
     assert len(data["line_of_sight"]) == 3
-    assert len(data["portals"]) == len(data["objects_line_of_sight"]) == 1
+    assert len(data["portals"]) == 3
+    assert len(data["objects_line_of_sight"]) == 1
     del data["looking_glass"]
     ws = parse_wall_file(encode_uvtt(data))[0]
-    assert len(ws.segments) == 5
-    assert sum(w.kind == "door" for w in ws.segments) == 1
+    assert len(ws.segments) == 7
+    assert sum(w.kind == "door" for w in ws.segments) == 3
 
 
 def test_nonblocking_roundtrip():
