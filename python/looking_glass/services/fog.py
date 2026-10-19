@@ -20,7 +20,7 @@ import hashlib
 import math
 import threading
 from collections import OrderedDict
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -47,12 +47,19 @@ class MapSpec:
     door_arrow_color: str = "#46c0ff"
     door_arrows_enabled: bool = True
     locked_door_arrow_color: str = "#ff9f43"
+    viewer_door_arrows_enabled: bool | None = None
+
+    @property
+    def viewer_arrows_enabled(self) -> bool:
+        # Old manually-created specs keep shared behavior; DB rows have an explicit viewer flag.
+        return self.door_arrows_enabled if self.viewer_door_arrows_enabled is None else self.viewer_door_arrows_enabled
+
 
     @property
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
-                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, "door-arrows-v4")
+                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "door-arrows-v5")
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
@@ -67,6 +74,7 @@ class MapSpec:
             locked_door_arrow_color=row["locked_door_arrow_color"] if "locked_door_arrow_color" in row.keys() else "#ff9f43",
             door_arrow_color=row["door_arrow_color"] if "door_arrow_color" in row.keys() else "#46c0ff",
             door_arrows_enabled=bool(row["door_arrows_enabled"]) if "door_arrows_enabled" in row.keys() else True,
+            viewer_door_arrows_enabled=bool(row["viewer_door_arrows_enabled"]) if "viewer_door_arrows_enabled" in row.keys() else bool(row["door_arrows_enabled"]) if "door_arrows_enabled" in row.keys() else True,
             cache_token=row["cache_token"] if "cache_token" in row.keys() else "",
         )
 
@@ -298,7 +306,8 @@ class FogEngine:
         return buf.getvalue()
 
     def viewer_image(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> Path:
-        """Composite the fogged map for players. Never exposes unrevealed pixels."""
+        """Composite the fogged map with viewer-only arrow visibility; never mutate admin state."""
+        spec = replace(spec, door_arrows_enabled=spec.viewer_arrows_enabled)
         out = self.cache_dir / f"viewer_{spec.id}_{self.cache_identity(spec)}_{spec.walls_version}_{spec.fog_version}.{self.viewer_ext}"
         if out.exists():
             return out

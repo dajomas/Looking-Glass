@@ -13,6 +13,7 @@ from ...repositories import fog_ops as fog_repo
 from ...repositories import maps as maps_repo
 from ...repositories import walls as walls_repo
 from ...services.wall_type_settings import disabled_for_map
+from ...services.arrow_visibility import resolve_visibility
 from ...services.map_display import activate, checkpoint_if_active
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, fog_inputs, map_for_manage
@@ -63,6 +64,8 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
             "x1": (s.x1-ox)*sx, "y1": (s.y1-oy)*sy, "x2": (s.x2-ox)*sx, "y2": (s.y2-oy)*sy}
             for s in segs if s.kind in ("locked_door", "unlocked_door")],
         "door_arrows_enabled": bool(m["door_arrows_enabled"]),
+        "admin_door_arrows_enabled": bool(m["door_arrows_enabled"]),
+        "viewer_door_arrows_enabled": bool(m["viewer_door_arrows_enabled"]),
         "image_version": m["image_file"],
         "disabled_wall_types": disabled_for_map(conn, m),
         "calibration": {"offset_x": ox, "offset_y": oy, "scale_x": sx, "scale_y": sy,
@@ -254,6 +257,8 @@ register_wall_types(router, _map_payload)
 
 
 class DoorArrowAppearanceIn(BaseModel):
+    admin_enabled: bool | None = Field(default=None, strict=True)
+    viewer_enabled: bool | None = Field(default=None, strict=True)
     locked_color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
     color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
     enabled: bool | None = Field(default=None, strict=True)
@@ -265,13 +270,18 @@ async def set_door_arrows(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: Doo
         conn.execute("BEGIN IMMEDIATE")
         m, _ = map_for_manage(conn, user, map_id)
         color = body.color.lower() if body.color is not None else m["door_arrow_color"]
-        enabled = body.enabled if body.enabled is not None else bool(m["door_arrows_enabled"])
+        admin_enabled, viewer_enabled = resolve_visibility(m, enabled=body.enabled,
+            admin_enabled=getattr(body, "admin_enabled", None), viewer_enabled=getattr(body, "viewer_enabled", None))
         locked_color = body.locked_color.lower() if body.locked_color is not None else m["locked_door_arrow_color"]
-        conn.execute("UPDATE maps SET door_arrow_color = ?, door_arrows_enabled = ?, locked_door_arrow_color = ? WHERE id = ?",
-                     (color, int(enabled), locked_color, map_id))
-        maps_repo.bump_fog(conn, map_id)
+        conn.execute("UPDATE maps SET door_arrow_color = ?, door_arrows_enabled = ?, viewer_door_arrows_enabled = ?, locked_door_arrow_color = ? WHERE id = ?",
+                     (color, int(admin_enabled), int(viewer_enabled), locked_color, map_id))
+        viewer_changed = (viewer_enabled != bool(m["viewer_door_arrows_enabled"]) or
+                          color != m["door_arrow_color"] or locked_color != m["locked_door_arrow_color"])
+        if viewer_changed:
+            maps_repo.bump_fog(conn, map_id)
         payload = _map_payload(ctx, conn, map_id)
-    await notify.map_changed(ctx, map_id, "appearance")
+    if viewer_changed:
+        await notify.map_changed(ctx, map_id, "appearance")
     return payload
 
 

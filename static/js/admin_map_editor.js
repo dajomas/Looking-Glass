@@ -16,7 +16,7 @@
   let busy = false;
   const arrowHit = new LGDoorArrowHit();
   const doorTapQueue = new LGDoorTapQueue();
-  const stateKey = (s) => `${s.cache_token}-${s.walls_version}-${s.fog_version}`;
+  const stateKey = (s) => `${s.cache_token}-${s.walls_version}-${s.fog_version}-${Number(s.door_arrows_enabled)}`;
   let maskGeneration = 0, imageKey = "";
   const hiddenTypes = new Set();
   const typeNames = ["wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal"];
@@ -111,7 +111,7 @@
   }
 
   async function loadMask() {
-    const key = `${state.cache_token}-${state.walls_version}-${state.fog_version}`;
+    const key = stateKey(state);
     if (key === maskKey) return;
     const generation = ++maskGeneration;
     const im = new Image();
@@ -254,10 +254,12 @@
   function syncDoorArrowControls() {
     $("door-arrow-color").value = state.door_arrow_color;
     $("locked-door-arrow-color").value = state.locked_door_arrow_color;
-    $("locked-door-arrow-color").disabled = busy || !state.door_arrows_enabled;
+    $("locked-door-arrow-color").disabled = busy || !(state.door_arrows_enabled || state.viewer_door_arrows_enabled);
     $("door-arrows-enabled").checked = state.door_arrows_enabled;
-    $("door-arrow-color").disabled = busy || !state.door_arrows_enabled;
+    $("door-arrow-color").disabled = busy || !(state.door_arrows_enabled || state.viewer_door_arrows_enabled);
     $("door-arrows-enabled").disabled = busy;
+    $("viewer-door-arrows-enabled").checked = state.viewer_door_arrows_enabled;
+    $("viewer-door-arrows-enabled").disabled = busy;
   }
   async function saveDoorArrows(change) {
     if (busy || !state) { if (state) syncDoorArrowControls(); return; }
@@ -269,7 +271,8 @@
   }
   $("locked-door-arrow-color").onchange = () => saveDoorArrows({locked_color: $("locked-door-arrow-color").value});
   $("door-arrow-color").onchange = () => saveDoorArrows({color: $("door-arrow-color").value});
-  $("door-arrows-enabled").onchange = () => saveDoorArrows({enabled: $("door-arrows-enabled").checked});
+  $("door-arrows-enabled").onchange = () => saveDoorArrows({admin_enabled: $("door-arrows-enabled").checked});
+  $("viewer-door-arrows-enabled").onchange = () => saveDoorArrows({viewer_enabled: $("viewer-door-arrows-enabled").checked});
   vp.addEventListener("pointermove", (event) => {
     const point = pz.toImage(event.clientX, event.clientY);
     const hit = state && !busy && !pz.pointers.size && arrowHit.at(point.x, point.y, state, stateKey(state));
@@ -361,7 +364,8 @@
   setInterval(async () => {
     try {
       const s = await LGApi.get(`/api/maps/${MAP_ID}`);
-      if (!state || s.fog_version !== state.fog_version || s.walls_version !== state.walls_version) applyState(s);
+      if (!state || s.fog_version !== state.fog_version || s.walls_version !== state.walls_version ||
+          s.door_arrows_enabled !== state.door_arrows_enabled || s.viewer_door_arrows_enabled !== state.viewer_door_arrows_enabled) applyState(s);
       else updateLive(s);
     } catch (_) { /* ignore */ }
   }, 15000);

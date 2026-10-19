@@ -166,3 +166,14 @@ Shared DoorArrow geometry now carries wall ID/kind. Locked arrows use the locked
 The new storage-aware `door_actions.perform` validates current targets and chooses none/unlock/lock/reveal/hide. The authorized endpoint owns a write transaction spanning stamp validation, action and payload. Lock changes update only runtime state plus versions; fog operations/checkpoints are unchanged. Ordinary unlocked reveals use normal fog history and notification/checkpoint paths.
 
 A 400-ms managed-door gesture queue cancels its pending single on a matching double; the single can never reveal before that double locks. State changes, mutations, pan/zoom/blur cancel pending work. Existing regular-door behavior and viewer read-only permissions remain. Reset's hide_all insertion trigger clears runtime overrides and advances wall version when needed. Activation reset explicitly clears overrides too. Fog Undo does not undo runtime lock/reset changes.
+
+
+## Independent arrow visibility
+
+Migration 9 adds `maps.viewer_door_arrows_enabled INTEGER NOT NULL DEFAULT 1 CHECK (... IN (0,1))`, then initializes it from existing `door_arrows_enabled`. The existing column becomes the admin flag; migration history 1-8 is unchanged. New maps default both on. Existing map preferences, colors, lock states and fog history remain intact.
+
+`arrow_visibility.resolve_visibility` merges legacy shared and explicit per-screen partial updates with strict boolean handling. Management payload exposes both explicit aliases; the UI sends only the changed screen's field. Admin images and action hit geometry continue using `door_arrows_enabled`.
+
+`MapSpec` includes viewer visibility in render identity. `viewer_image` uses a dataclass copy whose overlay flag is derived from the viewer preference; the caller's admin spec is never mutated. Its normalized viewer cache identity is independent of admin-only visibility. Old manually constructed specs without a viewer flag retain the former shared behavior; database specs always have the explicit viewer flag after migration.
+
+Admin state/mask keys now include admin visibility, and polling compares both visibility fields. This permits admin-only updates without bumping fog version (and therefore without refreshing/recentering viewers). Viewer visibility/color changes still use the existing version/notification pipeline. Both color pickers remain usable while either display is enabled. Viewer JS/templates/API, wall rendering and lock-action code remain unchanged.

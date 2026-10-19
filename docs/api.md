@@ -185,3 +185,14 @@ New management/CSRF-protected `POST /api/maps/{map_id}/door-action` body:
 `gesture` is single/double; `hit` is arrow/wall; `mode` is reveal/hide (default reveal). `tolerance` is an image-space wall-hit radius, >0 and <=500 (UI uses 10/screen scale). The server serializes map authorization, incarnation/version validation, current raster arrow/segment hit validation, and mutation in one SQLite write transaction. Wrong/stale targets return 400 with no fallback mutation. Responses are updated map state plus `door_action`: none, unlock, lock, reveal, or hide. Reveals/hides also include existing area fraction/leak-warning fields and active checkpoints.
 
 Locked singles and locked wall doubles return none. Locked arrow doubles unlock. Unlocked doubles lock without a fog action. Unlocked arrow singles reveal; segment singles honor mode. Runtime lock/unlock bumps wall/fog versions and broadcasts refresh, but never adds a reveal operation. The legacy arrow-reveal endpoint cannot reveal through a locked arrow. Viewer permissions remain unchanged. Reset deletes runtime overrides as part of restoring fog/design state.
+
+
+## Independent arrow visibility API
+
+The management-only map payload adds `admin_door_arrows_enabled` and `viewer_door_arrows_enabled`. Existing `door_arrows_enabled` remains an alias for the admin flag and is still used to generate admin overlays/hit geometry.
+
+`POST /api/maps/{map_id}/door-arrows` retains management authorization and CSRF, accepts strict optional booleans `admin_enabled` and `viewer_enabled`, and supports partial updates. Examples: `{"admin_enabled":false}` hides only admin arrows; `{"viewer_enabled":false}` hides only viewer arrows. Omitted/null fields preserve stored values. Existing `color` and `locked_color` behavior is unchanged.
+
+For compatibility, legacy `enabled` still updates BOTH flags. Explicit per-screen fields take precedence over that legacy shared value if both are supplied. The write transaction preserves unrelated flags/colors, fog history, runtime locks and checkpoints. Viewer visibility or either shared color changing bumps fog version and publishes refresh; an admin-only visibility change does neither. The response always returns updated admin map state.
+
+The admin PNG and arrow action endpoints honor admin visibility, never viewer visibility. Viewer images and exact image preview honor viewer visibility, never admin visibility. No viewer write endpoint or viewer-state schema change is needed. Hidden arrows cannot be used as admin click targets; direct wall-segment behavior is unchanged.

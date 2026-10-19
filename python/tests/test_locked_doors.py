@@ -169,7 +169,7 @@ def test_upgrade_from_rolledback_viewer_database(tmp_path,legacy7):
         c.execute("INSERT INTO maps(campaign_id,name,image_file,width,height) VALUES(1,'M','m',10,10)")
         if legacy7:
             c.executescript('ALTER TABLE maps ADD COLUMN viewer_center_enabled INTEGER NOT NULL DEFAULT 1; ALTER TABLE maps ADD COLUMN viewer_fit_enabled INTEGER NOT NULL DEFAULT 1; INSERT INTO schema_version VALUES(7);')
-    assert db.migrate()==db.migrate()==8
+    assert db.migrate()==db.migrate()==len(MIGRATIONS)
     with db.connect() as c:
         assert c.execute('SELECT locked_door_arrow_color FROM maps').fetchone()[0]=='#ff9f43'
 
@@ -184,6 +184,8 @@ def test_new_type_uvtt_roundtrip(kind):
 
 
 def route_body(path,name,namespace):
+    from looking_glass.services.arrow_visibility import resolve_visibility
+    namespace.setdefault("resolve_visibility", resolve_visibility)
     import ast
     source=ast.parse(path.read_text())
     fn=next(n for n in ast.walk(source) if isinstance(n,ast.AsyncFunctionDef) and n.name==name)

@@ -132,7 +132,7 @@ existing fog operations are replayed and can reveal different areas.
 
 ## Door arrows and click-to-reveal
 
-Revealed rooms show arrows toward ordinary blocking doors leading to hidden rooms, on both admin and viewer displays. The fog controls provide an enabled-by-default shared toggle immediately above the per-map arrow color selector (default admin door blue `#46c0ff`). Disabling arrows preserves the selected color.
+Revealed rooms show arrows toward ordinary blocking doors leading to hidden rooms, on both admin and viewer displays. The fog controls provide independent Show door arrows (admin) and Show door arrows (viewer) toggles, saved per map. New maps default both on. Existing regular and locked arrow color preferences are preserved when either display is hidden.
 
 In the admin fog editor, left-click or tap a visible arrow to reveal the area behind its door, even in Hide mode. The reveal is a normal undoable fog action and updates connected viewers. The player viewer remains read-only. Secret doors do not produce hints. See `docs/usage.md` and `Patch/door-arrows.md`.
 
@@ -140,3 +140,8 @@ In the admin fog editor, left-click or tap a visible arrow to reveal the area be
 ## Locked and unlocked doors
 
 The wall editor supports **Locked Door** (dashed orange) and **Unlocked Door** (solid orange). Locked-door arrows default to orange with a separate per-map color picker; unlocked-door arrows use the regular door-arrow color. On the admin screen a locked arrow ignores a single click and unlocks on double-click without revealing fog. An unlocked arrow reveals normally; double-clicking an unlocked door segment or arrow locks it without revealing. Reset restores each door's authored state. Viewer controls remain read-only. This patch does not include the rolled-back Center/Fit toggles. See `docs/usage.md` and `Patch/locked-doors.md`.
+
+
+## Independent arrow visibility
+
+Show door arrows (admin) controls the DM overlay/click targets; Show door arrows (viewer) controls the player image and exact viewer-image preview. Either screen can show arrows while the other hides them. Wall visibility, runtime lock state and fog history are unaffected. Migration 9 preserves each map's previous shared setting on both screens. The rolled-back Center/Fit controls remain excluded.

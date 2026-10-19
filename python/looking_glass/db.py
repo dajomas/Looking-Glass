@@ -161,6 +161,12 @@ MIGRATIONS: list[str] = [
         DELETE FROM door_runtime_states WHERE wall_id IN (SELECT id FROM walls WHERE map_id=NEW.map_id);
     END;
     """,
+    # 9 - independent viewer arrow visibility; preserve each map's previous shared setting
+    """
+    ALTER TABLE maps ADD COLUMN viewer_door_arrows_enabled INTEGER NOT NULL DEFAULT 1
+        CHECK (viewer_door_arrows_enabled IN (0, 1));
+    UPDATE maps SET viewer_door_arrows_enabled = door_arrows_enabled;
+    """,
 ]
 
 

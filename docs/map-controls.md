@@ -31,7 +31,7 @@ between updates. Fully hidden maps use full-map framing.
 
 ## Door arrow controls and clicking
 
-The fog panel's **Enable door arrows (shared with players)** checkbox defaults to checked and sits immediately above the color selector. Both preferences are saved per map on the server; disabling preserves the color. Hiding admin walls is independent.
+The fog panel has **Show door arrows (admin)** and **Show door arrows (viewer)** immediately above the color selectors. Both persist independently per map and default on for new maps; existing maps inherit their old shared setting on both screens. Colors remain saved when hidden. Hiding admin walls is independent.
 
 A primary click/tap on an arrow in the admin fog editor reveals the room on the other side of that door, overriding Hide mode only for that click. Ctrl+Z undoes it. Right-click still invokes the normal inverse mode; drags/pinches pan/zoom and do not follow arrows. Only visible arrow pixels are clickable. While fog/arrow images load or a mutation is pending, taps are ignored. Viewer arrows are display-only so players cannot change fog. See `usage.md` for details.
 
@@ -39,3 +39,8 @@ A primary click/tap on an arrow in the admin fog editor reveals the room on the 
 ## Locked and unlocked doors
 
 The fog panel adds Locked door arrow color next to the regular arrow color. It is shared per map, defaults to orange `#ff9f43`, and follows the existing arrow enable toggle. Unlocked arrows use the regular arrow picker; both wall types stay orange (locked dashed, unlocked solid). Legend Show/Enabled rows include both new types. Runtime boundary participation follows the authored kind to keep lock/unlock from revealing extra areas. Reset restores authored states. The rolled-back viewer Center/Fit controls are not part of this patch.
+
+
+## Per-screen arrow visibility
+
+Admin and viewer arrow visibility are independent; Show walls is unchanged. The admin toggle hides the DM arrow overlay/hit targets, while the viewer toggle hides hints in the server-rendered player image and exact image preview. Regular, locked and unlocked arrows follow their screen flag together. Both color pickers stay usable whenever either flag is on. Reset does not reset visibility preferences, and direct door wall interactions are unchanged.
