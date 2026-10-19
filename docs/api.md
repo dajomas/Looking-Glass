@@ -157,3 +157,12 @@ program edits the standard fields; remove looking_glass to import only the
 standard geometry. Ordinary UVTT and Foundry parsing remain unchanged.
 Unlike empty Foundry scenes, an explicitly empty UVTT set is retained.
 See [wall-editor.md](wall-editor.md) for fallback semantics and limitations.
+
+## Door arrow appearance and overlay
+
+The admin map JSON includes `door_arrow_color` (`#RRGGBB`).
+
+- `POST /api/maps/{map_id}/door-arrows`: authenticated campaign manager with CSRF token; JSON `{"color":"#46c0ff"}`. Only six-digit hexadecimal colors are accepted (422 otherwise). Saves a lower-case per-map color, increments `fog_version`, broadcasts the normal campaign refresh and returns the updated admin map payload. Does not add a fog operation or modify saved fog checkpoints.
+- `GET /api/maps/{map_id}/door-arrows.png`: authenticated campaign manager; transparent RGBA PNG at fog work resolution. Contains only the arrow overlay, with `Cache-Control: no-store`.
+
+The viewer API is unchanged: arrows are baked into the authorized fogged image. Viewers receive no wall segments or hidden room geometry. Color updates change the normal viewer version/image URL.

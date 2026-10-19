@@ -113,15 +113,19 @@
     const generation = ++maskGeneration;
     const im = new Image();
     im.src = `/api/maps/${MAP_ID}/fog.png?v=${key}`;
-    await im.decode();
+    const arrows = new Image();
+    arrows.src = `/api/maps/${MAP_ID}/door-arrows.png?v=${key}`;
+    await Promise.all([im.decode(), arrows.decode()]);
     if (generation !== maskGeneration) return;
     maskImg = im; maskKey = key;
+    $("door-arrows").src = arrows.src;
     drawFog();
   }
 
   function applyState(s) {
     const first = state === null;
     state = s;
+    $("door-arrow-color").value = s.door_arrow_color;
     const nextImageKey = s.image_version || `${s.cache_token}-${s.width}-${s.height}`;
     if (imageKey !== nextImageKey) {imageKey = nextImageKey; img.src = `/api/maps/${MAP_ID}/image?v=${encodeURIComponent(imageKey)}`;}
     loadError("");
@@ -204,6 +208,11 @@
   $("btn-show").onclick = () => setActive(MAP_ID);
   $("btn-blank").onclick = () => setActive(null);
 
+  $("door-arrow-color").onchange = () => run(async () => {
+    try {
+      applyState(await LGApi.post(`/api/maps/${MAP_ID}/door-arrows`, {color: $("door-arrow-color").value}));
+    } finally { $("door-arrow-color").value = state.door_arrow_color; }
+  });
   $("fog-opacity").oninput = drawFog;
   $("show-preview").onchange = drawFog;
   $("show-walls").onchange = (e) => (svg.style.display = e.target.checked ? "" : "none");

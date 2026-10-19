@@ -52,6 +52,7 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "work_width": max(1, math.ceil(m["width"] * scale)), "work_height": max(1, math.ceil(m["height"] * scale)),
         "fog_version": m["fog_version"], "walls_version": m["walls_version"],
         "walls_source": m["walls_source"],
+        "door_arrow_color": m["door_arrow_color"],
         "image_version": m["image_file"],
         "disabled_wall_types": disabled_for_map(conn, m),
         "calibration": {"offset_x": ox, "offset_y": oy, "scale_x": sx, "scale_y": sy,
@@ -240,3 +241,27 @@ register_display_options(router)
 from .wall_types import register_wall_types  # noqa: E402
 
 register_wall_types(router, _map_payload)
+
+
+class DoorArrowAppearanceIn(BaseModel):
+    color: str = Field(pattern=r"^#[0-9a-fA-F]{6}$")
+
+
+@router.post("/maps/{map_id}/door-arrows")
+async def set_door_arrows(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: DoorArrowAppearanceIn):
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        conn.execute("UPDATE maps SET door_arrow_color = ? WHERE id = ?", (body.color.lower(), map_id))
+        maps_repo.bump_fog(conn, map_id)
+        payload = _map_payload(ctx, conn, map_id)
+    await notify.map_changed(ctx, map_id, "appearance")
+    return payload
+
+
+@router.get("/maps/{map_id}/door-arrows.png")
+async def door_arrows(ctx: CtxDep, user: UserDep, map_id: int):
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        spec, segs, ops = fog_inputs(ctx, conn, map_id)
+    png = await asyncio.to_thread(ctx.fog.door_arrows_png, spec, segs, ops)
+    return Response(png, media_type="image/png", headers={"Cache-Control": "no-store"})

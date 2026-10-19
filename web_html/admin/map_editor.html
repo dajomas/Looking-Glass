@@ -49,6 +49,9 @@
       <input id="fog-opacity" type="range" min="0" max="1" step="0.05" value="{{ fog_opacity }}">
     </label>
     <label class="check"><input id="show-walls" type="checkbox" checked> Show walls</label>
+    <label>Door arrow color (shared with players)
+      <input id="door-arrow-color" type="color" value="#46c0ff">
+    </label>
     <label class="check"><input id="show-preview" type="checkbox"> Player preview (opaque fog)</label>
     <p class="small"><span id="op-count">{{ op_count }}</span> fog actions recorded</p>
       </div>
@@ -151,6 +154,7 @@
   <div class="stage" id="stage">
     <img id="map-img" alt="{{ map.name }}" draggable="false">
     <canvas id="fog-canvas"></canvas>
+    <img id="door-arrows" alt="" draggable="false">
     <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>

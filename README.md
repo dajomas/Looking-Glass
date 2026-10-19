@@ -128,3 +128,7 @@ See [the wall editor guide](docs/wall-editor.md), [usage](docs/usage.md#separate
 [patch notes](Patch/wall-editor-uvtt.md). No new migration, runtime dependency
 or configuration key is introduced. Blank players before saving changed boundaries:
 existing fog operations are replayed and can reveal different areas.
+
+## Door direction arrows
+
+Revealing a room automatically shows an arrow inside that room, pointing toward each ordinary blocking door whose other side is still hidden. The admin fog editor and player display use the same server-generated arrows. Choose **Door arrow color (shared with players)** in the fog controls; the per-map setting persists on the server and defaults to the admin door blue (`#46c0ff`). Secret doors never produce player-visible hints. See `docs/usage.md` and `Patch/door-arrows.md`.

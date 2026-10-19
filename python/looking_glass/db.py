@@ -135,6 +135,10 @@ MIGRATIONS: list[str] = [
         disabled_types TEXT NOT NULL DEFAULT '[]'
     );
     """,
+    # 5 - shared door arrow appearance
+    """
+    ALTER TABLE maps ADD COLUMN door_arrow_color TEXT NOT NULL DEFAULT '#46c0ff';
+    """,
 ]
 
 

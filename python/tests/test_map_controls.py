@@ -16,7 +16,7 @@ from looking_glass.config import DEFAULTS
 
 @pytest.fixture
 def db(tmp_path):
-    db=Database(tmp_path/'test.db');assert db.migrate()==4
+    db=Database(tmp_path/'test.db');assert db.migrate()==len(MIGRATIONS)
     with db.connect() as c:
         c.execute("INSERT INTO campaigns(id,name) VALUES(1,'C')")
         c.execute("INSERT INTO maps(id,campaign_id,name,image_file,width,height) VALUES(1,1,'M','m.png',100,100)")
@@ -68,7 +68,7 @@ def test_migration3_to4_preserves_tokens_and_history(tmp_path):
         c.execute("INSERT INTO campaigns(id,name) VALUES(1,'C')")
         c.execute("INSERT INTO maps(id,campaign_id,name,image_file,width,height) VALUES(1,1,'M','a',10,10)")
         token=c.execute('SELECT cache_token FROM maps').fetchone()[0]
-    assert db.migrate()==4 and db.migrate()==4
+    assert db.migrate()==len(MIGRATIONS) and db.migrate()==len(MIGRATIONS)
     with db.connect() as c:assert c.execute('SELECT cache_token FROM maps').fetchone()[0]==token
 
 

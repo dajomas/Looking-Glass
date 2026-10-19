@@ -145,3 +145,11 @@ this browser and reused when opening either editor. Width stays constant while
 zooming. Battle-map doors and secret doors retain their double-width styling.
 This changes only the DM overlay, not fog boundary thickness, wall coordinates,
 UVTT exports, or the player image. Sidebar open/closed state resets on reload.
+
+## Door arrows to hidden rooms
+
+An ordinary door separating a revealed room from an unrevealed room receives an arrow on its revealed side, pointing toward the door. Arrows disappear when both rooms are revealed or hidden, and follow hide, undo, reset, restore and wall/alignment changes automatically. Reveal all leaves no hidden destinations and therefore no arrows.
+
+In the admin fog editor select **Door arrow color (shared with players)**. The saved per-map color defaults to `#46c0ff`, matching ordinary doors in the admin overlay. It applies to all connected viewers through the existing refresh mechanism; it is not a browser-only preference. Hiding the admin wall overlay does not hide the arrows. The exact player-image preview includes arrows.
+
+Secret doors are deliberately excluded to avoid spoilers. Nonblocking/disabled doors, doors that do not split rooms, zero-length doors and map-edge segments without an area on both sides do not receive arrows. Detection uses the existing raster room topology: gaps that merge rooms or doors narrower than the work resolution can prevent a hint. In very tight spaces the arrow is clipped to revealed open pixels.

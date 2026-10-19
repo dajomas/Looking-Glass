@@ -140,3 +140,11 @@ serialised with render locks. Viewer URLs include the incarnation token; image
 responses are not browser-cacheable. Viewer refresh requests use generation IDs
 so an older asynchronous decode cannot overwrite newer display state or undo a
 blank-screen update.
+
+## Revealed-side door hints
+
+`FogEngine.door_arrow_overlay` uses the existing area labels and replayed revealed-label set, not the dilated fog mask, to classify the two sides of each ordinary blocking door. It transforms door endpoints through calibration and work scaling, probes outward from the midpoint along both normals, and requires two distinct nonzero labels with exactly one revealed. The arrow points back toward the midpoint from inside the revealed side. Its alpha is clipped to revealed open labels. Secret doors are excluded. Boundary-disabled doors are already marked nonblocking by `fog_inputs`.
+
+The same RGBA overlay is returned to the admin as a PNG above its fog canvas and composited into the viewer image. Admin loads use the existing generation guard and decode the fog mask and overlay before updating. Viewer images retain existing authorization and stale-version checks. `MapSpec` carries the per-map color; render identity includes the color and a door-arrow algorithm marker to prevent pre-upgrade disk cache reuse. Color updates bump the fog version, so ordinary live notifications and polling refresh the display.
+
+Migration 5 appends `maps.door_arrow_color TEXT NOT NULL DEFAULT '#46c0ff'`. It leaves walls, fog operation history, snapshots and prior migrations unchanged.
