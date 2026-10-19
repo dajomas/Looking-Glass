@@ -53,6 +53,7 @@
     <label>Door arrow color (shared with players)
       <input id="door-arrow-color" type="color" value="#46c0ff">
     </label>
+    <p class="muted small">Click an arrow to reveal the room behind its door. Ctrl+Z undoes the reveal.</p>
     <label class="check"><input id="show-preview" type="checkbox"> Player preview (opaque fog)</label>
     <p class="small"><span id="op-count">{{ op_count }}</span> fog actions recorded</p>
       </div>
@@ -175,6 +176,7 @@
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/keep_select_values.js"></script>
 <script src="/static/js/wall_appearance.js?v=wall-width-2"></script>
-<script src="/static/js/admin_map_editor.js?v=wall-width-2"></script>
+<script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
+<script src="/static/js/admin_map_editor.js?v=door-arrow-click-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

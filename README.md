@@ -130,6 +130,8 @@ or configuration key is introduced. Blank players before saving changed boundari
 existing fog operations are replayed and can reveal different areas.
 
 
-## Door arrows
+## Door arrows and click-to-reveal
 
-Revealed rooms show arrows pointing toward ordinary blocking doors leading to hidden rooms, on both admin and viewer screens. In the fog controls, **Enable door arrows (shared with players)** appears immediately above the arrow color selector and defaults to enabled. Both preferences persist per map on the server. Default color is ordinary admin door blue (`#46c0ff`). Disabling arrows preserves the selected color. Secret doors are excluded. See `docs/usage.md` and `Patch/door-arrows.md`.
+Revealed rooms show arrows toward ordinary blocking doors leading to hidden rooms, on both admin and viewer displays. The fog controls provide an enabled-by-default shared toggle immediately above the per-map arrow color selector (default admin door blue `#46c0ff`). Disabling arrows preserves the selected color.
+
+In the admin fog editor, left-click or tap a visible arrow to reveal the area behind its door, even in Hide mode. The reveal is a normal undoable fog action and updates connected viewers. The player viewer remains read-only. Secret doors do not produce hints. See `docs/usage.md` and `Patch/door-arrows.md`.

@@ -81,3 +81,8 @@ the image. The dialog shows bounded coordinates, but Apply is still required to
 change the draft. Typed outside values are also clamped on Apply. Cancel/Escape
 leaves the original coordinates unchanged; Undo restores a corrected wall.
 If clamping would make both endpoints coincide, no edit is applied.
+
+
+## Clicking door arrows
+
+On the admin fog editor, left-click or tap a visible enabled door arrow to reveal its adjacent hidden room. The pointer cursor indicates a hit. This takes precedence over the current Hide mode without changing the selected mode; Ctrl+Z undoes it as an ordinary reveal. Right-click remains the inverse of the selected fog mode. Pan/zoom drags, Space-drag and pinch gestures retain their existing behavior. Transparent arrow-image pixels are not clickable. Viewer screens remain read-only.

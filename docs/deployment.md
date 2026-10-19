@@ -464,8 +464,8 @@ For installations upgrading across that change:
 - Clearing the render cache while stopped is optional.
 - Existing saved wall sources are retained.
 
-## Door-arrow controls upgrade
+## Door-arrow and clickable-arrow upgrade
 
-Stop both processes and back up the database/data before installing the cumulative door-arrow patch. Extract repository-root-relative changed files and restart normally. Startup applies migration 5 (arrow color) if needed, then migration 6 (enabled-by-default visibility). Existing color-only installations retain their chosen colors. Existing and newly created maps default to enabled. No new dependencies or configuration keys are required.
+This cumulative patch supports baseline schema 4, the color-only arrow schema 5 and the toggle schema 6. Stop both processes and back up the database/data. Extract the repository-root-relative replacement files, restart normally and reload admin pages. Startup applies migrations 5 and 6 only if needed. Existing colors and enabled/disabled settings survive the upgrade. Clicking requires no new migration, dependencies or configuration keys. New versioned admin script URLs load the click helper before the map editor.
 
-Reload admin pages to load the adjacent checkbox and color selector. Toggle arrows off and on and verify both displays; confirm the previous color returns and revealed rooms are unchanged. The new cache identity avoids reusing older images; manual cache removal is optional. Roll back by restoring the previous code and matching database backup; no down-migration is provided.
+Verify a room-to-hidden-room arrow on both screens; click it on the admin screen while Hide mode is selected, confirm the opposite room is revealed and Undo restores the prior fog. Check drag/pinch behavior, disabled arrows, retained color and stale clicks. The viewer remains read-only. Render cache identities change automatically; manual cache cleanup is optional. For rollback restore matching previous code and database backup; no down-migration is supplied.

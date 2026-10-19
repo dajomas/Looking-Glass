@@ -14,6 +14,8 @@
   let maskImg = null;
   let maskKey = "";
   let busy = false;
+  const arrowHit = new LGDoorArrowHit();
+  const stateKey = (s) => `${s.cache_token}-${s.walls_version}-${s.fog_version}`;
   let maskGeneration = 0, imageKey = "";
   const hiddenTypes = new Set();
   const typeNames = ["wall", "door", "secret", "window", "invisible", "ethereal"];
@@ -117,6 +119,7 @@
     arrows.src = `/api/maps/${MAP_ID}/door-arrows.png?v=${key}`;
     await Promise.all([im.decode(), arrows.decode()]);
     if (generation !== maskGeneration) return;
+    arrowHit.set(arrows, key);
     maskImg = im; maskKey = key;
     $("door-arrows").src = arrows.src;
     drawFog();
@@ -165,10 +168,23 @@
   // ------------------------------------------------------------------ actions
   function onTap(x, y, event) {
     if (!state || x < 0 || y < 0 || x > state.width || y > state.height) return;
+    if (busy || maskKey !== stateKey(state)) return; // Never act on an old overlay.
+    const arrow = event?.button !== 2 ? arrowHit.at(x, y, state, stateKey(state)) : null;
     const selectedMode = mode();
-    const m = event?.button === 2 ? (selectedMode === "reveal" ? "hide" : "reveal") : selectedMode;
+    const m = arrow ? "reveal" : (event?.button === 2 ? (selectedMode === "reveal" ? "hide" : "reveal") : selectedMode);
+    const path = arrow ? "door-arrows/reveal" : m;
+    const body = arrow ? {...arrow, cache_token: state.cache_token,
+      walls_version: state.walls_version, fog_version: state.fog_version} : {x, y};
     run(async () => {
-      const res = await LGApi.post(`/api/maps/${MAP_ID}/${m}`, { x, y });
+      let res;
+      try { res = await LGApi.post(`/api/maps/${MAP_ID}/${path}`, body); }
+      catch (error) {
+        if (arrow) {
+          // Never fall through into a normal hide/reveal on a stale arrow click.
+          try { applyState(await LGApi.get(`/api/maps/${MAP_ID}`)); } catch (_) {}
+        }
+        throw error;
+      }
       applyState(res);
       const pct = (res.area_fraction * 100).toFixed(1);
       if (m === "reveal" && !res.is_active) {
@@ -225,6 +241,12 @@
   }
   $("door-arrow-color").onchange = () => saveDoorArrows({color: $("door-arrow-color").value});
   $("door-arrows-enabled").onchange = () => saveDoorArrows({enabled: $("door-arrows-enabled").checked});
+  vp.addEventListener("pointermove", (event) => {
+    const point = pz.toImage(event.clientX, event.clientY);
+    const hit = state && !busy && !pz.pointers.size && arrowHit.at(point.x, point.y, state, stateKey(state));
+    vp.style.cursor = hit ? "pointer" : "";
+  });
+  vp.addEventListener("pointerleave", () => {vp.style.cursor = "";});
   $("fog-opacity").oninput = drawFog;
   $("show-preview").onchange = drawFog;
   $("show-walls").onchange = (e) => (svg.style.display = e.target.checked ? "" : "none");

@@ -142,10 +142,14 @@ so an older asynchronous decode cannot overwrite newer display state or undo a
 blank-screen update.
 
 
-## Shared door arrows and visibility
+## Shared clickable door arrows
 
-`MapSpec` carries server-persisted `door_arrow_color` and `door_arrows_enabled`. Migration 5 adds the color (default `#46c0ff`); migration 6 adds enabled visibility (`INTEGER NOT NULL DEFAULT 1`, constrained to 0/1). Migration 5 is unchanged from the original arrow patch, so upgrades from both baseline schema 4 and color-only schema 5 are supported.
+`MapSpec` carries `door_arrow_color` and `door_arrows_enabled`. Migration 5 adds the color (`#46c0ff`); migration 6 adds visibility (`INTEGER NOT NULL DEFAULT 1`, constrained to 0/1). These migrations are unchanged from the previous arrow/toggle patch; click-to-reveal needs no additional schema migration.
 
-The renderer uses undilated component labels and replayed fog operations. It samples the first open pixel on each side of an ordinary blocking door's midpoint along its normal, requires distinct labels and exactly one revealed side, and draws an arrow pointing back toward the door. Alpha is clipped to revealed open pixels. Secret doors are excluded. Disabled arrows return an empty RGBA overlay before area detection.
+`services/door_arrows.py` centralizes geometry for rendering and click resolution. It samples first open pixels on both normals from ordinary blocking door midpoints in calibrated work coordinates. Two distinct labels and exactly one revealed side are required. Each arrow records its revealed-side polygon and a verified open-pixel center in the hidden adjacent label. Its alpha is clipped to revealed open pixels. Secret doors are excluded; disabled visibility returns no arrows.
 
-Admin loads the overlay with its fog image using the existing generation guard. Viewers receive the same overlay baked into the server image, never hidden geometry. Color and enabled state are part of cache identity with an algorithm marker; saves bump the existing fog version to refresh connected viewers and polling clients. The admin control sends partial updates so toggling does not overwrite a saved color. Controls are disabled during outstanding writes and revert to confirmed state if saving fails.
+The fog renderer delegates the admin RGBA overlay to this service and composites the same overlay into the authorized viewer image. Render identity includes enabled/color state and an algorithm marker, avoiding old cache reuse. No hidden geometry is sent to viewer clients.
+
+`door_arrow_hit.js` samples the decoded PNG alpha at the displayed work pixel. PanZoom's existing image-coordinate tap dispatch handles transforms and gesture suppression. The admin handler sends a click-coordinate request only for a left-click/tap on a visible arrow; other taps retain normal mode behavior. It guards against busy/stale overlays and builds a hit map only after image decode/generation validation. The image pixel center is converted using `work_scale`, including rounded work dimensions. Hit errors refresh state without a normal-click fallback.
+
+The server independently validates map incarnation, walls/fog versions and actual arrow pixels inside `BEGIN IMMEDIATE`. It resolves the destination from current topology, not browser-supplied target coordinates, then appends one reveal and updates the existing active checkpoint. Validation and mutation are serialized, so duplicate stale requests cannot append duplicate reveals. The original management/CSRF boundary and read-only viewer permissions remain intact.

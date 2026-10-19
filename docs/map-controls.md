@@ -29,6 +29,8 @@ Automatic framing occurs on each new map/fog version, while pan/zoom remains usa
 between updates. Fully hidden maps use full-map framing.
 
 
-## Door arrows: shared visibility and color
+## Door arrow controls and clicking
 
-**Enable door arrows (shared with players)** is a checked-by-default checkbox immediately above **Door arrow color (shared with players)** in the fog controls. These are per-map server settings, unlike browser-local wall visibility/width preferences. Disable to remove arrows on both screens; re-enable to restore them in the saved color (`#46c0ff` by default). The disabled color input preserves its value. Hiding the admin wall overlay does not disable arrows. See `usage.md` for door eligibility and secret-door handling.
+The fog panel's **Enable door arrows (shared with players)** checkbox defaults to checked and sits immediately above the color selector. Both preferences are saved per map on the server; disabling preserves the color. Hiding admin walls is independent.
+
+A primary click/tap on an arrow in the admin fog editor reveals the room on the other side of that door, overriding Hide mode only for that click. Ctrl+Z undoes it. Right-click still invokes the normal inverse mode; drags/pinches pan/zoom and do not follow arrows. Only visible arrow pixels are clickable. While fog/arrow images load or a mutation is pending, taps are ignored. Viewer arrows are display-only so players cannot change fog. See `usage.md` for details.

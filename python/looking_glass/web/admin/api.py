@@ -49,6 +49,7 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "ok": True,
         "id": m["id"], "cache_token": m["cache_token"], "name": m["name"], "campaign_id": m["campaign_id"],
         "width": m["width"], "height": m["height"],
+        "work_scale": scale,
         "work_width": max(1, math.ceil(m["width"] * scale)), "work_height": max(1, math.ceil(m["height"] * scale)),
         "fog_version": m["fog_version"], "walls_version": m["walls_version"],
         "walls_source": m["walls_source"],
@@ -270,3 +271,34 @@ async def door_arrows(ctx: CtxDep, user: UserDep, map_id: int):
         spec, segs, ops = fog_inputs(ctx, conn, map_id)
     png = await asyncio.to_thread(ctx.fog.door_arrows_png, spec, segs, ops)
     return Response(png, media_type="image/png", headers={"Cache-Control": "no-store"})
+
+
+class DoorArrowClickIn(Point):
+    cache_token: str = Field(max_length=128)
+    walls_version: int = Field(ge=0)
+    fog_version: int = Field(ge=0)
+
+
+@router.post("/maps/{map_id}/door-arrows/reveal")
+async def reveal_door_arrow(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: DoorArrowClickIn):
+    from ...services.door_arrows import target_at
+    with ctx.db.connect() as conn:
+        # Serialize validation and mutation so duplicate/stale clicks cannot reveal twice.
+        conn.execute("BEGIN IMMEDIATE")
+        m, _ = map_for_manage(conn, user, map_id)
+        if (m["cache_token"], m["walls_version"], m["fog_version"]) != (
+                body.cache_token, body.walls_version, body.fog_version):
+            raise BadRequest("The map changed. Refresh and click the arrow again.")
+        spec, segs, ops = fog_inputs(ctx, conn, map_id)
+        target = target_at(ctx.fog, spec, segs, ops, body.x, body.y)
+        if target is None:
+            raise BadRequest("No enabled door arrow at that point. Refresh the map.")
+        area = ctx.fog.area_map(spec, segs)
+        res = ctx.fog.describe_click(area, *target)
+        fog_repo.add(conn, map_id, "reveal", *target, user["id"])
+        maps_repo.bump_fog(conn, map_id)
+        checkpoint_if_active(conn, map_id)
+        payload = {**_map_payload(ctx, conn, map_id), "area_fraction": round(res.fraction, 4),
+                   "leak_warning": res.leak_warning}
+    await notify.map_changed(ctx, map_id, "fog")
+    return payload

@@ -51,7 +51,7 @@ class MapSpec:
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
-                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, "door-arrows-v2")
+                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, "door-arrows-v3")
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
@@ -286,65 +286,11 @@ class FogEngine:
     def viewer_media_type(self) -> str:
         return {"jpg": "image/jpeg", "png": "image/png"}.get(self.viewer_ext, "image/webp")
 
-    def door_arrow_overlay(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> Image.Image:
-        """Work-resolution arrows clipped to revealed open pixels; secret doors excluded."""
-        scale = self.work_scale(spec.width, spec.height)
-        w, h = max(1, math.ceil(spec.width * scale)), max(1, math.ceil(spec.height * scale))
-        overlay = Image.new("RGBA", (w, h))
-        if not spec.door_arrows_enabled or not spec.doors_block:
-            return overlay
-        area = self.area_map(spec, segments)
-        revealed = self.revealed_labels(area, ops)
-        if not revealed or len(revealed) == area.count:
-            return overlay
-        draw = ImageDraw.Draw(overlay)
+    def door_arrow_overlay(self, spec, segments, ops):
+        from .door_arrows import overlay
+        return overlay(self, spec, segments, ops)
 
-        def sample(x, y):
-            if not (0 <= x < w and 0 <= y < h):
-                return 0
-            return int(area.labels[int(y), int(x)])
-
-        for seg in segments:
-            if seg.kind != "door" or not seg.blocks:
-                continue
-            x1, y1 = spec.calibration.apply(seg.x1, seg.y1)
-            x2, y2 = spec.calibration.apply(seg.x2, seg.y2)
-            dx, dy = (x2 - x1) * area.scale, (y2 - y1) * area.scale
-            length = math.hypot(dx, dy)
-            if length < 1:
-                continue
-            nx, ny = -dy / length, dx / length
-            mx, my = (x1 + x2) * area.scale / 2, (y1 + y2) * area.scale / 2
-            sides = []
-            for sign in (-1, 1):
-                hit = None
-                for distance in range(1, self.thickness * 3 + 4):
-                    lab = sample(mx + sign * nx * distance, my + sign * ny * distance)
-                    if lab:
-                        hit = (lab, sign, distance)
-                        break
-                sides.append(hit)
-            if not all(sides):
-                continue
-            a, b = sides
-            if a[0] == b[0] or (a[0] in revealed) == (b[0] in revealed):
-                continue
-            lab, sign, distance = a if a[0] in revealed else b
-            ux, uy = sign * nx, sign * ny
-            size = max(8, min(24, length * .7))
-            tip = (mx + ux * (distance + 2), my + uy * (distance + 2))
-            def point(back, across):
-                return (tip[0] + ux * back - uy * across, tip[1] + uy * back + ux * across)
-            polygon = [point(0, 0), point(size * .48, -size * .38),
-                       point(size * .48, -size * .14), point(size, -size * .14),
-                       point(size, size * .14), point(size * .48, size * .14),
-                       point(size * .48, size * .38)]
-            draw.polygon(polygon, fill=(*_hex_to_rgb(spec.door_arrow_color), 255))
-        pixels = np.array(overlay)
-        pixels[~np.isin(area.labels, list(revealed)), 3] = 0
-        return Image.fromarray(pixels)
-
-    def door_arrows_png(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> bytes:
+    def door_arrows_png(self, spec, segments, ops) -> bytes:
         buf = io.BytesIO()
         self.door_arrow_overlay(spec, segments, ops).save(buf, "PNG")
         return buf.getvalue()
