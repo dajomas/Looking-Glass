@@ -54,3 +54,8 @@ The viewer's double-click gesture focuses one revealed room, or toggles back to 
 ## Remote viewer camera from admin
 
 Double-click a revealed area in the admin fog editor to toggle room focus/all-revealed overview in connected viewer screens, not in admin. Door/arrow gestures take priority. Ordinary primary area singles wait 400 ms; right-click mode inversion stays immediate. The map must already be live, and hidden areas do not send a camera command. Viewer-local double-click remains unchanged. No new Center/Fit toggles or persistent camera preferences are introduced.
+
+
+## Automatic overview after new reveals
+
+A newly visible area clears viewer room focus and returns to the all-revealed overview, whether focus was chosen in admin or viewer. No extra toggle is needed. This checks actual revealed-area membership, so color, arrow visibility and lock changes alone do not reset focus. Double-click can focus again after the reset; Fit/F and all admin door gestures retain their behavior.

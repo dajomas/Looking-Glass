@@ -20,7 +20,7 @@ import hashlib
 import math
 import threading
 from collections import OrderedDict
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, field, replace
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -85,6 +85,8 @@ class AreaMap:
     count: int              # number of areas
     sizes: np.ndarray       # pixel count per label
     scale: float            # work px per image px
+    region_slices: list | None = field(default=None, repr=False, compare=False)
+    region_signatures: dict = field(default_factory=dict, repr=False, compare=False)
 
     @property
     def shape(self) -> tuple[int, int]:

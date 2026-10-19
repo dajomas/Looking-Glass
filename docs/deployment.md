@@ -497,3 +497,10 @@ Verify focus/toggle on two revealed rooms, hidden-area no-op, manual pan then re
 Apply this changed-file archive to the supplied 13d62ae source (viewer room zoom already installed). Stop both processes, back up normally, extract at repository root, restart both processes and reload BOTH admin and viewer browser tabs. This is important: older viewer scripts ignore the new camera event type. No database migration, new dependency or configuration key is required. No rolled-back Center/Fit preferences are added.
 
 With a live viewer connected, double-click a revealed admin area in Reveal and Hide modes; verify room focus/overview in the viewer, no admin camera movement, and no fog action. Verify ordinary delayed singles, immediate right-click inverse mode, regular arrows, locked/unlocked double-clicks, viewer-local double-click/F, multi-viewer behavior, inactive-map rejection, hidden-area no-op, disconnected screens and stale map changes. See Patch/ADMIN_VIEWER_ZOOM_VALIDATION.md for automated checks and limits. Roll back to prior code; this increment does not change database schema/data.
+
+
+## New-reveal overview reset upgrade
+
+Apply the changed/new files to the supplied f1d837f source, which includes admin remote zoom. Stop both processes and back up code/data normally, extract at repository root, restart and reload viewer tabs so the versioned helper/display scripts and new state metadata are used together. No database migration, dependency or configuration change is required; admin tabs need no new gesture code.
+
+Focus a viewer room locally and from admin, then reveal a second room: verify all visible areas are fitted/centered. Test a room inside unchanged overview bounds; hide/reveal exchange; Reveal all; Undo hide; repeated Reveal; colors, arrow flags and lock/unlock changes; and an old pending zoom response arriving after a reveal. Style/lock-only updates should preserve focus. See Patch/NEW_REVEAL_OVERVIEW_VALIDATION.md. Rollback is the prior code version; there are no database changes to undo.

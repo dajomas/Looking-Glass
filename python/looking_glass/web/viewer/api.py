@@ -11,6 +11,7 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse, JSONResponse
 
 from ...services.reveal_bounds import revealed_bounds
+from ...services.revealed_regions import revealed_area_signatures
 from ...services.viewer_area import revealed_area_bounds
 from ...repositories import campaigns as campaigns_repo
 from ...repositories import maps as maps_repo
@@ -29,15 +30,18 @@ def _version(m):
 @router.get("/api/c/{campaign_id}/state")
 def state(ctx: CtxDep, user: UserDep, campaign_id: int):
     with ctx.db.connect() as conn:
+        conn.execute("BEGIN")
         c = campaign_for_view(conn, user, campaign_id)
         m = maps_repo.get(conn, c["active_map_id"]) if c["active_map_id"] else None
         if m is not None: spec, segments, ops = fog_inputs(ctx, conn, m["id"])
     if m is None:
         return {"ok": True, "campaign": c["name"], "map": None}
     bounds = revealed_bounds(ctx.fog.mask(spec, segments, ops), m["width"], m["height"])
+    signatures = revealed_area_signatures(ctx.fog, spec, segments, ops)
     version = _version(m)
     return {"ok": True, "campaign": c["name"],
             "map": {"name": m["name"], "width": m["width"], "height": m["height"], "version": version, "revealed_bounds": bounds,
+                    "revealed_area_signatures": signatures,
                     "image_url": f"/api/c/{campaign_id}/image?v={version}"}}
 
 

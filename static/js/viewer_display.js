@@ -94,8 +94,9 @@
     next.src = s.map.image_url;
     await next.decode();
     if (generation !== refreshGeneration) return;
+    const hasNewAreas = !mapChanged && LGViewerHasNewAreas(currentMap,s.map);
     mapImg.src = next.src;
-    cancelLookup(mapChanged);
+    cancelLookup(mapChanged || hasNewAreas);
     version = s.map.version;
     currentMap = s.map;
     nameEl.textContent = s.map.name;

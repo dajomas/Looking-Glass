@@ -8,7 +8,7 @@ function app(){
    getBoundingClientRect:()=>view,addEventListener(type,fn){const key=id+":"+type;if(!handlers.has(key))handlers.set(key,[]);handlers.get(key).push(fn);},
    click(){if(this.onclick)this.onclick();}});return elements.get(id);};
  const a={x:10,y:10,width:180,height:180},b={x:210,y:50,width:180,height:100};
- let state={map:{name:"M",version:"1:token-1-1",width:400,height:200,image_url:"/image",revealed_bounds:{x:10,y:10,width:380,height:180}}};
+ let state={map:{name:"M",version:"1:token-1-1",width:400,height:200,image_url:"/image",revealed_area_signatures:["a","b"],revealed_bounds:{x:10,y:10,width:380,height:180}}};
  let deferred=null,delayArea=false;
  const context={console,URLSearchParams,Date:{now:()=>now},document:{getElementById:element},location:{protocol:"http:",host:"test",pathname:"/c/1"},
    Image:class{constructor(){this.naturalWidth=200;this.naturalHeight=100;images.push(this);}decode(){return Promise.resolve();}},
@@ -33,7 +33,9 @@ function app(){
    pose:()=>({x:pz.x,y:pz.y,scale:pz.scale}),double:async(x,y)=>{tap(x,y);tap(x,y);await tick();},
    expected:bounds=>context.LGViewerAreaZoom.target(bounds,400,200,pz,view),
    poll:async()=>{await intervals.find(i=>i.ms===40000).fn();await tick();},
-   setState:s=>{state=s;},tap,delay:()=>{delayArea=true;},resolve:async()=>{deferred();await tick();},fire,
+   setState:s=>{state=s;},nextFrame(keys,version='1:token-1-2',bounds=null){
+     state={...state,map:{...state.map,version,revealed_area_signatures:[...keys],revealed_bounds:bounds||state.map.revealed_bounds}};
+   },tap,delay:()=>{delayArea=true;},resolve:async()=>{deferred();await tick();},fire,
    resize(){for(const fn of handlers.get('window:resize')||[])fn();timers.pop()();},
    bump(){state={map:{...state.map,version:'1:token-1-2'}};}};
 }
@@ -82,5 +84,28 @@ function near(actual,expected){for(const k of ['x','y','scale'])assert.ok(Math.a
  await first.remote(command('shared'));await second.remote(command('shared'));
  near(first.pose(),first.expected({x:10,y:10,width:380,height:180}));near(second.pose(),second.expected(second.a));
  assert.notDeepEqual(second.pose(),secondOverview);
- console.log('Viewer local and remote zoom, multi-viewer, duplicate/stale commands, cancellation and refresh tests passed');
+ // Newly visible areas must drop focus even when the overall bounding rectangle does not grow.
+ v=app();await tick();const allBounds={x:10,y:10,width:380,height:180};await v.double(100,100);
+ const beforeRevealQueries=v.queries.length;v.nextFrame(['a','b','c']);await v.poll();near(v.pose(),v.expected(allBounds));
+ assert.equal(v.queries.length,beforeRevealQueries); // do not re-request the old focused area
+ // Explicit remote zoom remains available AFTER the new-area overview reset.
+ await v.remote(command('after-reveal',100,'1:token-1-2'));near(v.pose(),v.expected(v.a));
+ v=app();await tick();await v.remote(command('focus-from-admin'));v.nextFrame(['a','b','c']);await v.poll();near(v.pose(),v.expected(allBounds));
+ // Image/fog version changes alone, reordered signatures and hide-only changes preserve focus.
+ v=app();await tick();await v.double(100,100);v.nextFrame(['b','a']);await v.poll();near(v.pose(),v.expected(v.a));
+ v.nextFrame(['a'],'1:token-1-3',v.a);await v.poll();near(v.pose(),v.expected(v.a));
+ v.nextFrame(['a','b'],'1:token-1-4',allBounds);await v.poll();near(v.pose(),v.expected(allBounds)); // undo hide/re-reveal
+ // Equal counts with changed membership still detect a newly revealed region.
+ v=app();await tick();await v.double(100,100);v.nextFrame(['a','c']);await v.poll();near(v.pose(),v.expected(allBounds));
+ // Old pending local and remote area queries cannot put focus back after a reveal.
+ for(const remote of [false,true]){
+   v=app();await tick();await v.double(100,100);v.delay();
+   if(remote)await v.remote(command('pending-before-reveal'));else await v.double(100,100);
+   v.nextFrame(['a','b','c']);await v.poll();await v.resolve();near(v.pose(),v.expected(allBounds));
+ }
+ const hasNew=v.context.LGViewerHasNewAreas;
+ assert.equal(hasNew({revealed_area_signatures:['a','b']},{revealed_area_signatures:['a']}),false);
+ assert.equal(hasNew({revealed_area_signatures:['a','b']},{revealed_area_signatures:['a','c']}),true);
+ assert.equal(hasNew({},{}),false);
+ console.log('Viewer local/remote zoom and new-area overview reset, stable membership, hidden areas, stale responses and gestures passed');
 })().catch(e=>{console.error(e);process.exitCode=1;});

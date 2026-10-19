@@ -26,3 +26,9 @@ window.LGViewerDoubleTap = class {
     return false;
   }
 };
+
+window.LGViewerHasNewAreas = function (previous, next) {
+  if (!Array.isArray(previous?.revealed_area_signatures) || !Array.isArray(next?.revealed_area_signatures)) return false;
+  const known = new Set(previous.revealed_area_signatures);
+  return next.revealed_area_signatures.some(signature => !known.has(signature));
+};

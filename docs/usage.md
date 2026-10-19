@@ -200,7 +200,7 @@ The viewer Fit button and F shortcut always leave room focus and show the reveal
 
 Hidden/fogged areas and out-of-map clicks do nothing; the viewer cannot use zoom to reveal rooms or control locks. Eligible areas are the same calibrated raster rooms/components used by fog reveal, so incomplete walls or disabled door boundaries may make multiple rooms one zoom area. Click visible interior pixels for the most predictable selection; hidden open pixels near a dilated wall are still rejected.
 
-A focused room is refitted on viewer resize. On live map updates the focus point is revalidated against the current revealed area: focus is retained if still visible, otherwise the viewer returns to the remaining revealed-area overview. Switching/blanking maps clears focus. A late lookup cannot override newer navigation or map state. Manual wheel/drag clears room-focus tracking; existing overview fitting on subsequent live refresh remains available. Camera state is local to this viewer tab, not a saved campaign preference or a change to other viewers.
+A focused room is refitted on viewer resize. When a newly revealed area appears in a live update, room focus is cleared and the viewer fits/centers all visible areas. For other updates the focus point is revalidated: focus is retained if still visible, otherwise the viewer returns to the remaining revealed-area overview. Switching/blanking maps clears focus. A late lookup cannot override newer navigation or map state. Manual wheel/drag clears room-focus tracking; existing overview fitting on subsequent live refresh remains available. Camera state is local to this viewer tab, not a saved campaign preference or a change to other viewers.
 
 This feature does not add the previously rolled-back Center/Fit admin toggles. Split admin/viewer arrow visibility and locked-door behavior remain unchanged.
 
@@ -216,3 +216,14 @@ To separate area double-clicks from fog actions, ordinary primary single-clicks 
 Regular arrows and managed door/arrow gestures take priority and are not reinterpreted as area zoom: regular arrow reveal, locked-arrow double-click unlock and unlocked door/arrow double-click lock remain unchanged. A hidden-area double-click sends no zoom and does not fall back to revealing it; use a single click to reveal normally. The selected map must already be active on viewers—this action never activates or switches maps automatically.
 
 Commands use live WebSockets and are ephemeral, not stored camera preferences. The admin reports when no viewer screens are connected. Disconnected or not-yet-opened screens do not replay old zoom commands; issue the double-click again after reconnecting. The success toast counts subscribed screens, not confirmed camera acknowledgments. Reload both admin and viewer tabs after installing this update. Camera commands do not change fog operations, locks, checkpoints, versions, arrow visibility or the database.
+
+
+## Revealing another area clears room focus
+
+If a viewer is focused on one room, revealing another area returns it to the overview of all currently revealed areas and centers that visible portion of the battle map. It works for focus created by either a viewer-local double-click or an admin remote double-click. Reveal all, an arrow revealing a destination, re-revealing a hidden room and Undo of a hide also reset focus when they make an additional area visible.
+
+The new area need not expand the outer visible bounding box. Replacing one visible area with another between displayed states is also detected, even when the visible area count stays equal. Repeating Reveal on an already revealed room does not reset focus. Arrow visibility, color and lock/unlock-only changes keep room focus when area geometry/visibility is unchanged. Hiding another room alone also preserves focus; hiding the focused room still falls back to overview through existing validation.
+
+After the overview reset, a fresh explicit admin/viewer zoom can focus a room again. Old in-flight area lookups cannot restore the discarded focus. The viewer applies the reset with the newly decoded map image; a newly visible area inside unchanged overview bounds still triggers it. Detection compares the last displayed state with the next displayed state, rather than replaying transient states that never reached the viewer.
+
+Areas follow the fog engine's raster room components. Changing wall geometry/calibration or boundary settings can change those components' footprints and may reset focus as newly represented visible areas. Routine lock/unlock keeps those footprints unchanged. Existing manual pan/zoom, overview behavior, Fit/F and both double-click paths are otherwise unchanged. Reload viewer tabs after the upgrade.

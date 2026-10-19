@@ -26,6 +26,7 @@ function viewer(states) {
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/viewer_area_zoom.js"), "utf8"), context);
   context.LGViewerAreaZoom=context.window.LGViewerAreaZoom;
   context.LGViewerDoubleTap=context.window.LGViewerDoubleTap;
+  context.LGViewerHasNewAreas=context.window.LGViewerHasNewAreas;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/viewer_display.js"), "utf8"), context);
   return {element, images, poll: () => intervals.find(i => i.ms===40000).fn()};
 }

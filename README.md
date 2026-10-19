@@ -155,3 +155,8 @@ In the player viewer, double-click a revealed room to fit and center that room. 
 ## Admin-controlled viewer zoom
 
 Double-click a revealed area in the admin fog editor to send the existing room-focus/overview toggle to connected viewer screens, without moving the admin camera. Ordinary area single-clicks wait 400 ms so the first click cannot reveal/hide fog before a double-click is recognized. Door and arrow gestures keep priority. Double-clicking directly in the viewer remains unchanged. The map must already be shown to players; hidden areas do not send commands. See `docs/usage.md` and `Patch/admin-viewer-zoom.md`.
+
+
+## New reveals return focused viewers to overview
+
+Whenever an additional revealed area appears, viewers focused on a specific room automatically leave that focus and fit/center all currently visible areas. This applies to focus chosen locally or from an admin double-click. Detection uses revealed-area membership, not just image versions, counts or the overall rectangle, so arrow/color/lock-only changes and repeated reveals of an already visible room do not unnecessarily clear focus. No database migration or new controls are added.

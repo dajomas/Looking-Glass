@@ -8,7 +8,7 @@ git archive --format=zip --output=${NAME}-source.zip ${BRANCH}
 
 echo "Convert zip file to base64"
 python3 - ${HASH} ${NAME}<<'PY'
-import base64, sys
+import base64, sys, os
 from pathlib import Path
 
 HASH=sys.argv[1]
@@ -19,4 +19,5 @@ target.write_text(
     base64.b64encode(source.read_bytes()).decode("ascii"),
     encoding="ascii",
 )
+os.unlink(source)
 PY
