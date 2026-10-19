@@ -483,3 +483,10 @@ Reload admin browser tabs to load the versioned scripts/styles. Verify new desig
 Apply this changed-file archive to the supplied d457b93 source containing the locked-door patch. Stop both application processes, back up SQLite/data, extract at repository root, restart normally and reload admin tabs for the versioned script. Startup applies migration 9, copying every map's existing shared preference to both screen flags. Existing colors, lock state and fog history are preserved. No dependencies/configuration keys or Center/Fit features are added.
 
 Verify all four admin/viewer combinations, including exact viewer-image preview, admin arrow clicks and locked-arrow double-click behavior. Admin-only toggles should not refresh the viewer; changing viewer visibility must update active viewer images. A viewer browser reload is not needed for new JavaScript because viewer scripts are unchanged. Rollback requires previous code and matching database backup; no down-migration is included. See Patch/arrow-visibility.md and Patch/ARROW_VISIBILITY_VALIDATION.md.
+
+
+## Viewer room-zoom upgrade
+
+Apply the changed/new files to the supplied 1618eef source containing split arrow visibility and locked doors. Stop the application processes, back up code/data normally, extract at repository root and restart both processes so the new read-only endpoint is available. Reload viewer tabs to load the versioned zoom helper/display script. No database migration, new dependency or configuration setting is required; the existing schema remains unchanged.
+
+Verify focus/toggle on two revealed rooms, hidden-area no-op, manual pan then refit, Fit/F overview, resize, live hide/reset while focused, map switching/blanking, and drag/pinch suppression. Admin arrow visibility, viewer arrow visibility, lock/unlock and fog operations should be unchanged. See Patch/VIEWER_ROOM_ZOOM_VALIDATION.md for test limits. Rollback is the prior code version; this patch does not alter database contents/schema.

@@ -6,36 +6,80 @@
   const vp = $("viewport"), stage = $("stage"), mapImg = $("map");
   const waiting = $("waiting"), dot = $("conn-dot"), nameEl = $("map-name");
 
-  const pz = new PanZoom(vp, stage, {});
-  let version = null;
-  let refreshGeneration = 0;
-  let userMoved = false;
-  let revealBounds = null;
-  function centerReveals() {
-    if (!revealBounds) {pz.fit(); return;}
-    const box = vp.getBoundingClientRect();
-    const sx = mapImg.naturalWidth / revealBounds.imageWidth;
-    const sy = mapImg.naturalHeight / revealBounds.imageHeight;
-    const b = revealBounds;
-    pz.scale = Math.max(pz.minScale, Math.min(pz.maxScale,
-      0.90 * Math.min(box.width / Math.max(1,b.width*sx), box.height / Math.max(1,b.height*sy))));
-    pz.x = box.width/2 - (b.x+b.width/2)*sx*pz.scale;
-    pz.y = box.height/2 - (b.y+b.height/2)*sy*pz.scale;
-    pz.apply();
+  const pz = new PanZoom(vp, stage, {onTap});
+  // This viewer owns its resize policy, including focused-room framing.
+  pz._onResize = () => {};
+  const taps = new LGViewerDoubleTap();
+  let version = null, refreshGeneration = 0, zoomGeneration = 0;
+  let revealBounds = null, currentMap = null, focusPoint = null, focusBounds = null;
+  function target(bounds) {
+    return currentMap ? LGViewerAreaZoom.target(bounds, currentMap.width, currentMap.height,
+      pz, vp.getBoundingClientRect()) : null;
   }
-  vp.addEventListener("pointerdown", () => (userMoved = true));
-  vp.addEventListener("wheel", () => (userMoved = true), { passive: true });
+  function centerReveals() {
+    if (stage.hidden || !currentMap) return;
+    if (revealBounds) LGViewerAreaZoom.apply(pz, target(revealBounds));
+    else pz.fit();
+  }
+  function showOverview() {
+    ++zoomGeneration; taps.cancel(); focusPoint = focusBounds = null;
+    centerReveals();
+  }
+  function cancelLookup(clearFocus=false) {
+    ++zoomGeneration; taps.cancel();
+    if (clearFocus) focusPoint = focusBounds = null;
+  }
+  async function lookup(point, toggle) {
+    const requestedVersion = version, generation = ++zoomGeneration;
+    try {
+      const query = new URLSearchParams({x:String(point.x),y:String(point.y),v:requestedVersion});
+      const response = await fetch(`/api/c/${CID}/area-bounds?${query}`, {
+        credentials:"same-origin", cache:"no-store", headers:{Accept:"application/json"}});
+      if (generation !== zoomGeneration || version !== requestedVersion || stage.hidden) return;
+      if (response.status === 401) {location.href="/login?next="+encodeURIComponent(location.pathname); return;}
+      if (!response.ok) {await refresh(); return;}
+      const result = await response.json();
+      if (generation !== zoomGeneration || version !== requestedVersion || stage.hidden || result.version !== requestedVersion) return;
+      if (!result.bounds) {
+        if (!toggle) {focusPoint = focusBounds = null; centerReveals();}
+        return;
+      }
+      const pose = target(result.bounds);
+      if (toggle && LGViewerAreaZoom.matches(pz, pose)) {showOverview(); return;}
+      focusPoint = point; focusBounds = result.bounds;
+      LGViewerAreaZoom.apply(pz, pose);
+    } catch (error) {
+      if (generation === zoomGeneration) console.error("Room zoom lookup failed",error);
+    }
+  }
+  function onTap(x,y,event) {
+    if (stage.hidden || !currentMap || event?.button !== 0 || x<0 || y<0 || x>=pz.w || y>=pz.h) {taps.cancel(); return;}
+    const cx = Number.isFinite(event.clientX) ? event.clientX : x*pz.scale;
+    const cy = Number.isFinite(event.clientY) ? event.clientY : y*pz.scale;
+    if (!taps.tap(cx,cy,Date.now())) return;
+    const point = {x:x*currentMap.width/pz.w, y:y*currentMap.height/pz.h};
+    lookup(point,true);
+  }
+  vp.addEventListener("pointerdown", event => {
+    ++zoomGeneration;
+    if (pz.spaceDown || pz.pointers.size > 1 || event.button !== 0) taps.cancel();
+  });
+  vp.addEventListener("pointermove", () => {if (pz.moved && pz.pointers.size) cancelLookup(true);});
+  vp.addEventListener("pointercancel", () => cancelLookup());
+  vp.addEventListener("wheel", () => cancelLookup(true), {passive:true});
+  vp.addEventListener("dblclick", event => event.preventDefault());
+  window.addEventListener("blur", () => cancelLookup());
 
   async function refresh() {
     const generation = ++refreshGeneration;
     const resp = await fetch(`/api/c/${CID}/state`, { credentials: "same-origin", cache: "no-store", headers: { Accept: "application/json" } });
     if (generation !== refreshGeneration) return;
     if (resp.status === 401) { location.href = "/login?next=" + encodeURIComponent(location.pathname); return; }
-    if (!resp.ok) { stage.hidden = true; waiting.hidden = false; $("waiting-text").textContent = "This campaign is no longer available."; return; }
+    if (!resp.ok) { cancelLookup(true); stage.hidden = true; waiting.hidden = false; $("waiting-text").textContent = "This campaign is no longer available."; return; }
     const s = await resp.json();
     if (generation !== refreshGeneration) return;
     if (!s.map) {
-      version = null;
+      cancelLookup(true); version = null; currentMap = revealBounds = null;
       stage.hidden = true; waiting.hidden = false; nameEl.textContent = "";
       return;
     }
@@ -47,12 +91,15 @@
     await next.decode();
     if (generation !== refreshGeneration) return;
     mapImg.src = next.src;
+    cancelLookup(mapChanged);
     version = s.map.version;
+    currentMap = s.map;
     nameEl.textContent = s.map.name;
     waiting.hidden = true; stage.hidden = false;
     pz.setContentSize(next.naturalWidth, next.naturalHeight);
-    revealBounds = s.map.revealed_bounds ? {...s.map.revealed_bounds, imageWidth:s.map.width, imageHeight:s.map.height} : null;
-    userMoved = false; centerReveals();
+    revealBounds = s.map.revealed_bounds || null;
+    if (focusPoint && !mapChanged) {focusBounds = null; await lookup(focusPoint,false);}
+    else centerReveals();
   }
 
   let ws = null, retry = 1000, pingTimer = null;
@@ -71,7 +118,7 @@
     };
   }
 
-  $("btn-fit").onclick = () => { userMoved = false; centerReveals(); };
+  $("btn-fit").onclick = showOverview;
   $("btn-full").onclick = () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen());
   window.addEventListener("keydown", (e) => { if (e.key.toLowerCase() === "f") $("btn-fit").click(); });
   // Auto-hide HUD when idle
@@ -81,7 +128,11 @@
   wake();
 
   let resizeTimer;
-  window.addEventListener("resize", () => {clearTimeout(resizeTimer); resizeTimer=setTimeout(centerReveals,180);});
+  window.addEventListener("resize", () => {clearTimeout(resizeTimer); resizeTimer=setTimeout(() => {
+    cancelLookup();
+    if (!stage.hidden && focusBounds) LGViewerAreaZoom.apply(pz,target(focusBounds));
+    else {focusPoint = null; centerReveals();}
+  },180);});
   stage.hidden = true;
   refresh().catch(console.error);
   connect();

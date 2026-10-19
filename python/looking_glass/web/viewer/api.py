@@ -8,9 +8,10 @@ import asyncio
 import logging
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 
 from ...services.reveal_bounds import revealed_bounds
+from ...services.viewer_area import revealed_area_bounds
 from ...repositories import campaigns as campaigns_repo
 from ...repositories import maps as maps_repo
 from ..access import campaign_for_view, fog_inputs
@@ -58,6 +59,28 @@ async def image(ctx: CtxDep, user: UserDep, campaign_id: int, v: str | None = No
         if current is None or _version(current) != expected:
             raise BadRequest("Map display changed during rendering; refresh the campaign state.")
     return FileResponse(path, media_type=ctx.fog.viewer_media_type,
+                        headers={"Cache-Control": "no-store"})
+
+
+@router.get("/api/c/{campaign_id}/area-bounds")
+async def area_bounds(ctx: CtxDep, user: UserDep, campaign_id: int, x: float, y: float, v: str):
+    with ctx.db.connect() as conn:
+        conn.execute("BEGIN")
+        c = campaign_for_view(conn, user, campaign_id)
+        if not c["active_map_id"]:
+            raise NotFound("No map is being shown.")
+        m = maps_repo.get(conn, c["active_map_id"])
+        expected = _version(m)
+        if v != expected:
+            raise BadRequest("Map display changed; refresh before zooming.")
+        spec, segs, ops = fog_inputs(ctx, conn, c["active_map_id"])
+    bounds = await asyncio.to_thread(revealed_area_bounds, ctx.fog, spec, segs, ops, x, y)
+    with ctx.db.connect() as conn:
+        c = campaign_for_view(conn, user, campaign_id)
+        current = maps_repo.get(conn, c["active_map_id"]) if c["active_map_id"] else None
+        if current is None or _version(current) != expected:
+            raise BadRequest("Map display changed during zoom lookup; refresh the campaign state.")
+    return JSONResponse({"ok": True, "version": expected, "bounds": bounds},
                         headers={"Cache-Control": "no-store"})
 
 

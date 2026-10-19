@@ -145,3 +145,8 @@ The wall editor supports **Locked Door** (dashed orange) and **Unlocked Door** (
 ## Independent arrow visibility
 
 Show door arrows (admin) controls the DM overlay/click targets; Show door arrows (viewer) controls the player image and exact viewer-image preview. Either screen can show arrows while the other hides them. Wall visibility, runtime lock state and fog history are unaffected. Migration 9 preserves each map's previous shared setting on both screens. The rolled-back Center/Fit controls remain excluded.
+
+
+## Viewer double-click room zoom
+
+In the player viewer, double-click a revealed room to fit and center that room. Double-click it again while it is already fitted and centered to return to the overview of all revealed areas. A double-click on another room focuses that room instead. Hidden areas do nothing. The Fit button/F shortcut always returns to the revealed-area overview. This is local read-only camera navigation: it never reveals fog or changes doors. See `docs/usage.md` and `Patch/viewer-room-zoom.md`.

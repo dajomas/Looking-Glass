@@ -19,10 +19,13 @@ function viewer(states) {
   }
   const context = {window: {LG_CAMPAIGN: 1, addEventListener(){}},
     document: {getElementById: element}, location: {protocol: "http:", host: "test", pathname: "/c/1"},
-    PanZoom: class {setContentSize(){} fit(){}}, Image: FakeImage,
+    PanZoom: class {constructor(){this.scale=1;this.x=0;this.y=0;this.minScale=.02;this.maxScale=8;}setContentSize(w,h){this.w=w;this.h=h;}apply(){}fit(){}}, Image: FakeImage,
     WebSocket: class {}, console, setTimeout(){}, clearTimeout(){}, clearInterval(){},
     setInterval(fn, ms){intervals.push({fn,ms});},
     fetch: async () => ({ok: true, status:200, json: async () => states.shift()})};
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/viewer_area_zoom.js"), "utf8"), context);
+  context.LGViewerAreaZoom=context.window.LGViewerAreaZoom;
+  context.LGViewerDoubleTap=context.window.LGViewerDoubleTap;
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/viewer_display.js"), "utf8"), context);
   return {element, images, poll: () => intervals.find(i => i.ms===40000).fn()};
 }

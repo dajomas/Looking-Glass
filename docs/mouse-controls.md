@@ -91,3 +91,8 @@ On the admin fog editor, left-click or tap a visible enabled door arrow to revea
 ## Locked and unlocked doors
 
 On the admin fog map, a locked arrow requires a double primary click/tap to unlock and never reveals during that gesture. Its single click, and clicks on the locked wall segment, do nothing. A single unlocked arrow reveals normally; a double click/tap on an unlocked arrow or visible door segment locks without revealing. Managed door singles wait 400 ms to distinguish a double. A state change, another target/action, pan, wheel zoom or blur cancels pending clicks. Right-click on locked targets does nothing; unlocked targets retain inverse fog mode. Direct segment tolerance is 10 screen pixels. Viewer screens remain read-only. Reset restores authored door states; Ctrl+Z only undoes fog actions.
+
+
+## Viewer double-click area focus
+
+Viewer only: double primary click a revealed room/area to fit and center it; double-click again at its fitted/centered pose to return to all revealed areas. A different room becomes the new focus. The decision uses actual camera position/zoom, not just a remembered focus flag, so manually achieved matching poses toggle out too. Fit/F always returns to overview. Hidden areas do not respond. Two stationary touch taps use a 400-ms/12-screen-pixel pairing window; drag, Space-drag, pinch/multitouch, wheel, non-primary clicks and cancellation/blur invalidate pending gestures. No fog/door state is modified.

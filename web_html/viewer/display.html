@@ -5,7 +5,7 @@
 {% block main_class %}display{% endblock %}
 {% block styles %}<link rel="stylesheet" href="/static/css/viewer.css">{% endblock %}
 {% block content %}
-<div class="display-viewport" id="viewport">
+<div class="display-viewport" id="viewport" title="Double-click a revealed area to focus it; double-click again to show all revealed areas.">
   <div class="display-stage" id="stage"><img id="map" alt="" draggable="false"></div>
   <div class="waiting" id="waiting">
     <img src="/static/img/favicon.svg" alt="" width="72" height="72">
@@ -16,7 +16,7 @@
 <div class="display-hud" id="hud">
   <span id="map-name"></span>
   <span class="dot" id="conn-dot" title="Live connection"></span>
-  <button id="btn-fit" title="Fit to screen (F)">&#9635;</button>
+  <button id="btn-fit" title="Show all revealed areas (F)">&#9635;</button>
   <button id="btn-full" title="Fullscreen">&#x26F6;</button>
   <a href="/?pick=1" title="Campaigns">&#8962;</a>
 </div>
@@ -24,5 +24,6 @@
 {% block scripts %}
 <script>window.LG_CAMPAIGN = {{ campaign.id | tojson }};</script>
 <script src="/static/js/pan_zoom.js"></script>
-<script src="/static/js/viewer_display.js"></script>
+<script src="/static/js/viewer_area_zoom.js?v=viewer-room-zoom-1"></script>
+<script src="/static/js/viewer_display.js?v=viewer-room-zoom-1"></script>
 {% endblock %}

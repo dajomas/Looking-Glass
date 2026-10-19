@@ -44,3 +44,8 @@ The fog panel adds Locked door arrow color next to the regular arrow color. It i
 ## Per-screen arrow visibility
 
 Admin and viewer arrow visibility are independent; Show walls is unchanged. The admin toggle hides the DM arrow overlay/hit targets, while the viewer toggle hides hints in the server-rendered player image and exact image preview. Regular, locked and unlocked arrows follow their screen flag together. Both color pickers stay usable whenever either flag is on. Reset does not reset visibility preferences, and direct door wall interactions are unchanged.
+
+
+## Viewer area zoom and overview
+
+The viewer's double-click gesture focuses one revealed room, or toggles back to all revealed bounds if that room is already fitted/centered. Fit/F always selects overview. This is a local camera operation, not an admin Center/Fit toggle and not a reveal action. Viewer arrow visibility and admin arrow/door interaction controls remain independent and unchanged.
