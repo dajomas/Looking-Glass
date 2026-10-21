@@ -191,3 +191,11 @@ Cycle visible Entry/Exit pairs to pause. Both arrows must be in the viewport and
 at least two routes must qualify. Preferences are local to this browser/map. The
 gold pulse is admin-only; arrow clicking, viewer images and fog state do not change.
 See Patch/portal-tools.md for installation and verification limits.
+
+## Portal overlay readability
+
+Wall-editor section/compass labels have semi-transparent dark backing badges with
+white text and a light border. Admin route highlights now alternate full-opacity
+yellow/black-outline and blue/white-outline phases, making the selected pair more
+distinct from the artwork. Reduced-motion remains steady; viewer images, route
+selection, hit targets and data are unchanged. See `Patch/portal-visibility.md`.

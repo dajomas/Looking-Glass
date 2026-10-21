@@ -264,3 +264,16 @@ The overview is a snapshot when opened; close/reopen it after subsequent edits.
 Its table scrolls horizontally on small screens, and dialog height is bounded by
 the viewport. Existing Cancel/Apply, stale-draft checks and Undo/Redo remain intact.
 See ../Patch/portal-tools.md for deployment, testing and rollback.
+
+## Portal label backing
+
+Compass/section labels now use dark rounded semi-transparent backing badges
+(rgba(8,12,20,.78)) and white semibold monospace text. A 50%-opacity white border
+helps separate a badge from surrounding artwork. Each badge is measured from its
+actual text rather than a fixed width, so larger section numbers also fit.
+
+At any zoom, text remains 12 screen pixels, with 4 screen pixels of horizontal
+padding and 2.5 vertically. Border width is one non-scaling screen pixel. Labels
+are rendered together above all wall lines, and never intercept mouse/touch input.
+They are an editor overlay only and are not stored in wall data, exported into
+UVTT or added to player images. See ../Patch/portal-visibility.md.

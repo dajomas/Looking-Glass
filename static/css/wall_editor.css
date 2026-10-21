@@ -48,3 +48,18 @@
 .portal-grid-scroll {overflow-x:auto;max-width:100%;}
 .portal-overview-grid {border-collapse:collapse;width:100%;font-size:.9rem;}
 .portal-overview-grid th, .portal-overview-grid td {text-align:left;vertical-align:top;border:1px solid var(--border);padding:.5rem;}
+
+/* Semi-transparent label badges; geometry/font sizing is compensated for stage zoom. */
+#wall-overlay .portal-label-layer { pointer-events: none; }
+#wall-overlay .portal-label-background {
+  fill: rgba(8, 12, 20, .78);
+  stroke: rgba(255, 255, 255, .5);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+#wall-overlay .portal-label-text {
+  fill: #fff;
+  stroke: none;
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-weight: 600;
+}

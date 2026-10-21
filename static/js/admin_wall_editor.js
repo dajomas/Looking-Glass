@@ -42,6 +42,9 @@
       paths.get(kind).push(`M${x1} ${y1}L${x2} ${y2}`);
     }
     svg.replaceChildren();
+    // Keep every label above every wall stroke, including later portal elements.
+    const labelLayer = document.createElementNS(svg.namespaceURI, "g");
+    labelLayer.setAttribute("class", "portal-label-layer");
     for (const [kind, lines] of paths) {
       const path = document.createElementNS(svg.namespaceURI, "path");
       path.setAttribute("class", `w-${kind}`); path.setAttribute("d", lines.join(""));
@@ -65,11 +68,25 @@
         const text=document.createElementNS(svg.namespaceURI,"text");
         text.setAttribute("x",(w[0]+w[2])/2-sign*dy/len*22/pz.scale);
         text.setAttribute("y",(w[1]+w[3])/2+sign*dx/len*22/pz.scale);
-        text.setAttribute("font-size",12/pz.scale);text.setAttribute("fill","white");
-        text.setAttribute("stroke","black");text.setAttribute("stroke-width",.5/pz.scale);
-        text.setAttribute("text-anchor","middle");text.textContent=`${index+1}.${LGPortalDraft.sideName(w,i,true)}`;svg.appendChild(text);
+        text.setAttribute("font-size",12/pz.scale);
+        text.setAttribute("class","portal-label-text");
+        text.setAttribute("text-anchor","middle");text.textContent=`${index+1}.${LGPortalDraft.sideName(w,i,true)}`;
+        const label = document.createElementNS(svg.namespaceURI,"g");
+        label.setAttribute("class","portal-label");
+        const background = document.createElementNS(svg.namespaceURI,"rect");
+        background.setAttribute("class","portal-label-background");
+        label.append(background,text);labelLayer.appendChild(label);
       });
     });
+    svg.appendChild(labelLayer);
+    // Measure actual glyph bounds after attachment; padding/radius remain screen-pixel sized.
+    for (const label of labelLayer.children) {
+      const background = label.firstElementChild, text = label.lastElementChild;
+      const box = text.getBBox(), padX = 4/pz.scale, padY = 2.5/pz.scale;
+      background.setAttribute("x",box.x-padX);background.setAttribute("y",box.y-padY);
+      background.setAttribute("width",box.width+2*padX);background.setAttribute("height",box.height+2*padY);
+      background.setAttribute("rx",3/pz.scale);background.setAttribute("ry",3/pz.scale);
+    }
     if (start) {
       const circle = document.createElementNS(svg.namespaceURI, "circle");
       circle.setAttribute("cx", start.x); circle.setAttribute("cy", start.y);

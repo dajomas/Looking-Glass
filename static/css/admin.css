@@ -73,7 +73,20 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
 
 .portal-cycle-controls {border:1px solid var(--border);padding:.65rem;min-width:0;}
 #portal-cycle-overlay {pointer-events:none;z-index:4;mask-size:100% 100%;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat;}
-.portal-route-flash {fill:#ffe36e;stroke:#fff;stroke-width:2;vector-effect:non-scaling-stroke;animation:portal-route-flash 1s ease-in-out infinite;}
-.portal-route-steady {animation:none;opacity:.85;}
-@keyframes portal-route-flash {0%,100%{opacity:.12}50%{opacity:1}}
-@media (prefers-reduced-motion:reduce) {.portal-route-flash{animation:none;opacity:.85;}}
+/* Full-opacity light/dark phases replace the faint yellow opacity pulse. */
+.portal-route-flash {
+  fill: #ffea00;
+  stroke: #000;
+  stroke-width: 4;
+  vector-effect: non-scaling-stroke;
+  paint-order: stroke fill;
+  opacity: 1;
+  filter: drop-shadow(0 0 1px #000) drop-shadow(0 0 2px #fff);
+  animation: portal-route-flash 1.2s steps(1, end) infinite;
+}
+.portal-route-steady { animation: none; opacity: 1; }
+@keyframes portal-route-flash {
+  0%, 100% { fill: #ffea00; stroke: #000; }
+  50% { fill: #1538d0; stroke: #fff; }
+}
+@media (prefers-reduced-motion:reduce) { .portal-route-flash { animation: none; opacity: 1; } }

@@ -73,9 +73,11 @@ upgrade instructions; this supersedes earlier segment-double-click descriptions.
 
 ## Admin portal pair highlighting
 
-Cycle visible Entry/Exit pairs enables admin-only gold highlights over the two
-arrows of each qualifying directed route. The slider sets 1–15 seconds per route
-(default 5); it does not change pulse speed. Both endpoint polygons must intersect
+Cycle visible Entry/Exit pairs enables admin-only highlights over the two arrows
+of each qualifying directed route. A complete 1.2-second cycle alternates bright
+yellow (#ffea00) with black outlines and deep blue (#1538d0) with white outlines.
+Both phases are full opacity, with 4-screen-pixel outlines and a light/dark halo.
+The slider sets 1–15 seconds per route (default 5); it does not change color cadence. Both endpoint polygons must intersect
 the viewport and at least two routes must qualify. Pan/zoom updates the set. Each
 incoming Entry gets a turn even when several share an Exit; Both uses its displayed
 arrow polygon. The status line names the current sections and compass sides.
@@ -85,4 +87,6 @@ settings. Loading/mutations, hidden tabs, disabled arrows or an insufficient vis
 route set clear the highlight and cancel its timer. Exact raster arrow alpha clips
 the presentation overlay; it has pointer-events:none. Normal arrows remain present
 and clickable throughout, and the viewer image is never animated. Reduced motion
-replaces pulses with a steady highlight. See ../Patch/portal-tools.md.
+uses a steady full-opacity yellow/black-outline highlight. Route selection still
+advances at the chosen dwell. See ../Patch/portal-tools.md for route selection and
+../Patch/portal-visibility.md for these visual changes.

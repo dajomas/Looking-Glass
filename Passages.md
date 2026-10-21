@@ -130,15 +130,32 @@ uses pending buffered edits. These are authored states, not live session overrid
 
 The admin fog page cycles live visible Entry→Exit routes, highlighting both arrow
 polygons for 5 seconds before moving to the next route. A 1–15 s slider controls
-per-route dwell, not the fixed one-second pulse period. At least two routes and
+per-route dwell, not the fixed 1.2-second color-alternation period. At least two routes and
 both endpoint arrow polygons must be in view. Only existing enabled admin arrow
 geometry is eligible; a shared Exit is highlighted once for each incoming route,
-and Both roles reuse their displayed double-headed polygon. Gold highlights pulse
-over the normal arrows; normal arrows remain visible/clickable. Ordinary door
+and Both roles reuse their displayed double-headed polygon. Full-opacity bright
+yellow (#ffea00, black outline) alternates with deep blue (#1538d0, white outline)
+over the normal arrows; the overlay never intercepts clicks. Ordinary door
 arrows are not included. Viewer rendering and hit-target validation are unchanged.
 
 Pause is local to the browser/map, as is dwell preference. Cycling stops while
 busy/loading, offscreen, with fewer than two visible routes, when arrows are
 hidden or when the tab is hidden. New geometry cancels old highlights until the
-current mask loads. Reduced-motion users see steady highlighting without pulsing,
+current mask loads. Reduced-motion users see steady bright-yellow highlighting,
 while the route selection still advances at the chosen dwell. See Patch/portal-tools.md.
+
+## Readable portal labels and route highlights
+
+Wall-editor portal labels have white semibold monospace text on rounded dark
+background badges at 78% opacity, with a subtle light border. Backgrounds fit the
+actual text bounds, including longer section numbers. Text size, padding and
+corner radius are compensated for zoom; all labels render above all wall strokes.
+Badges remain pointer-events:none and do not change editing/hit targets or exports.
+
+Admin route highlights alternate full-opacity yellow/black-outline and blue/white-
+outline phases every 1.2 seconds per complete cycle, instead of fading a yellow
+fill. Outlines are 4 screen pixels with a light/dark halo. Route dwell (1–15 seconds)
+and selection rules remain unchanged. Reduced-motion uses a steady yellow phase;
+its route dwell still advances. This overlay remains masked to existing arrow alpha
+and is admin-only: player images, fog state and authoritative hits are unchanged.
+See Patch/portal-visibility.md for this follow-up's base and verification scope.
