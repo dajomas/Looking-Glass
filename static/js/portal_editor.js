@@ -164,17 +164,24 @@
       original=clone(getWalls());local=clone(original);
       const all=portals(local);if(!all.length){status("Add a Portal element before opening Portal configuration.",true);return;}
       all.forEach(({w})=>w[6]={...config(w),sides:sides(w)});links=linksFor(local);
-      addOptions(select,all.map(v=>[v.i,`Portal section ${v.i+1}`]),all[0].i);$("portal-error").textContent="";panel();floating.open();select.focus();
+      addOptions(select,all.map(v=>[v.i,`Portal section ${v.i+1}`]),all[0].i);$("portal-error").textContent="";$("portal-apply-status").textContent="";panel();floating.open();select.focus();
     };
     select.onchange=panel;
     $("portal-form").onsubmit=event=>{
       event.preventDefault();if(getBusy()||!local)return;
       try {
         if(JSON.stringify(getWalls())!==JSON.stringify(original))throw Error("The wall draft changed. Cancel and reopen configuration.");
-        const after=build(local,links,uuid);
-        if(JSON.stringify(after)!==JSON.stringify(original))mutate({batch:true,before:original,after});
-        let complete=true;try{validate(after);}catch(_){complete=false;}
-        dialog.close();status(complete?"Portal configuration applied to draft. Save wall set to persist.":"Portal draft updated. Finish unconfigured sides, pairing and routes before Save or Download.");
+        const selected=select.value,scroll=dialog.scrollTop,focusId=document.activeElement?.id;
+        const after=build(local,links,uuid),changed=JSON.stringify(after)!==JSON.stringify(original);
+        if(changed)mutate({batch:true,before:original,after});
+        // Apply checkpoints the current draft, not the database. Keep editing from that checkpoint.
+        original=clone(getWalls());local=clone(original);links=linksFor(local);
+        select.value=selected;panel();dialog.scrollTop=scroll;
+        if(focusId)document.getElementById(focusId)?.focus({preventScroll:true});
+        let complete=true;try{validate(original);}catch(_){complete=false;}
+        const message=complete?(changed?"Portal configuration applied to draft. Continue editing, or Close and Save wall set to persist.":"No new changes to apply. Close and Save wall set to persist the draft."):
+          "Portal draft updated. Finish unconfigured sides, pairing and routes before Save or Download.";
+        $("portal-error").textContent="";$("portal-apply-status").textContent=message;status(message);
       }catch(e){$("portal-error").textContent=e.message;}
     };
     $("portal-remove").onclick=()=>{
@@ -183,9 +190,22 @@
       const reset=new Set(portals(local).filter(v=>v.i===i || (pair&&v.w[6]?.pair===pair)).map(v=>v.i));
       for(const j of reset)local[j][6]=blank();
       for(const [key,value] of links)if(reset.has(Number(key.split(":")[0]))||reset.has(value.index))links.delete(key);
+      $("portal-apply-status").textContent="Unapplied changes. Apply configuration to update the draft.";
       $("portal-error").textContent="Configuration reset in this popup; Apply to draft to keep it. Paired sections are reset together and remain Portal elements.";panel();
     };
-    $("portal-cancel").onclick=()=>dialog.close();dialog.addEventListener("close",()=>{local=null;links=null;original=null;viewport.focus();});
+    function closePopup() {
+      dialog.close();
+      status("Portal configuration closed. Applied changes remain in the draft; unapplied popup edits were discarded.");
+    }
+    $("portal-close").onclick=closePopup;
+    $("portal-cancel").onclick=closePopup;
+    dialog.addEventListener("change",event=>{
+      if(local && event.target.closest?.("#portal-sides")) {
+        $("portal-error").textContent="";
+        $("portal-apply-status").textContent="Unapplied changes. Apply configuration to update the draft.";
+      }
+    },true);
+    dialog.addEventListener("close",()=>{local=null;links=null;original=null;viewport.focus();});
     dialog.addEventListener("keydown",event=>event.stopPropagation());
   };
 })(typeof window!=="undefined"?window:globalThis);

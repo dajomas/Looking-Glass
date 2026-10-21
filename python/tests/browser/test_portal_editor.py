@@ -42,7 +42,15 @@ def editor(browser):
     assert not errors;page.close()
 
 def open_popup(page):page.locator("#portal-configure").click();pw.expect(page.locator("#portal-dialog")).to_be_visible()
-def apply(page):page.locator("#portal-form button[type=submit]").click();pw.expect(page.locator("#portal-dialog")).not_to_be_visible()
+def apply_only(page):
+    page.locator("#portal-apply").click()
+    pw.expect(page.locator("#portal-dialog")).to_be_visible()
+
+def apply(page):
+    """Apply and explicitly close for workflows that next use the main editor."""
+    apply_only(page)
+    page.locator("#portal-close").click()
+    pw.expect(page.locator("#portal-dialog")).not_to_be_visible()
 def connect(page):
     page.locator("#portal-side-0-role").select_option("entry")
     page.locator("#portal-side-0-destination").select_option("2")

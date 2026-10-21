@@ -217,9 +217,12 @@ roles. All routes in a pair still use the same other section; unpair first to
 change partners. No wall, door, self-route or third section can become a target.
 
 Switching the selected section retains pending popup edits. Apply configuration
-to draft commits all popup edits in one Undo/Redo step, including any target-side
-initialization. It does not send HTTP requests. Cancel/Escape discards all pending
-popup edits. You may Apply an unfinished section while configuring another one;
+to draft commits changed popup edits in one Undo/Redo step, including any target-side
+initialization, and keeps the popup open. Each successful Apply becomes the new
+popup baseline. Repeating Apply without changes creates no additional undo step.
+Close, Cancel pending edits and Escape discard only edits since the last Apply;
+they never undo changes already applied to the editor draft. No popup action sends
+an HTTP request. You may Apply an unfinished section while configuring another one;
 Save wall set and Download reject unconfigured, unpaired or invalid portal graphs
 before making a request. Finish all sections and routes before saving/exporting.
 The existing server also validates complete graphs; its schema/API are unchanged.
@@ -277,3 +280,23 @@ padding and 2.5 vertically. Border width is one non-scaling screen pixel. Labels
 are rendered together above all wall lines, and never intercept mouse/touch input.
 They are an editor overlay only and are not stored in wall data, exported into
 UVTT or added to player images. See ../Patch/portal-visibility.md.
+
+## Apply without closing the portal configuration popup
+
+Use Apply configuration to draft as often as needed while configuring sections.
+After each successful Apply, the current section, dragged popup position and scroll
+position remain; the side panels reload from the just-applied draft so pair IDs,
+routes and the overview remain synchronized. Continue editing immediately without
+reopening. Each changed Apply can later be undone independently in the main editor.
+
+Use the separate Close button to leave the popup. Close, Cancel pending edits and
+Escape do not implicitly apply newer changes, nor do they revert earlier Applies.
+The main editor's Save wall set is still required to persist the draft. A live
+status message inside the popup distinguishes applied changes from newer pending
+edits and incomplete configurations. Stale/invalid submissions leave the popup
+open with an error and do not silently update the baseline.
+
+The endpoint-coordinate Edit dialog and its own Apply/Cancel behavior are unchanged.
+This follow-up does not install or remove the preceding label/highlight visibility
+patch; its style/script files and cache URLs are preserved when already installed.
+See portal-configuration-apply.md and ../Patch/portal-apply-open.md.
