@@ -1,8 +1,8 @@
 # Passages
 
-Current contract after the portal-section editor follow-up to development commit
-eb882f37308c624e4fe550ab6a05c0e3ec4fc14b. Runtime passage behavior is unchanged;
-this follow-up changes authoring only. Viewer arrows remain display-only. No
+Current contract including the compass/Exit-target update based on development
+commit 90a0ef95866ff420407355f1d0527e0f7a803376. Runtime behavior is unchanged;
+this follow-up and the compass-side update change authoring only. Viewer arrows remain display-only. No
 cross-map portals, token movement or viewer passage mutation endpoints are added.
 
 ## Doors and secret doors
@@ -47,10 +47,11 @@ Viewer locked/unlocked hints look ordinary; there is no learned-lock state.
    was still Unconfigured. Already configured sides are never overwritten by this
    default. Unconfigured is a temporary draft state, not a fifth saved role.
 4. Entry/Both sides expose destination Portal-section and Exit-side selectors.
-   Choose Exit/Both on the other element, or select an Unconfigured side whose
-   label explicitly says it will become Exit on Apply. An untouched opposite side
-   on that target defaults to None. Explicit None/Entry-only sides are not valid
-   Exit targets; configure them first. Shared Exits remain allowed.
+   Select an Exit, Unconfigured or None side on the other element. Selecting an
+   Unconfigured/None target immediately changes it to Exit inside the popup;
+   Apply commits that conversion with the route to the draft. An untouched opposite
+   side still defaults to None. Both remains selectable and keeps its Entry role;
+   Entry-only targets are disabled. Shared Exits remain allowed.
 5. Switching selected section retains pending popup edits. Apply configuration to
    draft commits all edits atomically, including target initialization. Cancel or
    Escape changes nothing. No popup action autosaves to the server.
@@ -62,9 +63,16 @@ Viewer locked/unlocked hints look ordinary; there is no learned-lock state.
    Unconfigured Portal elements. Coordinates and Portal type are preserved.
    Reset is pending until Apply and then undoable; re-pair or remove/retype afterward.
 
-Side labels are wall-number.side-number. For directed endpoints, normal=(-dy,dx):
-side 1 is minus normal, side 2 plus normal, in image coordinates with Y down.
-Reversing endpoints swaps physical sides without changing side indices. Midpoint
+Portal sides use compass designations in the popup, destination selector, error
+messages and map labels. The top of the map is North. The side's outward normal
+is rounded to the nearest of N, NE, E, SE, S, SW, W or NW; opposite sides always
+have opposite headings. Map labels are section-number.heading (for example 2.E
+or 3.NW), not side 1/2. Pan/zoom does not change map-relative headings.
+
+Stored side and Exit indices remain 0/1 for compatibility. Internal index 0 is
+minus the normal (-dy,dx), and index 1 is plus that normal, with image Y down.
+Reversing endpoints swaps the compass designation attached to those indices;
+existing role assignments and routes are not silently remapped. Midpoint
 sampling and narrow-room/gap limitations are unchanged; an unusable destination
 open pixel yields no actionable arrow. Graph validity is not geometric room validity.
 
@@ -104,4 +112,5 @@ passage-arrow visibility. Permission/CSRF/stale-save/runtime behavior is unchang
 
 See docs/wall-editor.md for editing, docs/api.md and docs/architecture.md for the
 unchanged saved schema, Patch/passages.md for the original passage migration and
-Patch/portal-section-editor.md for this follow-up's installation and verification.
+Patch/portal-section-editor.md for the single-section editor and
+Patch/portal-compass-exits.md for compass labels and selectable None targets.

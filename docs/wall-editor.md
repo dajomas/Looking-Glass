@@ -206,10 +206,12 @@ it was still Unconfigured. An explicitly configured opposite side is preserved.
 Entry and Both roles show paired Exit portal-section and Exit-side selectors,
 as well as initial lock/discovery state and secret post-discovery state.
 
-Choose an Exit/Both side on another Portal element. An Unconfigured target side
-can also be selected: its label says it will become Exit on Apply; its untouched
-opposite side then defaults to None. Explicit None or Entry-only destination sides
-cannot be selected as Exits. Configure the target section first to use those sides.
+Select an Exit, Unconfigured or None side on another Portal element. Selecting
+Unconfigured/None changes it to Exit immediately within the popup, and its still
+Unconfigured opposite side defaults to None. Apply commits the conversion and
+route atomically to the draft; Cancel discards it. Both is still selectable and
+retains its Entry role and configured states. Entry-only destination sides remain
+disabled: configure them as Both first if they need to receive and send passages.
 Shared exits remain supported. Both provides independently routed Entry and Exit
 roles. All routes in a pair still use the same other section; unpair first to
 change partners. No wall, door, self-route or third section can become a target.
@@ -229,9 +231,14 @@ draft operation. Sections can then be re-paired or removed/retyped individually.
 
 Secret door Edit dialogs still include authored post-discovery type. Coordinate
 edits preserve configuration; reversing endpoints swaps physical side locations
-while retaining side indices. Labels are wall-number.side-number, with side 1 on
-the negative normal and side 2 on the positive normal of the directed endpoints.
+while retaining stored side indices. Portal panels, Exit selectors, errors and
+map labels use compass headings with map-top North. The outward normal is rounded
+to the nearest of N/NE/E/SE/S/SW/W/NW; a diagonal element can therefore show NE/SW
+or NW/SE. Map labels combine section number and heading, such as 2.E or 3.NW.
+A horizontal segment has North/South sides; a vertical segment has East/West.
+Panning and zooming do not rotate these map-relative labels. Numeric 0/1 indices
+remain an internal storage detail; no data migration or route remapping is needed.
 Runtime passage behavior, permissions, viewer secrecy and migration 10 are
-unchanged. See ../Passages.md and ../Patch/portal-section-editor.md for details.
+unchanged. See ../Passages.md and ../Patch/portal-compass-exits.md for details.
 Looking Glass UVTT v2 stores only complete authored graphs, never temporary
 Unconfigured draft state or runtime discovery/lock overrides.

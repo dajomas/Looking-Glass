@@ -6,6 +6,36 @@
   const config=w=>w[6] || blank();
   function sides(w) {return clone(config(w).sides || blank().sides);}
   function portals(rows) {return rows.map((w,i)=>({w,i})).filter(({w})=>w[4]==="portal");}
+  // Presentation only: stored sides/routes remain the existing 0/1 indices.
+  function sideName(w,index,short=false) {
+    if(index!==0 && index!==1)throw Error("Invalid portal side index.");
+    const dx=w[2]-w[0],dy=w[3]-w[1];
+    if(!Number.isFinite(dx)||!Number.isFinite(dy)||(dx===0&&dy===0))return "Unknown";
+    const angle=(Math.atan2(dy,dx)*180/Math.PI+360)%360;
+    const heading=(Math.floor((angle+22.5+1e-10)/45)+(index===1?4:0))%8;
+    const codes=["N","NE","E","SE","S","SW","W","NW"];
+    const names=["North","North-East","East","South-East","South","South-West","West","North-West"];
+    return short?codes[heading]:`${names[heading]} (${codes[heading]})`;
+  }
+  const selectableExit=s=>exit(s)||["unconfigured","none"].includes(s.role);
+  function selectExit(rows,links,key,dest) {
+    const [i,k]=key.split(":").map(Number),source=rows[i],target=rows[dest.index];
+    if(source?.[4]!=="portal"||![0,1].includes(k)||!entry(config(source).sides?.[k]||{}))throw Error("Select an Entry/Both source first.");
+    if(dest.index===i||target?.[4]!=="portal"||![0,1].includes(dest.side))throw Error("Choose an Exit side on another portal section.");
+    const list=sides(target);
+    if(!selectableExit(list[dest.side]))throw Error("Entry-only destination sides cannot be selected; configure the target as Both first.");
+    if((config(source).pair||config(target).pair)&&config(source).pair!==config(target).pair)throw Error("Unpair before choosing another partner.");
+    for(const [otherKey,other] of links) {
+      if(otherKey===key)continue;
+      const [j,side]=otherKey.split(":").map(Number);
+      if(!entry(config(rows[j]).sides?.[side]||{}))continue;
+      if((j===i&&other.index!==dest.index)||(other.index===i&&j!==dest.index)||
+         (j===dest.index&&other.index!==i)||(other.index===dest.index&&j!==i))throw Error("A portal pair has two sections only. Unpair before choosing another partner.");
+    }
+    if(["unconfigured","none"].includes(list[dest.side].role))roleChange(list,dest.side,"exit");
+    target[6]={...config(target),sides:list};
+    links.set(key,{index:dest.index,side:dest.side});
+  }
   function roleChange(list,index,role) {
     const old=list[index];
     list[index]=entry({role})?{role,kind:old.kind || "door",after:old.after || "door",...(Number.isInteger(old.exit)?{exit:old.exit}:{})}:{role};
@@ -36,7 +66,7 @@
       if(w?.[4]!=="portal" || !entry(w[6].sides[k]))continue;
       if(dest.index===i || out[dest.index]?.[4]!=="portal" || ![0,1].includes(dest.side))throw Error("Choose an Exit side on another portal section.");
       const target=out[dest.index],list=target[6].sides;
-      if(list[dest.side].role==="unconfigured" || (list[dest.side].role==="none" && config(rows[dest.index]).sides?.[dest.side]?.role==="unconfigured"))roleChange(list,dest.side,"exit");
+      if(["unconfigured","none"].includes(list[dest.side].role))roleChange(list,dest.side,"exit");
       if(!exit(list[dest.side]))throw Error("The destination side must be Exit or Both. Configure it first.");
       if((partners.has(i)&&partners.get(i)!==dest.index)||(partners.has(dest.index)&&partners.get(dest.index)!==i))throw Error("A portal pair has two sections only. Unpair before choosing another partner.");
       partners.set(i,dest.index);partners.set(dest.index,i);w[6].sides[k].exit=dest.side;
@@ -71,11 +101,11 @@
         count++;if(!exit(other.w[6].sides[s.exit]))throw Error("An Entry targets a side that is not Exit/Both.");used.add(`${other.i}:${s.exit}`);
       }});});
       if(!count)throw Error("A portal pair needs an Entry and Exit.");
-      group.forEach(({w,i})=>w[6].sides.forEach((s,k)=>{if(exit(s)&&!used.has(`${i}:${k}`))throw Error(`Exit on portal section ${i+1}, side ${k+1} needs an incoming Entry.`);}));
+      group.forEach(({w,i})=>w[6].sides.forEach((s,k)=>{if(exit(s)&&!used.has(`${i}:${k}`))throw Error(`Exit on portal section ${i+1}, ${sideName(w,k)} needs an incoming Entry.`);}));
     }
     return true;
   }
-  const api={blank,portals,roleChange,linksFor,build,validate};host.LGPortalDraft=api;
+  const api={blank,portals,roleChange,linksFor,build,validate,sideName,selectableExit,selectExit};host.LGPortalDraft=api;
   if(typeof module!=="undefined")module.exports=api;
   host.LGPortalEditor=function({getWalls,getBusy,mutate,status,viewport}) {
     const $=id=>document.getElementById(id),dialog=$("portal-dialog"),select=$("portal-section");
@@ -95,7 +125,7 @@
     function panel() {
       $("portal-sides").replaceChildren();const i=current(),list=local[i][6].sides;
       list.forEach((s,k)=>{
-        const box=document.createElement("fieldset"),legend=document.createElement("legend");legend.textContent=`Portal section ${i+1} — side ${k+1}`;box.appendChild(legend);
+        const box=document.createElement("fieldset"),legend=document.createElement("legend");legend.textContent=`Portal section ${i+1} — ${sideName(local[i],k)}`;box.appendChild(legend);
         const role=field(box,`portal-side-${k}-role`,"Role",["unconfigured","entry","exit","both","none"].map(v=>[v,v==="unconfigured"?"Unconfigured":v[0].toUpperCase()+v.slice(1)]),s.role);
         role.onchange=()=>{roleChange(list,k,role.value);if(!entry(list[k]))links.delete(`${i}:${k}`);panel();};
         if(entry(s)) {
@@ -109,12 +139,18 @@
           addOptions(target,portals(local).filter(v=>v.i!==i).map(v=>[v.i,`Portal section ${v.i+1}`,partner!==undefined?v.i!==partner:!!v.w[6]?.pair]),dest?.index,"Choose portal section…");
           const destSide=field(box,`portal-side-${k}-exit`,"Paired Exit side",[],undefined);
           function refreshSides(index,value) {
-            addOptions(destSide,index===undefined?[]:local[index][6].sides.map((v,j)=>[j,`Side ${j+1} — ${v.role}${v.role==="unconfigured"?" (set to Exit on Apply)":""}`,!exit(v)&&v.role!=="unconfigured"]),value,"Choose Exit side…");
+            addOptions(destSide,index===undefined?[]:local[index][6].sides.map((v,j)=>[j,`${sideName(local[index],j)} — ${v.role}${["unconfigured","none"].includes(v.role)?" (changes to Exit)":""}`,!selectableExit(v)]),value,"Choose Exit side…");
             destSide.disabled=index===undefined;
           }
           refreshSides(dest?.index,dest?.side);
           target.onchange=()=>{links.delete(`${i}:${k}`);refreshSides(target.value===""?undefined:Number(target.value));};
-          destSide.onchange=()=>{if(target.value===""||destSide.value==="")links.delete(`${i}:${k}`);else links.set(`${i}:${k}`,{index:Number(target.value),side:Number(destSide.value)});};
+          destSide.onchange=()=>{
+            if(target.value===""||destSide.value===""){links.delete(`${i}:${k}`);return;}
+            try {
+              selectExit(local,links,`${i}:${k}`,{index:Number(target.value),side:Number(destSide.value)});
+              $("portal-error").textContent="";panel();
+            }catch(error){$("portal-error").textContent=error.message;}
+          };
         }
         $("portal-sides").appendChild(box);
       });

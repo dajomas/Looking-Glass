@@ -234,10 +234,17 @@ Areas follow the fog engine's raster room components. Changing wall geometry/cal
 
 ## Portal authoring
 
-Open Walls → Open wall editor → Portal configuration. Select two elements,
-assign roles on all four sides, configure Entry states and choose each destination
-side on the other element. Every Exit needs an incoming Entry; multiple Entries
-may share one. Each element may have one None side. Both roles are independent.
-Apply updates the draft and is undoable; Save wall set persists. Remove pair
-before changing partners/deleting one element. See ../Passages.md for side labels,
-colors, runtime policy and the complete passage contract.
+Open Walls → Open wall editor → Portal configuration. Select one Portal section
+and edit its two sides using compass designations (North is the top of the map).
+Fresh sides start Unconfigured; configuring one defaults only an untouched opposite
+side to None. Entry/Both sides select the other Portal section and paired Exit
+heading. Select Exit, Unconfigured or None; Unconfigured/None changes to Exit
+inside the popup. Existing Both targets keep their Entry role, while Entry-only
+targets remain disabled. Every Exit needs an incoming Entry; shared Exits are valid.
+A pair still contains exactly two sections, each allowing at most one None side.
+
+Apply commits popup edits to the draft in one Undo/Redo step; Cancel/Escape discards
+them. Save/Download rejects incomplete graphs. Reset/unpair keeps both sections as
+Unconfigured Portal elements. Stored numeric indices and runtime behavior are
+unchanged. See ../Passages.md and ../Patch/portal-compass-exits.md.
+

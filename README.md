@@ -167,8 +167,12 @@ Whenever an additional revealed area appears, viewers focused on a specific room
 
 ## Same-map portals
 
-Use the wall editor's Portal configuration popup to pair two elements and route
-each Entry to one Exit-capable side on the other element. Shared exits are allowed;
-at most one None side is allowed per element. Each Entry has independent lock and
-discovery state. Apply updates only the draft; Save persists it. Pair changes and
-removal are atomic Undo/Redo operations. Cross-map traversal is not implemented.
+Draw Portal elements, then use Portal configuration to select one section and
+edit its two compass-designated sides (map-top is North). Entry/Both sides select
+a destination Portal section and compass side. Exit, Unconfigured and None sides
+are selectable; Unconfigured/None becomes Exit in the popup, committed on Apply.
+Both remains usable without losing its Entry role. Shared exits are supported;
+every pair still contains exactly two sections. Cancel discards popup edits;
+Apply is one undoable draft transaction. Complete all sections before Save/export.
+See Passages.md and Patch/portal-compass-exits.md.
+

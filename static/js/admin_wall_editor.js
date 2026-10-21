@@ -67,7 +67,7 @@
         text.setAttribute("y",(w[1]+w[3])/2+sign*dx/len*22/pz.scale);
         text.setAttribute("font-size",12/pz.scale);text.setAttribute("fill","white");
         text.setAttribute("stroke","black");text.setAttribute("stroke-width",.5/pz.scale);
-        text.setAttribute("text-anchor","middle");text.textContent=`${index+1}.${i+1}`;svg.appendChild(text);
+        text.setAttribute("text-anchor","middle");text.textContent=`${index+1}.${LGPortalDraft.sideName(w,i,true)}`;svg.appendChild(text);
       });
     });
     if (start) {
