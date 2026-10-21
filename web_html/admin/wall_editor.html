@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · wall editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=passages-1"><link rel="stylesheet" href="/static/css/wall_editor.css?v=passages-1">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=portal-sections-2"><link rel="stylesheet" href="/static/css/wall_editor.css?v=portal-sections-2">{% endblock %}
 {% block content %}
 <aside class="sidebar">
   <div class="side-block">
@@ -82,16 +82,15 @@
 <dialog id="portal-dialog" aria-labelledby="portal-title">
   <form id="portal-form" class="stack">
     <h2 id="portal-title">Portal configuration</h2>
-    <p class="small">Choose two elements on this map. Side labels are wall-number.side-number. Each Entry targets an Exit/Both side on the other element. Multiple Entries may share an Exit; every Exit needs an incoming Entry. Remove an existing pair before changing partners.</p>
-    <label>Element A <select id="portal-a"></select></label>
-    <label>Element B <select id="portal-b"></select></label>
+    <p class="small">Select one portal section and edit its two sides. New sides start Unconfigured; configuring one defaults an untouched opposite side to None. Entry/Both sides select their paired Exit portal and side. Selecting an unconfigured destination side sets it to Exit on Apply. Multiple Entries may share an Exit. Each pair still contains two sections only.</p>
+    <label>Portal section <select id="portal-section"></select></label>
     <div id="portal-sides" class="stack"></div>
     <p id="portal-error" role="alert"></p>
-    <div class="btn-row"><button type="submit" class="primary">Apply pair to draft</button><button type="button" id="portal-remove">Remove pair</button><button type="button" id="portal-cancel">Cancel</button></div>
+    <div class="btn-row"><button type="submit" class="primary">Apply configuration to draft</button><button type="button" id="portal-remove">Reset section / unpair</button><button type="button" id="portal-cancel">Cancel</button></div>
   </form>
 </dialog>
 {% endblock %}
 {% block scripts %}
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
-<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/portal_editor.js?v=passages-1"></script><script src="/static/js/admin_wall_editor.js?v=passages-1"></script>
+<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/portal_editor.js?v=portal-sections-2"></script><script src="/static/js/admin_wall_editor.js?v=portal-sections-2"></script>
 {% endblock %}

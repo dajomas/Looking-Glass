@@ -195,22 +195,43 @@ Looking Glass UVTT extension data round-trips both types exactly. In standard UV
 
 ## Passage configuration and portal pairs
 
-The editor now has nine wall types, including Portal element. Draw two elements
-(or select existing walls) and use the separate Portal configuration popup.
-Assign every side a role; configure initial/post-discovery Entry states and remote
-Exit side indices. Labels wall.side appear beside portal elements. Every Entry
-routes to the other element; shared Exits are supported. Invalid pair graphs
-cannot save or export. Pair edits/removal are atomic Undo/Redo operations; Cancel
-and Escape do not change the draft. Remove pair converts both elements to normal
-walls, preserving coordinates, and allows deleting/retyping/re-pairing afterward.
+Select Add wall with type Portal element and draw the sections. Converting a wall
+through Change wall type or Edit also creates a new portal section. New sections
+start with both sides Unconfigured; no Entry or Exit is invented on creation.
+Only Portal elements appear in the portal-section and destination dropdowns.
 
-Secret door Edit dialogs include the authored post-discovery type. Coordinate
-edits preserve all passage metadata. Reversing endpoints swaps the physical side
-locations while preserving side indices. Full rules/colors: ../Passages.md.
+Open Portal configuration and select one portal section. Only its two side panels
+are shown. When a side is configured, the opposite side defaults to None only if
+it was still Unconfigured. An explicitly configured opposite side is preserved.
+Entry and Both roles show paired Exit portal-section and Exit-side selectors,
+as well as initial lock/discovery state and secret post-discovery state.
 
-Migration 10 is required for passage storage. Looking Glass UVTT extension v2
-carries the optional seventh row field. Ordinary sets still use v1; both versions
-are supported. Portal fallback is opaque line_of_sight, deliberately not a normal
-door in other tools. Third-party teleport compatibility is not claimed. Runtime
-locks/discovery are not exported. All prior request size/stale-save/CSRF safeguards
-remain. See ../Patch/passages.md before upgrading or rolling back.
+Choose an Exit/Both side on another Portal element. An Unconfigured target side
+can also be selected: its label says it will become Exit on Apply; its untouched
+opposite side then defaults to None. Explicit None or Entry-only destination sides
+cannot be selected as Exits. Configure the target section first to use those sides.
+Shared exits remain supported. Both provides independently routed Entry and Exit
+roles. All routes in a pair still use the same other section; unpair first to
+change partners. No wall, door, self-route or third section can become a target.
+
+Switching the selected section retains pending popup edits. Apply configuration
+to draft commits all popup edits in one Undo/Redo step, including any target-side
+initialization. It does not send HTTP requests. Cancel/Escape discards all pending
+popup edits. You may Apply an unfinished section while configuring another one;
+Save wall set and Download reject unconfigured, unpaired or invalid portal graphs
+before making a request. Finish all sections and routes before saving/exporting.
+The existing server also validates complete graphs; its schema/API are unchanged.
+
+Reset section / unpair resets the selected section and its partner together to
+Unconfigured portal sections, preserving geometry and Portal type. This is pending
+inside the popup until Apply; Cancel discards it. After Apply it is one undoable
+draft operation. Sections can then be re-paired or removed/retyped individually.
+
+Secret door Edit dialogs still include authored post-discovery type. Coordinate
+edits preserve configuration; reversing endpoints swaps physical side locations
+while retaining side indices. Labels are wall-number.side-number, with side 1 on
+the negative normal and side 2 on the positive normal of the directed endpoints.
+Runtime passage behavior, permissions, viewer secrecy and migration 10 are
+unchanged. See ../Passages.md and ../Patch/portal-section-editor.md for details.
+Looking Glass UVTT v2 stores only complete authored graphs, never temporary
+Unconfigured draft state or runtime discovery/lock overrides.

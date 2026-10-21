@@ -55,7 +55,7 @@
       const dx=w[2]-w[0],dy=w[3]-w[1],len=Math.hypot(dx,dy)||1;
       [-1,1].forEach((sign,i) => {
         const side=w[6]?.sides?.[i];
-        if(side && side.role!=="none") {
+        if(side && !["none","unconfigured"].includes(side.role)) {
           const path=document.createElementNS(svg.namespaceURI,"path"),offset=2/pz.scale;
           const kind=["entry","both"].includes(side.role)?side.kind:"door";
           path.setAttribute("class",`portal-side p-${kind}`);
@@ -84,6 +84,9 @@
     walls.splice(change.index, before ? 1 : 0, ...(after ? [structuredClone(after)] : []));
   }
   function mutate(change) {
+    if (!change.batch && change.after?.[4] === "portal" && change.before?.[4] !== "portal") {
+      change.after[6] = LGPortalDraft.blank();
+    }
     undo.push(change); redo = []; if (undo.length > 1000) undo.shift();
     apply(change, true); start = null; render();
   }
@@ -224,6 +227,7 @@
   });
   $("wall-edit-kind").addEventListener("change", () => { $("secret-after-label").hidden = $("wall-edit-kind").value !== "secret"; });
   function body() {
+    LGPortalDraft.validate(walls);
     const ppg = Number($("pixels-per-grid").value);
     if (!Number.isFinite(ppg) || ppg <= 0 || ppg > 1e7) throw new Error("Enter a positive pixels-per-grid value (up to 10000000).");
     return { walls_version: state.walls_version, cache_token: state.cache_token, walls, pixels_per_grid: ppg };

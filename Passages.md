@@ -1,46 +1,72 @@
 # Passages
 
-This is the current passage contract, including the clarified requirements for
-commit a055343a921c0e6e234025744ea1269f2e4240fb. Viewer arrows are display-only:
-there are no viewer passage click/double-click actions. Existing local viewer
-room zoom is unchanged. Cross-map portals are out of scope.
+Current contract after the portal-section editor follow-up to development commit
+eb882f37308c624e4fe550ab6a05c0e3ec4fc14b. Runtime passage behavior is unchanged;
+this follow-up changes authoring only. Viewer arrows remain display-only. No
+cross-map portals, token movement or viewer passage mutation endpoints are added.
 
 ## Doors and secret doors
 
-- Doors work in both directions: an admin arrow single click reveals the adjacent
-  area, even in Hide mode. The segment remains an area boundary.
-- Locked/unlocked doors may start in either state. Admin double-click on an arrow
-  toggles the state without revealing or hiding an area. Double-click on a wall
-  segment does not change passage state. A locked arrow single click does nothing.
-- Secret doors initially have admin-only purple arrows. Configure their
-  post-discovery type (Door, Locked Door, Unlocked Door) in the wall editor's Edit
-  dialog. Admin double-click on the arrow discovers without revealing an area.
-- After discovery, a formerly secret door retains arrows, even when both adjacent
-  areas are revealed. Each arrow still requires its own source area to be revealed.
-- Viewer locked/unlocked arrows look like ordinary doors. No learned-lock state
-  is implemented because viewer passage interaction is explicitly deferred.
+Doors work in both directions. Admin single-click on a usable arrow reveals the
+adjacent destination even in Hide mode; the door remains a fog-area boundary.
+Locked/unlocked doors can start in either state. Only admin arrow double-click
+toggles state; it never also reveals/hides fog. Locked singles do nothing.
 
-## Portal pairs and sides
+Secret doors have admin-only purple hints until discovered. Their post-discovery
+type is configured in the wall editor: Door, Locked Door or Unlocked Door. Admin
+arrow double-click discovers without revealing. A formerly secret door keeps
+arrows after both areas are revealed, but each source area must itself be revealed.
+Viewer locked/unlocked hints look ordinary; there is no learned-lock state.
 
-- A pair contains exactly two wall elements on one map: A and B.
-- Each element has two sides, independently Entry, Exit, Both or None.
-- At most one None side is allowed per element, not per pair.
-- Both provides one independently routable Entry and one targetable Exit.
-- Each Entry explicitly targets exactly one Exit-capable side of the other
-  element. Same-element and self-routing are impossible. Multiple Entries may
-  share an Exit. Every Exit requires at least one incoming Entry.
-- Exit roles are ordinary, carry no lock/discovery state and are invisible on
-  viewers. A Both side may display its Entry arrow on viewers.
-- Entry state is independently normal, locked, unlocked or secret. A secret Entry
-  has an authored post-discovery state. Discovering/locking one Entry never changes
-  another Entry, including the other side of the same element.
-- Admin single click on a usable Entry reveals the area behind the configured
-  remote Exit, not the locally adjacent area. A revealed destination is a no-op.
-- Admin arrow double-click discovers a secret Entry, or toggles a locked/unlocked
-  Entry. It never also follows the portal.
-- Entry arrows persist after destination reveal but require a revealed source.
-  Admin Exit hints appear when an incoming Entry is shown, including locked and
-  secret Entries; they may be drawn in fog and are not actionable.
+## Portal sections, pairs and sides
+
+- Each pair contains exactly two Portal wall elements on the same map.
+- Each element has two sides: Entry, Exit, Both or None. At most one None per
+  element is allowed in a complete configuration. Both has independent roles.
+- Every Entry explicitly chooses one Exit-capable side of the other element.
+  Self/same-element routing is prohibited. Shared Exits are allowed; every Exit
+  needs at least one incoming Entry. A pair cannot route to a third element.
+- Each Entry independently starts ordinary, locked, unlocked or secret. Secret
+  Entries have authored post-discovery types. Discovery or locking affects only
+  that Entry. Exit roles are always ordinary and invisible on viewers.
+- Admin single-click on an ordinary/unlocked Entry reveals the area behind the
+  remote Exit, not the locally adjacent area. Revealed destinations are no-ops.
+- Only admin arrow double-click discovers/toggles state, without revealing.
+- Portal Entry arrows persist after destination reveal, but their source area
+  must be revealed. Admin-only Exit hints appear when an incoming Entry is shown,
+  including secret/locked Entries. Exit hints may appear in fog and never act.
+- Viewers never follow passages. They see Entry hints only; Both can show a
+  double-headed Entry indicator. Undiscovered secret Entries are hidden.
+
+## Portal configuration popup
+
+1. Draw or convert Portal elements. Both sides start Unconfigured, not Entry/Exit.
+2. Select one Portal section in the popup and edit only its two sides. All element
+   dropdowns contain Portal elements only; ordinary walls/doors are excluded.
+3. When configuring a side, the opposite side defaults to None if and only if it
+   was still Unconfigured. Already configured sides are never overwritten by this
+   default. Unconfigured is a temporary draft state, not a fifth saved role.
+4. Entry/Both sides expose destination Portal-section and Exit-side selectors.
+   Choose Exit/Both on the other element, or select an Unconfigured side whose
+   label explicitly says it will become Exit on Apply. An untouched opposite side
+   on that target defaults to None. Explicit None/Entry-only sides are not valid
+   Exit targets; configure them first. Shared Exits remain allowed.
+5. Switching selected section retains pending popup edits. Apply configuration to
+   draft commits all edits atomically, including target initialization. Cancel or
+   Escape changes nothing. No popup action autosaves to the server.
+6. Apply may stage incomplete sections while the rest are configured. Save and
+   Download require all portal sections/graphs to be complete, with valid pairs,
+   destinations, incoming Entry coverage and the per-element None limit. Client
+   preflight and existing server validation both enforce the complete contract.
+7. Reset section / unpair resets a section and its partner together to two
+   Unconfigured Portal elements. Coordinates and Portal type are preserved.
+   Reset is pending until Apply and then undoable; re-pair or remove/retype afterward.
+
+Side labels are wall-number.side-number. For directed endpoints, normal=(-dy,dx):
+side 1 is minus normal, side 2 plus normal, in image coordinates with Y down.
+Reversing endpoints swaps physical sides without changing side indices. Midpoint
+sampling and narrow-room/gap limitations are unchanged; an unusable destination
+open pixel yields no actionable arrow. Graph validity is not geometric room validity.
 
 ## Appearance
 
@@ -51,49 +77,31 @@ room zoom is unchanged. Cross-map portals are out of scope.
 | Unlocked Door | Orange #ff9f43 | No | Regular door color | Ordinary door |
 | Undiscovered Secret Door | Purple #b07cff | Yes | Yes | No |
 | Portal Entry / Exit | Silver #c0c0c0 | No | Toward / away | Entry only |
-| Portal Both | Silver #c0c0c0 | No | Double-headed | Double-headed Entry indicator |
+| Portal Both | Silver #c0c0c0 | No | Double-headed | Double-headed Entry |
 | Locked Portal Entry | Brown #a66a3f | Yes | Yes | Ordinary silver Entry |
 | Unlocked Portal Entry | Brown #a66a3f | No | Yes | Ordinary silver Entry |
 | Undiscovered Secret Portal Entry | Red #ff5252 | No | Yes | No |
 
-Existing per-map regular and locked door arrow color overrides are preserved.
-Portal and secret arrow colors use the defaults above. Independent admin/viewer
-arrow visibility settings continue to apply to all passage arrows.
-Portal wall styling uses separate offset strokes for the two independently typed
-sides, over a silver base segment.
+Existing per-map regular/locked door arrow color overrides and independent
+admin/viewer arrow visibility preferences are preserved. Portal strokes remain
+per-side over the silver segment; Unconfigured draft sides have no category stroke.
 
-## Authoring workflow
+## Runtime, export and safety (unchanged)
 
-1. Draw two elements, or choose existing segments. The Portal element type may
-   be used while drafting; an unpaired Portal cannot be saved/exported.
-2. Choose Portal configuration. Select A and B, assign side roles, initial Entry
-   states, secret post-discovery states and destination side numbers.
-3. Apply pair to draft, then Save wall set. Configuration, removal and Undo/Redo
-   operate atomically on the pair. Cancel/Escape makes no changes.
-4. To change partners or delete/retype a paired element, use Remove pair first.
-   Both elements become normal walls in one undoable operation. Coordinates stay.
+Fog Undo changes reveal/hide history, not discovery/locks. Reset covers the map,
+restores authored states and hides secrets; Show-map Reset does the same. Undoing
+fog Reset does not restore discarded runtime overrides. Reload/restart/Restore
+retains state. Replacing/saving walls clears state on replaced wall IDs.
+UVTT extension v2 stores complete authored configuration only, never temporary
+draft state or runtime overrides; ordinary v1 files remain supported. Standard
+UVTT fallback represents teleport elements as opaque boundaries and loses routing.
 
-Side labels are wall-number.side-number. For directed endpoints (x1,y1) to
-(x2,y2), side 1 is minus the normal (-dy,dx), side 2 plus that normal, in image
-coordinates (Y down). Reversing endpoints swaps their physical sides; routing
-remains attached to the side number. Drawn labels make this visible. Geometric
-sampling uses the midpoint; narrow rooms/gaps inherit the fog engine's raster
-limitations. An unavailable source/destination open pixel produces no usable arrow.
+Locks constrain passage controls, not the DM's manual reveal tools. Enabled and
+Doors split areas control boundaries. Changing boundaries can merge areas and
+expand existing reveals: blank viewers before editing, save, inspect the exact
+viewer preview and reset fog if needed. Show controls affect wall overlays, not
+passage-arrow visibility. Permission/CSRF/stale-save/runtime behavior is unchanged.
 
-## Runtime and safety
-
-- Fog Undo undoes reveals/hides, not discovery or locks.
-- Reset covers the map, restores authored lock states and makes secrets
-  undiscovered again. Show-map Reset does the same. Undoing fog Reset does not
-  restore discarded runtime states.
-- Reloads, restarts and map switches using Restore retain runtime state.
-- Saving/replacing walls clears state attached to replaced walls. Export/reuse
-  stores authored configuration and pair routing only, never runtime state.
-- Locks constrain passage controls, not a DM's manual reveal tools.
-- Enabled/Doors split areas still control boundary participation. Disabling or
-  altering boundaries may merge areas and expand existing reveals: blank players
-  before boundary edits, save, inspect the exact viewer preview, then reset fog
-  if needed. Show controls affect wall overlays, not passage arrow visibility.
-
-Implementation/storage/API details: docs/api.md and docs/architecture.md.
-Installation, rollback and verification: Patch/passages.md.
+See docs/wall-editor.md for editing, docs/api.md and docs/architecture.md for the
+unchanged saved schema, Patch/passages.md for the original passage migration and
+Patch/portal-section-editor.md for this follow-up's installation and verification.
