@@ -30,14 +30,16 @@
   * Acts the same as a Secret Door
   * When discovered, can become either a Portal or a Locked/Unlocked Portal
 
-Colors
-|Entity|Color|Wall Dashed|Arrow in Admin Screen|Arrow in Viewer Screen|Click Action in Admin Screen|Click Action in Viewer Screen|Double Click Action|Note|
-|---|---|---|---|---|---|---|---|---|
-|Door|Blue|No|Yes|Yes|Uncover area behind the door|Uncover area behind the door|-|
-|Locked Door|Orange|Yes|Yes|Show as Door|-|Show arrow as Locked Door|Unlock Door|
-|Unlocked Door|Orange|No|Yes|Show as Door|Uncover area behind the door|Uncover area behind the door|Lock Door|
-|Secret Door|Purple|Yes|Yes|No|-|-|Become Door, Locked Door or Unlocked Door|Arrow does not disappear
-|Portal Entry|Silver|No|Yes|Yes|Uncover area behind paired portal exit|Uncover area behind paired portal exit|-|Arrow does not disappear
-|Portal Exit|Silver|No|Yes|No|-|-|-|Arrow does not disappear
-|Portal 2-way|Silver|No|Yes|Yes|Uncover area behind paired exit|Uncover area behind paired exit|-|Arrow does not disappear
-|Locked Portal Entry|Brown|Yes|
+Passage overview
+|Entity|Color|Wall Dashed|Arrow in Admin Screen|Arrow in Viewer Screen|Click Action in Viewer Screen|Double Click Action|Note|
+|---|---|---|---|---|---|---|---|
+|Door|Blue|No|Yes|Yes|Uncover area behind the door|-||
+|Locked Door|Orange|Yes|Yes|Show as Door|Show arrow as Locked Door|Unlock Door||
+|Unlocked Door|Orange|No|Yes|Show as Door|Uncover area behind the door|Lock Door||
+|Secret (Normal, Locked, Unlocked) Door|Purple|Yes|Yes|No|-|Become Door, Locked Door or Unlocked Door|Arrow does not disappear|
+|Portal Entry|Silver|No|Yes|Yes|Uncover area behind paired portal exit|-|Arrow does not disappear|
+|Portal Exit|Silver|No|Yes|No|-|-|Arrow does not disappear; Show in admin screen when paired entry (normal, locked, unlocked, secret) is shown|
+|Portal 2-way|Silver|No|Yes|Yes|Uncover area behind paired exit|-|Arrow does not disappear|
+|Locked Portal Entry|Brown|Yes|Yes|Show as Portal Entry|Show as Locked Portal Entry|Unlock Portal|Arrow does not disappear|
+|Unlocked Portal Entry|Brown|No|Yes|Show as Portal Entry|Uncover area behind paired exit|Lock Portal|Arrow does not disappear|
+|Secret (Normal, Locked, Unlocked) Portal Entry|Red|No|Yes|No|-|Become Portal, Locked Portal or Unlocked Portal|Arrow does not disappear|
