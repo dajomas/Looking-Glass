@@ -49,7 +49,12 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
     spec, boundary, ops = fog_inputs(ctx, conn, map_id)
     from ...services.door_arrows import arrows as make_arrows
     arrow_objects = make_arrows(ctx.fog, spec, boundary, ops)
+    from ...services.passages import entry_kind
+    portal_styles = [{"x1":(s.x1-ox)*sx,"y1":(s.y1-oy)*sy,"x2":(s.x2-ox)*sx,"y2":(s.y2-oy)*sy,
+                      "sides":[{"role":v["role"],"kind":entry_kind(s,i)} for i,v in enumerate(s.passage["sides"])]}
+                     for s in segs if s.kind == "portal"]
     return {
+        "portal_styles": portal_styles,
         "ok": True,
         "id": m["id"], "cache_token": m["cache_token"], "name": m["name"], "campaign_id": m["campaign_id"],
         "width": m["width"], "height": m["height"],
@@ -59,7 +64,7 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "walls_source": m["walls_source"],
         "door_arrow_color": m["door_arrow_color"],
         "locked_door_arrow_color": m["locked_door_arrow_color"],
-        "door_arrows": [{"wall_id": a.wall_id, "kind": a.kind, "polygon": a.polygon} for a in arrow_objects],
+        "door_arrows": [{"wall_id": a.wall_id, "kind": a.kind, "polygon": a.polygon, "side": a.side, "portal": a.portal, "exit_only": a.exit_only, "secret_origin": a.secret_origin} for a in arrow_objects],
         "managed_doors": [{"wall_id": s.id, "kind": s.kind,
             "x1": (s.x1-ox)*sx, "y1": (s.y1-oy)*sy, "x2": (s.x2-ox)*sx, "y2": (s.y2-oy)*sy}
             for s in segs if s.kind in ("locked_door", "unlocked_door")],
@@ -316,6 +321,8 @@ async def reveal_door_arrow(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: D
             raise BadRequest("No enabled door arrow at that point. Refresh the map.")
         area = ctx.fog.area_map(spec, segs)
         res = ctx.fog.describe_click(area, *target)
+        if res.label in ctx.fog.revealed_labels(area, ops):
+            return {**_map_payload(ctx, conn, map_id), "area_fraction": round(res.fraction,4), "leak_warning": res.leak_warning}
         fog_repo.add(conn, map_id, "reveal", *target, user["id"])
         maps_repo.bump_fog(conn, map_id)
         checkpoint_if_active(conn, map_id)

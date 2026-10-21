@@ -1,3 +1,6 @@
+> Historical patch note. Passage behavior now follows [Passages.md](../Passages.md);
+> segment double-click no longer locks and viewer locked arrows look ordinary.
+
 # Locked and unlocked doors
 
 ## Design and appearance

@@ -144,29 +144,40 @@ blank-screen update.
 
 ## Shared clickable door arrows
 
-`MapSpec` carries `door_arrow_color` and `door_arrows_enabled`. Migration 5 adds the color (`#46c0ff`); migration 6 adds visibility (`INTEGER NOT NULL DEFAULT 1`, constrained to 0/1). These migrations are unchanged from the previous arrow/toggle patch; click-to-reveal needs no additional schema migration.
+`services/door_arrows.py` shares midpoint/normal sampling, polygons, raster
+rendering and server hit validation. Ordinary doors require distinct adjacent
+labels with one revealed side. Secret-origin doors keep arrows after both sides
+are revealed. Portal Entries resolve to the configured side of the paired element,
+using verified open pixels, never a client-provided destination. Exit hints are
+noninteractive, admin-only and may be drawn outside revealed areas.
 
-`services/door_arrows.py` centralizes geometry for rendering and click resolution. It samples first open pixels on both normals from ordinary blocking door midpoints in calibrated work coordinates. Two distinct labels and exactly one revealed side are required. Each arrow records its revealed-side polygon and a verified open-pixel center in the hidden adjacent label. Its alpha is clipped to revealed open pixels. Secret doors are excluded; disabled visibility returns no arrows.
-
-The fog renderer delegates the admin RGBA overlay to this service and composites the same overlay into the authorized viewer image. Render identity includes enabled/color state and an algorithm marker, avoiding old cache reuse. No hidden geometry is sent to viewer clients.
-
-`door_arrow_hit.js` samples the decoded PNG alpha at the displayed work pixel. PanZoom's existing image-coordinate tap dispatch handles transforms and gesture suppression. The admin handler sends a click-coordinate request only for a left-click/tap on a visible arrow; other taps retain normal mode behavior. It guards against busy/stale overlays and builds a hit map only after image decode/generation validation. The image pixel center is converted using `work_scale`, including rounded work dimensions. Hit errors refresh state without a normal-click fallback.
-
-The server independently validates map incarnation, walls/fog versions and actual arrow pixels inside `BEGIN IMMEDIATE`. It resolves the destination from current topology, not browser-supplied target coordinates, then appends one reveal and updates the existing active checkpoint. Validation and mutation are serialized, so duplicate stale requests cannot append duplicate reveals. The original management/CSRF boundary and read-only viewer permissions remain intact.
-
+The `MapSpec.arrow_audience` discriminator separates admin and viewer cache
+identity. Viewer composition excludes undiscovered secrets and Exit-only hints;
+locked/unlocked hints use ordinary appearance. The viewer API still contains no
+wall graph, hidden routing coordinates or mutation endpoint.
 
 ## Locked and unlocked doors
 
-Migration 7 is deliberately reserved as a no-op because the rolled-back viewer-controls patch may already have recorded schema 7 in a user's database. Migration 8 adds `maps.locked_door_arrow_color` (default `#ff9f43`) and `door_runtime_states(wall_id PRIMARY KEY REFERENCES walls ON DELETE CASCADE, kind)` constrained to the two managed types. A schema-6 database applies the no-op then migration 8; an old viewer schema-7 database skips the reserved slot and still applies migration 8. No Center/Fit code, flags or new viewer columns are introduced by this patch.
+Migration 8 and its existing runtime door table remain intact. Migration 10 adds
+`walls.passage` JSON and `passage_runtime_states(wall_id, side, kind)` with a
+cascading wall foreign key. Side -1 stores shared secret-door state; sides 0/1
+store independent portal Entry overrides. Authored secrets use `kind=secret` and
+an optional `after` property; authored portal elements use `kind=portal` with pair,
+end and two side definitions. Exact pair/route validation precedes replacement.
 
-Authored state remains `walls.kind`. Repository reads expose effective override kinds unless `designed=True`; wall-editor/export reads request designed state. WallSegment's keyword-only, comparison-excluded ID and designed_kind metadata preserve six-field constructors/serialization. Row replacement/deletion cascades overrides. Boundary filtering uses designed_kind so toggling lock state never merges areas or exposes pixels merely because the Locked/Unlocked boundary-enable preferences differ.
+Repository `designed=True` reads omit runtime overrides for authoring/export.
+Effective reads merge temporary kinds and retain designed_kind for boundary
+filtering. Runtime changes bump wall/fog versions without changing topology or
+fog history. Reset clears both runtime tables; fog hide_all triggers cover toolbar
+Reset and explicit reset helpers cover map activation. Row replacement cascades
+state deletion. Normal reveals use existing fog history/checkpoint/notifications.
 
-Shared DoorArrow geometry now carries wall ID/kind. Locked arrows use the locked color; other visible door arrows use the regular color. The same overlay is composited for viewers. `hit_at` resolves the actual raster arrow; the legacy `target_at` rejects locked arrows. Map identity includes the new color/algorithm revision to avoid old render reuse. Admin-only geometry metadata supports gestures; no viewer endpoint or viewer script is changed.
-
-The new storage-aware `door_actions.perform` validates current targets and chooses none/unlock/lock/reveal/hide. The authorized endpoint owns a write transaction spanning stamp validation, action and payload. Lock changes update only runtime state plus versions; fog operations/checkpoints are unchanged. Ordinary unlocked reveals use normal fog history and notification/checkpoint paths.
-
-A 400-ms managed-door gesture queue cancels its pending single on a matching double; the single can never reveal before that double locks. State changes, mutations, pan/zoom/blur cancel pending work. Existing regular-door behavior and viewer read-only permissions remain. Reset's hide_all insertion trigger clears runtime overrides and advances wall version when needed. Activation reset explicitly clears overrides too. Fog Undo does not undo runtime lock/reset changes.
-
+`door_actions.perform` requires a current incarnation/version stamp and actual
+raster hit. Double-click state changes require an arrow. Entry side IDs are checked
+against server-resolved geometry, so the browser cannot choose another Entry.
+The legacy arrow-reveal endpoint rejects locked and undiscovered-secret arrows.
+Already revealed destinations are no-ops. Portal metadata is authored-only in
+UVTT; runtime states never enter reusable sources.
 
 ## Independent arrow visibility
 
@@ -212,3 +223,16 @@ The viewer state handler reads map/fog inputs in one database snapshot and adds 
 Without new visible members, existing focus validation continues. This handles hidden-area additions inside unchanged overview bounds, hide/reveal exchanges with equal area counts, repeated reveals, hide-only updates, Reveal all and Undo. Actual topology edits can change component fingerprints and conservatively reset focus. Stable lock/unlock does not alter topology. New explicit remote/local camera commands issued after a reveal can focus again; commands/lookups bound to older map versions cannot restore old focus.
 
 No schema migration, new dependency/configuration, extra camera preference or Center/Fit control is introduced. Admin gestures, remote zoom delivery, arrow behavior and viewer read-only permissions are unchanged. Fingerprints describe displayed snapshots; transient reveal/hide states coalesced before display are not replayed as camera events.
+
+## Passage UI and interchange
+
+`static/js/portal_editor.js` provides a separate modal, using atomic batch draft
+changes in admin_wall_editor.js. Existing coordinate edits preserve metadata;
+paired elements cannot be independently removed/retyped. Side labels correspond
+to the directed segment normal. Both editor and fog overlays use per-side strokes
+for portal type colors. `WallSegment` adds comparison-excluded keyword-only
+passage/runtime dictionaries; positional six-field constructors remain valid.
+Rows have an optional seventh authored-config object. UVTT extension v2 is emitted
+when passage metadata is present; v1 ordinary sets remain readable/emittable.
+Core fallback exports portals as opaque wall segments, not falsely linked doors.
+The existing geometry checksum protects core/extension coordinate consistency.

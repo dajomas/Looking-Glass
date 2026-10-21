@@ -31,8 +31,9 @@ window.LGManagedDoorHit = function(state,arrowPoint,x,y,scale,showWalls,hiddenTy
         return px>=Math.min(...xs)-1 && px<=Math.max(...xs)+1 && py>=Math.min(...ys)-1 && py<=Math.max(...ys)+1;
       });
     }
-    if(hit && ["locked_door","unlocked_door"].includes(hit.kind))
-      return {wall_id:hit.wall_id,kind:hit.kind,hit:"arrow",...arrowPoint};
+    if(hit?.exit_only)return {blocked:true};
+    if(hit && (hit.portal || hit.secret_origin || ["locked_door","unlocked_door","secret"].includes(hit.kind)))
+      return {wall_id:hit.wall_id,kind:hit.kind,side:hit.side ?? -1,hit:"arrow",...arrowPoint};
     if(!hit)return {blocked:true};
     return null;
   }

@@ -149,34 +149,38 @@ UVTT exports, or the player image. Sidebar open/closed state resets on reload.
 
 ## Door arrows: visibility, color and clicking
 
-**Show door arrows (admin)** and **Show door arrows (viewer)** appear above the color pickers. They are independent server-saved per-map preferences. New maps default both on; the upgrade copies the old shared value to both flags on existing maps. Admin visibility controls the admin overlay and arrow hit targets. Viewer visibility controls the composited player image and exact player-image preview. Colors are retained while hidden, and both color inputs remain available if either screen is enabled. Regular arrow color defaults to `#46c0ff`; locked arrow color defaults to `#ff9f43`.
+The admin and viewer arrow toggles are independent per-map preferences. A single
+admin click on an ordinary/unlocked arrow reveals the destination, overriding
+Hide mode. Viewers cannot follow passages. Locked/unlocked doors look ordinary to
+viewers. Undiscovered secrets and Exit-only portal arrows never appear there.
 
-Left-click or tap an arrow in the admin fog editor to reveal the hidden area behind that arrow's door. The cursor becomes a pointer over the visible arrow. This overrides the selected Hide mode for that click only: the selected mode is not changed. Ctrl+Z undoes the resulting reveal normally. Arrows update when the room is revealed, including new arrows toward further hidden destinations. Active-map viewers update through the existing live-refresh mechanism. If the map is not currently shown, the existing offline-reveal warning still applies.
-
-Right-click keeps the normal inverse reveal/hide behavior rather than following the arrow. Drag, Space-drag and pinch remain pan/zoom gestures. Transparent space around an arrow is not a hit target. Clicks are ignored while the displayed fog/arrow overlay is loading or a write is in progress. A stale or rejected arrow click refreshes state and never falls through into a normal hide/reveal click. Viewer screens remain read-only; players cannot use arrows to change fog.
-
-Only ordinary blocking doors separating distinct raster rooms with exactly one revealed side receive arrows. Secret doors, nonblocking/disabled doors, and map-edge segments without open areas on both sides are excluded. Arrow pixels are clipped to revealed open areas, independently of admin wall-overlay visibility. Detection inherits room-reveal gap/resolution limitations; tight rooms may clip arrows. Arrows follow hide/reveal/undo/reset/restore and boundary changes. Changing arrow visibility/color does not modify room reveals or add fog operations.
-
+Regular door arrows require a revealed source and hidden adjacent area. Secret
+door arrows persist after discovery/use. Portal arrows persist after remote
+reveal. Entry arrows are clipped to revealed source areas; admin-only Exit hints
+may appear in fog when an incoming Entry is visible. Raster sampling, wall gaps
+and tight rooms have the same limitations as area reveal. See ../Passages.md.
 
 ## Locked and unlocked doors
 
-Design doors in the wall editor using Locked Door (`locked_door`, dashed orange `#ff9f43`) or Unlocked Door (`unlocked_door`, solid orange `#ff9f43`). The fog editor shows the current play-time type; the wall editor shows the authored design.
-
-| Admin target | Single primary click/tap | Double primary click/tap |
+| Admin target | Single click | Double click |
 |---|---|---|
-| Locked door arrow | No action | Unlock only; destination fog stays unchanged |
-| Locked door segment | No action | No action; use its arrow to unlock |
-| Unlocked door arrow | Reveal the area behind the door, even in Hide mode | Lock only; do not reveal |
-| Unlocked door segment | Normal selected reveal/hide mode | Lock only; do not reveal |
+| Locked arrow | No action | Unlock, fog unchanged |
+| Unlocked arrow | Reveal destination | Lock, fog unchanged |
+| Undiscovered secret arrow | No action | Discover as configured, fog unchanged |
+| Normal portal Entry arrow | Reveal remote destination | No action |
+| Exit-only hint | No action | No action |
+| Door segment | Existing manual fog rules | No passage-state change |
 
-Managed door clicks wait 400 ms to distinguish a single from a double. Another target, a state change, another mutation, panning, wheel zoom or window blur cancels a pending click rather than allowing a delayed reveal on stale geometry. Drag/pinch behavior remains PanZoom behavior. Right-click on a locked target does nothing; right-click on an unlocked target retains the ordinary inverse fog mode. Direct segment hits use a 10-screen-pixel tolerance, adjusted for zoom. Hiding arrows prevents arrow interactions; visible unlocked segments can still be double-clicked to lock. Locked segments are protected from accidental single-click fog actions even when their overlay is hidden.
+Managed arrow singles wait 400 ms so a double gesture cannot first reveal.
+State changes, another target, drag, wheel or blur cancel pending clicks. Portal
+Entry sides have separate gesture identities. Secret portal state is independent
+per Entry; Exit roles have no state. Configure secret outcomes in the wall editor.
 
-Locked door arrow color is a separate server-saved per-map picker beside the regular arrow color. Its default matches orange door walls; changing it affects locked arrows on both admin and viewer screens, not wall colors. Unlocked arrows always use the regular arrow picker, not the locked-arrow picker. Each screen's visibility toggle covers regular, locked and unlocked arrows together, independently of the other screen. Secret doors still do not generate hints. Viewer accounts cannot change door/fog state.
-
-Locking and unlocking are persistent play-state changes, not fog-history actions; Ctrl+Z undoes reveals/hides but does not toggle locks. They preserve the revealed mask, even if Locked/Unlocked type boundary settings differ: boundary participation follows the authored type during play. Both door types still honor Doors split areas. Locks govern the door controls, not a DM's ability to manually reveal another room or use Reveal all.
-
-Reset both covers the map and restores every door's authored locked/unlocked type. Choosing Reset when activating a map does the same. Undoing a fog Reset can restore fog history but does not restore discarded runtime lock changes. Switching maps with Restore and restarting the service retain runtime states. Saving/replacing a wall design discards runtime overrides for that wall set and establishes a new designed state. UVTT export from the wall editor uses the authored design, not session overrides.
-
+Fog Undo affects reveal/hide history, not locks or discovery. Reset restores
+authored states and hides secrets again; Restore/restart retains runtime state.
+Saving/replacing walls clears runtime overrides for the replaced set. Export
+contains authored states only. Locks never prevent a DM's manual reveal tools.
+Locked door arrow color customizes the admin hint; viewers use the regular color.
 
 ## Independent admin and viewer arrow visibility
 
@@ -187,7 +191,7 @@ Reset both covers the map and restores every door's authored locked/unlocked typ
 | Off | On | Players see hints; DM arrow overlay and arrow click targets are hidden. |
 | Off | Off | Neither display shows arrows; saved colors are retained. |
 
-These settings affect arrow indicators, not actual door wall segments or the map image. Show walls and per-type Show controls are unchanged. Hiding admin arrows prevents unlocking through a hidden locked arrow; visible unlocked wall segments can still be double-clicked to lock as before. Viewer hints remain noninteractive. The in-editor Player preview (opaque fog) is still the admin overlay with opaque fog; use Open exact player image for the viewer-specific arrow setting.
+These settings affect arrow indicators, not actual door wall segments or the map image. Show walls and per-type Show controls are unchanged. Hiding admin arrows prevents unlocking through a hidden locked arrow; wall segment double-clicks do not toggle passage state. Viewer hints remain noninteractive. The in-editor Player preview (opaque fog) is still the admin overlay with opaque fog; use Open exact player image for the viewer-specific arrow setting.
 
 Both flags survive reloads/restarts and map activation/Reset. Switching visibility does not change designed/runtime door types or fog operations/checkpoints. An admin-only visibility update does not bump the viewer's image version or notify viewers; other admin tabs receive it on the existing 15-second poll. Viewer visibility/color changes use the existing live image refresh. Color inputs are disabled only when both screens are off or saving is in progress. Failed saves restore confirmed values.
 
@@ -213,7 +217,7 @@ Viewer-local double-click, Fit/F, drag, wheel, pinch and resize behavior remain 
 
 To separate area double-clicks from fog actions, ordinary primary single-clicks now wait 400 ms. A nearby second click within that interval cancels the pending single and sends zoom instead—even in Hide mode—so the gesture does not reveal/hide a room first. The double-click tolerance is 12 screen pixels. Right-click inverse fog actions remain immediate. Another target, state/mode change, mutation, camera movement, drag, pinch, pointer cancellation, keyboard/resize or window blur cancels pending area work rather than allowing a delayed fog action.
 
-Regular arrows and managed door/arrow gestures take priority and are not reinterpreted as area zoom: regular arrow reveal, locked-arrow double-click unlock and unlocked door/arrow double-click lock remain unchanged. A hidden-area double-click sends no zoom and does not fall back to revealing it; use a single click to reveal normally. The selected map must already be active on viewers—this action never activates or switches maps automatically.
+Regular arrows and managed door/arrow gestures take priority and are not reinterpreted as area zoom: regular arrow reveal, locked-arrow double-click unlock and unlocked-arrow double-click lock remain unchanged. A hidden-area double-click sends no zoom and does not fall back to revealing it; use a single click to reveal normally. The selected map must already be active on viewers—this action never activates or switches maps automatically.
 
 Commands use live WebSockets and are ephemeral, not stored camera preferences. The admin reports when no viewer screens are connected. Disconnected or not-yet-opened screens do not replay old zoom commands; issue the double-click again after reconnecting. The success toast counts subscribed screens, not confirmed camera acknowledgments. Reload both admin and viewer tabs after installing this update. Camera commands do not change fog operations, locks, checkpoints, versions, arrow visibility or the database.
 
@@ -227,3 +231,13 @@ The new area need not expand the outer visible bounding box. Replacing one visib
 After the overview reset, a fresh explicit admin/viewer zoom can focus a room again. Old in-flight area lookups cannot restore the discarded focus. The viewer applies the reset with the newly decoded map image; a newly visible area inside unchanged overview bounds still triggers it. Detection compares the last displayed state with the next displayed state, rather than replaying transient states that never reached the viewer.
 
 Areas follow the fog engine's raster room components. Changing wall geometry/calibration or boundary settings can change those components' footprints and may reset focus as newly represented visible areas. Routine lock/unlock keeps those footprints unchanged. Existing manual pan/zoom, overview behavior, Fit/F and both double-click paths are otherwise unchanged. Reload viewer tabs after the upgrade.
+
+## Portal authoring
+
+Open Walls → Open wall editor → Portal configuration. Select two elements,
+assign roles on all four sides, configure Entry states and choose each destination
+side on the other element. Every Exit needs an incoming Entry; multiple Entries
+may share one. Each element may have one None side. Both roles are independent.
+Apply updates the draft and is undoable; Save wall set persists. Remove pair
+before changing partners/deleting one element. See ../Passages.md for side labels,
+colors, runtime policy and the complete passage contract.

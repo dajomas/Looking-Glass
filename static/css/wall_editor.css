@@ -27,3 +27,13 @@
 #wall-overlay .w-locked_door { stroke-dasharray: calc(var(--wall-width) * 4); }
 #wall-overlay .w-unlocked_door { stroke-dasharray: none; }
 .wall-colours [data-kind="locked_door"], .wall-colours [data-kind="unlocked_door"] { color: #ff9f43; }
+
+#wall-overlay .w-portal, #wall-overlay .portal-side {stroke:#c0c0c0;fill:none;}
+#wall-overlay .p-secret {stroke:#ff5252;stroke-dasharray:none;}
+#wall-overlay .p-locked_door {stroke:#a66a3f;stroke-dasharray:calc(var(--wall-width) * 4);}
+#wall-overlay .p-unlocked_door {stroke:#a66a3f;stroke-dasharray:none;}
+#portal-dialog {width:min(48rem,calc(100vw - 2rem));max-height:90dvh;overflow:auto;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;}
+#portal-dialog::backdrop {background:rgb(0 0 0 / .65);}
+#portal-sides {display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));}
+#portal-dialog label {display:block;}
+#portal-error {color:#ff9696;}

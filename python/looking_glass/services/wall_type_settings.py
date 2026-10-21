@@ -2,7 +2,7 @@
 import json
 from dataclasses import replace
 
-WALL_TYPES = ("wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal")
+WALL_TYPES = ("wall", "door", "locked_door", "unlocked_door", "secret", "portal", "window", "invisible", "ethereal")
 
 
 def disabled_for_map(conn, row):

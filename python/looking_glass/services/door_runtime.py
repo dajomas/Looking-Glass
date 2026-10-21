@@ -17,6 +17,8 @@ def set_kind(conn, map_id, wall_id, kind):
 
 
 def reset(conn, map_id):
+    from .passages import reset as reset_passages
+    reset_passages(conn, map_id)
     changed = conn.execute("SELECT 1 FROM door_runtime_states r JOIN walls w ON w.id=r.wall_id WHERE w.map_id=? LIMIT 1", (map_id,)).fetchone()
     conn.execute("DELETE FROM door_runtime_states WHERE wall_id IN (SELECT id FROM walls WHERE map_id=?)", (map_id,))
     if changed:
@@ -26,6 +28,6 @@ def reset(conn, map_id):
 def decide(kind, gesture, hit):
     if kind == "locked_door":
         return "unlock" if gesture == "double" and hit == "arrow" else "none"
-    if kind == "unlocked_door" and gesture == "double":
+    if kind == "unlocked_door" and gesture == "double" and hit == "arrow":
         return "lock"
-    return "reveal"
+    return "none" if gesture == "double" else "reveal"

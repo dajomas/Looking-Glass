@@ -70,7 +70,7 @@ The existing one-off `/walls/inspect` and `/walls` APIs remain compatible and
 do not save their files automatically. The HTML map upload saves valid wall
 sources; a multi-set upload waits for selection instead of choosing index 0.
 
-## Viewer port (6000)
+## Viewer port (5100)
 
 | Method | Path | Purpose |
 |---|---|---|
@@ -172,20 +172,19 @@ The click endpoint holds a SQLite write transaction across stamp validation and 
 
 ## Locked and unlocked doors
 
-Wall edit/import/export type validation now accepts `locked_door` and `unlocked_door`. Existing wall row arrays remain `[x1,y1,x2,y2,kind,blocks]`. Runtime effective kinds are returned in fog-editor map state; the dedicated wall editor returns authored kinds. Admin-only map payloads additionally contain `managed_doors` (wall ID, effective kind and calibrated endpoints), `door_arrows` (wall ID, kind and work-space polygon), and `locked_door_arrow_color`. Viewer state schemas are unchanged; viewers receive composited arrow colors but no mutation capability.
+The existing management/CSRF-only `POST /api/maps/{id}/door-action` now also
+handles secret doors and portal Entries. The body retains wall_id, x, y, gesture
+(single/double), hit (arrow/wall), mode, tolerance, cache_token, walls_version and
+fog_version, and adds `side` (default -1 for doors; 0/1 for portal Entries).
+The server resolves destinations and rejects mismatched side IDs, stale stamps,
+invalid hits, hidden/disabled arrows and Exit-only hints. No viewer route is added.
 
-The existing management/CSRF-protected appearance endpoint `POST /api/maps/{map_id}/door-arrows` accepts optional `locked_color` (`#RRGGBB`, normalized lower-case), alongside existing `color` and `enabled`. Omitted/null fields preserve saved values. Saving bumps fog version and notifies active viewers without appending a fog operation.
-
-New management/CSRF-protected `POST /api/maps/{map_id}/door-action` body:
-
-```json
-{"x":175.5,"y":100.5,"wall_id":4,"gesture":"double","hit":"arrow","mode":"reveal","tolerance":10,"cache_token":"<map token>","walls_version":1,"fog_version":1}
-```
-
-`gesture` is single/double; `hit` is arrow/wall; `mode` is reveal/hide (default reveal). `tolerance` is an image-space wall-hit radius, >0 and <=500 (UI uses 10/screen scale). The server serializes map authorization, incarnation/version validation, current raster arrow/segment hit validation, and mutation in one SQLite write transaction. Wrong/stale targets return 400 with no fallback mutation. Responses are updated map state plus `door_action`: none, unlock, lock, reveal, or hide. Reveals/hides also include existing area fraction/leak-warning fields and active checkpoints.
-
-Locked singles and locked wall doubles return none. Locked arrow doubles unlock. Unlocked doubles lock without a fog action. Unlocked arrow singles reveal; segment singles honor mode. Runtime lock/unlock bumps wall/fog versions and broadcasts refresh, but never adds a reveal operation. The legacy arrow-reveal endpoint cannot reveal through a locked arrow. Viewer permissions remain unchanged. Reset deletes runtime overrides as part of restoring fog/design state.
-
+Response door_action is none, lock, unlock, discover, reveal or hide. Only arrow
+doubles toggle/discover; segment doubles do not change state. Discovery does not
+reveal. Lock/discovery bump versions, not fog history. Already revealed persistent
+destinations return none without recording another reveal. Legacy arrow-reveal
+rejects locked/undiscovered-secret targets. All actions retain existing transaction,
+permission, CSRF and refresh handling. See ../Passages.md for reset semantics.
 
 ## Independent arrow visibility API
 
@@ -239,3 +238,29 @@ Authorized `GET /api/c/{campaign_id}/state` map payloads add `revealed_area_sign
 Signatures depend on each visible component's source/work dimensions, location and binary footprint, not on its numeric label, fog operation ID, wall/fog version, arrow preferences/colors or lock kind. They stay stable across cache invalidation/restart when raster geometry is unchanged. This field is snapshot metadata, not a persistent reveal-event log. Existing version/image/area-bounds and remote camera command protocols remain unchanged.
 
 The viewer compares the newly displayed map's signatures to the previously displayed set. A new member clears room focus and uses current `revealed_bounds` for overview. Subsets/reordering/unchanged sets do not trigger a new-area reset. Missing metadata is tolerated for compatibility and retains previous focus behavior. No mutation endpoint or database change is added; normal campaign-view authorization still applies.
+
+## Authored passage schema
+
+Wall editor save/draft-export rows may have a seventh object:
+
+```json
+[200,70,200,130,"portal",true,{"pair":"p1","end":"a","sides":[{"role":"none"},{"role":"entry","kind":"secret","after":"locked_door","exit":0}]}]
+```
+
+The other element must have the same pair and end b; its side 0 must be Exit/Both.
+Each pair has exactly two elements. Exit is always the 0/1 side index on the other
+element: same-element/self routes cannot be encoded. Entry kinds are door,
+locked_door, unlocked_door or secret; after is door/locked_door/unlocked_door.
+Exit/None objects contain only role. Every Exit requires incoming routing, shared
+Exits are valid, and at most one None is permitted per element. Invalid graphs
+reject the entire save/export. Normal rows remain six fields; a secret door may
+append `{"after":"locked_door"}`. Omission defaults to ordinary Door after discovery.
+
+Admin map payload door_arrows add side, portal, exit_only and secret_origin;
+portal_styles contains effective per-side appearance. No destination coordinates
+are sent. These fields never enter viewer state. `portal` is accepted by wall-type
+boundary settings. Looking Glass UVTT v2 round-trips the seventh field; v1 remains
+supported. Downloaded/stored sources use authored configuration, never runtime.
+Standard fallback represents portal elements as wall boundaries and loses routing.
+
+Viewer default port is 5100; the older heading mentioning 6000 is superseded.

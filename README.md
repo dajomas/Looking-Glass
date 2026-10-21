@@ -132,15 +132,19 @@ existing fog operations are replayed and can reveal different areas.
 
 ## Door arrows and click-to-reveal
 
-Revealed rooms show arrows toward ordinary blocking doors leading to hidden rooms, on both admin and viewer displays. The fog controls provide independent Show door arrows (admin) and Show door arrows (viewer) toggles, saved per map. New maps default both on. Existing regular and locked arrow color preferences are preserved when either display is hidden.
-
-In the admin fog editor, left-click or tap a visible arrow to reveal the area behind its door, even in Hide mode. The reveal is a normal undoable fog action and updates connected viewers. The player viewer remains read-only. Secret doors do not produce hints. See `docs/usage.md` and `Patch/door-arrows.md`.
-
+Admin single-click on a usable passage arrow reveals its destination. Ordinary
+doors reveal the adjacent area; portals reveal a configured remote Exit on the
+same map. Viewer arrows remain display-only. Independent admin/viewer visibility
+settings are retained. Secret passages are hidden from viewers until discovered.
+See `Passages.md` for the current contract and `Patch/passages.md` for deployment.
 
 ## Locked and unlocked doors
 
-The wall editor supports **Locked Door** (dashed orange) and **Unlocked Door** (solid orange). Locked-door arrows default to orange with a separate per-map color picker; unlocked-door arrows use the regular door-arrow color. On the admin screen a locked arrow ignores a single click and unlocks on double-click without revealing fog. An unlocked arrow reveals normally; double-clicking an unlocked door segment or arrow locks it without revealing. Reset restores each door's authored state. Viewer controls remain read-only. This patch does not include the rolled-back Center/Fit toggles. See `docs/usage.md` and `Patch/locked-doors.md`.
-
+Author initial locked/unlocked states in the wall editor. Only admin arrow
+double-click toggles locks; segment double-click does not. Secret doors and
+individual secret portal Entries have authored post-discovery types. Their admin
+arrow double-click discovers without revealing. Runtime changes persist until
+Reset or wall replacement. Secret-door and portal arrows persist after use.
 
 ## Independent arrow visibility
 
@@ -160,3 +164,11 @@ Double-click a revealed area in the admin fog editor to send the existing room-f
 ## New reveals return focused viewers to overview
 
 Whenever an additional revealed area appears, viewers focused on a specific room automatically leave that focus and fit/center all currently visible areas. This applies to focus chosen locally or from an admin double-click. Detection uses revealed-area membership, not just image versions, counts or the overall rectangle, so arrow/color/lock-only changes and repeated reveals of an already visible room do not unnecessarily clear focus. No database migration or new controls are added.
+
+## Same-map portals
+
+Use the wall editor's Portal configuration popup to pair two elements and route
+each Entry to one Exit-capable side on the other element. Shared exits are allowed;
+at most one None side is allowed per element. Each Entry has independent lock and
+discovery state. Apply updates only the draft; Save persists it. Pair changes and
+removal are atomic Undo/Redo operations. Cross-map traversal is not implemented.

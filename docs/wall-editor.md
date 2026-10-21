@@ -50,7 +50,7 @@ map_origin is zero. Reimport with auto-align restores the original size.
    until Apply. Finite values typed outside the image are clamped on Apply to
    X = 0..image width and Y = 0..image height. Missing/non-finite values are rejected.
    The endpoints must still differ after clamping.
-4. Select any of the eight wall types and choose **Apply to draft**, or press Enter
+4. Select any of the nine wall types and choose **Apply to draft**, or press Enter
    in a coordinate field. Validation errors keep the dialog and draft unchanged.
 5. Use **Save wall set** to persist the draft and create/reuse its UVTT source,
    or **Download UVTT** to export the unsaved draft without applying it.
@@ -95,7 +95,7 @@ Saving and exporting continue to use the existing APIs and data format.
 
 ## Boundaries and safety
 
-All eight kinds are editable, even if hidden or disabled in the fog editor.
+All nine kinds are editable, even if hidden or disabled in the fog editor.
 New/retyped ethereal segments have blocks=false; other new/retyped kinds have
 blocks=true. A coordinate-only Edit preserves the segment's imported blocking
 flag. Existing imported blocking flags are retained for untouched segments. Show/Enabled
@@ -142,7 +142,7 @@ Normal doors are exported closed. No third-party VTT compatibility is claimed as
 The looking_glass extension has version=1, name, segments in grid units and a
 SHA-256 checksum of the core geometry/resolution fields. Each segment stores
 x1,y1,x2,y2,kind,blocks, preserving all kinds and passive segments. This is an
-application extension, not a claim that core UVTT standardizes all eight types.
+application extension, not a claim that core UVTT standardizes all ordinary types.
 An unaware importer uses only fallback fields and may lose these distinctions.
 
 The checksum detects another program changing standard geometry while leaving
@@ -162,7 +162,7 @@ Empty edited sets are valid and can be saved/reimported.
 - web_html/admin/wall_editor.html and static/css/wall_editor.css: separate UI.
 - web/app_factory.py: mounts the router on the admin app only.
 
-No schema migration is introduced. This patch targets the existing application and assumes its existing migrations are healthy.
+The original wall-editor patch introduced no schema migration; passages add migration 10. This patch targets the existing application and assumes its existing migrations are healthy.
 It does not repair earlier migration collisions. See ../Patch/wall-editor-uvtt.md
 for installation, rollback and exact verification scope.
 
@@ -189,6 +189,28 @@ UVTT data, fog boundaries, or player images.
 
 Both the Add/Change type selector and the endpoint-edit dialog include Locked Door and Unlocked Door. Locked Door uses dashed orange; Unlocked Door uses solid orange. Both use ordinary door-width strokes and can participate in area boundaries. Their Show and Enabled controls appear in the fog legend.
 
-The wall editor always loads authored door types, not temporary lock changes made in the fog editor. Saving sets the new design and replaces wall rows, clearing runtime overrides for those replaced rows. During play double-click a locked arrow to unlock without revealing; double-click an unlocked segment/arrow to lock. Reset restores authored types. To keep topology stable, type-enable settings follow the authored kind during runtime lock changes. Change and save the design to change that baseline.
+The wall editor always loads authored door types, not temporary lock changes made in the fog editor. Saving sets the new design and replaces wall rows, clearing runtime overrides for those replaced rows. During play double-click a locked arrow to unlock without revealing; double-click an unlocked arrow to lock. Reset restores authored types. To keep topology stable, type-enable settings follow the authored kind during runtime lock changes. Change and save the design to change that baseline.
 
 Looking Glass UVTT extension data round-trips both types exactly. In standard UVTT geometry both are exported as closed portals, so tools ignoring the extension see ordinary closed doors and may lose the lock distinction. A Foundry ordinary door with `ds: 2` imports as Locked Door; other ordinary doors keep their existing Door classification. Secret doors remain secret.
+
+## Passage configuration and portal pairs
+
+The editor now has nine wall types, including Portal element. Draw two elements
+(or select existing walls) and use the separate Portal configuration popup.
+Assign every side a role; configure initial/post-discovery Entry states and remote
+Exit side indices. Labels wall.side appear beside portal elements. Every Entry
+routes to the other element; shared Exits are supported. Invalid pair graphs
+cannot save or export. Pair edits/removal are atomic Undo/Redo operations; Cancel
+and Escape do not change the draft. Remove pair converts both elements to normal
+walls, preserving coordinates, and allows deleting/retyping/re-pairing afterward.
+
+Secret door Edit dialogs include the authored post-discovery type. Coordinate
+edits preserve all passage metadata. Reversing endpoints swaps the physical side
+locations while preserving side indices. Full rules/colors: ../Passages.md.
+
+Migration 10 is required for passage storage. Looking Glass UVTT extension v2
+carries the optional seventh row field. Ordinary sets still use v1; both versions
+are supported. Portal fallback is opaque line_of_sight, deliberately not a normal
+door in other tools. Third-party teleport compatibility is not claimed. Runtime
+locks/discovery are not exported. All prior request size/stale-save/CSRF safeguards
+remain. See ../Patch/passages.md before upgrading or rolling back.

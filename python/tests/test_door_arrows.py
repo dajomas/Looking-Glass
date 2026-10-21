@@ -78,7 +78,7 @@ def test_no_boundary_no_arrow(engine,tmp_path,ops):
 def test_excluded_doors(engine,tmp_path,kind,blocks,doors_block):
     spec,segs=_setup(tmp_path,door=True,doors_block=doors_block)
     segs=[replace(s,kind=kind,blocks=blocks) if s.kind=="door" else s for s in segs]
-    assert not arrows(engine,spec,segs,[FogOp("reveal",100,100)])
+    assert not arrows(engine,replace(spec,arrow_audience="viewer"),segs,[FogOp("reveal",100,100)])
 
 
 def test_calibrated_downscaled_target(engine,tmp_path):

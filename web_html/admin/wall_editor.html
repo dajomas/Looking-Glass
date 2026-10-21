@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · wall editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=locked-doors-1"><link rel="stylesheet" href="/static/css/wall_editor.css?v=locked-doors-1">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=passages-1"><link rel="stylesheet" href="/static/css/wall_editor.css?v=passages-1">{% endblock %}
 {% block content %}
 <aside class="sidebar">
   <div class="side-block">
@@ -13,11 +13,12 @@
   <fieldset id="wall-tools" disabled>
     <div class="side-block stack">
       <label>Tool <select id="wall-tool"><option value="add">Add wall</option><option value="remove">Remove wall</option><option value="type">Change wall type</option><option value="edit">Edit</option></select></label>
-      <label>Wall type <select id="wall-kind"><option value="wall">Normal wall</option><option value="door">Door</option><option value="locked_door">Locked Door</option><option value="unlocked_door">Unlocked Door</option><option value="secret">Secret door</option><option value="window">Window / terrain</option><option value="invisible">Invisible wall</option><option value="ethereal">Ethereal (non-blocking)</option></select></label>
+      <label>Wall type <select id="wall-kind"><option value="wall">Normal wall</option><option value="door">Door</option><option value="locked_door">Locked Door</option><option value="unlocked_door">Unlocked Door</option><option value="secret">Secret door</option><option value="portal">Portal element (configure pair)</option><option value="window">Window / terrain</option><option value="invisible">Invisible wall</option><option value="ethereal">Ethereal (non-blocking)</option></select></label>
       <label class="range">Wall width (screen px)
         <input id="wall-width" type="range" min="0.5" max="10" step="0.5" value="2">
         <output id="wall-width-value" for="wall-width">2 px</output>
       </label>
+      <button id="portal-configure" type="button">Portal configuration…</button>
       <label class="check"><input id="snap-ends" type="checkbox" checked> Snap to nearby endpoints (10 screen px)</label>
       <p class="small">Add: click start and end; clicks outside the image place points on its edge. Remove, change type or Edit: click near a segment. Edit opens endpoint coordinates and type. Right-click or Ctrl+left-click a wall from any tool to edit it; dragging pans. Browser context menus are disabled in the map and edit dialog. Escape cancels a pending start or closes the edit dialog. Drag to pan; wheel to zoom; F to fit.</p>
       <div class="btn-row"><button id="wall-undo" type="button">Undo</button><button id="wall-redo" type="button">Redo</button></div>
@@ -63,9 +64,12 @@
     <label for="wall-edit-kind">Wall type
       <select id="wall-edit-kind" name="kind" required>
         <option value="wall">Normal wall</option><option value="door">Door</option><option value="locked_door">Locked Door</option><option value="unlocked_door">Unlocked Door</option>
-        <option value="secret">Secret door</option><option value="window">Window / terrain</option>
+        <option value="secret">Secret door</option><option value="portal">Portal element (configure pair)</option><option value="window">Window / terrain</option>
         <option value="invisible">Invisible wall</option><option value="ethereal">Ethereal (non-blocking)</option>
       </select>
+    </label>
+    <label id="secret-after-label" hidden>Secret door becomes
+      <select id="secret-after"><option value="door">Door</option><option value="locked_door">Locked Door</option><option value="unlocked_door">Unlocked Door</option></select>
     </label>
     <p id="wall-edit-clamp-note" class="small muted" role="status" hidden>Out-of-bounds endpoints are shown at the image edge. Apply to draft accepts the correction; Cancel keeps the original wall.</p>
     <p id="wall-edit-error" class="small" role="alert" hidden></p>
@@ -75,8 +79,19 @@
     </div>
   </form>
 </dialog>
+<dialog id="portal-dialog" aria-labelledby="portal-title">
+  <form id="portal-form" class="stack">
+    <h2 id="portal-title">Portal configuration</h2>
+    <p class="small">Choose two elements on this map. Side labels are wall-number.side-number. Each Entry targets an Exit/Both side on the other element. Multiple Entries may share an Exit; every Exit needs an incoming Entry. Remove an existing pair before changing partners.</p>
+    <label>Element A <select id="portal-a"></select></label>
+    <label>Element B <select id="portal-b"></select></label>
+    <div id="portal-sides" class="stack"></div>
+    <p id="portal-error" role="alert"></p>
+    <div class="btn-row"><button type="submit" class="primary">Apply pair to draft</button><button type="button" id="portal-remove">Remove pair</button><button type="button" id="portal-cancel">Cancel</button></div>
+  </form>
+</dialog>
 {% endblock %}
 {% block scripts %}
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
-<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/admin_wall_editor.js?v=locked-doors-1"></script>
+<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/portal_editor.js?v=passages-1"></script><script src="/static/js/admin_wall_editor.js?v=passages-1"></script>
 {% endblock %}

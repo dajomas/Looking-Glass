@@ -4,7 +4,7 @@
   const $ = (id) => document.getElementById(id);
   const id = window.LG_MAP.id, url = `/api/maps/${id}/wall-editor`;
   const vp = $("wall-viewport"), stage = $("wall-stage"), svg = $("wall-overlay"), img = $("wall-image");
-  const kinds = new Set(["wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal"]);
+  const kinds = new Set(["wall", "door", "locked_door", "unlocked_door", "secret", "portal", "window", "invisible", "ethereal"]);
   const editDialog = $("wall-edit-dialog"), editForm = $("wall-edit-form"), editError = $("wall-edit-error");
   const coordinateFields = ["wall-edit-x1", "wall-edit-y1", "wall-edit-x2", "wall-edit-y2"].map($);
   let editing = null;
@@ -50,6 +50,26 @@
       path.style.vectorEffect = "none";
       svg.appendChild(path);
     }
+    walls.forEach((w,index) => {
+      if (w[4] !== "portal") return;
+      const dx=w[2]-w[0],dy=w[3]-w[1],len=Math.hypot(dx,dy)||1;
+      [-1,1].forEach((sign,i) => {
+        const side=w[6]?.sides?.[i];
+        if(side && side.role!=="none") {
+          const path=document.createElementNS(svg.namespaceURI,"path"),offset=2/pz.scale;
+          const kind=["entry","both"].includes(side.role)?side.kind:"door";
+          path.setAttribute("class",`portal-side p-${kind}`);
+          path.setAttribute("d",`M${w[0]-sign*dy/len*offset} ${w[1]+sign*dx/len*offset}L${w[2]-sign*dy/len*offset} ${w[3]+sign*dx/len*offset}`);
+          path.style.strokeWidth=`${baseWidth}px`;svg.appendChild(path);
+        }
+        const text=document.createElementNS(svg.namespaceURI,"text");
+        text.setAttribute("x",(w[0]+w[2])/2-sign*dy/len*22/pz.scale);
+        text.setAttribute("y",(w[1]+w[3])/2+sign*dx/len*22/pz.scale);
+        text.setAttribute("font-size",12/pz.scale);text.setAttribute("fill","white");
+        text.setAttribute("stroke","black");text.setAttribute("stroke-width",.5/pz.scale);
+        text.setAttribute("text-anchor","middle");text.textContent=`${index+1}.${i+1}`;svg.appendChild(text);
+      });
+    });
     if (start) {
       const circle = document.createElementNS(svg.namespaceURI, "circle");
       circle.setAttribute("cx", start.x); circle.setAttribute("cy", start.y);
@@ -60,7 +80,8 @@
   }
   function apply(change, forward) {
     const before = forward ? change.before : change.after, after = forward ? change.after : change.before;
-    walls.splice(change.index, before ? 1 : 0, ...(after ? [after.slice()] : []));
+    if (change.batch) { walls = structuredClone(after); return; }
+    walls.splice(change.index, before ? 1 : 0, ...(after ? [structuredClone(after)] : []));
   }
   function mutate(change) {
     undo.push(change); redo = []; if (undo.length > 1000) undo.shift();
@@ -96,7 +117,7 @@
     return pt;
   }
   function onTap(x, y, event) {
-    if (busy || editDialog.open || !state || !Number.isFinite(x) || !Number.isFinite(y)) return;
+    if (busy || editDialog.open || $("portal-dialog").open || !state || !Number.isFinite(x) || !Number.isFinite(y)) return;
     // Secondary tap or Ctrl-primary tap edits from any tool; PanZoom filters drags.
     if (event?.button === 2 || (event?.button === 0 && event.ctrlKey)) {
       const index = nearest(x, y);
@@ -115,6 +136,7 @@
       if (index < 0) { status("Click within 10 screen pixels of a wall."); return; }
       if (tool === "edit") { openWallEdit(index); return; }
       const before = walls[index].slice();
+      if (before[4] === "portal" && before[6]?.pair) { status("Use Portal configuration to remove the pair before deleting or retyping an element.",true); return; }
       mutate({ index, before, after: tool === "remove" ? null : [...before.slice(0, 4), kind, kind !== "ethereal"] });
     }
     status("Draft changed. Save applies the walls; Download does not.");
@@ -133,6 +155,8 @@
     });
     $("wall-edit-clamp-note").hidden = coords.every((value, i) => value === before[i]);
     $("wall-edit-kind").value = before[4];
+    $("secret-after").value = before[6]?.after || "door";
+    $("secret-after-label").hidden = before[4] !== "secret";
     $("wall-edit-title").textContent = `Edit wall ${index + 1}`;
     editError.textContent = ""; editError.hidden = true;
     editDialog.showModal();
@@ -170,7 +194,12 @@
     }
     // Moving an imported wall must not silently enable a passive segment.
     const blocks = kind === "ethereal" ? false : kind === before[4] ? before[5] : true;
+    if (before[4] === "portal" && before[6]?.pair && kind !== "portal") {
+      editFailure("Remove the portal pair in Portal configuration before changing its type."); return;
+    }
     const after = [...coords, kind, blocks];
+    if (kind === before[4] && before[6]) after.push(structuredClone(before[6]));
+    if (kind === "secret" && ($("secret-after").value !== "door" || before[6])) after[6] = {after: $("secret-after").value};
     if (JSON.stringify(after) === JSON.stringify(before)) {
       editDialog.close(); status("No changes made."); return;
     }
@@ -193,6 +222,7 @@
       event.preventDefault(); first.focus();
     }
   });
+  $("wall-edit-kind").addEventListener("change", () => { $("secret-after-label").hidden = $("wall-edit-kind").value !== "secret"; });
   function body() {
     const ppg = Number($("pixels-per-grid").value);
     if (!Number.isFinite(ppg) || ppg <= 0 || ppg > 1e7) throw new Error("Enter a positive pixels-per-grid value (up to 10000000).");
@@ -228,10 +258,11 @@
   $("wall-zoom-in").onclick = () => pz.zoomCenter(1.25); $("wall-zoom-out").onclick = () => pz.zoomCenter(0.8); $("wall-fit").onclick = () => pz.fit();
   window.addEventListener("beforeunload", (e) => { if (dirty()) { e.preventDefault(); e.returnValue = ""; } });
   window.addEventListener("keydown", (e) => {
-    if (editDialog.open || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if (editDialog.open || $("portal-dialog").open || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
     if (e.key === "Escape") { start = null; render(); }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); $(e.shiftKey ? "wall-redo" : "wall-undo").click(); }
     if (e.key.toLowerCase() === "f") pz.fit();
   });
+  LGPortalEditor({getWalls:()=>walls, getBusy:()=>busy, mutate, render, status, viewport:vp});
   run(async () => { try { await load(); } catch (e) { $("wall-retry").hidden = false; throw e; } });
 })();

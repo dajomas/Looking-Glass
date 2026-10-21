@@ -35,7 +35,9 @@ def test_admin_viewer_render_matrix(engine,tmp_path,admin,viewer,kind):
     assert bool(target)==(admin and kind!='locked_door')
     path=engine.viewer_image(spec,segs,ops)
     rendered=np.array(Image.open(path))
-    if viewer:assert np.all(rendered[arrow]==reference[arrow,:3])
+    if viewer:
+        expected=np.array(engine.door_arrow_overlay(replace(spec,door_arrows_enabled=True,arrow_audience="viewer"),segs,ops))
+        assert np.all(rendered[arrow]==expected[arrow,:3])
     else:assert np.all(rendered[arrow]==[250,0,0])
     assert tuple(rendered[100,300])==(0,0,0)
     assert spec.door_arrows_enabled==admin and spec.viewer_door_arrows_enabled==viewer
@@ -63,7 +65,7 @@ def test_migration_copies_old_shared_values_and_preserves_data(tmp_path):
         c.execute("INSERT INTO door_runtime_states(wall_id,kind) VALUES(1,'unlocked_door')")
         c.execute("INSERT INTO fog_ops(map_id,op,x,y) VALUES(1,'reveal',50,50)")
         before=[dict(r) for r in c.execute('SELECT * FROM maps ORDER BY id')]
-    assert db.migrate()==db.migrate()==9
+    assert db.migrate()==db.migrate()==len(MIGRATIONS)
     with db.connect() as c:
         rows=c.execute('SELECT * FROM maps ORDER BY id').fetchall()
         for old,row in zip(before,rows):

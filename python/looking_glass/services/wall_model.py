@@ -11,6 +11,8 @@ class WallSegment:
     y2: float
     kind: str = "wall"     # wall | door | locked_door | unlocked_door | secret | window | invisible | ethereal
     id: int = field(default=0, compare=False, kw_only=True)
+    passage: dict = field(default_factory=dict, compare=False, kw_only=True)
+    runtime: dict = field(default_factory=dict, compare=False, kw_only=True)
     designed_kind: str = field(default="", compare=False, kw_only=True)
     blocks: bool = True    # whether it separates areas
 

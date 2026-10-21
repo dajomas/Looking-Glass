@@ -57,7 +57,7 @@ menus outside those areas are not disabled. Opening the dialog cancels a pending
 Add-wall start; either shortcut on empty space preserves it. Unmodified primary
 clicks and touch taps retain the selected tool's behavior.
 
-The popup contains Endpoint 1 X/Y, Endpoint 2 X/Y, and all six wall types. Values
+The popup contains Endpoint 1 X/Y, Endpoint 2 X/Y, and all nine wall types. Values
 are map-image coordinates; mouse zoom and endpoint snapping do not rescale or
 snap typed values. Coordinates outside the image are clamped to its edge when
 applying; existing outside endpoints are shown at the edge when opening Edit. **Apply to draft** (or Enter in a coordinate field) makes one
@@ -90,8 +90,13 @@ On the admin fog editor, left-click or tap a visible enabled door arrow to revea
 
 ## Locked and unlocked doors
 
-On the admin fog map, a locked arrow requires a double primary click/tap to unlock and never reveals during that gesture. Its single click, and clicks on the locked wall segment, do nothing. A single unlocked arrow reveals normally; a double click/tap on an unlocked arrow or visible door segment locks without revealing. Managed door singles wait 400 ms to distinguish a double. A state change, another target/action, pan, wheel zoom or blur cancels pending clicks. Right-click on locked targets does nothing; unlocked targets retain inverse fog mode. Direct segment tolerance is 10 screen pixels. Viewer screens remain read-only. Reset restores authored door states; Ctrl+Z only undoes fog actions.
-
+Admin arrow single-click reveals an ordinary/unlocked passage destination.
+Locked/secret singles do nothing. Arrow double-click toggles a locked/unlocked
+passage or discovers a secret using its authored outcome. Segment double-click
+does not change passage state. Portal targets are remote configured Exits; their
+source must be revealed. Exit-only hints are not actionable. Managed singles wait
+400 ms; side IDs distinguish portal Entries. Viewer arrows have no passage
+click/double-click action; existing room-focus navigation remains. See ../Passages.md.
 
 ## Viewer double-click area focus
 

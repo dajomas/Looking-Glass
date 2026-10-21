@@ -167,6 +167,23 @@ MIGRATIONS: list[str] = [
         CHECK (viewer_door_arrows_enabled IN (0, 1));
     UPDATE maps SET viewer_door_arrows_enabled = door_arrows_enabled;
     """,
+    # 10 - authored passages and independent per-entry runtime state
+    """
+    ALTER TABLE walls ADD COLUMN passage TEXT NOT NULL DEFAULT '{}';
+    CREATE TABLE passage_runtime_states (
+        wall_id INTEGER NOT NULL REFERENCES walls(id) ON DELETE CASCADE,
+        side INTEGER NOT NULL CHECK(side IN (-1,0,1)),
+        kind TEXT NOT NULL CHECK(kind IN ('door','locked_door','unlocked_door')),
+        PRIMARY KEY(wall_id,side)
+    );
+    CREATE TRIGGER reset_runtime_passages AFTER INSERT ON fog_ops
+    WHEN NEW.op='hide_all'
+    BEGIN
+        UPDATE maps SET walls_version=walls_version+1 WHERE id=NEW.map_id AND EXISTS (
+            SELECT 1 FROM passage_runtime_states r JOIN walls w ON w.id=r.wall_id WHERE w.map_id=NEW.map_id);
+        DELETE FROM passage_runtime_states WHERE wall_id IN (SELECT id FROM walls WHERE map_id=NEW.map_id);
+    END;
+    """,
 ]
 
 

@@ -30,7 +30,7 @@ from scipy import ndimage
 
 from .wall_model import Calibration, FogOp, WallSegment
 
-DOOR_KINDS = frozenset({"door", "secret", "locked_door", "unlocked_door"})
+DOOR_KINDS = frozenset({"door", "secret", "locked_door", "unlocked_door", "portal"})
 
 
 @dataclass(slots=True)
@@ -48,6 +48,7 @@ class MapSpec:
     door_arrows_enabled: bool = True
     locked_door_arrow_color: str = "#ff9f43"
     viewer_door_arrows_enabled: bool | None = None
+    arrow_audience: str = "admin"
 
     @property
     def viewer_arrows_enabled(self) -> bool:
@@ -59,7 +60,7 @@ class MapSpec:
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
-                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "door-arrows-v5")
+                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "passages-v1", self.arrow_audience)
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
@@ -309,7 +310,7 @@ class FogEngine:
 
     def viewer_image(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> Path:
         """Composite the fogged map with viewer-only arrow visibility; never mutate admin state."""
-        spec = replace(spec, door_arrows_enabled=spec.viewer_arrows_enabled)
+        spec = replace(spec, door_arrows_enabled=spec.viewer_arrows_enabled, arrow_audience="viewer")
         out = self.cache_dir / f"viewer_{spec.id}_{self.cache_identity(spec)}_{spec.walls_version}_{spec.fog_version}.{self.viewer_ext}"
         if out.exists():
             return out

@@ -181,3 +181,17 @@ one-off file-import scene selector is unchanged by this patch.
 ## Locked and unlocked doors
 
 Foundry ordinary doors with `ds: 2` are classified as Locked Door; other ordinary doors retain Door classification, and secret doors remain secret. Manually authored Locked/Unlocked Door types round-trip through the existing Looking Glass UVTT extension, including saved reusable sources. Standard UVTT fallback exports either as a closed portal, without promising that third-party importers preserve the lock distinction. The wall editor exports the authored design rather than runtime session overrides.
+
+## Passage graph round-tripping
+
+Foundry classification is unchanged: normal locked doors import as locked_door,
+secret doors as secret (default after=door). Configure secret outcomes and actual
+teleport pairs in the wall editor. A standard UVTT `portals` record still denotes
+an ordinary door, not a Looking Glass teleport pair.
+
+Looking Glass extension v2 preserves authored pair IDs, side roles, routes and
+Entry initial/post-discovery states. Existing v1 files remain supported. A whole
+pair must occur in one wall set/map; invalid graphs are rejected atomically.
+Runtime discovery/locks are not exported. Standard fallback uses opaque boundaries
+for teleport elements, preserving geometry but not teleport behavior. No third-party
+teleport compatibility is claimed. See ../Passages.md and ../Patch/passages.md.

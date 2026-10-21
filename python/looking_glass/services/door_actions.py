@@ -2,6 +2,7 @@
 import math
 from .door_arrows import arrows, hit_at
 from .door_runtime import decide, set_kind
+from .passages import set_state
 from .map_display import checkpoint_if_active
 from ..repositories import fog_ops as fog_repo, maps as maps_repo
 
@@ -17,7 +18,7 @@ def perform(conn,engine,spec,segs,ops,body,user_id):
     if stamp!=(body.cache_token,body.walls_version,body.fog_version):
         raise ValueError("The map changed; refresh and try the door again.")
     wall=next((s for s in segs if s.id==body.wall_id),None)
-    if wall is None or wall.kind not in ("locked_door","unlocked_door"):
+    if wall is None or (wall.kind not in ("locked_door","unlocked_door","secret","portal") and wall.designed_kind != "secret"):
         raise ValueError("No locked/unlocked door on this map.")
     if body.gesture not in ("single","double") or body.hit not in ("arrow","wall") or body.mode not in ("reveal","hide"):
         raise ValueError("Invalid door action.")
@@ -33,9 +34,24 @@ def perform(conn,engine,spec,segs,ops,body,user_id):
         c,d=spec.calibration.apply(wall.x2,wall.y2)
         if not (math.isfinite(body.tolerance) and 0<body.tolerance<=500) or distance(body.x,body.y,a,b,c,d)>body.tolerance:
             raise ValueError("Click on the door segment.")
-    action=decide(wall.kind,body.gesture,body.hit)
+    kind = item.kind if item else wall.kind
+    if item and getattr(body, "side", -1) != item.side:
+        raise ValueError("Passage side changed; refresh and try again.")
+    if wall.kind in ("secret", "portal") and item is None:
+        return {"door_action":"none"}, False
+    if kind == "secret":
+        if body.gesture != "double" or item is None:
+            return {"door_action":"none"}, False
+        config = wall.passage if item.side == -1 else wall.passage["sides"][item.side]
+        set_state(conn,spec.id,wall,item.side,config.get("after","door"))
+        return {"door_action":"discover"}, True
+    action=decide(kind,body.gesture,body.hit)
     if action in ("lock","unlock"):
-        set_kind(conn,spec.id,wall.id,"locked_door" if action=="lock" else "unlocked_door")
+        kind = "locked_door" if action=="lock" else "unlocked_door"
+        if wall.kind == "portal" or wall.designed_kind == "secret":
+            set_state(conn,spec.id,wall,item.side,kind)
+        else:
+            set_kind(conn,spec.id,wall.id,kind)
         return {"door_action":action},True
     if action=="none":
         return {"door_action":"none"},False
@@ -45,6 +61,8 @@ def perform(conn,engine,spec,segs,ops,body,user_id):
     res=engine.describe_click(engine.area_map(spec,segs),*target)
     if not res.label:
         raise ValueError("No open area behind the door.")
+    if item and res.label in engine.revealed_labels(engine.area_map(spec,segs),ops):
+        return {"door_action":"none"}, False
     fog_repo.add(conn,spec.id,op,*target,user_id)
     maps_repo.bump_fog(conn,spec.id)
     checkpoint_if_active(conn,spec.id)

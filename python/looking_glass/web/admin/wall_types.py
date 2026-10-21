@@ -10,7 +10,7 @@ from . import notify
 
 
 class WallTypesIn(BaseModel):
-    disabled_wall_types: list[Literal["wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal"]]
+    disabled_wall_types: list[Literal["wall", "door", "locked_door", "unlocked_door", "secret", "portal", "window", "invisible", "ethereal"]]
 
 
 def register_wall_types(router, map_payload):

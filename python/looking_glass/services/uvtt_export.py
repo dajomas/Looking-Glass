@@ -7,7 +7,7 @@ from collections.abc import Iterable
 
 from .wall_model import WallSegment
 
-KINDS = ("wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal")
+KINDS = ("wall", "door", "locked_door", "unlocked_door", "secret", "portal", "window", "invisible", "ethereal")
 MAX_SEGMENTS = 100_000
 MAX_COORD = 10_000_000
 
@@ -17,24 +17,25 @@ def validate_segments(rows) -> list[WallSegment]:
         raise ValueError(f"Expected at most {MAX_SEGMENTS} wall segments.")
     out = []
     for i, row in enumerate(rows):
-        if not isinstance(row, (list, tuple)) or len(row) != 6:
+        if not isinstance(row, (list, tuple)) or len(row) not in (6, 7):
             raise ValueError(f"Wall {i + 1}: expected x1, y1, x2, y2, type, blocks.")
         coords = row[:4]
         if any(type(v) not in (int, float) or abs(v) > MAX_COORD or not math.isfinite(v) for v in coords):
             raise ValueError(f"Wall {i + 1}: coordinates must be finite and within +/-{MAX_COORD}.")
         if coords[0] == coords[2] and coords[1] == coords[3]:
             raise ValueError(f"Wall {i + 1}: endpoints must differ.")
-        kind, blocks = row[4:]
+        kind, blocks = row[4:6]
         if kind not in KINDS or type(blocks) is not bool:
             raise ValueError(f"Wall {i + 1}: invalid type or blocking flag.")
         if kind == "ethereal" and blocks:
             raise ValueError(f"Wall {i + 1}: ethereal walls cannot block.")
-        out.append(WallSegment(*map(float, coords), kind, blocks))
-    return out
+        out.append(WallSegment(*map(float, coords), kind, blocks, passage=row[6] if len(row) == 7 else {}))
+    from .passages import validate_passages
+    return validate_passages(out)
 
 
 def rows_for(segments: Iterable[WallSegment]) -> list[list]:
-    return [[s.x1, s.y1, s.x2, s.y2, s.kind, s.blocks] for s in segments]
+    return [[s.x1, s.y1, s.x2, s.y2, s.kind, s.blocks] + ([s.passage] if s.passage else []) for s in segments]
 
 
 def geometry_digest(data: dict) -> str:
@@ -71,8 +72,8 @@ def export_uvtt(segments: Iterable[WallSegment], width: int, height: int, name: 
             # Secret doors must not become visible doors in an unaware importer.
             data["line_of_sight"].append([a, b])
     data["looking_glass"] = {
-        "version": 1, "name": name, "geometry_sha256": geometry_digest(data),
-        "segments": [[s.x1 / ppg, s.y1 / ppg, s.x2 / ppg, s.y2 / ppg, s.kind, s.blocks] for s in segments],
+        "version": 2 if any(s.passage or s.kind == "portal" for s in segments) else 1, "name": name, "geometry_sha256": geometry_digest(data),
+        "segments": [[s.x1 / ppg, s.y1 / ppg, s.x2 / ppg, s.y2 / ppg, s.kind, s.blocks] + ([s.passage] if s.passage else []) for s in segments],
     }
     if image:
         data["image"] = image
@@ -84,7 +85,7 @@ def extension_segments(data: dict, pixels_per_grid: float, origin_x: float, orig
     ext = data.get("looking_glass")
     if ext is None:
         return None
-    if not isinstance(ext, dict) or type(ext.get("version")) is not int or ext.get("version") != 1:
+    if not isinstance(ext, dict) or type(ext.get("version")) is not int or ext.get("version") not in (1, 2):
         raise ValueError("Unsupported Looking Glass UVTT extension version.")
     if ext.get("geometry_sha256") != geometry_digest(data):
         raise ValueError("UVTT geometry changed without updating the Looking Glass extension. "
@@ -96,7 +97,7 @@ def extension_segments(data: dict, pixels_per_grid: float, origin_x: float, orig
     grid = validate_segments(ext.get("segments"))
     return validate_segments([[(s.x1 - origin_x) * pixels_per_grid, (s.y1 - origin_y) * pixels_per_grid,
                                (s.x2 - origin_x) * pixels_per_grid, (s.y2 - origin_y) * pixels_per_grid,
-                               s.kind, s.blocks] for s in grid])
+                               s.kind, s.blocks] + ([s.passage] if s.passage else []) for s in grid])
 
 
 def encode_uvtt(data: dict) -> bytes:

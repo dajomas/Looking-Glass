@@ -65,3 +65,8 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
 #walls-svg .w-locked_door { stroke-dasharray: calc(var(--sw) * 4); }
 #walls-svg .w-unlocked_door { stroke-dasharray: none; }
 .wall-colours [data-kind="locked_door"], .wall-colours [data-kind="unlocked_door"] { color: #ff9f43; }
+
+#walls-svg .w-portal, #walls-svg .portal-side {stroke:#c0c0c0;fill:none;}
+#walls-svg .p-secret {stroke:#ff5252;stroke-dasharray:none;}
+#walls-svg .p-locked_door {stroke:#a66a3f;stroke-dasharray:calc(var(--sw) * 4);}
+#walls-svg .p-unlocked_door {stroke:#a66a3f;stroke-dasharray:none;}

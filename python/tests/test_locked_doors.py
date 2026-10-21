@@ -103,7 +103,7 @@ def test_direct_segment_clicks_and_both_revealed(scene):
         click(c,'double','arrow')
         fog_repo.add(c,1,'reveal_all',None,None,1)
         (result,changed),_=click(c,'double','wall')
-        assert result['door_action']=='lock' and changed and fog_repo.count(c,1)==2
+        assert result['door_action']=='none' and not changed and fog_repo.count(c,1)==2
 
 
 def test_unlocked_segment_honors_hide_mode(scene):

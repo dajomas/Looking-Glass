@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=locked-doors-1">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=passages-1">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -137,6 +137,7 @@
         <tr><td><span style="color:#b07cff">┄┄</span> Secret door</td><td><input type="checkbox" data-wall-show="secret" checked aria-label="Show Secret door"></td><td><input type="checkbox" data-wall-enabled="secret" checked aria-label="Enable Secret door"></td></tr>
         <tr><td><span style="color:#7cffb2">━━</span> Window / terrain</td><td><input type="checkbox" data-wall-show="window" checked aria-label="Show Window / terrain"></td><td><input type="checkbox" data-wall-enabled="window" checked aria-label="Enable Window / terrain"></td></tr>
         <tr><td><span style="color:#ffd36b">┄┄</span> Invisible wall</td><td><input type="checkbox" data-wall-show="invisible" checked aria-label="Show Invisible wall"></td><td><input type="checkbox" data-wall-enabled="invisible" checked aria-label="Enable Invisible wall"></td></tr>
+        <tr><td><span style="color:#c0c0c0">━━</span> Portal</td><td><input type="checkbox" data-wall-show="portal" checked aria-label="Show Portal"></td><td><input type="checkbox" data-wall-enabled="portal" checked aria-label="Enable Portal"></td></tr>
         <tr><td><span style="color:#9aa3b5">┄┄</span> Ethereal</td><td><input type="checkbox" data-wall-show="ethereal" checked aria-label="Show Ethereal"></td><td><input type="checkbox" data-wall-enabled="ethereal" checked aria-label="Enable Ethereal"></td></tr>
       </tbody></table>
       <p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p>
@@ -183,8 +184,8 @@
 <script src="/static/js/keep_select_values.js"></script>
 <script src="/static/js/wall_appearance.js?v=wall-width-2"></script>
 <script src="/static/js/admin_area_taps.js?v=admin-viewer-zoom-1"></script>
-<script src="/static/js/door_gestures.js?v=locked-doors-1"></script>
+<script src="/static/js/door_gestures.js?v=passages-1"></script>
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
-<script src="/static/js/admin_map_editor.js?v=admin-viewer-zoom-1"></script>
+<script src="/static/js/admin_map_editor.js?v=passages-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

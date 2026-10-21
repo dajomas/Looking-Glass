@@ -20,7 +20,7 @@
   const stateKey = (s) => `${s.cache_token}-${s.walls_version}-${s.fog_version}-${Number(s.door_arrows_enabled)}`;
   let maskGeneration = 0, imageKey = "";
   const hiddenTypes = new Set();
-  const typeNames = ["wall", "door", "locked_door", "unlocked_door", "secret", "window", "invisible", "ethereal"];
+  const typeNames = ["wall", "door", "locked_door", "unlocked_door", "secret", "portal", "window", "invisible", "ethereal"];
   const visibilityKey = `lg:hidden-wall-types:${MAP_ID}`;
   try {for (const k of JSON.parse(localStorage.getItem(visibilityKey) || "[]")) hiddenTypes.add(k);} catch (_) {}
   function loadError(message) {
@@ -86,13 +86,26 @@
     for (const [x1, y1, x2, y2, kind, blocks] of rawWalls) {
       if (hiddenTypes.has(kind)) continue;
       let k = kind;
-      if (!blocks || (state?.disabled_wall_types || []).includes(kind) || (["door", "secret", "locked_door", "unlocked_door"].includes(kind) && !c.doors_block)) k = ["locked_door", "unlocked_door"].includes(kind) ? kind + " passive" : "passive";
+      if (!blocks || (state?.disabled_wall_types || []).includes(kind) || (["door", "secret", "locked_door", "unlocked_door", "portal"].includes(kind) && !c.doors_block)) k = ["locked_door", "unlocked_door"].includes(kind) ? kind + " passive" : "passive";
       const a = (x1 - c.offset_x) * c.scale_x, b = (y1 - c.offset_y) * c.scale_y;
       const d = (x2 - c.offset_x) * c.scale_x, e = (y2 - c.offset_y) * c.scale_y;
       (paths[k] ||= []).push(`M${a.toFixed(1)} ${b.toFixed(1)}L${d.toFixed(1)} ${e.toFixed(1)}`);
     }
     svg.innerHTML = Object.entries(paths)
       .map(([k, segs]) => `<path class="w-${k}" d="${segs.join("")}"/>`).join("");
+    for (const p of state?.portal_styles || []) {
+      if (hiddenTypes.has("portal")) continue;
+      const dx=p.x2-p.x1,dy=p.y2-p.y1,len=Math.hypot(dx,dy)||1;
+      p.sides.forEach((side,i)=>{
+        if(side.role==="none")return;
+        const sign=i===0?-1:1,offset=2/pz.scale;
+        const path=document.createElementNS(svg.namespaceURI,"path");
+        const kind=["entry","both"].includes(side.role)?side.kind:"door";
+        path.setAttribute("class",`portal-side p-${kind}`);
+        path.setAttribute("d",`M${p.x1-sign*dy/len*offset} ${p.y1+sign*dx/len*offset}L${p.x2-sign*dy/len*offset} ${p.y2+sign*dx/len*offset}`);
+        svg.appendChild(path);
+      });
+    }
     updateWallWidth();
   }
 
@@ -217,13 +230,13 @@
           applyState(result);
           if (result.door_action === "reveal" || result.door_action === "hide") {
             toast(result.is_active ? (result.door_action === "reveal" ? "Area revealed" : "Area hidden") : "Warning: this map is NOT shown to players. Fog action saved on this map only.", result.is_active ? "info" : "warn");
-          } else if (result.door_action !== "none") toast(result.door_action === "lock" ? "Door locked" : "Door unlocked; fog unchanged");
+          } else if (result.door_action !== "none") toast(result.door_action === "discover" ? "Secret passage discovered; fog unchanged" : result.door_action === "lock" ? "Passage locked" : "Passage unlocked; fog unchanged");
         });
       };
-      doorTapQueue.tap(`${managed.hit}:${managed.wall_id}`, stamp, () => act("single"), () => act("double"));
+      doorTapQueue.tap(`${managed.hit}:${managed.wall_id}:${managed.side ?? -1}`, stamp, () => act("single"), () => act("double"));
       return;
     }
-    if (managed?.kind === "locked_door") return;
+    if (managed && (managed.side >= 0 || ["locked_door","secret"].includes(managed.kind))) return;
     doorTapQueue.cancel();
     const arrow = event?.button !== 2 ? alphaPoint : null;
     const selectedMode = mode();

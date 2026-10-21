@@ -59,3 +59,14 @@ Double-click a revealed area in the admin fog editor to toggle room focus/all-re
 ## Automatic overview after new reveals
 
 A newly visible area clears viewer room focus and returns to the all-revealed overview, whether focus was chosen in admin or viewer. No extra toggle is needed. This checks actual revealed-area membership, so color, arrow visibility and lock changes alone do not reset focus. Double-click can focus again after the reset; Fit/F and all admin door gestures retain their behavior.
+
+## Passage controls
+
+Portal configuration lives in the wall editor, separate from coordinate Edit.
+The fog-editor legend includes Portal Show/Enabled controls. Portal type strokes
+are silver, brown for locked/unlocked Entries, red for undiscovered secret Entries;
+secret door strokes remain purple dashed. Only arrow double-click changes runtime
+locks/discovery. Hiding admin arrows disables those actions; segment double-click
+is not a substitute. Viewers remain read-only and see no Exit-only or undiscovered
+secret hints. See ../Passages.md for current behavior and ../Patch/passages.md for
+upgrade instructions; this supersedes earlier segment-double-click descriptions.

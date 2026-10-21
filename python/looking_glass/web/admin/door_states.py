@@ -11,6 +11,7 @@ class DoorActionIn(BaseModel):
     x: float = Field(ge=-1e7,le=1e7,allow_inf_nan=False)
     y: float = Field(ge=-1e7,le=1e7,allow_inf_nan=False)
     wall_id: int = Field(gt=0)
+    side: int = Field(default=-1,ge=-1,le=1)
     gesture: Literal["single","double"]
     hit: Literal["arrow","wall"]
     mode: Literal["reveal","hide"] = "reveal"

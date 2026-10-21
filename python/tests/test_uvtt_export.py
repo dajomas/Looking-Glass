@@ -4,7 +4,7 @@ from looking_glass.services.uvtt_export import KINDS, encode_uvtt, export_uvtt, 
 from looking_glass.services.wall_model import WallSegment
 
 
-@pytest.mark.parametrize("kind", KINDS)
+@pytest.mark.parametrize("kind", [k for k in KINDS if k != "portal"])
 def test_type_roundtrip(kind):
     seg = WallSegment(12.3456789, -5.75, 300.123, 45.25, kind, kind != "ethereal")
     ws = parse_wall_file(encode_uvtt(export_uvtt([seg], 400, 200, "A room", 137)), "walls.uvtt")[0]
@@ -21,7 +21,7 @@ def test_empty_roundtrip():
 
 
 def test_standard_fallback():
-    data = export_uvtt([WallSegment(0, i * 10, 100, i * 10, k, k != "ethereal") for i, k in enumerate(KINDS)], 400, 200, "Types")
+    data = export_uvtt([WallSegment(0, i * 10, 100, i * 10, k, k != "ethereal") for i, k in enumerate(k for k in KINDS if k != "portal")], 400, 200, "Types")
     assert len(data["line_of_sight"]) == 3
     assert len(data["portals"]) == 3
     assert len(data["objects_line_of_sight"]) == 1
