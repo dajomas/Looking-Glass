@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · wall editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=portal-compass-3"><link rel="stylesheet" href="/static/css/wall_editor.css?v=portal-compass-3">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=portal-tools-4"><link rel="stylesheet" href="/static/css/wall_editor.css?v=portal-tools-4">{% endblock %}
 {% block content %}
 <aside class="sidebar">
   <div class="side-block">
@@ -18,7 +18,7 @@
         <input id="wall-width" type="range" min="0.5" max="10" step="0.5" value="2">
         <output id="wall-width-value" for="wall-width">2 px</output>
       </label>
-      <button id="portal-configure" type="button">Portal configuration…</button>
+      <div class="btn-row"><button id="portal-configure" type="button">Portal configuration…</button><button id="portal-overview" type="button">Portal overview</button></div>
       <label class="check"><input id="snap-ends" type="checkbox" checked> Snap to nearby endpoints (10 screen px)</label>
       <p class="small">Add: click start and end; clicks outside the image place points on its edge. Remove, change type or Edit: click near a segment. Edit opens endpoint coordinates and type. Right-click or Ctrl+left-click a wall from any tool to edit it; dragging pans. Browser context menus are disabled in the map and edit dialog. Escape cancels a pending start or closes the edit dialog. Drag to pan; wheel to zoom; F to fit.</p>
       <div class="btn-row"><button id="wall-undo" type="button">Undo</button><button id="wall-redo" type="button">Redo</button></div>
@@ -81,7 +81,11 @@
 </dialog>
 <dialog id="portal-dialog" aria-labelledby="portal-title">
   <form id="portal-form" class="stack">
-    <h2 id="portal-title">Portal configuration</h2>
+    <div id="portal-dialog-move" class="portal-dialog-handle" tabindex="0" role="group" aria-label="Move portal editor; drag or use arrow keys">
+      <h2 id="portal-title">Portal configuration</h2><button type="button" id="portal-dialog-center">Center</button>
+    </div>
+    <p class="small muted">Drag the title bar to see the map. Arrow keys move a focused title bar; Shift moves farther.</p>
+    <button type="button" id="portal-popup-overview">Overview of pending portals</button>
     <p class="small">Select one portal section and edit its two sides. New sides start Unconfigured; configuring one defaults an untouched opposite side to None. Entry/Both sides select their paired Exit portal and side. Compass side names use map-up as North (including diagonal headings). Exit, Unconfigured and None sides can be selected as destinations; Unconfigured/None become Exit in this popup. Both remains usable without losing its Entry role. Apply commits these changes to the draft. Multiple Entries may share an Exit. Each pair still contains two sections only.</p>
     <label>Portal section <select id="portal-section"></select></label>
     <div id="portal-sides" class="stack"></div>
@@ -89,8 +93,19 @@
     <div class="btn-row"><button type="submit" class="primary">Apply configuration to draft</button><button type="button" id="portal-remove">Reset section / unpair</button><button type="button" id="portal-cancel">Cancel</button></div>
   </form>
 </dialog>
+<dialog id="portal-overview-dialog" aria-labelledby="portal-overview-title">
+  <div id="portal-overview-move" class="portal-dialog-handle" tabindex="0" role="group" aria-label="Move portal overview; drag or use arrow keys">
+    <h2 id="portal-overview-title">Portal overview</h2><button type="button" id="portal-overview-center">Center</button>
+  </div>
+  <p id="portal-overview-caption"></p>
+  <div class="portal-grid-scroll"><table class="portal-overview-grid"><caption class="sr-only">Portal sections, compass sides, roles, authored states and counterpart connections</caption>
+    <thead><tr><th scope="col">Section</th><th scope="col">Side</th><th scope="col">Role</th><th scope="col">Initial state</th><th scope="col">After discovery</th><th scope="col">Paired Exit</th><th scope="col">Incoming Entries</th></tr></thead>
+    <tbody id="portal-overview-body"></tbody>
+  </table></div>
+  <button type="button" id="portal-overview-close">Close overview</button>
+</dialog>
 {% endblock %}
 {% block scripts %}
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
-<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/portal_editor.js?v=portal-compass-3"></script><script src="/static/js/admin_wall_editor.js?v=portal-compass-3"></script>
+<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/floating_dialog.js?v=portal-tools-4"></script><script src="/static/js/portal_overview.js?v=portal-tools-4"></script><script src="/static/js/portal_editor.js?v=portal-tools-4"></script><script src="/static/js/admin_wall_editor.js?v=portal-tools-4"></script>
 {% endblock %}

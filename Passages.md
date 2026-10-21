@@ -1,7 +1,7 @@
 # Passages
 
 Current contract including the compass/Exit-target update based on development
-commit 90a0ef95866ff420407355f1d0527e0f7a803376. Runtime behavior is unchanged;
+commit c745166b56319901be8b609d120a9ee3b4cf9817. Runtime behavior is unchanged;
 this follow-up and the compass-side update change authoring only. Viewer arrows remain display-only. No
 cross-map portals, token movement or viewer passage mutation endpoints are added.
 
@@ -114,3 +114,31 @@ See docs/wall-editor.md for editing, docs/api.md and docs/architecture.md for th
 unchanged saved schema, Patch/passages.md for the original passage migration and
 Patch/portal-section-editor.md for the single-section editor and
 Patch/portal-compass-exits.md for compass labels and selectable None targets.
+
+## Movable editor, overview and admin route cycle
+
+The Portal configuration title bar is draggable by mouse/touch and keyboard
+arrows. Center restores its position; resizing keeps its title bar reachable.
+The native modal remains modal, with a lighter backdrop so underlying artwork is
+visible. Moving the popup does not edit walls, reset fields, reveal or save.
+
+Portal overview is available from the wall toolbar and inside the popup. It shows
+one row per side with section/compass, role, initial state, secret post-discovery
+state, outgoing paired Exit and incoming Entries (including shared Exits). It is
+a read-only snapshot: the toolbar uses the current wall-editor draft; the popup
+uses pending buffered edits. These are authored states, not live session overrides.
+
+The admin fog page cycles live visible Entry→Exit routes, highlighting both arrow
+polygons for 5 seconds before moving to the next route. A 1–15 s slider controls
+per-route dwell, not the fixed one-second pulse period. At least two routes and
+both endpoint arrow polygons must be in view. Only existing enabled admin arrow
+geometry is eligible; a shared Exit is highlighted once for each incoming route,
+and Both roles reuse their displayed double-headed polygon. Gold highlights pulse
+over the normal arrows; normal arrows remain visible/clickable. Ordinary door
+arrows are not included. Viewer rendering and hit-target validation are unchanged.
+
+Pause is local to the browser/map, as is dwell preference. Cycling stops while
+busy/loading, offscreen, with fewer than two visible routes, when arrows are
+hidden or when the tab is hidden. New geometry cancels old highlights until the
+current mask loads. Reduced-motion users see steady highlighting without pulsing,
+while the route selection still advances at the chosen dwell. See Patch/portal-tools.md.

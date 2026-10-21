@@ -106,3 +106,17 @@ Viewer only: double primary click a revealed room/area to fit and center it; dou
 ## Admin area double-click -> viewer camera
 
 Admin ordinary area single primary click/tap: selected reveal/hide action after 400 ms. Two nearby clicks/taps within that time: cancel that single and toggle room focus/overview in connected viewers instead; no admin camera movement or fog change. Hidden areas are ignored for double-click zoom. Right-click inverse fog mode is still immediate. Door/arrow gestures keep their existing priority and meaning. Pan, Space-drag, pinch/multitouch, wheel/zoom, cancellations, mode/state changes and blur cancel pending area singles. Viewer-local double-click behavior remains unchanged.
+
+## Movable portal dialogs
+
+In the wall editor, drag the Portal configuration or overview title bar to move it
+without changing fields. Touch/pen use the same title-bar pointer gesture. Focus
+the title bar and use arrow keys for 10-pixel moves; Shift+arrow moves 50 pixels.
+Center restores a centered position. Dragging form controls does not move the dialog,
+and pointer capture is released on completion/cancellation. Resize keeps the title
+bar on screen. These are still modal dialogs, with a lighter map-visible backdrop.
+
+Opening the overview is read-only. Escape closes the overview first if it is above
+the configuration dialog, retaining its pending edits. Global wall-editor shortcuts
+do not act through the overview. Admin route highlights do not intercept clicks;
+all previous arrow single/double-click and pan/zoom actions retain their behavior.

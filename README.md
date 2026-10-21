@@ -176,3 +176,18 @@ every pair still contains exactly two sections. Cancel discards popup edits;
 Apply is one undoable draft transaction. Complete all sections before Save/export.
 See Passages.md and Patch/portal-compass-exits.md.
 
+## Portal editor overview and pair highlighting
+
+The wall editor's portal popup is movable: drag its title bar, use arrow keys on
+the focused title bar (Shift moves farther), or choose Center. A lighter modal
+backdrop keeps the map visible without allowing accidental background edits.
+Portal overview opens a read-only grid of compass sides, roles, counterpart
+connections, authored initial states and secret outcomes. Inside the popup it
+includes pending edits; it never applies or saves them.
+
+On the admin fog page, enabled visible Entry→Exit routes are highlighted in turn,
+5 seconds per route by default. The 1–15 second slider changes dwell time; uncheck
+Cycle visible Entry/Exit pairs to pause. Both arrows must be in the viewport and
+at least two routes must qualify. Preferences are local to this browser/map. The
+gold pulse is admin-only; arrow clicking, viewer images and fog state do not change.
+See Patch/portal-tools.md for installation and verification limits.

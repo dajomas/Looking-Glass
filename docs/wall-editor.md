@@ -242,3 +242,25 @@ Runtime passage behavior, permissions, viewer secrecy and migration 10 are
 unchanged. See ../Passages.md and ../Patch/portal-compass-exits.md for details.
 Looking Glass UVTT v2 stores only complete authored graphs, never temporary
 Unconfigured draft state or runtime discovery/lock overrides.
+
+## Moving the portal editor and reading the overview
+
+Drag the Portal configuration title bar to expose underlying map artwork. Keyboard
+users can focus the title bar and move it with arrow keys (10 px; Shift+arrow 50 px).
+Center re-centers it. Positions are remembered only while this page remains open;
+resize clamps the popup back into the viewport. The modal remains native/modal,
+with a lighter backdrop: moving it does not enable accidental map edits underneath.
+
+Portal overview on the toolbar shows the current authored wall draft. Overview of
+pending portals inside the popup includes its un-applied local changes. The grid
+contains section, compass side, role, initial state, secret discovery outcome,
+paired Exit and incoming Entries. All sides are listed, including None and
+Unconfigured. Shared Exits list every incoming Entry. It is read-only and does not
+send HTTP requests, validate/apply, reveal or save. State labels are authored initial
+states, not runtime lock/discovery status. Close/Escape returns to the previous
+dialog without discarding pending configuration. The overview can also be moved.
+
+The overview is a snapshot when opened; close/reopen it after subsequent edits.
+Its table scrolls horizontally on small screens, and dialog height is bounded by
+the viewport. Existing Cancel/Apply, stale-draft checks and Undo/Redo remain intact.
+See ../Patch/portal-tools.md for deployment, testing and rollback.

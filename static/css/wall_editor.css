@@ -37,3 +37,14 @@
 #portal-sides {display:grid;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr));}
 #portal-dialog label {display:block;}
 #portal-error {color:#ff9696;}
+
+#portal-dialog, #portal-overview-dialog {max-width:calc(100vw - 8px);max-height:calc(100dvh - 8px);box-sizing:border-box;}
+#portal-dialog::backdrop, #portal-overview-dialog::backdrop {background:rgb(0 0 0 / .12);}
+#portal-overview-dialog {width:min(64rem,calc(100vw - 8px));overflow:auto;color:var(--text);background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;}
+.portal-dialog-handle {display:flex;align-items:center;justify-content:space-between;gap:1rem;cursor:move;touch-action:none;user-select:none;position:sticky;top:0;background:var(--surface);z-index:1;padding:.35rem 0;}
+.portal-dialog-handle h2 {margin:0;}
+.portal-dialog-handle:focus-visible {outline:2px solid var(--accent);outline-offset:2px;}
+.portal-dialog-handle button {cursor:pointer;}
+.portal-grid-scroll {overflow-x:auto;max-width:100%;}
+.portal-overview-grid {border-collapse:collapse;width:100%;font-size:.9rem;}
+.portal-overview-grid th, .portal-overview-grid td {text-align:left;vertical-align:top;border:1px solid var(--border);padding:.5rem;}

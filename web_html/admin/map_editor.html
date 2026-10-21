@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=passages-1">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=portal-tools-4">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -57,7 +57,15 @@
     <label>Door arrow color (shared with players)
       <input id="door-arrow-color" type="color" value="#46c0ff">
     </label>
-    <p class="muted small">Click a door arrow to reveal. Locked arrows: double-click to unlock only. Unlocked doors/arrows: double-click to lock. Reset restores designed door states. Ctrl+Z undoes fog reveals.</p>
+    <p class="muted small">Click a door arrow to reveal. Locked arrows: double-click to unlock only. Unlocked arrows: double-click to lock. Reset restores designed door states. Ctrl+Z undoes fog reveals.</p>
+    <fieldset class="portal-cycle-controls"><legend>Portal pair highlighting (admin only)</legend>
+      <label class="check"><input id="portal-cycle-enabled" type="checkbox" checked> Cycle visible Entry/Exit pairs</label>
+      <label class="range" for="portal-cycle-seconds">Seconds per blinking pair
+        <input id="portal-cycle-seconds" type="range" min="1" max="15" step="1" value="5">
+        <output id="portal-cycle-value" for="portal-cycle-seconds">5 s per pair</output>
+      </label>
+      <p id="portal-cycle-status" class="small" role="status">Waiting for current arrow image</p>
+    </fieldset>
     <label class="check"><input id="show-preview" type="checkbox"> Player preview (opaque fog)</label>
     <p class="small"><span id="op-count">{{ op_count }}</span> fog actions recorded</p>
       </div>
@@ -165,6 +173,7 @@
     <canvas id="fog-canvas"></canvas>
     <img id="door-arrows" alt="" draggable="false">
     <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg id="portal-cycle-overlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <div class="zoom-ctl">
@@ -186,6 +195,7 @@
 <script src="/static/js/admin_area_taps.js?v=admin-viewer-zoom-1"></script>
 <script src="/static/js/door_gestures.js?v=passages-1"></script>
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
-<script src="/static/js/admin_map_editor.js?v=passages-1"></script>
+<script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
+<script src="/static/js/admin_map_editor.js?v=portal-tools-4"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

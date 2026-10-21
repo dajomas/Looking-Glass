@@ -50,11 +50,13 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
     from ...services.door_arrows import arrows as make_arrows
     arrow_objects = make_arrows(ctx.fog, spec, boundary, ops)
     from ...services.passages import entry_kind
+    from ...services.portal_presentation import visible_routes
     portal_styles = [{"x1":(s.x1-ox)*sx,"y1":(s.y1-oy)*sy,"x2":(s.x2-ox)*sx,"y2":(s.y2-oy)*sy,
                       "sides":[{"role":v["role"],"kind":entry_kind(s,i)} for i,v in enumerate(s.passage["sides"])]}
                      for s in segs if s.kind == "portal"]
     return {
         "portal_styles": portal_styles,
+        "portal_routes": visible_routes(spec, segs, arrow_objects),
         "ok": True,
         "id": m["id"], "cache_token": m["cache_token"], "name": m["name"], "campaign_id": m["campaign_id"],
         "width": m["width"], "height": m["height"],

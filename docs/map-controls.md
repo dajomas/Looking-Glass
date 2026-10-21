@@ -70,3 +70,19 @@ locks/discovery. Hiding admin arrows disables those actions; segment double-clic
 is not a substitute. Viewers remain read-only and see no Exit-only or undiscovered
 secret hints. See ../Passages.md for current behavior and ../Patch/passages.md for
 upgrade instructions; this supersedes earlier segment-double-click descriptions.
+
+## Admin portal pair highlighting
+
+Cycle visible Entry/Exit pairs enables admin-only gold highlights over the two
+arrows of each qualifying directed route. The slider sets 1–15 seconds per route
+(default 5); it does not change pulse speed. Both endpoint polygons must intersect
+the viewport and at least two routes must qualify. Pan/zoom updates the set. Each
+incoming Entry gets a turn even when several share an Exit; Both uses its displayed
+arrow polygon. The status line names the current sections and compass sides.
+
+Uncheck to pause. Dwell/enabled settings are browser-local per map, not server
+settings. Loading/mutations, hidden tabs, disabled arrows or an insufficient visible
+route set clear the highlight and cancel its timer. Exact raster arrow alpha clips
+the presentation overlay; it has pointer-events:none. Normal arrows remain present
+and clickable throughout, and the viewer image is never animated. Reduced motion
+replaces pulses with a steady highlight. See ../Patch/portal-tools.md.

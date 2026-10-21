@@ -70,3 +70,10 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
 #walls-svg .p-secret {stroke:#ff5252;stroke-dasharray:none;}
 #walls-svg .p-locked_door {stroke:#a66a3f;stroke-dasharray:calc(var(--sw) * 4);}
 #walls-svg .p-unlocked_door {stroke:#a66a3f;stroke-dasharray:none;}
+
+.portal-cycle-controls {border:1px solid var(--border);padding:.65rem;min-width:0;}
+#portal-cycle-overlay {pointer-events:none;z-index:4;mask-size:100% 100%;mask-repeat:no-repeat;-webkit-mask-size:100% 100%;-webkit-mask-repeat:no-repeat;}
+.portal-route-flash {fill:#ffe36e;stroke:#fff;stroke-width:2;vector-effect:non-scaling-stroke;animation:portal-route-flash 1s ease-in-out infinite;}
+.portal-route-steady {animation:none;opacity:.85;}
+@keyframes portal-route-flash {0%,100%{opacity:.12}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce) {.portal-route-flash{animation:none;opacity:.85;}}

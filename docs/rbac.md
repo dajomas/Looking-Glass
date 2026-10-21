@@ -44,3 +44,12 @@ Passage following, discovery and lock changes use the existing campaign-manageme
 permission and admin CSRF session. Viewer arrows are display-only; no viewer write
 route or hidden portal graph is exposed. Existing authorized read-only viewer
 room zoom remains unchanged. See ../Passages.md.
+
+## Portal overview and route highlighting
+
+The wall-editor overview reads the current authorized authored draft only. New
+portal_routes metadata is part of the existing manage-authorized admin map payload
+and is never added to viewer state or the viewer compositor. Client-side highlighting
+never calls a reveal, lock/discovery or save endpoint. Existing manager/CSRF checks
+remain unchanged. Moving a modal or opening an overview does not mutate campaign
+state. No new viewer permission or interactive viewer arrow action is introduced.

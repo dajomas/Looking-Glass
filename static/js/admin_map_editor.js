@@ -14,6 +14,7 @@
   let maskImg = null;
   let maskKey = "";
   let busy = false;
+  let portalCycle = null;
   const arrowHit = new LGDoorArrowHit();
   const doorTapQueue = new LGDoorTapQueue();
   const areaTaps = new LGAdminAreaTaps();
@@ -31,6 +32,7 @@
   let wallWidth = 2;
   function updateWallWidth() {
     areaTaps.cancel();
+    portalCycle?.refresh();
     const base = wallWidth / pz.scale;
     svg.style.setProperty("--sw", String(base));
     // Apply to existing paths too: changing a preference must not wait for a wall edit.
@@ -41,6 +43,8 @@
   }
   const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: updateWallWidth });
   LGWallAppearance(MAP_ID, (width) => { wallWidth = width; updateWallWidth(); });
+  portalCycle = LGPortalCycle.mount({svg:$("portal-cycle-overlay"),slider:$("portal-cycle-seconds"),output:$("portal-cycle-value"),toggle:$("portal-cycle-enabled"),status:$("portal-cycle-status"),mapId:MAP_ID,
+    view:()=>{if(!state)return null;const r=vp.getBoundingClientRect();return {x:pz.x,y:pz.y,scale:pz.scale,workScale:state.work_scale,width:r.width,height:r.height};}});
 
   // ------------------------------------------------------------------ UI helpers
   let toastTimer = null;
@@ -50,7 +54,7 @@
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => (toastEl.className = "toast"), ms);
   }
-  function setBusy(on) { busy = on; if (on) {doorTapQueue.cancel(); areaTaps.cancel();} busyEl.hidden = !on; if (state) syncDoorArrowControls(); }
+  function setBusy(on) { busy = on; portalCycle?.setBusy(on); if (on) {doorTapQueue.cancel(); areaTaps.cancel();} busyEl.hidden = !on; if (state) syncDoorArrowControls(); }
   const mode = () => document.querySelector('input[name="mode"]:checked').value;
 
   async function run(fn) {
@@ -127,7 +131,7 @@
 
   async function loadMask() {
     const key = stateKey(state);
-    if (key === maskKey) return;
+    if (key === maskKey) {portalCycle?.setState(state,true);return;}
     const generation = ++maskGeneration;
     const im = new Image();
     im.src = `/api/maps/${MAP_ID}/fog.png?v=${key}`;
@@ -138,6 +142,8 @@
     arrowHit.set(arrows, key);
     maskImg = im; maskKey = key;
     $("door-arrows").src = arrows.src;
+    portalCycle?.setMask(arrows.src);
+    portalCycle?.setState(state,true);
     drawFog();
   }
 
@@ -145,6 +151,7 @@
     const first = state === null;
     doorTapQueue.cancel(); areaTaps.cancel();
     state = s;
+    portalCycle?.setState(s,false);
     syncDoorArrowControls();
     $("door-arrows").hidden = !s.door_arrows_enabled;
     const nextImageKey = s.image_version || `${s.cache_token}-${s.width}-${s.height}`;

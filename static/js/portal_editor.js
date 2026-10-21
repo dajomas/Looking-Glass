@@ -110,6 +110,10 @@
   host.LGPortalEditor=function({getWalls,getBusy,mutate,status,viewport}) {
     const $=id=>document.getElementById(id),dialog=$("portal-dialog"),select=$("portal-section");
     let local=null,links=null,original=null;
+    const floating=host.LGFloatingDialog(dialog,$("portal-dialog-move"),$("portal-dialog-center"));
+    const overview=host.LGPortalOverview.mount({dialog:$("portal-overview-dialog"),body:$("portal-overview-body"),caption:$("portal-overview-caption"),close:$("portal-overview-close")});
+    $("portal-overview").onclick=()=>{if(!getBusy())overview.open(getWalls());};
+    $("portal-popup-overview").onclick=()=>{if(local)overview.open(local,links,true);};
     const uuid=()=>Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,"0")).join("");
     const current=()=>Number(select.value);
     function addOptions(input,items,value,placeholder) {
@@ -160,7 +164,7 @@
       original=clone(getWalls());local=clone(original);
       const all=portals(local);if(!all.length){status("Add a Portal element before opening Portal configuration.",true);return;}
       all.forEach(({w})=>w[6]={...config(w),sides:sides(w)});links=linksFor(local);
-      addOptions(select,all.map(v=>[v.i,`Portal section ${v.i+1}`]),all[0].i);$("portal-error").textContent="";panel();dialog.showModal();select.focus();
+      addOptions(select,all.map(v=>[v.i,`Portal section ${v.i+1}`]),all[0].i);$("portal-error").textContent="";panel();floating.open();select.focus();
     };
     select.onchange=panel;
     $("portal-form").onsubmit=event=>{

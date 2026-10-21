@@ -248,3 +248,21 @@ them. Save/Download rejects incomplete graphs. Reset/unpair keeps both sections 
 Unconfigured Portal elements. Stored numeric indices and runtime behavior are
 unchanged. See ../Passages.md and ../Patch/portal-compass-exits.md.
 
+## Portal overview and matching visible arrows
+
+Use Portal overview in the wall editor to inspect every side's authored role,
+initial state, discovery outcome and counterpart connections. Use the overview
+inside Portal configuration to include pending local edits without applying them.
+Drag either dialog by its title bar or focus the title bar and use arrow keys;
+Center repositions it. These remain modal dialogs, so the map is visible behind
+them but background edits remain blocked.
+
+The admin fog page highlights one visible Entry/Exit route at a time. Default is
+5 seconds per route, adjustable from 1–15 seconds. The pulse cadence itself stays
+one second. Disable Cycle visible Entry/Exit pairs to pause. Preferences are saved
+only in this browser for this map. Two or more routes must qualify, and both arrow
+polygons must intersect the current viewport; pan/zoom to bring a pair into view.
+Shared Exits and Both roles are matched by exact side, not just by portal wall ID.
+The status line identifies the current sections, compass sides and effective
+Entry state. Viewer images, arrow hit targets and fog operations are unaffected.
+Reduced-motion preferences remove the pulse while retaining route rotation.
