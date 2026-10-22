@@ -68,8 +68,9 @@ are silver, brown for locked/unlocked Entries, red for undiscovered secret Entri
 secret door strokes remain purple dashed. Only arrow double-click changes runtime
 locks/discovery. Hiding admin arrows disables those actions; segment double-click
 is not a substitute. Viewers remain read-only and see no Exit-only or undiscovered
-secret hints. See Passages.md for current behavior and ../Patch/passages.md for
-upgrade instructions; this supersedes earlier segment-double-click descriptions.
+secret hints. See [passages](Passages.md) for current behavior and
+[deployment](deployment.md) for upgrade instructions; this supersedes earlier
+segment-double-click descriptions.
 
 ## Admin portal pair highlighting
 
@@ -88,8 +89,8 @@ route set clear the highlight and cancel its timer. Exact raster arrow alpha cli
 the presentation overlay; it has pointer-events:none. Normal arrows remain present
 and clickable throughout, and the viewer image is never animated. Reduced motion
 uses a steady full-opacity yellow/black-outline highlight. Route selection still
-advances at the chosen dwell. See ../Patch/portal-tools.md for route selection and
-../Patch/portal-visibility.md for these visual changes.
+advances at the chosen dwell. See [passages](Passages.md) for route selection and
+[wall editing](wall-editor.md) for label and highlight presentation.
 
 
 ## Viewer portal and discovered-secret arrow exceptions

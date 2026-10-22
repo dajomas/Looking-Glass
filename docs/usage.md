@@ -91,7 +91,8 @@ Stop the service and back up the data directory before installing. Restart to
 apply migration 4, then hard-reload DM and viewer tabs. Migration 4 adds a separate
 per-map wall-type settings table; it leaves migration 3, cache tokens, snapshots,
 source uploads and any legacy disabled_wall_types column intact. See
-map-controls.md and the Patch notes for compatibility and test limitations.
+[map controls](map-controls.md), [deployment](deployment.md) and [testing](testing.md)
+for compatibility and validation guidance.
 
 ## Separate wall editor and UVTT saving
 
@@ -128,7 +129,7 @@ exact preview after saving. Download limits follow storage.max_upload_mb.
 The UVTT core has fallback geometry; exact Looking Glass types and nonblocking
 segments use a versioned extension. Other VTTs may interpret extended types
 differently. See [wall editor details](wall-editor.md) and
-[patch notes](../Patch/wall-editor-uvtt.md). This patch adds no migration.
+[deployment](deployment.md). The original dedicated wall editor adds no migration.
 
 ## Sidebar panels and wall appearance
 
@@ -246,7 +247,7 @@ A pair still contains exactly two sections, each allowing at most one None side.
 Apply commits popup edits to the draft in one Undo/Redo step; Cancel/Escape discards
 them. Save/Download rejects incomplete graphs. Reset/unpair keeps both sections as
 Unconfigured Portal elements. Stored numeric indices and runtime behavior are
-unchanged. See Passages.md and ../Patch/portal-compass-exits.md.
+unchanged. See [passages](Passages.md) and [wall editing](wall-editor.md).
 
 ## Portal overview and matching visible arrows
 
@@ -269,7 +270,7 @@ Highlights alternate bright yellow with a black outline and deep blue with a whi
 outline at full opacity; neither phase fades away. Reduced-motion preferences use
 a steady bright-yellow highlight while retaining route rotation. Wall-editor
 portal labels now have semi-transparent dark backing badges. See
-../Patch/portal-visibility.md for the visibility follow-up.
+[wall editing](wall-editor.md) for presentation details.
 
 
 ## Viewer portal and discovered-secret arrow exceptions

@@ -23,4 +23,5 @@ If you accidentally close after making newer edits, changes made after the last
 Apply are discarded. Already applied changes are still present in the draft.
 The separate wall-coordinate Edit dialog is not affected by this change.
 
-See ../Patch/portal-apply-open.md for the base, installation and verification scope.
+See [deployment](deployment.md) for upgrade and rollback guidance, and
+[testing](testing.md) for validation in the installed environment.

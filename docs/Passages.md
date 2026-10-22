@@ -110,10 +110,9 @@ expand existing reveals: blank viewers before editing, save, inspect the exact
 viewer preview and reset fog if needed. Show controls affect wall overlays, not
 passage-arrow visibility. Permission/CSRF/stale-save/runtime behavior is unchanged.
 
-See docs/wall-editor.md for editing, docs/api.md and docs/architecture.md for the
-unchanged saved schema, Patch/passages.md for the original passage migration and
-Patch/portal-section-editor.md for the single-section editor and
-Patch/portal-compass-exits.md for compass labels and selectable None targets.
+See [wall editing](wall-editor.md) for the single-section editor, compass labels
+and selectable None targets; [API](api.md) and [architecture](architecture.md) for
+storage details; and [deployment](deployment.md) for passage migration guidance.
 
 ## Movable editor, overview and admin route cycle
 
@@ -142,7 +141,7 @@ Pause is local to the browser/map, as is dwell preference. Cycling stops while
 busy/loading, offscreen, with fewer than two visible routes, when arrows are
 hidden or when the tab is hidden. New geometry cancels old highlights until the
 current mask loads. Reduced-motion users see steady bright-yellow highlighting,
-while the route selection still advances at the chosen dwell. See Patch/portal-tools.md.
+while the route selection still advances at the chosen dwell. See [map controls](map-controls.md).
 
 ## Readable portal labels and route highlights
 
@@ -158,7 +157,7 @@ fill. Outlines are 4 screen pixels with a light/dark halo. Route dwell (1–15 s
 and selection rules remain unchanged. Reduced-motion uses a steady yellow phase;
 its route dwell still advances. This overlay remains masked to existing arrow alpha
 and is admin-only: player images, fog state and authoritative hits are unchanged.
-See Patch/portal-visibility.md for this follow-up's base and verification scope.
+See [testing](testing.md) for reproducible checks and validation scope.
 
 
 ## Viewer portal and discovered-secret arrow exceptions

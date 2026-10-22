@@ -475,35 +475,35 @@ Verify a room-to-hidden-room arrow on both screens; click it on the admin screen
 
 This patch targets the supplied `e519068f27ec3edef456e60e2557b9022c1d210e` source with the Center/Fit feature rolled back. Stop both application processes and back up SQLite (including live WAL contents as appropriate) plus application data. Extract the replacement/new files at repository root and restart normally. Startup applies reserved no-op migration 7, if needed, then locked-door migration 8. A database that already recorded the old viewer migration 7 is supported; leftover viewer columns remain unused. No Center/Fit feature is reintroduced and no new dependencies/config keys are required.
 
-Reload admin browser tabs to load the versioned scripts/styles. Verify new design types, locked-arrow color on both displays, unlock-without-reveal, reveal-after-unlock, double-click-to-lock without reveal, Reset for originally locked AND originally unlocked doors, and existing Undo/reveal behavior. Viewers remain read-only; their JS/templates are unchanged. Inspect Patch/VALIDATION.md for test limitations. Rollback requires matching previous code and database backup; no down-migration is supplied.
+Reload admin browser tabs to load the versioned scripts/styles. Verify new design types, locked-arrow color on both displays, unlock-without-reveal, reveal-after-unlock, double-click-to-lock without reveal, Reset for originally locked AND originally unlocked doors, and existing Undo/reveal behavior. Viewers remain read-only; their JS/templates are unchanged. Use the [testing guide](testing.md) to validate behavior in the installed environment. Rollback requires matching previous code and database backup; no down-migration is supplied.
 
 
 ## Independent arrow visibility upgrade
 
 Apply this changed-file archive to the supplied d457b93 source containing the locked-door patch. Stop both application processes, back up SQLite/data, extract at repository root, restart normally and reload admin tabs for the versioned script. Startup applies migration 9, copying every map's existing shared preference to both screen flags. Existing colors, lock state and fog history are preserved. No dependencies/configuration keys or Center/Fit features are added.
 
-Verify all four admin/viewer combinations, including exact viewer-image preview, admin arrow clicks and locked-arrow double-click behavior. Admin-only toggles should not refresh the viewer; changing viewer visibility must update active viewer images. A viewer browser reload is not needed for new JavaScript because viewer scripts are unchanged. Rollback requires previous code and matching database backup; no down-migration is included. See Patch/arrow-visibility.md and Patch/ARROW_VISIBILITY_VALIDATION.md.
+Verify all four admin/viewer combinations, including exact viewer-image preview, admin arrow clicks and locked-arrow double-click behavior. Admin-only toggles should not refresh the viewer; changing viewer visibility must update active viewer images. A viewer browser reload is not needed for new JavaScript because viewer scripts are unchanged. Rollback requires previous code and matching database backup; no down-migration is included. See [map controls](map-controls.md) for visibility behavior and [testing](testing.md) for validation.
 
 
 ## Viewer room-zoom upgrade
 
 Apply the changed/new files to the supplied 1618eef source containing split arrow visibility and locked doors. Stop the application processes, back up code/data normally, extract at repository root and restart both processes so the new read-only endpoint is available. Reload viewer tabs to load the versioned zoom helper/display script. No database migration, new dependency or configuration setting is required; the existing schema remains unchanged.
 
-Verify focus/toggle on two revealed rooms, hidden-area no-op, manual pan then refit, Fit/F overview, resize, live hide/reset while focused, map switching/blanking, and drag/pinch suppression. Admin arrow visibility, viewer arrow visibility, lock/unlock and fog operations should be unchanged. See Patch/VIEWER_ROOM_ZOOM_VALIDATION.md for test limits. Rollback is the prior code version; this patch does not alter database contents/schema.
+Verify focus/toggle on two revealed rooms, hidden-area no-op, manual pan then refit, Fit/F overview, resize, live hide/reset while focused, map switching/blanking, and drag/pinch suppression. Admin arrow visibility, viewer arrow visibility, lock/unlock and fog operations should be unchanged. See [testing](testing.md) for validation guidance. Rollback is the prior code version; this patch does not alter database contents/schema.
 
 
 ## Admin-controlled viewer zoom upgrade
 
 Apply this changed-file archive to the supplied 13d62ae source (viewer room zoom already installed). Stop both processes, back up normally, extract at repository root, restart both processes and reload BOTH admin and viewer browser tabs. This is important: older viewer scripts ignore the new camera event type. No database migration, new dependency or configuration key is required. No rolled-back Center/Fit preferences are added.
 
-With a live viewer connected, double-click a revealed admin area in Reveal and Hide modes; verify room focus/overview in the viewer, no admin camera movement, and no fog action. Verify ordinary delayed singles, immediate right-click inverse mode, regular arrows, locked/unlocked double-clicks, viewer-local double-click/F, multi-viewer behavior, inactive-map rejection, hidden-area no-op, disconnected screens and stale map changes. See Patch/ADMIN_VIEWER_ZOOM_VALIDATION.md for automated checks and limits. Roll back to prior code; this increment does not change database schema/data.
+With a live viewer connected, double-click a revealed admin area in Reveal and Hide modes; verify room focus/overview in the viewer, no admin camera movement, and no fog action. Verify ordinary delayed singles, immediate right-click inverse mode, regular arrows, locked/unlocked double-clicks, viewer-local double-click/F, multi-viewer behavior, inactive-map rejection, hidden-area no-op, disconnected screens and stale map changes. See [testing](testing.md) for automated checks and environment requirements. Roll back to prior code; this increment does not change database schema/data.
 
 
 ## New-reveal overview reset upgrade
 
 Apply the changed/new files to the supplied f1d837f source, which includes admin remote zoom. Stop both processes and back up code/data normally, extract at repository root, restart and reload viewer tabs so the versioned helper/display scripts and new state metadata are used together. No database migration, dependency or configuration change is required; admin tabs need no new gesture code.
 
-Focus a viewer room locally and from admin, then reveal a second room: verify all visible areas are fitted/centered. Test a room inside unchanged overview bounds; hide/reveal exchange; Reveal all; Undo hide; repeated Reveal; colors, arrow flags and lock/unlock changes; and an old pending zoom response arriving after a reveal. Style/lock-only updates should preserve focus. See Patch/NEW_REVEAL_OVERVIEW_VALIDATION.md. Rollback is the prior code version; there are no database changes to undo.
+Focus a viewer room locally and from admin, then reveal a second room: verify all visible areas are fitted/centered. Test a room inside unchanged overview bounds; hide/reveal exchange; Reveal all; Undo hide; repeated Reveal; colors, arrow flags and lock/unlock changes; and an old pending zoom response arriving after a reveal. Style/lock-only updates should preserve focus. See [testing](testing.md) for automated and manual checks. Rollback is the prior code version; there are no database changes to undo.
 
 ## Passages upgrade (schema 10)
 
@@ -527,8 +527,8 @@ The 5-second default/1–15 second per-pair slider and pause flag are stored in 
 admin browser per map, not in the database. Reduced-motion settings are respected.
 Rollback this follow-up by restoring its replaced code/assets from the base; no
 database rollback is necessary. Earlier migration-10 passage rollback requirements
-remain separate. See ../Patch/portal-tools.md and the verification report before
-live deployment.
+remain separate. Run the checks in [testing](testing.md) against the installed
+version before live deployment.
 
 
 ## Installing the viewer arrow exceptions patch
@@ -549,7 +549,8 @@ Stop both portals before installing. Back up the entire data directory, SQLite
 file and any present WAL/SHM sidecars while stopped, along with your working tree.
 Extract the archive at the repository root, preserving relative paths and replacing
 only its listed files. Do not apply over an unrelated source snapshot or a schema
-with a different migration 12. The manifest under Patch records base/patched hashes.
+with a different migration 12. Review the changed files against the target source
+version before replacing local modifications.
 
 Restart through your normal launcher. The existing migration runner applies schema
 12 automatically. Hard-refresh admin and viewer tabs. There are no new packages,
@@ -561,8 +562,9 @@ may not render. No fonts or other assets are downloaded.
 
 Test on a copy of a campaign before live play, including one-way/return connections,
 a secret endpoint, preserve/reveal arrival, stale-tab rejection and a deleted target.
-Full HTTP/CSRF and real-browser tests are supplied for execution in your installed
-project environment; see Patch/verification.md for checks actually run here.
+Run HTTP/CSRF and real-browser tests in the installed project environment before
+live use. See [testing](testing.md) for commands, prerequisites and manual checks;
+a test command documented here is not a claim that it passed on every platform.
 
 For rollback, stop both portals and restore the matching pre-patch code and complete
 pre-upgrade data/database backup together. There is no down-migration. Do not lower

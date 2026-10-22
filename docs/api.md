@@ -295,7 +295,7 @@ This field is produced only by the manage-authorized admin map payload. It is no
 added to viewer state, image responses or websocket messages. Viewer rendering,
 permissions, CSRF and all mutation endpoints are unchanged. Dwell/pause preferences
 are browser-local, not an API or database setting. No migration is introduced.
-See ../Patch/portal-tools.md for verification limits.
+See [testing](testing.md) for validation guidance and environment requirements.
 
 
 ## Viewer arrow category exceptions

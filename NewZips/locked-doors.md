@@ -1,4 +1,4 @@
-> Historical patch note. Passage behavior now follows [Passages.md](../Passages.md);
+> Historical patch note. Passage behavior now follows [Passages.md](../docs/Passages.md);
 > segment double-click no longer locks and viewer locked arrows look ordinary.
 
 # Locked and unlocked doors
@@ -69,4 +69,4 @@ Foundry ordinary doors with `door:1, ds:2` import as Locked Door. Other ordinary
 
 Apply the incremental archive over development commit `cb32190c53cdc982847e628e8b211cf62b3816e9` (the viewer center/fit update). Stop both processes and back up the database/data first. Extract replacement files at repository root; restart normally for migration 8 and reload admin tabs. New script/CSS version URLs prevent stale editor assets. Viewer center/fit functionality is not replaced by this patch.
 
-Run the complete suite in the project's installed environment and perform the manual checks in `Patch/locked-doors.md`. The generation of arrows retains the existing raster-resolution, gap and tight-room limitations. Roll back using the matching previous code/database backup; no down-migration is supplied.
+Run the complete suite in the project's installed environment and perform the manual checks in the [testing guide](../docs/testing.md). The generation of arrows retains the existing raster-resolution, gap and tight-room limitations. Roll back using the matching previous code/database backup; no down-migration is supplied.

@@ -1,0 +1,139 @@
+# Testing and upgrade validation
+
+This guide describes reproducible checks using files stored in the repository.
+It is not a record of results for a particular release, archive or platform. Run
+and record the relevant checks against the version and environment you will deploy.
+Do not interpret a skipped module or a documented command as a passing test.
+
+## Environment
+
+Run commands from the repository root in a development virtual environment using
+the project's supported Python version (Python 3.14). Install the development
+requirements; these include the runtime requirements, pytest and httpx:
+
+```sh
+python -m pip install -r requirements-dev.txt
+```
+
+Node.js is required for the standalone JavaScript regression scripts. These scripts
+use Node's built-in modules and do not require a JavaScript package installation.
+Keep automated tests isolated from live campaign data. Back up the complete stopped
+application data directory before performing manual upgrade or rollback checks.
+
+## Python service and HTTP tests
+
+Run the top-level suite, including HTTP tests but excluding browser tests:
+
+```sh
+python -m pytest -q python/tests --ignore=python/tests/browser
+```
+
+The HTTP tests require FastAPI and the installed project test dependencies. They
+exercise application authentication, authorization and CSRF behavior. If an optional
+module is skipped because a dependency is missing, install that dependency and rerun
+it before claiming coverage of that integration.
+
+For a focused cross-map passage check:
+
+```sh
+python -m pytest -q python/tests/test_map_transitions.py python/tests/test_transition_templates.py
+python -m pytest -q python/tests/test_map_transitions_web.py
+```
+
+Other top-level tests cover fog, wall import/export, lock/discovery state, arrow
+visibility, map activation, viewer zoom, cache identity and permission checks. Use
+the full suite when changes affect shared behavior rather than testing a single
+feature in isolation.
+
+## JavaScript regression scripts
+
+A focused UI check:
+
+```sh
+node python/tests/test_map_transitions.js
+```
+
+Run every top-level JavaScript regression script in PowerShell:
+
+```powershell
+Get-ChildItem python/tests/test_*.js | ForEach-Object {
+    node $_.FullName
+    if ($LASTEXITCODE -ne 0) { throw "JavaScript regression failed: $($_.Name)" }
+}
+```
+
+Or in a POSIX shell:
+
+```sh
+for test in python/tests/test_*.js; do
+    node "$test" || exit 1
+done
+```
+
+These scripts exercise helpers and DOM/transport mocks; they do not substitute for
+real-browser rendering, pointer behavior, modal focus or network timing tests.
+
+## Browser tests
+
+Install the additional browser-testing dependency and Chromium in the development
+environment. Playwright is not included in requirements-dev.txt:
+
+```sh
+python -m pip install playwright
+python -m playwright install chromium
+python -m pytest -q python/tests/browser
+```
+
+The machine also needs the browser's platform libraries. Follow the locally
+installed Playwright tooling's dependency diagnostics if Chromium cannot launch.
+The included browser fixtures use mocked HTTP responses, not a live production
+campaign. For a focused cross-map placement check:
+
+```sh
+python -m pytest -q python/tests/browser/test_map_transitions.py
+```
+
+## Manual pre-deployment checklist
+
+Use a copied campaign and at least one connected viewer:
+
+- Map activation and fog: verify restore/reset choices, current exploration,
+  Undo, blanking, map switching and cache isolation after deletion/reimport.
+- Doors and passages: verify locked/unlocked clicks, discovery without revealing,
+  reveal after unlock/discovery, reset to authored state, independent admin/viewer
+  arrow preferences, and the portal/discovered-secret viewer exceptions. Confirm
+  that undiscovered secrets and admin-only portal Exit hints remain hidden.
+- Wall editing: verify Edit/right-click shortcuts, coordinate limits, Cancel/Apply,
+  Undo/Redo, stale-save rejection, source assignment and UVTT export/import. Blank
+  players before saving changed boundaries because fog operations replay against
+  the new geometry.
+- Portal configuration: verify compass side names, routing, incomplete-graph
+  rejection, the overview, Apply without closing, Close/Escape discard scope,
+  readable labels, route highlights and reduced-motion presentation.
+- Viewer zoom: verify local room focus/overview, Fit/F, hidden-area no-op, admin
+  double-click commands without admin camera movement or fog mutation, new-reveal
+  overview behavior, resize and late-response handling. Test multiple viewers if
+  they will be used during play.
+- Cross-map travel: create one-way and return connections, preview a destination
+  without switching players, preserve existing exploration, test area arrival and
+  large-reveal approval, reject a wall/out-of-bounds arrival, discover/reset a
+  secret endpoint, reject stale preflight after another tab edits it, and show a
+  broken link after deleting a target. Check marker/label persistence after restart.
+- Access control: verify an unrelated DM and unassigned viewer cannot access the
+  campaign, viewer clients cannot invoke admin mutations, and writes reject missing
+  CSRF tokens. Confirm private passage destinations and DM notes are not exposed
+  in player state or marker data.
+
+## Scope and limitations
+
+Record source revision, Python/Node/browser versions, operating system, command exit
+codes and any skipped or unexecuted checks with your validation results. Passing
+service tests does not establish HTTP/CSRF, real-browser, Windows/Python 3.14,
+font rendering, shutdown or multi-client timing coverage unless those checks were
+actually performed. Do not transfer historical results to a different source version.
+
+Fog and arrow geometry retain raster-resolution, wall-gap and tight-room limits.
+Test unusual map geometry and imported wall calibration with your own campaign
+assets. See [usage](usage.md), [map controls](map-controls.md),
+[wall editing](wall-editor.md) and [deployment](deployment.md) for behavior,
+upgrade precautions and matching-code/database rollback guidance.

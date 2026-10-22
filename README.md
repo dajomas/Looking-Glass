@@ -85,7 +85,7 @@ imports remain available and are not automatically saved.
 Schema migration 2 adds source uploads to the existing application database.
 Back up the stopped application's data directory before upgrading. No new
 runtime dependencies or configuration keys are required. See
-[wall import](docs/foundry-import.md) and [patch notes](Patch/wall-source-library.md).
+[wall import](docs/foundry-import.md) and [deployment](docs/deployment.md).
 
 ## Showing maps: reveal choice and cache isolation
 
@@ -93,7 +93,7 @@ Show controls check whether effective saved reveals exist. When they do, choose
 Restore / Reset / Cancel; otherwise the target is shown with reset reveals. Saved checkpoints belong to one map instance;
 deleting and importing a map starts a new instance, even when SQLite reuses
 its numeric ID. See [the usage guide](docs/usage.md#choosing-reveals-when-showing-a-map)
-and [the patch notes](Patch/fog-display-state.md).
+and [deployment](docs/deployment.md).
 
 ## Batch campaign imports and wall assignment
 
@@ -125,7 +125,7 @@ including the canonical map image. Original sources remain immutable.
 
 See [the wall editor guide](docs/wall-editor.md), [usage](docs/usage.md#separate-wall-editor-and-uvtt-saving),
 [API](docs/api.md#dedicated-wall-editor-and-uvtt-export-admin-only) and
-[patch notes](Patch/wall-editor-uvtt.md). No new migration, runtime dependency
+[deployment](docs/deployment.md). No new migration, runtime dependency
 or configuration key is introduced. Blank players before saving changed boundaries:
 existing fog operations are replayed and can reveal different areas.
 
@@ -153,12 +153,12 @@ Show door arrows (admin) controls the DM overlay/click targets; Show door arrows
 
 ## Viewer double-click room zoom
 
-In the player viewer, double-click a revealed room to fit and center that room. Double-click it again while it is already fitted and centered to return to the overview of all revealed areas. A double-click on another room focuses that room instead. Hidden areas do nothing. The Fit button/F shortcut always returns to the revealed-area overview. This is local read-only camera navigation: it never reveals fog or changes doors. See `docs/usage.md` and `Patch/viewer-room-zoom.md`.
+In the player viewer, double-click a revealed room to fit and center that room. Double-click it again while it is already fitted and centered to return to the overview of all revealed areas. A double-click on another room focuses that room instead. Hidden areas do nothing. The Fit button/F shortcut always returns to the revealed-area overview. This is local read-only camera navigation: it never reveals fog or changes doors. See [usage](docs/usage.md) and [testing](docs/testing.md).
 
 
 ## Admin-controlled viewer zoom
 
-Double-click a revealed area in the admin fog editor to send the existing room-focus/overview toggle to connected viewer screens, without moving the admin camera. Ordinary area single-clicks wait 400 ms so the first click cannot reveal/hide fog before a double-click is recognized. Door and arrow gestures keep priority. Double-clicking directly in the viewer remains unchanged. The map must already be shown to players; hidden areas do not send commands. See `docs/usage.md` and `Patch/admin-viewer-zoom.md`.
+Double-click a revealed area in the admin fog editor to send the existing room-focus/overview toggle to connected viewer screens, without moving the admin camera. Ordinary area single-clicks wait 400 ms so the first click cannot reveal/hide fog before a double-click is recognized. Door and arrow gestures keep priority. Double-clicking directly in the viewer remains unchanged. The map must already be shown to players; hidden areas do not send commands. See [usage](docs/usage.md) and [testing](docs/testing.md).
 
 
 ## New reveals return focused viewers to overview
@@ -174,7 +174,7 @@ are selectable; Unconfigured/None becomes Exit in the popup, committed on Apply.
 Both remains usable without losing its Entry role. Shared exits are supported;
 every pair still contains exactly two sections. Cancel discards popup edits;
 Apply is one undoable draft transaction. Complete all sections before Save/export.
-See Passages.md and Patch/portal-compass-exits.md.
+See [passages](docs/Passages.md) and [wall editing](docs/wall-editor.md).
 
 ## Portal editor overview and pair highlighting
 
@@ -190,7 +190,7 @@ On the admin fog page, enabled visible Entry→Exit routes are highlighted in tu
 Cycle visible Entry/Exit pairs to pause. Both arrows must be in the viewport and
 at least two routes must qualify. Preferences are local to this browser/map. The
 gold pulse is admin-only; arrow clicking, viewer images and fog state do not change.
-See Patch/portal-tools.md for installation and verification limits.
+See [deployment](docs/deployment.md) and [testing](docs/testing.md) for installation and validation guidance.
 
 ## Portal overlay readability
 
@@ -198,12 +198,12 @@ Wall-editor section/compass labels have semi-transparent dark backing badges wit
 white text and a light border. Admin route highlights now alternate full-opacity
 yellow/black-outline and blue/white-outline phases, making the selected pair more
 distinct from the artwork. Reduced-motion remains steady; viewer images, route
-selection, hit targets and data are unchanged. See `Patch/portal-visibility.md`.
+selection, hit targets and data are unchanged. See [wall editing](docs/wall-editor.md) and [map controls](docs/map-controls.md).
 
 
 ### Viewer arrow exceptions
 
-Disable Show door arrows (viewer) to expose independent, indented portal and discovered-secret arrow options. Still-secret entries remain hidden. See docs/usage.md and Patch/viewer-arrow-exceptions.md for behavior and installation.
+Disable Show door arrows (viewer) to expose independent, indented portal and discovered-secret arrow options. Still-secret entries remain hidden. See [usage](docs/usage.md) and [deployment](docs/deployment.md) for behavior and installation.
 
 
 ### Cross-map passages
@@ -212,5 +212,6 @@ Connect named stairway, ladder, hole/drop, portal, climb and custom endpoints ac
 maps in one campaign. Place/edit them under Map passages in the admin fog editor;
 travel is a separate DM confirmation, with preserved exploration, optional arrival
 area reveal and non-secret fog-clipped player markers. The campaign page includes
-a connection overview. See docs/usage.md and Patch/cross-map-passages.md. Requires
+a connection overview. See [usage](docs/usage.md), [deployment](docs/deployment.md)
+and [testing](docs/testing.md). Requires
 automatic schema migration 12; back up the database before installation.

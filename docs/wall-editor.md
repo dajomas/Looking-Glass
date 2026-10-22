@@ -70,8 +70,8 @@ exact; image-edge clamping applies independently to out-of-bounds values.
 
 The popup does not send an HTTP request or autosave. Existing save/export APIs,
 CSRF checks, stale-save protection and boundary safety guidance remain unchanged.
-For installation and rollback, see [the Edit-tool patch note](../Patch/wall-editor-edit-tool.md)
-and [the right-click shortcut update](../Patch/wall-editor-right-click-edit.md).
+For installation and rollback, see [deployment](deployment.md). Use
+[testing](testing.md) to validate Edit-tool and right-click behavior after an upgrade.
 
 ## Image-edge placement
 
@@ -163,8 +163,8 @@ Empty edited sets are valid and can be saved/reimported.
 - web/app_factory.py: mounts the router on the admin app only.
 
 The original wall-editor patch introduced no schema migration; passages add migration 10. This patch targets the existing application and assumes its existing migrations are healthy.
-It does not repair earlier migration collisions. See ../Patch/wall-editor-uvtt.md
-for installation, rollback and exact verification scope.
+It does not repair earlier migration collisions. See [deployment](deployment.md)
+for installation and rollback, and [testing](testing.md) for reproducible validation.
 
 ## Wall width matches the fog editor
 
@@ -242,7 +242,7 @@ A horizontal segment has North/South sides; a vertical segment has East/West.
 Panning and zooming do not rotate these map-relative labels. Numeric 0/1 indices
 remain an internal storage detail; no data migration or route remapping is needed.
 Runtime passage behavior, permissions, viewer secrecy and migration 10 are
-unchanged. See Passages.md and ../Patch/portal-compass-exits.md for details.
+unchanged. See [passages](Passages.md) for details.
 Looking Glass UVTT v2 stores only complete authored graphs, never temporary
 Unconfigured draft state or runtime discovery/lock overrides.
 
@@ -266,7 +266,7 @@ dialog without discarding pending configuration. The overview can also be moved.
 The overview is a snapshot when opened; close/reopen it after subsequent edits.
 Its table scrolls horizontally on small screens, and dialog height is bounded by
 the viewport. Existing Cancel/Apply, stale-draft checks and Undo/Redo remain intact.
-See ../Patch/portal-tools.md for deployment, testing and rollback.
+See [deployment](deployment.md) for upgrades/rollback and [testing](testing.md) for validation.
 
 ## Portal label backing
 
@@ -279,7 +279,7 @@ At any zoom, text remains 12 screen pixels, with 4 screen pixels of horizontal
 padding and 2.5 vertically. Border width is one non-scaling screen pixel. Labels
 are rendered together above all wall lines, and never intercept mouse/touch input.
 They are an editor overlay only and are not stored in wall data, exported into
-UVTT or added to player images. See ../Patch/portal-visibility.md.
+UVTT or added to player images. See [map controls](map-controls.md) for admin highlighting.
 
 ## Apply without closing the portal configuration popup
 
@@ -299,4 +299,5 @@ open with an error and do not silently update the baseline.
 The endpoint-coordinate Edit dialog and its own Apply/Cancel behavior are unchanged.
 This follow-up does not install or remove the preceding label/highlight visibility
 patch; its style/script files and cache URLs are preserved when already installed.
-See portal-configuration-apply.md and ../Patch/portal-apply-open.md.
+See [Apply/Close behavior](portal-configuration-apply.md), [deployment](deployment.md)
+and [testing](testing.md).
