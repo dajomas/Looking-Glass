@@ -57,9 +57,21 @@ async def serve(settings: Settings) -> None:
         for s in servers:
             s.should_exit = True
 
+    previous_handlers = {}
+    loop_handlers = []
+
+    def handle_signal(signum, frame):
+        loop.call_soon_threadsafe(stop)
+
     for sig in (signal.SIGINT, signal.SIGTERM):
-        with contextlib.suppress(NotImplementedError):
+        previous_handlers[sig] = signal.getsignal(sig)
+        try:
             loop.add_signal_handler(sig, stop)
+        except NotImplementedError:
+            # Windows does not support asyncio signal handlers.
+            signal.signal(sig, handle_signal)
+        else:
+            loop_handlers.append(sig)
 
     for name, port in (("admin", settings.admin_port), ("viewer", settings.viewer_port)):
         if port in BROWSER_BLOCKED_PORTS:
@@ -68,4 +80,11 @@ async def serve(settings: Settings) -> None:
                         "browser - see docs/deployment.md.", name, port)
     log.info("Admin  portal: http://%s:%d", settings.host, settings.admin_port)
     log.info("Viewer portal: http://%s:%d", settings.host, settings.viewer_port)
-    await asyncio.gather(*(s.serve() for s in servers))
+    try:
+        await asyncio.gather(*(s.serve() for s in servers))
+    finally:
+        for sig in loop_handlers:
+            loop.remove_signal_handler(sig)
+
+        for sig, previous_handler in previous_handlers.items():
+            signal.signal(sig, previous_handler)
