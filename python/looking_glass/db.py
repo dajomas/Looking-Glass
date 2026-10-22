@@ -184,6 +184,13 @@ MIGRATIONS: list[str] = [
         DELETE FROM passage_runtime_states WHERE wall_id IN (SELECT id FROM walls WHERE map_id=NEW.map_id);
     END;
     """,
+    # 11 - viewer exceptions when the main arrow toggle is off
+    """
+    ALTER TABLE maps ADD COLUMN viewer_portal_arrows_enabled INTEGER NOT NULL DEFAULT 0
+        CHECK (viewer_portal_arrows_enabled IN (0, 1));
+    ALTER TABLE maps ADD COLUMN viewer_secret_arrows_enabled INTEGER NOT NULL DEFAULT 0
+        CHECK (viewer_secret_arrows_enabled IN (0, 1));
+    """,
 ]
 
 

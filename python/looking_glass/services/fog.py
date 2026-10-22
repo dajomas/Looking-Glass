@@ -49,6 +49,8 @@ class MapSpec:
     locked_door_arrow_color: str = "#ff9f43"
     viewer_door_arrows_enabled: bool | None = None
     arrow_audience: str = "admin"
+    viewer_portal_arrows_enabled: bool = False
+    viewer_secret_arrows_enabled: bool = False
 
     @property
     def viewer_arrows_enabled(self) -> bool:
@@ -60,7 +62,7 @@ class MapSpec:
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
-                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "passages-v1", self.arrow_audience)
+                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "viewer-exceptions-v1", self.arrow_audience, self.viewer_portal_arrows_enabled, self.viewer_secret_arrows_enabled)
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
@@ -76,6 +78,8 @@ class MapSpec:
             door_arrow_color=row["door_arrow_color"] if "door_arrow_color" in row.keys() else "#46c0ff",
             door_arrows_enabled=bool(row["door_arrows_enabled"]) if "door_arrows_enabled" in row.keys() else True,
             viewer_door_arrows_enabled=bool(row["viewer_door_arrows_enabled"]) if "viewer_door_arrows_enabled" in row.keys() else bool(row["door_arrows_enabled"]) if "door_arrows_enabled" in row.keys() else True,
+            viewer_portal_arrows_enabled=bool(row["viewer_portal_arrows_enabled"]) if "viewer_portal_arrows_enabled" in row.keys() else False,
+            viewer_secret_arrows_enabled=bool(row["viewer_secret_arrows_enabled"]) if "viewer_secret_arrows_enabled" in row.keys() else False,
             cache_token=row["cache_token"] if "cache_token" in row.keys() else "",
         )
 

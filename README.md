@@ -199,3 +199,8 @@ white text and a light border. Admin route highlights now alternate full-opacity
 yellow/black-outline and blue/white-outline phases, making the selected pair more
 distinct from the artwork. Reduced-motion remains steady; viewer images, route
 selection, hit targets and data are unchanged. See `Patch/portal-visibility.md`.
+
+
+### Viewer arrow exceptions
+
+Disable Show door arrows (viewer) to expose independent, indented portal and discovered-secret arrow options. Still-secret entries remain hidden. See docs/usage.md and Patch/viewer-arrow-exceptions.md for behavior and installation.

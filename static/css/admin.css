@@ -90,6 +90,10 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
   50% { fill: #1538d0; stroke: #fff; }
 }
 @media (prefers-reduced-motion:reduce) { .portal-route-flash { animation: none; opacity: 1; } }
+
+/* Viewer-only category exceptions, subordinate to the main viewer toggle. */
+.viewer-arrow-exceptions { margin-inline-start: 1.5rem; }
+.viewer-arrow-exceptions[hidden] { display: none; }
 /* Map interactions should not select text or arrow glyphs. */
 #viewport,
 #viewport button,

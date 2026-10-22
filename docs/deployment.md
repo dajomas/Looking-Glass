@@ -529,3 +529,14 @@ Rollback this follow-up by restoring its replaced code/assets from the base; no
 database rollback is necessary. Earlier migration-10 passage rollback requirements
 remain separate. See ../Patch/portal-tools.md and the verification report before
 live deployment.
+
+
+## Installing the viewer arrow exceptions patch
+
+Stop Looking Glass and back up its SQLite database before updating. Extract the patch
+archive into the repository root, preserving relative paths and replacing supplied files.
+Restart normally; the existing migration runner applies schema migration 11 automatically.
+Hard-refresh admin and viewer pages after updating. No new dependencies or config keys
+are needed. New exception flags default off and existing visibility settings are preserved.
+For a complete rollback, stop the application and restore both pre-patch code and the
+pre-patch database backup. Do not manually modify schema_version.

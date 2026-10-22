@@ -73,6 +73,8 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "door_arrows_enabled": bool(m["door_arrows_enabled"]),
         "admin_door_arrows_enabled": bool(m["door_arrows_enabled"]),
         "viewer_door_arrows_enabled": bool(m["viewer_door_arrows_enabled"]),
+        "viewer_portal_arrows_enabled": bool(m["viewer_portal_arrows_enabled"]),
+        "viewer_secret_arrows_enabled": bool(m["viewer_secret_arrows_enabled"]),
         "image_version": m["image_file"],
         "disabled_wall_types": disabled_for_map(conn, m),
         "calibration": {"offset_x": ox, "offset_y": oy, "scale_x": sx, "scale_y": sy,
@@ -264,6 +266,8 @@ register_wall_types(router, _map_payload)
 
 
 class DoorArrowAppearanceIn(BaseModel):
+    viewer_portal_enabled: bool | None = Field(default=None, strict=True)
+    viewer_secret_enabled: bool | None = Field(default=None, strict=True)
     admin_enabled: bool | None = Field(default=None, strict=True)
     viewer_enabled: bool | None = Field(default=None, strict=True)
     locked_color: str | None = Field(default=None, pattern=r"^#[0-9a-fA-F]{6}$")
@@ -280,9 +284,16 @@ async def set_door_arrows(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: Doo
         admin_enabled, viewer_enabled = resolve_visibility(m, enabled=body.enabled,
             admin_enabled=getattr(body, "admin_enabled", None), viewer_enabled=getattr(body, "viewer_enabled", None))
         locked_color = body.locked_color.lower() if body.locked_color is not None else m["locked_door_arrow_color"]
+        portal_update = getattr(body, "viewer_portal_enabled", None)
+        secret_update = getattr(body, "viewer_secret_enabled", None)
+        portal_enabled = bool(m["viewer_portal_arrows_enabled"]) if portal_update is None else portal_update
+        secret_enabled = bool(m["viewer_secret_arrows_enabled"]) if secret_update is None else secret_update
+        conn.execute("UPDATE maps SET viewer_portal_arrows_enabled = ?, viewer_secret_arrows_enabled = ? WHERE id = ?",
+                     (int(portal_enabled), int(secret_enabled), map_id))
         conn.execute("UPDATE maps SET door_arrow_color = ?, door_arrows_enabled = ?, viewer_door_arrows_enabled = ?, locked_door_arrow_color = ? WHERE id = ?",
                      (color, int(admin_enabled), int(viewer_enabled), locked_color, map_id))
-        viewer_changed = (viewer_enabled != bool(m["viewer_door_arrows_enabled"]) or
+        viewer_changed = (portal_enabled != bool(m["viewer_portal_arrows_enabled"]) or
+                          secret_enabled != bool(m["viewer_secret_arrows_enabled"]) or viewer_enabled != bool(m["viewer_door_arrows_enabled"]) or
                           color != m["door_arrow_color"] or locked_color != m["locked_door_arrow_color"])
         if viewer_changed:
             maps_repo.bump_fog(conn, map_id)

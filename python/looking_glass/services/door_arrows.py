@@ -61,7 +61,9 @@ def _polygon(geo, source, outward=False, both=False):
 
 
 def arrows(engine,spec,segments,ops):
-    if not spec.door_arrows_enabled or not spec.doors_block:
+    viewer = getattr(spec,"arrow_audience","admin") == "viewer"
+    exceptions = viewer and (spec.viewer_portal_arrows_enabled or spec.viewer_secret_arrows_enabled)
+    if (not spec.door_arrows_enabled and not exceptions) or not spec.doors_block:
         return []
     area = engine.area_map(spec,segments)
     revealed = engine.revealed_labels(area,ops)
@@ -117,7 +119,16 @@ def arrows(engine,spec,segments,ops):
             if any(a.wall_id==wall_id and a.side==i and a.portal for a in result):
                 continue
             result.insert(0,DoorArrow(target[0],(target[3],target[4]),_polygon(geo,target,outward=True),wall_id,"door",i,True,True))
+    if viewer and not spec.door_arrows_enabled:
+        result = [item for item in result if viewer_exception_visible(spec, item)]
     return result
+
+
+def viewer_exception_visible(spec, item):
+    """Union of exceptions; currently secret entries never reach the viewer."""
+    return item.kind != "secret" and not item.exit_only and (
+        (item.portal and spec.viewer_portal_arrows_enabled) or
+        (item.secret_origin and spec.viewer_secret_arrows_enabled))
 
 
 def arrow_color(item,spec):

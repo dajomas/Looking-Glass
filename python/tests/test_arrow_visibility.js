@@ -7,7 +7,7 @@ function app(admin,viewer,fail=false){
   door_arrow_color:"#46c0ff",locked_door_arrow_color:"#ff9f43"},calls:[]};
  ctx.LGApi={post:async(path,body)=>{
   ctx.calls.push(body);if(fail)throw Error("save failed");
-  return {...ctx.state,...("admin_enabled" in body?{door_arrows_enabled:body.admin_enabled}:{}),
+  return {...ctx.state,...("viewer_portal_enabled" in body?{viewer_portal_arrows_enabled:body.viewer_portal_enabled}:{}),...("viewer_secret_enabled" in body?{viewer_secret_arrows_enabled:body.viewer_secret_enabled}:{}),...("admin_enabled" in body?{door_arrows_enabled:body.admin_enabled}:{}),
    ...("viewer_enabled" in body?{viewer_door_arrows_enabled:body.viewer_enabled}:{})};}};
  ctx.applyState=s=>{ctx.state=s;ctx.syncDoorArrowControls();};
  ctx.run=async fn=>{ctx.busy=true;ctx.syncDoorArrowControls();try{await fn();}catch(e){ctx.error=e;}finally{ctx.busy=false;}};
@@ -28,5 +28,21 @@ function app(admin,viewer,fail=false){
  c.$("viewer-door-arrows-enabled").checked=false;await c.$("viewer-door-arrows-enabled").onchange();assert.equal(c.state.viewer_door_arrows_enabled,false);
  c=app(true,true,true);c.$("viewer-door-arrows-enabled").checked=false;await c.$("viewer-door-arrows-enabled").onchange();
  assert.ok(c.error);assert.equal(c.$("viewer-door-arrows-enabled").checked,true);assert.equal(c.$("door-arrows-enabled").checked,true);
+ c=app(false,false);
+ assert.equal(c.$("viewer-arrow-exceptions").hidden,false);
+ c.$("viewer-portal-arrows-enabled").checked=true;
+ await c.$("viewer-portal-arrows-enabled").onchange();
+ assert.equal(c.state.viewer_portal_arrows_enabled,true);
+ assert.equal(c.$("door-arrow-color").disabled,false);
+ c.$("viewer-secret-arrows-enabled").checked=true;
+ await c.$("viewer-secret-arrows-enabled").onchange();
+ assert.equal(c.state.viewer_secret_arrows_enabled,true);
+ c.$("viewer-door-arrows-enabled").checked=true;
+ await c.$("viewer-door-arrows-enabled").onchange();
+ assert.equal(c.$("viewer-arrow-exceptions").hidden,true);
+ assert.equal(c.state.viewer_portal_arrows_enabled,true);
+ c=app(false,false,true);c.$("viewer-secret-arrows-enabled").checked=true;
+ await c.$("viewer-secret-arrows-enabled").onchange();
+ assert.equal(c.$("viewer-secret-arrows-enabled").checked,false);
  console.log("Independent arrow controls, picker availability, busy and rollback tests passed");
 })().catch(e=>{console.error(e);process.exitCode=1;});
