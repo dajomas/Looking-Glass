@@ -194,4 +194,4 @@ Entry initial/post-discovery states. Existing v1 files remain supported. A whole
 pair must occur in one wall set/map; invalid graphs are rejected atomically.
 Runtime discovery/locks are not exported. Standard fallback uses opaque boundaries
 for teleport elements, preserving geometry but not teleport behavior. No third-party
-teleport compatibility is claimed. See ../Passages.md and ../Patch/passages.md.
+teleport compatibility is claimed. See Passages.md.

@@ -242,7 +242,7 @@ A horizontal segment has North/South sides; a vertical segment has East/West.
 Panning and zooming do not rotate these map-relative labels. Numeric 0/1 indices
 remain an internal storage detail; no data migration or route remapping is needed.
 Runtime passage behavior, permissions, viewer secrecy and migration 10 are
-unchanged. See ../Passages.md and ../Patch/portal-compass-exits.md for details.
+unchanged. See Passages.md and ../Patch/portal-compass-exits.md for details.
 Looking Glass UVTT v2 stores only complete authored graphs, never temporary
 Unconfigured draft state or runtime discovery/lock overrides.
 

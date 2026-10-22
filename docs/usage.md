@@ -158,7 +158,7 @@ Regular door arrows require a revealed source and hidden adjacent area. Secret
 door arrows persist after discovery/use. Portal arrows persist after remote
 reveal. Entry arrows are clipped to revealed source areas; admin-only Exit hints
 may appear in fog when an incoming Entry is visible. Raster sampling, wall gaps
-and tight rooms have the same limitations as area reveal. See ../Passages.md.
+and tight rooms have the same limitations as area reveal. See Passages.md.
 
 ## Locked and unlocked doors
 
@@ -246,7 +246,7 @@ A pair still contains exactly two sections, each allowing at most one None side.
 Apply commits popup edits to the draft in one Undo/Redo step; Cancel/Escape discards
 them. Save/Download rejects incomplete graphs. Reset/unpair keeps both sections as
 Unconfigured Portal elements. Stored numeric indices and runtime behavior are
-unchanged. See ../Passages.md and ../Patch/portal-compass-exits.md.
+unchanged. See Passages.md and ../Patch/portal-compass-exits.md.
 
 ## Portal overview and matching visible arrows
 

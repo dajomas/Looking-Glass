@@ -513,7 +513,7 @@ extracting replacement files at repository root. Restart normally to apply
 migration 10, then reload admin/viewer tabs. No new dependency or port is needed.
 Do not deploy mixed code versions against the migrating database. Rollback requires
 restoring the matching old code and pre-upgrade data/database backup; no down
-migration is supplied. See ../Patch/passages.md and its verification report.
+migration is supplied.
 
 ## Movable portal dialogs, overview and route highlighting
 

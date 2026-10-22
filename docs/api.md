@@ -184,7 +184,7 @@ doubles toggle/discover; segment doubles do not change state. Discovery does not
 reveal. Lock/discovery bump versions, not fog history. Already revealed persistent
 destinations return none without recording another reveal. Legacy arrow-reveal
 rejects locked/undiscovered-secret targets. All actions retain existing transaction,
-permission, CSRF and refresh handling. See ../Passages.md for reset semantics.
+permission, CSRF and refresh handling. See Passages.md for reset semantics.
 
 ## Independent arrow visibility API
 
@@ -273,7 +273,7 @@ UVTT extension version and schema do not change. Choosing Unconfigured/None as a
 Exit target converts it to Exit in the local popup, committed atomically with the
 route on Apply. Existing Both targets preserve their Entry role; Entry-only targets
 are rejected. Server complete-graph validation and all permissions remain unchanged.
-See ../Passages.md and ../Patch/portal-compass-exits.md.
+See Passages.md.
 
 ## Admin-only visible portal route associations
 

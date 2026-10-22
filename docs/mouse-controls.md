@@ -96,7 +96,7 @@ passage or discovers a secret using its authored outcome. Segment double-click
 does not change passage state. Portal targets are remote configured Exits; their
 source must be revealed. Exit-only hints are not actionable. Managed singles wait
 400 ms; side IDs distinguish portal Entries. Viewer arrows have no passage
-click/double-click action; existing room-focus navigation remains. See ../Passages.md.
+click/double-click action; existing room-focus navigation remains. See Passages.md.
 
 ## Viewer double-click area focus
 

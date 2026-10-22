@@ -136,7 +136,7 @@ Admin single-click on a usable passage arrow reveals its destination. Ordinary
 doors reveal the adjacent area; portals reveal a configured remote Exit on the
 same map. Viewer arrows remain display-only. Independent admin/viewer visibility
 settings are retained. Secret passages are hidden from viewers until discovered.
-See `Passages.md` for the current contract and `Patch/passages.md` for deployment.
+See `docs/Passages.md` for the current contract.
 
 ## Locked and unlocked doors
 

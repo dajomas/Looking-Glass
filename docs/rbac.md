@@ -43,7 +43,7 @@ Only a user allowed to manage the selected map's campaign may POST the new admin
 Passage following, discovery and lock changes use the existing campaign-management
 permission and admin CSRF session. Viewer arrows are display-only; no viewer write
 route or hidden portal graph is exposed. Existing authorized read-only viewer
-room zoom remains unchanged. See ../Passages.md.
+room zoom remains unchanged. See Passages.md.
 
 ## Portal overview and route highlighting
 

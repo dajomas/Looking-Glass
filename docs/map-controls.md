@@ -68,7 +68,7 @@ are silver, brown for locked/unlocked Entries, red for undiscovered secret Entri
 secret door strokes remain purple dashed. Only arrow double-click changes runtime
 locks/discovery. Hiding admin arrows disables those actions; segment double-click
 is not a substitute. Viewers remain read-only and see no Exit-only or undiscovered
-secret hints. See ../Passages.md for current behavior and ../Patch/passages.md for
+secret hints. See Passages.md for current behavior and ../Patch/passages.md for
 upgrade instructions; this supersedes earlier segment-double-click descriptions.
 
 ## Admin portal pair highlighting
