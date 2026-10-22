@@ -119,11 +119,13 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
  #transition-editor .transition-actions button { padding:.3rem .45rem; font-size:.8rem; }
 }
 
-/* Keep single-map passage controls mounted for existing event bindings, but invisible. */
+/* Sidebar help disclosures are independent of the editor control accordion. */
 #map-passages-section[hidden] { display: none !important; }
-#editor-help > summary { cursor: pointer; }
 #editor-help > summary span { display: inline-block; border: 1px solid currentColor; border-radius: 50%; width: 1.25em; text-align: center; margin-right: .35em; }
-#editor-help h3 { font-size: 1em; margin: 1em 0 .4em; }
+#editor-help .help-topic, #editor-help .help-subtopic { border-top: 1px solid var(--border); padding: .5rem 0; }
+#editor-help summary { cursor: pointer; }
+#editor-help summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#editor-help .help-content { padding: .25rem 0 .25rem .5rem; overflow-wrap: anywhere; }
 #editor-help p, #editor-help li { line-height: 1.5; }
-#editor-help ol { padding-left: 1.5em; }
-#editor-help li + li { margin-top: .5em; }
+#editor-help ul, #editor-help ol { padding-left: 1.25rem; }
+#editor-help li + li { margin-top: .4rem; }

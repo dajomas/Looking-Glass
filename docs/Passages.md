@@ -349,9 +349,9 @@ Cross-map endpoint session overrides remain separate and are not reset by it.
 Restore still uses the existing checkpoint semantics; the labels do not change
 activation behavior. Cancel still performs no activation or reset.
 
-## Single-map campaigns
+## Single-map sidebar visibility
 
-The fog editor hides the Map passages sidebar section when there is only one
-map in the campaign. It becomes visible on editor load with two or more maps.
-Stored endpoint data and passage APIs are not deleted or disabled. Passage
-marker instructions are consolidated under the sidebar’s `? Help` control.
+The fog editor hides Map passages and its Help topic when the campaign has only
+one map. With two or more maps, both appear after loading/reloading the editor.
+Stored endpoints and passage APIs are unchanged. The collapsible Help topic
+explains endpoint destinations, marker letters and the separate DM Travel action.

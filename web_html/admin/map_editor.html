@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=sidebar-help-1">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=sidebar-help-2">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -13,35 +13,7 @@
     </select>
   </div>
 
-  <div class="side-block">
-    <details id="editor-help" class="sidebar-panel editor-help">
-      <summary aria-label="Help for the map editor"><span aria-hidden="true">?</span> Help</summary>
-      <div class="panel-content small">
-      <h3>Players</h3><p>Show to players makes this map live. Blank shows a waiting screen. The exact player image opens the current player rendering in a separate tab.</p>
-<h3>Fog and navigation</h3>
-<p class="muted small">Single-click inside a room to reveal/hide (400 ms delay). Double-click a revealed area to toggle viewer zoom without changing fog. Door/arrow gestures take priority. Right-drag or Space-drag pans, the wheel zooms. Shortcuts: R / H mode, Ctrl+Z undo, F fit.</p>
-<h3>Door arrows</h3>
-<p class="muted small">Click a door arrow to reveal. Locked arrows: double-click to unlock only. Unlocked arrows: double-click to lock. Reset restores designed door states. Ctrl+Z undoes fog reveals.</p>
-<h3>Wall alignment</h3>
-<p class="muted small">image = (wall &minus; offset) &times; scale</p>
-<h3>Wall types</h3>
-<p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p><p>Hold Shift while nudging alignment to move by 10 pixels.</p>
-{% if siblings|length > 1 %}<h3>Map passages</h3><p class="small muted">S stairs · L ladder · H hole · P portal · C climb · X custom. Click a marker to edit; travel is an explicit DM action.</p>{% endif %}
-<h3>Saved wall sources</h3>
-<p>A saved source is a reusable Foundry VTT or Universal VTT file stored for this campaign. A wall set is one scene’s walls and doors inside that file; scenes are not merged.</p>
-<ol>
-<li>Choose a Foundry scene/adventure JSON, legacy NeDB .db, or Universal VTT .dd2vtt, .uvtt or .df2vtt file, then select Save source. Saving validates and stores the file; it does not change this map.</li>
-<li>Select a Saved source, then a Wall set. Scene names, wall/door counts and source positions distinguish variants. The source-pixel size and suggested offset/scale describe alignment, not the size of your map image.</li>
-<li>Leave Auto-align for this map checked to calculate alignment for the current image. Uncheck it to retain this map’s current offset and scale.</li>
-<li>Apply selected wall set replaces this map’s existing walls; it does not merge them or update other maps. The map image, door-splitting setting and fog history are retained. Inspect the wall overlay and player preview afterwards; use Walls → Alignment if needed.</li>
-</ol>
-<p>During play, blank the player display before replacing walls: replaying existing fog actions against different boundaries can reveal different areas. Inspect the player preview and reset fog if needed.</p>
-<p>Reuse the saved file on other maps in this campaign without uploading again. Sources persist across restarts. Refresh sources reloads the list; Delete source removes the library entry but leaves walls already applied to maps intact. Changes to map walls do not edit the saved file.</p>
-<p>Foundry LevelDB directories cannot be uploaded: export scene JSON instead. A .db extension here means supported legacy NeDB, not an arbitrary SQLite database. For another campaign, save the file separately.</p>
-      <h3>Replace map image</h3><p>Upload replaces the current map artwork. Check wall alignment and the player preview after changing the image.</p>
-      </div>
-    </details>
-  </div>
+  {% include "partials/_admin_sidebar_help.html" %}
 
   <div class="side-block">
     <details id="players-panel" class="sidebar-panel" name="fog-editor-panels">

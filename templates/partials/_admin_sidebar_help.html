@@ -1,0 +1,62 @@
+{# Native independent disclosures: intentionally no open or accordion name attributes. #}
+<div class="side-block">
+<details id="editor-help" class="sidebar-panel editor-help">
+  <summary aria-label="Help for the map editor"><span aria-hidden="true">?</span> Help</summary>
+  <div class="panel-content small">
+<details id="help-players" class="help-topic">
+  <summary>Players</summary>
+  <div class="help-content"><p>Show to players makes this map the active player display.</p><p>Blank replaces the player display with a waiting screen.</p><p>Open exact player image opens the player rendering in a separate tab so you can check what is visible.</p></div>
+</details>
+<details id="help-fog" class="help-topic">
+  <summary>Fog and navigation</summary>
+  <div class="help-content"><p>Select Reveal area or Hide area, then single-click inside a room to change its fog. Single-click actions wait 400 ms so they can be distinguished from double-clicks.</p><p>Double-click a revealed area to toggle player zoom without changing its fog. Clicks on doors and arrows take priority over area clicks.</p><p>Navigate the DM map:</p><ul><li>Right-drag or hold Space and drag to pan.</li><li>Use the mouse wheel to zoom.</li><li>Press F to fit the map.</li></ul><p>Shortcuts:</p><ul><li>R — Reveal mode.</li><li>H — Hide mode.</li><li>Ctrl+Z — Undo the last fog action.</li></ul></div>
+</details>
+<details id="help-doors" class="help-topic">
+  <summary>Door arrows</summary>
+  <div class="help-content"><p>Single-click a door arrow to reveal through that doorway.</p><p>Double-click a locked door arrow to unlock it without revealing. Double-click an unlocked door arrow to lock it.</p><p>Reset restores the designed door states. Ctrl+Z undoes fog reveals, not door locking or unlocking.</p></div>
+</details>
+<details id="help-alignment" class="help-topic">
+  <summary>Wall alignment</summary>
+  <div class="help-content"><p>Use Alignment when the wall overlay does not line up with the map image.</p><ul><li>Offset X / Y adjusts the horizontal and vertical position of the source walls.</li><li>Scale X / Y adjusts their horizontal and vertical size.</li><li>Use the arrow buttons for small position adjustments. Hold Shift for a 10-pixel nudge.</li></ul><p>Select Apply alignment to save the alignment settings.</p><p>Check the overlay against recognisable features, such as room corners and doorways. If the walls match in one part of the image but drift elsewhere, check the scale as well as the position.</p><p>Coordinate conversion:</p><p><code>image coordinate = (source wall coordinate − offset) × scale</code></p><p>The offset is subtracted before scaling. Increasing an offset therefore moves the walls in the opposite direction along that axis.</p></div>
+</details>
+<details id="help-types" class="help-topic">
+  <summary>Wall types</summary>
+  <div class="help-content"><p>Show and Enabled serve different purposes:</p><ul><li>Show controls whether a wall type is visible in the DM’s wall overlay. It does not change the fog boundaries.</li><li>Enabled controls whether a wall type is used when calculating fog boundaries. Select Apply wall types to apply changes to these settings.</li></ul><p>Disabling a wall type does not delete its wall segments. You can enable them again later.</p><p>Ethereal walls never form fog boundaries. Whether doors divide the map into separate areas also depends on Doors split areas.</p></div>
+</details>
+{% if siblings|length > 1 %}
+<details id="help-passages" class="help-topic">
+  <summary>Map passages</summary>
+  <div class="help-content"><p>Map passages connect locations on different maps—for example, stairs between dungeon floors.</p><p>Select Add passage endpoint to create an endpoint on the current map. Click an existing passage marker to edit it.</p><p>Marker letters identify the passage type:</p><ul><li>S — Stairs</li><li>L — Ladder</li><li>H — Hole</li><li>P — Portal</li><li>C — Climb</li><li>X — Custom</li></ul><p>A passage endpoint defines one end of a connection. Configure its destination to connect it to an endpoint on another map.</p><p>Creating or editing a passage does not move the players. Travel is a separate DM action.</p></div>
+</details>
+{% endif %}
+<details id="help-saved" class="help-topic">
+  <summary>Saved wall sources</summary>
+  <div class="help-content"><details id="help-saved-sources" class="help-subtopic">
+  <summary>Sources and wall sets</summary>
+  <div class="help-content"><p>A saved source is a Foundry VTT or Universal VTT file stored for reuse within this campaign.</p><p>A source can contain one or more scenes. Each scene provides a separate wall set containing its walls and doors. Choose the wall set that matches the current map image.</p></div>
+</details>
+<details id="help-saved-apply" class="help-subtopic">
+  <summary>Save and apply walls</summary>
+  <div class="help-content"><ol><li>Choose a supported file and select Save source. This saves the file to the campaign library; it does not change the current map.</li><li>Select the file under Saved source.</li><li>Select the matching scene under Wall set. Use its name, wall and door counts, and position in the source file to distinguish similar entries.</li><li>Choose your alignment option:<ul><li>Checked: Auto-align for this map calculates alignment for the current map image.</li><li>Unchecked: the map keeps its current offset and scale.</li></ul></li><li>Select Apply selected wall set to replace the current map’s walls.</li><li>Check the wall overlay and player preview. If necessary, adjust the alignment under Walls → Alignment.</li></ol><p>Selecting a source or wall set does not apply it. The map changes only when you select Apply selected wall set.</p></div>
+</details>
+<details id="help-saved-changes" class="help-subtopic">
+  <summary>What applying changes</summary>
+  <div class="help-content"><p>Applying a wall set replaces the current map’s existing walls. It does not merge wall sets, change other maps or modify the saved source.</p><p>The map image, Doors split areas setting and existing fog history are retained.</p><p>During play, blank the player display before applying a different wall set. Existing fog actions may reveal different areas when replayed against the replacement walls. Check the player preview and reset fog if necessary.</p></div>
+</details>
+<details id="help-saved-reuse" class="help-subtopic">
+  <summary>Reuse, refresh and delete</summary>
+  <div class="help-content"><ul><li>Reuse: select the same saved source on another map in this campaign without uploading it again. Saved sources remain available after a restart.</li><li>Refresh sources: reload the list of saved sources.</li><li>Delete source: remove the source from the campaign library. Walls already applied to maps remain unchanged.</li></ul><p>Editing a map’s walls does not update the saved source. To use the source in another campaign, save the file in that campaign separately.</p></div>
+</details>
+<details id="help-saved-formats" class="help-subtopic">
+  <summary>Supported files</summary>
+  <div class="help-content"><p>Supported sources include Foundry scene or adventure JSON, legacy Foundry NeDB .db files, and Universal VTT .dd2vtt, .uvtt and .df2vtt files.</p><p>Foundry LevelDB directories cannot be uploaded directly; export the scene as JSON instead. A .db extension alone does not mean a file is supported—arbitrary SQLite databases are not wall sources.</p></div>
+</details>
+</div>
+</details>
+<details id="help-image" class="help-topic">
+  <summary>Replace map image</summary>
+  <div class="help-content"><p>Use Replace map image to replace the artwork for the current map.</p><p>Choose an image file, then select Upload.</p><p>After uploading, check that the walls line up with the new image and inspect the player preview before continuing play.</p></div>
+</details>
+  </div>
+</details>
+</div>

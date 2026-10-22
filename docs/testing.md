@@ -190,16 +190,20 @@ silently rebase that editor's saved revision. Check Reset fog and show map only 
 copied data and confirm the scope warning matches its existing effects. Node mocks
 and template assertions are not substitutes for real-browser/live-server checks.
 
-## Sidebar help regression tests
-
-Install `requirements-dev.txt`, then run:
+## Collapsible sidebar help
 
 ```sh
 python -m pytest python/tests/test_admin_sidebar_help.py -q
 ```
 
-The four cases render the real Jinja template and inspect the resulting HTML
-using Beautiful Soup: passage visibility for one/two/three maps, retained event
-binding targets, collapsed independent help, relocated guidance, expanded saved
-source instructions and retained live status/warnings. Browser interaction and
-visual layout still require a browser smoke test.
+Seven regression cases render the real editor and help partial. They cover
+single/multiple-map visibility, retained passage binding targets, eight main
+help disclosures (seven for a single map), five nested source subsections,
+initial closed state, absence of accordion names, revised wording and retained
+live status/warning elements. Tests use the standard-library HTML parser and
+existing Jinja/pytest dependencies; no new test package is required.
+
+Browser smoke check: open Help, confirm all topics are initially closed, expand
+several topics and nested source subsections independently, toggle control panels,
+and verify Help stays open. Check pointer and Tab/Enter/Space interaction and a
+narrow viewport. Reload to verify that every disclosure starts closed again.

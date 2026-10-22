@@ -156,22 +156,24 @@ explains permanent history removal plus wall-door/wall-passage state reset; it d
 not reset independent cross-map endpoint overrides. This activation reset is not the
 same operation as the fog panel's existing Reset or the endpoint session reset.
 
-## Fog editor sidebar help
+## Collapsible map-editor help
 
-The left sidebar has a collapsed `? Help` control near the map selector. Open it
-with a pointer or keyboard (Tab, then Enter/Space) to read instructions for
-players, fog/navigation, door arrows, alignment, wall types, saved sources and
-image replacement. Help is independent of the controls accordion, so it can
-remain open alongside the panel you are using. Live status, errors, warnings,
-counts and control labels stay next to their controls.
+The left sidebar’s `? Help` control contains eight independent help topics:
+Players; Fog and navigation; Door arrows; Wall alignment; Wall types; Map
+passages; Saved wall sources; and Replace map image. Help and every topic start
+collapsed on each page load. Expand a heading with a pointer or Tab followed by
+Enter/Space. Multiple topics can remain open, independently of the editor’s
+control-panel accordion. Expansion state is not persisted across reloads.
 
-Map passages is hidden when the campaign has only one map, and is visible with
-two or more maps after loading/reloading the editor. This is a presentation
-change only: saved passages and API behavior are unchanged.
+Saved wall sources contains five further collapsed subsections: Sources and
+wall sets; Save and apply walls; What applying changes; Reuse, refresh and
+delete; Supported files. Closing a parent hides its children without resetting
+their open state until the page is reloaded.
 
-Saved wall sources help explains the difference between a campaign-scoped
-source file and an individual scene/wall set, the save/select/apply workflow,
-auto-alignment, replacement rather than merging, reuse, deletion, supported
-formats and fog-history precautions. Saving/selecting does not apply walls.
-Applying replaces only the current map's walls and retains its artwork and fog
-history. Inspect player preview after applying, especially during play.
+For a campaign with one map, Map passages and its help topic are hidden; the
+other seven help topics remain available. With two or more maps, all eight are
+shown. Reload the editor after changing the campaign’s map count. This changes
+presentation only, not saved endpoints or passage APIs.
+
+Static sidebar instructions live in Help. Live errors, warnings, counts and
+statuses stay beside their controls; action-specific modal guidance is unchanged.
