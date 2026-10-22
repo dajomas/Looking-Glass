@@ -219,18 +219,13 @@ combined reset operation in this first release.
 
 ### Preview and travel
 
-- **Open destination in admin** now shows the saved destination map in admin and
-  activates it for all connected viewers. It freshly checks both the saved reveals
-  and the destination's currently revealed areas. If either exists, the existing
-  **Show battle map** modal offers Restore last reveals, Reset reveals or Cancel.
-  With neither, it activates the destination fully covered without a prompt.
-  Cancel leaves both admin navigation and the active viewer map unchanged. A reserved
-  blank admin tab is closed on cancellation/error; if popups are blocked or the
-  reserved tab was closed, successful activation navigates the current admin tab.
-  This is normal map activation, not passage Travel: it does not reveal the arrival
-  area or apply passage-state approval rules. Save route edits first; changed or
-  missing saved destinations are rejected. Restore uses the existing saved-checkpoint
-  semantics; current reveals trigger the choice but do not replace an older checkpoint.
+- **Inspect destination** opens the saved destination map in an admin tab only.
+  It does not switch the viewer, reveal/hide/reset fog, change passage state, or show
+  the Restore/Reset dialog. With a new tab, the source modal and unsaved source form
+  edits remain available. If the new tab is blocked or closed before navigation,
+  inspection falls back to the current admin tab; save source edits first if you
+  need them there. A fresh read validates the saved route and destination. Unsaved
+  route edits are not used; changed or missing destinations produce an error.
 - Save configuration changes before using **Travel / show destination…**; travel uses
   the saved record, not unsaved dialog fields.
 - Show the source map to players first. The travel dialog displays the destination,
@@ -290,7 +285,7 @@ folder/database to retain them.
 ### Map passage modal actions
 
 The passage form scrolls inside a dedicated body. Save endpoint, Delete endpoint,
-Apply session state, Open destination in admin, Travel / show destination and Close
+Apply session state, Inspect destination, Travel / show destination and Close
 sit in a non-scrolling footer, so the main actions stay visible while editing long
 configuration forms. Delete and Apply session state are hidden for a new endpoint.
 Placement and destination-selection helpers remain next to their fields. The footer

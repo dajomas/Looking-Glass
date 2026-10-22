@@ -332,12 +332,12 @@ The sidebar's peer details share a name for native exclusive opening, with a
 small toggle-listener fallback. Legend and nested Alignment are outside the group;
 the legend is never programmatically forced open after manual closure.
 
-Destination-open freshly resolves the saved source revision/link and destination
+Inspect destination freshly resolves the saved source revision/link and destination
 from the authorized endpoint listing. It reserves an opener-detached blank admin
-tab synchronously, invokes LGChooseFog with includeCurrentReveals, then calls the
-existing active-map API only after a restore/reset decision. It closes the reserved
-tab on cancellation/error and uses current-tab navigation if a popup is blocked.
-The additive has_current_reveals display-options field leaves default restore
-callers unchanged. Existing post-commit viewer refresh handles viewer activation.
-This is intentionally separate from travel/preflight and does not execute an
-arrival reveal or change endpoint runtime state.
+tab synchronously, performs read-only validation, then opens the destination editor.
+Failed validation closes the reserved tab. Popup-blocked/closed tabs use current-tab
+admin navigation. With a new tab, the source modal stays open and keeps its draft.
+Inspection does not invoke LGChooseFog, active-map, fog, runtime-state or travel APIs.
+Travel retains its existing preflight, approval, arrival and transaction behavior.
+The additive has_current_reveals field and optional prompt flag from the earlier
+activation UI remain backward-compatible but are no longer used by inspection.

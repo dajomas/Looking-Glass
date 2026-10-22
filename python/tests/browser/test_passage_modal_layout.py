@@ -40,21 +40,20 @@ def test_footer_remains_visible_when_body_scrolls(admin):
     assert not posts
 
 
-def test_open_destination_cancel_does_not_activate(admin):
+def test_inspect_destination_is_admin_only(admin):
     page,posts,data=admin
     payload=dict(ok=True,active_map_id=1,maps=[dict(id=1,name="M",viewer_transition_markers=1,viewer_transition_labels=1),dict(id=2,name="Upper")],endpoints=[
         dict(id="a",map_id=1,name="Source",player_label="Up",kind="stairs",x=100,y=100,visibility="discovered",availability="usable",current_visibility="discovered",current_availability="usable",arrival="preserve",notes="",destination_id="b",revision=1),
         dict(id="b",map_id=2,name="Target",kind="stairs",x=100,y=100,revision=1)])
     page.route("**/api/campaigns/4/transitions",lambda r:r.fulfill(json=payload))
-    page.route("**/api/maps/2/display-options",lambda r:r.fulfill(json=dict(ok=True,can_restore=False,has_current_reveals=True)))
     page.evaluate("()=>window.dispatchEvent(new Event('focus'))")
     page.locator("#map-passages-panel > summary").click()
     page.locator("#transition-list button").first.click()
     with page.context.expect_page() as new_page:
-        page.locator("#tr-open").click()
-    reserved=new_page.value
-    expect(page.locator("#map-display-dialog")).to_be_visible()
-    page.locator('#map-display-dialog button[value="cancel"]').click()
+        page.get_by_role("button",name="Inspect destination").click()
+    target=new_page.value
+    target.wait_for_url("**/maps/2")
+    expect(page.locator("#map-display-dialog")).not_to_be_visible()
     expect(page.locator("#transition-editor")).to_be_visible()
-    page.wait_for_function("document.getElementById('transition-status').textContent.includes('cancelled')")
     assert not posts
+    target.close()

@@ -115,8 +115,8 @@ Use a copied campaign and at least one connected viewer:
   overview behavior, resize and late-response handling. Test multiple viewers if
   they will be used during play.
 - Cross-map travel: create one-way and return connections, inspect the Travel
-  confirmation without executing it, verify Open destination in admin also activates
-  the viewer through Restore/Reset/Cancel, preserve existing exploration, test area arrival and
+  confirmation without executing it, verify Inspect destination leaves
+  the viewer and fog unchanged with no Restore/Reset prompt, preserve existing exploration, test area arrival and
   large-reveal approval, reject a wall/out-of-bounds arrival, discover/reset a
   secret endpoint, reject stale preflight after another tab edits it, and show a
   broken link after deleting a target. Check marker/label persistence after restart.
@@ -153,6 +153,7 @@ python -m pytest -q python/tests/browser/test_passage_modal_layout.py
 The route-body test checks current/saved reveal independence using stub dependencies;
 it is not an HTTP authentication/CSRF test. The browser tests require local Playwright
 Chromium. Manually verify footer visibility at your screen dimensions and zoom,
-current/saved reveal Restore/Reset/Cancel behavior, successful activation on all viewer
-screens, popup-blocked fallback, and legend closure staying respected as peer panels
+inspection with no mutation or reveal prompt, unchanged viewer/fog state, retained
+source draft, popup-blocked admin-only fallback, unchanged Travel behavior and
+legend closure staying respected as peer panels
 change. No passing browser or full-server result is implied by these commands.

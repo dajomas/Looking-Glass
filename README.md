@@ -220,9 +220,10 @@ automatic schema migration 12; back up the database before installation.
 ### Passage modal and sidebar workflow
 
 The Map passage modal keeps its main actions visible in a bottom footer while the
-form scrolls. Open destination in admin also activates that destination on viewer
-screens; the Show battle map Restore/Reset/Cancel choice appears when the destination
-has current or saved reveals. This is normal activation, separate from passage Travel.
+form scrolls. Inspect destination opens its saved destination in admin only,
+without changing the viewer or fog and without a Restore/Reset prompt. Use Travel
+to move players through the passage, or the destination map's ordinary Show to
+players control for normal map activation.
 Map passages is above Walls in the fog-editor sidebar. Peer sections start closed
 and open exclusively; Wall legend and types starts open and remains independently
 manually closable. See [usage](docs/usage.md) and [testing](docs/testing.md).

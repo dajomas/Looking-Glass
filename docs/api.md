@@ -394,8 +394,10 @@ exists in this version.
 The existing admin `GET /api/maps/{map_id}/display-options` response now adds
 `has_current_reveals`, a boolean evaluated from live fog operations. Existing
 `can_restore` retains its meaning: effective active-map operations or, for an
-inactive map, its saved checkpoint. The destination-open UI requests a choice if
-either boolean is true. Other callers retain their original can_restore behavior.
+inactive map, its saved checkpoint. Inspect destination does not use either reveal-availability flag or a reveal
+choice: it reads the existing campaign endpoint listing and opens the authorized
+admin map editor, without a mutation request. The optional prompt behavior remains
+available for other callers; normal restore semantics are unchanged.
 The existing CSRF-protected `POST /api/campaigns/{campaign_id}/active` performs
 activation with map_id and fog_action (restore/reset); the endpoint, permissions
 and response contract are unchanged. A cancelled choice issues no mutation request.

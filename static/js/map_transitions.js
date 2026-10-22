@@ -61,6 +61,7 @@ window.LGMapTransitions=(()=>{
   $("tr-open").onclick=()=>{
    if(locked||!current?.destination_id)return;
    const sourceId=current.id,sourceRevision=current.revision,destinationId=current.destination_id;
+   // Reserve a tab during the click; inspection makes authorized GET requests only.
    const tab=window.open("about:blank","_blank");
    if(tab)tab.opener=null;
    let navigated=false;
@@ -70,16 +71,12 @@ window.LGMapTransitions=(()=>{
      const source=data.endpoints.find(e=>e.id===sourceId);
      const dest=data.endpoints.find(e=>e.id===destinationId);
      if(!source||source.revision!==sourceRevision||source.destination_id!==destinationId||!dest)throw Error("Passage destination changed. Close and reopen this endpoint.");
-     const map=data.maps.find(m=>m.id===dest.map_id);
-     if(!map)throw Error("Destination map is no longer available.");
-     const action=await window.LGChooseFog(map.name,dest.map_id,{includeCurrentReveals:true});
-     if(!action){status("Destination display cancelled; no map was changed.");return;}
-     await LGApi.post(`${base}/active`,{map_id:dest.map_id,fog_action:action});
+     if(!data.maps.some(m=>m.id===dest.map_id))throw Error("Destination map is no longer available.");
      const url=`/maps/${dest.map_id}`;
      if(tab&&!tab.closed)tab.location.href=url;
-     else location.href=url; // Popups blocked/closed: navigate this admin tab instead.
-     navigated=true;dialog.close();status("Destination shown in admin and on viewer screens.");
-     await reload();await onSaved();
+     else location.href=url; // Popup blocked/closed: still admin-only navigation.
+     navigated=true;
+     status("Destination opened for inspection only; viewer and fog are unchanged.");
     }finally{if(!navigated&&tab&&!tab.closed)tab.close();}
    });
   };

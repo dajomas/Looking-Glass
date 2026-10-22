@@ -574,12 +574,15 @@ recover newly authored endpoint links; wall exports do not carry these links.
 
 ## Passage modal and fog-editor sidebar UI update
 
-Restart both portals after updating so display-options can return its new
-has_current_reveals field. Reload the admin map-editor page to load versioned CSS,
-prompt and passage scripts. No migration, dependency, configuration or port changes
-are needed. Existing viewer clients use their normal live activation refresh.
-Verify the always-visible main-action footer on a small screen, exclusive sidebar
-peers with an independent manually closable legend, and destination activation via
-Restore/Reset/Cancel. Test current reveals without a saved checkpoint, an empty
-map, a blocked popup and a deleted/changed destination. Restore the previous code
-and assets for rollback; no database rollback is needed for this increment.
+The map-passage form keeps its main actions visible in a non-scrolling footer.
+The fog-editor sidebar has exclusive peer panels, with the manually closable wall
+legend independent and initially open. Inspect destination opens only the destination
+admin editor and leaves viewer/fog state unchanged. It does not show Restore/Reset;
+normal Show to players and passage Travel remain separate activation workflows.
+
+Reload the admin map-editor page after deploying updated templates/scripts to pick
+up the inspection label and cache-versioned controller. No backend, schema,
+dependency, configuration or viewer changes are required for the inspection-only
+revert. Verify inspection with an active viewer, retained source draft, a blocked
+popup and a deleted/changed destination. Restore the previous code/assets for
+rollback; no database rollback is needed for this UI increment.

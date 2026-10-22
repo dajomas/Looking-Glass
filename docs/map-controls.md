@@ -114,10 +114,10 @@ until Save; coordinates refer to the original image. Ordinary marker clicks do n
 perform fog actions or travel. Right-drag and zoom remain map navigation controls.
 
 Travel / show destination uses saved configuration and requires the source map to be
-active. Open destination in admin activates the saved destination on viewers as
-well as opening it for the DM. The Show battle map Restore/Reset/Cancel choice
-appears when current or saved reveals exist; cancellation changes neither display.
-This action uses normal activation, not the passage's Travel arrival-reveal policy.
+active. Inspect destination opens the saved destination in admin only. It does
+not switch the viewer, change fog, or show Restore/Reset. Travel remains the separate
+passage action; the destination's ordinary Show to players control still supports
+normal map activation.
 Create destination endpoint opens the selected map in a new tab; save there, then
 Reload destinations in the source dialog. Reverse links are explicit and independent.
 Show map passage markers (viewer) and Show passage labels (viewer) are unrelated to
