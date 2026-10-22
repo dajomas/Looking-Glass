@@ -209,7 +209,7 @@ as well as initial lock/discovery state and secret post-discovery state.
 Select an Exit, Unconfigured or None side on another Portal element. Selecting
 Unconfigured/None changes it to Exit immediately within the popup, and its still
 Unconfigured opposite side defaults to None. Apply commits the conversion and
-route atomically to the draft; Cancel discards it. Both is still selectable and
+route atomically to the draft; Close/Escape confirms before discarding unapplied changes. Both is still selectable and
 retains its Entry role and configured states. Entry-only destination sides remain
 disabled: configure them as Both first if they need to receive and send passages.
 Shared exits remain supported. Both provides independently routed Entry and Exit
@@ -220,16 +220,18 @@ Switching the selected section retains pending popup edits. Apply configuration
 to draft commits changed popup edits in one Undo/Redo step, including any target-side
 initialization, and keeps the popup open. Each successful Apply becomes the new
 popup baseline. Repeating Apply without changes creates no additional undo step.
-Close, Cancel pending edits and Escape discard only edits since the last Apply;
-they never undo changes already applied to the editor draft. No popup action sends
+Close is the single close button. Close/Escape asks before discarding unapplied
+edits since the last Apply; declining leaves the popup unchanged. They never undo
+changes already applied to the editor draft. No popup action sends
 an HTTP request. You may Apply an unfinished section while configuring another one;
 Save wall set and Download reject unconfigured, unpaired or invalid portal graphs
 before making a request. Finish all sections and routes before saving/exporting.
 The existing server also validates complete graphs; its schema/API are unchanged.
 
-Reset section / unpair resets the selected section and its partner together to
-Unconfigured portal sections, preserving geometry and Portal type. This is pending
-inside the popup until Apply; Cancel discards it. After Apply it is one undoable
+Reset pairing… names the selected section and its existing partner, if any, and
+asks before resetting their configuration to Unconfigured portal sections. Geometry
+and Portal type are preserved. This is pending inside the popup until Apply;
+Close/Escape can discard it after confirmation. After Apply it is one undoable
 draft operation. Sections can then be re-paired or removed/retyped individually.
 
 Secret door Edit dialogs still include authored post-discovery type. Coordinate
@@ -265,7 +267,7 @@ dialog without discarding pending configuration. The overview can also be moved.
 
 The overview is a snapshot when opened; close/reopen it after subsequent edits.
 Its table scrolls horizontally on small screens, and dialog height is bounded by
-the viewport. Existing Cancel/Apply, stale-draft checks and Undo/Redo remain intact.
+the viewport. Apply, stale-draft checks and Undo/Redo remain intact; Close/Escape protects pending popup edits.
 See [deployment](deployment.md) for upgrades/rollback and [testing](testing.md) for validation.
 
 ## Portal label backing
@@ -289,8 +291,9 @@ position remain; the side panels reload from the just-applied draft so pair IDs,
 routes and the overview remain synchronized. Continue editing immediately without
 reopening. Each changed Apply can later be undone independently in the main editor.
 
-Use the separate Close button to leave the popup. Close, Cancel pending edits and
-Escape do not implicitly apply newer changes, nor do they revert earlier Applies.
+Use the single Close button to leave the popup. Close and Escape ask before
+discarding pending edits; they never implicitly apply newer changes or revert
+earlier Applies. The redundant Cancel pending edits button is removed.
 The main editor's Save wall set is still required to persist the draft. A live
 status message inside the popup distinguishes applied changes from newer pending
 edits and incomplete configurations. Stale/invalid submissions leave the popup

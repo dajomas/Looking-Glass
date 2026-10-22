@@ -3,11 +3,14 @@
     <h2 id="map-display-title">Show battle map</h2>
     <p id="map-display-question"></p>
     <p>Restore returns to the reveals saved when this map was last shown.
-       Reset starts fully covered and permanently discards its reveal history.</p>
+       Reset starts fully covered, permanently discards this map's reveal history,
+       and restores wall-door locks and wall-passage discovery to their authored states.
+       It cannot be undone with fog Undo.</p>
+    <p class="muted small">Cross-map endpoint session overrides are separate and are not reset by this choice.</p>
     <p class="muted small">For a map not shown before, Restore keeps any reveals prepared in the editor.</p>
     <div class="btn-row">
-      <button value="restore" type="submit">Restore last reveals</button>
-      <button value="reset" type="submit" class="danger">Reset reveals</button>
+      <button value="restore" type="submit">Restore saved reveals</button>
+      <button value="reset" type="submit" class="danger">Reset fog and show map</button>
       <button value="cancel" type="submit" autofocus>Cancel</button>
     </div>
   </form>

@@ -65,3 +65,13 @@ admin transition API. Players receive server-composited discovered markers only,
 not endpoint IDs, routes, destination names, private notes or admin-only labels.
 A DM override can permit a particular secret/blocked/approval-required trip without
 changing authored or session state. It is not a player permission bypass.
+
+
+### Travel approval presentation
+
+The travel modal uses I approve this trip for approval-required sources and Allow
+this trip despite passage restrictions for secret/blocked sources, with the actual
+saved-state reasons beneath the control. It hides the checkbox when approval is not
+needed and clears it for every new preview. This is per-trip consent, not a saved
+permission/state change. Authorization, stale-input validation and large-arrival
+confirmation stay enforced. See [travel approval wording](travel-approval.md).

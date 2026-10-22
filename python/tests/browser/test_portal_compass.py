@@ -86,5 +86,5 @@ def test_diagonal_and_reversed_endpoint_labels(editor):
     edit([80,40,160,120])
     assert page.locator("#wall-overlay text").all_text_contents()[:2]==["2.NE","2.SW"]
     open_popup(page);assert "North-East (NE)" in page.locator("#portal-sides legend").first.text_content()
-    page.locator("#portal-cancel").click();edit([160,120,80,40])
+    page.locator("#portal-close").click();edit([160,120,80,40])
     assert page.locator("#wall-overlay text").all_text_contents()[:2]==["2.SW","2.NE"]

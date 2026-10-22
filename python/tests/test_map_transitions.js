@@ -2,7 +2,7 @@ const assert=require("node:assert/strict"),fs=require("node:fs"),vm=require("nod
 class Element{
  constructor(id="",tag=""){Object.assign(this,{id,tagName:tag,value:"",checked:false,disabled:false,hidden:false,open:false,children:[],textContent:"",events:{}});}
  append(...nodes){this.children.push(...nodes);}replaceChildren(...nodes){this.children=nodes;}
- setAttribute(k,v){this[k]=v;}showModal(){this.open=true;}close(){this.open=false;}
+ setAttribute(k,v){this[k]=v;}showModal(){this.open=true;}close(){this.open=false;}focus(){}
  addEventListener(k,fn){this.events[k]=fn;}click(){if(!this.disabled)return this.onclick?.();}
 }
 const tick=()=>new Promise(resolve=>setImmediate(resolve));async function settle(){for(let i=0;i<8;i++)await tick();}

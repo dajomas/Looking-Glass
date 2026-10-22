@@ -416,3 +416,14 @@ overrides. The runtime request replaces its two override fields only and preserv
 configuration. Null/omitted override fields inherit authored settings. Clients must
 use the returned endpoint revision for subsequent writes in either scope. UI dirty
 tracking does not change server permissions, CSRF or stale-write validation.
+
+
+### Modal-action clarification (no API changes)
+
+The single portal Close/discard confirmation and Reset pairing confirmation are
+client-side popup/draft operations. Back to passage and Escape from travel send no
+mutation request. Entering travel preflight no longer replaces the source editor's
+saved revision/baselines: cancelling cannot silently acknowledge another tab's
+configuration changes. A later save still undergoes the existing stale-write check.
+Travel and active-map request schemas, action values (restore/reset/cancel) and
+backend effects are unchanged; only user-facing labels and return behavior change.

@@ -355,3 +355,21 @@ Close/Escape and navigation guard pending edits, while Travel warns that it uses
 saved values. Successful writes are acknowledged before a subsequent map refresh;
 a refresh error does not masquerade as an uncommitted write. Service authorization,
 CSRF, serialized writes and stale-revision validation are unchanged.
+
+
+### Portal Close and travel-return checkpoints
+
+Portal configuration records a canonical snapshot of its local rows and sorted
+route selections after opening and each successful Apply. Close/Escape compares
+against that checkpoint, asking only when unapplied changes exist. The duplicate
+Cancel handler/button is removed. Reset pairing confirms the affected sections
+before changing popup state; no server mutation is added.
+
+Travel confirmation stores source form scroll/focus without calling open(item) or
+repopulating fields on return. Back/Escape restores the same DOM, dirty baselines
+and saved revision, clears the cancelled preflight and uses a fresh preflight on
+the next attempt. The listing used for travel preparation is held separately from
+the source form's current saved record so previewing/cancelling cannot silently
+rebase stale edits. In-flight request cancellation is blocked; server travel
+transactions and idempotency are unchanged. Reset labels describe existing backend
+effects rather than adding new reset behavior.

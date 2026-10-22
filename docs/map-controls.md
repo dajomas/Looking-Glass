@@ -113,7 +113,7 @@ marker/sidebar entry to edit. Pick / move location on map preserves the dialog d
 until Save; coordinates refer to the original image. Ordinary marker clicks do not
 perform fog actions or travel. Right-drag and zoom remain map navigation controls.
 
-Travel / show destination uses saved configuration and requires the source map to be
+Travel… uses saved configuration and requires the source map to be
 active. Inspect destination opens the saved destination in admin only and does
 not activate viewers, change fog or show Restore/Reset. Travel remains the separate
 passage action.
@@ -143,3 +143,15 @@ edits in the other group. Each group has its own unsaved-status indicator. Save 
 new endpoint before updating its session state. Close/Escape confirm discard if
 needed; already saved changes remain saved. Travel asks when it would use saved
 values instead of pending edits. See [usage](usage.md) for full scope semantics.
+
+
+### Travel return and reset scope
+
+Travel… opens a confirmation with a destination-specific final Travel label.
+Back to passage or Escape returns to the original passage form with its pending
+configuration/session edits, dirty statuses and scroll intact. It sends no trip or
+fog mutation. Cancellation is disabled during an in-flight trip request. The normal
+Show battle map dialog labels its destructive choice Reset fog and show map and
+explains permanent history removal plus wall-door/wall-passage state reset; it does
+not reset independent cross-map endpoint overrides. This activation reset is not the
+same operation as the fog panel's existing Reset or the endpoint session reset.

@@ -247,8 +247,8 @@ inside the popup. Existing Both targets keep their Entry role, while Entry-only
 targets remain disabled. Every Exit needs an incoming Entry; shared Exits are valid.
 A pair still contains exactly two sections, each allowing at most one None side.
 
-Apply commits popup edits to the draft in one Undo/Redo step; Cancel/Escape discards
-them. Save/Download rejects incomplete graphs. Reset/unpair keeps both sections as
+Apply commits popup edits to the draft in one Undo/Redo step. Close/Escape asks
+before discarding unapplied popup edits; previously applied edits remain in the draft. Save/Download rejects incomplete graphs. Reset/unpair keeps both sections as
 Unconfigured Portal elements. Stored numeric indices and runtime behavior are
 unchanged. See [passages](Passages.md) and [wall editing](wall-editor.md).
 
@@ -339,7 +339,7 @@ combined reset operation in this first release.
   viewer switch, fog mutation or Restore/Reset dialog. New-tab inspection retains
   the source form draft. If popups are blocked, current-tab inspection asks before
   abandoning pending edits. Missing/changed saved destinations are rejected.
-- Save configuration changes before using **Travel / show destination…**; travel uses
+- Save configuration changes before using **Travel…**; travel uses
   the saved record, not unsaved dialog fields.
 - Show the source map to players first. The travel dialog displays the destination,
   saved arrival policy, current passage state, and estimated area reveal percentage.
@@ -398,7 +398,7 @@ folder/database to retain them.
 ### Map passage modal actions
 
 The passage form scrolls inside a dedicated body. Save configuration, Delete endpoint,
-Update session state, Inspect destination, Travel / show destination and Close
+Update session state, Inspect destination, Travel… and Close
 sit in a non-scrolling footer, so the main actions stay visible while editing long
 configuration forms. Delete and Update session state are hidden for a new endpoint.
 Placement and destination-selection helpers remain next to their fields. The footer
@@ -434,3 +434,32 @@ undo either group that was already saved. Page navigation/reload with pending ed
 uses the browser's unsaved-changes warning where supported. Travel still uses saved
 configuration and session state; when pending edits exist, it asks before proceeding
 without them. Inspecting in a new tab neither saves nor discards either draft.
+
+
+### Clear modal actions and returning from Travel
+
+Portal configuration has one Close button, not duplicate Close/Cancel actions.
+Apply configuration to draft still applies one undoable draft update and keeps the
+popup open. Close/Escape needs no extra question for a clean popup; if edits are
+pending, a discard confirmation protects them. Declining leaves them untouched.
+Reset pairing… asks which selected/paired sections will be reset, then stages the
+reset in the popup only. Apply is still required to update the wall draft and
+Save wall set is still required for database persistence; geometry is not deleted.
+
+The passage footer action is Travel… and its final confirmation says Travel to
+[destination map]. It still uses saved configuration/session state, shows the
+source/destination and arrival policy, and retains all server validation/approval
+rules. Back to passage (or Escape) closes the confirmation without executing a trip
+and reopens the same source form, retaining both pending field groups, their dirty
+indicators and body scroll position. The prior focus is restored where available.
+A new attempt performs a fresh preflight; cancelled requests are not reused. While
+a trip request is in flight, cancellation is blocked to avoid implying the server
+operation was stopped. Failed trips remain in the confirmation with an error.
+
+The Show battle map choice now labels its actions Restore saved reveals,
+Reset fog and show map, and Cancel. Reset permanently discards that map's reveal
+history, restores wall-door locks and wall-passage discovery to authored states,
+and shows the map fully covered. Fog Undo cannot undo this activation reset.
+Cross-map endpoint session overrides remain separate and are not reset by it.
+Restore still uses the existing checkpoint semantics; the labels do not change
+activation behavior. Cancel still performs no activation or reset.

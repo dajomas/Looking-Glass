@@ -23,7 +23,8 @@ def editor(browser):
     html=Environment(loader=DictLoader(templates)).get_template("editor.html").render(map=data,campaign=dict(id=4,name="C"))
     image=io.BytesIO();Image.new("RGB",(400,200),"white").save(image,"PNG")
     writes,errors=[],[];page.on("pageerror",lambda e:errors.append(str(e)))
-    page.on("dialog",lambda d:d.dismiss())
+    page._test_dialog_handler=lambda d:d.accept() if d.type=="confirm" else d.dismiss()
+    page.on("dialog",page._test_dialog_handler)
     def route(r):
         path=urlparse(r.request.url).path
         if r.request.method=="POST":
@@ -94,7 +95,7 @@ def test_cancel_escape_and_batch_undo_redo(editor):
     open_popup(page);assert page.locator("#portal-side-0-role").input_value()=="unconfigured"
     connect(page);apply(page);page.locator("#wall-undo").click()
     open_popup(page);assert page.locator("#portal-side-0-role").input_value()=="unconfigured"
-    page.locator("#portal-cancel").click();page.locator("#wall-redo").click()
+    page.locator("#portal-close").click();page.locator("#wall-redo").click()
     page.locator("#wall-save").click();pw.expect(page.locator("#wall-status")).to_contain_text("Saved")
 
 def test_configured_opposite_not_overwritten_and_shared_exit(editor):

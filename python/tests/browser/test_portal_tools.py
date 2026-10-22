@@ -41,7 +41,7 @@ def test_overview_button_lists_unconfigured_and_counterparts(editor):
     text=page.locator("#portal-overview-body").text_content();assert "Section 3 E" in text and "Section 2 E" in text and "Locked" in text and "Secret" in text
     page.keyboard.press("Escape");expect(page.locator("#portal-dialog")).to_be_visible()
     assert page.locator("#portal-side-0-kind").input_value()=="secret"
-    page.locator("#portal-cancel").click();page.locator("#portal-overview").click()
+    page.locator("#portal-close").click();page.locator("#portal-overview").click()
     assert "Section 3 E" not in page.locator("#portal-overview-body").text_content();assert not writes
 
 

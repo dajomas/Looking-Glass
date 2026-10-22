@@ -172,7 +172,7 @@ edit its two compass-designated sides (map-top is North). Entry/Both sides selec
 a destination Portal section and compass side. Exit, Unconfigured and None sides
 are selectable; Unconfigured/None becomes Exit in the popup, committed on Apply.
 Both remains usable without losing its Entry role. Shared exits are supported;
-every pair still contains exactly two sections. Cancel discards popup edits;
+every pair still contains exactly two sections. Close/Escape confirm discard of unapplied popup edits;
 Apply is one undoable draft transaction. Complete all sections before Save/export.
 See [passages](docs/Passages.md) and [wall editing](docs/wall-editor.md).
 

@@ -1,6 +1,6 @@
 <dialog id="transition-editor" class="transition-dialog" aria-labelledby="transition-title">
 <form id="transition-form" class="transition-layout">
-<div class="transition-body stack">
+<div id="tr-editor-body" class="transition-body stack">
 <h2 id="transition-title">Map passage</h2><p id="transition-error" role="alert"></p>
 <fieldset id="tr-config" class="stack"><legend>Endpoint configuration</legend>
 <p class="muted small">Saved with Save configuration. Session overrides below are saved separately.</p>
@@ -29,13 +29,16 @@
 </div>
 <footer class="transition-actions" aria-label="Map passage actions">
 <div class="btn-row"><button class="primary" type="submit" id="tr-save-config" aria-describedby="tr-config-status">Save configuration</button><button id="tr-delete" type="button" class="danger">Delete endpoint</button><button id="tr-save-runtime" type="button" aria-describedby="tr-session-status">Update session state</button></div>
-<div class="btn-row"><button id="tr-open" type="button" title="Admin-only inspection; viewer and fog unchanged">Inspect destination</button><button id="tr-travel" type="button">Travel / show destination…</button><button id="tr-close" type="button">Close</button></div>
+<div class="btn-row"><button id="tr-open" type="button" title="Admin-only inspection; viewer and fog unchanged">Inspect destination</button><button id="tr-travel" type="button">Travel…</button><button id="tr-close" type="button">Close</button></div>
 </footer>
 </form></dialog>
 <dialog id="transition-travel" class="transition-dialog" aria-labelledby="transition-travel-title"><form id="transition-travel-form" class="stack">
 <h2 id="transition-travel-title">Travel to another map</h2><p id="tr-travel-summary"></p><p id="tr-travel-error" role="alert"></p>
-<label class="check"><input id="tr-approve" type="checkbox"> DM approves travel and overrides any secret/blocked/approval requirement</label>
+<div id="tr-approval-control" hidden>
+<label class="check"><input id="tr-approve" type="checkbox" aria-describedby="tr-approval-help"><span id="tr-approval-label">I approve this trip</span></label>
+<p id="tr-approval-help" class="small muted"></p>
+</div>
 <label id="tr-large-label" class="check"><input id="tr-large" type="checkbox"> I accept this potentially large arrival reveal</label>
 <p class="muted small">Travel uses saved configuration, preserves exploration and switches all campaign viewers together.</p>
-<div class="btn-row"><button id="tr-confirm" type="submit" class="primary">Travel</button><button id="tr-cancel-travel" type="button">Cancel</button></div>
+<div class="btn-row"><button id="tr-confirm" type="submit" class="primary">Travel to destination</button><button id="tr-cancel-travel" type="button">Back to passage</button></div>
 </form></dialog>

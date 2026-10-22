@@ -56,13 +56,13 @@ def test_continue_after_apply_rebases_and_each_apply_undoes_separately(editor):
     assert not writes
 
 
-@pytest.mark.parametrize("action",["close","cancel","escape"])
+@pytest.mark.parametrize("action",["close","escape"])
 def test_close_discards_only_edits_since_last_apply(editor,action):
     page,writes,data=editor;open_popup(page);connect(page);apply_only(page)
     page.locator("#portal-side-0-kind").select_option("secret")
     page.locator("#portal-side-0-after").select_option("locked_door")
     if action=="escape":page.keyboard.press("Escape")
-    else:page.locator("#portal-close" if action=="close" else "#portal-cancel").click()
+    else:page.locator("#portal-close").click()
     expect(page.locator("#portal-dialog")).not_to_be_visible()
     assert not writes;save(page)
     assert data["walls"][1][6]["sides"][0]["kind"]=="door"
@@ -114,3 +114,17 @@ def test_request_submit_retains_scroll_and_reports_pending_edits(editor):
     page.locator("#portal-side-0-kind").select_option("locked_door")
     expect(page.locator("#portal-apply-status")).to_contain_text("Unapplied changes")
     assert not writes
+
+
+def test_dirty_close_can_be_cancelled_without_losing_popup_edits(editor):
+    page,writes,data=editor;open_popup(page);connect(page);apply_only(page)
+    page.locator("#portal-side-0-kind").select_option("secret")
+    page.remove_listener("dialog",page._test_dialog_handler)
+    page.once("dialog",lambda d:d.dismiss())
+    page.locator("#portal-close").click()
+    expect(page.locator("#portal-dialog")).to_be_visible()
+    expect(page.locator("#portal-side-0-kind")).to_have_value("secret")
+    page.once("dialog",lambda d:d.accept());page.keyboard.press("Escape")
+    expect(page.locator("#portal-dialog")).not_to_be_visible()
+    assert not writes
+    save(page);assert data["walls"][1][6]["sides"][0]["kind"]=="door"

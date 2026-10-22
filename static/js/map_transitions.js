@@ -3,10 +3,23 @@ window.LGMapTransitions=(()=>{
  "use strict";
  const codes={stairs:"S",ladder:"L",hole:"H",portal:"P",climb:"C",custom:"X"},$=id=>document.getElementById(id);
  function option(select,value,text){const o=document.createElement("option");o.value=value;o.textContent=text;select.append(o);}
+ function approvalPresentation(preview){
+  const reasons=[];
+  const secret=preview.source_visibility==="secret",blocked=preview.source_state==="blocked",approval=preview.source_state==="approval";
+  if(secret)reasons.push("Secret passage");
+  if(blocked)reasons.push("Blocked passage");
+  if(approval)reasons.push("DM approval required");
+  const needed=!!preview.needs_override||secret||blocked||approval;
+  if(!needed)return {needed:false,label:"",help:""};
+  const restricted=secret||blocked;
+  const label=restricted?"Allow this trip despite passage restrictions":"I approve this trip";
+  const explanation=restricted?"Applies to this trip only. Does not discover, unblock, or change the passage.":"Confirm that any required checks or conditions have been resolved. Applies to this trip only; passage settings do not change.";
+  return {needed:true,label,help:`${reasons.length?"Reason: "+reasons.join("; ")+". ":""}${explanation}`};
+ }
  function mount({mapId,campaignId,scale,dimensions,onSaved,cancelGestures}){
   const base=`/api/campaigns/${campaignId}`,dialog=$("transition-editor"),td=$("transition-travel");
   let data=null,current=null,placing=false,locked=false,preview=null,travelRequest=null;
-  let configBaseline=null,sessionBaseline=null;
+  let configBaseline=null,sessionBaseline=null,travelReturn=null,travellingAway=false;
   const status=t=>$("transition-status").textContent=t;
   async function guard(fn,error="transition-error"){
    if(locked)return;locked=true;
@@ -98,7 +111,7 @@ window.LGMapTransitions=(()=>{
   $("transition-form").addEventListener("input",dirtyStatus);
   $("transition-form").addEventListener("change",dirtyStatus);
   dialog.addEventListener("cancel",event=>{event.preventDefault();closeEditor();});
-  window.addEventListener("beforeunload",event=>{if((dialog.open||td.open||placing)&&hasPending()){event.preventDefault();event.returnValue="";}});
+  window.addEventListener("beforeunload",event=>{if(!travellingAway&&(dialog.open||td.open||placing)&&hasPending()){event.preventDefault();event.returnValue="";}});
   $("tr-create-destination").onclick=()=>{const id=Number($("tr-map").value);if(!id){$("transition-error").textContent="Choose a destination map first.";return;}window.open(`/maps/${id}?create_transition=1`,"_blank","noopener");$("transition-error").textContent="Create and save the endpoint in the new tab, then Reload destinations here.";};
   $("tr-reload-destinations").onclick=()=>guard(async()=>{const chosen=$("tr-destination").value;await reload();fillDestinations(chosen);});
   $("transition-form").onsubmit=e=>{e.preventDefault();guard(async()=>{
@@ -129,22 +142,39 @@ window.LGMapTransitions=(()=>{
    if(locked)return;
    if(hasPending()&&!confirm("Travel uses saved configuration and session state. Continue without saving pending edits?"))return;
    return guard(async()=>{
-   await reload();current=data.endpoints.find(e=>e.id===current?.id);if(!current)throw Error("Endpoint deleted; reload.");
+   await reload();const source=data.endpoints.find(e=>e.id===current?.id);if(!source)throw Error("Endpoint deleted; reload.");
    if(data.active_map_id!==mapId)throw Error("Show this source map to players before travelling.");
-   preview=await LGApi.get(`${base}/transitions/${current.id}/preview`);
-   $("tr-travel-summary").textContent=`${current.name} → ${preview.destination_map_name} / ${preview.destination_name}. ${preview.arrival==="area"?"Reveal "+(preview.fraction*100).toFixed(1)+"% of the destination map.":"Preserve destination fog."} State: ${preview.source_visibility}, ${preview.source_state}.`;
-   $("tr-approve").checked=false;$("tr-approve").required=preview.needs_override;$("tr-large").checked=false;$("tr-large").required=preview.warning;$("tr-large-label").hidden=!preview.warning;$("tr-travel-error").textContent="";
-   travelRequest={source_endpoint_id:current.id,expected_active_map_id:data.active_map_id,source_revision:preview.source_revision,destination_revision:preview.destination_revision,destination_version:preview.destination_version,request_id:window.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`};
+   preview=await LGApi.get(`${base}/transitions/${source.id}/preview`);
+   $("tr-confirm").textContent=`Travel to ${preview.destination_map_name}`;
+   $("tr-travel-summary").textContent=`${source.name} → ${preview.destination_map_name} / ${preview.destination_name}. ${preview.arrival==="area"?"Reveal "+(preview.fraction*100).toFixed(1)+"% of the destination map.":"Preserve destination fog."} State: ${preview.source_visibility}, ${preview.source_state}.`;
+   const approval=approvalPresentation(preview);
+   $("tr-approval-control").hidden=!approval.needed;
+   $("tr-approval-label").textContent=approval.label;$("tr-approval-help").textContent=approval.help;
+   $("tr-approve").checked=false;$("tr-approve").required=approval.needed;$("tr-approve").disabled=!approval.needed;$("tr-large").checked=false;$("tr-large").required=preview.warning;$("tr-large-label").hidden=!preview.warning;$("tr-travel-error").textContent="";
+   travelRequest={source_endpoint_id:source.id,expected_active_map_id:data.active_map_id,source_revision:preview.source_revision,destination_revision:preview.destination_revision,destination_version:preview.destination_version,request_id:window.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`};
+   travelReturn={scroll:$("tr-editor-body").scrollTop||0,focusId:document.activeElement?.id||"tr-travel"};
    dialog.close();td.showModal();
   });
   };
-  $("tr-cancel-travel").onclick=()=>{td.close();travelRequest=null;};
-  $("transition-travel-form").onsubmit=e=>{e.preventDefault();guard(async()=>{const result=await LGApi.post(`${base}/travel`,{...travelRequest,override:$("tr-approve").checked,allow_large_reveal:$("tr-large").checked});location.href=result.admin_url;},"tr-travel-error");};
+  function backToPassage(){
+   if(locked)return;
+   const previous=travelReturn;travelReturn=null;travelRequest=null;preview=null;
+   td.close();
+   if(previous){
+    if(!dialog.open)dialog.showModal();
+    $("tr-editor-body").scrollTop=previous.scroll;dirtyStatus();
+    ($(previous.focusId)||$("tr-travel"))?.focus({preventScroll:true});
+    status("Travel cancelled. Your passage edits are unchanged.");
+   }
+  }
+  $("tr-cancel-travel").onclick=backToPassage;
+  td.addEventListener("cancel",event=>{event.preventDefault();backToPassage();});
+  $("transition-travel-form").onsubmit=e=>{e.preventDefault();guard(async()=>{const result=await LGApi.post(`${base}/travel`,{...travelRequest,override:!$("tr-approve").disabled&&$("tr-approve").checked,allow_large_reveal:$("tr-large").checked});travelReturn=null;travellingAway=true;location.href=result.admin_url;},"tr-travel-error");};
   window.addEventListener("keydown",e=>{if(e.key==="Escape"&&placing){placing=false;status("Placement cancelled.");}});
   const refresh=()=>{if(!locked&&!dialog.open&&!td.open&&!placing)reload().catch(e=>status(e.message));};
   reload().then(()=>{if(new URLSearchParams(location.search).has("create_transition"))$("transition-add").click();}).catch(e=>status(e.message));
   setInterval(refresh,15000);window.addEventListener("focus",refresh);
   return {draw,tap(x,y,event){if(!data||locked||event?.button!==0)return false;if(placing){if(!dialog.open)dialog.showModal();$("tr-x").value=x.toFixed(2);$("tr-y").value=y.toFixed(2);placing=false;dirtyStatus();status("Location selected. Save to apply.");return true;}const hit=data.endpoints.filter(e=>e.map_id===mapId).reverse().find(e=>Math.hypot(e.x-x,e.y-y)*scale()<=14);if(hit){open(hit);return true;}return false;}};
  }
- return {mount};
+ return {mount,approvalPresentation};
 })();

@@ -109,7 +109,13 @@
   if(typeof module!=="undefined")module.exports=api;
   host.LGPortalEditor=function({getWalls,getBusy,mutate,status,viewport}) {
     const $=id=>document.getElementById(id),dialog=$("portal-dialog"),select=$("portal-section");
-    let local=null,links=null,original=null;
+    let local=null,links=null,original=null,popupCheckpoint="";
+    function popupState() {
+      return JSON.stringify([local,[...(links||new Map())].sort(([a],[b])=>a.localeCompare(b))],(key,value)=>
+        value&&typeof value==="object"&&!Array.isArray(value)?Object.fromEntries(Object.entries(value).sort(([a],[b])=>a.localeCompare(b))):value);
+    }
+    function checkpointPopup(){popupCheckpoint=popupState();}
+    function popupPending(){return !!local&&popupState()!==popupCheckpoint;}
     const floating=host.LGFloatingDialog(dialog,$("portal-dialog-move"),$("portal-dialog-center"));
     const overview=host.LGPortalOverview.mount({dialog:$("portal-overview-dialog"),body:$("portal-overview-body"),caption:$("portal-overview-caption"),close:$("portal-overview-close")});
     $("portal-overview").onclick=()=>{if(!getBusy())overview.open(getWalls());};
@@ -164,19 +170,19 @@
       original=clone(getWalls());local=clone(original);
       const all=portals(local);if(!all.length){status("Add a Portal element before opening Portal configuration.",true);return;}
       all.forEach(({w})=>w[6]={...config(w),sides:sides(w)});links=linksFor(local);
-      addOptions(select,all.map(v=>[v.i,`Portal section ${v.i+1}`]),all[0].i);$("portal-error").textContent="";$("portal-apply-status").textContent="";panel();floating.open();select.focus();
+      addOptions(select,all.map(v=>[v.i,`Portal section ${v.i+1}`]),all[0].i);$("portal-error").textContent="";$("portal-apply-status").textContent="";panel();checkpointPopup();floating.open();select.focus();
     };
     select.onchange=panel;
     $("portal-form").onsubmit=event=>{
       event.preventDefault();if(getBusy()||!local)return;
       try {
-        if(JSON.stringify(getWalls())!==JSON.stringify(original))throw Error("The wall draft changed. Cancel and reopen configuration.");
+        if(JSON.stringify(getWalls())!==JSON.stringify(original))throw Error("The wall draft changed. Close and reopen configuration.");
         const selected=select.value,scroll=dialog.scrollTop,focusId=document.activeElement?.id;
         const after=build(local,links,uuid),changed=JSON.stringify(after)!==JSON.stringify(original);
         if(changed)mutate({batch:true,before:original,after});
         // Apply checkpoints the current draft, not the database. Keep editing from that checkpoint.
         original=clone(getWalls());local=clone(original);links=linksFor(local);
-        select.value=selected;panel();dialog.scrollTop=scroll;
+        select.value=selected;panel();checkpointPopup();dialog.scrollTop=scroll;
         if(focusId)document.getElementById(focusId)?.focus({preventScroll:true});
         let complete=true;try{validate(original);}catch(_){complete=false;}
         const message=complete?(changed?"Portal configuration applied to draft. Continue editing, or Close and Save wall set to persist.":"No new changes to apply. Close and Save wall set to persist the draft."):
@@ -188,24 +194,28 @@
       if(!local)return;
       const i=current(),pair=local[i][6]?.pair;
       const reset=new Set(portals(local).filter(v=>v.i===i || (pair&&v.w[6]?.pair===pair)).map(v=>v.i));
+      const sections=[...reset].map(j=>j+1).join(", ");
+      if(!host.confirm(`Reset pairing for portal section(s) ${sections}? Both sides become Unconfigured in this popup only. Apply to draft to keep the reset; wall geometry is not deleted.`))return;
       for(const j of reset)local[j][6]=blank();
       for(const [key,value] of links)if(reset.has(Number(key.split(":")[0]))||reset.has(value.index))links.delete(key);
       $("portal-apply-status").textContent="Unapplied changes. Apply configuration to update the draft.";
       $("portal-error").textContent="Configuration reset in this popup; Apply to draft to keep it. Paired sections are reset together and remain Portal elements.";panel();
     };
     function closePopup() {
+      if(getBusy())return;
+      if(popupPending()&&!host.confirm("Discard unapplied portal edits? Changes already applied remain in the wall draft; Save wall set persists them."))return;
       dialog.close();
       status("Portal configuration closed. Applied changes remain in the draft; unapplied popup edits were discarded.");
     }
     $("portal-close").onclick=closePopup;
-    $("portal-cancel").onclick=closePopup;
+    dialog.addEventListener("cancel",event=>{event.preventDefault();closePopup();});
     dialog.addEventListener("change",event=>{
       if(local && event.target.closest?.("#portal-sides")) {
         $("portal-error").textContent="";
         $("portal-apply-status").textContent="Unapplied changes. Apply configuration to update the draft.";
       }
     },true);
-    dialog.addEventListener("close",()=>{local=null;links=null;original=null;viewport.focus();});
+    dialog.addEventListener("close",()=>{local=null;links=null;original=null;popupCheckpoint="";viewport.focus();});
     dialog.addEventListener("keydown",event=>event.stopPropagation());
   };
 })(typeof window!=="undefined"?window:globalThis);

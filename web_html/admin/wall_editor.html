@@ -86,12 +86,12 @@
     </div>
     <p class="small muted">Drag the title bar to see the map. Arrow keys move a focused title bar; Shift moves farther.</p>
     <button type="button" id="portal-popup-overview">Overview of pending portals</button>
-    <p class="small">Select one portal section and edit its two sides. New sides start Unconfigured; configuring one defaults an untouched opposite side to None. Entry/Both sides select their paired Exit portal and side. Compass side names use map-up as North (including diagonal headings). Exit, Unconfigured and None sides can be selected as destinations; Unconfigured/None become Exit in this popup. Both remains usable without losing its Entry role. Apply commits these changes to the draft and keeps this popup open. Close, Cancel or Escape discards only edits since the last Apply; applied changes remain in the draft. Use Save wall set after closing to persist them. Multiple Entries may share an Exit. Each pair still contains two sections only.</p>
+    <p class="small">Select one portal section and edit its two sides. New sides start Unconfigured; configuring one defaults an untouched opposite side to None. Entry/Both sides select their paired Exit portal and side. Compass side names use map-up as North (including diagonal headings). Exit, Unconfigured and None sides can be selected as destinations; Unconfigured/None become Exit in this popup. Both remains usable without losing its Entry role. Apply commits these changes to the draft and keeps this popup open. Close or Escape asks before discarding unapplied edits; changes already applied remain in the draft. Use Save wall set after closing to persist them. Multiple Entries may share an Exit. Each pair still contains two sections only.</p>
     <label>Portal section <select id="portal-section"></select></label>
     <div id="portal-sides" class="stack"></div>
     <p id="portal-error" role="alert"></p>
     <p id="portal-apply-status" class="small" role="status" aria-live="polite"></p>
-    <div class="btn-row"><button type="submit" id="portal-apply" class="primary">Apply configuration to draft</button><button type="button" id="portal-remove">Reset section / unpair</button><button type="button" id="portal-cancel">Cancel pending edits</button><button type="button" id="portal-close">Close</button></div>
+    <div class="btn-row"><button type="submit" id="portal-apply" class="primary">Apply configuration to draft</button><button type="button" id="portal-remove">Reset pairing…</button><button type="button" id="portal-close">Close</button></div>
   </form>
 </dialog>
 <dialog id="portal-overview-dialog" aria-labelledby="portal-overview-title">
@@ -108,5 +108,5 @@
 {% endblock %}
 {% block scripts %}
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
-<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/floating_dialog.js?v=portal-tools-4"></script><script src="/static/js/portal_overview.js?v=portal-tools-4"></script><script src="/static/js/portal_editor.js?v=portal-apply-6"></script><script src="/static/js/admin_wall_editor.js?v=portal-visibility-5"></script>
+<script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/wall_appearance.js?v=locked-doors-1"></script><script src="/static/js/floating_dialog.js?v=portal-tools-4"></script><script src="/static/js/portal_overview.js?v=portal-tools-4"></script><script src="/static/js/portal_editor.js?v=portal-close-reset-7"></script><script src="/static/js/admin_wall_editor.js?v=portal-visibility-5"></script>
 {% endblock %}
