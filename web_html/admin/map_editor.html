@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=passage-modal-2">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=sidebar-help-1">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -11,6 +11,36 @@
     <select id="map-switch">
       {% for s in siblings %}<option value="{{ s.id }}" {{ 'selected' if s.id == map.id }}>{{ s.name }}</option>{% endfor %}
     </select>
+  </div>
+
+  <div class="side-block">
+    <details id="editor-help" class="sidebar-panel editor-help">
+      <summary aria-label="Help for the map editor"><span aria-hidden="true">?</span> Help</summary>
+      <div class="panel-content small">
+      <h3>Players</h3><p>Show to players makes this map live. Blank shows a waiting screen. The exact player image opens the current player rendering in a separate tab.</p>
+<h3>Fog and navigation</h3>
+<p class="muted small">Single-click inside a room to reveal/hide (400 ms delay). Double-click a revealed area to toggle viewer zoom without changing fog. Door/arrow gestures take priority. Right-drag or Space-drag pans, the wheel zooms. Shortcuts: R / H mode, Ctrl+Z undo, F fit.</p>
+<h3>Door arrows</h3>
+<p class="muted small">Click a door arrow to reveal. Locked arrows: double-click to unlock only. Unlocked arrows: double-click to lock. Reset restores designed door states. Ctrl+Z undoes fog reveals.</p>
+<h3>Wall alignment</h3>
+<p class="muted small">image = (wall &minus; offset) &times; scale</p>
+<h3>Wall types</h3>
+<p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p><p>Hold Shift while nudging alignment to move by 10 pixels.</p>
+{% if siblings|length > 1 %}<h3>Map passages</h3><p class="small muted">S stairs · L ladder · H hole · P portal · C climb · X custom. Click a marker to edit; travel is an explicit DM action.</p>{% endif %}
+<h3>Saved wall sources</h3>
+<p>A saved source is a reusable Foundry VTT or Universal VTT file stored for this campaign. A wall set is one scene’s walls and doors inside that file; scenes are not merged.</p>
+<ol>
+<li>Choose a Foundry scene/adventure JSON, legacy NeDB .db, or Universal VTT .dd2vtt, .uvtt or .df2vtt file, then select Save source. Saving validates and stores the file; it does not change this map.</li>
+<li>Select a Saved source, then a Wall set. Scene names, wall/door counts and source positions distinguish variants. The source-pixel size and suggested offset/scale describe alignment, not the size of your map image.</li>
+<li>Leave Auto-align for this map checked to calculate alignment for the current image. Uncheck it to retain this map’s current offset and scale.</li>
+<li>Apply selected wall set replaces this map’s existing walls; it does not merge them or update other maps. The map image, door-splitting setting and fog history are retained. Inspect the wall overlay and player preview afterwards; use Walls → Alignment if needed.</li>
+</ol>
+<p>During play, blank the player display before replacing walls: replaying existing fog actions against different boundaries can reveal different areas. Inspect the player preview and reset fog if needed.</p>
+<p>Reuse the saved file on other maps in this campaign without uploading again. Sources persist across restarts. Refresh sources reloads the list; Delete source removes the library entry but leaves walls already applied to maps intact. Changes to map walls do not edit the saved file.</p>
+<p>Foundry LevelDB directories cannot be uploaded: export scene JSON instead. A .db extension here means supported legacy NeDB, not an arbitrary SQLite database. For another campaign, save the file separately.</p>
+      <h3>Replace map image</h3><p>Upload replaces the current map artwork. Check wall alignment and the player preview after changing the image.</p>
+      </div>
+    </details>
   </div>
 
   <div class="side-block">
@@ -39,7 +69,7 @@
       <label><input type="radio" name="mode" value="reveal" checked><span>Reveal area</span></label>
       <label><input type="radio" name="mode" value="hide"><span>Hide area</span></label>
     </div>
-    <p class="muted small">Single-click inside a room to reveal/hide (400 ms delay). Double-click a revealed area to toggle viewer zoom without changing fog. Door/arrow gestures take priority. Right-drag or Space-drag pans, the wheel zooms. Shortcuts: R / H mode, Ctrl+Z undo, F fit.</p>
+    
     <div class="btn-row">
       <button id="btn-undo">Undo</button>
       <button id="btn-reveal-all">Reveal all</button>
@@ -61,7 +91,7 @@
     <label>Door arrow color (shared with players)
       <input id="door-arrow-color" type="color" value="#46c0ff">
     </label>
-    <p class="muted small">Click a door arrow to reveal. Locked arrows: double-click to unlock only. Unlocked arrows: double-click to lock. Reset restores designed door states. Ctrl+Z undoes fog reveals.</p>
+    
     <fieldset class="portal-cycle-controls"><legend>Portal pair highlighting (admin only)</legend>
       <label class="check"><input id="portal-cycle-enabled" type="checkbox" checked> Cycle visible Entry/Exit pairs</label>
       <label class="range" for="portal-cycle-seconds">Seconds per blinking pair
@@ -76,8 +106,8 @@
     </details>
   </div>
 
-  <div class="side-block"><details id="map-passages-panel" class="sidebar-panel" name="fog-editor-panels"><summary>Map passages</summary><div class="panel-content">
-<p class="small muted">S stairs · L ladder · H hole · P portal · C climb · X custom. Click a marker to edit; travel is an explicit DM action.</p>
+  <div class="side-block" id="map-passages-section"{% if siblings|length <= 1 %} hidden{% endif %}><details id="map-passages-panel" class="sidebar-panel" name="fog-editor-panels"><summary>Map passages</summary><div class="panel-content">
+
 <button type="button" id="transition-add">Add passage endpoint</button><p id="transition-status" role="status" aria-live="polite"></p><div id="transition-list" class="stack"></div>
 <label class="check"><input type="checkbox" id="transition-viewer-markers" checked> Show map passage markers (viewer)</label>
 <label class="check"><input type="checkbox" id="transition-viewer-labels" checked> Show passage labels (viewer)</label>
@@ -97,7 +127,7 @@
       <span class="muted" id="wall-source">{{ map.walls_source }}</span></p>
     <details id="calibration">
       <summary>Alignment</summary>
-      <p class="muted small">image = (wall &minus; offset) &times; scale</p>
+      
       <div class="cal-grid">
         <label>Offset X <input id="cal-ox" type="number" step="any"></label>
         <label>Offset Y <input id="cal-oy" type="number" step="any"></label>
@@ -109,7 +139,7 @@
         <button type="button" data-nudge="-1,0" aria-label="Left">&#8592;</button>
         <button type="button" data-nudge="1,0" aria-label="Right">&#8594;</button>
         <button type="button" data-nudge="0,1" aria-label="Down">&#8595;</button>
-        <span class="muted small">Shift = 10px</span>
+        
       </div>
       <label class="check"><input id="cal-doors" type="checkbox"> Doors split areas</label>
       <button type="button" id="btn-cal-save" class="primary">Apply alignment</button>
@@ -122,7 +152,7 @@
     <details id="saved-wall-library" class="sidebar-panel" name="fog-editor-panels">
       <summary>Saved wall sources</summary>
       <div class="panel-content">
-      <p class="muted small">Save a database once, then choose a wall set for each map in this campaign.</p>
+      
       <form id="source-save" class="stack">
         <label>Save Foundry VTT / UVTT (Universal VTT) source
           <input id="source-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
@@ -160,7 +190,7 @@
         <tr><td><span style="color:#c0c0c0">━━</span> Portal</td><td><input type="checkbox" data-wall-show="portal" checked aria-label="Show Portal"></td><td><input type="checkbox" data-wall-enabled="portal" checked aria-label="Enable Portal"></td></tr>
         <tr><td><span style="color:#9aa3b5">┄┄</span> Ethereal</td><td><input type="checkbox" data-wall-show="ethereal" checked aria-label="Show Ethereal"></td><td><input type="checkbox" data-wall-enabled="ethereal" checked aria-label="Enable Ethereal"></td></tr>
       </tbody></table>
-      <p class="muted small">Show hides only the DM overlay. Enabled controls area boundaries after Apply. Disabled walls are retained. Ethereal walls never block; doors also follow Doors split areas.</p>
+      
       <button type="button" id="apply-wall-types" class="primary">Apply wall types</button>
       </div>
     </details>

@@ -20,13 +20,13 @@ A database may contain many scenes, including variants of the same location.
 Looking Glass treats each parsed, non-empty scene as an independent wall set;
 it does not merge all scenes into one geometry.
 
-1. Open **Walls → Saved wall sources** in a map editor.
+1. Open **Saved wall sources** in the map editor’s left sidebar; **? Help → Saved wall sources** explains the workflow.
 2. Save the `.db` or JSON source. Saving validates the file but changes no walls.
 3. Select the saved source, then the desired wall set by scene name. Counts and
    original source positions help distinguish variants and duplicate names.
    Wall sets are shown alphabetically by name, ignoring case, with natural
    numeric ordering. Equal names retain original source-index order.
-4. Choose whether to auto-align, then apply and confirm replacement.
+4. Choose whether to auto-align, then select **Apply selected wall set** to replace this map’s walls.
 5. On another battle map in the same campaign, select the saved database again
    and choose the same or another wall set. The file is not uploaded again.
 

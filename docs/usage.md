@@ -463,3 +463,23 @@ and shows the map fully covered. Fog Undo cannot undo this activation reset.
 Cross-map endpoint session overrides remain separate and are not reset by it.
 Restore still uses the existing checkpoint semantics; the labels do not change
 activation behavior. Cancel still performs no activation or reset.
+
+## Fog editor sidebar help
+
+The left sidebar has a collapsed `? Help` control near the map selector. Open it
+with a pointer or keyboard (Tab, then Enter/Space) to read instructions for
+players, fog/navigation, door arrows, alignment, wall types, saved sources and
+image replacement. Help is independent of the controls accordion, so it can
+remain open alongside the panel you are using. Live status, errors, warnings,
+counts and control labels stay next to their controls.
+
+Map passages is hidden when the campaign has only one map, and is visible with
+two or more maps after loading/reloading the editor. This is a presentation
+change only: saved passages and API behavior are unchanged.
+
+Saved wall sources help explains the difference between a campaign-scoped
+source file and an individual scene/wall set, the save/select/apply workflow,
+auto-alignment, replacement rather than merging, reuse, deletion, supported
+formats and fog-history precautions. Saving/selecting does not apply walls.
+Applying replaces only the current map's walls and retains its artwork and fog
+history. Inspect player preview after applying, especially during play.

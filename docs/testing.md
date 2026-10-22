@@ -189,3 +189,17 @@ Use another tab to change a source after opening it; travel cancellation must no
 silently rebase that editor's saved revision. Check Reset fog and show map only on
 copied data and confirm the scope warning matches its existing effects. Node mocks
 and template assertions are not substitutes for real-browser/live-server checks.
+
+## Sidebar help regression tests
+
+Install `requirements-dev.txt`, then run:
+
+```sh
+python -m pytest python/tests/test_admin_sidebar_help.py -q
+```
+
+The four cases render the real Jinja template and inspect the resulting HTML
+using Beautiful Soup: passage visibility for one/two/three maps, retained event
+binding targets, collapsed independent help, relocated guidance, expanded saved
+source instructions and retained live status/warnings. Browser interaction and
+visual layout still require a browser smoke test.

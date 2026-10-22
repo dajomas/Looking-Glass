@@ -118,3 +118,12 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
  #transition-editor .transition-actions { padding:.3rem .5rem; gap:.2rem; }
  #transition-editor .transition-actions button { padding:.3rem .45rem; font-size:.8rem; }
 }
+
+/* Keep single-map passage controls mounted for existing event bindings, but invisible. */
+#map-passages-section[hidden] { display: none !important; }
+#editor-help > summary { cursor: pointer; }
+#editor-help > summary span { display: inline-block; border: 1px solid currentColor; border-radius: 50%; width: 1.25em; text-align: center; margin-right: .35em; }
+#editor-help h3 { font-size: 1em; margin: 1em 0 .4em; }
+#editor-help p, #editor-help li { line-height: 1.5; }
+#editor-help ol { padding-left: 1.5em; }
+#editor-help li + li { margin-top: .5em; }
