@@ -90,3 +90,10 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
   50% { fill: #1538d0; stroke: #fff; }
 }
 @media (prefers-reduced-motion:reduce) { .portal-route-flash { animation: none; opacity: 1; } }
+/* Map interactions should not select text or arrow glyphs. */
+#viewport,
+#viewport button,
+[data-nudge] {
+    -webkit-user-select: none;
+    user-select: none;
+}
