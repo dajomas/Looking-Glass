@@ -208,7 +208,7 @@ there is no automatic D&D check resolution.
 
 Authored visibility is **Secret**, **Discovered**, or **Admin-only**. Authored
 availability is **Usable**, **Blocked**, or **DM approval required**. Current-session
-overrides are saved independently and survive restart. Use **Apply session state**
+overrides are saved independently and survive restart. Use **Update session state**
 to discover a secret or change its current availability. "Use authored setting"
 clears the respective override. Saving authored settings does not clear overrides.
 
@@ -219,13 +219,10 @@ combined reset operation in this first release.
 
 ### Preview and travel
 
-- **Inspect destination** opens the saved destination map in an admin tab only.
-  It does not switch the viewer, reveal/hide/reset fog, change passage state, or show
-  the Restore/Reset dialog. With a new tab, the source modal and unsaved source form
-  edits remain available. If the new tab is blocked or closed before navigation,
-  inspection falls back to the current admin tab; save source edits first if you
-  need them there. A fresh read validates the saved route and destination. Unsaved
-  route edits are not used; changed or missing destinations produce an error.
+- **Inspect destination** opens the saved destination in admin only, with no
+  viewer switch, fog mutation or Restore/Reset dialog. New-tab inspection retains
+  the source form draft. If popups are blocked, current-tab inspection asks before
+  abandoning pending edits. Missing/changed saved destinations are rejected.
 - Save configuration changes before using **Travel / show destination…**; travel uses
   the saved record, not unsaved dialog fields.
 - Show the source map to players first. The travel dialog displays the destination,
@@ -284,10 +281,40 @@ folder/database to retain them.
 
 ### Map passage modal actions
 
-The passage form scrolls inside a dedicated body. Save endpoint, Delete endpoint,
-Apply session state, Inspect destination, Travel / show destination and Close
+The passage form scrolls inside a dedicated body. Save configuration, Delete endpoint,
+Update session state, Inspect destination, Travel / show destination and Close
 sit in a non-scrolling footer, so the main actions stay visible while editing long
-configuration forms. Delete and Apply session state are hidden for a new endpoint.
+configuration forms. Delete and Update session state are hidden for a new endpoint.
 Placement and destination-selection helpers remain next to their fields. The footer
 wraps on narrow displays; the dialog remains bounded by the viewport. Travel keeps
 its separate confirmation and transactional arrival policy.
+
+
+### Configuration versus current session state
+
+The Map passage modal has two independent save scopes:
+
+| Action | Saves | Does not save |
+|---|---|---|
+| Save configuration | Name, player label, type, position, authored visibility/availability, destination/return link, arrival policy, notes | Pending session overrides |
+| Update session state | Current visibility and availability overrides only | Pending configuration changes |
+
+Both save immediately to the database and keep the modal open. Each group shows its
+own saved/unsaved status. Saving one group retains unsaved values and dirty status
+in the other, so you can discover a passage without losing an edited destination or
+save a new name without applying a staged lock/discovery change. Use Close when done.
+Saving configuration never resets existing runtime overrides. A "Use authored setting"
+session selection inherits the last saved configuration, not an unsaved field above.
+
+For a new endpoint, save its configuration first; session controls then become
+available without reopening the modal. Controls are disabled while a save is in
+flight. Successful saves refresh the endpoint revision before another save, avoiding
+self-generated stale errors. Rejected/stale saves retain the form drafts and do not
+claim that either scope was saved. A failed map refresh after a committed save is
+reported separately; the save itself remains acknowledged.
+
+Close and Escape ask before discarding pending edits. Confirmed discard does not
+undo either group that was already saved. Page navigation/reload with pending edits
+uses the browser's unsaved-changes warning where supported. Travel still uses saved
+configuration and session state; when pending edits exist, it asks before proceeding
+without them. Inspecting in a new tab neither saves nor discards either draft.

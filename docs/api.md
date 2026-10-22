@@ -394,11 +394,25 @@ exists in this version.
 The existing admin `GET /api/maps/{map_id}/display-options` response now adds
 `has_current_reveals`, a boolean evaluated from live fog operations. Existing
 `can_restore` retains its meaning: effective active-map operations or, for an
-inactive map, its saved checkpoint. Inspect destination does not use either reveal-availability flag or a reveal
-choice: it reads the existing campaign endpoint listing and opens the authorized
-admin map editor, without a mutation request. The optional prompt behavior remains
-available for other callers; normal restore semantics are unchanged.
+inactive map, its saved checkpoint. Inspect destination does not consume these flags or show a reveal-choice prompt;
+it uses authorized reads and admin navigation only. Existing display-option callers
+retain their default behavior.
 The existing CSRF-protected `POST /api/campaigns/{campaign_id}/active` performs
 activation with map_id and fog_action (restore/reset); the endpoint, permissions
 and response contract are unchanged. A cancelled choice issues no mutation request.
 No new passage-travel operation or schema migration is introduced by this UI change.
+
+
+### Passage save identity and independent scopes
+
+Successful `POST /api/campaigns/{cid}/transitions` and
+`POST /api/campaigns/{cid}/transitions/{id}` responses now include
+`saved_endpoint_id` alongside the existing listing fields. It identifies the saved
+endpoint, especially on create when several admins might add endpoints concurrently.
+This is an additive response field; the request schema is unchanged.
+
+The configuration request replaces authored configuration and preserves runtime
+overrides. The runtime request replaces its two override fields only and preserves
+configuration. Null/omitted override fields inherit authored settings. Clients must
+use the returned endpoint revision for subsequent writes in either scope. UI dirty
+tracking does not change server permissions, CSRF or stale-write validation.

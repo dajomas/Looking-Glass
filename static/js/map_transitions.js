@@ -6,13 +6,14 @@ window.LGMapTransitions=(()=>{
  function mount({mapId,campaignId,scale,dimensions,onSaved,cancelGestures}){
   const base=`/api/campaigns/${campaignId}`,dialog=$("transition-editor"),td=$("transition-travel");
   let data=null,current=null,placing=false,locked=false,preview=null,travelRequest=null;
+  let configBaseline=null,sessionBaseline=null;
   const status=t=>$("transition-status").textContent=t;
   async function guard(fn,error="transition-error"){
    if(locked)return;locked=true;
-   const controls=[...document.querySelectorAll("#transition-editor button,#transition-travel button,#transition-add,#transition-reset")],before=controls.map(x=>x.disabled);
+   const controls=[...document.querySelectorAll("#transition-editor button,#transition-editor input,#transition-editor select,#transition-editor textarea,#transition-travel button,#transition-add,#transition-reset")],before=controls.map(x=>x.disabled);
    controls.forEach(x=>x.disabled=true);$(error).textContent="";
    try{await fn();}catch(e){$(error).textContent=e.message;status(e.message);}
-   finally{controls.forEach((x,i)=>x.disabled=before[i]);locked=false;}
+   finally{controls.forEach((x,i)=>x.disabled=before[i]);locked=false;if(configBaseline!==null){currentActions();dirtyStatus();}}
   }
   function draw(){
    const svg=$("transition-markers"),d=dimensions();if(!data||!d)return;
@@ -37,6 +38,48 @@ window.LGMapTransitions=(()=>{
   function fillDestinations(selected){const s=$("tr-destination");s.replaceChildren();option(s,"","No outgoing connection");for(const e of data.endpoints.filter(e=>String(e.map_id)===$("tr-map").value))option(s,e.id,e.name);s.value=selected||"";}
   function fillMaps(destination){const s=$("tr-map");s.replaceChildren();option(s,"","Choose another map");for(const m of data.maps.filter(m=>m.id!==mapId))option(s,m.id,m.name);const dest=data.endpoints.find(e=>e.id===destination);if(dest)s.value=String(dest.map_id);fillDestinations(destination);}
   function read(){return {map_id:mapId,name:$("tr-name").value,player_label:$("tr-label").value,kind:$("tr-kind").value,x:Number($("tr-x").value),y:Number($("tr-y").value),visibility:$("tr-visibility").value,availability:$("tr-availability").value,destination_id:$("tr-destination").value||null,arrival:$("tr-arrival").value,notes:$("tr-notes").value,revision:current?.revision||null,return_link:$("tr-return").checked};}
+  function configuration(){
+   const {revision,...values}=read();
+   // Blank numeric fields are unsaved/invalid, not equivalent to a saved zero.
+   return {...values,coordinateInputsValid:["tr-x","tr-y"].every(id=>String($(id).value).trim()!==""&&Number.isFinite(Number($(id).value)))};
+  }
+  function session(){return {visibility:$("tr-current-visibility").value||null,availability:$("tr-current-availability").value||null};}
+  const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
+  function configDirty(){return configBaseline!==null&&!same(configuration(),configBaseline);}
+  function sessionDirty(){return !!current&&sessionBaseline!==null&&!same(session(),sessionBaseline);}
+  function hasPending(){return configDirty()||sessionDirty();}
+  function dirtyStatus(){
+   $("tr-config-status").textContent=!current?"New endpoint — configuration not saved.":configDirty()?"Unsaved configuration changes.":"Configuration saved.";
+   $("tr-session-status").textContent=sessionDirty()?"Unsaved session-state changes.":"Session state saved (or using authored settings).";
+  }
+  function fillConfiguration(item){
+   for(const k of ["name","kind","x","y","visibility","availability","arrival","notes"])$("tr-"+k).value=item[k];
+   $("tr-label").value=item.player_label;$("tr-return").checked=false;fillMaps(item.destination_id);
+  }
+  function currentActions(){
+   $("tr-runtime").hidden=!current;$("tr-delete").hidden=!current;$("tr-save-runtime").hidden=!current;
+   $("tr-open").disabled=$("tr-travel").disabled=!current?.destination_id;
+  }
+  function closeEditor(){
+   if(locked)return;
+   if(hasPending()&&!confirm("Discard unsaved passage changes? Configuration and session state already saved will be kept."))return;
+   placing=false;dialog.close();
+  }
+  async function scopedSaved(result,scope){
+   const id=result.saved_endpoint_id||current?.id;
+   const item=result.endpoints.find(e=>e.id===id);
+   if(!item)throw Error("Saved endpoint could not be identified. Reload the map before saving again.");
+   current=item;data=result;render();
+   if(scope==="configuration"){
+    fillConfiguration(item);configBaseline=configuration();
+    if(sessionBaseline===null){$("tr-current-visibility").value=item.runtime_visibility||"";$("tr-current-availability").value=item.runtime_availability||"";sessionBaseline=session();}
+   }else{
+    $("tr-current-visibility").value=item.runtime_visibility||"";$("tr-current-availability").value=item.runtime_availability||"";sessionBaseline=session();
+   }
+   currentActions();dirtyStatus();
+   status(scope==="configuration"?"Configuration saved. Pending session edits are retained.":"Session state updated. Pending configuration edits are retained.");
+   try{await onSaved();}catch(e){throw Error("Changes were saved, but the map refresh failed: "+e.message);}
+  }
   function open(item){
    cancelGestures();current=item||null;placing=false;$("transition-error").textContent="";
    const d=dimensions(),v=item||{name:"New passage",player_label:"",kind:"stairs",x:d.width/2,y:d.height/2,visibility:"discovered",availability:"usable",arrival:"area",notes:""};
@@ -44,43 +87,48 @@ window.LGMapTransitions=(()=>{
    $("tr-label").value=v.player_label;$("tr-return").checked=false;fillMaps(v.destination_id);
    $("tr-runtime").hidden=!item;$("tr-delete").hidden=!item;$("tr-save-runtime").hidden=!item;$("tr-open").disabled=$("tr-travel").disabled=!item?.destination_id;
    $("tr-current-visibility").value=item?.runtime_visibility||"";$("tr-current-availability").value=item?.runtime_availability||"";
+   configBaseline=configuration();sessionBaseline=current?session():null;dirtyStatus();
    if(!dialog.open)dialog.showModal();
   }
   async function saved(result){data=result;render();await onSaved();}
   $("transition-add").onclick=()=>{if(!data||!dimensions())return;open(null);dialog.close();cancelGestures();current=null;placing=true;status("Click the map to place a passage; Escape cancels.");};
   $("tr-place").onclick=()=>{cancelGestures();placing=true;dialog.close();status("Click the new location; Escape cancels.");};
-  $("tr-close").onclick=()=>dialog.close();$("tr-map").onchange=()=>fillDestinations(null);
-  $("tr-kind").onchange=()=>{if(!current)$("tr-availability").value=$("tr-kind").value==="climb"?"approval":"usable";};
+  $("tr-close").onclick=closeEditor;$("tr-map").onchange=()=>fillDestinations(null);
+  $("tr-kind").onchange=()=>{if(!current)$("tr-availability").value=$("tr-kind").value==="climb"?"approval":"usable";dirtyStatus();};
+  $("transition-form").addEventListener("input",dirtyStatus);
+  $("transition-form").addEventListener("change",dirtyStatus);
+  dialog.addEventListener("cancel",event=>{event.preventDefault();closeEditor();});
+  window.addEventListener("beforeunload",event=>{if((dialog.open||td.open||placing)&&hasPending()){event.preventDefault();event.returnValue="";}});
   $("tr-create-destination").onclick=()=>{const id=Number($("tr-map").value);if(!id){$("transition-error").textContent="Choose a destination map first.";return;}window.open(`/maps/${id}?create_transition=1`,"_blank","noopener");$("transition-error").textContent="Create and save the endpoint in the new tab, then Reload destinations here.";};
   $("tr-reload-destinations").onclick=()=>guard(async()=>{const chosen=$("tr-destination").value;await reload();fillDestinations(chosen);});
-  $("transition-form").onsubmit=e=>{e.preventDefault();guard(async()=>{await saved(await LGApi.post(`${base}/transitions${current?"/"+current.id:""}`,read()));dialog.close();status("Endpoint saved.");});};
-  $("tr-save-runtime").onclick=()=>guard(async()=>{if(!current)return;const id=current.id;await saved(await LGApi.post(`${base}/transitions/${id}/runtime`,{revision:current.revision,visibility:$("tr-current-visibility").value||null,availability:$("tr-current-availability").value||null}));open(data.endpoints.find(e=>e.id===id));});
+  $("transition-form").onsubmit=e=>{e.preventDefault();guard(async()=>{
+   await scopedSaved(await LGApi.post(`${base}/transitions${current?"/"+current.id:""}`,read()),"configuration");
+  });};
+  $("tr-save-runtime").onclick=()=>guard(async()=>{
+   if(!current)return;
+   await scopedSaved(await LGApi.post(`${base}/transitions/${current.id}/runtime`,{revision:current.revision,...session()}),"session");
+  });
   $("tr-delete").onclick=()=>{if(!current||!confirm("Delete this endpoint? Incoming links will be marked broken."))return;guard(async()=>{await saved(await LGApi.del(`${base}/transitions/${current.id}?revision=${current.revision}`));dialog.close();});};
   $("transition-reset").onclick=()=>{if(!confirm("Reset passage session states on this map? Fog and authored settings are unchanged."))return;guard(async()=>{await saved(await LGApi.post(`/api/maps/${mapId}/transitions/reset`));});};
   for(const id of ["transition-viewer-markers","transition-viewer-labels"])$(id).onchange=()=>guard(async()=>{try{await saved(await LGApi.post(`/api/maps/${mapId}/transition-markers`,{enabled:$("transition-viewer-markers").checked,labels:$("transition-viewer-labels").checked}));}catch(e){render();throw e;}});
   $("tr-open").onclick=()=>{
    if(locked||!current?.destination_id)return;
-   const sourceId=current.id,sourceRevision=current.revision,destinationId=current.destination_id;
-   // Reserve a tab during the click; inspection makes authorized GET requests only.
-   const tab=window.open("about:blank","_blank");
-   if(tab)tab.opener=null;
+   const sourceId=current.id,revision=current.revision,destinationId=current.destination_id;
+   const tab=window.open("about:blank","_blank");if(tab)tab.opener=null;
    let navigated=false;
-   return guard(async()=>{
-    try{
-     await reload();
-     const source=data.endpoints.find(e=>e.id===sourceId);
-     const dest=data.endpoints.find(e=>e.id===destinationId);
-     if(!source||source.revision!==sourceRevision||source.destination_id!==destinationId||!dest)throw Error("Passage destination changed. Close and reopen this endpoint.");
-     if(!data.maps.some(m=>m.id===dest.map_id))throw Error("Destination map is no longer available.");
-     const url=`/maps/${dest.map_id}`;
-     if(tab&&!tab.closed)tab.location.href=url;
-     else location.href=url; // Popup blocked/closed: still admin-only navigation.
-     navigated=true;
-     status("Destination opened for inspection only; viewer and fog are unchanged.");
-    }finally{if(!navigated&&tab&&!tab.closed)tab.close();}
-   });
+   return guard(async()=>{try{
+    await reload();const source=data.endpoints.find(e=>e.id===sourceId),dest=data.endpoints.find(e=>e.id===destinationId);
+    if(!source||source.revision!==revision||source.destination_id!==destinationId||!dest||!data.maps.some(m=>m.id===dest.map_id))throw Error("Passage destination changed. Close and reopen this endpoint.");
+    const url=`/maps/${dest.map_id}`;
+    if(tab&&!tab.closed)tab.location.href=url;
+    else{if(hasPending()&&!confirm("Open inspection in this tab and discard unsaved passage edits?"))return;location.href=url;}
+    navigated=true;status("Destination opened for inspection only; viewer and fog are unchanged.");
+   }finally{if(!navigated&&tab&&!tab.closed)tab.close();}});
   };
-  $("tr-travel").onclick=()=>guard(async()=>{
+  $("tr-travel").onclick=()=>{
+   if(locked)return;
+   if(hasPending()&&!confirm("Travel uses saved configuration and session state. Continue without saving pending edits?"))return;
+   return guard(async()=>{
    await reload();current=data.endpoints.find(e=>e.id===current?.id);if(!current)throw Error("Endpoint deleted; reload.");
    if(data.active_map_id!==mapId)throw Error("Show this source map to players before travelling.");
    preview=await LGApi.get(`${base}/transitions/${current.id}/preview`);
@@ -89,13 +137,14 @@ window.LGMapTransitions=(()=>{
    travelRequest={source_endpoint_id:current.id,expected_active_map_id:data.active_map_id,source_revision:preview.source_revision,destination_revision:preview.destination_revision,destination_version:preview.destination_version,request_id:window.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`};
    dialog.close();td.showModal();
   });
+  };
   $("tr-cancel-travel").onclick=()=>{td.close();travelRequest=null;};
   $("transition-travel-form").onsubmit=e=>{e.preventDefault();guard(async()=>{const result=await LGApi.post(`${base}/travel`,{...travelRequest,override:$("tr-approve").checked,allow_large_reveal:$("tr-large").checked});location.href=result.admin_url;},"tr-travel-error");};
   window.addEventListener("keydown",e=>{if(e.key==="Escape"&&placing){placing=false;status("Placement cancelled.");}});
   const refresh=()=>{if(!locked&&!dialog.open&&!td.open&&!placing)reload().catch(e=>status(e.message));};
   reload().then(()=>{if(new URLSearchParams(location.search).has("create_transition"))$("transition-add").click();}).catch(e=>status(e.message));
   setInterval(refresh,15000);window.addEventListener("focus",refresh);
-  return {draw,tap(x,y,event){if(!data||locked||event?.button!==0)return false;if(placing){if(!dialog.open)dialog.showModal();$("tr-x").value=x.toFixed(2);$("tr-y").value=y.toFixed(2);placing=false;status("Location selected. Save to apply.");return true;}const hit=data.endpoints.filter(e=>e.map_id===mapId).reverse().find(e=>Math.hypot(e.x-x,e.y-y)*scale()<=14);if(hit){open(hit);return true;}return false;}};
+  return {draw,tap(x,y,event){if(!data||locked||event?.button!==0)return false;if(placing){if(!dialog.open)dialog.showModal();$("tr-x").value=x.toFixed(2);$("tr-y").value=y.toFixed(2);placing=false;dirtyStatus();status("Location selected. Save to apply.");return true;}const hit=data.endpoints.filter(e=>e.map_id===mapId).reverse().find(e=>Math.hypot(e.x-x,e.y-y)*scale()<=14);if(hit){open(hit);return true;}return false;}};
  }
  return {mount};
 })();

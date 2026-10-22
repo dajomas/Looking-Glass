@@ -62,9 +62,10 @@ async def save_endpoint(ctx,user,campaign_id,body,endpoint_id=None):
     with ctx.db.connect() as conn:
         conn.execute("BEGIN IMMEDIATE")
         campaign_for_manage(conn,user,campaign_id)
-        try: service.save(conn,campaign_id,body.map_id,body.model_dump(),endpoint_id,body.revision,body.return_link)
+        try: saved=service.save(conn,campaign_id,body.map_id,body.model_dump(),endpoint_id,body.revision,body.return_link)
         except ValueError as exc: raise BadRequest(str(exc))
         result=listing(conn,campaign_id)
+        result["saved_endpoint_id"]=saved["id"]
     await notify.campaign_changed(ctx,campaign_id,"transitions")
     return result
 

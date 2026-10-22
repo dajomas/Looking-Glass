@@ -50,3 +50,23 @@ def test_transition_travel_http(env):
     assert dm.post(base+"/travel",json=body,headers=h).json()==r.json()
     assert dm.get(f"/maps/{mids[1]}").status_code==200
     assert dm.get(f"/campaigns/{cid}").status_code==200
+
+
+def test_configuration_and_session_save_scopes(env):
+    ctx,admin,viewer,dm,h,cid,mids=prepare(env);base=f"/api/campaigns/{cid}/transitions"
+    config=dict(map_id=mids[0],name="Authored",x=100,y=100,visibility="secret",arrival="preserve")
+    result=dm.post(base,json=config,headers=h)
+    assert result.status_code==200,result.text
+    eid=result.json()["saved_endpoint_id"]
+    row=next(e for e in result.json()["endpoints"] if e["id"]==eid)
+    result=dm.post(base+f"/{eid}/runtime",json=dict(revision=row["revision"],visibility="discovered",availability="blocked"),headers=h)
+    assert result.status_code==200,result.text
+    row=next(e for e in result.json()["endpoints"] if e["id"]==eid)
+    assert row["name"]=="Authored"
+    config.update(name="Changed configuration",revision=row["revision"])
+    result=dm.post(base+f"/{eid}",json=config,headers=h)
+    assert result.status_code==200,result.text
+    assert result.json()["saved_endpoint_id"]==eid
+    row=next(e for e in result.json()["endpoints"] if e["id"]==eid)
+    assert row["runtime_visibility"]=="discovered" and row["runtime_availability"]=="blocked"
+    assert dm.post(base+f"/{eid}/runtime",json=dict(revision=config["revision"],visibility=None,availability=None),headers=h).status_code==400

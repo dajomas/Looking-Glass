@@ -572,17 +572,20 @@ schema_version manually. Preserve the post-upgrade backup too if you may need to
 recover newly authored endpoint links; wall exports do not carry these links.
 
 
-## Passage modal and fog-editor sidebar UI update
+## Passage modal and sidebar updates
 
-The map-passage form keeps its main actions visible in a non-scrolling footer.
-The fog-editor sidebar has exclusive peer panels, with the manually closable wall
-legend independent and initially open. Inspect destination opens only the destination
-admin editor and leaves viewer/fog state unchanged. It does not show Restore/Reset;
-normal Show to players and passage Travel remain separate activation workflows.
+The map-passage main-action footer and exclusive sidebar peers remain unchanged.
+Inspect destination is admin-only and does not activate viewers or prompt for fog.
 
-Reload the admin map-editor page after deploying updated templates/scripts to pick
-up the inspection label and cache-versioned controller. No backend, schema,
-dependency, configuration or viewer changes are required for the inspection-only
-revert. Verify inspection with an active viewer, retained source draft, a blocked
-popup and a deleted/changed destination. Restore the previous code/assets for
-rollback; no database rollback is needed for this UI increment.
+### Independent configuration and session saving
+
+Restart both portals after installing the updated save handler so create/update
+responses include saved_endpoint_id. Reload the admin page to load the versioned
+controller and renamed controls. No migration, dependency, port or configuration
+change is required. Verify configuration/session draft isolation in both directions,
+new-endpoint creation followed by session update, repeated revision-safe saves,
+failed-save retention, Close/Escape warnings and inspection without viewer changes.
+Full-server/browser checks should be run in your installed environment; see
+[testing](testing.md). Rollback restores matching previous code/assets; this increment
+requires no database rollback. Previously saved configuration/session edits remain
+real data changes and are not undone by rolling back the UI.

@@ -116,7 +116,7 @@ Use a copied campaign and at least one connected viewer:
   they will be used during play.
 - Cross-map travel: create one-way and return connections, inspect the Travel
   confirmation without executing it, verify Inspect destination leaves
-  the viewer and fog unchanged with no Restore/Reset prompt, preserve existing exploration, test area arrival and
+  viewers and fog unchanged without a reveal-choice prompt, preserve existing exploration, test area arrival and
   large-reveal approval, reject a wall/out-of-bounds arrival, discover/reset a
   secret endpoint, reject stale preflight after another tab edits it, and show a
   broken link after deleting a target. Check marker/label persistence after restart.
@@ -153,7 +153,21 @@ python -m pytest -q python/tests/browser/test_passage_modal_layout.py
 The route-body test checks current/saved reveal independence using stub dependencies;
 it is not an HTTP authentication/CSRF test. The browser tests require local Playwright
 Chromium. Manually verify footer visibility at your screen dimensions and zoom,
-inspection with no mutation or reveal prompt, unchanged viewer/fog state, retained
-source draft, popup-blocked admin-only fallback, unchanged Travel behavior and
-legend closure staying respected as peer panels
+read-only inspection and popup-blocked fallback, and legend closure staying respected as peer panels
 change. No passing browser or full-server result is implied by these commands.
+
+
+## Passage save-scope isolation
+
+```sh
+python -m pytest -q python/tests/test_passage_save_scopes.py
+node python/tests/test_map_transitions.js
+python -m pytest -q python/tests/test_map_transitions_web.py
+python -m pytest -q python/tests/browser/test_passage_save_scopes.py
+```
+
+Stage edits in both groups; save each separately and verify only its own group is
+persisted while the other remains pending. Test Close/Escape discard cancellation,
+a new endpoint followed by a runtime update, server-normalized configuration values,
+sequential revisions, failed/stale saves and Travel's saved-state warning. AST route
+and Node mock tests do not replace real HTTP/CSRF and browser integration checks.

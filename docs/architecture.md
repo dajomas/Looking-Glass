@@ -332,12 +332,26 @@ The sidebar's peer details share a name for native exclusive opening, with a
 small toggle-listener fallback. Legend and nested Alignment are outside the group;
 the legend is never programmatically forced open after manual closure.
 
-Inspect destination freshly resolves the saved source revision/link and destination
-from the authorized endpoint listing. It reserves an opener-detached blank admin
-tab synchronously, performs read-only validation, then opens the destination editor.
-Failed validation closes the reserved tab. Popup-blocked/closed tabs use current-tab
-admin navigation. With a new tab, the source modal stays open and keeps its draft.
-Inspection does not invoke LGChooseFog, active-map, fog, runtime-state or travel APIs.
-Travel retains its existing preflight, approval, arrival and transaction behavior.
-The additive has_current_reveals field and optional prompt flag from the earlier
-activation UI remain backward-compatible but are no longer used by inspection.
+Inspect destination refreshes and validates the saved source revision/link and
+opens an admin-only destination tab. It never calls reveal-choice, active-map, fog,
+runtime or travel APIs. Popup-blocked fallback asks before discarding pending edits
+and navigates only the admin tab. Existing optional display-options/prompt fields
+remain compatible but inspection no longer consumes them.
+
+### Independent passage save scopes
+
+The client stores separate canonical baselines for configuration and session
+selections, ignoring the endpoint revision when comparing configuration dirtiness.
+Configuration saves return the additive saved_endpoint_id in the existing listing
+response, identifying new records without guessing from concurrent additions.
+After acknowledgement, the client updates current identity/revision and only the
+saved group's fields/baseline; the opposite group's draft/baseline stays intact.
+Configuration uses server-normalized values and clears its one-shot return-link
+selection. Runtime updates do not repopulate authored fields. Controls are disabled
+during writes and re-enabled with current saved-record action availability.
+
+Both saves stay open. Input/change events update independent live status indicators.
+Close/Escape and navigation guard pending edits, while Travel warns that it uses
+saved values. Successful writes are acknowledged before a subsequent map refresh;
+a refresh error does not masquerade as an uncommitted write. Service authorization,
+CSRF, serialized writes and stale-revision validation are unchanged.
