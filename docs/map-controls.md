@@ -177,3 +177,20 @@ presentation only, not saved endpoints or passage APIs.
 
 Static sidebar instructions live in Help. Live errors, warnings, counts and
 statuses stay beside their controls; action-specific modal guidance is unchanged.
+
+## Help background styling
+
+Help uses lighter blue-grey surfaces than the regular sidebar so instructions
+are visually distinct from operational controls. The outer `? Help` container is
+`#263143`, main topic cards are `#303e53`, and nested Saved wall sources cards
+are `#3a4a61`. Hover and keyboard focus use `#435570`; keyboard focus also keeps
+an accent outline. The regular sidebar remains `var(--bg-2)` (`#1a202c` in the
+default theme). Help text retains `var(--text)`.
+
+These styles apply only inside `#editor-help`. They affect both collapsed
+headings and expanded content without changing disclosure behavior: all help
+topics/subtopics still start closed and open independently. Regular feature
+panels, dialogs, map and viewer are unchanged.
+
+After deploying this CSS-only follow-up, hard-refresh the admin page to bypass
+cached `admin.css`. No template, JavaScript or database changes are required.
