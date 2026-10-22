@@ -169,6 +169,13 @@
     </details>
   </div>
 <div class="side-block"><p id="map-load-error" role="alert" hidden></p><button type="button" id="retry-map-load">Retry loading map</button></div>
+<div class="side-block"><details class="sidebar-panel" open><summary>Map passages</summary><div class="panel-content">
+<p class="small muted">S stairs · L ladder · H hole · P portal · C climb · X custom. Click a marker to edit; travel is an explicit DM action.</p>
+<button type="button" id="transition-add">Add passage endpoint</button><p id="transition-status" role="status" aria-live="polite"></p><div id="transition-list" class="stack"></div>
+<label class="check"><input type="checkbox" id="transition-viewer-markers" checked> Show map passage markers (viewer)</label>
+<label class="check"><input type="checkbox" id="transition-viewer-labels" checked> Show passage labels (viewer)</label>
+<button type="button" id="transition-reset">Reset passage session states</button>
+<a href="/campaigns/{{ campaign.id }}#map-passages">Campaign connection overview</a></div></details></div>
 </aside>
 
 <section class="viewport" id="viewport" tabindex="0" aria-label="Battle map">
@@ -177,6 +184,7 @@
     <canvas id="fog-canvas"></canvas>
     <img id="door-arrows" alt="" draggable="false">
     <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+    <svg id="transition-markers" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
     <svg id="portal-cycle-overlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
   </div>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -189,6 +197,7 @@
 </section>
 {% endblock %}
 {% block scripts %}
+{% include "partials/_map_transitions.html" %}
 {% include "partials/_map_display_dialog.html" %}
 <script src="/static/js/map_display_prompt.js"></script>
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
@@ -200,6 +209,7 @@
 <script src="/static/js/door_gestures.js?v=passages-1"></script>
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
-<script src="/static/js/admin_map_editor.js?v=portal-tools-4"></script>
+<script src="/static/js/map_transitions.js?v=transitions-1"></script>
+<script src="/static/js/admin_map_editor.js?v=transitions-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 {% endblock %}

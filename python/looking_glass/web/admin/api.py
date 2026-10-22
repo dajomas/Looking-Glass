@@ -347,3 +347,7 @@ async def reveal_door_arrow(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: D
 
 from .door_states import register_door_states  # noqa: E402
 register_door_states(router, _map_payload)
+
+
+from .map_transitions import router as transitions_router
+router.include_router(transitions_router)

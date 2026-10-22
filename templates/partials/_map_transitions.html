@@ -1,0 +1,32 @@
+<dialog id="transition-editor" class="transition-dialog" aria-labelledby="transition-title">
+<form id="transition-form" class="stack">
+<h2 id="transition-title">Map passage</h2><p id="transition-error" role="alert"></p>
+<label>Admin name <input id="tr-name" required maxlength="120"></label>
+<label>Player label <input id="tr-label" maxlength="120"></label>
+<label>Type <select id="tr-kind"><option value="stairs">Stairway</option><option value="ladder">Ladder</option><option value="hole">Hole / drop</option><option value="portal">Portal</option><option value="climb">Climb</option><option value="custom">Custom</option></select></label>
+<div class="cal-grid"><label>X <input id="tr-x" type="number" step="any" min="0" required></label><label>Y <input id="tr-y" type="number" step="any" min="0" required></label></div>
+<button id="tr-place" type="button">Pick / move location on map</button>
+<fieldset class="stack"><legend>Authored configuration</legend>
+<label>Visibility <select id="tr-visibility"><option value="discovered">Discovered</option><option value="secret">Secret</option><option value="admin">Admin-only</option></select></label>
+<label>Availability <select id="tr-availability"><option value="usable">Usable</option><option value="blocked">Blocked</option><option value="approval">DM approval required</option></select></label>
+<label>Destination map <select id="tr-map"></select></label><label>Destination endpoint <select id="tr-destination"></select></label>
+<div class="btn-row"><button id="tr-create-destination" type="button">Create destination endpoint…</button><button id="tr-reload-destinations" type="button">Reload destinations</button></div>
+<label class="check"><input id="tr-return" type="checkbox"> Create return connection (will not replace an existing route)</label>
+<label>Arrival reveal <select id="tr-arrival"><option value="area">Reveal destination area</option><option value="preserve">Preserve destination fog</option></select></label>
+<label>DM notes / travel requirements <textarea id="tr-notes" maxlength="2000" rows="3"></textarea></label>
+<p class="muted small">Save updates authored settings only. Session overrides remain until reset. Reverse links are independent; changing a route does not remove its old return link.</p>
+</fieldset>
+<div class="btn-row"><button class="primary" type="submit">Save endpoint</button><button id="tr-delete" type="button" class="danger">Delete endpoint</button></div>
+<fieldset id="tr-runtime" class="stack"><legend>Current session state</legend>
+<label>Visibility override <select id="tr-current-visibility"><option value="">Use authored setting</option><option value="discovered">Discovered</option><option value="secret">Secret</option><option value="admin">Admin-only</option></select></label>
+<label>Availability override <select id="tr-current-availability"><option value="">Use authored setting</option><option value="usable">Usable</option><option value="blocked">Blocked</option><option value="approval">DM approval required</option></select></label>
+<button id="tr-save-runtime" type="button">Apply session state</button></fieldset>
+<div class="btn-row"><button id="tr-open" type="button">Open destination in admin</button><button id="tr-travel" type="button">Travel / show destination…</button><button id="tr-close" type="button">Close</button></div>
+</form></dialog>
+<dialog id="transition-travel" class="transition-dialog" aria-labelledby="transition-travel-title"><form id="transition-travel-form" class="stack">
+<h2 id="transition-travel-title">Travel to another map</h2><p id="tr-travel-summary"></p><p id="tr-travel-error" role="alert"></p>
+<label class="check"><input id="tr-approve" type="checkbox"> DM approves travel and overrides any secret/blocked/approval requirement</label>
+<label id="tr-large-label" class="check"><input id="tr-large" type="checkbox"> I accept this potentially large arrival reveal</label>
+<p class="muted small">Travel uses saved configuration, preserves exploration and switches all campaign viewers together.</p>
+<div class="btn-row"><button id="tr-confirm" type="submit" class="primary">Travel</button><button id="tr-cancel-travel" type="button">Cancel</button></div>
+</form></dialog>

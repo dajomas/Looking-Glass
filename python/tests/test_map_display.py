@@ -123,8 +123,8 @@ def test_upgrade_preserves_existing_history_and_is_idempotent(tmp_path):
         a = maps.create(c, cid, "A", "a.png", 400, 200, True)
         fog_ops.add(c, a, "reveal", 100, 100, 1)
         fog_ops.add(c, a, "hide_all", None, None, 1)
-    assert db.migrate() == 3
-    assert db.migrate() == 3
+    assert db.migrate() == len(MIGRATIONS)
+    assert db.migrate() == len(MIGRATIONS)
     with db.connect() as c:
         assert maps.get(c, a)["cache_token"]
         saved = json.loads(c.execute("SELECT operations FROM map_fog_snapshots WHERE map_id = ?", (a,)).fetchone()[0])

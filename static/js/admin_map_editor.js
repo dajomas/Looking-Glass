@@ -15,6 +15,7 @@
   let maskKey = "";
   let busy = false;
   let portalCycle = null;
+  let mapTransitions = null;
   const arrowHit = new LGDoorArrowHit();
   const doorTapQueue = new LGDoorTapQueue();
   const areaTaps = new LGAdminAreaTaps();
@@ -32,6 +33,7 @@
   let wallWidth = 2;
   function updateWallWidth() {
     areaTaps.cancel();
+    mapTransitions?.draw();
     portalCycle?.refresh();
     const base = wallWidth / pz.scale;
     svg.style.setProperty("--sw", String(base));
@@ -45,6 +47,11 @@
   LGWallAppearance(MAP_ID, (width) => { wallWidth = width; updateWallWidth(); });
   portalCycle = LGPortalCycle.mount({svg:$("portal-cycle-overlay"),slider:$("portal-cycle-seconds"),output:$("portal-cycle-value"),toggle:$("portal-cycle-enabled"),status:$("portal-cycle-status"),mapId:MAP_ID,
     view:()=>{if(!state)return null;const r=vp.getBoundingClientRect();return {x:pz.x,y:pz.y,scale:pz.scale,workScale:state.work_scale,width:r.width,height:r.height};}});
+
+  mapTransitions = LGMapTransitions.mount({mapId:MAP_ID,campaignId:CAMPAIGN_ID,scale:()=>pz.scale,
+    dimensions:()=>state?{width:state.width,height:state.height}:null,
+    cancelGestures:()=>{areaTaps.cancel();doorTapQueue.cancel();},
+    onSaved:async()=>applyState(await LGApi.get(`/api/maps/${MAP_ID}`))});
 
   // ------------------------------------------------------------------ UI helpers
   let toastTimer = null;
@@ -151,6 +158,7 @@
     const first = state === null;
     doorTapQueue.cancel(); areaTaps.cancel();
     state = s;
+    mapTransitions?.draw();
     portalCycle?.setState(s,false);
     syncDoorArrowControls();
     $("door-arrows").hidden = !s.door_arrows_enabled;
@@ -191,6 +199,9 @@
 
   // ------------------------------------------------------------------ actions
   function onTap(x, y, event) {
+    if (state && !busy && x>=0 && y>=0 && x<state.width && y<state.height && mapTransitions?.tap(x,y,event)) {
+      areaTaps.cancel();doorTapQueue.cancel();return;
+    }
     if (!state || busy || maskKey !== stateKey(state) || x<0 || y<0 || x>=state.width || y>=state.height) return;
     const alpha = arrowHit.at(x,y,state,stateKey(state));
     const door = LGManagedDoorHit(state,alpha,x,y,pz.scale,$("show-walls").checked,hiddenTypes);

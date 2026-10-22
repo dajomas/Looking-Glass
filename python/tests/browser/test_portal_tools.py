@@ -69,7 +69,7 @@ def admin(browser):
     routes=[dict(id="r1",entry=point(60,50,1,0,"E"),exit=point(260,50,2,1,"W"),state="locked_door"),dict(id="r2",entry=point(60,130,3,0,"E"),exit=point(260,130,4,1,"W"),state="secret")]
     data=dict(ok=True,id=1,name="M",campaign_id=4,cache_token="token",image_version="v1",width=400,height=200,work_width=400,work_height=200,work_scale=1,walls_version=1,fog_version=1,walls_source="",walls=[],op_count=0,is_active=True,live_viewers=0,disabled_wall_types=[],door_arrows_enabled=True,viewer_door_arrows_enabled=True,door_arrow_color="#46c0ff",locked_door_arrow_color="#ff9f43",door_arrows=[],managed_doors=[],portal_routes=routes,calibration=dict(offset_x=0,offset_y=0,scale_x=1,scale_y=1,doors_block=True))
     base='<!doctype html><html><head><meta charset="utf-8"><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css">{% block styles %}{% endblock %}</head><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block scripts %}{% endblock %}</body></html>'
-    templates={"base.html":base,"editor.html":(ROOT/"web_html/admin/map_editor.html").read_text(),"partials/_csrf.html":'<input type="hidden" name="csrf_token" value="token">',"partials/_map_display_dialog.html":(ROOT/"templates/partials/_map_display_dialog.html").read_text()}
+    templates={"base.html":base,"editor.html":(ROOT/"web_html/admin/map_editor.html").read_text(),"partials/_csrf.html":'<input type="hidden" name="csrf_token" value="token">',"partials/_map_display_dialog.html":(ROOT/"templates/partials/_map_display_dialog.html").read_text(),"partials/_map_transitions.html":(ROOT/"templates/partials/_map_transitions.html").read_text()}
     html=Environment(loader=DictLoader(templates)).get_template("editor.html").render(map=dict(data,wall_count=0),campaign=dict(id=4,name="C"),siblings=[dict(id=1,name="M")],fog_opacity=.55,op_count=0)
     errors,posts=[],[];page.on("pageerror",lambda e:errors.append(str(e)))
     def route(r):
@@ -84,6 +84,7 @@ def admin(browser):
         elif path=="/api/maps/1/image":r.fulfill(content_type="image/png",body=_png())
         elif path=="/api/maps/1/fog.png":r.fulfill(content_type="image/png",body=_png("fog"))
         elif path=="/api/maps/1/door-arrows.png":r.fulfill(content_type="image/png",body=_png("arrows",routes))
+        elif path=="/api/campaigns/4/transitions":r.fulfill(json=dict(ok=True,active_map_id=1,endpoints=[],maps=[dict(id=1,name="M",viewer_transition_markers=1,viewer_transition_labels=1)]))
         elif path=="/api/campaigns/4/wall-sources":r.fulfill(json=dict(sources=[]))
         else:r.fulfill(status=404)
     page.route("**/*",route);page.goto("http://looking-glass.test/maps/1")

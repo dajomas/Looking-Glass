@@ -101,3 +101,9 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
     -webkit-user-select: none;
     user-select: none;
 }
+#transition-markers { z-index:5; pointer-events:none; }
+.transition-dialog { width:min(580px,94vw); max-height:90vh; overflow:auto; background:var(--bg-2); color:var(--text); border:1px solid var(--border); border-radius:10px; }
+.transition-dialog::backdrop { background:rgba(0,0,0,.65); }
+.transition-dialog [hidden] { display:none !important; }
+#transition-error,#tr-travel-error { color:var(--err); white-space:pre-wrap; }
+#transition-list button { text-align:start; white-space:normal; }

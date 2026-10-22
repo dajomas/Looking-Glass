@@ -128,6 +128,9 @@
   {% endif %}
 </section>
 
+<section class="card" id="map-passages"><h2>Map passage connections</h2>
+<p>Directed connections within this campaign. Open a map to place or edit endpoints. Broken links never permit travel.</p>
+<button type="button" id="transitions-refresh">Refresh connections</button><p id="transitions-overview-status" role="status"></p><div id="transitions-overview"></div></section>
 <section class="card">
   <h2>Settings</h2>
   <form method="post" action="/campaigns/{{ campaign.id }}/update" class="stack">
@@ -158,6 +161,8 @@
 {% include "partials/_map_display_dialog.html" %}
 <script src="/static/js/map_display_prompt.js"></script>
 <script src="/static/js/api.js"></script>
+<script>window.LG_TRANSITIONS_CAMPAIGN={{ campaign.id | tojson }};</script>
+<script src="/static/js/map_transition_overview.js?v=transitions-1"></script>
 <script src="/static/js/keep_select_values.js"></script>
 <script src="/static/js/campaign_batch_import.js"></script>
 {% endblock %}

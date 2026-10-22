@@ -204,3 +204,13 @@ selection, hit targets and data are unchanged. See `Patch/portal-visibility.md`.
 ### Viewer arrow exceptions
 
 Disable Show door arrows (viewer) to expose independent, indented portal and discovered-secret arrow options. Still-secret entries remain hidden. See docs/usage.md and Patch/viewer-arrow-exceptions.md for behavior and installation.
+
+
+### Cross-map passages
+
+Connect named stairway, ladder, hole/drop, portal, climb and custom endpoints across
+maps in one campaign. Place/edit them under Map passages in the admin fog editor;
+travel is a separate DM confirmation, with preserved exploration, optional arrival
+area reveal and non-secret fog-clipped player markers. The campaign page includes
+a connection overview. See docs/usage.md and Patch/cross-map-passages.md. Requires
+automatic schema migration 12; back up the database before installation.

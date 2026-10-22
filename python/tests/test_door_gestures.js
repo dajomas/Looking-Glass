@@ -8,7 +8,7 @@ async function check(kind,{double=false,hit="arrow",stale=false}={}){
  vm.runInNewContext(fs.readFileSync("static/js/door_gestures.js","utf8"),ctx);
  ctx.LGManagedDoorHit=ctx.window.LGManagedDoorHit;
  ctx.doorTapQueue=new ctx.window.LGDoorTapQueue(400,clock);
- Object.assign(ctx,{state:{width:400,height:200,work_scale:1,cache_token:"map",walls_version:1,fog_version:1,
+ Object.assign(ctx,{mapTransitions:null,state:{width:400,height:200,work_scale:1,cache_token:"map",walls_version:1,fog_version:1,
    door_arrows:[{wall_id:4,kind,polygon:[[160,90],[190,90],[190,110],[160,110]]}],
    managed_doors:[{wall_id:4,kind,x1:200,y1:80,x2:200,y2:120}]},
    MAP_ID:1,busy:false,maskKey:"map-1-1",stateKey:s=>`${s.cache_token}-${s.walls_version}-${s.fog_version}`,

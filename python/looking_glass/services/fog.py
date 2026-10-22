@@ -51,6 +51,9 @@ class MapSpec:
     arrow_audience: str = "admin"
     viewer_portal_arrows_enabled: bool = False
     viewer_secret_arrows_enabled: bool = False
+    transition_markers: tuple = ()
+    viewer_transition_markers: bool = True
+    viewer_transition_labels: bool = True
 
     @property
     def viewer_arrows_enabled(self) -> bool:
@@ -62,7 +65,7 @@ class MapSpec:
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
-                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "viewer-exceptions-v1", self.arrow_audience, self.viewer_portal_arrows_enabled, self.viewer_secret_arrows_enabled)
+                self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "viewer-exceptions-v1", self.arrow_audience, self.viewer_portal_arrows_enabled, self.viewer_secret_arrows_enabled, "transitions-v1", self.transition_markers, self.viewer_transition_markers, self.viewer_transition_labels)
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
     @classmethod
@@ -80,6 +83,8 @@ class MapSpec:
             viewer_door_arrows_enabled=bool(row["viewer_door_arrows_enabled"]) if "viewer_door_arrows_enabled" in row.keys() else bool(row["door_arrows_enabled"]) if "door_arrows_enabled" in row.keys() else True,
             viewer_portal_arrows_enabled=bool(row["viewer_portal_arrows_enabled"]) if "viewer_portal_arrows_enabled" in row.keys() else False,
             viewer_secret_arrows_enabled=bool(row["viewer_secret_arrows_enabled"]) if "viewer_secret_arrows_enabled" in row.keys() else False,
+            viewer_transition_markers=bool(row["viewer_transition_markers"]) if "viewer_transition_markers" in row.keys() else True,
+            viewer_transition_labels=bool(row["viewer_transition_labels"]) if "viewer_transition_labels" in row.keys() else True,
             cache_token=row["cache_token"] if "cache_token" in row.keys() else "",
         )
 
@@ -333,6 +338,10 @@ class FogEngine:
                 composed = Image.composite(base, fog, mask_img)
             arrows = self.door_arrow_overlay(spec, segments, ops).resize(base.size, Image.Resampling.NEAREST)
             composed.paste(arrows, (0, 0), arrows)
+            if spec.transition_markers:
+                from .map_transitions import marker_overlay
+                markers=marker_overlay(self,spec,segments,ops,base.size)
+                composed.paste(markers,(0,0),markers)
             for f in self.cache_dir.glob(f"viewer_{spec.id}_*"):
                 f.unlink(missing_ok=True)
             tmp = out.with_suffix(".tmp")

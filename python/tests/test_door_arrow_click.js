@@ -7,7 +7,7 @@ const tap = source.slice(source.indexOf("  function onTap("), source.indexOf("  
 const state = {width:400,height:200,cache_token:"map",walls_version:1,fog_version:1};
 function setup({hit=true,button=0,mode="hide",stale=false,reject=false}={}) {
   const calls=[],notices=[];
-  const ctx={state:{...state},busy:false,maskKey:stale?"old":"map-1-1",MAP_ID:1,
+  const ctx={mapTransitions:null,state:{...state},busy:false,maskKey:stale?"old":"map-1-1",MAP_ID:1,
     stateKey:s=>`${s.cache_token}-${s.walls_version}-${s.fog_version}`,
     areaTaps:{cancel(){},tap(x,y,stamp,single){single();}},LGManagedDoorHit:()=>null,pz:{scale:1},$:()=>({checked:true}),hiddenTypes:new Set(),doorTapQueue:{cancel(){}},
     mode:()=>mode,arrowHit:{at:()=>hit?{x:175.5,y:100.5}:null},

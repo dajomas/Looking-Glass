@@ -53,3 +53,15 @@ and is never added to viewer state or the viewer compositor. Client-side highlig
 never calls a reveal, lock/discovery or save endpoint. Existing manager/CSRF checks
 remain unchanged. Moving a modal or opening an overview does not mutate campaign
 state. No new viewer permission or interactive viewer arrow action is introduced.
+
+
+## Cross-map passages
+
+Endpoint listings, previews and configuration require campaign management permission.
+The DM owner and superadmins use the existing management policy; being an assigned
+viewer is insufficient. All mutations/travel require CSRF. Source and destination
+must belong to the managed campaign. Viewer application routes do not include the
+admin transition API. Players receive server-composited discovered markers only,
+not endpoint IDs, routes, destination names, private notes or admin-only labels.
+A DM override can permit a particular secret/blocked/approval-required trip without
+changing authored or session state. It is not a player permission bypass.

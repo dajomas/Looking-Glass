@@ -274,3 +274,51 @@ then filters entries by portal/secret-origin union. Current-secret checks and ad
 exit-hint restrictions precede filtering. Admin rendering and validated hit testing remain
 controlled only by the admin switch. API updates preserve omitted fields, invalidate via
 fog-version changes, and notify connected viewers through the appearance event.
+
+
+## Cross-map endpoints and atomic travel (schema 12)
+
+`services/map_transitions.py` owns endpoint validation, authored/runtime state,
+arrival preflight, travel and viewer-marker drawing. Endpoints have stable UUID-text
+IDs and a map foreign key; their optional outgoing destination references another
+endpoint. The service rejects same-map/cross-campaign destinations and coordinates
+outside the image. SQL triggers additionally reject cross-campaign links.
+
+`map_transitions` stores authored name/label/type/coordinates/visibility/availability,
+arrival policy, private notes, runtime overrides, destination, link_defined and
+revision. NULL runtime fields inherit authored values. Deleting a destination sets
+its reference NULL while link_defined retains the broken-link distinction. Foreign
+keys cascade endpoint deletion with map deletion. Triggers bump map fog versions
+on endpoint insert/update/delete and invalidate incoming endpoint revisions on delete.
+Two checked map booleans persist viewer marker/label settings, both default on.
+
+Admin routes are included in the existing `/api` router only, reuse campaign/map
+management checks and CSRF dependencies, and serialize writes with BEGIN IMMEDIATE.
+Travel validates authorization before looking up replay records. Preflight returns
+endpoint revisions and destination [cache_token,walls_version,fog_version]; travel
+recomputes these in its write transaction. It checks active source and explicit DM
+approval/warning acceptance before writing. It checkpoints source fog, optionally
+adds one destination reveal, bumps destination fog version, checkpoints destination,
+sets the shared active map and records the result in one transaction. It does not
+call restore/reset activation: that could overwrite the destination's current fog.
+Viewers are notified after commit using the existing active-map refresh event.
+
+`map_transition_travel` has a composite (campaign,user,request_id) primary key and
+stores canonical request/result JSON. An identical retry returns the stored result;
+a mismatched payload for a reused ID is rejected. Records live until their campaign
+or user is deleted; there is no automatic pruning. A replay returns the original
+result, not a new navigation instruction applied to the current campaign state.
+
+`web/access.fog_inputs` attaches only (x,y,type,player_label) tuples for discovered
+endpoints to MapSpec. Its identity includes markers and marker/label flags, avoiding
+stale viewer/preview images. The server compositor checks the endpoint's open-region
+label against revealed labels, draws a letter badge and optional label, then clips
+all marker pixels to the revealed mask. Private endpoint configuration is not added
+to the viewer state API. Raw maps/walls remain admin-only. The existing viewer image
+preload/generation guard handles swaps; no new viewer navigation or raw-image path
+is introduced. The exact player-image preview includes the same markers.
+
+`map_transitions.js` mounts the editor panel and dialogs; original fog gestures defer
+to endpoint selection/placement first. Both overlays use original image coordinates.
+The endpoint list refreshes on focus/15-second polling when no dialog or placement is
+active. The campaign overview is read-only except for links back to map editors.

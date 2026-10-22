@@ -191,6 +191,53 @@ MIGRATIONS: list[str] = [
     ALTER TABLE maps ADD COLUMN viewer_secret_arrows_enabled INTEGER NOT NULL DEFAULT 0
         CHECK (viewer_secret_arrows_enabled IN (0, 1));
     """,
+    # 12 - cross-map passage endpoints and replay-safe travel
+    """
+    ALTER TABLE maps ADD COLUMN viewer_transition_markers INTEGER NOT NULL DEFAULT 1 CHECK(viewer_transition_markers IN (0,1));
+    ALTER TABLE maps ADD COLUMN viewer_transition_labels INTEGER NOT NULL DEFAULT 1 CHECK(viewer_transition_labels IN (0,1));
+    CREATE TABLE map_transitions (
+        id TEXT PRIMARY KEY,
+        map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE,
+        name TEXT NOT NULL CHECK(length(name) BETWEEN 1 AND 120),
+        player_label TEXT NOT NULL DEFAULT '' CHECK(length(player_label)<=120),
+        kind TEXT NOT NULL CHECK(kind IN ('stairs','ladder','hole','portal','climb','custom')),
+        x REAL NOT NULL CHECK(x>=0), y REAL NOT NULL CHECK(y>=0),
+        visibility TEXT NOT NULL CHECK(visibility IN ('secret','discovered','admin')),
+        availability TEXT NOT NULL CHECK(availability IN ('usable','blocked','approval')),
+        runtime_visibility TEXT CHECK(runtime_visibility IN ('secret','discovered','admin')),
+        runtime_availability TEXT CHECK(runtime_availability IN ('usable','blocked','approval')),
+        destination_id TEXT REFERENCES map_transitions(id) ON DELETE SET NULL,
+        link_defined INTEGER NOT NULL DEFAULT 0 CHECK(link_defined IN (0,1)),
+        arrival TEXT NOT NULL DEFAULT 'area' CHECK(arrival IN ('area','preserve')),
+        notes TEXT NOT NULL DEFAULT '' CHECK(length(notes)<=2000),
+        revision INTEGER NOT NULL DEFAULT 1
+    );
+    CREATE INDEX transitions_map ON map_transitions(map_id);
+    CREATE INDEX transitions_destination ON map_transitions(destination_id);
+    CREATE TRIGGER transition_campaign_insert BEFORE INSERT ON map_transitions
+    WHEN NEW.destination_id IS NOT NULL AND (SELECT campaign_id FROM maps WHERE id=NEW.map_id) !=
+        (SELECT m.campaign_id FROM maps m JOIN map_transitions t ON t.map_id=m.id WHERE t.id=NEW.destination_id)
+    BEGIN SELECT RAISE(ABORT,'Cross-campaign transition'); END;
+    CREATE TRIGGER transition_campaign_update BEFORE UPDATE ON map_transitions
+    WHEN NEW.destination_id IS NOT NULL AND (SELECT campaign_id FROM maps WHERE id=NEW.map_id) !=
+        (SELECT m.campaign_id FROM maps m JOIN map_transitions t ON t.map_id=m.id WHERE t.id=NEW.destination_id)
+    BEGIN SELECT RAISE(ABORT,'Cross-campaign transition'); END;
+    CREATE TRIGGER transition_insert AFTER INSERT ON map_transitions
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=NEW.map_id; END;
+    CREATE TRIGGER transition_update AFTER UPDATE ON map_transitions
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=NEW.map_id; END;
+    CREATE TRIGGER transition_delete BEFORE DELETE ON map_transitions
+    BEGIN
+        UPDATE maps SET fog_version=fog_version+1 WHERE id=OLD.map_id;
+        UPDATE map_transitions SET revision=revision+1 WHERE destination_id=OLD.id;
+    END;
+    CREATE TABLE map_transition_travel (
+        campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        request_id TEXT NOT NULL, request_json TEXT NOT NULL, result_json TEXT NOT NULL,
+        PRIMARY KEY(campaign_id,user_id,request_id)
+    );
+    """,
 ]
 
 

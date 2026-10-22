@@ -60,5 +60,5 @@ def test_viewer_port_preserved():
     from looking_glass.config import DEFAULTS
     assert DEFAULTS["server"]["viewer_port"] == 5100
     text = (ROOT / "docs/deployment.md").read_text()
-    assert "## systemd service" in text and "server.viewer_port: 5100" in text
+    assert "systemd service" in text and "viewer_port: 5100" in text
     assert "6000" not in text

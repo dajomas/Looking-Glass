@@ -1,6 +1,8 @@
 """Object loading + permission checks used by route handlers."""
 
 import sqlite3
+from dataclasses import replace
+from ..services.map_transitions import viewer_markers
 
 from .. import rbac
 from ..repositories import campaigns as campaigns_repo
@@ -42,6 +44,6 @@ def fog_inputs(ctx: AppContext, conn: sqlite3.Connection, map_id: int) -> tuple[
     m = maps_repo.get(conn, map_id)
     if m is None:
         raise NotFound("Map not found.")
-    return (MapSpec.from_row(m, ctx.settings.maps_dir),
+    return (replace(MapSpec.from_row(m, ctx.settings.maps_dir), transition_markers=viewer_markers(conn,map_id)),
             boundary_segments(walls_repo.list_for_map(conn, map_id), disabled_for_map(conn, m)),
             fog_repo.list_for_map(conn, map_id))

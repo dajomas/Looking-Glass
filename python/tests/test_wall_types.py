@@ -21,10 +21,11 @@ def test_upgrade_v2_preserves_map(tmp_path):
                        "INSERT INTO campaigns(id,name) VALUES(1,'Existing');"
                        "INSERT INTO maps(campaign_id,name,image_file,width,height) VALUES(1,'Map','a.png',10,10);")
     conn.close()
-    assert db.migrate() == 3 and db.migrate() == 3
+    assert db.migrate() == len(MIGRATIONS) and db.migrate() == len(MIGRATIONS)
     with db.connect() as conn:
         row = conn.execute("SELECT * FROM maps").fetchone()
-        assert row["image_file"] == "a.png" and row["disabled_wall_types"] == "[]"
+        from looking_glass.services.wall_type_settings import disabled_for_map
+        assert row["image_file"] == "a.png" and disabled_for_map(conn,row) == []
 
 
 def test_filters_non_destructive_all_types():

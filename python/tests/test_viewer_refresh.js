@@ -53,11 +53,12 @@ test("display prompt resolves restore/reset and Escape as cancel", async () => {
   let close;
   const dialog = {returnValue:"", showModal(){}, addEventListener(name, fn){close=fn;}};
   const question = {};
-  const context = {window:{}, document:{getElementById:id => id==="map-display-dialog"?dialog:question,
+  const context = {window:{}, fetch:async()=>({ok:true,json:async()=>({ok:true,can_restore:true})}), document:{getElementById:id => id==="map-display-dialog"?dialog:question,
     querySelectorAll:()=>[]}};
   vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/map_display_prompt.js"),"utf8"),context);
   for (const action of ["restore","reset","cancel"]) {
-    const result = context.window.LGChooseFog("<untrusted name>");
+    const result = context.window.LGChooseFog("<untrusted name>",1);
+    await tick();
     dialog.returnValue=action; close();
     assert.equal(await result,action==="cancel"?null:action);
     assert.equal(question.textContent,'Show "<untrusted name>" to players?');

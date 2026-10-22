@@ -102,3 +102,20 @@ When **Show door arrows (viewer)** is unchecked, two indented controls appear:
 The categories form a union: either matching option is sufficient. An entry whose current state is `secret` is always hidden from players, regardless of all three toggles. Ordinary doors remain hidden when the main toggle is off. Existing revealed-area, blocking-wall, source-side, and doors-split-areas rules still apply; these options never reveal fog or display admin-only exit hints.
 
 The main viewer toggle retains its previous all-eligible-arrows behavior when enabled. Exception choices are saved per map, retained while the main toggle is on, and default to off for both existing and new maps. The admin arrow toggle is independent. Changes are saved immediately and notify connected viewers.
+
+
+## Cross-map passage controls
+
+Map passages is a separate sidebar panel, not a wall type. Add passage endpoint arms
+placement; the next left-click opens the endpoint dialog. Escape cancels. Click a
+marker/sidebar entry to edit. Pick / move location on map preserves the dialog draft
+until Save; coordinates refer to the original image. Ordinary marker clicks do not
+perform fog actions or travel. Right-drag and zoom remain map navigation controls.
+
+Travel / show destination uses saved configuration and requires the source map to be
+active. Open destination in admin opens a separate tab without changing the display.
+Create destination endpoint opens the selected map in a new tab; save there, then
+Reload destinations in the source dialog. Reverse links are explicit and independent.
+Show map passage markers (viewer) and Show passage labels (viewer) are unrelated to
+door/portal arrow toggles. Reset passage session states is independent of fog reset.
+See docs/usage.md for the complete workflow, secrecy and arrival-reveal rules.

@@ -120,3 +120,12 @@ Opening the overview is read-only. Escape closes the overview first if it is abo
 the configuration dialog, retaining its pending edits. Global wall-editor shortcuts
 do not act through the overview. Admin route highlights do not intercept clicks;
 all previous arrow single/double-click and pan/zoom actions retain their behavior.
+
+
+## Cross-map endpoint placement
+
+In the admin fog editor, Add passage endpoint or Pick / move location on map arms
+the next left-click for placement instead of fog editing. Escape cancels placement.
+Clicking an endpoint selects its configuration; no single/double click executes
+travel. Travel requires the explicit Travel / show destination dialog. Endpoints
+use the usual pan/zoom transform and original image coordinates.
