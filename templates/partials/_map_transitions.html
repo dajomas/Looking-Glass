@@ -1,5 +1,6 @@
 <dialog id="transition-editor" class="transition-dialog" aria-labelledby="transition-title">
-<form id="transition-form" class="stack">
+<form id="transition-form" class="transition-layout">
+<div class="transition-body stack">
 <h2 id="transition-title">Map passage</h2><p id="transition-error" role="alert"></p>
 <label>Admin name <input id="tr-name" required maxlength="120"></label>
 <label>Player label <input id="tr-label" maxlength="120"></label>
@@ -16,12 +17,15 @@
 <label>DM notes / travel requirements <textarea id="tr-notes" maxlength="2000" rows="3"></textarea></label>
 <p class="muted small">Save updates authored settings only. Session overrides remain until reset. Reverse links are independent; changing a route does not remove its old return link.</p>
 </fieldset>
-<div class="btn-row"><button class="primary" type="submit">Save endpoint</button><button id="tr-delete" type="button" class="danger">Delete endpoint</button></div>
 <fieldset id="tr-runtime" class="stack"><legend>Current session state</legend>
 <label>Visibility override <select id="tr-current-visibility"><option value="">Use authored setting</option><option value="discovered">Discovered</option><option value="secret">Secret</option><option value="admin">Admin-only</option></select></label>
 <label>Availability override <select id="tr-current-availability"><option value="">Use authored setting</option><option value="usable">Usable</option><option value="blocked">Blocked</option><option value="approval">DM approval required</option></select></label>
-<button id="tr-save-runtime" type="button">Apply session state</button></fieldset>
+</fieldset>
+</div>
+<footer class="transition-actions" aria-label="Map passage actions">
+<div class="btn-row"><button class="primary" type="submit">Save endpoint</button><button id="tr-delete" type="button" class="danger">Delete endpoint</button><button id="tr-save-runtime" type="button">Apply session state</button></div>
 <div class="btn-row"><button id="tr-open" type="button">Open destination in admin</button><button id="tr-travel" type="button">Travel / show destination…</button><button id="tr-close" type="button">Close</button></div>
+</footer>
 </form></dialog>
 <dialog id="transition-travel" class="transition-dialog" aria-labelledby="transition-travel-title"><form id="transition-travel-form" class="stack">
 <h2 id="transition-travel-title">Travel to another map</h2><p id="tr-travel-summary"></p><p id="tr-travel-error" role="alert"></p>

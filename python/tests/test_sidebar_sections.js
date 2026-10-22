@@ -1,0 +1,11 @@
+const fs=require("node:fs"),vm=require("node:vm"),assert=require("node:assert/strict");
+const panel=()=>({open:false,addEventListener(type,fn){this.toggle=fn;}});
+const a=panel(),b=panel(),c=panel(),legend=panel(),alignment=panel();legend.open=true;
+const sidebar={querySelectorAll(selector){assert.equal(selector,'details[name="fog-editor-panels"]');return [a,b,c];}};
+vm.runInNewContext(fs.readFileSync("static/js/sidebar_sections.js","utf8"),{document:{getElementById:()=>sidebar}});
+a.open=true;a.toggle();assert.equal(b.open,false);assert.equal(legend.open,true);
+b.open=true;b.toggle();assert.equal(a.open,false);assert.equal(b.open,true);assert.equal(legend.open,true);
+legend.open=false;c.open=true;c.toggle();assert.equal(b.open,false);assert.equal(legend.open,false);
+alignment.open=true;assert.equal(c.open,true);assert.equal(legend.open,false);
+assert.equal(legend.toggle,undefined);assert.equal(alignment.toggle,undefined);
+console.log("Sidebar peer accordion, independent nested state and manually closed legend passed");

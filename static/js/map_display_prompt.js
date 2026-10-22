@@ -3,7 +3,7 @@
   "use strict";
   const dialog = document.getElementById("map-display-dialog");
   let pending = false;
-  window.LGChooseFog = async function(name, mapId = window.LG_MAP?.id) {
+  window.LGChooseFog = async function(name, mapId = window.LG_MAP?.id, options = {}) {
     if (!mapId) throw new Error("No target map selected.");
     if (pending) return null;
     pending = true;
@@ -13,7 +13,7 @@
       if (!response.ok) throw new Error("Cannot check saved reveals. No map was displayed.");
       const data = await response.json();
       if (!data.ok) throw new Error(data.error || "Cannot check saved reveals.");
-      if (!data.can_restore) return "reset";
+      if (!data.can_restore && !(options.includeCurrentReveals && data.has_current_reveals)) return "reset";
       if (!dialog) throw new Error("Restore/reset dialog is missing.");
       document.getElementById("map-display-question").textContent = `Show "${name}" to players?`;
       dialog.returnValue = "cancel";

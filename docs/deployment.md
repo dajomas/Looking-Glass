@@ -570,3 +570,16 @@ For rollback, stop both portals and restore the matching pre-patch code and comp
 pre-upgrade data/database backup together. There is no down-migration. Do not lower
 schema_version manually. Preserve the post-upgrade backup too if you may need to
 recover newly authored endpoint links; wall exports do not carry these links.
+
+
+## Passage modal and fog-editor sidebar UI update
+
+Restart both portals after updating so display-options can return its new
+has_current_reveals field. Reload the admin map-editor page to load versioned CSS,
+prompt and passage scripts. No migration, dependency, configuration or port changes
+are needed. Existing viewer clients use their normal live activation refresh.
+Verify the always-visible main-action footer on a small screen, exclusive sidebar
+peers with an independent manually closable legend, and destination activation via
+Restore/Reset/Cancel. Test current reveals without a saved checkpoint, an empty
+map, a blocked popup and a deleted/changed destination. Restore the previous code
+and assets for rollback; no database rollback is needed for this increment.

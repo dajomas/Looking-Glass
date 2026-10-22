@@ -95,6 +95,7 @@ def admin(browser):
 
 def test_admin_default_rotation_slider_pause_and_no_writes(admin):
     page,posts,data=admin;overlay=page.locator("#portal-cycle-overlay")
+    page.locator("#fog-panel > summary").click()
     assert page.locator("#portal-cycle-seconds").input_value()=="5"
     expect(overlay.locator("polygon")).to_have_count(2)
     original=overlay.get_attribute("data-route-id")

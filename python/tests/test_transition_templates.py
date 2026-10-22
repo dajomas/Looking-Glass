@@ -12,3 +12,14 @@ def test_editor_transition_template():
     ids=re.findall(r'\bid="([^"{}]+)"',html);assert len(ids)==len(set(ids))
     for name in ("transition-form","transition-markers","transition-travel-form","transition-add"):assert f'id="{name}"' in html
     assert html.index("map_transitions.js")<html.index("admin_map_editor.js")
+
+
+def test_passage_footer_is_outside_scroll_body():
+    from test_sidebar_appearance import Structure
+    page=Structure((ROOT/"templates/partials/_map_transitions.html").read_text())
+    for ident in ("tr-delete","tr-save-runtime","tr-open","tr-travel","tr-close"):
+        ancestry=page.nodes[ident][2]
+        assert any(tag=="footer" for tag,_ in ancestry)
+        assert not any(tag=="fieldset" for tag,_ in ancestry)
+    text=(ROOT/"static/css/admin.css").read_text()
+    assert "#transition-editor .transition-body" in text and "#transition-editor .transition-actions" in text

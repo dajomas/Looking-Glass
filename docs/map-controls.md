@@ -114,9 +114,23 @@ until Save; coordinates refer to the original image. Ordinary marker clicks do n
 perform fog actions or travel. Right-drag and zoom remain map navigation controls.
 
 Travel / show destination uses saved configuration and requires the source map to be
-active. Open destination in admin opens a separate tab without changing the display.
+active. Open destination in admin activates the saved destination on viewers as
+well as opening it for the DM. The Show battle map Restore/Reset/Cancel choice
+appears when current or saved reveals exist; cancellation changes neither display.
+This action uses normal activation, not the passage's Travel arrival-reveal policy.
 Create destination endpoint opens the selected map in a new tab; save there, then
 Reload destinations in the source dialog. Reverse links are explicit and independent.
 Show map passage markers (viewer) and Show passage labels (viewer) are unrelated to
 door/portal arrow toggles. Reset passage session states is independent of fog reset.
 See docs/usage.md for the complete workflow, secrecy and arrival-reveal rules.
+
+
+### Sidebar section defaults
+
+Map passages is immediately above Walls. Players, Fog, Map passages, Walls, Saved
+wall sources and Replace map image start closed and act as a peer accordion. The
+wall legend starts open but is never automatically closed/reopened by other panels;
+manual closing is respected until page reload. Nested Alignment is not a peer and
+can open while Walls stays open. Wall-editor panels on the separate wall-editor
+page are unaffected. Passage main actions stay in a fixed modal footer while only
+the form body scrolls.

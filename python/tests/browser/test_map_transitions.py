@@ -5,6 +5,7 @@ from playwright.sync_api import expect
 
 def test_place_and_reposition_keeps_draft(admin):
     page,posts,data=admin
+    page.locator("#map-passages-panel > summary").click()
     page.locator("#transition-add").click()
     point=page.evaluate("()=>{const p=window.testPZ,r=document.getElementById('viewport').getBoundingClientRect();return {x:r.left+p.x+100*p.scale,y:r.top+p.y+100*p.scale};}")
     page.mouse.click(point["x"],point["y"])
@@ -19,6 +20,7 @@ def test_place_and_reposition_keeps_draft(admin):
 
 def test_escape_cancels_placement(admin):
     page,posts,data=admin
+    page.locator("#map-passages-panel > summary").click()
     page.locator("#transition-add").click();page.keyboard.press("Escape")
     expect(page.locator("#transition-status")).to_contain_text("cancelled")
     assert not posts

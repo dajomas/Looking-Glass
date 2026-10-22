@@ -322,3 +322,22 @@ is introduced. The exact player-image preview includes the same markers.
 to endpoint selection/placement first. Both overlays use original image coordinates.
 The endpoint list refreshes on focus/15-second polling when no dialog or placement is
 active. The campaign overview is read-only except for links back to map editors.
+
+
+### Passage footer, destination activation and fog-editor accordion
+
+The endpoint dialog has a flex-column form with one overflow body and one
+non-scrolling actions footer. Closed dialogs retain native display semantics.
+The sidebar's peer details share a name for native exclusive opening, with a
+small toggle-listener fallback. Legend and nested Alignment are outside the group;
+the legend is never programmatically forced open after manual closure.
+
+Destination-open freshly resolves the saved source revision/link and destination
+from the authorized endpoint listing. It reserves an opener-detached blank admin
+tab synchronously, invokes LGChooseFog with includeCurrentReveals, then calls the
+existing active-map API only after a restore/reset decision. It closes the reserved
+tab on cancellation/error and uses current-tab navigation if a popup is blocked.
+The additive has_current_reveals display-options field leaves default restore
+callers unchanged. Existing post-commit viewer refresh handles viewer activation.
+This is intentionally separate from travel/preflight and does not execute an
+arrival reveal or change endpoint runtime state.

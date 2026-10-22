@@ -64,3 +64,20 @@ test("display prompt resolves restore/reset and Escape as cancel", async () => {
     assert.equal(question.textContent,'Show "<untrusted name>" to players?');
   }
 });
+
+
+test("destination prompts for current reveals even with empty checkpoint",async()=>{
+ let close,shown=0,reads=0;
+ const dialog={returnValue:"",showModal(){shown++;},addEventListener(name,fn){close=fn;}};
+ const c={window:{},document:{getElementById:()=>dialog,querySelectorAll:()=>[]},fetch:async()=>{reads++;return {ok:true,json:async()=>({ok:true,can_restore:false,has_current_reveals:true})};}};
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/map_display_prompt.js"),"utf8"),c);
+ assert.equal(await c.window.LGChooseFog("Prepared",2),"reset");assert.equal(shown,0);
+ const result=c.window.LGChooseFog("Prepared",2,{includeCurrentReveals:true});await tick();
+ assert.equal(shown,1);dialog.returnValue="cancel";close();assert.equal(await result,null);assert.equal(reads,2);
+});
+
+test("destination without any reveals skips the prompt",async()=>{
+ const c={window:{},document:{getElementById:()=>({showModal(){throw Error("unexpected modal");}}),querySelectorAll:()=>[]},fetch:async()=>({ok:true,json:async()=>({ok:true,can_restore:false,has_current_reveals:false})})};
+ vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/map_display_prompt.js"),"utf8"),c);
+ assert.equal(await c.window.LGChooseFog("Empty",2,{includeCurrentReveals:true}),"reset");
+});

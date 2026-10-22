@@ -215,3 +215,14 @@ area reveal and non-secret fog-clipped player markers. The campaign page include
 a connection overview. See [usage](docs/usage.md), [deployment](docs/deployment.md)
 and [testing](docs/testing.md). Requires
 automatic schema migration 12; back up the database before installation.
+
+
+### Passage modal and sidebar workflow
+
+The Map passage modal keeps its main actions visible in a bottom footer while the
+form scrolls. Open destination in admin also activates that destination on viewer
+screens; the Show battle map Restore/Reset/Cancel choice appears when the destination
+has current or saved reveals. This is normal activation, separate from passage Travel.
+Map passages is above Walls in the fog-editor sidebar. Peer sections start closed
+and open exclusively; Wall legend and types starts open and remains independently
+manually closable. See [usage](docs/usage.md) and [testing](docs/testing.md).

@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=portal-visibility-5">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=passage-modal-2">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -14,7 +14,7 @@
   </div>
 
   <div class="side-block">
-    <details id="players-panel" open class="sidebar-panel">
+    <details id="players-panel" class="sidebar-panel" name="fog-editor-panels">
       <summary>Players</summary>
       <div class="panel-content">
     <div class="live-row">
@@ -31,7 +31,7 @@
   </div>
 
   <div class="side-block">
-    <details id="fog-panel" open class="sidebar-panel">
+    <details id="fog-panel" class="sidebar-panel" name="fog-editor-panels">
       <summary>Fog</summary>
       <div class="panel-content">
     <p id="offline-reveal-warning" role="status" class="small" hidden>Warning: this map is not shown to players. Reveals affect this map only.</p>
@@ -76,8 +76,16 @@
     </details>
   </div>
 
+  <div class="side-block"><details id="map-passages-panel" class="sidebar-panel" name="fog-editor-panels"><summary>Map passages</summary><div class="panel-content">
+<p class="small muted">S stairs · L ladder · H hole · P portal · C climb · X custom. Click a marker to edit; travel is an explicit DM action.</p>
+<button type="button" id="transition-add">Add passage endpoint</button><p id="transition-status" role="status" aria-live="polite"></p><div id="transition-list" class="stack"></div>
+<label class="check"><input type="checkbox" id="transition-viewer-markers" checked> Show map passage markers (viewer)</label>
+<label class="check"><input type="checkbox" id="transition-viewer-labels" checked> Show passage labels (viewer)</label>
+<button type="button" id="transition-reset">Reset passage session states</button>
+<a href="/campaigns/{{ campaign.id }}#map-passages">Campaign connection overview</a></div></details></div>
+
   <div class="side-block">
-    <details id="walls-panel" open class="sidebar-panel">
+    <details id="walls-panel" class="sidebar-panel" name="fog-editor-panels">
       <summary>Walls</summary>
       <div class="panel-content">
     <label class="range">Wall width (screen px)
@@ -111,7 +119,7 @@
   </div>
 
   <div class="side-block">
-    <details open id="saved-wall-library" class="sidebar-panel">
+    <details id="saved-wall-library" class="sidebar-panel" name="fog-editor-panels">
       <summary>Saved wall sources</summary>
       <div class="panel-content">
       <p class="muted small">Save a database once, then choose a wall set for each map in this campaign.</p>
@@ -159,7 +167,7 @@
   </div>
 
   <div class="side-block">
-    <details>
+    <details id="replace-map-panel" class="sidebar-panel" name="fog-editor-panels">
       <summary>Replace map image</summary>
       <form method="post" action="/maps/{{ map.id }}/image" enctype="multipart/form-data" class="stack">
         {% include "partials/_csrf.html" %}
@@ -169,13 +177,6 @@
     </details>
   </div>
 <div class="side-block"><p id="map-load-error" role="alert" hidden></p><button type="button" id="retry-map-load">Retry loading map</button></div>
-<div class="side-block"><details class="sidebar-panel" open><summary>Map passages</summary><div class="panel-content">
-<p class="small muted">S stairs · L ladder · H hole · P portal · C climb · X custom. Click a marker to edit; travel is an explicit DM action.</p>
-<button type="button" id="transition-add">Add passage endpoint</button><p id="transition-status" role="status" aria-live="polite"></p><div id="transition-list" class="stack"></div>
-<label class="check"><input type="checkbox" id="transition-viewer-markers" checked> Show map passage markers (viewer)</label>
-<label class="check"><input type="checkbox" id="transition-viewer-labels" checked> Show passage labels (viewer)</label>
-<button type="button" id="transition-reset">Reset passage session states</button>
-<a href="/campaigns/{{ campaign.id }}#map-passages">Campaign connection overview</a></div></details></div>
 </aside>
 
 <section class="viewport" id="viewport" tabindex="0" aria-label="Battle map">
@@ -199,7 +200,7 @@
 {% block scripts %}
 {% include "partials/_map_transitions.html" %}
 {% include "partials/_map_display_dialog.html" %}
-<script src="/static/js/map_display_prompt.js"></script>
+<script src="/static/js/map_display_prompt.js?v=passage-display-2"></script>
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
 <script src="/static/js/api.js"></script>
 <script src="/static/js/pan_zoom.js"></script>
@@ -209,7 +210,8 @@
 <script src="/static/js/door_gestures.js?v=passages-1"></script>
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
-<script src="/static/js/map_transitions.js?v=transitions-1"></script>
+<script src="/static/js/map_transitions.js?v=passage-modal-2"></script>
 <script src="/static/js/admin_map_editor.js?v=transitions-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
+<script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>
 {% endblock %}

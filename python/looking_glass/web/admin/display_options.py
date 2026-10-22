@@ -19,5 +19,7 @@ def register_display_options(router):
             except (ValueError, TypeError, KeyError) as exc:
                 raise BadRequest("Cannot read saved reveals; no display change was made.") from exc
         can_restore = await asyncio.to_thread(has_restorable_reveals, ctx.fog, spec, segments, operations)
-        return JSONResponse({"ok": True, "map_id": map_id, "can_restore": can_restore},
+        has_current_reveals = await asyncio.to_thread(has_restorable_reveals, ctx.fog, spec, segments, live_ops)
+        return JSONResponse({"ok": True, "map_id": map_id, "can_restore": can_restore,
+                             "has_current_reveals": has_current_reveals},
                             headers={"Cache-Control": "no-store"})

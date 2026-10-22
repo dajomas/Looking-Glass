@@ -107,3 +107,14 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
 .transition-dialog [hidden] { display:none !important; }
 #transition-error,#tr-travel-error { color:var(--err); white-space:pre-wrap; }
 #transition-list button { text-align:start; white-space:normal; }
+
+/* Native dialog controls visibility; never set display:flex on a closed dialog. */
+#transition-editor { padding:0; overflow:hidden; max-height:90vh; max-height:90dvh; }
+#transition-form.transition-layout { display:flex; flex-direction:column; margin:0; max-height:90vh; max-height:90dvh; min-height:0; }
+#transition-editor .transition-body { flex:1 1 auto; min-height:0; overflow:auto; padding:1rem; overscroll-behavior:contain; }
+#transition-editor .transition-actions { flex:0 0 auto; padding:.7rem 1rem; border-top:1px solid var(--border); background:var(--bg-2); display:flex; flex-direction:column; gap:.4rem; }
+#transition-editor .transition-actions button { white-space:normal; }
+@media (max-height:480px) {
+ #transition-editor .transition-actions { padding:.3rem .5rem; gap:.2rem; }
+ #transition-editor .transition-actions button { padding:.3rem .45rem; font-size:.8rem; }
+}

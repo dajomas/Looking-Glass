@@ -27,9 +27,14 @@ class Structure(HTMLParser):
 
 def test_battle_panels_and_control_ancestry():
     page = Structure((ROOT / "web_html/admin/map_editor.html").read_text())
-    for ident in ("players-panel", "fog-panel", "walls-panel", "wall-legend"):
+    for ident in ("players-panel", "fog-panel", "map-passages-panel", "walls-panel", "saved-wall-library", "replace-map-panel"):
         tag, attrs, _ = page.nodes[ident]
-        assert tag == "details" and "open" in attrs
+        assert tag == "details" and "open" not in attrs
+        assert attrs["name"] == "fog-editor-panels"
+    assert "open" in page.nodes["wall-legend"][1]
+    assert "name" not in page.nodes["wall-legend"][1]
+    text=(ROOT / "web_html/admin/map_editor.html").read_text()
+    assert text.index('id="map-passages-panel"') < text.index('id="walls-panel"')
     for ident, panel in (("btn-show", "players-panel"), ("fog-opacity", "fog-panel"), ("wall-width", "walls-panel"), ("calibration", "walls-panel"), ("apply-wall-types", "wall-legend")):
         assert ("details", panel) in page.nodes[ident][2]
     assert ("details", "walls-panel") in page.nodes["calibration"][2]

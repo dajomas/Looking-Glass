@@ -42,7 +42,7 @@ window.LGMapTransitions=(()=>{
    const d=dimensions(),v=item||{name:"New passage",player_label:"",kind:"stairs",x:d.width/2,y:d.height/2,visibility:"discovered",availability:"usable",arrival:"area",notes:""};
    for(const k of ["name","kind","x","y","visibility","availability","arrival","notes"])$("tr-"+k).value=v[k];
    $("tr-label").value=v.player_label;$("tr-return").checked=false;fillMaps(v.destination_id);
-   $("tr-runtime").hidden=!item;$("tr-delete").hidden=!item;$("tr-open").disabled=$("tr-travel").disabled=!item?.destination_id;
+   $("tr-runtime").hidden=!item;$("tr-delete").hidden=!item;$("tr-save-runtime").hidden=!item;$("tr-open").disabled=$("tr-travel").disabled=!item?.destination_id;
    $("tr-current-visibility").value=item?.runtime_visibility||"";$("tr-current-availability").value=item?.runtime_availability||"";
    if(!dialog.open)dialog.showModal();
   }
@@ -58,7 +58,31 @@ window.LGMapTransitions=(()=>{
   $("tr-delete").onclick=()=>{if(!current||!confirm("Delete this endpoint? Incoming links will be marked broken."))return;guard(async()=>{await saved(await LGApi.del(`${base}/transitions/${current.id}?revision=${current.revision}`));dialog.close();});};
   $("transition-reset").onclick=()=>{if(!confirm("Reset passage session states on this map? Fog and authored settings are unchanged."))return;guard(async()=>{await saved(await LGApi.post(`/api/maps/${mapId}/transitions/reset`));});};
   for(const id of ["transition-viewer-markers","transition-viewer-labels"])$(id).onchange=()=>guard(async()=>{try{await saved(await LGApi.post(`/api/maps/${mapId}/transition-markers`,{enabled:$("transition-viewer-markers").checked,labels:$("transition-viewer-labels").checked}));}catch(e){render();throw e;}});
-  $("tr-open").onclick=()=>{const dest=data.endpoints.find(e=>e.id===current?.destination_id);if(dest)window.open(`/maps/${dest.map_id}`,"_blank","noopener");};
+  $("tr-open").onclick=()=>{
+   if(locked||!current?.destination_id)return;
+   const sourceId=current.id,sourceRevision=current.revision,destinationId=current.destination_id;
+   const tab=window.open("about:blank","_blank");
+   if(tab)tab.opener=null;
+   let navigated=false;
+   return guard(async()=>{
+    try{
+     await reload();
+     const source=data.endpoints.find(e=>e.id===sourceId);
+     const dest=data.endpoints.find(e=>e.id===destinationId);
+     if(!source||source.revision!==sourceRevision||source.destination_id!==destinationId||!dest)throw Error("Passage destination changed. Close and reopen this endpoint.");
+     const map=data.maps.find(m=>m.id===dest.map_id);
+     if(!map)throw Error("Destination map is no longer available.");
+     const action=await window.LGChooseFog(map.name,dest.map_id,{includeCurrentReveals:true});
+     if(!action){status("Destination display cancelled; no map was changed.");return;}
+     await LGApi.post(`${base}/active`,{map_id:dest.map_id,fog_action:action});
+     const url=`/maps/${dest.map_id}`;
+     if(tab&&!tab.closed)tab.location.href=url;
+     else location.href=url; // Popups blocked/closed: navigate this admin tab instead.
+     navigated=true;dialog.close();status("Destination shown in admin and on viewer screens.");
+     await reload();await onSaved();
+    }finally{if(!navigated&&tab&&!tab.closed)tab.close();}
+   });
+  };
   $("tr-travel").onclick=()=>guard(async()=>{
    await reload();current=data.endpoints.find(e=>e.id===current?.id);if(!current)throw Error("Endpoint deleted; reload.");
    if(data.active_map_id!==mapId)throw Error("Show this source map to players before travelling.");

@@ -114,8 +114,9 @@ Use a copied campaign and at least one connected viewer:
   double-click commands without admin camera movement or fog mutation, new-reveal
   overview behavior, resize and late-response handling. Test multiple viewers if
   they will be used during play.
-- Cross-map travel: create one-way and return connections, preview a destination
-  without switching players, preserve existing exploration, test area arrival and
+- Cross-map travel: create one-way and return connections, inspect the Travel
+  confirmation without executing it, verify Open destination in admin also activates
+  the viewer through Restore/Reset/Cancel, preserve existing exploration, test area arrival and
   large-reveal approval, reject a wall/out-of-bounds arrival, discover/reset a
   secret endpoint, reject stale preflight after another tab edits it, and show a
   broken link after deleting a target. Check marker/label persistence after restart.
@@ -137,3 +138,21 @@ Test unusual map geometry and imported wall calibration with your own campaign
 assets. See [usage](usage.md), [map controls](map-controls.md),
 [wall editing](wall-editor.md) and [deployment](deployment.md) for behavior,
 upgrade precautions and matching-code/database rollback guidance.
+
+
+## Passage modal/sidebar regressions
+
+```sh
+python -m pytest -q python/tests/test_destination_display_options.py python/tests/test_transition_templates.py python/tests/test_sidebar_appearance.py
+node python/tests/test_map_transitions.js
+node python/tests/test_sidebar_sections.js
+node python/tests/test_viewer_refresh.js
+python -m pytest -q python/tests/browser/test_passage_modal_layout.py
+```
+
+The route-body test checks current/saved reveal independence using stub dependencies;
+it is not an HTTP authentication/CSRF test. The browser tests require local Playwright
+Chromium. Manually verify footer visibility at your screen dimensions and zoom,
+current/saved reveal Restore/Reset/Cancel behavior, successful activation on all viewer
+screens, popup-blocked fallback, and legend closure staying respected as peer panels
+change. No passing browser or full-server result is implied by these commands.

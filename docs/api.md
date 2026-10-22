@@ -387,3 +387,16 @@ it does not modify that state. Destination visibility/availability is not an arr
 gate. A large/leaking arrival requires allow_large_reveal=true as a separate consent.
 An endpoint on a wall cannot use area reveal. No small-zone/radius arrival policy
 exists in this version.
+
+
+### Destination display availability
+
+The existing admin `GET /api/maps/{map_id}/display-options` response now adds
+`has_current_reveals`, a boolean evaluated from live fog operations. Existing
+`can_restore` retains its meaning: effective active-map operations or, for an
+inactive map, its saved checkpoint. The destination-open UI requests a choice if
+either boolean is true. Other callers retain their original can_restore behavior.
+The existing CSRF-protected `POST /api/campaigns/{campaign_id}/active` performs
+activation with map_id and fog_action (restore/reset); the endpoint, permissions
+and response contract are unchanged. A cancelled choice issues no mutation request.
+No new passage-travel operation or schema migration is introduced by this UI change.
