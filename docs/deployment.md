@@ -17,8 +17,20 @@ container instances against the same data directory simultaneously.
 
 ## 1. Native installation (RHEL / Rocky)
 
-These instructions assume installation under `/opt/looking-glass` and a
-Python 3.14 executable named `python3.14`.
+The deployment layout separates read-only application code, configuration and
+writable state:
+
+| Purpose | Location |
+|---|---|
+| Application and virtual environment | `/opt/looking-glass` |
+| Configuration | `/etc/looking-glass/config.yaml` |
+| Persistent data | `/var/lib/looking-glass` |
+| SQLite database (with the settings below) | `/var/lib/looking-glass/looking_glass.db` |
+
+These instructions assume a Python 3.14 executable named `python3.14`.
+The application does not automatically discover the `/etc` configuration:
+pass `--config /etc/looking-glass/config.yaml` or set `LG_CONFIG` explicitly.
+The developer defaults remain unchanged; set `storage.data_dir` as shown below.
 
 Install Python using an appropriate repository or your preferred installation
 method. Where the packages are available:
@@ -64,8 +76,9 @@ service account.
 For the first installation only:
 
 ```bash
+sudo install -d -o root -g lookingglass -m 0750 /etc/looking-glass
 sudo install -o root -g lookingglass -m 0640 \
-  config.example.yaml config.yaml
+  docs/examples/config.production.yaml /etc/looking-glass/config.yaml
 ```
 
 Do not repeat this command during upgrades: it would overwrite the existing
@@ -74,16 +87,21 @@ configuration.
 Review the configuration before starting the application:
 
 ```bash
-sudoedit /opt/looking-glass/config.yaml
+sudoedit /etc/looking-glass/config.yaml
 ```
 
-Keep the viewer port set to 5100:
+Keep the viewer port set to 5100 and set the absolute data directory. Merge
+these keys into the existing sections rather than adding duplicate YAML keys:
 
 ```yaml
 server:
   host: 0.0.0.0
   admin_port: 5000
   viewer_port: 5100
+
+storage:
+  data_dir: /var/lib/looking-glass
+  database: looking_glass.db
 ```
 
 Use `host: 127.0.0.1` instead if both portals should be reachable only through
@@ -103,7 +121,7 @@ For a new installation:
 
 ```bash
 sudo install -d -m 0750 -o lookingglass -g lookingglass \
-  /opt/looking-glass/data
+  /var/lib/looking-glass
 ```
 
 If reusing an existing data directory, ensure that its existing files and
@@ -113,7 +131,8 @@ does not repair ownership of existing contents.
 The service account must be able to:
 
 - Read the application, virtual environment and configuration.
-- Write the database, map files, saved wall sources and cache under `data/`.
+- Write application state under `/var/lib/looking-glass`, including the database,
+  map artwork and cache. Saved wall sources are stored in the database.
 
 ### Install and start the service
 
@@ -147,8 +166,8 @@ The supplied unit uses:
 | User | `lookingglass` |
 | Working directory | `/opt/looking-glass` |
 | Python executable | `/opt/looking-glass/.venv/bin/python` |
-| Configuration | `/opt/looking-glass/config.yaml` |
-| Writable directory | `/opt/looking-glass/data` |
+| Configuration | `/etc/looking-glass/config.yaml` |
+| Writable directory | `/var/lib/looking-glass` |
 
 The canonical unit is `docs/examples/looking-glass.service`; it is not
 duplicated here.
@@ -156,10 +175,12 @@ duplicated here.
 `ProtectSystem=strict` makes the filesystem read-only for the service except
 for locations permitted by `ReadWritePaths`.
 
-If you move the checkout, adjust `WorkingDirectory`, `ExecStart` and
-`ReadWritePaths` in the unit or an appropriate override.
+If you move the checkout, adjust `WorkingDirectory` and the executable/script
+paths in `ExecStart`. Keep the configuration and data paths independent.
+The unit permits writes only under `/var/lib/looking-glass`; `/etc/looking-glass`
+remains read-only to the service.
 
-If `storage.data_dir` or the database is placed outside the default data
+If `storage.data_dir` or the database is placed outside the documented data
 directory, update `ReadWritePaths` and filesystem ownership before starting
 the service.
 
@@ -289,6 +310,28 @@ installation.
 
 This is an alternative to the native installation and its systemd unit.
 
+The host uses the same configuration and data locations as the native
+installation. Inside the unchanged image, data remains mounted at `/app/data`.
+The image sets `LG_DATA_DIR=/app/data`, overriding the host-oriented YAML data
+path. Do not remove that override unless you also change the container mount.
+
+The examples below use rootless Podman as the current login user, not the native
+`lookingglass` service account. For a NEW container-only installation:
+
+```bash
+sudo install -d -o root -g "$(id -g)" -m 0750 /etc/looking-glass
+sudo install -o root -g "$(id -g)" -m 0640 \
+  docs/examples/config.production.yaml /etc/looking-glass/config.yaml
+sudo install -d -o "$(id -u)" -g "$(id -g)" -m 0750 /var/lib/looking-glass
+sudoedit /etc/looking-glass/config.yaml
+```
+
+Set `storage.data_dir: /var/lib/looking-glass` and keep the database filename
+relative as in the native example. Do not overwrite an existing configuration
+or change ownership of a native installation's data using these setup commands.
+For existing data, stop the old instance, back up and plan ownership/SELinux
+label changes for the chosen deployment user before switching methods.
+
 From the repository root:
 
 ```bash
@@ -299,24 +342,21 @@ For direct access on ports 5000 and 5100:
 
 ```bash
 podman run -d --name looking-glass \
+  --userns=keep-id --user "$(id -u):$(id -g)" \
+  -e LG_CONFIG=/etc/looking-glass/config.yaml \
+  -e LG_DATA_DIR=/app/data \
   -p 5000:5000 \
   -p 5100:5100 \
-  -v lg-data:/app/data:Z \
+  -v /etc/looking-glass/config.yaml:/etc/looking-glass/config.yaml:ro,Z \
+  -v /var/lib/looking-glass:/app/data:Z \
   looking-glass
 ```
 
-For a reverse proxy running on the host, publish the backend ports on loopback
-instead:
-
-```bash
-podman run -d --name looking-glass \
-  -p 127.0.0.1:5000:5000 \
-  -p 127.0.0.1:5100:5100 \
-  -v lg-data:/app/data:Z \
-  looking-glass
-```
-
-Run only one of these container examples.
+For a reverse proxy running on the host, use the same command but replace the
+port publications with `-p 127.0.0.1:5000:5000 -p 127.0.0.1:5100:5100`.
+Run only one instance. `:Z` privately relabels the mounted paths on SELinux hosts;
+use dedicated paths and do not share them with a running native instance.
+The configuration mount is read-only; data is writable by the mapped login user.
 
 View startup logs:
 
@@ -326,14 +366,6 @@ podman logs looking-glass
 
 The first start with an empty database generates and logs the initial
 superadmin credentials.
-
-An optional configuration file can be mounted with:
-
-```text
--v ./config.yaml:/app/config.yaml:ro,Z
-```
-
-Ensure that the container's application user can read the mounted file.
 
 For persistent container startup, configure a Podman Quadlet service. The
 native `looking-glass.service` supplied with the repository runs a checkout
@@ -402,29 +434,29 @@ sudo systemctl start looking-glass.service
 
 ### Backups
 
-With the default configuration, application state is under:
+With the deployment configuration above, application state is under:
 
 ```text
-/opt/looking-glass/data/
+/var/lib/looking-glass/
 ```
 
 This includes:
 
 - `looking_glass.db`: SQLite database.
-- Map artwork and reusable wall sources.
+- `maps/`: map artwork. Reusable wall sources are stored in the SQLite database.
 - Render cache files.
 
 For a straightforward consistent backup:
 
 1. Stop the service.
-2. Back up the complete data directory and the configuration file.
+2. Back up `/var/lib/looking-glass` and `/etc/looking-glass/config.yaml`.
 3. Store the backup securely outside the application directory.
 4. Start the service again.
 
 If storage paths were customized, include those locations too.
 
 For an online SQLite database backup, use SQLite's backup command rather
-than copying only the live database file. Back up map/source files as well;
+than copying only the live database file. Back up map files as well;
 a database-only backup is not a complete application backup.
 
 Render-cache contents can be regenerated. Clear them only when the
@@ -450,6 +482,63 @@ Startup applies the pending database migrations for the installed revision.
 Rollback after a schema change may require restoring the pre-upgrade data
 backup together with the corresponding application version. Do not manually
 decrement `schema_version`.
+
+### Move an existing native installation to the new paths
+
+Updating these documentation files does not move a running installation's data.
+Before installing the updated unit, stop the service and take a verified backup
+of its current configuration and complete data directory. The example below
+assumes the old locations were `/opt/looking-glass/config.yaml` and
+`/opt/looking-glass/data`; substitute your actual paths if different.
+Do not merge into a destination that already contains another installation.
+
+```bash
+sudo systemctl stop looking-glass.service
+sudo install -d -o root -g lookingglass -m 0750 /etc/looking-glass
+sudo install -o root -g lookingglass -m 0640 \
+  /opt/looking-glass/config.yaml /etc/looking-glass/config.yaml
+sudo install -d -o lookingglass -g lookingglass -m 0750 /var/lib/looking-glass
+sudo cp -a /opt/looking-glass/data/. /var/lib/looking-glass/
+sudo chown -R lookingglass:lookingglass /var/lib/looking-glass
+sudoedit /etc/looking-glass/config.yaml
+```
+
+Only copy the configuration above if the destination file does not already
+exist. In the editor, set `storage.data_dir: /var/lib/looking-glass` and use
+`storage.database: looking_glass.db` unless intentionally using another database
+path. Check for stale `LG_DATA_DIR`/`LG_CONFIG` environment variables and systemd
+drop-ins that could override the new configuration or write permissions.
+Preserve all stopped SQLite files, including any WAL/SHM sidecars, in the copy.
+
+Install the updated example unit as described in section 2, then:
+
+```bash
+sudo -u lookingglass test -r /etc/looking-glass/config.yaml
+sudo -u lookingglass test -w /var/lib/looking-glass
+sudo systemctl daemon-reload
+sudo systemctl start looking-glass.service
+sudo systemctl status looking-glass.service --no-pager
+sudo journalctl -u looking-glass.service -b --no-pager
+```
+
+Confirm your existing campaigns/users/maps are present. A new initial-superadmin
+message may indicate that the service opened an empty database at the wrong
+path. Keep the old files until the migrated installation and backups have been
+verified. For rollback, stop the service and restore the previous unit/config
+and the matching data backup; do not run both copies against shared storage.
+For containers, stop the container rather than the native unit and copy from
+the actual old bind mount or named volume, not necessarily the old checkout.
+
+### Administrative CLI commands
+
+Use the deployment configuration explicitly for maintenance commands, otherwise
+they can open a different database using developer defaults:
+
+```bash
+cd /opt/looking-glass
+sudo -u lookingglass .venv/bin/python python/main.py \
+  --config /etc/looking-glass/config.yaml list-users
+```
 
 ### Historical reveal-state upgrade
 

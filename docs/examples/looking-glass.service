@@ -7,11 +7,11 @@ After=network-online.target
 Type=simple
 User=lookingglass
 WorkingDirectory=/opt/looking-glass
-ExecStart=/opt/looking-glass/.venv/bin/python python/main.py --config /opt/looking-glass/config.yaml serve
+ExecStart=/opt/looking-glass/.venv/bin/python python/main.py --config /etc/looking-glass/config.yaml serve
 Restart=on-failure
 NoNewPrivileges=true
 ProtectSystem=strict
-ReadWritePaths=/opt/looking-glass/data
+ReadWritePaths=/var/lib/looking-glass
 PrivateTmp=true
 
 [Install]

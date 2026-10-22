@@ -1,0 +1,11 @@
+# Production deployment example; select explicitly with --config or LG_CONFIG.
+# Other settings inherit application defaults; review before deployment.
+server:
+  host: 0.0.0.0
+  admin_port: 5000
+  viewer_port: 5100
+storage:
+  data_dir: /var/lib/looking-glass
+  database: looking_glass.db
+security:
+  secure_cookies: false  # Set true when serving over HTTPS.
