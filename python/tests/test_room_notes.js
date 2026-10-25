@@ -12,8 +12,9 @@ function element(id){
 }
 let response={area_key:'a',name:'Crypt',markdown:'**Gold**',html:'<p><strong>Gold</strong></p>',revision:1,revealed:true};
 let fail=false,confirmAnswer=true;
+const confirmations=[];
 const requests=[],store=new Map(),notices=[],context={window:{addEventListener(){}},document:{getElementById:element,querySelector:()=>element('main'),createElement:()=>({value:"",textContent:""})},
- localStorage:{getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v)},confirm:()=>confirmAnswer,navigator:{clipboard:{readText:async()=>"# Pasted"}},
+ localStorage:{getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v)},confirm:message=>{confirmations.push(message);return confirmAnswer;},navigator:{clipboard:{readText:async()=>"# Pasted"}},
  FormData:class {append(key,value){this[key]=value;}},
  LGApi:{post:async(path,body)=>{requests.push({path,body});if(fail)throw Error('save failed');if(path.endsWith('/room-note-library/import'))return {sections:2,added:2,heading_level:1,ignored_preamble:true,entries:[{id:1,name:'Imported Hall',markdown:'Gold'}]};return response;},get:async()=>({rooms:[]})}};
 vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
@@ -100,5 +101,34 @@ vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
  element('room-import-file').files=[{size:1048577}];
  await element('room-import-form').onsubmit({preventDefault(){}});
  assert.equal(requests.length,importsBefore,'oversize file blocked before upload');
- console.log('Room notes read/edit, toolbar, paste, library import, dropdown and assignment tests passed');
+ // Confirmation must reflect effective draft differences, not prior input events.
+ response={area_key:'confirm',name:'Saved',markdown:'Notes',html:'Notes',revision:1,revealed:true};
+ await notes.select(175,100,true);
+ notes.libraryEntries=[{id:10,name:'Imported',markdown:'Replacement'},{id:11,name:'Saved',markdown:'Notes'}];notes.renderLibrary();
+ const pick=id=>{element('room-import-select').value=String(id);element('room-import-select').onchange();};
+ let count=confirmations.length;pick(10);
+ assert.equal(confirmations.length,count,'saved existing content is not an unsaved draft');
+ assert.equal(element('room-import-select').value,'');
+ element('room-import-select').onchange();assert.equal(confirmations.length,count,'consumed actions must not replay');
+ element('room-cancel').onclick();element('room-edit').onclick();
+ element('room-name').value='Changed';element('room-name').oninput();
+ element('room-name').value='Saved';element('room-name').oninput();assert.equal(notes.dirty,false);
+ count=confirmations.length;pick(10);assert.equal(confirmations.length,count,'edit then undo needs no warning');
+ element('room-cancel').onclick();element('room-edit').onclick();
+ element('room-markdown').value='Unsaved';element('room-markdown').oninput();
+ confirmAnswer=false;count=confirmations.length;pick(10);
+ assert.equal(confirmations.length,count+1);assert.equal(field.value,'Unsaved');assert.equal(notes.dirty,true);
+ element('room-import-select').onchange();assert.equal(confirmations.length,count+1,'Cancel must not re-prompt');
+ confirmAnswer=true;count=confirmations.length;pick(10);assert.equal(confirmations.length,count+1);
+ element('room-import-select').onchange();assert.equal(confirmations.length,count+1,'OK must not re-prompt');
+ // Selecting the same content as the unsaved draft must not discard anything.
+ count=confirmations.length;pick(10);assert.equal(confirmations.length,count);
+ // Reentrant events during a native confirm are ignored.
+ element('room-name').value='Another unsaved';element('room-name').oninput();
+ context.confirm=message=>{confirmations.push(message);pick(11);return false;};
+ count=confirmations.length;pick(10);assert.equal(confirmations.length,count+1);
+ assert.equal(element('room-name').value,'Another unsaved');
+ context.confirm=message=>{confirmations.push(message);return confirmAnswer;};
+ element('room-cancel').onclick();assert.equal(notes.dirty,false);
+ console.log('Room notes UI and replacement-confirmation regression tests passed');
 })().catch(e=>{console.error(e);process.exitCode=1;});

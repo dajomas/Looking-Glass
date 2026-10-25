@@ -2,6 +2,7 @@
 (function () {
   "use strict";
   function key(select) {
+    if (select.id === "room-import-select") return null; // one-shot action; never restore/replay it
     if (select.id === "map-switch") return null; // the URL/server is authoritative for this switch
     const row = select.closest("tr[data-map-id]");
     let name = select.id || select.name;

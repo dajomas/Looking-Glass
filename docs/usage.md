@@ -723,3 +723,24 @@ Choose a replacement to open an edit draft containing the imported name and note
 Save room applies it; Cancel restores the previous values. Replacement is still
 subject to revision and geometry checks. In edit mode, Cancel returns to read
 mode if you want to choose a different imported entry.
+
+## When imported-room replacement asks for confirmation
+
+“Replace unsaved room name and notes with the imported entry?” is only appropriate
+when there are unsaved name/note differences AND the chosen imported entry differs
+from that draft. It is not a warning about replacing already saved metadata:
+selecting a replacement in read mode opens a draft without a prompt. Save room
+still controls whether it is persisted; Cancel restores the saved content.
+
+The check compares actual field contents with the selected room's saved values.
+Editing and then undoing/reverting to the saved content is clean again. Room names
+are compared trimmed (matching server save behavior); Markdown preserves whitespace
+other than normalized newline encoding. Choosing an entry identical to the draft
+is a no-op and does not prompt. Clearing an already empty room stays clean.
+
+OK replaces the draft once. Cancel leaves it unchanged. Neither choice should
+redisplay the modal by itself. The imported-room dropdown always resets to its
+placeholder and is never automatically remembered/restored between refreshes or
+rooms. Other persistent dropdowns retain their existing behavior. Deploy the fix
+and refresh the page; old cached dropdown choices are ignored without requiring
+all browser storage to be cleared.

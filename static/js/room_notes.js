@@ -1,6 +1,7 @@
 // DM-only notes. All rendered HTML comes from the server's sanitized Markdown renderer.
 window.LGRoomNotes = class {
   constructor(mapId, toast) {
+    this.importSelecting=false;
     this.libraryEntries=[];this.libraryGeneration=0;
     this.editMode=false;this.saving=false;this.draftVersion=0;
     this.mapId=mapId;this.toast=toast;this.point=null;this.room=null;this.dirty=false;this.generation=0;this.revealed=null;this.stateStamp=null;this.refreshGeneration=0;
@@ -8,13 +9,13 @@ window.LGRoomNotes = class {
     this.$("room-library-import").open=false;
     this.$("room-toggle").onclick=()=>this.collapse(!this.$("room-panel").classList.contains("collapsed"));
     try {this.collapse(localStorage.getItem("lg:room-panel-collapsed")==="true");} catch(_) {}
-    for(const id of ["room-name","room-markdown"]) this.$(id).oninput=()=>{this.dirty=true;this.draftVersion++;};
+    for(const id of ["room-name","room-markdown"]) this.$(id).oninput=()=>{this.updateDirty();this.draftVersion++;};
     this.$("room-edit").onclick=()=>{if(this.room&&!this.saving){this.setEditMode(true);this.$("room-name").focus();}};
     this.$("room-cancel").onclick=()=>{if(!this.saving){this.dirty=false;if(this.room)this.show(this.room);}};
     this.$("room-clear").onclick=()=>{
       if(!this.room||!this.editMode||this.saving)return;
       this.$("room-name").value="";this.$("room-markdown").value="";
-      this.dirty=true;this.draftVersion++;this.$("room-name").focus();
+      this.updateDirty();this.draftVersion++;this.$("room-name").focus();
       this.toast("Name and notes cleared in draft. Save room to apply, or Cancel to restore.");
     };
     this.$("room-format-bar").onclick=e=>{
@@ -56,15 +57,20 @@ window.LGRoomNotes = class {
       finally {button.disabled=false;}
     };
     this.$("room-import-select").onchange=()=>{
-      if(!this.room||this.saving)return;
-      const entry=this.libraryEntries.find(e=>String(e.id)===this.$("room-import-select").value);
+      const select=this.$("room-import-select"),id=select.value;
+      select.value=""; // Consume this action before rendering or opening a modal.
+      if(!this.room||this.saving||this.importSelecting)return;
+      const entry=this.libraryEntries.find(e=>String(e.id)===id);
       if(!entry)return;
-      if(this.dirty&&!confirm("Replace unsaved room name and notes with the imported entry?")){
-        this.$("room-import-select").value="";return;
-      }
-      this.setEditMode(true);
-      this.$("room-name").value=entry.name;this.$("room-markdown").value=entry.markdown;
-      this.dirty=true;this.draftVersion++;this.$("room-name").focus();
+      this.importSelecting=true;
+      try {
+        const same=this.sameContent(this.$("room-name").value,this.$("room-markdown").value,entry.name,entry.markdown);
+        if(this.hasUnsavedChanges()&&!same&&!confirm("Replace unsaved room name and notes with the imported entry?"))return;
+        if(same)return;
+        this.setEditMode(true);
+        this.$("room-name").value=entry.name;this.$("room-markdown").value=entry.markdown;
+        this.updateDirty();this.draftVersion++;this.$("room-name").focus();
+      } finally {this.importSelecting=false;}
     };
     this.loadLibrary();
     this.setEditMode(false);
@@ -83,8 +89,18 @@ window.LGRoomNotes = class {
         this.$("room-form").querySelectorAll("input,textarea,button").forEach(el=>el.disabled=false);
       }
     };
-    window.addEventListener("beforeunload",e=>{if(this.dirty){e.preventDefault();e.returnValue="";}});
+    window.addEventListener("beforeunload",e=>{if(this.hasUnsavedChanges()){e.preventDefault();e.returnValue="";}});
   }
+  sameContent(name,markdown,otherName,otherMarkdown) {
+    const text=value=>(value||"").replace(/\r\n?/g,"\n");
+    return text(name).trim()===text(otherName).trim()&&text(markdown)===text(otherMarkdown);
+  }
+  updateDirty() {
+    this.dirty=Boolean(this.room&&this.editMode&&!this.sameContent(
+      this.$("room-name").value,this.$("room-markdown").value,this.room.name,this.room.markdown));
+    return this.dirty;
+  }
+  hasUnsavedChanges() {return this.updateDirty();}
   renderLibrary() {
     const select=this.$("room-import-select");select.replaceChildren();
     const placeholder=document.createElement("option");placeholder.value="";
@@ -116,8 +132,8 @@ window.LGRoomNotes = class {
       const revealed=new Set(result.rooms.filter(r=>r.revealed).map(r=>r.area_key));
       const next=this.revealed && result.rooms.find(r=>r.revealed&&!this.revealed.has(r.area_key));
       this.revealed=revealed;
-      if(next&&!this.dirty&&!this.editMode&&!this.editing()) await this.select(next.x,next.y);
-      else if(this.room&&!this.dirty&&!this.editMode&&!this.editing()&&!revealed.has(this.room.area_key)) {
+      if(next&&!this.hasUnsavedChanges()&&!this.editMode&&!this.editing()) await this.select(next.x,next.y);
+      else if(this.room&&!this.hasUnsavedChanges()&&!this.editMode&&!this.editing()&&!revealed.has(this.room.area_key)) {
         this.$("room-preview").textContent="";this.$("room-title").textContent="";
         this.$("room-form").hidden=true;this.$("room-status").textContent="Room hidden or geometry changed.";
         this.room=null;this.point=null;this.setEditMode(false);
@@ -142,7 +158,7 @@ window.LGRoomNotes = class {
     }
     field.setRangeText(text,start,end,"end");
     field.focus();field.setSelectionRange(start+selectStart,start+selectStart+selectLength);
-    this.dirty=true;this.draftVersion++;
+    this.updateDirty();this.draftVersion++;
   }
   format(action) {
     if(!this.editMode||this.saving)return;
@@ -178,7 +194,7 @@ window.LGRoomNotes = class {
     try {localStorage.setItem("lg:room-panel-collapsed",String(value));} catch(_) {}
   }
   show(room) {
-    this.room=room;
+    this.room=room;this.dirty=false;
     this.$("room-title").textContent=room.name||"Unnamed room";
     this.$("room-name").value=room.name;
     this.$("room-markdown").value=room.markdown;
@@ -188,7 +204,7 @@ window.LGRoomNotes = class {
   }
   async select(x,y,explicit=false) {
     if(this.saving)return;
-    if(this.dirty && !confirm("Discard unsaved room notes?"))return;
+    if(this.hasUnsavedChanges() && !confirm("Discard unsaved room notes?"))return;
     const generation=++this.generation;
     const room=await LGApi.post(`/api/maps/${this.mapId}/room-at`,{x,y});
     if(generation!==this.generation)return;

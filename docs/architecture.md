@@ -456,3 +456,21 @@ Clear name and notes changes the draft, not the server, and Cancel restores save
 content. Imported choices are allowed for all selected rooms in read mode.
 The upload section uses a native details/summary initialized closed on load and
 an explicit closed-details CSS rule to defeat author .stack display rules.
+
+## One-shot room-import action and actual draft comparison
+
+keep_select_values.js used to persist room-import-select and restore it after a
+MutationObserver saw the options being rebuilt. Restoration dispatched a synthetic
+change event, which invoked the import handler again. Rendering edit mode rebuilt
+the options again, creating a feedback loop; Cancel resetting the value could also
+be replayed on later observed mutations. Automatic imports could dirty an otherwise
+untouched room. The old sticky dirty flag additionally stayed true after undo.
+
+room-import-select is now excluded from both capture persistence and restoration,
+including previously stored values. The handler consumes the selected value before
+rendering/confirm, ignores reentrant invocations, and treats identical draft content
+as a no-op. Dirty state is derived from the active edit fields versus saved room
+values and recomputed at destructive-action/navigation checks. Name trimming and
+newline normalization match editor/server behavior; Markdown whitespace remains
+significant. show() resets clean state. The shared restoration policy for ordinary
+selects is unchanged. No API, database or fog changes are involved.

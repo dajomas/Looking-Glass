@@ -286,3 +286,11 @@ existing rooms. See docs/usage.md and docs/examples/room-notes.md.
 
 Room metadata can be removed with Edit room → Clear name and notes → Save room.
 Names and notes may also be cleared individually. Cancel restores the saved values.
+
+## Room import confirmation fix
+
+Imported-room selection is a one-shot action, excluded from remembered dropdown
+restoration. Selecting a replacement for saved content does not prompt. The
+replacement warning appears only when it would discard a different unsaved draft;
+OK applies once and Cancel preserves the draft. Undoing edits back to saved values
+clears the unsaved state. See Patch/room-confirmation.md for the cause and tests.
