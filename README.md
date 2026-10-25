@@ -294,3 +294,9 @@ restoration. Selecting a replacement for saved content does not prompt. The
 replacement warning appears only when it would discard a different unsaved draft;
 OK applies once and Cancel preserves the draft. Undoing edits back to saved values
 clears the unsaved state. See Patch/room-confirmation.md for the cause and tests.
+
+## Automatic editing for unnamed room selection
+
+With Select room (fog unchanged) enabled, explicitly selecting an unnamed room
+opens Room notes edit mode automatically, including the imported-note picker.
+Existing notes are retained. Named rooms still open in read mode.

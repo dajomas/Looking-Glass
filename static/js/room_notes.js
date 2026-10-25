@@ -214,6 +214,10 @@ window.LGRoomNotes = class {
       this.$("room-title").textContent="";this.$("room-status").textContent="Room hidden.";return;
     }
     this.point={x,y};this.dirty=false;this.show(room);
+    if(explicit&&this.editing()&&!(room.name||"").trim()) {
+      this.setEditMode(true);
+      if(!this.$("room-panel-body").hidden)this.$("room-name").focus();
+    }
     // A deliberate collapse stays collapsed; notes still update in the background.
   }
 };

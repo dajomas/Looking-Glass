@@ -280,3 +280,11 @@ is hidden during reading and visible while editing, including after assignment.
 Read-mode action attempts are ignored. Existing confirmation OK/Cancel, undo and
 no-replay checks remain. python/tests/test_room_import_edit_layout.py asserts the
 picker is structurally inside room-form, not the read view.
+
+## Unnamed room auto-edit regression cases
+
+node python/tests/test_room_notes.js now verifies explicit checked-mode selection
+of hidden/empty and revealed/notes-only unnamed rooms auto-opens a clean editor
+with the imported-note picker. Named rooms, unchecked mode and nonexplicit
+selections remain in read mode. The test also checks Cancel, no extra writes or
+warnings, existing draft protection and retention of panel collapse state.
