@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-tools-9">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-names-10">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -185,6 +185,7 @@
   <div class="stage" id="stage">
     <img id="map-img" alt="{{ map.name }}" draggable="false">
     <canvas id="fog-canvas"></canvas>
+    <img id="room-name-overlay" alt="" draggable="false" hidden>
     <img id="room-edit-overlay" alt="" draggable="false" hidden>
     <img id="door-arrows" alt="" draggable="false">
     <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -197,6 +198,7 @@
     <button id="zoom-fit" aria-label="Fit">&#9635;</button>
     <button id="zoom-out" aria-label="Zoom out">&minus;</button>
   </div>
+  <div class="room-name-legend" id="room-name-legend" role="status" hidden></div>
   <div class="room-edit-indicator" id="room-edit-indicator" role="status" hidden></div>
   <div class="busy" id="busy" hidden>Working&hellip;</div>
 </section>
@@ -204,6 +206,7 @@
   <button id="room-toggle" type="button" aria-expanded="true" aria-controls="room-panel-body">Room notes ▸</button>
   <div id="room-panel-body">
     <label class="check"><input id="room-select-mode" type="checkbox"> Select room (fog unchanged)</label>
+    <button id="room-name-toggle" type="button" aria-pressed="false" aria-controls="room-name-overlay" hidden>Show named / unnamed areas</button>
     <p id="room-status" role="status">Select a room to name it, or reveal one to read its notes.</p>
     <details id="room-library-import">
       <summary>Import room notes</summary>
@@ -271,9 +274,10 @@
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
+<script src="/static/js/room_name_overlay.js?v=room-names-10"></script>
 <script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>
 <script src="/static/js/room_library_manager.js?v=room-tools-9"></script>
-<script src="/static/js/room_notes.js?v=room-tools-9"></script>
+<script src="/static/js/room_notes.js?v=room-names-10"></script>
 <script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>

@@ -213,3 +213,9 @@ main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48
 
 #room-library-dialog { background: var(--bg-2); color: var(--text); border: 1px solid var(--border); border-radius: .6rem; }
 #room-library-dialog::backdrop { background: #0009; }
+
+/* Selection-mode name coverage sits below the amber edit marker. */
+#room-name-overlay { pointer-events: none; z-index: 2; }
+#room-name-overlay[hidden], #room-name-legend[hidden] { display: none !important; }
+.room-name-legend { position: absolute; left: 1rem; top: 1rem; z-index: 8;
+  padding: .4rem .65rem; background: #111d; color: #fff; border-radius: .4rem; pointer-events: none; }

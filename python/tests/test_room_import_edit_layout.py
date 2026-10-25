@@ -22,3 +22,14 @@ def test_import_picker_belongs_to_edit_form_only():
     for parents in parser.parents.values():
         assert ("form","room-form") in parents
         assert ("div","room-read") not in parents
+
+
+def test_name_toggle_is_immediately_below_selection_checkbox():
+    source=(Path(__file__).resolve().parents[2]/"web_html/admin/map_editor.html").read_text()
+    start=source.index('id="room-select-mode"')
+    label_end=source.index('</label>',start)+len('</label>')
+    button_start=source.index('<button id="room-name-toggle"',label_end)
+    assert not source[label_end:button_start].strip()
+    button_end=source.index('</button>',button_start)
+    assert 'hidden' in source[button_start:button_end]
+    assert 'aria-pressed="false"' in source[button_start:button_end]

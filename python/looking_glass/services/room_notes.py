@@ -43,3 +43,28 @@ def edit_mask_png(area, label):
     out = io.BytesIO()
     Image.fromarray(rgba).save(out, "PNG")
     return out.getvalue()
+
+
+def name_status_png(area, rows, width, height):
+    """Color current areas by saved, geometry-matched names, independent of fog."""
+    import io
+    from PIL import Image
+    named = set()
+    h, w = area.labels.shape
+    for row in rows:
+        if not row["name"].strip() or not (0 <= row["x"] < width and 0 <= row["y"] < height):
+            continue
+        px, py = int(row["x"] * area.scale), int(row["y"] * area.scale)
+        if px >= w or py >= h:
+            continue
+        label = int(area.labels[py, px])
+        if label and area_key(area, label, width, height) == row["area_key"]:
+            named.add(label)
+    palette = np.zeros((area.count + 1, 4), dtype=np.uint8)
+    palette[1:] = (231, 76, 60, 90)
+    for label in named:
+        palette[label] = (46, 204, 113, 90)
+    rgba = palette[area.labels]
+    out = io.BytesIO()
+    Image.fromarray(rgba).save(out, "PNG")
+    return out.getvalue(), len(named), area.count - len(named)

@@ -477,3 +477,16 @@ def delete_imported_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, entry
         except room_note_import.ImportError as exc:
             raise BadRequest(str(exc))
         return {"ok": True, "entries": room_note_import.list_entries(conn, map_id)}
+
+
+@router.get("/maps/{map_id}/room-name-overlay")
+def room_name_overlay(ctx: CtxDep, user: UserDep, map_id: int):
+    import base64
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        spec, segments, _ = fog_inputs(ctx, conn, map_id)
+        area = ctx.fog.area_map(spec, segments)
+        rows = conn.execute("SELECT area_key,x,y,name FROM room_notes WHERE map_id=?", (map_id,)).fetchall()
+        png, named, unnamed = room_notes.name_status_png(area, rows, spec.width, spec.height)
+        return JSONResponse({"ok": True, "png": base64.b64encode(png).decode("ascii"),
+                             "named": named, "unnamed": unnamed}, headers={"Cache-Control": "no-store"})

@@ -6,6 +6,7 @@ window.LGRoomNotes = class {
     this.editMode=false;this.saving=false;this.draftVersion=0;
     this.mapId=mapId;this.toast=toast;this.point=null;this.room=null;this.dirty=false;this.generation=0;this.revealed=null;this.stateStamp=null;this.refreshGeneration=0;
     this.$=id=>document.getElementById(id);
+    this.nameOverlay=window.LGRoomNameOverlay?new window.LGRoomNameOverlay(mapId,toast):null;
     this.marker=window.LGRoomEditMarker?new window.LGRoomEditMarker(mapId,toast):null;
     this.libraryManager=window.LGRoomLibraryManager?new window.LGRoomLibraryManager(this):null;
     this.$("room-library-import").open=false;
@@ -86,6 +87,7 @@ window.LGRoomNotes = class {
           name:this.$("room-name").value,markdown:this.$("room-markdown").value});
         this.dirty=false;this.show(room);this.toast("Room saved");
         await this.loadLibrary();
+        this.nameOverlay?.refresh();
       } catch(error) {this.toast(error.message,"error");}
       finally {
         this.saving=false;
@@ -128,6 +130,7 @@ window.LGRoomNotes = class {
   }
   async refresh(state) {
     this.marker?.mapChanged(state);
+    this.nameOverlay?.mapChanged(state);
     const stamp=`${state.cache_token}:${state.walls_version}:${state.fog_version}`;
     if(stamp===this.stateStamp)return;
     this.stateStamp=stamp;
@@ -155,7 +158,7 @@ window.LGRoomNotes = class {
     this.$("room-status").hidden=this.editMode;
     this.$("room-library-import").hidden=this.editMode;
     this.renderLibrary();
-    this.$("room-select-mode").closest("label").hidden=this.editMode;
+    this.$("room-select-mode").closest("label").hidden=false;
     this.marker?.set(this.editMode,this.room,this.point);
     if(opening)this.loadLibrary();
   }

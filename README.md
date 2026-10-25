@@ -315,3 +315,10 @@ the selected room on the admin map. Save/Cancel removes only this decoration;
 fog is never temporarily changed. In Import room notes, List imported notes opens
 all names/Markdown with assignment status. Confirm deletion of unassigned entries;
 assigned entries are protected by both UI and server validation.
+
+## Named / unnamed area overview
+
+Enable Select room (fog unchanged), then use Show named / unnamed areas beneath
+it to tint saved named areas green and unnamed areas red. The same button hides
+the colours; unchecking selection mode hides/resets them too. Admin-only coverage
+includes hidden areas without changing fog. The amber edit marker stays above it.

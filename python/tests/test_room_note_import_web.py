@@ -40,6 +40,11 @@ def test_room_import_access_and_assignment(env):
     # Edit overlay must not change fog and stale geometry must be rejected.
     overlay=dm.post(base+"/room-edit-overlay",json={"x":100,"y":100,"area_key":saved.json()["area_key"]},headers=headers)
     assert overlay.status_code==200 and overlay.json()["png"]
+    coverage=dm.get(base+"/room-name-overlay")
+    assert coverage.status_code==200 and coverage.json()["png"]
+    assert coverage.json()["named"]==1
+    assert other.get(base+"/room-name-overlay").status_code==403
+
     assert dm.get(base).json()["fog_version"]==state["fog_version"]
     assert dm.post(base+"/room-edit-overlay",json={"x":100,"y":100,"area_key":"0"*64},headers=headers).status_code==400
     crypt=next(e for e in library if e["name"]=="Crypt")
