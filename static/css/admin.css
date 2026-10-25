@@ -200,3 +200,16 @@ main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48
 
 /* Author .stack display rules must not expose a closed details form. */
 #room-library-import:not([open]) > :not(summary) { display: none !important; }
+
+/* This image decorates editing only and never replaces the actual fog canvas. */
+#room-edit-overlay { pointer-events: none; z-index: 3; }
+#room-edit-overlay[hidden], #room-edit-indicator[hidden] { display: none !important; }
+.room-edit-indicator { position: absolute; left: 1rem; bottom: 1rem; z-index: 8;
+  padding: .45rem .7rem; border: 2px solid #ffc107; border-radius: .4rem;
+  background: #222b; color: #ffdf7e; pointer-events: none; }
+#room-library-dialog { width: min(900px, 92vw); max-height: 85vh; overflow-y: auto; }
+.room-library-entry { border-top: 1px solid var(--border); padding: .8rem 0; }
+.room-library-entry pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 24rem; overflow-y: auto; }
+
+#room-library-dialog { background: var(--bg-2); color: var(--text); border: 1px solid var(--border); border-radius: .6rem; }
+#room-library-dialog::backdrop { background: #0009; }

@@ -37,6 +37,18 @@ def test_room_import_access_and_assignment(env):
 
     library=dm.get(route).json()["entries"]
     assert next(e for e in library if e["name"]=="Crypt")["assigned"] is True
+    # Edit overlay must not change fog and stale geometry must be rejected.
+    overlay=dm.post(base+"/room-edit-overlay",json={"x":100,"y":100,"area_key":saved.json()["area_key"]},headers=headers)
+    assert overlay.status_code==200 and overlay.json()["png"]
+    assert dm.get(base).json()["fog_version"]==state["fog_version"]
+    assert dm.post(base+"/room-edit-overlay",json={"x":100,"y":100,"area_key":"0"*64},headers=headers).status_code==400
+    crypt=next(e for e in library if e["name"]=="Crypt")
+    hall=next(e for e in library if e["name"]=="Hall")
+    assert dm.delete(route+f"/{hall['id']}").status_code==403
+    assert other.delete(route+f"/{hall['id']}",headers={"X-CSRF-Token":csrf_of(other)}).status_code==403
+    assert dm.delete(route+f"/{crypt['id']}",headers=headers).status_code==400
+    removed=dm.delete(route+f"/{hall['id']}",headers=headers)
+    assert removed.status_code==200 and len(removed.json()["entries"])==1
     # Clearing keeps revision history and rejects a subsequent stale edit.
     clear={**body,"revision":saved.json()["revision"],"name":"","markdown":""}
     cleared=dm.post(base+"/room-notes",json=clear,headers=headers)

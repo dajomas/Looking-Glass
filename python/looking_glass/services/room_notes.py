@@ -28,3 +28,18 @@ def payload(conn, map_id, key, revealed):
     return {"area_key": key, "revealed": revealed, "name": row["name"] if row else "",
             "markdown": row["markdown"] if row else "", "revision": row["revision"] if row else 0,
             "html": render(row["markdown"]) if row else ""}
+
+
+def edit_mask_png(area, label):
+    """Independent admin decoration; never updates fog masks or operations."""
+    import io
+    from PIL import Image
+    from scipy import ndimage
+    mask = area.labels == label
+    edge = mask & ~ndimage.binary_erosion(mask, iterations=2, border_value=0)
+    rgba = np.zeros((*mask.shape, 4), dtype=np.uint8)
+    rgba[mask] = (255, 193, 7, 75)
+    rgba[edge] = (255, 193, 7, 245)
+    out = io.BytesIO()
+    Image.fromarray(rgba).save(out, "PNG")
+    return out.getvalue()

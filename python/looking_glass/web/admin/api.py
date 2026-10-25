@@ -445,3 +445,35 @@ async def import_room_note_library(ctx: CtxDep, user: CsrfUserDep, map_id: int,
         return {"ok": True, "added": added, "sections": len(parsed["entries"]),
                 "heading_level": parsed["level"], "ignored_preamble": parsed["ignored_preamble"],
                 "entries": room_note_import.list_entries(conn, map_id)}
+
+
+class RoomEditOverlayIn(Point):
+    area_key: str = Field(min_length=64, max_length=64)
+
+
+@router.post("/maps/{map_id}/room-edit-overlay")
+def room_edit_overlay(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: RoomEditOverlayIn):
+    import base64
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        current = _room_at(ctx, conn, map_id, body)
+        if current["area_key"] != body.area_key:
+            raise BadRequest("Room geometry changed. Select the room again to restore the edit highlight.")
+        spec, segments, _ = fog_inputs(ctx, conn, map_id)
+        area = ctx.fog.area_map(spec, segments)
+        label = int(area.labels[int(body.y * area.scale), int(body.x * area.scale)])
+        png = room_notes.edit_mask_png(area, label)
+        return {"ok": True, "area_key": body.area_key, "png": base64.b64encode(png).decode("ascii")}
+
+
+@router.delete("/maps/{map_id}/room-note-library/{entry_id}")
+def delete_imported_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, entry_id: int):
+    from ...services import room_note_import
+    with ctx.db.connect() as conn:
+        conn.execute("BEGIN IMMEDIATE")
+        map_for_manage(conn, user, map_id)
+        try:
+            room_note_import.delete_unassigned(conn, map_id, entry_id)
+        except room_note_import.ImportError as exc:
+            raise BadRequest(str(exc))
+        return {"ok": True, "entries": room_note_import.list_entries(conn, map_id)}

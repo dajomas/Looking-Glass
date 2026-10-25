@@ -89,3 +89,11 @@ Library listing and import require management access to the map's campaign. Impo
 requires the existing CSRF protection and checks authorization before reading the
 upload and again before persistence. Viewer endpoints do not expose library notes.
 Libraries are scoped to a map, not shared globally or automatically across campaigns.
+
+## Edit overlays and imported-note deletion
+
+The edit-overlay POST and library-entry DELETE routes require CSRF and existing
+map/campaign management permissions. DELETE checks current assignment on the server
+under an immediate transaction; hiding a UI button is not the security boundary.
+Wrong-map entry IDs cannot be deleted. Viewer APIs and images do not contain edit
+markers or the imported-note manager. Existing admin read permissions apply to lists.

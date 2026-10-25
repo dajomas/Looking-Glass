@@ -695,7 +695,7 @@ Imports are stored per map, persist across restarts, and do not affect fog or
 existing rooms. Assigned names are hidden from subsequent dropdown choices until released. Reimporting identical
 name/content pairs does not duplicate them. Changed content appends a new entry
 rather than replacing a previous entry or assigned room. Same-name variants have
-an ID suffix in the dropdown. There is no import-library deletion UI in this patch.
+an ID suffix in the dropdown. Unassigned imported records can be removed using List imported notes (see below).
 Reload the editor to see imports made by another admin session.
 
 Limits: 1 MiB per UTF-8 file, 500 room sections per import, 200 characters per
@@ -796,3 +796,39 @@ Opening an editor again picks up another session's saved changes; this is dropdo
 filtering, not a database uniqueness lock against simultaneous manual assignments.
 Preserved room-note records detached by geometry edits also reserve their saved
 names until those records are renamed/cleared or otherwise managed in the database.
+
+## See which room is being edited
+
+Entering Room notes edit mode (manually or automatically for an unnamed room)
+marks the room interior with an amber tint and boundary on the admin map, plus
+an Editing room notes label. The mark follows map pan/zoom and appears even for
+hidden rooms. It is local to this admin page; viewers never receive it.
+
+Save success, Cancel, or changing to another room/read mode removes the highlight.
+Failed saves keep the editor and mark. It is a separate visual layer: underlying
+fog/reveal history never changes, so removing it restores the original map view
+without replaying or undoing any fog operation. Geometry changes invalidate the
+mark; if the selected room no longer matches, reselect it to get a new highlight.
+
+## List and delete imported notes
+
+Expand Import room notes and click List imported notes. A dialog shows every
+imported name and its Markdown source, including assigned entries hidden from the
+assignment dropdown. Notes sections start expanded and can be collapsed. Names
+have import IDs to distinguish variants. Refresh list reloads assignment status.
+
+Status is Unassigned, Assigned · name and notes match, or Assigned · saved notes
+differ from this import. Assignment follows the existing trimmed/case-insensitive
+room-name matching within this map, including manually entered names and preserved
+inactive geometry records. Notes-match means at least one matching-name saved room
+has the same Markdown (normalized CRLF); modified assigned notes remain protected.
+
+Only unassigned entries have Delete imported entry. Confirm to permanently remove
+that one library record. Deletion does not remove map rooms, room notes, walls or
+fog. The server rechecks assignment under a write transaction, so an entry assigned
+by another session since opening the dialog cannot be deleted. The list and picker
+refresh after deletion; errors are shown with refreshed status where possible.
+Unsaved drafts do not count as assignments. A deleted entry can be imported again.
+Close or Escape exits the dialog. The browser list shows note source as text rather
+than executing or rendering uploaded HTML. Back up SQLite before deleting records
+if you need recovery; there is no undo for library deletion.

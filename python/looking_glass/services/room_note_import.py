@@ -79,12 +79,25 @@ def name_key(name):
 
 
 def list_entries(conn, map_id):
-    assigned = {name_key(row["name"]) for row in conn.execute(
-        "SELECT name FROM room_notes WHERE map_id=?", (map_id,)) if row["name"].strip()}
+    rooms = list(conn.execute("SELECT name,markdown FROM room_notes WHERE map_id=?", (map_id,)))
+    assigned = {name_key(row["name"]) for row in rooms if row["name"].strip()}
     result = []
     for row in conn.execute(
             "SELECT id,name,markdown FROM imported_room_notes WHERE map_id=? ORDER BY name,id", (map_id,)):
         entry = dict(row)
         entry["assigned"] = name_key(entry["name"]) in assigned
+        entry["notes_match"] = any(name_key(row["name"]) == name_key(entry["name"])
+            and row["markdown"].replace("\r\n", "\n") == entry["markdown"].replace("\r\n", "\n") for row in rooms)
         result.append(entry)
     return result
+
+
+def delete_unassigned(conn, map_id, entry_id):
+    """Caller holds an IMMEDIATE transaction across assignment check and delete."""
+    row = conn.execute("SELECT name FROM imported_room_notes WHERE map_id=? AND id=?", (map_id,entry_id)).fetchone()
+    if row is None:
+        raise ImportError("Imported entry not found on this map.")
+    key = name_key(row["name"])
+    if any(name_key(r["name"]) == key for r in conn.execute("SELECT name FROM room_notes WHERE map_id=?", (map_id,))):
+        raise ImportError("This imported room name is assigned. Clear or rename its room before deleting the entry.")
+    conn.execute("DELETE FROM imported_room_notes WHERE map_id=? AND id=?", (map_id,entry_id))

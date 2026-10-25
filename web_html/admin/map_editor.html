@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-controls-4">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-tools-9">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -185,6 +185,7 @@
   <div class="stage" id="stage">
     <img id="map-img" alt="{{ map.name }}" draggable="false">
     <canvas id="fog-canvas"></canvas>
+    <img id="room-edit-overlay" alt="" draggable="false" hidden>
     <img id="door-arrows" alt="" draggable="false">
     <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
     <svg id="transition-markers" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
@@ -196,6 +197,7 @@
     <button id="zoom-fit" aria-label="Fit">&#9635;</button>
     <button id="zoom-out" aria-label="Zoom out">&minus;</button>
   </div>
+  <div class="room-edit-indicator" id="room-edit-indicator" role="status" hidden></div>
   <div class="busy" id="busy" hidden>Working&hellip;</div>
 </section>
 <aside id="room-panel" class="room-panel" aria-label="Room notes">
@@ -205,6 +207,7 @@
     <p id="room-status" role="status">Select a room to name it, or reveal one to read its notes.</p>
     <details id="room-library-import">
       <summary>Import room notes</summary>
+      <button id="room-library-open" type="button">List imported notes</button>
       <form id="room-import-form" class="stack">
         <label>Markdown file <input id="room-import-file" type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" required></label>
         <p class="muted small">Highest-level headings become room names; their sections become notes. Import does not change rooms or fog.</p>
@@ -247,6 +250,14 @@
 </aside>
 {% endblock %}
 {% block scripts %}
+<dialog id="room-library-dialog" aria-labelledby="room-library-title">
+  <div class="btn-row"><h2 id="room-library-title">Imported room notes</h2><button id="room-library-close" type="button">Close</button></div>
+  <p class="muted small">Assignment is based on saved room names in this map. Only unassigned imported entries can be deleted. Notes are displayed as Markdown source.</p>
+  <button id="room-library-refresh" type="button">Refresh list</button>
+  <p id="room-library-status" role="status" aria-live="polite"></p>
+  <div id="room-library-list"></div>
+</dialog>
+
 {% include "partials/_map_transitions.html" %}
 {% include "partials/_map_display_dialog.html" %}
 <script src="/static/js/map_display_prompt.js?v=passage-display-2"></script>
@@ -260,7 +271,9 @@
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
-<script src="/static/js/room_notes.js?v=room-available-8"></script>
+<script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>
+<script src="/static/js/room_library_manager.js?v=room-tools-9"></script>
+<script src="/static/js/room_notes.js?v=room-tools-9"></script>
 <script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>

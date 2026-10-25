@@ -14,7 +14,7 @@ let response={area_key:'a',name:'Crypt',markdown:'**Gold**',html:'<p><strong>Gol
 let fail=false,confirmAnswer=true;
 let activeNotes=null;
 const confirmations=[];
-const requests=[],store=new Map(),notices=[],context={window:{addEventListener(){}},document:{getElementById:element,querySelector:()=>element('main'),createElement:()=>({value:"",textContent:""})},
+const requests=[],store=new Map(),notices=[],context={window:{addEventListener(){},LGRoomEditMarker:class{constructor(){this.events=[];}set(edit,room,point){this.events.push({edit,room,point});}mapChanged(){} }},document:{getElementById:element,querySelector:()=>element('main'),createElement:()=>({value:"",textContent:""})},
  localStorage:{getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v)},confirm:message=>{confirmations.push(message);return confirmAnswer;},navigator:{clipboard:{readText:async()=>"# Pasted"}},
  FormData:class {append(key,value){this[key]=value;}},
  LGApi:{post:async(path,body)=>{requests.push({path,body});if(fail)throw Error('save failed');if(path.endsWith('/room-note-library/import'))return {sections:2,added:2,heading_level:1,ignored_preamble:true,entries:[{id:1,name:'Imported Hall',markdown:'Gold'}]};return response;},get:async()=>({rooms:[],entries:activeNotes?.libraryEntries||[]})}};
@@ -24,7 +24,7 @@ vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
  await notes.select(100,100,true);
  assert.equal(element('room-title').textContent,'Crypt');
  assert.equal(element('room-form').hidden,true);assert.equal(element('room-read').hidden,false);
- element('room-edit').onclick();assert.equal(notes.editMode,true);
+ element('room-edit').onclick();assert.equal(notes.editMode,true);assert.equal(notes.marker.events.at(-1).edit,true);
  assert.equal(element('room-form').hidden,false);assert.equal(element('room-read').hidden,true);
  const field=element('room-markdown');
  function draft(value,s=0,e=value.length){field.value=value;field.setSelectionRange(s,e);}
@@ -46,7 +46,7 @@ vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
  context.navigator.clipboard.readText=async()=>{throw Error('denied');};await element('room-paste').onclick();assert.ok(notices.at(-1)[0].includes('Ctrl+V'));
  draft('x'.repeat(100000),100000,100000);notes.insert('y');assert.equal(field.value.length,100000);
  confirmAnswer=false;await notes.select(200,100,true);assert.equal(notes.point.x,100);confirmAnswer=true;
- element('room-cancel').onclick();assert.equal(notes.editMode,false);assert.equal(field.value,'**Gold**');assert.equal(notes.dirty,false);
+ element('room-cancel').onclick();assert.equal(notes.editMode,false);assert.equal(notes.marker.events.at(-1).edit,false);assert.equal(field.value,'**Gold**');assert.equal(notes.dirty,false);
  element('room-edit').onclick();element('room-name').value='Renamed';element('room-name').oninput();
  fail=true;await element('room-form').onsubmit({preventDefault(){}});assert.equal(notes.editMode,true);assert.equal(notes.dirty,true);fail=false;
  response={...response,name:'Renamed',revision:2};await element('room-form').onsubmit({preventDefault(){}});

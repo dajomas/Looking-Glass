@@ -6,6 +6,8 @@ window.LGRoomNotes = class {
     this.editMode=false;this.saving=false;this.draftVersion=0;
     this.mapId=mapId;this.toast=toast;this.point=null;this.room=null;this.dirty=false;this.generation=0;this.revealed=null;this.stateStamp=null;this.refreshGeneration=0;
     this.$=id=>document.getElementById(id);
+    this.marker=window.LGRoomEditMarker?new window.LGRoomEditMarker(mapId,toast):null;
+    this.libraryManager=window.LGRoomLibraryManager?new window.LGRoomLibraryManager(this):null;
     this.$("room-library-import").open=false;
     this.$("room-toggle").onclick=()=>this.collapse(!this.$("room-panel").classList.contains("collapsed"));
     try {this.collapse(localStorage.getItem("lg:room-panel-collapsed")==="true");} catch(_) {}
@@ -125,6 +127,7 @@ window.LGRoomNotes = class {
     } catch(error){this.toast("Room note library: "+error.message,"error");}
   }
   async refresh(state) {
+    this.marker?.mapChanged(state);
     const stamp=`${state.cache_token}:${state.walls_version}:${state.fog_version}`;
     if(stamp===this.stateStamp)return;
     this.stateStamp=stamp;
@@ -153,6 +156,7 @@ window.LGRoomNotes = class {
     this.$("room-library-import").hidden=this.editMode;
     this.renderLibrary();
     this.$("room-select-mode").closest("label").hidden=this.editMode;
+    this.marker?.set(this.editMode,this.room,this.point);
     if(opening)this.loadLibrary();
   }
   insert(text, selectStart=0, selectLength=text.length) {

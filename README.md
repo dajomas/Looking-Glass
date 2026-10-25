@@ -307,3 +307,11 @@ The edit-mode imported-note dropdown hides names already saved on rooms in the
 same map. Save a rename or clear the name to release it for another assignment.
 Matching trims surrounding whitespace and ignores case; unsaved drafts do not
 reserve names. Imported records are retained, not deleted.
+
+## Room edit marker and imported-note management
+
+While editing room notes, an amber tint/outline and Editing room notes label mark
+the selected room on the admin map. Save/Cancel removes only this decoration;
+fog is never temporarily changed. In Import room notes, List imported notes opens
+all names/Markdown with assignment status. Confirm deletion of unassigned entries;
+assigned entries are protected by both UI and server validation.
