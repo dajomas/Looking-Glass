@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=sidebar-help-2">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-editor-2">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -201,14 +201,33 @@
 <aside id="room-panel" class="room-panel" aria-label="Room notes">
   <button id="room-toggle" type="button" aria-expanded="true" aria-controls="room-panel-body">Room notes ▸</button>
   <div id="room-panel-body">
-    <label class="check"><input id="room-select-mode" type="checkbox"> Select room to edit (fog unchanged)</label>
+    <label class="check"><input id="room-select-mode" type="checkbox"> Select room (fog unchanged)</label>
     <p id="room-status" role="status">Select a room to name it, or reveal one to read its notes.</p>
-    <h2 id="room-title"></h2>
-    <article id="room-preview" class="room-markdown"></article>
+    <div id="room-read" hidden>
+      <h2 id="room-title"></h2>
+      <article id="room-preview" class="room-markdown"></article>
+      <button id="room-edit" type="button">Edit room</button>
+    </div>
     <form id="room-form" class="stack" hidden>
       <label>Room name <input id="room-name" required maxlength="200"></label>
-      <label>Markdown notes <textarea id="room-markdown" rows="14" maxlength="100000"></textarea></label>
-      <div class="btn-row"><button type="submit" class="primary">Save room</button><button id="room-cancel" type="button">Discard edits</button></div>
+      <label for="room-markdown">Markdown notes</label>
+      <div id="room-format-bar" class="room-format-bar" role="group" aria-label="Markdown formatting">
+        <button type="button" data-room-format="bold" title="Bold" aria-label="Bold">B</button>
+        <button type="button" data-room-format="italic" title="Italic" aria-label="Italic">I</button>
+        <button type="button" data-room-format="strike" title="Strikethrough" aria-label="Strikethrough">S</button>
+        <button type="button" data-room-format="heading" title="Heading" aria-label="Heading">H2</button>
+        <button type="button" data-room-format="bullet" title="Bullet list" aria-label="Bullet list">• List</button>
+        <button type="button" data-room-format="number" title="Numbered list" aria-label="Numbered list">1. List</button>
+        <button type="button" data-room-format="quote" title="Blockquote" aria-label="Blockquote">❯</button>
+        <button type="button" data-room-format="code" title="Inline code" aria-label="Inline code">&lt;/&gt;</button>
+        <button type="button" data-room-format="fence" title="Code block" aria-label="Code block">Code block</button>
+        <button type="button" data-room-format="link" title="Link" aria-label="Link">Link</button>
+        <button type="button" data-room-format="rule" title="Horizontal rule" aria-label="Horizontal rule">―</button>
+        <button id="room-paste" type="button">Paste Markdown</button>
+      </div>
+      <textarea id="room-markdown" rows="14" maxlength="100000" aria-describedby="room-markdown-help"></textarea>
+      <p id="room-markdown-help" class="muted small">Paste Markdown with Ctrl+V / ⌘V, or use Paste Markdown. HTML is not converted.</p>
+      <div class="btn-row"><button type="submit" class="primary">Save room</button><button id="room-cancel" type="button">Cancel</button></div>
     </form>
   </div>
 </aside>
@@ -227,7 +246,7 @@
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
-<script src="/static/js/room_notes.js?v=room-notes-1"></script>
+<script src="/static/js/room_notes.js?v=room-editor-2"></script>
 <script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>

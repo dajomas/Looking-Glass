@@ -270,7 +270,8 @@ cached `admin.css`. No template, JavaScript or database changes are required.
 ## Named rooms and DM notes
 
 The admin map editor includes a collapsible right-hand Room notes panel. Select
-“Select room to edit (fog unchanged)”, click an interior, enter a name and Markdown,
-and save. Switch selection mode off for normal fog gestures. Revealing a room
+“Select room (fog unchanged)”, click an interior, then click Edit room to enter
+a name and Markdown. Save room or Cancel returns to the read-only display.
+A formatting toolbar and Markdown-source paste support are provided. Switch selection mode off for normal fog gestures. Revealing a room
 shows its notes; revealing it again selects the notes without adding a fog action.
 Notes are never sent to the viewer app. See docs/usage.md and Patch/room-notes.md.

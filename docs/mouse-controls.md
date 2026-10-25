@@ -132,8 +132,13 @@ use the usual pan/zoom transform and original image coordinates.
 
 ## Room-note selection
 
-With “Select room to edit (fog unchanged)” enabled in the right panel, a left
+With “Select room (fog unchanged)” enabled in the right panel, a left
 click selects an interior to name or edit without fog, door or transition actions.
 Disable it to return to normal gestures. In reveal mode, a single click in an
 already revealed room selects its notes without adding a fog operation. Double
 click viewer-zoom gestures remain unchanged outside selection mode.
+
+Room selection and note editing are separate: click Edit room to show the input
+fields instead of the rendered name/notes. Save room and Cancel return to reading.
+Formatting buttons operate on the textarea selection; paste Markdown with Ctrl+V
+or Command+V. Normal map keyboard shortcuts remain suppressed in input fields.

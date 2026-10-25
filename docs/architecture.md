@@ -409,3 +409,16 @@ priority over map actions; outside it, existing delayed singles/doubles and door
 hit-testing remain in place. Multiple newly revealed named rooms choose the first
 alphabetically. Notes save without fog invalidation; other admins see updated
 content when they reselect the room. There is no live collaborative note editor.
+
+### Exclusive room-note read/edit modes
+
+LGRoomNotes tracks editMode separately from the map's room-selection checkbox.
+Read and form containers use mutually exclusive hidden states (enforced in scoped
+CSS). Edit mode suppresses automatic room switching, including pristine drafts.
+Save disables editing controls until completion and blocks selection while pending;
+errors preserve the draft, successful saves and Cancel restore read mode.
+The toolbar inserts Markdown source with textarea selection APIs and updates dirty
+tracking. Clipboard paste prefers text/markdown over text/plain; rich HTML is never
+inserted into the preview. Clipboard-read completion is guarded against changed
+room, edit mode and draft state. Server rendering, sanitization, permissions,
+revision checks, endpoints and database schema are unchanged by this UI follow-up.
