@@ -3,6 +3,7 @@ const elements=new Map();
 function element(id){
  if(!elements.has(id))elements.set(id,{value:'',checked:false,hidden:false,textContent:'',innerHTML:'',maxLength:100000,selectionStart:0,selectionEnd:0,
   classList:{values:new Set(),toggle(k,on){on?this.values.add(k):this.values.delete(k);},contains(k){return this.values.has(k);}},
+  children:[],replaceChildren(){this.children=[];},appendChild(el){this.children.push(el);},
   setAttribute(k,v){this[k]=v;},focus(){},closest(){return element(id+'-label');},
   addEventListener(k,fn){this[k]=fn;},querySelectorAll(){return [];},
   setSelectionRange(s,e){this.selectionStart=s;this.selectionEnd=e;},
@@ -11,9 +12,10 @@ function element(id){
 }
 let response={area_key:'a',name:'Crypt',markdown:'**Gold**',html:'<p><strong>Gold</strong></p>',revision:1,revealed:true};
 let fail=false,confirmAnswer=true;
-const requests=[],store=new Map(),notices=[],context={window:{addEventListener(){}},document:{getElementById:element,querySelector:()=>element('main')},
+const requests=[],store=new Map(),notices=[],context={window:{addEventListener(){}},document:{getElementById:element,querySelector:()=>element('main'),createElement:()=>({value:"",textContent:""})},
  localStorage:{getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v)},confirm:()=>confirmAnswer,navigator:{clipboard:{readText:async()=>"# Pasted"}},
- LGApi:{post:async(path,body)=>{requests.push({path,body});if(fail)throw Error('save failed');return response;},get:async()=>({rooms:[]})}};
+ FormData:class {append(key,value){this[key]=value;}},
+ LGApi:{post:async(path,body)=>{requests.push({path,body});if(fail)throw Error('save failed');if(path.endsWith('/room-note-library/import'))return {sections:2,added:2,heading_level:1,ignored_preamble:true,entries:[{id:1,name:'Imported Hall',markdown:'Gold'}]};return response;},get:async()=>({rooms:[]})}};
 vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
 (async()=>{
  const notes=new context.window.LGRoomNotes(1,(...args)=>notices.push(args));
@@ -49,5 +51,31 @@ vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
  assert.equal(notes.editMode,false);assert.equal(notes.dirty,false);assert.equal(element('room-title').textContent,'Renamed');assert.equal(requests.at(-1).body.revision,1);
  notes.collapse(true);await notes.select(100,100);assert.equal(element('room-panel-body').hidden,true);
  response={...response,revealed:false};await notes.select(100,100);assert.equal(element('room-read').hidden,true);assert.equal(element('room-form').hidden,true);
- console.log('Room notes read/edit, toolbar, paste, validation and save regression tests passed');
+ // Imported entries are offered only for empty saved rooms and become unsaved drafts.
+ response={area_key:'empty',name:'',markdown:'',html:'',revision:0,revealed:true};
+ await notes.select(150,100,true);
+ notes.libraryEntries=[{id:1,name:'Hall',markdown:'## Treasure\nGold'},{id:2,name:'Hall',markdown:'Bones'}];notes.renderLibrary();
+ assert.equal(element('room-import-choice').hidden,false);
+ assert.equal(element('room-import-select').children[1].textContent,'Hall (#1)');
+ element('room-import-select').value='1';const before=requests.length;element('room-import-select').onchange();
+ assert.equal(requests.length,before,'choosing a library entry must not save automatically');
+ assert.equal(notes.editMode,true);assert.equal(notes.dirty,true);
+ assert.equal(element('room-name').value,'Hall');assert.equal(field.value,'## Treasure\nGold');
+ assert.equal(element('room-import-choice').hidden,true);
+ element('room-cancel').onclick();assert.equal(element('room-name').value,'');
+ assert.equal(element('room-import-choice').hidden,false);
+ response={...response,name:'Existing'};await notes.select(150,100,true);
+ assert.equal(element('room-import-choice').hidden,true);
+ element('room-import-select').value='1';element('room-import-select').onchange();assert.equal(notes.editMode,false);
+ element('room-import-file').files=[{name:'rooms.md',size:50}];
+ await element('room-import-form').onsubmit({preventDefault(){}});
+ assert.equal(notes.libraryEntries[0].name,'Imported Hall');
+ assert.ok(element('room-import-status').textContent.includes('2 new entries'));
+ assert.ok(element('room-import-status').textContent.includes('ignored'));
+ assert.equal(notes.room.name,'Existing','import must not replace current room');
+ const importsBefore=requests.length;
+ element('room-import-file').files=[{size:1048577}];
+ await element('room-import-form').onsubmit({preventDefault(){}});
+ assert.equal(requests.length,importsBefore,'oversize file blocked before upload');
+ console.log('Room notes read/edit, toolbar, paste, library import, dropdown and assignment tests passed');
 })().catch(e=>{console.error(e);process.exitCode=1;});

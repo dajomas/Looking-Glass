@@ -652,3 +652,53 @@ secure-context requirements prevent reading, use the normal keyboard paste.
 Copying from a rich-text web page uses its plain-text clipboard representation;
 HTML-to-Markdown conversion, image pasting and file import are not implemented.
 The 100,000-character limit also applies to toolbar insertion and pasting.
+
+
+## Importing room notes from Markdown
+
+Open Import room notes in the right-hand Room notes panel, choose a UTF-8 `.md`,
+`.markdown` or `.txt` file, and click Import notes. The importer uses the highest
+heading level actually present (the lowest number: H1 before H2). Each heading
+at that level becomes a room name. Everything after it, up to the next heading
+at the same level, becomes that room's Markdown note. The room-name heading
+itself is excluded; lower headings remain in the note. ATX (`#`) and Setext
+(underlined) headings are supported. Headings inside code, quotes or lists do not
+split rooms. Heading inline formatting is reduced to a plain name.
+
+Example:
+
+```markdown
+## Entrance Hall
+A cold breeze blows through the broken doors.
+
+### Features
+- Two cracked statues.
+
+## Burial Chamber
+Dust covers the stone coffins.
+```
+
+This creates Entrance Hall and Burial Chamber; Features stays in Entrance Hall's
+note. See docs/examples/room-notes.md for another complete file. A single `# Dungeon`
+document title above `## Room` headings creates ONE imported room named Dungeon;
+omit that title if the H2 headings should be individual rooms. Preamble text before
+the first room heading is ignored and reported. Reference-link definitions should
+be included in each section that needs them; definitions elsewhere are not copied.
+
+After importing, enable Select room (fog unchanged) and click an empty room.
+Use imported room notes appears only when BOTH its saved name and note are empty.
+Choose a name from the dropdown; the name and note load together into an unsaved
+edit draft. Review or adjust them, then Save room to assign them. Cancel discards
+the selection. Existing named rooms (even with empty notes) do not show this picker.
+
+Imports are stored per map, persist across restarts, and do not affect fog or
+existing rooms. Entries remain reusable after assignment. Reimporting identical
+name/content pairs does not duplicate them. Changed content appends a new entry
+rather than replacing a previous entry or assigned room. Same-name variants have
+an ID suffix in the dropdown. There is no import-library deletion UI in this patch.
+Reload the editor to see imports made by another admin session.
+
+Limits: 1 MiB per UTF-8 file, 500 room sections per import, 200 characters per
+room name, and 100,000 characters per note. Empty sections are allowed. Invalid
+files are rejected as a whole, without partially adding entries. Imported content
+is sanitized by the existing renderer after assignment, like manually entered notes.

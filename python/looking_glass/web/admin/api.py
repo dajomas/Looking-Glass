@@ -419,3 +419,31 @@ def list_room_notes(ctx: CtxDep, user: UserDep, map_id: int):
             result.append({"area_key": row["area_key"], "name": row["name"], "x": row["x"], "y": row["y"],
                            "active": active, "revealed": active and current["revealed"]})
         return {"ok": True, "rooms": result}
+
+
+@router.get("/maps/{map_id}/room-note-library")
+def room_note_library(ctx: CtxDep, user: UserDep, map_id: int):
+    from ...services import room_note_import
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        return {"ok": True, "entries": room_note_import.list_entries(conn, map_id)}
+
+
+@router.post("/maps/{map_id}/room-note-library/import")
+async def import_room_note_library(ctx: CtxDep, user: CsrfUserDep, map_id: int,
+                                   file: Annotated[UploadFile, File()]):
+    from ...services import room_note_import
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+    raw = await file.read(room_note_import.MAX_BYTES + 1)
+    try:
+        parsed = room_note_import.parse(raw)
+    except room_note_import.ImportError as exc:
+        raise BadRequest(str(exc))
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        conn.execute("BEGIN IMMEDIATE")
+        added = room_note_import.store(conn, map_id, parsed["entries"])
+        return {"ok": True, "added": added, "sections": len(parsed["entries"]),
+                "heading_level": parsed["level"], "ignored_preamble": parsed["ignored_preamble"],
+                "entries": room_note_import.list_entries(conn, map_id)}

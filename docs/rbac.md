@@ -82,3 +82,10 @@ Room lookup/list/save uses map_for_manage and inherits campaign management
 permissions. Admins cannot access another administrator's campaign merely by
 knowing map/room identifiers. POST lookup and save require CSRF. Note HTML and
 Markdown are not exposed through viewer routes, images or websocket messages.
+
+## Imported room-note libraries
+
+Library listing and import require management access to the map's campaign. Import
+requires the existing CSRF protection and checks authorization before reading the
+upload and again before persistence. Viewer endpoints do not expose library notes.
+Libraries are scoped to a map, not shared globally or automatically across campaigns.

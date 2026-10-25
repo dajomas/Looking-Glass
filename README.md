@@ -275,3 +275,11 @@ a name and Markdown. Save room or Cancel returns to the read-only display.
 A formatting toolbar and Markdown-source paste support are provided. Switch selection mode off for normal fog gestures. Revealing a room
 shows its notes; revealing it again selects the notes without adding a fog action.
 Notes are never sent to the viewer app. See docs/usage.md and Patch/room-notes.md.
+
+## Markdown room-note import
+
+Import room notes in the admin editor from a UTF-8 Markdown file. The highest
+heading level present defines room names; sections become Markdown notes. For an
+empty room, choose an imported entry in the dropdown, review the draft and Save
+room. Libraries are persistent and map-specific; importing never changes fog or
+existing rooms. See docs/usage.md and docs/examples/room-notes.md.

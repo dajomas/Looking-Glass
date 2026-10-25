@@ -1,6 +1,7 @@
 // DM-only notes. All rendered HTML comes from the server's sanitized Markdown renderer.
 window.LGRoomNotes = class {
   constructor(mapId, toast) {
+    this.libraryEntries=[];this.libraryGeneration=0;
     this.editMode=false;this.saving=false;this.draftVersion=0;
     this.mapId=mapId;this.toast=toast;this.point=null;this.room=null;this.dirty=false;this.generation=0;this.revealed=null;this.stateStamp=null;this.refreshGeneration=0;
     this.$=id=>document.getElementById(id);
@@ -29,6 +30,33 @@ window.LGRoomNotes = class {
         this.insert(text,text.length,0);
       } catch(_) {this.$("room-markdown").focus();this.toast("Use Ctrl+V / ⌘V in the notes field to paste Markdown.","info");}
     };
+    this.$("room-import-form").onsubmit=async e=>{
+      e.preventDefault();
+      const file=this.$("room-import-file").files[0];if(!file)return;
+      const button=this.$("room-import-submit");if(button.disabled)return;
+      if(file.size>1048576){this.toast("Markdown import exceeds 1 MiB.","error");return;}
+      button.disabled=true;
+      const generation=++this.libraryGeneration;
+      try {
+        const body=new FormData();body.append("file",file);
+        const result=await LGApi.post(`/api/maps/${this.mapId}/room-note-library/import`,body);
+        if(generation!==this.libraryGeneration)return;
+        this.libraryEntries=result.entries||[];this.renderLibrary();
+        this.$("room-import-status").textContent=`${result.sections} sections at H${result.heading_level}; ${result.added} new entries.`+
+          (result.ignored_preamble?" Text before the first room heading was ignored.":"");
+        this.$("room-import-file").value="";
+      } catch(error){this.$("room-import-status").textContent=error.message;this.toast(error.message,"error");}
+      finally {button.disabled=false;}
+    };
+    this.$("room-import-select").onchange=()=>{
+      if(!this.emptyRoom()||this.dirty||this.saving)return;
+      const entry=this.libraryEntries.find(e=>String(e.id)===this.$("room-import-select").value);
+      if(!entry)return;
+      this.setEditMode(true);
+      this.$("room-name").value=entry.name;this.$("room-markdown").value=entry.markdown;
+      this.dirty=true;this.draftVersion++;this.$("room-name").focus();
+    };
+    this.loadLibrary();
     this.setEditMode(false);
     this.$("room-form").onsubmit=async e=>{
       e.preventDefault();if(!this.room||!this.point||!this.editMode||this.saving)return;
@@ -46,6 +74,27 @@ window.LGRoomNotes = class {
       }
     };
     window.addEventListener("beforeunload",e=>{if(this.dirty){e.preventDefault();e.returnValue="";}});
+  }
+  emptyRoom() {return Boolean(this.room&&!this.room.name.trim()&&!this.room.markdown.trim());}
+  renderLibrary() {
+    const select=this.$("room-import-select");select.replaceChildren();
+    const placeholder=document.createElement("option");placeholder.value="";
+    placeholder.textContent=this.libraryEntries.length?"Choose imported room…":"No imported notes yet";select.appendChild(placeholder);
+    const counts=new Map();for(const e of this.libraryEntries)counts.set(e.name,(counts.get(e.name)||0)+1);
+    for(const entry of this.libraryEntries){
+      const option=document.createElement("option");option.value=String(entry.id);
+      option.textContent=entry.name+(counts.get(entry.name)>1?` (#${entry.id})`:"");select.appendChild(option);
+    }
+    this.$("room-import-choice").hidden=!this.emptyRoom()||this.editMode;
+    select.disabled=!this.libraryEntries.length;
+  }
+  async loadLibrary() {
+    const generation=++this.libraryGeneration;
+    try {
+      const result=await LGApi.get(`/api/maps/${this.mapId}/room-note-library`);
+      if(generation!==this.libraryGeneration)return;
+      this.libraryEntries=result.entries||[];this.renderLibrary();
+    } catch(error){this.toast("Room note library: "+error.message,"error");}
   }
   async refresh(state) {
     const stamp=`${state.cache_token}:${state.walls_version}:${state.fog_version}`;
@@ -72,6 +121,8 @@ window.LGRoomNotes = class {
     this.$("room-read").hidden=!this.room||this.editMode;
     this.$("room-form").hidden=!this.editMode;
     this.$("room-status").hidden=this.editMode;
+    this.$("room-library-import").hidden=this.editMode;
+    this.renderLibrary();
     this.$("room-select-mode").closest("label").hidden=this.editMode;
   }
   insert(text, selectStart=0, selectLength=text.length) {

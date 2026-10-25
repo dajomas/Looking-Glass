@@ -250,6 +250,16 @@ MIGRATIONS: list[str] = [
         PRIMARY KEY(map_id, area_key)
     );
     """,
+    """
+    CREATE TABLE imported_room_notes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE,
+        name TEXT NOT NULL CHECK(length(name) BETWEEN 1 AND 200),
+        markdown TEXT NOT NULL CHECK(length(markdown)<=100000),
+        digest TEXT NOT NULL,
+        UNIQUE(map_id,digest)
+    );
+    """,
 ]
 
 

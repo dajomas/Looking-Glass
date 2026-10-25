@@ -203,6 +203,20 @@
   <div id="room-panel-body">
     <label class="check"><input id="room-select-mode" type="checkbox"> Select room (fog unchanged)</label>
     <p id="room-status" role="status">Select a room to name it, or reveal one to read its notes.</p>
+    <details id="room-library-import">
+      <summary>Import room notes</summary>
+      <form id="room-import-form" class="stack">
+        <label>Markdown file <input id="room-import-file" type="file" accept=".md,.markdown,.txt,text/markdown,text/plain" required></label>
+        <p class="muted small">Highest-level headings become room names; their sections become notes. Import does not change rooms or fog.</p>
+        <button id="room-import-submit" type="submit">Import notes</button>
+        <p id="room-import-status" role="status"></p>
+      </form>
+    </details>
+    <div id="room-import-choice" hidden>
+      <label for="room-import-select">Use imported room notes</label>
+      <select id="room-import-select"><option value="">Choose imported room…</option></select>
+      <p class="muted small">Selection opens a draft. Review it, then Save room to assign.</p>
+    </div>
     <div id="room-read" hidden>
       <h2 id="room-title"></h2>
       <article id="room-preview" class="room-markdown"></article>
@@ -246,7 +260,7 @@
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
-<script src="/static/js/room_notes.js?v=room-editor-2"></script>
+<script src="/static/js/room_notes.js?v=room-import-3"></script>
 <script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>

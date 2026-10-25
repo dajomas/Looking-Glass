@@ -448,3 +448,18 @@ Normal point reveal/hide requests now return `changed:false` when the requested
 state already holds; these requests do not add history, bump fog_version,
 checkpoint display state or notify viewers. Existing response fields are retained.
 This optimization does not change the managed-door gesture endpoints.
+
+## Imported room-note library (admin only)
+
+- `GET /api/maps/{map_id}/room-note-library` returns
+  `{ok,entries:[{id,name,markdown}]}` in name/ID order.
+- `POST /api/maps/{map_id}/room-note-library/import` accepts a multipart `file`
+  (UTF-8 Markdown; 1 MiB maximum). Returns `{ok,added,sections,heading_level,
+  ignored_preamble,entries}`. The entire input validates before the append transaction.
+  Unparseable/no-heading/oversize/invalid sections return 400; POST requires CSRF.
+
+Both require management permission on the map's campaign. Library entries are
+map-scoped and not exposed by the viewer app. Selecting an entry is client-side
+and creates a draft; assignment uses the existing room-notes save API with its
+geometry and revision validation. There is no implicit save, import overwrite,
+assignment lock or consumption of entries. Duplicate name/content pairs are ignored.

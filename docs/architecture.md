@@ -422,3 +422,23 @@ tracking. Clipboard paste prefers text/markdown over text/plain; rich HTML is ne
 inserted into the preview. Clipboard-read completion is guarded against changed
 room, edit mode and draft state. Server rendering, sanitization, permissions,
 revision checks, endpoints and database schema are unchanged by this UI follow-up.
+
+## Imported room-note library
+
+An appended migration creates imported_room_notes, cascade-owned by a map, with
+name/Markdown, monotonic ID and SHA-256 content digest unique per map. Import
+parses and validates first, then appends in one immediate SQLite transaction;
+identical records are ignored, modified records append without altering prior
+assignments. Neither importing nor saving notes changes fog.
+
+room_note_import subclasses the existing Mistune block parser to record offsets
+of document-level ATX and Setext headings. It slices normalized source between
+headings at the globally smallest level, preserving lower headings and Markdown
+source. Nested/container/code headings do not delimit records. UTF-8 BOM and CRLF
+are accepted; invalid UTF-8, NULs and validation failures reject the complete file.
+Preamble is deliberately omitted. Cross-section reference definitions are not
+rewritten or copied. The library is loaded by the room UI on page initialization;
+imports refresh it in-session. A generation counter prevents stale library loads
+from replacing a newer import response. Picker assignment fills an unsaved draft
+only for rooms without both saved name and note. Existing sanitization and
+optimistic-save checks apply; library choices do not bypass those checks.
