@@ -101,3 +101,21 @@ def delete_unassigned(conn, map_id, entry_id):
     if any(name_key(r["name"]) == key for r in conn.execute("SELECT name FROM room_notes WHERE map_id=?", (map_id,))):
         raise ImportError("This imported room name is assigned. Clear or rename its room before deleting the entry.")
     conn.execute("DELETE FROM imported_room_notes WHERE map_id=? AND id=?", (map_id,entry_id))
+
+
+def unassign(conn, map_id, entry_id):
+    """Clear every saved assignment of this imported name on this map.
+
+    Caller holds BEGIN IMMEDIATE. Preserve rows and increment revisions so stale
+    editor saves cannot silently restore cleared notes. Keep the library intact.
+    """
+    entry = conn.execute("SELECT name FROM imported_room_notes WHERE map_id=? AND id=?",
+                         (map_id, entry_id)).fetchone()
+    if entry is None:
+        raise ImportError("Imported entry not found on this map.")
+    key = name_key(entry["name"])
+    rows = conn.execute("SELECT area_key,name FROM room_notes WHERE map_id=?", (map_id,)).fetchall()
+    keys = [row["area_key"] for row in rows if name_key(row["name"]) == key]
+    conn.executemany("UPDATE room_notes SET name='',markdown='',revision=revision+1 "
+                     "WHERE map_id=? AND area_key=?", [(map_id, k) for k in keys])
+    return keys

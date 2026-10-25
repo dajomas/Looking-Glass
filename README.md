@@ -322,3 +322,13 @@ Enable Select room (fog unchanged), then use Show named / unnamed areas beneath
 it to tint saved named areas green and unnamed areas red. The same button hides
 the colours; unchecking selection mode hides/resets them too. Admin-only coverage
 includes hidden areas without changing fog. The amber edit marker stays above it.
+
+## Imported room list: fixed controls and unassign
+
+The imported-note dialog keeps its heading, Close/Refresh controls, instructions
+and status visible while entries scroll. Assigned entries offer **Unassign from
+rooms** with confirmation. This clears the saved name and notes from every
+matching room in this map, including custom note edits, without deleting the
+imported library entry or changing fog. The imported name becomes available again.
+Save/cancel a pending room draft before unassigning. See docs/usage.md and
+Patch/imported-room-list.md for details and validation.

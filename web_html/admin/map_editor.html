@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-names-10">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-library-unassign-11">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -254,11 +254,13 @@
 {% endblock %}
 {% block scripts %}
 <dialog id="room-library-dialog" aria-labelledby="room-library-title">
+  <header class="room-library-header">
   <div class="btn-row"><h2 id="room-library-title">Imported room notes</h2><button id="room-library-close" type="button">Close</button></div>
-  <p class="muted small">Assignment is based on saved room names in this map. Only unassigned imported entries can be deleted. Notes are displayed as Markdown source.</p>
+  <p class="muted small">Unassign clears the saved name and notes from every matching room in this map, keeping the imported entry available for reuse. Only unassigned entries can be deleted. Notes are shown as Markdown source.</p>
   <button id="room-library-refresh" type="button">Refresh list</button>
   <p id="room-library-status" role="status" aria-live="polite"></p>
-  <div id="room-library-list"></div>
+  </header>
+  <div id="room-library-list" tabindex="0" aria-label="Imported room list"></div>
 </dialog>
 
 {% include "partials/_map_transitions.html" %}
@@ -276,7 +278,7 @@
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
 <script src="/static/js/room_name_overlay.js?v=room-names-10"></script>
 <script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>
-<script src="/static/js/room_library_manager.js?v=room-tools-9"></script>
+<script src="/static/js/room_library_manager.js?v=room-library-unassign-11"></script>
 <script src="/static/js/room_notes.js?v=room-names-10"></script>
 <script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>

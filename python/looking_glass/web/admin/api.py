@@ -498,3 +498,18 @@ def room_name_overlay(ctx: CtxDep, user: UserDep, map_id: int):
         png, named, unnamed = room_notes.name_status_png(area, rows, spec.width, spec.height)
         return JSONResponse({"ok": True, "png": base64.b64encode(png).decode("ascii"),
                              "named": named, "unnamed": unnamed}, headers={"Cache-Control": "no-store"})
+
+
+@router.post("/maps/{map_id}/room-note-library/{entry_id}/unassign")
+def unassign_imported_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, entry_id: int):
+    from ...services import room_note_import
+    with ctx.db.connect() as conn:
+        conn.execute("BEGIN IMMEDIATE")
+        map_for_manage(conn, user, map_id)
+        room_notes.reconcile_map(ctx, conn, map_id)
+        try:
+            keys = room_note_import.unassign(conn, map_id, entry_id)
+        except room_note_import.ImportError as exc:
+            raise BadRequest(str(exc))
+        return {"ok": True, "unassigned": len(keys), "area_keys": keys,
+                "entries": room_note_import.list_entries(conn, map_id)}

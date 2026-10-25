@@ -207,7 +207,14 @@ main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48
 .room-edit-indicator { position: absolute; left: 1rem; bottom: 1rem; z-index: 8;
   padding: .45rem .7rem; border: 2px solid #ffc107; border-radius: .4rem;
   background: #222b; color: #ffdf7e; pointer-events: none; }
-#room-library-dialog { width: min(900px, 92vw); max-height: 85vh; overflow-y: auto; }
+/* Only the entries scroll: native dialog display:none must remain intact when closed. */
+#room-library-dialog { width: min(900px, 92vw); max-height: 85vh; max-height: 85dvh; overflow: hidden; box-sizing: border-box; }
+#room-library-dialog[open] { display: flex; flex-direction: column; }
+.room-library-header { flex: 0 0 auto; background: var(--bg-2); border-bottom: 1px solid var(--border); padding-bottom: .6rem; }
+.room-library-header .btn-row { justify-content: space-between; flex-wrap: wrap; }
+.room-library-header h2 { margin: 0; }
+#room-library-list { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
+#room-library-list:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .room-library-entry { border-top: 1px solid var(--border); padding: .8rem 0; }
 .room-library-entry pre { white-space: pre-wrap; overflow-wrap: anywhere; max-height: 24rem; overflow-y: auto; }
 
