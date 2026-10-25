@@ -719,3 +719,12 @@ runs. No new dependencies or configuration are required (uses existing Mistune).
 The room-note JS cache version is updated. Libraries are backed up with SQLite;
 no uploaded raw files are stored. Restoring older code may leave the additive table
 intact; use a full pre-upgrade database backup for a complete schema rollback.
+
+## Room metadata controls follow-up
+
+Incremental patch for a5fa00c. Back up SQLite and restart to apply the appended
+migration relaxing the room name constraint. Existing note content, revisions
+and imported entries are retained. No new dependencies/configuration. CSS and
+room-note JS cache keys changed; refresh the admin page. Older code remains able
+to read rows but may refuse saves with blank names; use a pre-upgrade backup for
+a full rollback. Do not manually alter schema_version.

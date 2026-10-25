@@ -685,11 +685,11 @@ omit that title if the H2 headings should be individual rooms. Preamble text bef
 the first room heading is ignored and reported. Reference-link definitions should
 be included in each section that needs them; definitions elsewhere are not copied.
 
-After importing, enable Select room (fog unchanged) and click an empty room.
-Use imported room notes appears only when BOTH its saved name and note are empty.
+After importing, enable Select room (fog unchanged) and click any room.
+Use imported room notes is available whether or not it already has a name or note.
 Choose a name from the dropdown; the name and note load together into an unsaved
 edit draft. Review or adjust them, then Save room to assign them. Cancel discards
-the selection. Existing named rooms (even with empty notes) do not show this picker.
+the selection. Selecting an imported entry replaces both fields in a draft, including for existing named rooms.
 
 Imports are stored per map, persist across restarts, and do not affect fog or
 existing rooms. Entries remain reusable after assignment. Reimporting identical
@@ -702,3 +702,24 @@ Limits: 1 MiB per UTF-8 file, 500 room sections per import, 200 characters per
 room name, and 100,000 characters per note. Empty sections are allowed. Invalid
 files are rejected as a whole, without partially adding entries. Imported content
 is sanitized by the existing renderer after assignment, like manually entered notes.
+
+### Clearing and replacing room metadata
+
+Import room notes is a collapsible section, closed by default on each page load.
+Click its summary to expand it. It remains collapsible independently of the whole
+right panel. An explicit closed-details CSS rule keeps its form hidden even with
+generic form layout styles. Expanding it is not persisted between page loads.
+
+To remove metadata, click Edit room and Clear name and notes, then Save room.
+Clear changes the draft only; Cancel restores the previous saved content. You
+can also erase either field individually: names are optional, so notes-only rooms
+are supported. Both blank fields clear the room's displayed metadata, without
+changing fog, walls, imported entries or other rooms. Blank names display the
+placeholder “Unnamed room”. This clears the stored text, not an encrypted/secure
+wipe of historical database backups.
+
+The imported-note dropdown is now offered for every selected room in read mode.
+Choose a replacement to open an edit draft containing the imported name and note.
+Save room applies it; Cancel restores the previous values. Replacement is still
+subject to revision and geometry checks. In edit mode, Cancel returns to read
+mode if you want to choose a different imported entry.

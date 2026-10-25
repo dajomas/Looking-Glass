@@ -197,3 +197,6 @@ main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48
 .room-format-bar button { min-width: 2rem; padding: .3rem .45rem; }
 #room-markdown { font-family: monospace; resize: vertical; min-height: 14rem; }
 #room-read { overflow-wrap: anywhere; }
+
+/* Author .stack display rules must not expose a closed details form. */
+#room-library-import:not([open]) > :not(summary) { display: none !important; }

@@ -438,7 +438,7 @@ app. POST requests require the existing X-CSRF-Token header.
   Wall pixels and out-of-map coordinates return 400. An unnamed room has revision 0.
 - `POST /api/maps/{map_id}/room-notes`: `{x,y,area_key,name,markdown,revision}`.
   Saves or renames the room and returns the same shape. `name` is trimmed and
-  must be nonempty (max 200); Markdown max 100000. Revision is 0 for creation.
+  may be empty (max 200); Markdown max 100000. Revision is 0 for creation.
   Geometry/revision mismatches return 400 without overwriting data. SQLite's
   immediate transaction serializes validation and save. Saving does not mutate fog.
 - `GET /api/maps/{map_id}/room-notes`: `{ok,rooms:[{area_key,name,x,y,active,revealed}]}`.
@@ -463,3 +463,13 @@ map-scoped and not exposed by the viewer app. Selecting an entry is client-side
 and creates a draft; assignment uses the existing room-notes save API with its
 geometry and revision validation. There is no implicit save, import overwrite,
 assignment lock or consumption of entries. Duplicate name/content pairs are ignored.
+
+### Clearing room metadata
+
+POST /api/maps/{map_id}/room-notes now accepts empty `name` and/or `markdown`.
+Both default to empty strings if omitted. Sending both empty clears the metadata
+while retaining the room_notes row and incrementing its revision, preventing
+stale clients from recreating cleared text using an old revision. Existing
+campaign-management, CSRF, geometry and revision checks still apply. There is no
+new delete route. The imported-note picker can fill replacement drafts for any
+room; it uses the same save route and never implicitly overwrites server data.

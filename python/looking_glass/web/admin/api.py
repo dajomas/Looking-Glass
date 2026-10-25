@@ -363,7 +363,7 @@ class RoomPoint(Point):
 
 class RoomNoteIn(Point):
     area_key: str = Field(min_length=64, max_length=64)
-    name: str = Field(min_length=1, max_length=200)
+    name: str = Field(default="", max_length=200)
     markdown: str = Field(default="", max_length=100000)
     revision: int = Field(ge=0)
 
@@ -396,8 +396,6 @@ def save_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: RoomNoteIn
         current = _room_at(ctx, conn, map_id, body)
         if current["area_key"] != body.area_key or current["revision"] != body.revision:
             raise BadRequest("Room geometry or notes changed. Select the room again before saving.")
-        if not body.name.strip():
-            raise BadRequest("A room name is required.")
         conn.execute("""INSERT INTO room_notes(map_id,area_key,x,y,name,markdown) VALUES(?,?,?,?,?,?)
             ON CONFLICT(map_id,area_key) DO UPDATE SET name=excluded.name,
             markdown=excluded.markdown,revision=room_notes.revision+1""",

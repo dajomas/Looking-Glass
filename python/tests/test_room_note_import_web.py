@@ -34,3 +34,16 @@ def test_room_import_access_and_assignment(env):
     assert saved.status_code==200,saved.text
     assert saved.json()["name"]=="Crypt" and "<strong>Gold</strong>" in saved.json()["html"]
     assert dm.get(base).json()["fog_version"]==state["fog_version"]
+
+    # Clearing keeps revision history and rejects a subsequent stale edit.
+    clear={**body,"revision":saved.json()["revision"],"name":"","markdown":""}
+    cleared=dm.post(base+"/room-notes",json=clear,headers=headers)
+    assert cleared.status_code==200,cleared.text
+    assert cleared.json()["name"]==cleared.json()["markdown"]==""
+    assert cleared.json()["revision"]>saved.json()["revision"]
+    assert dm.post(base+"/room-notes",json=body,headers=headers).status_code==400
+    notes_only={**clear,"revision":cleared.json()["revision"],"markdown":"Notes without a name"}
+    result=dm.post(base+"/room-notes",json=notes_only,headers=headers)
+    assert result.status_code==200,result.text
+    assert result.json()["name"]=="" and result.json()["markdown"]=="Notes without a name"
+    assert dm.get(base).json()["fog_version"]==state["fog_version"]

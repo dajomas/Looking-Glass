@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-editor-2">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-controls-4">{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -215,7 +215,7 @@
     <div id="room-import-choice" hidden>
       <label for="room-import-select">Use imported room notes</label>
       <select id="room-import-select"><option value="">Choose imported room…</option></select>
-      <p class="muted small">Selection opens a draft. Review it, then Save room to assign.</p>
+      <p class="muted small">Selection replaces the name and notes in a draft. Save room to apply, or Cancel to keep the saved content.</p>
     </div>
     <div id="room-read" hidden>
       <h2 id="room-title"></h2>
@@ -223,7 +223,7 @@
       <button id="room-edit" type="button">Edit room</button>
     </div>
     <form id="room-form" class="stack" hidden>
-      <label>Room name <input id="room-name" required maxlength="200"></label>
+      <label>Room name <input id="room-name" maxlength="200"></label>
       <label for="room-markdown">Markdown notes</label>
       <div id="room-format-bar" class="room-format-bar" role="group" aria-label="Markdown formatting">
         <button type="button" data-room-format="bold" title="Bold" aria-label="Bold">B</button>
@@ -241,7 +241,7 @@
       </div>
       <textarea id="room-markdown" rows="14" maxlength="100000" aria-describedby="room-markdown-help"></textarea>
       <p id="room-markdown-help" class="muted small">Paste Markdown with Ctrl+V / ⌘V, or use Paste Markdown. HTML is not converted.</p>
-      <div class="btn-row"><button type="submit" class="primary">Save room</button><button id="room-cancel" type="button">Cancel</button></div>
+      <div class="btn-row"><button type="submit" class="primary">Save room</button><button id="room-clear" type="button" class="danger">Clear name and notes</button><button id="room-cancel" type="button">Cancel</button></div>
     </form>
   </div>
 </aside>
@@ -260,7 +260,7 @@
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
-<script src="/static/js/room_notes.js?v=room-import-3"></script>
+<script src="/static/js/room_notes.js?v=room-controls-4"></script>
 <script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>

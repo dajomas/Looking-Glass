@@ -260,6 +260,21 @@ MIGRATIONS: list[str] = [
         UNIQUE(map_id,digest)
     );
     """,
+    """
+    CREATE TABLE room_notes_new (
+        map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE,
+        area_key TEXT NOT NULL,
+        x REAL NOT NULL,
+        y REAL NOT NULL,
+        name TEXT NOT NULL CHECK(length(name)<=200),
+        markdown TEXT NOT NULL DEFAULT '' CHECK(length(markdown)<=100000),
+        revision INTEGER NOT NULL DEFAULT 1,
+        PRIMARY KEY(map_id, area_key)
+    );
+    INSERT INTO room_notes_new SELECT map_id,area_key,x,y,name,markdown,revision FROM room_notes;
+    DROP TABLE room_notes;
+    ALTER TABLE room_notes_new RENAME TO room_notes;
+    """,
 ]
 
 

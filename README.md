@@ -278,8 +278,11 @@ Notes are never sent to the viewer app. See docs/usage.md and Patch/room-notes.m
 
 ## Markdown room-note import
 
-Import room notes in the admin editor from a UTF-8 Markdown file. The highest
-heading level present defines room names; sections become Markdown notes. For an
-empty room, choose an imported entry in the dropdown, review the draft and Save
-room. Libraries are persistent and map-specific; importing never changes fog or
+Import room notes in the admin editor from a UTF-8 Markdown file (the import section starts collapsed). The highest
+heading level present defines room names; sections become Markdown notes. For any
+selected room, choose an imported entry in the dropdown, review the replacement
+draft and Save room. Libraries are persistent and map-specific; importing never changes fog or
 existing rooms. See docs/usage.md and docs/examples/room-notes.md.
+
+Room metadata can be removed with Edit room → Clear name and notes → Save room.
+Names and notes may also be cleared individually. Cancel restores the saved values.

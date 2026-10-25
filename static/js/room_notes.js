@@ -5,11 +5,18 @@ window.LGRoomNotes = class {
     this.editMode=false;this.saving=false;this.draftVersion=0;
     this.mapId=mapId;this.toast=toast;this.point=null;this.room=null;this.dirty=false;this.generation=0;this.revealed=null;this.stateStamp=null;this.refreshGeneration=0;
     this.$=id=>document.getElementById(id);
+    this.$("room-library-import").open=false;
     this.$("room-toggle").onclick=()=>this.collapse(!this.$("room-panel").classList.contains("collapsed"));
     try {this.collapse(localStorage.getItem("lg:room-panel-collapsed")==="true");} catch(_) {}
     for(const id of ["room-name","room-markdown"]) this.$(id).oninput=()=>{this.dirty=true;this.draftVersion++;};
     this.$("room-edit").onclick=()=>{if(this.room&&!this.saving){this.setEditMode(true);this.$("room-name").focus();}};
     this.$("room-cancel").onclick=()=>{if(!this.saving){this.dirty=false;if(this.room)this.show(this.room);}};
+    this.$("room-clear").onclick=()=>{
+      if(!this.room||!this.editMode||this.saving)return;
+      this.$("room-name").value="";this.$("room-markdown").value="";
+      this.dirty=true;this.draftVersion++;this.$("room-name").focus();
+      this.toast("Name and notes cleared in draft. Save room to apply, or Cancel to restore.");
+    };
     this.$("room-format-bar").onclick=e=>{
       const button=e.target.closest("[data-room-format]");
       if(button)this.format(button.dataset.roomFormat);
@@ -49,9 +56,12 @@ window.LGRoomNotes = class {
       finally {button.disabled=false;}
     };
     this.$("room-import-select").onchange=()=>{
-      if(!this.emptyRoom()||this.dirty||this.saving)return;
+      if(!this.room||this.saving)return;
       const entry=this.libraryEntries.find(e=>String(e.id)===this.$("room-import-select").value);
       if(!entry)return;
+      if(this.dirty&&!confirm("Replace unsaved room name and notes with the imported entry?")){
+        this.$("room-import-select").value="";return;
+      }
       this.setEditMode(true);
       this.$("room-name").value=entry.name;this.$("room-markdown").value=entry.markdown;
       this.dirty=true;this.draftVersion++;this.$("room-name").focus();
@@ -75,7 +85,6 @@ window.LGRoomNotes = class {
     };
     window.addEventListener("beforeunload",e=>{if(this.dirty){e.preventDefault();e.returnValue="";}});
   }
-  emptyRoom() {return Boolean(this.room&&!this.room.name.trim()&&!this.room.markdown.trim());}
   renderLibrary() {
     const select=this.$("room-import-select");select.replaceChildren();
     const placeholder=document.createElement("option");placeholder.value="";
@@ -85,7 +94,7 @@ window.LGRoomNotes = class {
       const option=document.createElement("option");option.value=String(entry.id);
       option.textContent=entry.name+(counts.get(entry.name)>1?` (#${entry.id})`:"");select.appendChild(option);
     }
-    this.$("room-import-choice").hidden=!this.emptyRoom()||this.editMode;
+    this.$("room-import-choice").hidden=!this.room||this.editMode;
     select.disabled=!this.libraryEntries.length;
   }
   async loadLibrary() {
