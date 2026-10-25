@@ -109,6 +109,8 @@ async def save_editor(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: WallEdi
         walls_repo.replace(conn, map_id, segments)
         maps_repo.set_calibration(conn, map_id, 0, 0, 1, 1, bool(m["doors_block"]))
         maps_repo.set_walls_source(conn, map_id, filename)
+        from ...services.room_notes import reconcile_map
+        reconcile_map(ctx, conn, map_id)
         payload = _payload(conn, maps_repo.get(conn, map_id))
         payload["source_id"] = source["id"]
     ctx.fog.invalidate(map_id)

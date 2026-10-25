@@ -56,6 +56,8 @@ def apply_walls(ctx: AppContext, conn: sqlite3.Connection, map_row: sqlite3.Row,
                                   bool(map_row["doors_block"]))
     maps_repo.set_walls_source(conn, map_row["id"], f"{ws.source_format}: {filename} [{ws.name}]")
     ctx.fog.invalidate(map_row["id"])
+    from ...services.room_notes import reconcile_map
+    reconcile_map(ctx, conn, map_row["id"])
     return count, ws.name
 
 
@@ -236,6 +238,8 @@ async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Anno
         return _back(f"/maps/{map_id}", err=str(exc))
     with ctx.db.connect() as conn:
         maps_repo.replace_image(conn, map_id, stored.relative_path, stored.width, stored.height)
+        from ...services.room_notes import reconcile_map
+        reconcile_map(ctx, conn, map_id)
     images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
     ctx.fog.invalidate(map_id)
     await notify.map_changed(ctx, map_id, "image")

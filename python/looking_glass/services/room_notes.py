@@ -68,3 +68,33 @@ def name_status_png(area, rows, width, height):
     out = io.BytesIO()
     Image.fromarray(rgba).save(out, "PNG")
     return out.getvalue(), len(named), area.count - len(named)
+
+
+def remove_stale(conn, map_id, area, width, height):
+    """Remove assignments whose stored geometry no longer exists at their anchor.
+
+    Keep imported_room_notes intact: library assignment is derived from room_notes.
+    The caller owns the transaction. Never snap wall anchors to a nearby room.
+    """
+    stale = []
+    for row in conn.execute("SELECT area_key,x,y FROM room_notes WHERE map_id=?", (map_id,)).fetchall():
+        x, y = row["x"], row["y"]
+        label = 0
+        if 0 <= x < width and 0 <= y < height:
+            px, py = int(x * area.scale), int(y * area.scale)
+            if 0 <= py < area.shape[0] and 0 <= px < area.shape[1]:
+                label = int(area.labels[py, px])
+        if not label or area_key(area, label, width, height) != row["area_key"]:
+            stale.append((map_id, row["area_key"]))
+    conn.executemany("DELETE FROM room_notes WHERE map_id=? AND area_key=?", stale)
+    return len(stale)
+
+
+def reconcile_map(ctx, conn, map_id):
+    """Reconcile with current effective boundaries, including calibration/type settings."""
+    if not conn.execute("SELECT 1 FROM room_notes WHERE map_id=? LIMIT 1", (map_id,)).fetchone():
+        return 0
+    from ..web.access import fog_inputs
+    spec, segments, _ = fog_inputs(ctx, conn, map_id)
+    area = ctx.fog.area_map(spec, segments)
+    return remove_stale(conn, map_id, area, spec.width, spec.height)

@@ -40,6 +40,7 @@ class CalibrationIn(BaseModel):
 
 
 def _map_payload(ctx, conn, map_id: int) -> dict:
+    room_notes.reconcile_map(ctx, conn, map_id)
     m = maps_repo.get(conn, map_id)
     campaign = conn.execute("SELECT active_map_id FROM campaigns WHERE id = ?", (m["campaign_id"],)).fetchone()
     segs = walls_repo.list_for_map(conn, map_id)
@@ -369,6 +370,7 @@ class RoomNoteIn(Point):
 
 
 def _room_at(ctx, conn, map_id, point):
+    room_notes.reconcile_map(ctx, conn, map_id)
     spec, segments, ops = fog_inputs(ctx, conn, map_id)
     if not (0 <= point.x < spec.width and 0 <= point.y < spec.height):
         raise BadRequest("Point is outside the map.")
@@ -407,6 +409,7 @@ def save_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: RoomNoteIn
 def list_room_notes(ctx: CtxDep, user: UserDep, map_id: int):
     with ctx.db.connect() as conn:
         map_for_manage(conn, user, map_id)
+        room_notes.reconcile_map(ctx, conn, map_id)
         result = []
         for row in conn.execute("SELECT * FROM room_notes WHERE map_id=? ORDER BY name", (map_id,)):
             try:
@@ -424,6 +427,7 @@ def room_note_library(ctx: CtxDep, user: UserDep, map_id: int):
     from ...services import room_note_import
     with ctx.db.connect() as conn:
         map_for_manage(conn, user, map_id)
+        room_notes.reconcile_map(ctx, conn, map_id)
         return {"ok": True, "entries": room_note_import.list_entries(conn, map_id)}
 
 
@@ -441,6 +445,7 @@ async def import_room_note_library(ctx: CtxDep, user: CsrfUserDep, map_id: int,
     with ctx.db.connect() as conn:
         map_for_manage(conn, user, map_id)
         conn.execute("BEGIN IMMEDIATE")
+        room_notes.reconcile_map(ctx, conn, map_id)
         added = room_note_import.store(conn, map_id, parsed["entries"])
         return {"ok": True, "added": added, "sections": len(parsed["entries"]),
                 "heading_level": parsed["level"], "ignored_preamble": parsed["ignored_preamble"],
@@ -473,9 +478,11 @@ def delete_imported_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, entry
         conn.execute("BEGIN IMMEDIATE")
         map_for_manage(conn, user, map_id)
         try:
+            room_notes.reconcile_map(ctx, conn, map_id)
             room_note_import.delete_unassigned(conn, map_id, entry_id)
         except room_note_import.ImportError as exc:
             raise BadRequest(str(exc))
+        room_notes.reconcile_map(ctx, conn, map_id)
         return {"ok": True, "entries": room_note_import.list_entries(conn, map_id)}
 
 
@@ -486,6 +493,7 @@ def room_name_overlay(ctx: CtxDep, user: UserDep, map_id: int):
         map_for_manage(conn, user, map_id)
         spec, segments, _ = fog_inputs(ctx, conn, map_id)
         area = ctx.fog.area_map(spec, segments)
+        room_notes.reconcile_map(ctx, conn, map_id)
         rows = conn.execute("SELECT area_key,x,y,name FROM room_notes WHERE map_id=?", (map_id,)).fetchall()
         png, named, unnamed = room_notes.name_status_png(area, rows, spec.width, spec.height)
         return JSONResponse({"ok": True, "png": base64.b64encode(png).decode("ascii"),
