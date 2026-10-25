@@ -59,7 +59,7 @@ window.LGRoomNotes = class {
     this.$("room-import-select").onchange=()=>{
       const select=this.$("room-import-select"),id=select.value;
       select.value=""; // Consume this action before rendering or opening a modal.
-      if(!this.room||this.saving||this.importSelecting)return;
+      if(!this.room||!this.editMode||this.saving||this.importSelecting)return;
       const entry=this.libraryEntries.find(e=>String(e.id)===id);
       if(!entry)return;
       this.importSelecting=true;
@@ -77,7 +77,7 @@ window.LGRoomNotes = class {
     this.$("room-form").onsubmit=async e=>{
       e.preventDefault();if(!this.room||!this.point||!this.editMode||this.saving)return;
       this.saving=true;
-      this.$("room-form").querySelectorAll("input,textarea,button").forEach(el=>el.disabled=true);
+      this.$("room-form").querySelectorAll("input,textarea,select,button").forEach(el=>el.disabled=true);
       try {
         const room=await LGApi.post(`/api/maps/${this.mapId}/room-notes`,{
           ...this.point,area_key:this.room.area_key,revision:this.room.revision,
@@ -86,7 +86,7 @@ window.LGRoomNotes = class {
       } catch(error) {this.toast(error.message,"error");}
       finally {
         this.saving=false;
-        this.$("room-form").querySelectorAll("input,textarea,button").forEach(el=>el.disabled=false);
+        this.$("room-form").querySelectorAll("input,textarea,select,button").forEach(el=>el.disabled=false);
       }
     };
     window.addEventListener("beforeunload",e=>{if(this.hasUnsavedChanges()){e.preventDefault();e.returnValue="";}});
@@ -110,7 +110,7 @@ window.LGRoomNotes = class {
       const option=document.createElement("option");option.value=String(entry.id);
       option.textContent=entry.name+(counts.get(entry.name)>1?` (#${entry.id})`:"");select.appendChild(option);
     }
-    this.$("room-import-choice").hidden=!this.room||this.editMode;
+    this.$("room-import-choice").hidden=!this.room||!this.editMode;
     select.disabled=!this.libraryEntries.length;
   }
   async loadLibrary() {

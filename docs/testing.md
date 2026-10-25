@@ -272,3 +272,11 @@ bounded drain stopped it; with the fix it passes without any replay.
 Room tests cover saved replacement without warning, edit/undo clean state, a real
 unsaved draft, one prompt on OK/Cancel, consumed/reentrant events, and identical
 import selection. Existing paste/clear/save/import behavior is also covered.
+
+## Edit-only imported-note picker
+
+The room-note JS tests now open Edit room before importing and verify the picker
+is hidden during reading and visible while editing, including after assignment.
+Read-mode action attempts are ignored. Existing confirmation OK/Cancel, undo and
+no-replay checks remain. python/tests/test_room_import_edit_layout.py asserts the
+picker is structurally inside room-form, not the read view.

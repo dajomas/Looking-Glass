@@ -453,7 +453,7 @@ concurrency against old clients. Payloads still use “Unnamed room” as a UI-o
 placeholder for an empty name. Notes-only metadata is supported.
 
 Clear name and notes changes the draft, not the server, and Cancel restores saved
-content. Imported choices are allowed for all selected rooms in read mode.
+content. Imported choices are allowed for all selected rooms in edit mode.
 The upload section uses a native details/summary initialized closed on load and
 an explicit closed-details CSS rule to defeat author .stack display rules.
 
@@ -474,3 +474,11 @@ values and recomputed at destructive-action/navigation checks. Name trimming and
 newline normalization match editor/server behavior; Markdown whitespace remains
 significant. show() resets clean state. The shared restoration policy for ordinary
 selects is unchanged. No API, database or fog changes are involved.
+
+### Imported notes picker inside the editor
+
+room-import-choice is now a child of room-form, before the name field. Its
+visibility follows editMode rather than read mode, and the action handler refuses
+imports outside editing. Form save enable/disable handling now includes select
+controls. Selection stays a one-shot, non-restored action; genuine draft-difference
+confirmation, reentrancy guards and Cancel semantics are unchanged.

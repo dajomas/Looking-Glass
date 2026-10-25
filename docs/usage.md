@@ -686,7 +686,7 @@ the first room heading is ignored and reported. Reference-link definitions shoul
 be included in each section that needs them; definitions elsewhere are not copied.
 
 After importing, enable Select room (fog unchanged) and click any room.
-Use imported room notes is available whether or not it already has a name or note.
+Click Edit room. Use imported room notes is available inside the editor whether or not the room already has a name or note.
 Choose a name from the dropdown; the name and note load together into an unsaved
 edit draft. Review or adjust them, then Save room to assign them. Cancel discards
 the selection. Selecting an imported entry replaces both fields in a draft, including for existing named rooms.
@@ -718,18 +718,18 @@ changing fog, walls, imported entries or other rooms. Blank names display the
 placeholder “Unnamed room”. This clears the stored text, not an encrypted/secure
 wipe of historical database backups.
 
-The imported-note dropdown is now offered for every selected room in read mode.
-Choose a replacement to open an edit draft containing the imported name and note.
+The imported-note dropdown is offered for every selected room inside Edit room only.
+Choose a replacement to fill the current edit draft with the imported name and note.
 Save room applies it; Cancel restores the previous values. Replacement is still
-subject to revision and geometry checks. In edit mode, Cancel returns to read
-mode if you want to choose a different imported entry.
+subject to revision and geometry checks. While editing, choose another imported entry directly from the dropdown; a different
+unsaved draft prompts before being replaced.
 
 ## When imported-room replacement asks for confirmation
 
 “Replace unsaved room name and notes with the imported entry?” is only appropriate
 when there are unsaved name/note differences AND the chosen imported entry differs
 from that draft. It is not a warning about replacing already saved metadata:
-selecting a replacement in read mode opens a draft without a prompt. Save room
+opening Edit room and selecting a replacement before changing any fields does not prompt. Save room
 still controls whether it is persisted; Cancel restores the saved content.
 
 The check compares actual field contents with the selected room's saved values.
@@ -744,3 +744,15 @@ placeholder and is never automatically remembered/restored between refreshes or
 rooms. Other persistent dropdowns retain their existing behavior. Deploy the fix
 and refresh the page; old cached dropdown choices are ignored without requiring
 all browser storage to be cleared.
+
+### Imported notes picker location
+
+Select a room, then click Edit room. Use imported room notes appears at the top
+of the edit form, above Room name, and stays available while editing. It is hidden
+in read mode and when no room is selected. The separate Import room notes upload
+section remains outside the editor and starts collapsed as before.
+
+Selecting an entry updates the draft only. Save room persists it; Cancel restores
+the saved content. The dropdown prompts once only if a different unsaved draft
+would be discarded; choosing an identical entry is a no-op. The picker is disabled
+with the other form controls while a save is pending.

@@ -212,17 +212,17 @@
         <p id="room-import-status" role="status"></p>
       </form>
     </details>
-    <div id="room-import-choice" hidden>
-      <label for="room-import-select">Use imported room notes</label>
-      <select id="room-import-select"><option value="">Choose imported room…</option></select>
-      <p class="muted small">Selection replaces the name and notes in a draft. Save room to apply, or Cancel to keep the saved content.</p>
-    </div>
     <div id="room-read" hidden>
       <h2 id="room-title"></h2>
       <article id="room-preview" class="room-markdown"></article>
       <button id="room-edit" type="button">Edit room</button>
     </div>
     <form id="room-form" class="stack" hidden>
+      <div id="room-import-choice" hidden>
+        <label for="room-import-select">Use imported room notes</label>
+        <select id="room-import-select"><option value="">Choose imported room…</option></select>
+        <p class="muted small">Selection replaces the name and notes in a draft. Save room to apply, or Cancel to keep the saved content.</p>
+      </div>
       <label>Room name <input id="room-name" maxlength="200"></label>
       <label for="room-markdown">Markdown notes</label>
       <div id="room-format-bar" class="room-format-bar" role="group" aria-label="Markdown formatting">
@@ -260,7 +260,7 @@
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
-<script src="/static/js/room_notes.js?v=room-confirm-5"></script>
+<script src="/static/js/room_notes.js?v=room-edit-picker-6"></script>
 <script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>
