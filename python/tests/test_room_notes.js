@@ -12,14 +12,15 @@ function element(id){
 }
 let response={area_key:'a',name:'Crypt',markdown:'**Gold**',html:'<p><strong>Gold</strong></p>',revision:1,revealed:true};
 let fail=false,confirmAnswer=true;
+let activeNotes=null;
 const confirmations=[];
 const requests=[],store=new Map(),notices=[],context={window:{addEventListener(){}},document:{getElementById:element,querySelector:()=>element('main'),createElement:()=>({value:"",textContent:""})},
  localStorage:{getItem:k=>store.get(k),setItem:(k,v)=>store.set(k,v)},confirm:message=>{confirmations.push(message);return confirmAnswer;},navigator:{clipboard:{readText:async()=>"# Pasted"}},
  FormData:class {append(key,value){this[key]=value;}},
- LGApi:{post:async(path,body)=>{requests.push({path,body});if(fail)throw Error('save failed');if(path.endsWith('/room-note-library/import'))return {sections:2,added:2,heading_level:1,ignored_preamble:true,entries:[{id:1,name:'Imported Hall',markdown:'Gold'}]};return response;},get:async()=>({rooms:[]})}};
+ LGApi:{post:async(path,body)=>{requests.push({path,body});if(fail)throw Error('save failed');if(path.endsWith('/room-note-library/import'))return {sections:2,added:2,heading_level:1,ignored_preamble:true,entries:[{id:1,name:'Imported Hall',markdown:'Gold'}]};return response;},get:async()=>({rooms:[],entries:activeNotes?.libraryEntries||[]})}};
 vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
 (async()=>{
- const notes=new context.window.LGRoomNotes(1,(...args)=>notices.push(args));
+ const notes=new context.window.LGRoomNotes(1,(...args)=>notices.push(args));activeNotes=notes;
  await notes.select(100,100,true);
  assert.equal(element('room-title').textContent,'Crypt');
  assert.equal(element('room-form').hidden,true);assert.equal(element('room-read').hidden,false);
@@ -163,5 +164,18 @@ vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
  confirmAnswer=true;element('room-cancel').onclick();
  assert.equal(element('room-panel-body').hidden,true,'auto-edit respects a deliberately collapsed panel');
  element('room-select-mode').checked=false;
- console.log('Room notes UI, confirmation and unnamed-room auto-edit regression tests passed');
+ // Assigned names are not rendered or accepted, including same-name variants.
+ notes.libraryEntries=[{id:21,name:'Taken',markdown:'A',assigned:true},{id:22,name:'Taken',markdown:'B',assigned:true},
+   {id:23,name:'Available',markdown:'C',assigned:false}];
+ notes.renderLibrary();
+ assert.equal(element('room-import-select').children.length,2);
+ assert.equal(element('room-import-select').children[1].textContent,'Available');
+ element('room-edit').onclick();const assignedName=element('room-name').value;
+ element('room-import-select').value='21';element('room-import-select').onchange();
+ assert.equal(element('room-name').value,assignedName,'assigned/stale choices must be ignored');
+ notes.libraryEntries=notes.libraryEntries.slice(0,2);notes.renderLibrary();
+ assert.equal(element('room-import-select').disabled,true);
+ assert.equal(element('room-import-select').children[0].textContent,'All imported room names are assigned');
+ element('room-cancel').onclick();
+ console.log('Room notes UI, confirmation, auto-edit and assigned-name filtering tests passed');
 })().catch(e=>{console.error(e);process.exitCode=1;});

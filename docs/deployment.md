@@ -736,3 +736,11 @@ configuration or dependency changes. Deploy changed files and refresh the editor
 The template versions both keep_select_values.js and room_notes.js so stale assets
 are not reused. Previously stored imported-room choices are ignored; other saved
 browser settings need not be cleared. Rollback by restoring source from 40c79a8.
+
+## Imported-name availability follow-up
+
+Incremental patch targets 3703c06. Deploy the changed Python service, JavaScript
+and template; restart the server and refresh the editor. No migration, dependency
+or configuration change. Old saved room names are recognized immediately; there
+is no backfill. Template updates room_notes.js cache key. Restoring baseline code
+is sufficient for rollback; no library data is deleted by filtering.

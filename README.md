@@ -300,3 +300,10 @@ clears the unsaved state. See Patch/room-confirmation.md for the cause and tests
 With Select room (fog unchanged) enabled, explicitly selecting an unnamed room
 opens Room notes edit mode automatically, including the imported-note picker.
 Existing notes are retained. Named rooms still open in read mode.
+
+## Available imported room names
+
+The edit-mode imported-note dropdown hides names already saved on rooms in the
+same map. Save a rename or clear the name to release it for another assignment.
+Matching trims surrounding whitespace and ignores case; unsaved drafts do not
+reserve names. Imported records are retained, not deleted.

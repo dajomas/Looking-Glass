@@ -74,6 +74,17 @@ def store(conn, map_id, entries):
     return added
 
 
+def name_key(name):
+    return name.strip().casefold()
+
+
 def list_entries(conn, map_id):
-    return [dict(row) for row in conn.execute(
-        "SELECT id,name,markdown FROM imported_room_notes WHERE map_id=? ORDER BY name,id", (map_id,))]
+    assigned = {name_key(row["name"]) for row in conn.execute(
+        "SELECT name FROM room_notes WHERE map_id=?", (map_id,)) if row["name"].strip()}
+    result = []
+    for row in conn.execute(
+            "SELECT id,name,markdown FROM imported_room_notes WHERE map_id=? ORDER BY name,id", (map_id,)):
+        entry = dict(row)
+        entry["assigned"] = name_key(entry["name"]) in assigned
+        result.append(entry)
+    return result

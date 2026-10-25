@@ -692,7 +692,7 @@ edit draft. Review or adjust them, then Save room to assign them. Cancel discard
 the selection. Selecting an imported entry replaces both fields in a draft, including for existing named rooms.
 
 Imports are stored per map, persist across restarts, and do not affect fog or
-existing rooms. Entries remain reusable after assignment. Reimporting identical
+existing rooms. Assigned names are hidden from subsequent dropdown choices until released. Reimporting identical
 name/content pairs does not duplicate them. Changed content appends a new entry
 rather than replacing a previous entry or assigned room. Same-name variants have
 an ID suffix in the dropdown. There is no import-library deletion UI in this patch.
@@ -774,3 +774,25 @@ Named rooms, normal fog reveal clicks, background refreshes, and selections when
 the checkbox is unchecked do not auto-open editing. A deliberately collapsed
 right panel stays collapsed, although its internal state switches to editing;
 expand it to see the form. When expanded, the room-name field receives focus.
+
+## Hide already assigned imported names
+
+Use imported room notes now lists only names not already saved on a room in this
+map. This includes the room currently being edited: its saved name is omitted
+from the dropdown, while its current name and notes remain in the editing fields.
+Manual room names count too, even when their notes differ from the imported text.
+Name matching ignores case and surrounding whitespace. All imported variants with
+the same assigned name are hidden. Other maps have independent availability.
+
+Save room commits the assignment and refreshes availability. Merely selecting an
+entry, editing a draft, or cancelling does not reserve/release a name. Save a
+rename or clear the name to make the previous name available again, provided no
+other saved room still uses it. Clearing only the note does not release the name.
+The library remains intact. If every imported name is assigned, the dropdown is
+disabled and says “All imported room names are assigned”.
+
+Availability refreshes on opening the editor, after saving, and after import.
+Opening an editor again picks up another session's saved changes; this is dropdown
+filtering, not a database uniqueness lock against simultaneous manual assignments.
+Preserved room-note records detached by geometry edits also reserve their saved
+names until those records are renamed/cleared or otherwise managed in the database.

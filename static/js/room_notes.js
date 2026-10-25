@@ -60,7 +60,7 @@ window.LGRoomNotes = class {
       const select=this.$("room-import-select"),id=select.value;
       select.value=""; // Consume this action before rendering or opening a modal.
       if(!this.room||!this.editMode||this.saving||this.importSelecting)return;
-      const entry=this.libraryEntries.find(e=>String(e.id)===id);
+      const entry=this.libraryEntries.find(e=>String(e.id)===id&&!e.assigned);
       if(!entry)return;
       this.importSelecting=true;
       try {
@@ -83,10 +83,12 @@ window.LGRoomNotes = class {
           ...this.point,area_key:this.room.area_key,revision:this.room.revision,
           name:this.$("room-name").value,markdown:this.$("room-markdown").value});
         this.dirty=false;this.show(room);this.toast("Room saved");
+        await this.loadLibrary();
       } catch(error) {this.toast(error.message,"error");}
       finally {
         this.saving=false;
         this.$("room-form").querySelectorAll("input,textarea,select,button").forEach(el=>el.disabled=false);
+        this.renderLibrary();
       }
     };
     window.addEventListener("beforeunload",e=>{if(this.hasUnsavedChanges()){e.preventDefault();e.returnValue="";}});
@@ -104,14 +106,15 @@ window.LGRoomNotes = class {
   renderLibrary() {
     const select=this.$("room-import-select");select.replaceChildren();
     const placeholder=document.createElement("option");placeholder.value="";
-    placeholder.textContent=this.libraryEntries.length?"Choose imported room…":"No imported notes yet";select.appendChild(placeholder);
-    const counts=new Map();for(const e of this.libraryEntries)counts.set(e.name,(counts.get(e.name)||0)+1);
-    for(const entry of this.libraryEntries){
+    const available=this.libraryEntries.filter(entry=>!entry.assigned);
+    placeholder.textContent=available.length?"Choose imported room…":this.libraryEntries.length?"All imported room names are assigned":"No imported notes yet";select.appendChild(placeholder);
+    const counts=new Map();for(const e of available)counts.set(e.name,(counts.get(e.name)||0)+1);
+    for(const entry of available){
       const option=document.createElement("option");option.value=String(entry.id);
       option.textContent=entry.name+(counts.get(entry.name)>1?` (#${entry.id})`:"");select.appendChild(option);
     }
     this.$("room-import-choice").hidden=!this.room||!this.editMode;
-    select.disabled=!this.libraryEntries.length;
+    select.disabled=this.saving||!available.length;
   }
   async loadLibrary() {
     const generation=++this.libraryGeneration;
@@ -141,6 +144,7 @@ window.LGRoomNotes = class {
     } catch(error) {this.stateStamp=null;this.toast(error.message,"error");}
   }
   setEditMode(value) {
+    const opening=Boolean(value&&this.room&&!this.editMode);
     this.draftVersion++;
     this.editMode=Boolean(value&&this.room);
     this.$("room-read").hidden=!this.room||this.editMode;
@@ -149,6 +153,7 @@ window.LGRoomNotes = class {
     this.$("room-library-import").hidden=this.editMode;
     this.renderLibrary();
     this.$("room-select-mode").closest("label").hidden=this.editMode;
+    if(opening)this.loadLibrary();
   }
   insert(text, selectStart=0, selectLength=text.length) {
     if(!this.editMode||this.saving)return;
