@@ -387,3 +387,25 @@ The template hides the passage control wrapper for `siblings|length <= 1`, while
 retaining DOM targets required by existing map-transition event bindings. The
 passage help topic is conditionally omitted for single-map campaigns. No backend
 behavior, schema or API changes are required.
+
+## Room-note persistence and rendering
+
+An appended SQLite migration creates room_notes with a cascading map foreign key,
+a geometry key, selection anchor, name, Markdown and optimistic revision. No
+existing migration is rewritten. The service hashes packed component membership
+plus image/work dimensions and scale, caching keys in AreaMap.region_signatures.
+This conservatively avoids assigning notes to the wrong room after relabeling.
+Inactive records survive geometry edits and are discoverable in the admin list API.
+
+Mistune renders escaped Markdown; Bleach applies an explicit HTML tag, attribute
+and URL-protocol allowlist. Images and active HTML are not allowed. Only sanitized
+server HTML is inserted into the preview; room names use textContent. The viewer
+payload and viewer app do not include note content.
+
+The standalone room_notes.js owns panel state, dirty protection and selection.
+The editor refreshes named-room visibility on applied fog/wall state changes,
+including managed-door reveals, undo and reveal-all. Explicit selection mode has
+priority over map actions; outside it, existing delayed singles/doubles and door
+hit-testing remain in place. Multiple newly revealed named rooms choose the first
+alphabetically. Notes save without fog invalidation; other admins see updated
+content when they reselect the room. There is no live collaborative note editor.

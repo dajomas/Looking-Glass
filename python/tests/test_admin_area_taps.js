@@ -5,7 +5,7 @@ function app({mode='hide',door=null,arrow=null}={}){
  let id=0;const tasks=new Map(),calls=[];
  const clock={setTimeout(fn){tasks.set(++id,fn);return id;},clearTimeout(i){tasks.delete(i);}};
  const c={window:clock,console};vm.runInNewContext(fs.readFileSync('static/js/admin_area_taps.js','utf8'),c);
- Object.assign(c,{mapTransitions:null,areaTaps:new c.window.LGAdminAreaTaps(clock),state:{width:400,height:200,cache_token:'t',walls_version:1,fog_version:2},
+ Object.assign(c,{roomNotes:{editing:()=>false,select:async()=>{}},mapTransitions:null,areaTaps:new c.window.LGAdminAreaTaps(clock),state:{width:400,height:200,cache_token:'t',walls_version:1,fog_version:2},
   MAP_ID:1,busy:false,maskKey:'t-1-2',stateKey:s=>`${s.cache_token}-${s.walls_version}-${s.fog_version}`,
   mode:()=>mode,pz:{scale:2,x:33,y:44},arrowHit:{at:()=>arrow},LGManagedDoorHit:()=>door,hiddenTypes:new Set(),$:()=>({checked:true}),
   doorTapQueue:{cancel(){},tap(key,stamp,single,double){c.doorGesture={single,double};}},

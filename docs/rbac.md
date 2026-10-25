@@ -75,3 +75,10 @@ saved-state reasons beneath the control. It hides the checkbox when approval is 
 needed and clears it for every new preview. This is per-trip consent, not a saved
 permission/state change. Authorization, stale-input validation and large-arrival
 confirmation stay enforced. See [travel approval wording](travel-approval.md).
+
+## Room notes
+
+Room lookup/list/save uses map_for_manage and inherits campaign management
+permissions. Admins cannot access another administrator's campaign merely by
+knowing map/room identifiers. POST lookup and save require CSRF. Note HTML and
+Markdown are not exposed through viewer routes, images or websocket messages.

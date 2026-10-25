@@ -129,3 +129,11 @@ the next left-click for placement instead of fog editing. Escape cancels placeme
 Clicking an endpoint selects its configuration; no single/double click executes
 travel. Travel requires the explicit Travel / show destination dialog. Endpoints
 use the usual pan/zoom transform and original image coordinates.
+
+## Room-note selection
+
+With “Select room to edit (fog unchanged)” enabled in the right panel, a left
+click selects an interior to name or edit without fog, door or transition actions.
+Disable it to return to normal gestures. In reveal mode, a single click in an
+already revealed room selects its notes without adding a fog operation. Double
+click viewer-zoom gestures remain unchanged outside selection mode.

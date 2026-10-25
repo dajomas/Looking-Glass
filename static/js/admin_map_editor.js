@@ -72,6 +72,8 @@
     finally { setBusy(false); }
   }
 
+  const roomNotes = new LGRoomNotes(MAP_ID, toast);
+
   // ------------------------------------------------------------------ rendering
   function cal() {
     return {
@@ -158,6 +160,7 @@
     const first = state === null;
     doorTapQueue.cancel(); areaTaps.cancel();
     state = s;
+    roomNotes.refresh(s);
     mapTransitions?.draw();
     portalCycle?.setState(s,false);
     syncDoorArrowControls();
@@ -199,6 +202,10 @@
 
   // ------------------------------------------------------------------ actions
   function onTap(x, y, event) {
+    if (state && !busy && roomNotes.editing() && event?.button === 0) {
+      areaTaps.cancel(); doorTapQueue.cancel();
+      run(() => roomNotes.select(x,y,true)); return;
+    }
     if (state && !busy && x>=0 && y>=0 && x<state.width && y<state.height && mapTransitions?.tap(x,y,event)) {
       areaTaps.cancel();doorTapQueue.cancel();return;
     }
@@ -273,6 +280,8 @@
         throw error;
       }
       applyState(res);
+      await roomNotes.select(x,y);
+      if (res.changed === false) {toast("Room selected; fog unchanged"); return;}
       const pct = (res.area_fraction * 100).toFixed(1);
       if (m === "reveal" && !res.is_active) {
         toast("Warning: this map is NOT shown to players. The reveal was saved on this map only." +

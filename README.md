@@ -266,3 +266,11 @@ panels, dialogs, map and viewer are unchanged.
 
 After deploying this CSS-only follow-up, hard-refresh the admin page to bypass
 cached `admin.css`. No template, JavaScript or database changes are required.
+
+## Named rooms and DM notes
+
+The admin map editor includes a collapsible right-hand Room notes panel. Select
+“Select room to edit (fog unchanged)”, click an interior, enter a name and Markdown,
+and save. Switch selection mode off for normal fog gestures. Revealing a room
+shows its notes; revealing it again selects the notes without adding a fog action.
+Notes are never sent to the viewer app. See docs/usage.md and Patch/room-notes.md.

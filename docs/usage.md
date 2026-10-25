@@ -596,3 +596,34 @@ Foundry LevelDB directories cannot be uploaded directly; export the scene as JSO
 Use Replace map image to replace the artwork for the current map.
 Choose an image file, then select Upload.
 After uploading, check that the walls line up with the new image and inspect the player preview before continuing play.
+
+## Room names and Markdown notes
+
+1. Open a map in the admin editor and expand Room notes on the right.
+2. Enable “Select room to edit (fog unchanged)”. Click inside any room, including
+   hidden rooms. Selection ignores door/transition actions while this mode is on.
+3. Enter a room name (up to 200 characters), enter Markdown (up to 100,000
+   characters), then Save room. Saving updates the rendered preview.
+4. Disable selection mode. Reveal a room normally to show its notes. A repeated
+   reveal click on an already revealed room shows the notes without changing fog,
+   fog version, action history, or undo. Hide mode still hides revealed rooms.
+5. Use Room notes to collapse/expand the right panel. The browser remembers the
+   preference. Revealing rooms updates the content without overriding a deliberate
+   collapse. On narrow screens the panel stacks below the map.
+
+Headings, emphasis, lists, links, blockquotes, fenced code, tables and strikethrough
+are supported. Raw HTML is escaped and rendered output is sanitized; images are
+not rendered, preventing remote-image tracking. Notes remain DM-only.
+Unsaved edits prompt before selecting another room or leaving the page. Discard
+edits restores the saved version. Concurrent saves are rejected by revision check.
+
+Room identity uses an exact fingerprint of its rasterized interior, not its
+transient component number. Unchanged interiors retain notes after unrelated wall
+changes. Changes to the room outline, calibration, image dimensions or work
+resolution may detach the old record. Detached notes remain in SQLite and appear
+as inactive in the admin list API; automatic reassignment and a recovery UI are
+not provided. Back up the database before changing geometry. Reset/undo affect
+fog only, not saved notes. When multiple named rooms are revealed together, the
+panel selects the first newly revealed named room alphabetically; click another
+revealed room in reveal mode to inspect its notes. Initial page load does not
+arbitrarily select one of the already revealed rooms.

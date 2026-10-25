@@ -8,6 +8,7 @@ from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import FileResponse, JSONResponse, Response
 from pydantic import BaseModel, Field
 
+from ...services import room_notes
 from ...repositories import campaigns as campaigns_repo
 from ...repositories import fog_ops as fog_repo
 from ...repositories import maps as maps_repo
@@ -124,12 +125,16 @@ async def _fog_op(ctx, user, map_id: int, op: str, point: Point | None = None) -
     with ctx.db.connect() as conn:
         map_for_manage(conn, user, map_id)
         if point is not None:
-            spec, segs, _ = fog_inputs(ctx, conn, map_id)
+            spec, segs, ops = fog_inputs(ctx, conn, map_id)
             area = await asyncio.to_thread(ctx.fog.area_map, spec, segs)
             res = ctx.fog.describe_click(area, point.x, point.y)
             if not res.label:
                 raise BadRequest("No open area at that point (clicked on a wall?).")
             info = {"area_fraction": round(res.fraction, 4), "leak_warning": res.leak_warning}
+            revealed = res.label in ctx.fog.revealed_labels(area, ops)
+            if (op == "reveal" and revealed) or (op == "hide" and not revealed):
+                return {**_map_payload(ctx, conn, map_id), **info, "changed": False}
+
         if op == "undo":
             if not fog_repo.undo(conn, map_id):
                 raise BadRequest("Nothing to undo.")
@@ -351,3 +356,66 @@ register_door_states(router, _map_payload)
 
 from .map_transitions import router as transitions_router
 router.include_router(transitions_router)
+
+
+class RoomPoint(Point):
+    pass
+
+class RoomNoteIn(Point):
+    area_key: str = Field(min_length=64, max_length=64)
+    name: str = Field(min_length=1, max_length=200)
+    markdown: str = Field(default="", max_length=100000)
+    revision: int = Field(ge=0)
+
+
+def _room_at(ctx, conn, map_id, point):
+    spec, segments, ops = fog_inputs(ctx, conn, map_id)
+    if not (0 <= point.x < spec.width and 0 <= point.y < spec.height):
+        raise BadRequest("Point is outside the map.")
+    area = ctx.fog.area_map(spec, segments)
+    # Room selection does not snap wall pixels into adjacent rooms.
+    label = int(area.labels[int(point.y * area.scale), int(point.x * area.scale)])
+    if not label:
+        raise BadRequest("Select the interior of a room, not a wall.")
+    key = room_notes.area_key(area, label, spec.width, spec.height)
+    return room_notes.payload(conn, map_id, key, label in ctx.fog.revealed_labels(area, ops))
+
+
+@router.post("/maps/{map_id}/room-at")
+def room_at(ctx: CtxDep, user: CsrfUserDep, map_id: int, point: RoomPoint):
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        return {"ok": True, **_room_at(ctx, conn, map_id, point)}
+
+
+@router.post("/maps/{map_id}/room-notes")
+def save_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: RoomNoteIn):
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        conn.execute("BEGIN IMMEDIATE")
+        current = _room_at(ctx, conn, map_id, body)
+        if current["area_key"] != body.area_key or current["revision"] != body.revision:
+            raise BadRequest("Room geometry or notes changed. Select the room again before saving.")
+        if not body.name.strip():
+            raise BadRequest("A room name is required.")
+        conn.execute("""INSERT INTO room_notes(map_id,area_key,x,y,name,markdown) VALUES(?,?,?,?,?,?)
+            ON CONFLICT(map_id,area_key) DO UPDATE SET name=excluded.name,
+            markdown=excluded.markdown,revision=room_notes.revision+1""",
+            (map_id, body.area_key, body.x, body.y, body.name.strip(), body.markdown))
+        return {"ok": True, **_room_at(ctx, conn, map_id, body)}
+
+
+@router.get("/maps/{map_id}/room-notes")
+def list_room_notes(ctx: CtxDep, user: UserDep, map_id: int):
+    with ctx.db.connect() as conn:
+        map_for_manage(conn, user, map_id)
+        result = []
+        for row in conn.execute("SELECT * FROM room_notes WHERE map_id=? ORDER BY name", (map_id,)):
+            try:
+                current = _room_at(ctx, conn, map_id, Point(x=row["x"], y=row["y"]))
+            except BadRequest:
+                current = None
+            active = current is not None and current["area_key"] == row["area_key"]
+            result.append({"area_key": row["area_key"], "name": row["name"], "x": row["x"], "y": row["y"],
+                           "active": active, "revealed": active and current["revealed"]})
+        return {"ok": True, "rooms": result}

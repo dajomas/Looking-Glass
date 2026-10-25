@@ -167,3 +167,26 @@ main.editor > .flash { position: absolute; top: 64px; left: 50%; transform: tran
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* DM room notes: the collapsed rail remains available without covering the map. */
+main.editor { grid-template-columns: 300px minmax(0,1fr) 340px; }
+main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48px; }
+.room-panel { min-width: 0; overflow-y: auto; border-left: 1px solid var(--border); background: var(--bg-2); padding: .75rem; }
+#room-toggle { width: 100%; margin-bottom: .75rem; }
+.room-panel.collapsed { padding: .4rem; }
+.room-panel.collapsed #room-toggle { writing-mode: vertical-rl; width: 32px; }
+#room-panel-body { display: flex; flex-direction: column; gap: .75rem; }
+#room-panel-body[hidden] { display: none; }
+.room-panel input:not([type=checkbox]), .room-panel textarea { width: 100%; box-sizing: border-box; }
+.room-markdown { overflow-wrap: anywhere; }
+.room-markdown pre { overflow-x: auto; }
+.room-markdown table { border-collapse: collapse; }
+.room-markdown th, .room-markdown td { padding: .3rem; border: 1px solid var(--border); }
+@media (max-width: 1000px) {
+  main.editor, main.editor.room-panel-collapsed { grid-template-columns: 250px minmax(0,1fr); }
+  .room-panel { grid-column: 1 / -1; max-height: 50vh; }
+  .room-panel.collapsed #room-toggle { writing-mode: horizontal-tb; width: 100%; }
+}
+@media (max-width: 860px) {
+  main.editor, main.editor.room-panel-collapsed { grid-template-columns: minmax(0,1fr); }
+}

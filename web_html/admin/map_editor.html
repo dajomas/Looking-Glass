@@ -198,6 +198,20 @@
   </div>
   <div class="busy" id="busy" hidden>Working&hellip;</div>
 </section>
+<aside id="room-panel" class="room-panel" aria-label="Room notes">
+  <button id="room-toggle" type="button" aria-expanded="true" aria-controls="room-panel-body">Room notes ▸</button>
+  <div id="room-panel-body">
+    <label class="check"><input id="room-select-mode" type="checkbox"> Select room to edit (fog unchanged)</label>
+    <p id="room-status" role="status">Select a room to name it, or reveal one to read its notes.</p>
+    <h2 id="room-title"></h2>
+    <article id="room-preview" class="room-markdown"></article>
+    <form id="room-form" class="stack" hidden>
+      <label>Room name <input id="room-name" required maxlength="200"></label>
+      <label>Markdown notes <textarea id="room-markdown" rows="14" maxlength="100000"></textarea></label>
+      <div class="btn-row"><button type="submit" class="primary">Save room</button><button id="room-cancel" type="button">Discard edits</button></div>
+    </form>
+  </div>
+</aside>
 {% endblock %}
 {% block scripts %}
 {% include "partials/_map_transitions.html" %}
@@ -213,7 +227,8 @@
 <script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>
 <script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>
 <script src="/static/js/map_transitions.js?v=travel-approval-6"></script>
-<script src="/static/js/admin_map_editor.js?v=transitions-1"></script>
+<script src="/static/js/room_notes.js?v=room-notes-1"></script>
+<script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
 <script src="/static/js/wall_source_library.js"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>
 {% endblock %}

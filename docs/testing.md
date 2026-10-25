@@ -222,3 +222,12 @@ Manual check after a hard refresh: the collapsed Help control should be lighter
 than Players/Fog/Walls. Expand Help and main topics to check their card surfaces;
 expand Saved wall sources and its nested subsections to check the lighter nested
 cards. Verify hover, Tab focus outlines, narrow layouts and independent toggles.
+
+## Room-note regression checks
+
+Run `PYTHONPATH=python pytest python/tests/test_room_notes.py` and
+`node python/tests/test_room_notes.js` from the repository root. Existing gesture
+harnesses now stub the independent room-note component. Full validation should
+also run the complete pytest suite and all JavaScript test scripts with installed
+runtime/development requirements. See Patch/room-notes.md for the actual patch
+validation results and manual acceptance checklist.
