@@ -1,0 +1,8 @@
+| Step             | Feature                             | Scope of the first implementation                                                                                                        |
+| ---------------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| 1 — suggestion 2 | Campaign readiness checks           | Read-only report with actionable links; no automatic repairs.                                                                            |
+| 2 — suggestion 4 | Campaign-wide quick navigation      | Search maps, named areas, notes, and passage endpoints; navigation remains admin-only unless explicitly choosing a player-facing action. |
+| 3 — suggestion 1 | Named session checkpoints           | Capture and restore campaign play state without replacing authored content.                                                              |
+| 4 — suggestion 8 | Backup inspection and safer restore | Preview archive contents and compatibility before replacement; add a recovery safeguard.                                                 |
+| 5 — suggestion 3 | Viewer synchronization status       | Distinguish connected, loading, up to date, and failed/reconnecting viewers.                                                             |
+| 6 — suggestion 6 | Clean map/campaign duplication      | Copy authored content, remap internal connections, and deliberately reset play state.                                                    |
