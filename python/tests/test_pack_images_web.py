@@ -37,12 +37,36 @@ def test_image_choice_and_type_permissions(env):
     with Image.open(io.BytesIO(admin_art.content)) as a, Image.open(io.BytesIO(dm.get(f"/api/maps/{mid}/viewer-preview").content)) as v:
         assert a.convert("RGB").tobytes() == v.convert("RGB").tobytes()
     endpoint = f"/api/maps/{mid}/wall-types"
-    assert dm.post(endpoint,json={"disabled":["door"]}).status_code == 403
-    assert dm.post(endpoint,headers=hdr,json={"disabled":["invalid"]}).status_code == 400
-    assert dm.post(endpoint,headers=hdr,json={"disabled":["door"]}).json()["disabled_wall_types"] == ["door"]
+    assert dm.post(endpoint,json={"disabled_wall_types":["door"]}).status_code == 403
+    assert dm.post(endpoint,headers=hdr,json={"disabled_wall_types":["invalid"]}).status_code == 422
+    assert dm.post(endpoint,headers=hdr,json={"disabled_wall_types":["door"]}).json()["disabled_wall_types"] == ["door"]
     assert dm.get(f"/api/maps/{mid}").json()["disabled_wall_types"] == ["door"]
     other = login(admin,"dm2","dmpass123")
-    assert other.post(endpoint,headers={"X-CSRF-Token":csrf_of(other)},json={"disabled":[]}).status_code == 403
+    assert other.post(endpoint,headers={"X-CSRF-Token":csrf_of(other)},json={"disabled_wall_types":[]}).status_code == 403
     alice = login(viewer,"alice","alicepass")
     assert alice.get(f"/api/maps/{mid}/image").status_code == 404
-    assert alice.post(endpoint,json={"disabled":[]}).status_code == 404
+    assert alice.post(endpoint,json={"disabled_wall_types":[]}).status_code == 404
+
+
+def test_wall_type_validation_preserves_saved_settings(env):
+    ctx, admin, _ = env
+    dm = login(admin, "dm", "dmpass123")
+    token = csrf_of(dm)
+    headers = {"X-CSRF-Token": token}
+    cid = _campaign(dm, token, "Wall type validation")
+    mid = _map(dm, token, cid)
+    endpoint = f"/api/maps/{mid}/wall-types"
+    valid = {"disabled_wall_types": ["door"]}
+    assert dm.post(endpoint, headers=headers, json=valid).status_code == 200
+    before = dm.get(f"/api/maps/{mid}").json()
+    for invalid in ({}, {"disabled": []}, {"disabled_wall_types": ["invalid"]},
+                    {"disabled_wall_types": "door"}, {"disabled_wall_types": None}):
+        response = dm.post(endpoint, headers=headers, json=invalid)
+        assert response.status_code == 422, response.text
+        after = dm.get(f"/api/maps/{mid}").json()
+        assert after["disabled_wall_types"] == ["door"]
+        assert after["walls_version"] == before["walls_version"]
+        assert after["fog_version"] == before["fog_version"]
+    cleared = dm.post(endpoint, headers=headers, json={"disabled_wall_types": []})
+    assert cleared.status_code == 200, cleared.text
+    assert cleared.json()["disabled_wall_types"] == []

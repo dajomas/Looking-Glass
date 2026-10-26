@@ -80,7 +80,7 @@ environment. Playwright is not included in requirements-dev.txt:
 
 ```sh
 python -m pip install playwright
-python -m playwright install chromium
+python -m playwright install --with-deps chromium
 python -m pytest -q python/tests/browser
 ```
 
@@ -655,3 +655,39 @@ checks that the original-image route retains authorization and no-store headers.
 HTTP test. `Patch/IMAGE_URL_FIX_VALIDATION.md` records the checks actually run for this hotfix;
 previous double-reveal validation results must not be counted as reruns of this correction.
 The Starlette/httpx deprecation warning is separate; this patch changes no dependency pins.
+
+
+## Chromium launch errors on Linux / WSL
+
+Installing the Playwright Python package and browser binary is not enough when
+host shared libraries are missing. The supplied 6ea80e0 run reports
+`error while loading shared libraries: libnspr4.so`, exit code 127, before any
+browser page opens. Its 152 browser setup errors do not establish UI failures.
+Install the host dependencies and matching Chromium using the active test venv:
+
+```sh
+python -m pip install playwright
+python -m playwright install --with-deps chromium
+python -m pytest -ra python/tests/browser
+```
+
+The dependency installation may request elevated privileges on supported Linux
+distributions. If the browser is already installed, use
+`python -m playwright install-deps chromium` for the host dependencies. In WSL,
+run these commands inside the same distribution and virtual environment used
+for pytest, not in Windows Python. Do not replace launch errors with skips or
+interpret them as successful browser coverage. Rerun the complete browser suite
+after repairing the host; further UI assertions may then become visible.
+
+For the three assertion regressions reported separately from launch failures:
+
+```sh
+python -m pytest -q python/tests/test_pack_images_web.py
+python -m pytest -q python/tests/browser/test_campaign_batch_import.py::test_labels_expose_uvtt_and_original_single_import_remains python/tests/browser/test_ui_refinement.py::test_removed_one_off_section_has_no_dangling_editor_handlers
+```
+
+The second command checks template source without launching Chromium. The first
+requires all runtime/test dependencies. Wall-type HTTP coverage uses the canonical
+`disabled_wall_types` key and 422 for schema errors; it also checks invalid bodies
+do not alter saved types, walls_version or fog_version and that an empty list clears
+the setting. Patch-specific measured results and limitations belong in Patch/.

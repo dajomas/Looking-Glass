@@ -424,3 +424,13 @@ DM-only destination-map links support newly discovered stairs without automatic 
 See [Usage](docs/usage.md#double-reveal-rooms), [API](docs/api.md#double-reveal-api),
 and the delivery notes in `Patch/DOUBLE_REVEAL_CHANGES.md`. This feature adds schema
 migration 17; back up the database and map storage before upgrading.
+
+
+## Test-result follow-up for 6ea80e0
+
+The follow-up patch clarifies saved-source upload and passive-wall labels and
+aligns wall-type HTTP regression tests with the existing `disabled_wall_types`
+request schema (422 on invalid input). It does not add a `disabled` alias or
+change runtime wall/fog behavior. See [the API contract](docs/api.md#wall-type-boundary-request-contract)
+and [browser-test host setup](docs/testing.md#chromium-launch-errors-on-linux--wsl).
+Patch/ contains change notes, measured validation results and a commit message.

@@ -949,3 +949,20 @@ readers, so repeated replacements consume storage until a separate safe cleanup 
 Rollback requires restoring both the pre-upgrade application files and the backed-up data
 from the same point in time. Do not downgrade code alone against schema 17. Installation,
 validation limitations and archive inventory are in `Patch/DOUBLE_REVEAL_CHANGES.md`.
+
+
+## Browser-test host dependencies
+
+Browser regression tests are a development/CI concern; the application container
+and normal server startup do not require Chromium. On Linux or WSL test hosts,
+install both Playwright's matching Chromium and its system dependencies:
+
+```sh
+python -m pip install playwright
+python -m playwright install --with-deps chromium
+```
+
+Use the same virtual environment and Linux distribution as the test runner.
+The system dependency step can need elevated privileges. A missing `libnspr4.so`
+with Chromium exit code 127 is a host setup failure, not an application response.
+See [testing.md](testing.md) for focused checks and full-suite rerun instructions.

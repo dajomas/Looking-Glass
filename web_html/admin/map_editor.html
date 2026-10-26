@@ -133,6 +133,7 @@
         <label>Save Foundry VTT / UVTT (Universal VTT) source
           <input id="source-file" type="file" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt" required>
         </label>
+        <p class="muted small">Choose a Foundry VTT / UVTT (Universal VTT) file to save as a reusable source.</p>
         <button type="submit">Save source</button>
       </form>
       <div class="stack">
@@ -164,7 +165,7 @@
         <tr><td><span style="color:#7cffb2">━━</span> Window / terrain</td><td><input type="checkbox" data-wall-show="window" checked aria-label="Show Window / terrain"></td><td><input type="checkbox" data-wall-enabled="window" checked aria-label="Enable Window / terrain"></td></tr>
         <tr><td><span style="color:#ffd36b">┄┄</span> Invisible wall</td><td><input type="checkbox" data-wall-show="invisible" checked aria-label="Show Invisible wall"></td><td><input type="checkbox" data-wall-enabled="invisible" checked aria-label="Enable Invisible wall"></td></tr>
         <tr><td><span style="color:#c0c0c0">━━</span> Portal</td><td><input type="checkbox" data-wall-show="portal" checked aria-label="Show Portal"></td><td><input type="checkbox" data-wall-enabled="portal" checked aria-label="Enable Portal"></td></tr>
-        <tr><td><span style="color:#9aa3b5">┄┄</span> Ethereal</td><td><input type="checkbox" data-wall-show="ethereal" checked aria-label="Show Ethereal"></td><td><input type="checkbox" data-wall-enabled="ethereal" checked aria-label="Enable Ethereal"></td></tr>
+        <tr><td><span style="color:#9aa3b5">┄┄</span> Ethereal / passive</td><td><input type="checkbox" data-wall-show="ethereal" checked aria-label="Show Ethereal"></td><td><input type="checkbox" data-wall-enabled="ethereal" checked aria-label="Enable Ethereal"></td></tr>
       </tbody></table>
       
       <button type="button" id="apply-wall-types" class="primary">Apply wall types</button>
