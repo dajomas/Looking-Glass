@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block title %}Inspect · {{ map.name }}{% endblock %}
 {% block content %}
-<p class="crumbs"><a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a> / <a href="/campaigns/{{ campaign.id }}/readiness">Readiness</a> / Inspect</p>
+<p class="crumbs"><a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a> / <a href="/campaigns/{{ campaign.id }}/readiness">Readiness</a> / <a href="/campaigns/{{ campaign.id }}/search">Search</a> / Inspect</p>
 <h1>{{ map.name }} — DM inspection</h1>
+{% if selected %}<section class="card"><h2>{{ selected.name or 'Unnamed room note' }}</h2>
+<p class="muted">{{ selected.kind }} · stored DM content; no reconciliation or editing is performed.</p>
+{% if selected.kind == 'library' %}<p>Imported library entry: there may be no assigned room location.</p>{% endif %}
+<pre style="white-space:pre-wrap;overflow-wrap:anywhere">{{ selected.markdown }}</pre></section>{% endif %}
 <section class="card"><p>This page only reads campaign content. It does not activate this map, change fog, reconcile room notes or notify viewers.</p>
 <a class="button" href="/maps/{{ map.id }}">Open fog editor for manual review</a>
 <a class="button" href="/maps/{{ map.id }}/walls">Open wall editor</a>

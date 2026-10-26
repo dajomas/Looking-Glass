@@ -347,3 +347,11 @@ Use **Check campaign** on a campaign page for a read-only preparation report wit
 DM-only inspection links. Checks cover map images, missing walls, cross-map endpoints,
 room-note associations and expanded backup capacity. No automatic repairs or player-screen
 changes are made. See [the usage guide](docs/usage.md#campaign-readiness-checks).
+
+## Campaign-wide quick navigation
+
+On campaign-context admin screens, select **Search campaign** or press **Ctrl+K**
+(**⌘+K** on macOS) to search maps, named rooms, room-note text, passage endpoints
+and imported room-library entries. Results open read-only DM inspection; they never
+activate a map, reveal fog or travel. A full search page works without JavaScript.
+See [usage](docs/usage.md#campaign-wide-quick-navigation).

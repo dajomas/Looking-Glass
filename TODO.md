@@ -12,4 +12,7 @@
 - Step 1: implemented — campaign readiness checks and read-only DM inspection.
   Service/template checks validated; HTTP and browser acceptance remain to be run in
   the development installation. See docs/usage.md and docs/testing.md.
-- Steps 2–6: pending; their scope and order above remain unchanged.
+- Step 2: implemented — campaign-wide quick navigation, including Ctrl/Command+K,
+  filtered search and read-only DM result inspection. Service/template and DOM-stub
+  regressions validated; HTTP and real-browser acceptance remain outstanding.
+- Steps 3–6: pending; their scope and order above remain unchanged.

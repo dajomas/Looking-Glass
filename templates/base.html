@@ -13,6 +13,7 @@
 {% block header %}
   {% include "partials/_nav.html" %}
 {% endblock %}
+{% include "partials/_campaign_quick_nav.html" %}
 <main class="{% block main_class %}container{% endblock %}">
   {% include "partials/_flash.html" %}
   {% block content %}{% endblock %}

@@ -1,0 +1,17 @@
+{% if entry == 'admin' and user and campaign is defined %}
+<div class="container" style="padding-top:.5rem;padding-bottom:.5rem">
+<a class="button" href="/campaigns/{{ campaign.id }}/search" data-quick-nav-open>Search campaign <span class="muted small">Ctrl/⌘+K</span></a>
+</div>
+<dialog id="campaign-quick-nav" data-campaign-id="{{ campaign.id }}" aria-labelledby="quick-nav-title" style="width:min(48rem,95vw);max-height:85vh;overflow:auto">
+<div class="section-head"><h2 id="quick-nav-title">Search {{ campaign.name }}</h2><button type="button" data-quick-nav-close aria-label="Close campaign search">Close</button></div>
+<form method="get" action="/campaigns/{{ campaign.id }}/search" id="quick-nav-form" class="stack">
+<label>Search maps, rooms, notes and passages<input id="quick-nav-query" name="q" type="search" maxlength="200" autocomplete="off" placeholder="Name or note text…"></label>
+<label>Result type<select id="quick-nav-kind" name="kind"><option value="all">All</option><option value="map">Maps</option><option value="room">Rooms / notes</option><option value="passage">Passage endpoints</option><option value="library">Imported room library</option></select></label>
+<button type="submit">Open full search page</button>
+</form>
+<p class="muted small">DM-only inspection. Does not show maps to players or reveal areas. Arrow keys select a result; Enter opens it; Escape closes.</p>
+<p id="quick-nav-status" role="status" aria-live="polite">Type to search this campaign.</p>
+<ul id="quick-nav-results" aria-label="Campaign search results"></ul>
+</dialog>
+<script src="/static/js/campaign_quick_nav.js?v=1" defer></script>
+{% endif %}

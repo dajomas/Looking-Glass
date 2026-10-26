@@ -142,3 +142,11 @@ Room selection and note editing are separate: click Edit room to show the input
 fields instead of the rendered name/notes. Save room and Cancel return to reading.
 Formatting buttons operate on the textarea selection; paste Markdown with Ctrl+V
 or Command+V. Normal map keyboard shortcuts remain suppressed in input fields.
+
+## Campaign search shortcut
+
+On campaign-context admin pages, **Ctrl+K / ⌘+K** opens campaign quick navigation when
+focus is not in another text field and no other dialog is open. In the search dialog,
+Arrow Up/Down selects result links, Enter opens a result, Tab follows normal dialog focus,
+and Escape closes and restores focus. The **Search campaign** link remains available
+without shortcuts/JavaScript. Results inspect DM content; they do not invoke map controls.

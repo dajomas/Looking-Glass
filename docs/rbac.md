@@ -115,3 +115,13 @@ membership in the selected campaign. Destination lookups are campaign-scoped; mi
 and out-of-campaign targets have the same message, without disclosing target details.
 Reports may include secret endpoint/room names and must never be exposed on viewer routes.
 Both new routes are read-only GETs protected by authentication and no-store response headers.
+
+## Campaign search permissions
+
+HTML search, JSON search and generic DM inspection all require the owning admin or a
+superadmin via campaign-management checks. Neither viewer assignment nor another admin's
+session authorizes searching that campaign. Every search table is filtered by campaign;
+selected inspection objects must belong to the authorized map and URL campaign. A
+superadmin still searches only the selected campaign. Secret passage names/notes can be
+returned because this feature is exclusively DM-facing; no search UI appears on viewer
+pages. Search and inspection use no-store responses and do not notify player clients.

@@ -1,6 +1,8 @@
 """Admin HTML pages (read-only views)."""
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Query
+from typing import Annotated, Literal
+from fastapi.responses import JSONResponse
 
 from ... import rbac
 from ...repositories import campaigns as campaigns_repo
@@ -64,9 +66,12 @@ def campaign_readiness(request: Request, ctx: CtxDep, user: UserDep, campaign_id
     return response
 
 
+@router.get("/campaigns/{campaign_id}/inspect/maps/{map_id}")
 @router.get("/campaigns/{campaign_id}/readiness/maps/{map_id}")
 def readiness_inspect(request: Request, ctx: CtxDep, user: UserDep, campaign_id: int, map_id: int,
-                       x: float | None = None, y: float | None = None):
+                       x: float | None = None, y: float | None = None,
+                       kind: Literal["map", "room", "passage", "library"] = "map",
+                       key: Annotated[str, Query(max_length=200)] = ""):
     import math
     from ..deps import NotFound
     with ctx.db.connect() as conn:
@@ -76,6 +81,13 @@ def readiness_inspect(request: Request, ctx: CtxDep, user: UserDep, campaign_id:
         m, _ = map_for_manage(conn, user, map_id)
         if m["campaign_id"] != campaign_id:
             raise NotFound("Map not found in this campaign.")
+        from ...services.campaign_search import inspect_target
+        try:
+            selected = inspect_target(conn,map_id,kind,key)
+        except (LookupError,ValueError) as exc:
+            raise NotFound(str(exc)) from exc
+        if selected and "x" in selected:
+            x,y=selected["x"],selected["y"]
         endpoints = conn.execute("SELECT name,x,y FROM map_transitions WHERE map_id=? ORDER BY name,id", (map_id,)).fetchall()
         notes = conn.execute("SELECT name,x,y FROM room_notes WHERE map_id=? ORDER BY name,area_key", (map_id,)).fetchall()
     from ...services.campaign_readiness import image_path
@@ -89,6 +101,32 @@ def readiness_inspect(request: Request, ctx: CtxDep, user: UserDep, campaign_id:
         marker = {"x": min(max(x,0),max(0,m["width"]-1)), "y": min(max(y,0),max(0,m["height"]-1)),
                   "original_x":x,"original_y":y}
     response = render(request,"admin/readiness_inspect.html", campaign=campaign, map=m,
-                      marker=marker, endpoints=endpoints, notes=notes, image_safe=image_safe)
+                      marker=marker, endpoints=endpoints, notes=notes, image_safe=image_safe, selected=selected)
     response.headers["Cache-Control"] = "no-store"
     return response
+
+
+def _campaign_search_response(request,ctx,user,campaign_id,q,kind,as_json):
+    from ...services.campaign_search import search_campaign
+    with ctx.db.connect() as conn:
+        conn.execute("PRAGMA query_only=ON")
+        conn.execute("BEGIN")
+        campaign=campaign_for_manage(conn,user,campaign_id)
+        result=search_campaign(conn,campaign_id,q,kind)
+    response=JSONResponse(result) if as_json else render(request,"admin/campaign_search.html",campaign=campaign,search=result)
+    response.headers["Cache-Control"]="no-store"
+    return response
+
+
+@router.get("/campaigns/{campaign_id}/search")
+def campaign_search(request: Request,ctx: CtxDep,user: UserDep,campaign_id: int,
+                    q: Annotated[str,Query(max_length=200)] = "",
+                    kind: Literal["all","map","room","passage","library"] = "all"):
+    return _campaign_search_response(request,ctx,user,campaign_id,q,kind,False)
+
+
+@router.get("/api/campaigns/{campaign_id}/search")
+def campaign_search_json(request: Request,ctx: CtxDep,user: UserDep,campaign_id: int,
+                         q: Annotated[str,Query(max_length=200)] = "",
+                         kind: Literal["all","map","room","passage","library"] = "all"):
+    return _campaign_search_response(request,ctx,user,campaign_id,q,kind,True)
