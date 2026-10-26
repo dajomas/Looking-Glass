@@ -107,29 +107,55 @@ button.icon { padding: .2rem .45rem; font-size: .75rem; }
   .table { display: block; overflow-x: auto; }
 }
 
-/* Keep the clean-map-copy disclosure inside the table's Actions column.
-   Reserve the same bounded width in both disclosure states. */
-.table td.right.nowrap > details.inline {
-  width: 14rem;
-  max-width: 100%;
-  margin-left: auto;
+/* Full-width duplication content beneath the horizontal map action controls.
+   The stronger scoped selectors supersede the previous template's flex rules. */
+.table .map-actions {
+  display: grid;
+  grid-template-columns: 11rem max-content max-content;
+  align-items: start;
+  justify-content: end;
+  gap: .6rem;
+}
+.table .map-actions > .map-duplicate {
+  contain: inline-size;
+  grid-column: 1 / -1;
+  grid-row: 1;
+  width: 100%;
+  min-width: 0;
   white-space: normal;
   overflow-wrap: anywhere;
   text-align: left;
 }
-.table td.right.nowrap > details.inline > summary {
-  text-align: right;
+.table .map-actions > .map-duplicate > summary {
+  width: 11rem;
+  max-width: 100%;
+  margin: 0;
+  padding: .45rem 0;
+  white-space: nowrap;
 }
-.table td.right.nowrap > details.inline .stack,
-.table td.right.nowrap > details.inline label,
-.table td.right.nowrap > details.inline input {
+.table .map-actions > a {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  position: relative;
+  z-index: 1;
+}
+.table .map-actions > form {
+  grid-column: 3;
+  grid-row: 1;
+  align-self: start;
+  position: relative;
+  z-index: 1;
+}
+.table .map-actions .map-duplicate .stack,
+.table .map-actions .map-duplicate label,
+.table .map-actions .map-duplicate input {
+  width: 100%;
   min-width: 0;
   max-width: 100%;
 }
-.table td.right.nowrap > details.inline input {
-  width: 100%;
-}
-.table td.right.nowrap > details.inline button {
+.table .map-actions .map-duplicate button {
+  align-self: flex-start;
   max-width: 100%;
   white-space: normal;
   overflow-wrap: anywhere;
