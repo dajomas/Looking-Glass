@@ -106,3 +106,31 @@ button.icon { padding: .2rem .45rem; font-size: .75rem; }
   .nav { gap: .7rem; font-size: .9rem; }
   .table { display: block; overflow-x: auto; }
 }
+
+/* Keep the clean-map-copy disclosure inside the table's Actions column.
+   Reserve the same bounded width in both disclosure states. */
+.table td.right.nowrap > details.inline {
+  width: 14rem;
+  max-width: 100%;
+  margin-left: auto;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+.table td.right.nowrap > details.inline > summary {
+  text-align: right;
+}
+.table td.right.nowrap > details.inline .stack,
+.table td.right.nowrap > details.inline label,
+.table td.right.nowrap > details.inline input {
+  min-width: 0;
+  max-width: 100%;
+}
+.table td.right.nowrap > details.inline input {
+  width: 100%;
+}
+.table td.right.nowrap > details.inline button {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
