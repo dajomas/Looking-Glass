@@ -7,7 +7,7 @@
 | 5 — suggestion 3 | Viewer synchronization status        | Distinguish connected, loading, up to date, and failed/reconnecting viewers.                                                             |
 | 6 — suggestion 6 | Clean map/campaign duplication       | Copy authored content, remap internal connections, and deliberately reset play state.                                                    |
 | 7 - New bug | Give feedback while importing large files | When importing a large file (like a map), there is no feedback to the user. This might cause multiple clicks on the import button, causing more than one import to occur. Give feedback when importing any file so the user knows the system is busy. |
-
+| 8 - Improvement | Minimize STDOUT output from uvicorn.access | Do not output all succesful actions to STDOUT |
 
 ## Implementation progress
 
