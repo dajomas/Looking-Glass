@@ -4,7 +4,7 @@ function element(id){
  if(!elements.has(id))elements.set(id,{value:'',checked:false,hidden:false,textContent:'',innerHTML:'',maxLength:100000,selectionStart:0,selectionEnd:0,
   classList:{values:new Set(),toggle(k,on){on?this.values.add(k):this.values.delete(k);},contains(k){return this.values.has(k);}},
   children:[],replaceChildren(){this.children=[];},appendChild(el){this.children.push(el);},
-  setAttribute(k,v){this[k]=v;},focus(){},closest(){return element(id+'-label');},
+  removeAttribute(k){delete this[k];},setAttribute(k,v){this[k]=v;},focus(){},closest(){return element(id+'-label');},
   addEventListener(k,fn){this[k]=fn;},querySelectorAll(){return [];},
   setSelectionRange(s,e){this.selectionStart=s;this.selectionEnd=e;},
   setRangeText(text,s,e){this.value=this.value.slice(0,s)+text+this.value.slice(e);this.setSelectionRange(s+text.length,s+text.length);}});
@@ -99,7 +99,16 @@ vm.runInNewContext(fs.readFileSync('static/js/room_notes.js','utf8'),context);
  assert.equal(field.value,'Bones');element('room-cancel').onclick();assert.equal(field.value,'Only notes');
  response={...response,name:'Existing'};await notes.select(150,100,true);
  element('room-import-file').files=[{name:'rooms.md',size:50}];
+ const firstImport=element('room-import-form').onsubmit({preventDefault(){}});
+ assert.equal(element('room-import-submit').disabled,true);
+ assert.equal(element('room-import-form')['aria-busy'],'true');
+ assert.ok(element('room-import-status').textContent.includes('Please wait'));
+ const busyRequests=requests.length;
  await element('room-import-form').onsubmit({preventDefault(){}});
+ assert.equal(requests.length,busyRequests,'repeat note import blocked');
+ await firstImport;
+ assert.equal(element('room-import-submit').disabled,false);
+ assert.equal(element('room-import-form')['aria-busy'],undefined);
  assert.equal(notes.libraryEntries[0].name,'Imported Hall');
  assert.ok(element('room-import-status').textContent.includes('2 new entries'));
  assert.ok(element('room-import-status').textContent.includes('ignored'));

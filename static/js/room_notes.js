@@ -47,6 +47,11 @@ window.LGRoomNotes = class {
       const button=this.$("room-import-submit");if(button.disabled)return;
       if(file.size>1048576){this.toast("Markdown import exceeds 1 MiB.","error");return;}
       button.disabled=true;
+      const importForm=this.$("room-import-form");
+      const oldLabel=button.textContent;
+      button.textContent="Importing…";
+      importForm.setAttribute("aria-busy","true");
+      this.$("room-import-status").textContent="Uploading and importing notes… Please wait.";
       const generation=++this.libraryGeneration;
       try {
         const body=new FormData();body.append("file",file);
@@ -57,7 +62,7 @@ window.LGRoomNotes = class {
           (result.ignored_preamble?" Text before the first room heading was ignored.":"");
         this.$("room-import-file").value="";
       } catch(error){this.$("room-import-status").textContent=error.message;this.toast(error.message,"error");}
-      finally {button.disabled=false;}
+      finally {button.disabled=false;button.textContent=oldLabel;importForm.removeAttribute("aria-busy");}
     };
     this.$("room-import-select").onchange=()=>{
       const select=this.$("room-import-select"),id=select.value;

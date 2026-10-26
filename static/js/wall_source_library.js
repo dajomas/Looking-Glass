@@ -38,6 +38,7 @@
     packSelection(null);
   }
   function controls() {
+    panel.setAttribute("aria-busy", String(busy));
     for (const el of panel.querySelectorAll("button, input, select")) el.disabled = busy;
     source.disabled = busy || !sources.length;
     scene.disabled = busy || !scenes.length || inspectedSource !== source.value;
@@ -47,7 +48,7 @@
   }
   async function run(task) {
     if (busy) return;
-    busy = true; controls(); status.textContent = "Working...";
+    busy = true; controls(); status.textContent = "Uploading / processing… Please wait.";
     try { await task(); }
     catch (error) { status.textContent = error.message || String(error); }
     finally { busy = false; controls(); }

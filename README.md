@@ -403,3 +403,13 @@ new dependency, configuration change or port change is required. Large copies ho
 the SQLite write transaction while validating and copying images; allow adequate disk
 space and avoid concurrent bulk writes. Process termination can leave orphan image
 files (as with other multi-resource operations); database commit is still transactional.
+
+## Import feedback and quieter logs
+
+File-upload forms display an immediate busy status and prevent repeated submits
+in the same pending form. Batch, wall-source and room-note uploads retain their
+own completion/error handling. See docs/usage.md for scope and retry guidance.
+Successful HTTP access records are suppressed by default; failed HTTP requests
+and diagnostics are retained at the configured log level. Set
+`server.access_log_success: true` to restore full HTTP access logging for debugging.
+See docs/deployment.md. No migration or new runtime dependency is needed.

@@ -7,6 +7,7 @@ import signal
 
 import uvicorn
 
+from .access_logging import configure_access_logging
 from .bootstrap import ensure_superadmin
 from .config import Settings
 from .services import images
@@ -36,6 +37,7 @@ class _Server(uvicorn.Server):
 
 
 def build(settings: Settings) -> tuple[AppContext, list[_Server]]:
+    configure_access_logging(settings.section("server").get("access_log_success", False))
     images.configure(int(settings.section("storage")["max_image_pixels"]))
     ctx = AppContext.build(settings)
     ensure_superadmin(ctx)

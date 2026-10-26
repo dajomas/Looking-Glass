@@ -22,6 +22,7 @@ DEFAULTS: dict[str, Any] = {
         "admin_port": 5000,
         "viewer_port": 5100,
         "log_level": "info",
+        "access_log_success": False,
     },
     "storage": {
         "data_dir": "data",

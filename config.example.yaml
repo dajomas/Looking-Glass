@@ -6,6 +6,7 @@ server:
   admin_port: 5000        # DM portal (superadmin + admin)
   viewer_port: 5100       # player screen 
   log_level: info
+  access_log_success: false  # true: include successful HTTP requests for debugging
 
 storage:
   data_dir: data                 # relative to the repo root, or absolute

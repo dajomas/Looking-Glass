@@ -35,7 +35,7 @@
   }
   async function run(fn) {
     if (busy) return;
-    busy = true; clearTimeout(timer); controls();
+    busy = true; clearTimeout(timer); controls(); message("Processing… Please wait.");
     try {await fn();} catch (error) {message(error.message || String(error), true);}
     finally {busy = false; controls();}
   }

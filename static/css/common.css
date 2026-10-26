@@ -160,3 +160,8 @@ button.icon { padding: .2rem .45rem; font-size: .75rem; }
   white-space: normal;
   overflow-wrap: anywhere;
 }
+
+/* File-import feedback; keep the existing action-panel layout unchanged. */
+.upload-busy-status { flex-basis: 100%; margin: .5rem 0; color: var(--accent); white-space: normal; }
+form[aria-busy="true"] [aria-disabled="true"] { opacity: .55; cursor: wait; }
+form[aria-busy="true"] { cursor: progress; }

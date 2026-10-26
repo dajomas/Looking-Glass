@@ -32,4 +32,8 @@
 - Step 6: implemented — clean campaign/map duplication, independent image files,
   remapped internal endpoints and deliberate play-state reset. Service regressions
   passed; HTTP/browser acceptance remains outstanding. See Patch/step-6-duplication.md.
-- Item 7 (file-import busy feedback): deferred until after the suggestions, as requested.
+- Item 7: implemented — native upload busy feedback and repeated-submit guards;
+  batch/source/note import status and busy lifecycle retained/improved.
+- Item 8: implemented — successful HTTP access records filtered by default,
+  failed requests/diagnostics retained and full-access-log debugging opt-in.
+  See Patch/items-7-8-import-feedback-access-logs.md for validation and limitations.

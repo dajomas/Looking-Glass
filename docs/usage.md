@@ -1098,3 +1098,24 @@ new dependency, configuration change or port change is required. Large copies ho
 the SQLite write transaction while validating and copying images; allow adequate disk
 space and avoid concurrent bulk writes. Process termination can leave orphan image
 files (as with other multi-resource operations); database commit is still transactional.
+
+## File import feedback (items 7–8 patch)
+
+Native file-upload forms (map import, image replacement, backup inspection and
+restore) now immediately show “Uploading and processing files… Please wait” and
+mark their submit controls busy. Repeated clicks and Enter/requestSubmit events
+on the same pending form are blocked. File fields, CSRF tokens and named submitter
+values remain included in the request. Returning through browser history clears
+the pending UI so the form can be used again.
+
+JavaScript-managed imports keep their own lifecycle: batch imports retain per-file
+counts and filenames; saved wall sources show uploading/processing feedback; room
+note imports show an immediate importing message and restore the submit control
+on completion/error. Status regions expose busy feedback to assistive technology.
+This is indeterminate activity feedback, not a byte-progress percentage or an
+estimate of server processing time.
+
+Wait for completion rather than reloading. If the connection fails and the result
+is uncertain, inspect the campaign before retrying. This is browser-side repeat
+submission protection, not server-side idempotency: another tab, a reload, direct
+API requests, disabled JavaScript or direct form.submit() can still issue requests.
