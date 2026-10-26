@@ -106,3 +106,12 @@ viewers cannot use admin-portal backup controls. Both routes require CSRF valida
 including backup downloads. Restore additionally requires the target's current name.
 Archive content cannot change owner or viewer assignments or create user accounts.
 Fog-operation author references are cleared rather than linked to accounts by numeric ID.
+
+## Campaign readiness permissions
+
+Readiness and its DM inspection page require `campaign_for_manage`: owning admin or
+superadmin. Other admins and viewers do not gain access. Map inspection verifies map
+membership in the selected campaign. Destination lookups are campaign-scoped; missing
+and out-of-campaign targets have the same message, without disclosing target details.
+Reports may include secret endpoint/room names and must never be exposed on viewer routes.
+Both new routes are read-only GETs protected by authentication and no-store response headers.

@@ -8,6 +8,7 @@
     {% if campaign.description %}<p class="muted">{{ campaign.description }}</p>{% endif %}
   </div>
   <div class="head-actions">
+    <a class="button" href="/campaigns/{{ campaign.id }}/readiness">Check campaign</a>
     <span class="pill" title="Players connected right now">{{ live_viewers }} live viewer{{ '' if live_viewers == 1 else 's' }}</span>
     <a class="button" href="#" data-viewer-link data-port="{{ viewer_port }}" data-path="/c/{{ campaign.id }}" target="_blank" rel="noopener">Viewer screen &#8599;</a>
   </div>

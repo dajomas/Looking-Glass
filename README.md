@@ -340,3 +340,10 @@ or restore one into the current campaign after typing its name. Includes map ima
 fog, walls, passages, connections and room notes. Ownership and viewer assignments
 stay unchanged; accounts and sessions are never exported. See [usage](docs/usage.md#campaign-backup-and-restore)
 and [patch notes](Patch/campaign-backup-restore.md). No database migration or new dependency is required.
+
+## Campaign readiness
+
+Use **Check campaign** on a campaign page for a read-only preparation report with
+DM-only inspection links. Checks cover map images, missing walls, cross-map endpoints,
+room-note associations and expanded backup capacity. No automatic repairs or player-screen
+changes are made. See [the usage guide](docs/usage.md#campaign-readiness-checks).

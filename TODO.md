@@ -6,3 +6,10 @@
 | 4 — suggestion 8 | Backup inspection and safer restore | Preview archive contents and compatibility before replacement; add a recovery safeguard.                                                 |
 | 5 — suggestion 3 | Viewer synchronization status       | Distinguish connected, loading, up to date, and failed/reconnecting viewers.                                                             |
 | 6 — suggestion 6 | Clean map/campaign duplication      | Copy authored content, remap internal connections, and deliberately reset play state.                                                    |
+
+## Implementation progress
+
+- Step 1: implemented — campaign readiness checks and read-only DM inspection.
+  Service/template checks validated; HTTP and browser acceptance remain to be run in
+  the development installation. See docs/usage.md and docs/testing.md.
+- Steps 2–6: pending; their scope and order above remain unchanged.

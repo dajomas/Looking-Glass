@@ -27,3 +27,11 @@ states/links/access isolation, transaction rollback, expanded-size rejection). P
 compile. The web tests could not run in the build environment because FastAPI is not installed.
 Run `PYTHONPATH=python pytest python/tests/test_campaign_backup.py python/tests/test_web.py -q`
 in the application's development environment for service and existing web coverage.
+
+## Readiness capacity check
+
+Before relying on a campaign backup, run **Check campaign**. The report compares current
+serialized campaign JSON plus image sizes against the expanded restore limit and checks
+archive-entry count. It uses the same payload builder as export without creating a ZIP.
+A missing or unreadable image makes the result incomplete. Compressed upload size, proxy
+limits and actual restore success are not checked; retain tested backups independently.

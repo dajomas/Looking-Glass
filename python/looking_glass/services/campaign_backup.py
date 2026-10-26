@@ -12,8 +12,8 @@ WALL_TABLES = ("door_runtime_states", "passage_runtime_states")
 TABLES = ("maps", "wall_sources") + MAP_TABLES + WALL_TABLES
 
 
-def export_campaign(conn, campaign_id, maps_dir):
-    conn.execute("BEGIN")
+def campaign_payload(conn, campaign_id):
+    """Serialize campaign rows without writes; caller owns the read transaction."""
     campaign = dict(conn.execute("SELECT * FROM campaigns WHERE id=?", (campaign_id,)).fetchone())
     data = {"format": "looking-glass-campaign", "version": 1, "schema": len(MIGRATIONS),
             "campaign": {k: campaign[k] for k in ("name", "description", "active_map_id")}, "tables": {}}
@@ -31,6 +31,12 @@ def export_campaign(conn, campaign_id, maps_dir):
             if "created_by" in row:
                 row["created_by"] = None
         data["tables"][table] = rows
+    return data
+
+
+def export_campaign(conn, campaign_id, maps_dir):
+    conn.execute("BEGIN")
+    data = campaign_payload(conn, campaign_id)
     out = io.BytesIO()
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as archive:
         for row in data["tables"]["maps"]:

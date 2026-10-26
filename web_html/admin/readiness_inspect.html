@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Inspect · {{ map.name }}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a> / <a href="/campaigns/{{ campaign.id }}/readiness">Readiness</a> / Inspect</p>
+<h1>{{ map.name }} — DM inspection</h1>
+<section class="card"><p>This page only reads campaign content. It does not activate this map, change fog, reconcile room notes or notify viewers.</p>
+<a class="button" href="/maps/{{ map.id }}">Open fog editor for manual review</a>
+<a class="button" href="/maps/{{ map.id }}/walls">Open wall editor</a>
+{% if marker %}<p>Reported position: ({{ marker.original_x }}, {{ marker.original_y }}). Out-of-bounds positions are marked at the nearest image edge; no position is changed.</p>{% endif %}
+<svg viewBox="0 0 {{ map.width }} {{ map.height }}" role="img" aria-label="DM map inspection{% if marker %} with reported location highlighted{% endif %}" style="width:100%;max-height:70vh;background:#111">
+{% if image_safe is not defined or image_safe %}<image href="/api/maps/{{ map.id }}/image" width="{{ map.width }}" height="{{ map.height }}" />{% endif %}
+{% if marker %}<circle cx="{{ marker.x }}" cy="{{ marker.y }}" r="{{ [map.width,map.height]|max / 80 }}" fill="none" stroke="#ffdf00" stroke-width="4" vector-effect="non-scaling-stroke"/>{% endif %}
+</svg><p class="muted">If the image is missing or unreadable, use Replace map image in the fog editor or check map storage.</p></section>
+<section class="card"><h2>Passage endpoints</h2><ul>{% for e in endpoints %}<li>{{ e.name }} — ({{ e.x }}, {{ e.y }})</li>{% else %}<li>No endpoints.</li>{% endfor %}</ul>
+<h2>Room-note anchors</h2><ul>{% for n in notes %}<li>{{ n.name or 'Unnamed' }} — ({{ n.x }}, {{ n.y }})</li>{% else %}<li>No saved room-note anchors.</li>{% endfor %}</ul></section>
+{% endblock %}

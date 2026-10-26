@@ -48,3 +48,47 @@ def map_editor(request: Request, ctx: CtxDep, user: UserDep, map_id: int):
         ops = fog_repo.count(conn, map_id)
     return render(request, "admin/map_editor.html", map=m, campaign=campaign, siblings=siblings, op_count=ops,
                   fog_opacity=ctx.settings.section("fog")["admin_fog_opacity"])
+
+
+@router.get("/campaigns/{campaign_id}/readiness")
+def campaign_readiness(request: Request, ctx: CtxDep, user: UserDep, campaign_id: int):
+    from ...services.campaign_readiness import check_campaign
+    with ctx.db.connect() as conn:
+        conn.execute("PRAGMA query_only=ON")
+        conn.execute("BEGIN")
+        campaign = campaign_for_manage(conn, user, campaign_id)
+        report = check_campaign(conn, campaign, ctx.settings.maps_dir, ctx.fog,
+                                int(ctx.settings.section("storage")["max_upload_mb"]) * 1024 * 1024)
+    response = render(request, "admin/campaign_readiness.html", campaign=campaign, report=report)
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
+
+@router.get("/campaigns/{campaign_id}/readiness/maps/{map_id}")
+def readiness_inspect(request: Request, ctx: CtxDep, user: UserDep, campaign_id: int, map_id: int,
+                       x: float | None = None, y: float | None = None):
+    import math
+    from ..deps import NotFound
+    with ctx.db.connect() as conn:
+        conn.execute("PRAGMA query_only=ON")
+        conn.execute("BEGIN")
+        campaign = campaign_for_manage(conn, user, campaign_id)
+        m, _ = map_for_manage(conn, user, map_id)
+        if m["campaign_id"] != campaign_id:
+            raise NotFound("Map not found in this campaign.")
+        endpoints = conn.execute("SELECT name,x,y FROM map_transitions WHERE map_id=? ORDER BY name,id", (map_id,)).fetchall()
+        notes = conn.execute("SELECT name,x,y FROM room_notes WHERE map_id=? ORDER BY name,area_key", (map_id,)).fetchall()
+    from ...services.campaign_readiness import image_path
+    image_safe = True
+    try:
+        image_path(ctx.settings.maps_dir, m["image_file"])
+    except (ValueError, OSError):
+        image_safe = False
+    marker = None
+    if x is not None and y is not None and math.isfinite(x) and math.isfinite(y):
+        marker = {"x": min(max(x,0),max(0,m["width"]-1)), "y": min(max(y,0),max(0,m["height"]-1)),
+                  "original_x":x,"original_y":y}
+    response = render(request,"admin/readiness_inspect.html", campaign=campaign, map=m,
+                      marker=marker, endpoints=endpoints, notes=notes, image_safe=image_safe)
+    response.headers["Cache-Control"] = "no-store"
+    return response
