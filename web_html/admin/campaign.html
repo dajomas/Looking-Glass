@@ -60,6 +60,14 @@
         </td>
         <td class="right nowrap">
           <a class="button primary" href="/maps/{{ m.id }}">Open fog editor</a>
+          <details class="inline"><summary>Duplicate map</summary>
+            <p>Clean copy in this campaign. External passage destinations are detached; internal links are remapped. Play state resets.</p>
+            <form method="post" action="/maps/{{ m.id }}/duplicate" class="stack">
+              {% include "partials/_csrf.html" %}
+              <label>Copy name <input name="name" value="{{ (m.name[:113] ~ ' (copy)') }}" required maxlength="120"></label>
+              <button type="submit">Create clean map copy</button>
+            </form>
+          </details>
           <form method="post" action="/maps/{{ m.id }}/delete" class="inline" data-confirm="Delete map '{{ m.name }}' and its fog state?">
             {% include "partials/_csrf.html" %}
             <button class="danger" type="submit">Delete</button>
@@ -151,6 +159,15 @@
     {% endif %}
     <button class="primary" type="submit">Save</button>
   </form>
+  <details id="campaign-duplicate">
+    <summary>Duplicate campaign</summary>
+    <p>Copy authored maps, walls, notes, sources and internal connections. New campaign belongs to you, has no viewers or active map, and starts fully fogged. Runtime states, checkpoints and travel history are not copied.</p>
+    <form method="post" action="/campaigns/{{ campaign.id }}/duplicate" class="stack">
+      {% include "partials/_csrf.html" %}
+      <label>Copy name <input name="name" value="{{ (campaign.name[:113] ~ ' (copy)') }}" required maxlength="120"></label>
+      <button type="submit">Create clean campaign copy</button>
+    </form>
+  </details>
   <details id="campaign-backup">
     <summary>Backup / Restore</summary>
     <p class="muted">Back up this campaign's maps, images, walls, fog, passages, connections and room notes. Accounts and viewer permissions are not included.</p>

@@ -347,3 +347,39 @@ async def restore_campaign(request: Request, ctx: CtxDep, user: CsrfUserDep, cam
     response = render(request, "admin/backup_restored.html", campaign_id=campaign_id, recovery=recovery)
     response.headers["Cache-Control"] = "no-store"
     return response
+
+
+@router.post("/campaigns/{campaign_id}/duplicate")
+def duplicate_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+                       name: Annotated[str, Form(min_length=1, max_length=120)]):
+    return _duplicate_content(ctx, user, campaign_id, name)
+
+
+@router.post("/maps/{map_id}/duplicate")
+def duplicate_map(ctx: CtxDep, user: CsrfUserDep, map_id: int,
+                  name: Annotated[str, Form(min_length=1, max_length=120)]):
+    with ctx.db.connect() as conn:
+        m, campaign = map_for_manage(conn, user, map_id)
+        campaign_id = campaign["id"]
+    return _duplicate_content(ctx, user, campaign_id, name, map_id)
+
+
+def _duplicate_content(ctx, user, campaign_id, name, map_id=None):
+    from ...services.duplication import duplicate
+    created = []
+    try:
+        with ctx.db.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            campaign_for_manage(conn, user, campaign_id)
+            if map_id is None and not rbac.can_create_campaign(user):
+                raise Forbidden()
+            target, mapping = duplicate(conn, campaign_id, ctx.settings.maps_dir, created,
+                                        name, user["id"], map_id)
+    except BaseException as exc:
+        for path in created:
+            images.delete_map_image(ctx.settings.maps_dir, path)
+        if isinstance(exc, (ValueError, OSError, sqlite3.DatabaseError)):
+            return _back(f"/campaigns/{campaign_id}", err="Copy failed: check source images and writable storage; nothing copied")
+        raise
+    path = f"/maps/{mapping[map_id]}" if map_id is not None else f"/campaigns/{target}"
+    return _back(path, ok="Clean copy created; play state reset and not shown to players")
