@@ -9,10 +9,14 @@
   </div>
   <div class="head-actions">
     <a class="button" href="/campaigns/{{ campaign.id }}/readiness">Check campaign</a>
-    <span class="pill" title="Players connected right now">{{ live_viewers }} live viewer{{ '' if live_viewers == 1 else 's' }}</span>
+    <span class="pill" title="WebSocket count at page load; see synchronization panel below">{{ live_viewers }} live viewer{{ '' if live_viewers == 1 else 's' }}</span>
     <a class="button" href="#" data-viewer-link data-port="{{ viewer_port }}" data-path="/c/{{ campaign.id }}" target="_blank" rel="noopener">Viewer screen &#8599;</a>
   </div>
 </div>
+
+<section class="card">
+{% include "partials/_viewer_sync.html" %}
+</section>
 
 <section class="card">
   <div class="section-head">
@@ -176,6 +180,7 @@
 </div>
 {% endblock %}
 {% block scripts %}
+<script src="/static/js/admin_viewer_sync.js?v=viewer-sync-1"></script>
 {% include "partials/_map_display_dialog.html" %}
 <script src="/static/js/map_display_prompt.js"></script>
 <script src="/static/js/api.js"></script>

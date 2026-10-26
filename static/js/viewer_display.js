@@ -74,25 +74,44 @@
   vp.addEventListener("dblclick", event => event.preventDefault());
   window.addEventListener("blur", () => {++interactionGeneration; cancelLookup();});
 
+  let syncState = "loading", syncVersion = "blank";
+  function reportSync(state, displayed) {
+    syncState = state; syncVersion = displayed;
+    const online = ws && ws.readyState === 1;
+    const label = $("sync-status");
+    if (label) label.textContent = online ? ({ready:"Up to date",loading:"Loading",failed:"Display failed"}[state] || "Connected") : "Reconnecting";
+    if (online) {
+      try {ws.send(JSON.stringify({type:"viewer-status",state,version:displayed}));} catch (_) {}
+    }
+  }
   async function refresh() {
     const generation = ++refreshGeneration;
+    try {
     const resp = await fetch(`/api/c/${CID}/state`, { credentials: "same-origin", cache: "no-store", headers: { Accept: "application/json" } });
     if (generation !== refreshGeneration) return;
-    if (resp.status === 401) { location.href = "/login?next=" + encodeURIComponent(location.pathname); return; }
-    if (!resp.ok) { cancelLookup(true); stage.hidden = true; waiting.hidden = false; $("waiting-text").textContent = "This campaign is no longer available."; return; }
+    if (resp.status === 401) { reportSync("failed",syncVersion); location.href = "/login?next=" + encodeURIComponent(location.pathname); return; }
+    if (!resp.ok) { reportSync("failed",syncVersion); cancelLookup(true); stage.hidden = true; waiting.hidden = false; $("waiting-text").textContent = "This campaign is no longer available."; return; }
     const s = await resp.json();
     if (generation !== refreshGeneration) return;
     if (!s.map) {
       cancelLookup(true); version = null; currentMap = revealBounds = null;
       stage.hidden = true; waiting.hidden = false; nameEl.textContent = "";
+      $("waiting-text").textContent = "The Dungeon Master is preparing the scene…";
+      reportSync("ready","blank");
       return;
     }
-    if (s.map.version === version) return;
+    if (s.map.version === version) {reportSync("ready",version); return;}
+    reportSync("loading",s.map.version);
     const mapChanged = !version || version.split("-")[0] !== s.map.version.split("-")[0];
     // Preload so the swap is seamless (no flash of fog on every reveal).
     const next = new Image();
     next.src = s.map.image_url;
-    await next.decode();
+    let decodeTimeout;
+    try {
+      await Promise.race([next.decode(), new Promise((_,reject) => {
+        decodeTimeout = setTimeout(() => reject(new Error("Display image timeout")),30000);
+      })]);
+    } finally {clearTimeout(decodeTimeout);}
     if (generation !== refreshGeneration) return;
     const hasNewAreas = !mapChanged && LGViewerHasNewAreas(currentMap,s.map);
     mapImg.src = next.src;
@@ -105,6 +124,10 @@
     revealBounds = s.map.revealed_bounds || null;
     if (focusPoint && !mapChanged) {focusBounds = null; await lookup(focusPoint,false);}
     else centerReveals();
+    if (generation === refreshGeneration) reportSync("ready",version);
+    } catch (error) {
+      if (generation === refreshGeneration) {reportSync("failed",syncVersion); console.error("Viewer refresh failed",error);}
+    }
   }
 
   async function remoteZoom(msg) {
@@ -122,20 +145,37 @@
     await lookup({x:msg.point.x,y:msg.point.y},true);
   }
 
-  let ws = null, retry = 1000, pingTimer = null;
+  let ws = null, retry = 1000, pingTimer = null, lastMessage = 0;
   function connect() {
     const proto = location.protocol === "https:" ? "wss" : "ws";
-    ws = new WebSocket(`${proto}://${location.host}/ws/c/${CID}`);
-    ws.onopen = () => { dot.classList.add("on"); retry = 1000; refresh(); pingTimer = setInterval(() => ws.send("ping"), 25000); };
-    ws.onmessage = (ev) => {
-      const msg = JSON.parse(ev.data);
-      if (msg.type === "refresh") refresh().catch(console.error);
+    const socket = new WebSocket(`${proto}://${location.host}/ws/c/${CID}`);
+    ws = socket;
+    socket.onopen = () => {
+      if (ws !== socket) return;
+      dot.classList.add("on"); retry = 1000; lastMessage = Date.now();
+      reportSync(syncState,syncVersion); refresh();
+      clearInterval(pingTimer);
+      pingTimer = setInterval(() => {
+        if (ws !== socket || socket.readyState !== 1) return;
+        if (Date.now()-lastMessage > 65000) {socket.close(); return;}
+        try {socket.send("ping"); reportSync(syncState,syncVersion);} catch (_) {socket.close();}
+      },25000);
+    };
+    socket.onmessage = ev => {
+      if (ws !== socket) return;
+      lastMessage = Date.now();
+      let msg; try {msg = JSON.parse(ev.data);} catch (_) {return;}
+      if (!msg || typeof msg !== "object") return;
+      if (msg.type === "refresh") refresh();
       if (msg.type === "viewer-zoom") remoteZoom(msg).catch(console.error);
     };
-    ws.onclose = (ev) => {
+    socket.onerror = () => {if (ws === socket) socket.close();};
+    socket.onclose = ev => {
+      if (ws !== socket) return;
       dot.classList.remove("on"); clearInterval(pingTimer);
-      if (ev.code === 4401 || ev.code === 4403 || ev.code === 4404) { refresh(); setTimeout(connect, 10000); return; }
-      setTimeout(connect, retry); retry = Math.min(retry * 2, 15000);
+      reportSync(syncState,syncVersion);
+      if (ev.code === 4401 || ev.code === 4403 || ev.code === 4404) {refresh(); setTimeout(connect,10000); return;}
+      setTimeout(connect,retry); retry = Math.min(retry*2,15000);
     };
   }
 

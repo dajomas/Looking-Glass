@@ -141,3 +141,14 @@ requires the campaign name, a fresh preview token and compatible authored conten
 requires the saved checkpoint name. Restore may change what authorized viewers see but
 never changes campaign ownership or viewer assignments. Safety records use the restoring
 user as creator; deleting a creator account nulls its metadata reference.
+
+## Viewer synchronization permissions (step 5)
+
+The admin-only campaign viewer-status GET repeats campaign-management authorization for
+every poll. Other admins and ordinary viewers cannot inspect another campaign's connection
+list; the route is absent from the viewer app. Usernames come from authenticated viewer
+sessions. Each viewer reports only through its already authorized campaign socket and its
+server-bound record, never a client-selected username/record/campaign. Diagnostic reports
+cannot change fog, active map, access assignments or checkpoints. JSON reports do not expose
+arbitrary client errors, IP/user-agent, raw map images or wall data. Manager rendering uses
+textContent. Existing session/access revocation socket cleanup remains in force.

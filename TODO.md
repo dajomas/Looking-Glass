@@ -25,5 +25,9 @@
   stale/archive guards and validated automatic portable recovery backups.
   Service/template regressions passed; HTTP and browser acceptance remain outstanding.
   See Patch/step-4-backup-inspection.md for validation and limitations.
-- Steps 5–6: pending; their scope and order above remain unchanged.
+- Step 5: implemented — per-connection viewer loading/readiness/failure/transport diagnostics,
+  manager-only polling UI and stale/disconnected detection. Six Python service tests and
+  twelve JavaScript regressions passed; HTTP module skipped (FastAPI unavailable), with
+  real HTTP/WebSocket/browser acceptance outstanding. See Patch/step-5-viewer-sync.md.
+- Step 6: pending; its scope and order above remain unchanged.
 - Item 7 (file-import busy feedback): deferred until after the suggestions, as requested.

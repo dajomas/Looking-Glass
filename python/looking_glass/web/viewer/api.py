@@ -6,10 +6,12 @@ campaign's *active* map - never the raw battle map or wall data.
 
 import asyncio
 import logging
+import json
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from fastapi.responses import FileResponse, JSONResponse
 
+from ...services.viewer_sync import display_version
 from ...services.reveal_bounds import revealed_bounds
 from ...services.revealed_regions import revealed_area_signatures
 from ...services.viewer_area import revealed_area_bounds
@@ -24,7 +26,7 @@ router = APIRouter()
 
 
 def _version(m):
-    return f"{m['id']}:{m['cache_token']}-{m['walls_version']}-{m['fog_version']}"
+    return display_version(m)
 
 
 @router.get("/api/c/{campaign_id}/state")
@@ -103,12 +105,23 @@ async def live(ws: WebSocket, campaign_id: int):
         return
     await ws.accept()
     ws.state.user_id = user["id"]
+    ws.state.username = user["username"]
     await ctx.hub.subscribe(campaign_id, ws)
     try:
         while True:
             msg = await ws.receive_text()   # keep-alive pings from the client
+            if len(msg) > 2048:
+                await ws.close(code=1009)
+                break
             if msg == "ping":
+                ctx.hub.sync.touch(ws.state.sync_id)
                 await ws.send_text('{"type":"pong"}')
+            else:
+                try:
+                    report = json.loads(msg)
+                except (ValueError,TypeError):
+                    continue
+                ctx.hub.sync.report(ws.state.sync_id, report)
     except WebSocketDisconnect:
         pass
     finally:

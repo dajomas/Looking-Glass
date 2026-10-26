@@ -19,6 +19,7 @@
     <details id="players-panel" class="sidebar-panel" name="fog-editor-panels">
       <summary>Players</summary>
       <div class="panel-content">
+    {% include "partials/_viewer_sync.html" %}
     <div class="live-row">
       <span id="live-state" class="pill">-</span>
       <span id="live-viewers" class="muted small"></span>
@@ -268,6 +269,7 @@
 <script src="/static/js/map_display_prompt.js?v=passage-display-2"></script>
 <script>window.LG_MAP = {{ {"id": map.id, "campaign_id": campaign.id} | tojson }};</script>
 <script src="/static/js/api.js"></script>
+<script src="/static/js/admin_viewer_sync.js?v=viewer-sync-1"></script>
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/keep_select_values.js?v=room-confirm-5"></script>
 <script src="/static/js/wall_appearance.js?v=wall-width-2"></script>

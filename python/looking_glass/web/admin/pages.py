@@ -131,3 +131,14 @@ def campaign_search_json(request: Request,ctx: CtxDep,user: UserDep,campaign_id:
                          q: Annotated[str,Query(max_length=200)] = "",
                          kind: Literal["all","map","room","passage","library"] = "all"):
     return _campaign_search_response(request,ctx,user,campaign_id,q,kind,True)
+
+
+@router.get("/api/campaigns/{campaign_id}/viewer-status")
+async def viewer_status(ctx: CtxDep, user: UserDep, campaign_id: int):
+    from ...services.viewer_sync import display_version
+    with ctx.db.connect() as conn:
+        conn.execute("BEGIN")
+        campaign = campaign_for_manage(conn,user,campaign_id)
+        m = maps_repo.get(conn,campaign["active_map_id"]) if campaign["active_map_id"] else None
+    return JSONResponse(ctx.hub.sync.snapshot(campaign_id,display_version(m)),
+                        headers={"Cache-Control":"no-store"})

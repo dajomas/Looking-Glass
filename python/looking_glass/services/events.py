@@ -10,6 +10,7 @@ import logging
 from collections import defaultdict
 
 from fastapi import WebSocket
+from .viewer_sync import ViewerSync
 
 log = logging.getLogger(__name__)
 
@@ -18,14 +19,18 @@ class EventHub:
     def __init__(self) -> None:
         self._subs: dict[int, set[WebSocket]] = defaultdict(set)
         self._lock = asyncio.Lock()
+        self.sync = ViewerSync()
 
     async def subscribe(self, campaign_id: int, ws: WebSocket) -> None:
         async with self._lock:
             self._subs[campaign_id].add(ws)
+            ws.state.sync_id = self.sync.connect(campaign_id, getattr(ws.state,"user_id",None),
+                                                 getattr(ws.state,"username","Viewer"))
 
     async def unsubscribe(self, campaign_id: int, ws: WebSocket) -> None:
         async with self._lock:
             self._subs[campaign_id].discard(ws)
+            self.sync.disconnect(getattr(ws.state,"sync_id",None))
 
     def viewer_count(self, campaign_id: int) -> int:
         return len(self._subs.get(campaign_id, ()))

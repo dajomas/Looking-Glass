@@ -15,6 +15,7 @@
 </div>
 <div class="display-hud" id="hud">
   <span id="map-name"></span>
+  <span id="sync-status" role="status" aria-live="polite">Connecting</span>
   <span class="dot" id="conn-dot" title="Live connection"></span>
   <button id="btn-fit" title="Show all revealed areas (F)">&#9635;</button>
   <button id="btn-full" title="Fullscreen">&#x26F6;</button>
@@ -25,5 +26,5 @@
 <script>window.LG_CAMPAIGN = {{ campaign.id | tojson }};</script>
 <script src="/static/js/pan_zoom.js"></script>
 <script src="/static/js/viewer_area_zoom.js?v=reveal-overview-1"></script>
-<script src="/static/js/viewer_display.js?v=reveal-overview-1"></script>
+<script src="/static/js/viewer_display.js?v=viewer-sync-1"></script>
 {% endblock %}

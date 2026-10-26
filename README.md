@@ -366,3 +366,13 @@ campaign-name confirmation and an automatic safety checkpoint. Authored maps, wa
 connections, room notes and permissions are not replaced. Checkpoint history is local
 to the installation database, not portable campaign ZIP backups. See
 [usage](docs/usage.md#named-session-checkpoints) and migration notes in deployment.
+
+## Viewer synchronization status
+
+Campaign pages and the fog editor's Players panel now show each recent viewer connection
+as connected, loading, up to date, failed, or disconnected/reconnecting. A WebSocket alone
+is not proof that the map loaded: readiness is reported only after the viewer decodes and
+installs the current fogged image (or shows the waiting screen). The manager endpoint checks
+that report against the currently active map version. The viewer HUD also shows its local
+status. See [usage](docs/usage.md#viewer-synchronization-status) and
+[step 5 patch notes](Patch/step-5-viewer-sync.md). No migration or dependency is added.
