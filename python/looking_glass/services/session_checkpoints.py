@@ -35,11 +35,21 @@ def capture(conn,cid,maps_dir,fog_config):
         with path.open('rb') as image: image_hash=hashlib.file_digest(image,'sha256').hexdigest()
         authored={k:m[k] for k in ('id','cache_token','image_file','width','height','wall_offset_x','wall_offset_y','wall_scale_x','wall_scale_y','doors_block')}
         authored['image_sha256']=image_hash
+        alternate=conn.execute('SELECT image_file FROM double_reveal_maps WHERE map_id=?',(m['id'],)).fetchone()
+        double_rooms=rows(conn,'SELECT area_key,x,y,destination_map_id FROM double_reveal_rooms WHERE map_id=? ORDER BY area_key',(m['id'],))
+        if alternate or double_rooms:
+            alternate_hash=None
+            if alternate:
+                with image_path(maps_dir,alternate[0]).open('rb') as image:
+                    alternate_hash=hashlib.file_digest(image,'sha256').hexdigest()
+            authored['double_reveal']=dict(image_sha256=alternate_hash,rooms=double_rooms)
         authored['walls']=rows(conn,"SELECT id,x1,y1,x2,y2,kind,blocks,passage FROM walls WHERE map_id=? ORDER BY id",(m['id'],))
         authored['boundary_settings']=rows(conn,"SELECT disabled_types FROM map_wall_type_settings WHERE map_id=?",(m['id'],))
         authored['transitions']=rows(conn,"SELECT id,kind,x,y,visibility,availability,destination_id,link_defined,arrival FROM map_transitions WHERE map_id=? ORDER BY id",(m['id'],))
         snapshot=conn.execute("SELECT operations FROM map_fog_snapshots WHERE map_id=?",(m['id'],)).fetchone()
-        data['maps'].append(dict(id=m['id'],name=m['name'],fingerprint=digest(authored),
+        runtime_double=rows(conn,'SELECT area_key,true_active FROM double_reveal_rooms WHERE map_id=? ORDER BY area_key',(m['id'],))
+        history_double=rows(conn,'SELECT area_key,before_state,after_state FROM double_reveal_history WHERE map_id=? ORDER BY id',(m['id'],))
+        data['maps'].append(dict(double_reveal=runtime_double,double_reveal_history=history_double,id=m['id'],name=m['name'],fingerprint=digest(authored),
             versions=[m['walls_version'],m['fog_version']],
             fog=rows(conn,"SELECT op,x,y FROM fog_ops WHERE map_id=? ORDER BY id",(m['id'],)),
             displayed=json.loads(snapshot[0]) if snapshot else None,
@@ -145,6 +155,18 @@ def restore(conn,cid,checkpoint_id,maps_dir,fog_config,user_id,expected_token):
             if {r['id'] for r in m['transitions']}!=ids or len(m['transitions'])!=len(ids):raise ValueError('Checkpoint transition identities do not match.')
             for r in m['transitions']:
                 conn.execute('UPDATE map_transitions SET runtime_visibility=?,runtime_availability=?,revision=revision+1 WHERE map_id=? AND id=?',(r['runtime_visibility'],r['runtime_availability'],mid,r['id']))
+            current_keys={r[0] for r in conn.execute('SELECT area_key FROM double_reveal_rooms WHERE map_id=?',(mid,))}
+            saved_rooms=m.get('double_reveal',[])
+            if {r['area_key'] for r in saved_rooms}!=current_keys or len(saved_rooms)!=len(current_keys):
+                raise ValueError('Checkpoint double reveal identities do not match.')
+            conn.execute('DELETE FROM double_reveal_history WHERE map_id=?',(mid,))
+            for r in saved_rooms:
+                if type(r['true_active']) is not int or r['true_active'] not in (0,1):
+                    raise ValueError('Invalid double reveal state.')
+                conn.execute('UPDATE double_reveal_rooms SET true_active=?,revision=revision+1 WHERE map_id=? AND area_key=?',(r['true_active'],mid,r['area_key']))
+            for r in m.get('double_reveal_history',[]):
+                if r['area_key'] not in current_keys:raise ValueError('Invalid double reveal history.')
+                conn.execute('INSERT INTO double_reveal_history(map_id,area_key,before_state,after_state) VALUES(?,?,?,?)',(mid,r['area_key'],r['before_state'],r['after_state']))
             conn.execute('UPDATE maps SET walls_version=walls_version+1,fog_version=fog_version+1 WHERE id=?',(mid,))
         conn.execute('UPDATE campaigns SET active_map_id=?,session_version=session_version+1 WHERE id=?',(target['active_map_id'],cid))
         conn.execute('DELETE FROM map_transition_travel WHERE campaign_id=?',(cid,))

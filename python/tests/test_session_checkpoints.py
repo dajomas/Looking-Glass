@@ -162,7 +162,7 @@ def test_migration_from_previous_schema(tmp_path):
     for i,script in enumerate(MIGRATIONS[:-1],1):
         c.executescript(script);c.execute('INSERT INTO schema_version VALUES(?)',(i,));c.commit()
     c.close();db=Database(path)
-    assert db.migrate()==16
+    assert db.migrate()==len(MIGRATIONS)
     with db.connect() as c:assert c.execute('SELECT COUNT(*) FROM campaign_checkpoints').fetchone()[0]==0
 
 

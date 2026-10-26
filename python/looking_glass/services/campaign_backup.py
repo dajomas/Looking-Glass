@@ -16,7 +16,7 @@ import zipfile
 from . import images
 from ..db import MIGRATIONS
 
-MAP_TABLES = ("walls", "fog_ops", "map_fog_snapshots", "map_wall_type_settings", "room_notes", "imported_room_notes", "map_transitions")
+MAP_TABLES = ("walls", "fog_ops", "map_fog_snapshots", "map_wall_type_settings", "room_notes", "imported_room_notes", "map_transitions", "double_reveal_maps", "double_reveal_rooms", "double_reveal_history")
 WALL_TABLES = ("door_runtime_states", "passage_runtime_states")
 TABLES = ("maps", "wall_sources") + MAP_TABLES + WALL_TABLES
 
@@ -54,6 +54,11 @@ def export_campaign(conn, campaign_id, maps_dir):
             if maps_dir.resolve() not in path.parents:
                 raise ValueError("Invalid stored image path")
             archive.write(path, f'images/{row["id"]}.png')
+        for row in data["tables"]["double_reveal_maps"]:
+            path = (maps_dir / row["image_file"]).resolve()
+            if maps_dir.resolve() not in path.parents:
+                raise ValueError("Invalid alternate image path")
+            archive.write(path, f'alternate/{row["map_id"]}.png')
         archive.writestr("campaign.json", json.dumps(data, allow_nan=False))
     return out.getvalue()
 
@@ -69,9 +74,12 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
         if len(raw) > limit:
             raise ValueError("Compressed backup exceeds the upload limit")
         data = json.loads(archive.read("campaign.json"))
-        # Migration 16 adds only local checkpoint storage/campaign session_version;
-        # the allowlisted portable campaign payload remains identical to schema 15.
-        compatible_schema = data["schema"] == len(MIGRATIONS) or (len(MIGRATIONS) == 16 and data["schema"] == 15)
+        compatible_schema = data["schema"] in (15, 16, len(MIGRATIONS))
+        if data["schema"] in (15, 16):
+            for table in ("double_reveal_maps", "double_reveal_rooms", "double_reveal_history"):
+                if table in data["tables"]:
+                    raise ValueError("Unexpected double reveal data in a legacy backup")
+                data["tables"][table] = []
         if data["format"] != "looking-glass-campaign" or data["version"] != 1 or not compatible_schema:
             raise ValueError("Unsupported backup format or database schema")
         tables = data["tables"]
@@ -90,6 +98,7 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
                 raise ValueError("Duplicate identity")
         map_ids = {r["id"] for r in tables["maps"]}
         expected = {"campaign.json"} | {f"images/{mid}.png" for mid in map_ids}
+        expected |= {f"alternate/{r['map_id']}.png" for r in tables["double_reveal_maps"]}
         if {e.filename for e in entries} != expected:
             raise ValueError("Missing or unexpected archive entries")
         wall_ids = {r["id"] for r in tables["walls"]}
@@ -100,6 +109,12 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
                     raise ValueError("Invalid map reference")
                 if table in WALL_TABLES and row["wall_id"] not in wall_ids:
                     raise ValueError("Invalid wall reference")
+        image_maps = {r["map_id"] for r in tables["double_reveal_maps"]}
+        for row in tables["double_reveal_rooms"]:
+            if row["map_id"] not in image_maps:
+                raise ValueError("Double reveal room has no alternate image")
+            if row["destination_map_id"] is not None and (row["destination_map_id"] not in map_ids or row["destination_map_id"] == row["map_id"]):
+                raise ValueError("Invalid double reveal destination")
         active = data["campaign"]["active_map_id"]
         if active is not None and active not in map_ids:
             raise ValueError("Invalid active map")
@@ -132,6 +147,15 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
                         raise ValueError("Map image dimensions do not match")
                     row["image_file"] = stored.relative_path
                     row["cache_token"] = uuid.uuid4().hex
+                if table == "double_reveal_maps":
+                    stored = images.store_map_image(archive.read(f"alternate/{original['map_id']}.png"), maps_dir, campaign_id)
+                    created_files.append(stored.relative_path)
+                    dimensions = conn.execute("SELECT width,height FROM maps WHERE id=?", (row["map_id"],)).fetchone()
+                    if (stored.width, stored.height) != tuple(dimensions):
+                        raise ValueError("Alternate image dimensions do not match")
+                    row["image_file"] = stored.relative_path
+                if table == "double_reveal_rooms":
+                    row["destination_map_id"] = mapping.get(row["destination_map_id"])
                 if table == "wall_sources":
                     row["raw"] = base64.b64decode(row["raw"], validate=True)
                 if "created_by" in row:

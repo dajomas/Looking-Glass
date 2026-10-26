@@ -194,3 +194,17 @@ panels, dialogs, map and viewer are unchanged.
 
 After deploying this CSS-only follow-up, hard-refresh the admin page to bypass
 cached `admin.css`. No template, JavaScript or database changes are required.
+
+## Double-reveal controls
+
+The fog editor's **Double reveal** disclosure contains alternate-image upload and DM-only
+preview links, a non-mutating room-selection mode, per-room enable/destination settings,
+explicit true/initial appearance actions, and independent appearance Undo. The selected
+room is highlighted; configured rooms are listed with their current appearance. Invalidated
+geometry is marked inactive and can be removed before reconfiguration.
+
+The normal Reveal/Hide modes and fog Undo/Ctrl+Z retain their behavior. Turn double-reveal
+selection off to use normal fog and door clicks. With selection enabled, clicking a room
+selects it only; it never automatically reveals truth or switches maps. A separate confirmed
+**Open destination map** action is available only for a visible true room on the active map.
+No player-facing travel control is added.

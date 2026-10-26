@@ -54,6 +54,8 @@ class MapSpec:
     transition_markers: tuple = ()
     viewer_transition_markers: bool = True
     viewer_transition_labels: bool = True
+    alternate_image_path: Path | None = None
+    double_reveal_rooms: tuple = ()
 
     @property
     def viewer_arrows_enabled(self) -> bool:
@@ -65,6 +67,7 @@ class MapSpec:
     def identity(self) -> str:
         # Includes the random DB incarnation token: deleted IDs cannot alias new maps.
         data = (self.cache_token, str(self.image_path), self.width, self.height,
+                str(self.alternate_image_path), self.double_reveal_rooms,
                 self.calibration, self.doors_block, self.door_arrow_color, self.door_arrows_enabled, self.locked_door_arrow_color, self.viewer_arrows_enabled, "viewer-exceptions-v1", self.arrow_audience, self.viewer_portal_arrows_enabled, self.viewer_secret_arrows_enabled, "transitions-v1", self.transition_markers, self.viewer_transition_markers, self.viewer_transition_labels)
         return hashlib.sha256(repr(data).encode()).hexdigest()[:32]
 
@@ -327,7 +330,8 @@ class FogEngine:
             if out.exists():
                 return out
             m = self.mask(spec, segments, ops)
-            base = self._base_image(spec)
+            from .double_reveal import composite
+            base = composite(self, spec, segments, self._base_image(spec))
             fog = Image.new("RGB", base.size, self.fog_rgb)
             if not m.any():
                 composed = fog

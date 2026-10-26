@@ -16,6 +16,7 @@
   let busy = false;
   let portalCycle = null;
   let mapTransitions = null;
+  let doubleReveal = null;
   const arrowHit = new LGDoorArrowHit();
   const doorTapQueue = new LGDoorTapQueue();
   const areaTaps = new LGAdminAreaTaps();
@@ -73,6 +74,7 @@
   }
 
   const roomNotes = new LGRoomNotes(MAP_ID, toast);
+  doubleReveal = LGDoubleReveal({mapId:MAP_ID,run,reload:reloadMap});
 
   // ------------------------------------------------------------------ rendering
   function cal() {
@@ -161,12 +163,13 @@
     doorTapQueue.cancel(); areaTaps.cancel();
     state = s;
     roomNotes.refresh(s);
+    doubleReveal?.refresh(s);
     mapTransitions?.draw();
     portalCycle?.setState(s,false);
     syncDoorArrowControls();
     $("door-arrows").hidden = !s.door_arrows_enabled;
-    const nextImageKey = s.image_version || `${s.cache_token}-${s.width}-${s.height}`;
-    if (imageKey !== nextImageKey) {imageKey = nextImageKey; img.src = `/api/maps/${MAP_ID}/image?v=${encodeURIComponent(imageKey)}`;}
+    const nextImageKey = `${s.image_version || s.cache_token}-${s.double_reveal_image ? `${s.walls_version}-${s.fog_version}` : "original"}`;
+    if (imageKey !== nextImageKey) {imageKey = nextImageKey; img.src = `/api/maps/${MAP_ID}/${s.double_reveal_image ? "double-reveal/artwork" : "image"}?v=${encodeURIComponent(imageKey)}`;}
     loadError("");
     if (first || s.width !== pz.w || s.height !== pz.h) {
       pz.setContentSize(s.width, s.height);
@@ -196,12 +199,19 @@
     live.textContent = s.is_active ? "Live on viewer screen" : "Not shown";
     live.className = "pill " + (s.is_active ? "pill-live" : "");
     $("btn-show").disabled = s.is_active;
+    doubleReveal?.refresh(s);
     if ($("offline-reveal-warning")) $("offline-reveal-warning").hidden = s.is_active;
     $("live-viewers").textContent = `${s.live_viewers} player screen${s.live_viewers === 1 ? "" : "s"} connected`;
   }
 
   // ------------------------------------------------------------------ actions
   function onTap(x, y, event) {
+    if (doubleReveal?.selecting()) {
+      areaTaps.cancel();doorTapQueue.cancel();
+      if (state && !busy && event?.button === 0 && x>=0 && y>=0 && x<state.width && y<state.height)
+        run(()=>doubleReveal.select(x,y));
+      return;
+    }
     if (state && !busy && roomNotes.editing() && event?.button === 0) {
       areaTaps.cancel(); doorTapQueue.cancel();
       run(() => roomNotes.select(x,y,true)); return;
@@ -416,7 +426,7 @@
   }
   img.onload = () => {
     if (!state) {pz.setContentSize(img.naturalWidth, img.naturalHeight); svg.setAttribute("viewBox", `0 0 ${img.naturalWidth} ${img.naturalHeight}`);}
-    pz.fit();
+    if (!state) pz.fit();
     if (!startupRefreshScheduled) {
       startupRefreshScheduled = true;
       setTimeout(refreshAfterArtwork, 0);

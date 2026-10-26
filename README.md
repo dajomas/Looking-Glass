@@ -413,3 +413,14 @@ Successful HTTP access records are suppressed by default; failed HTTP requests
 and diagnostics are retained at the configured log level. Set
 `server.access_log_success: true` to restore full HTTP access logging for debugging.
 See docs/deployment.md. No migration or new runtime dependency is needed.
+
+## Double-reveal room artwork
+
+The fog editor now has a **Double reveal** panel. Upload an aligned alternate full-map image,
+select the rooms that use it, and reveal each room's true appearance explicitly. Fog visibility
+and appearance are independent: hiding/resetting fog never restores an illusion. Optional
+DM-only destination-map links support newly discovered stairs without automatic travel.
+
+See [Usage](docs/usage.md#double-reveal-rooms), [API](docs/api.md#double-reveal-api),
+and the delivery notes in `Patch/DOUBLE_REVEAL_CHANGES.md`. This feature adds schema
+migration 17; back up the database and map storage before upgrading.

@@ -150,3 +150,13 @@ focus is not in another text field and no other dialog is open. In the search di
 Arrow Up/Down selects result links, Enter opens a result, Tab follows normal dialog focus,
 and Escape closes and restores focus. The **Search campaign** link remains available
 without shortcuts/JavaScript. Results inspect DM content; they do not invoke map controls.
+
+## Double-reveal selection
+
+When **Select double-reveal room (fog unchanged)** is enabled, a primary click/tap inside the
+map selects that room for configuration/appearance actions and cancels queued fog/door taps.
+Secondary clicks do not change fog in this mode. Pan/zoom gestures remain handled by PanZoom.
+Disable the mode to restore normal map gestures. Room-note selection and double-reveal
+selection are mutually exclusive. Revealing true artwork and following a link always require
+explicit controls, not a second ordinary map click. Fog Ctrl+Z remains separate from the
+**Undo appearance change** button.

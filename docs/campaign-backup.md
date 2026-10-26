@@ -124,3 +124,24 @@ Wait for completion rather than reloading. If the connection fails and the resul
 is uncertain, inspect the campaign before retrying. This is browser-side repeat
 submission protection, not server-side idempotency: another tab, a reload, direct
 API requests, disabled JavaScript or direct form.submit() can still issue requests.
+
+## Double-reveal assets and state
+
+Schema-17 backups add `double_reveal_maps`, `double_reveal_rooms`, and
+`double_reveal_history` to the portable table allowlist. Each configured alternate image is
+stored as `alternate/<old_map_id>.png` in the ZIP. Restore validates image dimensions and all
+map/room references before committing and remaps destination map IDs into the restored set.
+No absolute or archive-supplied storage path is used for restored images.
+
+Genuine schema-15/16 backups remain accepted: the three missing tables are treated as empty.
+Schema-17 backups are not compatible with older application code; do not merely relabel the
+schema value. Archive byte/entry limits still apply, now including alternate assets. Old
+replaced images are retained on disk for in-flight readers, but only currently referenced
+alternate assets are exported. Historical/orphan file cleanup is not introduced by this patch.
+
+Full campaign duplication copies alternate files and room links, remaps links and resets all
+room appearances to initial with empty appearance history. Single-map duplication detaches
+external destination links. Named session checkpoints capture appearance state/history and
+fingerprint alternate artwork/configuration, not image bytes; use campaign or filesystem
+backups for recovering authored assets. A changed alternate image or room configuration
+makes an earlier checkpoint incompatible rather than restoring it against the wrong artwork.

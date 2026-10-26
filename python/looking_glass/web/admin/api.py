@@ -78,6 +78,7 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "viewer_portal_arrows_enabled": bool(m["viewer_portal_arrows_enabled"]),
         "viewer_secret_arrows_enabled": bool(m["viewer_secret_arrows_enabled"]),
         "image_version": m["image_file"],
+        "double_reveal_image": bool(spec.alternate_image_path),
         "disabled_wall_types": disabled_for_map(conn, m),
         "calibration": {"offset_x": ox, "offset_y": oy, "scale_x": sx, "scale_y": sy,
                         "doors_block": bool(m["doors_block"])},

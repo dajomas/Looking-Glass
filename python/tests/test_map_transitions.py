@@ -197,7 +197,7 @@ def test_migration_preserves_rows(tmp_path):
         c.executescript("".join(MIGRATIONS[:11]));c.executescript("CREATE TABLE schema_version(version INTEGER);INSERT INTO schema_version VALUES(11);")
         c.execute("INSERT INTO campaigns(id,name) VALUES(1,'C')");c.execute("INSERT INTO maps(id,campaign_id,name,image_file,width,height) VALUES(1,1,'M','map.png',400,200)")
         old=dict(maps.get(c,1))
-    assert db.migrate()==db.migrate()==12
+    assert db.migrate()==db.migrate()==len(MIGRATIONS)
     with db.connect() as c:
         row=dict(maps.get(c,1));assert all(row[k]==v for k,v in old.items())
         assert row["viewer_transition_markers"]==row["viewer_transition_labels"]==1 and not tr.overview(c,1)

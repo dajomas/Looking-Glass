@@ -80,6 +80,8 @@
     </details>
   </div>
 
+  {% include "partials/_double_reveal.html" %}
+
   <div class="side-block" id="map-passages-section"{% if siblings|length <= 1 %} hidden{% endif %}><details id="map-passages-panel" class="sidebar-panel" name="fog-editor-panels"><summary>Map passages</summary><div class="panel-content">
 
 <button type="button" id="transition-add">Add passage endpoint</button><p id="transition-status" role="status" aria-live="polite"></p><div id="transition-list" class="stack"></div>
@@ -192,6 +194,7 @@
     <canvas id="fog-canvas"></canvas>
     <img id="room-name-overlay" alt="" draggable="false" hidden>
     <img id="room-edit-overlay" alt="" draggable="false" hidden>
+    <img id="double-room-mask" alt="" draggable="false" hidden>
     <img id="door-arrows" alt="" draggable="false">
     <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
     <svg id="transition-markers" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
@@ -286,7 +289,8 @@
 <script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>
 <script src="/static/js/room_library_manager.js?v=room-library-unassign-11"></script>
 <script src="/static/js/room_notes.js?v=imports-7-1"></script>
-<script src="/static/js/admin_map_editor.js?v=room-notes-1"></script>
+<script src="/static/js/double_reveal.js?v=double-reveal-1"></script>
+<script src="/static/js/admin_map_editor.js?v=double-reveal-1"></script>
 <script src="/static/js/wall_source_library.js?v=imports-7-1"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>
 {% endblock %}

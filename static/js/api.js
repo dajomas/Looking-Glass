@@ -23,6 +23,6 @@ window.LGApi = (function () {
   return {
     get: (u) => request("GET", u),
     post: (u, b) => request("POST", u, b === undefined ? {} : b),
-    del: (u) => request("DELETE", u),
+    del: (u, b) => request("DELETE", u, b),
   };
 })();

@@ -6,6 +6,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 
 from .. import __version__
 from . import auth_routes, errors
+from .admin import double_reveal as admin_double_reveal
 from .admin import api as admin_api
 from .admin import campaigns as admin_campaigns
 from .admin import pages as admin_pages
@@ -52,6 +53,7 @@ def create_admin_app(ctx: AppContext) -> FastAPI:
     app.include_router(admin_campaigns.router)
     app.include_router(admin_users.router)
     app.include_router(admin_api.router)
+    app.include_router(admin_double_reveal.router)
     app.include_router(admin_wall_editor.router)
     app.include_router(admin_viewer_zoom.router)
     return app

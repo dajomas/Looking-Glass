@@ -3,7 +3,7 @@ import uuid
 from . import images
 from ..repositories import campaigns
 
-AUTHORED = ("walls", "map_wall_type_settings", "room_notes", "imported_room_notes", "map_transitions")
+AUTHORED = ("walls", "map_wall_type_settings", "room_notes", "imported_room_notes", "map_transitions", "double_reveal_maps", "double_reveal_rooms")
 
 
 def _insert(conn, table, row):
@@ -31,6 +31,7 @@ def duplicate(conn, source_id, maps_dir, created_files, name, owner_id, map_id=N
     target = source_id if map_id is not None else campaigns.create(conn, name, source["description"], owner_id)
     mapping = {}
     endpoints = []
+    double_links = []
     for original in selected:
         row = dict(original)
         old = row.pop("id")
@@ -55,12 +56,27 @@ def duplicate(conn, source_id, maps_dir, created_files, name, owner_id, map_id=N
                 identity = data.pop("id", None)
                 if "revision" in data:
                     data["revision"] = 1
+                if table == "double_reveal_maps":
+                    path = (maps_dir / data["image_file"]).resolve()
+                    if maps_dir.resolve() not in path.parents:
+                        raise ValueError("Invalid alternate image path")
+                    stored = images.store_map_image(path.read_bytes(), maps_dir, target)
+                    created_files.append(stored.relative_path)
+                    if (stored.width, stored.height) != (row["width"], row["height"]):
+                        raise ValueError("Alternate image dimensions do not match")
+                    data["image_file"] = stored.relative_path
+                if table == "double_reveal_rooms":
+                    double_links.append((new, data["area_key"], data["destination_map_id"]))
+                    data.update(destination_map_id=None, true_active=0)
                 if table == "map_transitions":
                     data["id"] = uuid.uuid4().hex
                     destination = data["destination_id"]
                     data.update(destination_id=None, runtime_visibility=None, runtime_availability=None)
                     endpoints.append((identity, data["id"], destination, data["link_defined"]))
                 _insert(conn, table, data)
+    for mid, key, destination in double_links:
+        conn.execute("UPDATE double_reveal_rooms SET destination_map_id=? WHERE map_id=? AND area_key=?",
+            (mapping.get(destination), mid, key))
     endpoint_ids = {old: new for old, new, _, _ in endpoints}
     for _, new, destination, defined in endpoints:
         conn.execute("UPDATE map_transitions SET destination_id=?,link_defined=? WHERE id=?",

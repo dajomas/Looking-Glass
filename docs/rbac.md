@@ -179,3 +179,13 @@ new dependency, configuration change or port change is required. Large copies ho
 the SQLite write transaction while validating and copying images; allow adequate disk
 space and avoid concurrent bulk writes. Process termination can leave orphan image
 files (as with other multi-resource operations); database commit is still transactional.
+
+## Double-reveal authorization
+
+Every double-reveal configuration, selection, preview, mutation and navigation request uses
+`map_for_manage`. Campaign managers and authorized superadmins can operate it; other admins
+cannot inspect the campaign's alternate artwork. Writes use the normal CSRF dependency and
+reject stale version stamps. All routes are mounted exclusively on the admin application.
+The viewer application has no raw alternate-image endpoint, room configuration response or
+clickable navigation action. Same-campaign links are checked in services and enforced by
+SQLite triggers. The data/maps directory must remain private rather than statically served.

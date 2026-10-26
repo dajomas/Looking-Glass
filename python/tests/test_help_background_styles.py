@@ -19,7 +19,7 @@ def test_help_backgrounds_are_progressively_lighter():
         assert color in CSS.split(MARKER)[1]
 
 def test_new_rules_are_scoped_to_help_only():
-    new = CSS.split(MARKER)[1]
+    new = CSS.split(MARKER, 1)[1].split("/*", 1)[0]
     rules = re.findall(r"([^{}]+)\{([^{}]*)\}", new)
     assert len(rules) == 6
     for selectors, _ in rules:

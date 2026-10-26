@@ -290,6 +290,51 @@ MIGRATIONS: list[str] = [
     );
     CREATE INDEX idx_campaign_checkpoints ON campaign_checkpoints(campaign_id,id DESC);
     """,
+    # 17 - optional artwork-only room variants, independent from fog
+    """
+    CREATE TABLE double_reveal_maps (
+        map_id INTEGER PRIMARY KEY REFERENCES maps(id) ON DELETE CASCADE,
+        image_file TEXT NOT NULL,
+        revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>0)
+    );
+    CREATE TABLE double_reveal_rooms (
+        map_id INTEGER NOT NULL REFERENCES maps(id) ON DELETE CASCADE,
+        area_key TEXT NOT NULL, x REAL NOT NULL, y REAL NOT NULL,
+        destination_map_id INTEGER REFERENCES maps(id) ON DELETE SET NULL,
+        true_active INTEGER NOT NULL DEFAULT 0 CHECK(true_active IN (0,1)),
+        revision INTEGER NOT NULL DEFAULT 1 CHECK(revision>0),
+        PRIMARY KEY(map_id,area_key)
+    );
+    CREATE TABLE double_reveal_history (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        map_id INTEGER NOT NULL, area_key TEXT NOT NULL,
+        before_state INTEGER NOT NULL CHECK(before_state IN (0,1)),
+        after_state INTEGER NOT NULL CHECK(after_state IN (0,1)),
+        FOREIGN KEY(map_id,area_key) REFERENCES double_reveal_rooms(map_id,area_key) ON DELETE CASCADE
+    );
+    CREATE TRIGGER double_reveal_campaign_insert BEFORE INSERT ON double_reveal_rooms
+    WHEN NEW.destination_map_id IS NOT NULL AND
+      (SELECT campaign_id FROM maps WHERE id=NEW.map_id) !=
+      (SELECT campaign_id FROM maps WHERE id=NEW.destination_map_id)
+    BEGIN SELECT RAISE(ABORT,'Cross-campaign double reveal destination'); END;
+    CREATE TRIGGER double_reveal_campaign_update BEFORE UPDATE ON double_reveal_rooms
+    WHEN NEW.destination_map_id IS NOT NULL AND
+      (SELECT campaign_id FROM maps WHERE id=NEW.map_id) !=
+      (SELECT campaign_id FROM maps WHERE id=NEW.destination_map_id)
+    BEGIN SELECT RAISE(ABORT,'Cross-campaign double reveal destination'); END;
+    CREATE TRIGGER double_reveal_maps_insert AFTER INSERT ON double_reveal_maps
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=NEW.map_id; END;
+    CREATE TRIGGER double_reveal_maps_update AFTER UPDATE ON double_reveal_maps
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=NEW.map_id; END;
+    CREATE TRIGGER double_reveal_maps_delete AFTER DELETE ON double_reveal_maps
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=OLD.map_id; END;
+    CREATE TRIGGER double_reveal_rooms_insert AFTER INSERT ON double_reveal_rooms
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=NEW.map_id; END;
+    CREATE TRIGGER double_reveal_rooms_update AFTER UPDATE ON double_reveal_rooms
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=NEW.map_id; END;
+    CREATE TRIGGER double_reveal_rooms_delete AFTER DELETE ON double_reveal_rooms
+    BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=OLD.map_id; END;
+    """,
 ]
 
 

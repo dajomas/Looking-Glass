@@ -38,6 +38,7 @@ def editor(page,fail=False):
      'admin/map_editor.html':(ROOT/'web_html/admin/map_editor.html').read_text(),
      'partials/_csrf.html':'<input name="csrf_token" value="token" type="hidden">',
      'partials/_map_display_dialog.html':'<dialog id="map-display-dialog"><p id="map-display-question"></p></dialog>'}
+    templates["partials/_double_reveal.html"]=(ROOT/"templates/partials/_double_reveal.html").read_text()
     html=Environment(loader=DictLoader(templates)).get_template('admin/map_editor.html').render(
         map=dict(data,wall_count=2),campaign={'id':4,'name':'C'},siblings=[{'id':1,'name':'M'}],op_count=0,fog_opacity=.55)
     page.on('pageerror',lambda e:state['errors'].append(str(e)))
