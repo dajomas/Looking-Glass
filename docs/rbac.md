@@ -103,7 +103,12 @@ markers or the imported-note manager. Existing admin read permissions apply to l
 Both backup and restore use the campaign-management access check: the owning admin/DM
 or a superadmin may act. Other admins cannot manage another owner's campaign, and
 viewers cannot use admin-portal backup controls. Both routes require CSRF validation,
-including backup downloads. Restore additionally requires the target's current name.
+including backup downloads. Restore additionally requires the target's current name,
+a valid signed inspection preview and the identical inspected ZIP. Inspection uses the
+same management permission and CSRF guard. Recovery downloads are authenticated GETs
+with the same management access check and exact campaign-prefixed filenames. They do
+not require CSRF because they do not change state. Neither inspection nor recovery
+download is exposed on the viewer portal.
 Archive content cannot change owner or viewer assignments or create user accounts.
 Fog-operation author references are cleared rather than linked to accounts by numeric ID.
 

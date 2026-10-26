@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Inspect campaign backup{% endblock %}
+{% block content %}
+<section class="card stack">
+<h1>Compatible campaign backup</h1>
+<p>No campaign content has changed. Archive campaign: <strong>{{ report.name }}</strong></p>
+<p>{{ report.description }}</p>
+<p>Schema {{ report.schema }}; installed schema {{ report.current_schema }}.
+{{ report.compressed_bytes }} compressed bytes / {{ report.expanded_bytes }} expanded bytes.</p>
+<h2>Maps</h2>
+<ul>{% for map in report.maps %}<li>{{ map.name }} — {{ map.width }} × {{ map.height }}</li>{% else %}<li>No maps</li>{% endfor %}</ul>
+<h2>Content counts</h2>
+<ul>{% for table, count in report.counts.items() %}<li>{{ table }}: {{ count }}</li>{% endfor %}</ul>
+<h2>Replace {{ campaign.name }}</h2>
+<p>This replaces the current name, description, maps, walls, fog, notes and connections.
+Owner and viewer access remain unchanged. Local checkpoints are not included and may become incompatible.
+A complete portable recovery ZIP must be saved before replacement; failure blocks restore.</p>
+<p>Select the same ZIP again. This preview expires in 15 minutes, on server restart, or when campaign content changes.</p>
+<form method="post" action="/campaigns/{{ campaign.id }}/restore" enctype="multipart/form-data" class="stack" data-confirm="Replace the campaign with this inspected backup?">
+{% include "partials/_csrf.html" %}
+<input type="hidden" name="preview" value="{{ preview }}">
+<label>Same backup ZIP <input type="file" name="backup" accept=".zip,application/zip" required></label>
+<label>Type {{ campaign.name }} to confirm <input name="confirm" required autocomplete="off"></label>
+<button type="submit" class="danger">Save recovery backup and restore</button>
+</form>
+<a href="/campaigns/{{ campaign.id }}">Cancel — return to campaign</a>
+</section>
+{% endblock %}

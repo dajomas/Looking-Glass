@@ -1,4 +1,13 @@
 """Campaign-only ZIP backups; archive SQL and filesystem paths are never trusted."""
+import hashlib
+import hmac
+import secrets
+import time
+import os
+import sqlite3
+import tempfile
+from pathlib import Path
+
 import base64
 import io
 import json
@@ -35,7 +44,8 @@ def campaign_payload(conn, campaign_id):
 
 
 def export_campaign(conn, campaign_id, maps_dir):
-    conn.execute("BEGIN")
+    if not conn.in_transaction:
+        conn.execute("BEGIN")
     data = campaign_payload(conn, campaign_id)
     out = io.BytesIO()
     with zipfile.ZipFile(out, "w", zipfile.ZIP_DEFLATED) as archive:
@@ -56,6 +66,8 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
             raise ValueError("Invalid archive entries")
         if sum(e.file_size for e in entries) > limit:
             raise ValueError("Expanded backup exceeds the upload limit")
+        if len(raw) > limit:
+            raise ValueError("Compressed backup exceeds the upload limit")
         data = json.loads(archive.read("campaign.json"))
         # Migration 16 adds only local checkpoint storage/campaign session_version;
         # the allowlisted portable campaign payload remains identical to schema 15.
@@ -72,7 +84,14 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
             for row in rows:
                 if not isinstance(row, dict) or set(row) != columns:
                     raise ValueError("Backup columns do not match this version")
+        for table, rows in tables.items():
+            ids = [r["id"] for r in rows if "id" in r]
+            if len(ids) != len(set(ids)):
+                raise ValueError("Duplicate identity")
         map_ids = {r["id"] for r in tables["maps"]}
+        expected = {"campaign.json"} | {f"images/{mid}.png" for mid in map_ids}
+        if {e.filename for e in entries} != expected:
+            raise ValueError("Missing or unexpected archive entries")
         wall_ids = {r["id"] for r in tables["walls"]}
         transition_ids = {r["id"] for r in tables["map_transitions"]}
         for table, rows in tables.items():
@@ -136,3 +155,85 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
         if not isinstance(campaign["name"], str) or not 1 <= len(campaign["name"]) <= 120 or not isinstance(campaign["description"], str) or len(campaign["description"]) > 2000:
             raise ValueError("Invalid campaign details")
         conn.execute("UPDATE campaigns SET name=?,description=?,active_map_id=? WHERE id=?", (campaign["name"], campaign["description"], mapping.get(active), campaign_id))
+
+
+# A restart deliberately invalidates outstanding previews.
+_PREVIEW_KEY = secrets.token_bytes(32)
+PREVIEW_TTL = 900
+
+
+def target_digest(conn, campaign_id):
+    payload = campaign_payload(conn, campaign_id)
+    payload["target"] = dict(conn.execute("SELECT * FROM campaigns WHERE id=?", (campaign_id,)).fetchone())
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, allow_nan=False).encode()).hexdigest()
+
+
+def preview_token(conn, campaign_id, user_id, raw):
+    body = json.dumps([campaign_id, user_id, hashlib.sha256(raw).hexdigest(),
+                       target_digest(conn, campaign_id), int(time.time())], separators=(",", ":"))
+    return body + "." + hmac.new(_PREVIEW_KEY, body.encode(), hashlib.sha256).hexdigest()
+
+
+def verify_preview(conn, campaign_id, user_id, raw, token):
+    try:
+        body, signature = token.rsplit(".", 1)
+        expected = hmac.new(_PREVIEW_KEY, body.encode(), hashlib.sha256).hexdigest()
+        if not hmac.compare_digest(signature, expected):
+            raise ValueError("Invalid preview")
+        cid, uid, digest, target, issued = json.loads(body)
+        if (cid != campaign_id or uid != user_id or digest != hashlib.sha256(raw).hexdigest()
+                or target != target_digest(conn, campaign_id) or not 0 <= time.time() - issued <= PREVIEW_TTL):
+            raise ValueError("Preview expired or campaign/archive changed; inspect again")
+    except (TypeError, KeyError, json.JSONDecodeError) as exc:
+        raise ValueError("Invalid preview") from exc
+
+
+def inspect_campaign(conn, campaign_id, raw, limit):
+    """Trial-import into a private snapshot; never change application rows/files."""
+    with tempfile.TemporaryDirectory(prefix="lg-backup-inspect-") as work:
+        # File-backed snapshot preserves serialized WAL-mode databases correctly.
+        snapshot = Path(work) / "inspection.sqlite3"
+        snapshot.write_bytes(conn.serialize())
+        clone = sqlite3.connect(snapshot)
+        try:
+            clone.row_factory = sqlite3.Row
+            clone.execute("PRAGMA foreign_keys=ON")
+            clone.execute("BEGIN IMMEDIATE")
+            restore_campaign(clone, campaign_id, Path(work) / "maps", raw, limit, [])
+            if clone.execute("PRAGMA foreign_key_check").fetchone():
+                raise ValueError("Invalid backup references")
+        finally:
+            clone.close()
+    with zipfile.ZipFile(io.BytesIO(raw)) as archive:
+        data = json.loads(archive.read("campaign.json"))
+        return {"name": data["campaign"]["name"], "description": data["campaign"]["description"],
+                "schema": data["schema"], "current_schema": len(MIGRATIONS),
+                "maps": [{"name": m["name"], "width": m["width"], "height": m["height"]}
+                         for m in data["tables"]["maps"]],
+                "counts": {table: len(rows) for table, rows in data["tables"].items()},
+                "compressed_bytes": len(raw), "expanded_bytes": sum(e.file_size for e in archive.infolist())}
+
+
+def save_recovery(conn, campaign_id, maps_dir, recovery_dir, limit):
+    """Save and validate a durable portable ZIP before allowing replacement."""
+    raw = export_campaign(conn, campaign_id, maps_dir)
+    inspect_campaign(conn, campaign_id, raw, limit)
+    recovery_dir.mkdir(parents=True, exist_ok=True, mode=0o700)
+    name = f"campaign-{campaign_id}-{uuid.uuid4().hex}.zip"
+    path = recovery_dir / name
+    try:
+        with path.open("xb") as stream:
+            os.chmod(path, 0o600)
+            stream.write(raw)
+            stream.flush()
+            os.fsync(stream.fileno())
+        if os.name != "nt":
+            directory = os.open(recovery_dir, os.O_RDONLY | getattr(os, "O_DIRECTORY", 0))
+            try:
+                os.fsync(directory)
+            finally:
+                os.close(directory)
+    except BaseException:
+        path.unlink(missing_ok=True)
+        raise
+    return name

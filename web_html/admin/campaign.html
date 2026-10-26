@@ -154,13 +154,14 @@
       {% include "partials/_csrf.html" %}
       <button type="submit">Download campaign backup</button>
     </form>
-    <h3>Restore current campaign</h3>
-    <p class="muted">Replaces this campaign's name, description and all map content. Owner and viewer access stay unchanged. Download a backup first. Use the same application schema version; the upload limit also applies to expanded size.</p>
-    <form method="post" action="/campaigns/{{ campaign.id }}/restore" enctype="multipart/form-data" class="stack" data-confirm="Replace this campaign with the selected backup? This cannot be undone.">
+    <h3>Retained recovery backups</h3>
+    <ul>{% for name in recovery_files %}<li><a href="/campaigns/{{ campaign.id }}/recovery/{{ name }}">{{ name }}</a></li>{% else %}<li>No retained recovery backups</li>{% endfor %}</ul>
+    <h3>Inspect before restoring</h3>
+    <p class="muted">Inspect a ZIP without changing this campaign. Compatible archives can then replace its content, after an automatic recovery backup is saved. Owner and viewer access stay unchanged.</p>
+    <form method="post" action="/campaigns/{{ campaign.id }}/restore/inspect" enctype="multipart/form-data" class="stack">
       {% include "partials/_csrf.html" %}
       <label>Campaign backup <input type="file" name="backup" accept=".zip,application/zip" required></label>
-      <label>Type <strong>{{ campaign.name }}</strong> to confirm <input name="confirm" required autocomplete="off"></label>
-      <button type="submit" class="danger">Restore campaign from backup</button>
+      <button type="submit">Inspect campaign backup</button>
     </form>
   </details>
   <details class="danger-zone">

@@ -6,27 +6,56 @@ map order and appearance, wall source uploads, calibration, authored walls/passa
 fog history and displayed snapshots, map connections, room notes and the imported room library.
 Passwords, sessions, accounts and campaign access assignments are never exported.
 
-To restore, select the ZIP, type the current campaign name and confirm. Restore replaces current
-campaign content, not other campaigns. Ownership and viewer assignments remain unchanged.
-A backup from another campaign can be restored into the current campaign. IDs and image names
-are remapped, including linked passage destinations. Retry/replay travel records are cleared.
-Download a backup before restoring; no automatic pre-restore backup is retained.
+To restore safely:
 
-Only campaign managers (owner/admin or superadmin) can use these CSRF-protected POST routes:
-- `/campaigns/{campaign_id}/backup`
-- `/campaigns/{campaign_id}/restore`
+1. Select the ZIP and **Inspect campaign backup**. Live campaign rows/files are unchanged.
+2. Review compatible schema, source name/description, map list/dimensions, per-table counts
+   and compressed/expanded byte sizes. Incompatible/corrupt archives are rejected.
+3. Select the identical ZIP again on the preview page and type the current target name.
+4. Select **Save recovery backup and restore** and confirm replacement.
+5. Download the pre-restore recovery ZIP from the success page, or later under
+   **Retained recovery backups** in campaign Settings. Inspect/restore that ZIP to recover.
 
-Backups normally require the same database schema version. Schema 16 also accepts schema-15 backups because migration 16 leaves the portable campaign payload unchanged. Both compressed upload size and total expanded
-ZIP size are bounded by `storage.max_upload_mb`. Archives are read directly, never extracted;
-SQL is not accepted. Images use the existing image validation pipeline. Database changes roll
-back on failure, newly created images are removed on failure, and old images are removed only
-after successful commit. Connected clients receive a campaign refresh after success.
+Restore replaces current campaign content, not other campaigns. Ownership and viewer
+assignments remain unchanged. Backups from another campaign are supported; map/wall IDs,
+image names and passage destinations are remapped. Travel replay records are cleared.
+The campaign session version advances so old previews cannot be replayed after success.
 
-Validation performed in this build: three service tests passed (round trip including runtime
-states/links/access isolation, transaction rollback, expanded-size rejection). Python sources
-compile. The web tests could not run in the build environment because FastAPI is not installed.
-Run `PYTHONPATH=python pytest python/tests/test_campaign_backup.py python/tests/test_web.py -q`
-in the application's development environment for service and existing web coverage.
+Preview tokens expire after 15 minutes or server restart and are bound to the user,
+archive bytes and target database content. Changed content/archives require inspection again.
+No upload is staged on the server: the second file selection is intentional. The signer
+uses the supported single-process application model. Files modified outside the application
+are not tracked by the target database digest; keep campaigns idle during backup/restore.
+
+The same real importer is exercised against a temporary database snapshot and temporary
+images during inspection and again before replacement. A recovery ZIP containing the
+current portable campaign content must be exported, validated and durably saved before
+replacement is allowed. Missing current images, upload/expanded limits, unavailable disk
+or write failures block restore. Recovery files remain even if a subsequent restore fails.
+They live under `data/recovery` and are not automatically pruned. Treat them as sensitive.
+
+Admin-portal routes (owning admin/DM or superadmin):
+- `POST /campaigns/{campaign_id}/backup` — CSRF-protected ZIP download.
+- `POST /campaigns/{campaign_id}/restore/inspect` — CSRF-protected read-only inspection.
+- `POST /campaigns/{campaign_id}/restore` — CSRF, typed name and signed preview required.
+- `GET /campaigns/{campaign_id}/recovery/{name}` — authenticated recovery ZIP download.
+
+Backups normally require the current database schema. Schema 16 also accepts schema 15
+because portable content is unchanged. Compressed upload and expanded ZIP bytes are both
+bounded by `storage.max_upload_mb`; downloads alone are not capped. Only expected entries,
+allowlisted tables and exact columns are accepted. Archive SQL is never executed and
+archive paths are never extracted. Images use the existing validation pipeline. Database
+changes roll back on failure; new images are removed on caught failures; old images are
+removed only after commit. Clients receive a campaign refresh after success.
+
+Inspection needs memory and OS temporary disk for a full database snapshot and decoded
+images. Portable recovery excludes accounts, access assignments and local checkpoint history.
+It is not full installation backup or atomic filesystem rollback. See deployment guidance.
+
+Validation for this patch: 18 service/template tests passed; one HTTP module skipped
+because FastAPI is unavailable. Browser and HTTP acceptance remain to run in the development
+installation. See [testing](testing.md#step-4-backup-inspection-and-recovery) and
+[patch notes](../Patch/step-4-backup-inspection.md).
 
 ## Readiness capacity check
 

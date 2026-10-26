@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Campaign restored{% endblock %}
+{% block content %}
+<section class="card stack">
+<h1>Campaign restored</h1>
+<p>The previous campaign content was saved before replacement.</p>
+<a href="/campaigns/{{ campaign_id }}/recovery/{{ recovery }}">Download pre-restore recovery backup</a>
+<p>To recover, inspect and restore that ZIP using the normal campaign backup workflow.
+Recovery files are retained in the installation data/recovery directory until an operator removes them.
+They do not include accounts, permissions or local checkpoint history.</p>
+<a href="/campaigns/{{ campaign_id }}">Return to campaign</a>
+</section>
+{% endblock %}

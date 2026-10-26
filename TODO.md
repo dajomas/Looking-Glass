@@ -21,5 +21,9 @@
   preview, compatibility/freshness guards and transactional automatic safety checkpoint.
   Service/template and migration regressions validated; HTTP and browser acceptance remain
   outstanding in the development installation.
-- Steps 4–6: pending; their scope and order above remain unchanged.
+- Step 4: implemented — read-only backup inspection, signed expiring restore previews,
+  stale/archive guards and validated automatic portable recovery backups.
+  Service/template regressions passed; HTTP and browser acceptance remain outstanding.
+  See Patch/step-4-backup-inspection.md for validation and limitations.
+- Steps 5–6: pending; their scope and order above remain unchanged.
 - Item 7 (file-import busy feedback): deferred until after the suggestions, as requested.

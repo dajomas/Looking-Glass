@@ -5,8 +5,8 @@ import sqlite3
 from typing import Annotated
 from urllib.parse import quote_plus
 
-from fastapi import APIRouter, File, Form, UploadFile
-from fastapi.responses import RedirectResponse, Response
+from fastapi import APIRouter, File, Form, UploadFile, Request
+from fastapi.responses import RedirectResponse, Response, FileResponse
 
 from ... import rbac
 from ...rbac import Role
@@ -20,7 +20,8 @@ from ...services.map_display import activate
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, map_for_manage
 from ..context import AppContext
-from ..deps import BadRequest, CsrfUserDep, CtxDep, Forbidden
+from ..deps import BadRequest, CsrfUserDep, CtxDep, Forbidden, UserDep
+from ..templating import render
 from . import notify
 
 router = APIRouter()
@@ -272,10 +273,45 @@ def backup_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int):
         "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
 
 
+@router.post("/campaigns/{campaign_id}/restore/inspect")
+async def inspect_backup(request: Request, ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+                         backup: Annotated[UploadFile, File()]):
+    import zipfile
+    with ctx.db.connect() as conn:
+        campaign = campaign_for_manage(conn, user, campaign_id)
+        raw = await _read_upload(ctx, backup)
+        limit = int(ctx.settings.section("storage")["max_upload_mb"]) * 1024 * 1024
+        try:
+            conn.execute("BEGIN")
+            report = campaign_backup.inspect_campaign(conn, campaign_id, raw, limit)
+            token = campaign_backup.preview_token(conn, campaign_id, user["id"], raw)
+        except (ValueError, KeyError, TypeError, OSError, sqlite3.DatabaseError, zipfile.BadZipFile, RuntimeError, OverflowError):
+            return _back(f"/campaigns/{campaign_id}", err="Inspection failed: invalid, incompatible or oversized backup; nothing changed")
+    response = render(request, "admin/backup_inspect.html", campaign=campaign, report=report, preview=token)
+    response.headers["Cache-Control"] = "no-store"
+    return response
+
+
+@router.get("/campaigns/{campaign_id}/recovery/{name}")
+def download_recovery(ctx: CtxDep, user: UserDep, campaign_id: int, name: str):
+    import re
+    from ..deps import NotFound
+    with ctx.db.connect() as conn:
+        campaign_for_manage(conn, user, campaign_id)
+    if not re.fullmatch(rf"campaign-{campaign_id}-[0-9a-f]{{32}}\.zip", name):
+        raise NotFound()
+    path = ctx.settings.data_dir / "recovery" / name
+    if not path.is_file():
+        raise NotFound()
+    return FileResponse(path, media_type="application/zip", filename=name,
+                        headers={"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
+
+
 @router.post("/campaigns/{campaign_id}/restore")
-async def restore_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+async def restore_campaign(request: Request, ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
                            backup: Annotated[UploadFile, File()],
-                           confirm: Annotated[str, Form()] = ""):
+                           confirm: Annotated[str, Form()] = "",
+                           preview: Annotated[str, Form()] = ""):
     import zipfile
     created_files = []
     old_maps = []
@@ -288,11 +324,18 @@ async def restore_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
             raw = await _read_upload(ctx, backup)
             old_maps = maps_repo.list_for_campaign(conn, campaign_id)
             limit = int(ctx.settings.section("storage")["max_upload_mb"]) * 1024 * 1024
+            campaign_backup.verify_preview(conn, campaign_id, user["id"], raw, preview)
+            campaign_backup.inspect_campaign(conn, campaign_id, raw, limit)
+            recovery = campaign_backup.save_recovery(conn, campaign_id, ctx.settings.maps_dir,
+                                                     ctx.settings.data_dir / "recovery", limit)
             campaign_backup.restore_campaign(conn, campaign_id, ctx.settings.maps_dir, raw, limit, created_files)
-    except (ValueError, KeyError, TypeError, OSError, sqlite3.DatabaseError, zipfile.BadZipFile, RuntimeError):
+            conn.execute("UPDATE campaigns SET session_version=session_version+1 WHERE id=?", (campaign_id,))
+            if conn.execute("PRAGMA foreign_key_check").fetchone():
+                raise ValueError("Invalid restored references")
+    except (ValueError, KeyError, TypeError, OSError, sqlite3.DatabaseError, zipfile.BadZipFile, RuntimeError, OverflowError):
         for path in created_files:
             images.delete_map_image(ctx.settings.maps_dir, path)
-        return _back(f"/campaigns/{campaign_id}", err="Restore failed: invalid, incompatible or oversized backup")
+        return _back(f"/campaigns/{campaign_id}", err="Restore blocked: inspect the same ZIP again, check its compatibility and limits, and ensure recovery storage is writable")
     except BaseException:
         for path in created_files:
             images.delete_map_image(ctx.settings.maps_dir, path)
@@ -301,4 +344,6 @@ async def restore_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
         images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
         ctx.fog.invalidate(m["id"])
     await notify.campaign_changed(ctx, campaign_id, "campaign")
-    return _back(f"/campaigns/{campaign_id}", ok="Campaign restored from backup")
+    response = render(request, "admin/backup_restored.html", campaign_id=campaign_id, recovery=recovery)
+    response.headers["Cache-Control"] = "no-store"
+    return response

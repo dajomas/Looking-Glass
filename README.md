@@ -336,10 +336,12 @@ Patch/imported-room-list.md for details and validation.
 ## Campaign backup and restore
 
 Campaign Settings now includes **Backup / Restore**. Download a campaign-only ZIP
-or restore one into the current campaign after typing its name. Includes map images,
+or inspect one before restoring it into the current campaign. Preview compatibility, map
+list and content counts, then select the identical ZIP and type the target name. A validated
+pre-restore recovery ZIP is required and retained automatically. Includes map images,
 fog, walls, passages, connections and room notes. Ownership and viewer assignments
 stay unchanged; accounts and sessions are never exported. See [usage](docs/usage.md#campaign-backup-and-restore)
-and [patch notes](Patch/campaign-backup-restore.md). No database migration or new dependency is required.
+and [step 4 patch notes](Patch/step-4-backup-inspection.md). No database migration or new dependency is required.
 
 ## Campaign readiness
 

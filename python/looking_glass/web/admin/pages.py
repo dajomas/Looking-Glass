@@ -35,6 +35,7 @@ def campaign_page(request: Request, ctx: CtxDep, user: UserDep, campaign_id: int
         admins = [u for u in users_repo.list_all(conn) if u["role"] != Role.VIEWER] \
             if rbac.can_manage_users(user) else []
     return render(request, "admin/campaign.html", campaign=campaign, maps=maps, viewers=viewers,
+                  recovery_files=sorted(p.name for p in (ctx.settings.data_dir / "recovery").glob(f"campaign-{campaign_id}-*.zip")),
                   assignable=assignable, admins=admins,
                   can_create_viewers=rbac.can_create_viewers(
                       user, bool(ctx.settings.section("security")["admins_can_create_viewers"])),
