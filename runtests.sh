@@ -1,31 +1,36 @@
+#!/usr/bin/env bash
+# Run from any directory; keep failures visible after packaging logs.
+set -o pipefail
+cd -- "$(dirname -- "${BASH_SOURCE[0]}")" || exit 1
+if [[ -z "${VIRTUAL_ENV:-}" ]]; then
+  source .venv-test/bin/activate || exit 1
+fi
+mkdir -p test-results || exit 1
+status=0
+python -m pytest -ra python/tests --ignore=python/tests/browser \
+  2>&1 | tee test-results/python.log || status=1
 (
-  source .venv-test/bin/activate
+  for test in python/tests/test_*.js; do
+    printf '\n=== %s ===\n' "$test"
+    node "$test" || exit 1
+  done
+) 2>&1 | tee test-results/javascript.log || status=1
 
-  set -o pipefail
-  mkdir -p test-results
-  rm -rf test-results/*
-  
-  status=0
-
-  python -m pytest -ra \
-    python/tests --ignore=python/tests/browser \
-    2>&1 | tee test-results/python.log || status=1
-
-  (
-    for test in python/tests/test_*.js; do
-      printf '\n=== %s ===\n' "$test"
-      node "$test" || exit 1
-    done
-  ) 2>&1 | tee test-results/javascript.log || status=1
-
+if python -u python/tests/check_browser_environment.py \
+    2>&1 | tee test-results/browser-preflight.log; then
   python -m pytest -ra python/tests/browser \
     2>&1 | tee test-results/browser.log || status=1
+else
+  printf '%s\n' 'NOT RUN: browser preflight failed; see browser-preflight.log. This is a failed run, not a pass.' \
+    | tee test-results/browser.log
+  status=1
+fi
 
-  exit "$status"
-)
-
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
-git rev-parse ${BRANCH}
-HASH=$(git rev-parse ${BRANCH} | cut -c1-7)
-
-gzip -c -r test-results | base64 > test-results.${HASH}.txt
+HASH=$(git rev-parse --short=7 HEAD 2>/dev/null) || HASH=unversioned
+# Preserve the existing concatenated gzip/base64 result format.
+if ! gzip -c test-results/browser-preflight.log test-results/browser.log \
+    test-results/javascript.log test-results/python.log \
+    | base64 > "test-results.${HASH}.txt"; then
+  status=1
+fi
+exit "$status"
