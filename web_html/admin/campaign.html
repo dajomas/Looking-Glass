@@ -1,5 +1,14 @@
 {% extends "base.html" %}
 {% block title %}{{ campaign.name }}{% endblock %}
+{% block styles %}{{ super() }}<style>
+.map-actions { display: flex; flex-wrap: nowrap; align-items: flex-start; justify-content: flex-end; gap: .6rem; }
+.map-actions > a, .map-actions > form { flex: 0 0 auto; }
+.map-actions .map-duplicate { flex: 0 0 11rem; width: 11rem; min-width: 0; white-space: normal; overflow-wrap: anywhere; text-align: left; }
+.map-actions .map-duplicate > summary { margin: 0; padding: .45rem 0; white-space: nowrap; }
+.map-actions .map-duplicate input { width: 100%; min-width: 0; max-width: 100%; }
+.map-actions .map-duplicate .stack, .map-actions .map-duplicate label { min-width: 0; max-width: 100%; }
+.map-actions .map-duplicate button { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
+</style>{% endblock %}
 {% block content %}
 <div class="page-head">
   <div>
@@ -59,19 +68,22 @@
           {% endif %}
         </td>
         <td class="right nowrap">
-          <a class="button primary" href="/maps/{{ m.id }}">Open fog editor</a>
-          <details class="inline"><summary>Duplicate map</summary>
-            <p>Clean copy in this campaign. External passage destinations are detached; internal links are remapped. Play state resets.</p>
-            <form method="post" action="/maps/{{ m.id }}/duplicate" class="stack">
+          <div class="map-actions">
+            <details class="map-duplicate">
+              <summary>Duplicate map</summary>
+              <p>Clean copy in this campaign. External passage destinations are detached; internal links are remapped. Play state resets.</p>
+              <form method="post" action="/maps/{{ m.id }}/duplicate" class="stack">
+                {% include "partials/_csrf.html" %}
+                <label>Copy name <input name="name" value="{{ m.name[:113] ~ ' (copy)' }}" required maxlength="120"></label>
+                <button type="submit">Create clean map copy</button>
+              </form>
+            </details>
+            <a class="button primary" href="/maps/{{ m.id }}">Open fog editor</a>
+            <form method="post" action="/maps/{{ m.id }}/delete" class="inline" data-confirm="Delete map '{{ m.name }}' and its fog state?">
               {% include "partials/_csrf.html" %}
-              <label>Copy name <input name="name" value="{{ (m.name[:113] ~ ' (copy)') }}" required maxlength="120"></label>
-              <button type="submit">Create clean map copy</button>
+              <button class="danger" type="submit">Delete</button>
             </form>
-          </details>
-          <form method="post" action="/maps/{{ m.id }}/delete" class="inline" data-confirm="Delete map '{{ m.name }}' and its fog state?">
-            {% include "partials/_csrf.html" %}
-            <button class="danger" type="submit">Delete</button>
-          </form>
+          </div>
         </td>
       </tr>
     {% endfor %}
@@ -164,7 +176,7 @@
     <p>Copy authored maps, walls, notes, sources and internal connections. New campaign belongs to you, has no viewers or active map, and starts fully fogged. Runtime states, checkpoints and travel history are not copied.</p>
     <form method="post" action="/campaigns/{{ campaign.id }}/duplicate" class="stack">
       {% include "partials/_csrf.html" %}
-      <label>Copy name <input name="name" value="{{ (campaign.name[:113] ~ ' (copy)') }}" required maxlength="120"></label>
+      <label>Copy name <input name="name" value="{{ campaign.name[:113] ~ ' (copy)' }}" required maxlength="120"></label>
       <button type="submit">Create clean campaign copy</button>
     </form>
   </details>
