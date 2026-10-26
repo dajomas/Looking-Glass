@@ -25,7 +25,13 @@ def test_image_choice_and_type_permissions(env):
     changed = dm.post(endpoint,headers=hdr,json=body)
     assert changed.status_code == 200, changed.text
     assert changed.json()["width"] == 800 and changed.json()["calibration"]["scale_x"] == 2
+    expected_image_url = f"/api/maps/{mid}/image"
+    assert changed.json()["image_url"] == expected_image_url
+    metadata = dm.get(f"/api/maps/{mid}")
+    assert metadata.status_code == 200, metadata.text
+    assert metadata.json()["image_url"] == expected_image_url
     admin_art = dm.get(changed.json()["image_url"])
+    assert admin_art.status_code == 200, admin_art.text
     assert admin_art.headers["cache-control"] == "no-store"
     dm.post(f"/api/maps/{mid}/reveal-all",headers=hdr)
     with Image.open(io.BytesIO(admin_art.content)) as a, Image.open(io.BytesIO(dm.get(f"/api/maps/{mid}/viewer-preview").content)) as v:
