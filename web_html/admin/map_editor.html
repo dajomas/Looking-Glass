@@ -2,7 +2,8 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=room-library-unassign-11">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=editor-bottom-flash-12">{% endblock %}
+{% block flash_messages %}{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
   <div class="side-block">
@@ -183,6 +184,9 @@
 </aside>
 
 <section class="viewport" id="viewport" tabindex="0" aria-label="Battle map">
+  <div class="editor-flash-messages">
+    {% include "partials/_flash.html" %}
+  </div>
   <div class="stage" id="stage">
     <img id="map-img" alt="{{ map.name }}" draggable="false">
     <canvas id="fog-canvas"></canvas>
