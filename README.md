@@ -355,3 +355,12 @@ On campaign-context admin screens, select **Search campaign** or press **Ctrl+K*
 and imported room-library entries. Results open read-only DM inspection; they never
 activate a map, reveal fog or travel. A full search page works without JavaScript.
 See [usage](docs/usage.md#campaign-wide-quick-navigation).
+
+## Named session checkpoints
+
+Use **Session checkpoints** on campaign-context admin pages to save and restore named,
+campaign-wide play states. Restore includes a read-only compatibility/effects preview,
+campaign-name confirmation and an automatic safety checkpoint. Authored maps, walls,
+connections, room notes and permissions are not replaced. Checkpoint history is local
+to the installation database, not portable campaign ZIP backups. See
+[usage](docs/usage.md#named-session-checkpoints) and migration notes in deployment.

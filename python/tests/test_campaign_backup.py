@@ -71,3 +71,22 @@ def test_expanded_limit(env):
     with pytest.raises(ValueError,match='Expanded'):
         with db.connect() as c:
             restore_campaign(c,1,maps,raw,1,[])
+
+
+@pytest.mark.parametrize('schema,accepted',[(15,True),(14,False)])
+def test_checkpoint_migration_backup_compatibility(env,schema,accepted):
+    db,maps,raw=env
+    out=io.BytesIO()
+    with zipfile.ZipFile(io.BytesIO(raw)) as source,zipfile.ZipFile(out,'w') as target:
+        for name in source.namelist():
+            body=source.read(name)
+            if name=='campaign.json':
+                data=json.loads(body);data['schema']=schema;body=json.dumps(data).encode()
+            target.writestr(name,body)
+    def apply():
+        with db.connect() as c:
+            c.execute('BEGIN IMMEDIATE')
+            restore_campaign(c,1,maps,out.getvalue(),10**7,[])
+    if accepted:apply()
+    else:
+        with pytest.raises(ValueError,match='schema'):apply()

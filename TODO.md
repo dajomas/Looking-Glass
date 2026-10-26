@@ -17,4 +17,9 @@
 - Step 2: implemented — campaign-wide quick navigation, including Ctrl/Command+K,
   filtered search and read-only DM result inspection. Service/template and DOM-stub
   regressions validated; HTTP and real-browser acceptance remain outstanding.
-- Steps 3–6: pending; their scope and order above remain unchanged.
+- Step 3: implemented — named campaign-wide session checkpoints, read-only restore
+  preview, compatibility/freshness guards and transactional automatic safety checkpoint.
+  Service/template and migration regressions validated; HTTP and browser acceptance remain
+  outstanding in the development installation.
+- Steps 4–6: pending; their scope and order above remain unchanged.
+- Item 7 (file-import busy feedback): deferred until after the suggestions, as requested.

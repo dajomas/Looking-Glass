@@ -16,7 +16,7 @@ Only campaign managers (owner/admin or superadmin) can use these CSRF-protected 
 - `/campaigns/{campaign_id}/backup`
 - `/campaigns/{campaign_id}/restore`
 
-Backups require the same database schema version. Both compressed upload size and total expanded
+Backups normally require the same database schema version. Schema 16 also accepts schema-15 backups because migration 16 leaves the portable campaign payload unchanged. Both compressed upload size and total expanded
 ZIP size are bounded by `storage.max_upload_mb`. Archives are read directly, never extracted;
 SQL is not accepted. Images use the existing image validation pipeline. Database changes roll
 back on failure, newly created images are removed on failure, and old images are removed only
@@ -35,3 +35,15 @@ serialized campaign JSON plus image sizes against the expanded restore limit and
 archive-entry count. It uses the same payload builder as export without creating a ZIP.
 A missing or unreadable image makes the result incomplete. Compressed upload size, proxy
 limits and actual restore success are not checked; retain tested backups independently.
+
+## Named checkpoints versus portable backups
+
+Session checkpoints save local campaign play state and are distinct from campaign ZIP
+backups. They do not contain authored images/walls/notes and cannot reconstruct a deleted
+map. Named checkpoint history and automatic safety checkpoints are stored in the database
+and are not exported by portable campaign backups. Use a full installation backup to retain
+them. Portable ZIP restore remaps map identities, normally invalidating prior local checkpoints.
+The checkpoint table is removed automatically when its campaign is deleted.
+
+Migration 16 is additive; schema-15 portable campaign backups remain supported on schema 16
+with exact content-table validation. No broader old-schema import support is implied.

@@ -275,6 +275,21 @@ MIGRATIONS: list[str] = [
     DROP TABLE room_notes;
     ALTER TABLE room_notes_new RENAME TO room_notes;
     """,
+    # 16 - named campaign-wide play-state checkpoints (authored content stays separate)
+    """
+    ALTER TABLE campaigns ADD COLUMN session_version INTEGER NOT NULL DEFAULT 0;
+    CREATE TABLE campaign_checkpoints (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        campaign_id INTEGER NOT NULL REFERENCES campaigns(id) ON DELETE CASCADE,
+        name TEXT NOT NULL CHECK(length(name) BETWEEN 1 AND 120),
+        notes TEXT NOT NULL DEFAULT '' CHECK(length(notes)<=2000),
+        automatic INTEGER NOT NULL DEFAULT 0 CHECK(automatic IN (0,1)),
+        created_by INTEGER REFERENCES users(id) ON DELETE SET NULL,
+        created_at TEXT NOT NULL DEFAULT (datetime('now')),
+        payload TEXT NOT NULL
+    );
+    CREATE INDEX idx_campaign_checkpoints ON campaign_checkpoints(campaign_id,id DESC);
+    """,
 ]
 
 

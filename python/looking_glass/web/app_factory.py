@@ -9,6 +9,7 @@ from . import auth_routes, errors
 from .admin import api as admin_api
 from .admin import campaigns as admin_campaigns
 from .admin import pages as admin_pages
+from .admin import session_checkpoints as admin_checkpoints
 from .admin import users as admin_users
 from .admin import wall_editor as admin_wall_editor
 from .admin import viewer_zoom as admin_viewer_zoom
@@ -47,6 +48,7 @@ def _base_app(ctx: AppContext, entry: str, title: str) -> FastAPI:
 def create_admin_app(ctx: AppContext) -> FastAPI:
     app = _base_app(ctx, "admin", "Looking Glass - Admin")
     app.include_router(admin_pages.router)
+    app.include_router(admin_checkpoints.router)
     app.include_router(admin_campaigns.router)
     app.include_router(admin_users.router)
     app.include_router(admin_api.router)

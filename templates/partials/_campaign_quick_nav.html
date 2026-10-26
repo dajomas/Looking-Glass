@@ -1,6 +1,7 @@
 {% if entry == 'admin' and user and campaign is defined %}
 <div class="container" style="padding-top:.5rem;padding-bottom:.5rem">
 <a class="button" href="/campaigns/{{ campaign.id }}/search" data-quick-nav-open>Search campaign <span class="muted small">Ctrl/⌘+K</span></a>
+<a class="button" href="/campaigns/{{ campaign.id }}/checkpoints">Session checkpoints</a>
 </div>
 <dialog id="campaign-quick-nav" data-campaign-id="{{ campaign.id }}" aria-labelledby="quick-nav-title" style="width:min(48rem,95vw);max-height:85vh;overflow:auto">
 <div class="section-head"><h2 id="quick-nav-title">Search {{ campaign.name }}</h2><button type="button" data-quick-nav-close aria-label="Close campaign search">Close</button></div>

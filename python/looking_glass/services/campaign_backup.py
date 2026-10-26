@@ -57,7 +57,10 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
         if sum(e.file_size for e in entries) > limit:
             raise ValueError("Expanded backup exceeds the upload limit")
         data = json.loads(archive.read("campaign.json"))
-        if data["format"] != "looking-glass-campaign" or data["version"] != 1 or data["schema"] != len(MIGRATIONS):
+        # Migration 16 adds only local checkpoint storage/campaign session_version;
+        # the allowlisted portable campaign payload remains identical to schema 15.
+        compatible_schema = data["schema"] == len(MIGRATIONS) or (len(MIGRATIONS) == 16 and data["schema"] == 15)
+        if data["format"] != "looking-glass-campaign" or data["version"] != 1 or not compatible_schema:
             raise ValueError("Unsupported backup format or database schema")
         tables = data["tables"]
         if set(tables) != set(TABLES):

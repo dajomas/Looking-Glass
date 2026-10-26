@@ -125,3 +125,14 @@ selected inspection objects must belong to the authorized map and URL campaign. 
 superadmin still searches only the selected campaign. Secret passage names/notes can be
 returned because this feature is exclusively DM-facing; no search UI appears on viewer
 pages. Search and inspection use no-store responses and do not notify player clients.
+
+## Session checkpoint permissions
+
+Only the campaign owner/admin or a superadmin can list, inspect, create, restore or delete
+its checkpoints. Lookup always includes the authorized campaign ID; checkpoint IDs alone
+confer no access. Viewers receive no checkpoint routes, data or controls. GET previews are
+query-only and do not notify viewers. Every POST requires CSRF. Restore additionally
+requires the campaign name, a fresh preview token and compatible authored content; deletion
+requires the saved checkpoint name. Restore may change what authorized viewers see but
+never changes campaign ownership or viewer assignments. Safety records use the restoring
+user as creator; deleting a creator account nulls its metadata reference.

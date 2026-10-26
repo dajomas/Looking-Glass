@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Checkpoint preview · {{ checkpoint.name }}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/campaigns/{{ campaign.id }}/checkpoints">Session checkpoints</a> / Preview</p>
+<h1>{{ checkpoint.name }}</h1><p>#{{ checkpoint.id }} · {{ checkpoint.created_at }} UTC{% if checkpoint.automatic %} · Automatic safety checkpoint{% endif %}</p>
+{% if checkpoint.notes %}<p>{{ checkpoint.notes }}</p>{% endif %}
+<section class="card"><h2>Restore preview</h2>
+{% if problem %}<p role="alert">{{ problem }}</p>{% endif %}
+{% if view %}
+{% if view.conflicts %}<h3>Restore blocked</h3><ul>{% for conflict in view.conflicts %}<li>{{ conflict }}</li>{% endfor %}</ul>
+{% else %}<p>Compatible with current authored maps and configuration.</p>{% endif %}
+<p>Active map: current {% if view.current.active_map_id is none %}blank{% else %}#{{ view.current.active_map_id }}{% endif %} → saved {% if view.target.active_map_id is none %}blank{% else %}#{{ view.target.active_map_id }}{% endif %}.</p>
+<h3>Saved state to restore</h3><ul>{% for m in view.target.maps %}<li>{{ m.name }} (#{{ m.id }}): {{ m.fog|length }} fog operations; {{ m.doors|length }} door overrides; {{ m.passages|length }} passage-entry overrides; {{ m.transitions|length }} endpoint states.{% if m.displayed is none %} No last-displayed snapshot.{% else %} {{ m.displayed|length }} last-displayed fog operations.{% endif %}</li>{% else %}<li>No maps; the saved player display is blank.</li>{% endfor %}</ul>
+<h3>Current state being replaced</h3><ul>{% for m in view.current.maps %}<li>{{ m.name }} (#{{ m.id }}): {{ m.fog|length }} fog operations; {{ m.doors|length }} door overrides; {{ m.passages|length }} passage-entry overrides.</li>{% else %}<li>No maps.</li>{% endfor %}</ul>
+{% endif %}
+<p>Restore replaces campaign-wide fog and runtime states and the active player map. It clears travel retry records and refreshes viewers. Images, walls, authored connections, notes, appearance settings, campaign name, owner and viewer assignments are not replaced.</p>
+{% if view and not view.conflicts %}<form method="post" action="/campaigns/{{ campaign.id }}/checkpoints/{{ checkpoint.id }}/restore" class="stack" data-confirm="Restore this campaign's play state? Connected players will see the restored state. An automatic safety checkpoint will be saved.">
+{% include "partials/_csrf.html" %}<input type="hidden" name="token" value="{{ view.token }}">
+<label>Type <strong>{{ campaign.name }}</strong> to confirm<input name="confirm" required maxlength="120" autocomplete="off"></label>
+<button class="danger" type="submit">Save safety checkpoint and restore</button></form>{% endif %}
+<p class="muted">Any campaign state change after this preview requires a fresh preview. Checkpoint restore is not a fog Undo action; use the automatic safety checkpoint to return to the pre-restore state.</p>
+<a href="/campaigns/{{ campaign.id }}/checkpoints/{{ checkpoint.id }}">Refresh preview</a></section>
+<details class="card"><summary>Delete this checkpoint</summary><p>This deletes only this saved checkpoint, not the current campaign state. Automatic safety checkpoints are retained until explicitly deleted.</p>
+<form method="post" action="/campaigns/{{ campaign.id }}/checkpoints/{{ checkpoint.id }}/delete" class="stack">
+{% include "partials/_csrf.html" %}<label>Type <strong>{{ checkpoint.name }}</strong> to confirm<input name="confirm" required maxlength="120" autocomplete="off"></label>
+<button class="danger" type="submit">Delete checkpoint</button></form></details>
+{% endblock %}
