@@ -881,3 +881,26 @@ change. Delete imported entry remains available only for unassigned entries.
 
 Existing geometry-change reconciliation continues to remove invalid assignments
 when walls change; this manual action releases an assignment without editing walls.
+
+## Campaign backup and restore
+
+Open a campaign from Campaigns, then expand **Settings → Backup / Restore**.
+
+1. Select **Download campaign backup** and retain the ZIP securely.
+2. To restore, choose a ZIP in **Campaign backup**.
+3. Type the current campaign name and select **Restore campaign from backup**.
+4. Accept the confirmation. A successful restore refreshes connected clients.
+
+Restore replaces the campaign name, description and all map content, including active
+map, order, appearance, calibration, wall sources, authored walls and passages, runtime
+door states, fog operations and displayed checkpoints, linked map transitions, room
+notes and imported room library entries. Owner and viewer access remain unchanged.
+A backup from another campaign may be restored into the current campaign; IDs are remapped.
+Travel replay records are cleared. Original fog-operation author accounts are not restored.
+
+Download a backup before restoring: there is no automatic pre-restore backup or undo.
+Only the campaign manager or a superadmin can use these controls. Backups must match
+the database schema version. Both ZIP upload size and expanded size are limited by
+`storage.max_upload_mb`. A backup may exceed the restore limit even when download succeeds.
+Keep this ZIP private: it contains unrevealed maps and DM notes, and is not encrypted.
+This is not a full installation backup; see [deployment](deployment.md#campaign-backup-operations).

@@ -775,3 +775,23 @@ Unassign clears saved room metadata immediately, including custom edits, but kee
 imports and leaves fog untouched. For rollback restore previous code; restoring
 cleared metadata requires a pre-action database backup or manually reassigning the
 original imported entry. Reassignment does not recover discarded custom edits.
+
+## Campaign backup operations
+
+The campaign Settings backup is a portable content backup, not a full instance backup.
+Continue backing up the database, map storage, configuration and secrets using your
+normal installation backup procedure. Campaign ZIPs exclude users, password hashes,
+sessions, campaign owner and viewer assignments, and travel replay records.
+
+Restore requires the same database schema version. `storage.max_upload_mb` limits
+both uploaded ZIP bytes and total expanded ZIP bytes; base64 wall sources add overhead.
+Reverse-proxy upload limits may reject requests first. Backup downloads themselves are
+not capped by this setting. Export and restore buffer archive data in memory and restore
+holds a database write transaction, so allow sufficient memory/disk space and schedule
+large operations while the campaign is idle. Use only trusted backups and store them
+securely; archives contain unrevealed maps and notes and have no built-in encryption.
+
+Apply this patch over the supplied source baseline, restart the application, and follow
+[testing](testing.md#campaign-backup-and-restore-validation). No migration/configuration
+change is necessary. Preserve a full instance backup before deployment. To roll back code,
+revert the patch and restart; reverting code does not undo a campaign restore.

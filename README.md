@@ -332,3 +332,11 @@ matching room in this map, including custom note edits, without deleting the
 imported library entry or changing fog. The imported name becomes available again.
 Save/cancel a pending room draft before unassigning. See docs/usage.md and
 Patch/imported-room-list.md for details and validation.
+
+## Campaign backup and restore
+
+Campaign Settings now includes **Backup / Restore**. Download a campaign-only ZIP
+or restore one into the current campaign after typing its name. Includes map images,
+fog, walls, passages, connections and room notes. Ownership and viewer assignments
+stay unchanged; accounts and sessions are never exported. See [usage](docs/usage.md#campaign-backup-and-restore)
+and [patch notes](Patch/campaign-backup-restore.md). No database migration or new dependency is required.

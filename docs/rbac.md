@@ -97,3 +97,12 @@ map/campaign management permissions. DELETE checks current assignment on the ser
 under an immediate transaction; hiding a UI button is not the security boundary.
 Wrong-map entry IDs cannot be deleted. Viewer APIs and images do not contain edit
 markers or the imported-note manager. Existing admin read permissions apply to lists.
+
+## Campaign backup and restore permissions
+
+Both backup and restore use the campaign-management access check: the owning admin/DM
+or a superadmin may act. Other admins cannot manage another owner's campaign, and
+viewers cannot use admin-portal backup controls. Both routes require CSRF validation,
+including backup downloads. Restore additionally requires the target's current name.
+Archive content cannot change owner or viewer assignments or create user accounts.
+Fog-operation author references are cleared rather than linked to accounts by numeric ID.

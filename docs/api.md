@@ -526,3 +526,22 @@ current matching assignments returns zero; a missing/wrong-map entry is rejected
 with 400. Normal authorization/CSRF failures are 403. Confirmation is provided by
 the UI; the endpoint clears all matching assignments at transaction time, including
 changes another session saved since the list was opened. Other maps are never changed.
+
+## Campaign backup and restore form routes
+
+These are admin-portal form routes, not JSON API routes. Both require an authenticated
+campaign manager (owning admin or superadmin) and valid CSRF token, supplied as
+`csrf_token` or `X-CSRF-Token`.
+
+| Method / route | Form fields | Success |
+|---|---|---|
+| `POST /campaigns/{campaign_id}/backup` | `csrf_token` | ZIP attachment, `application/zip`, `Cache-Control: no-store` |
+| `POST /campaigns/{campaign_id}/restore` | multipart `backup` ZIP, `confirm` current campaign name, `csrf_token` | 303 redirect to campaign with `ok` message |
+
+Backup uses filename `campaign-{campaign_id}-backup.zip`. Restore replaces campaign
+content but preserves target ownership and viewer assignments. Validation failures
+redirect with `err`; missing/invalid CSRF is forbidden. Oversized uploads use the
+existing upload error handler. Missing or inaccessible campaigns use existing access checks.
+The archive includes `campaign.json` (format `looking-glass-campaign`, version 1,
+current schema version, campaign details and allowlisted table rows) plus `images/{id}.png`.
+Raw wall source BLOBs use base64. No accounts, sessions or SQL are accepted from archives.

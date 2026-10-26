@@ -6,7 +6,7 @@ from typing import Annotated
 from urllib.parse import quote_plus
 
 from fastapi import APIRouter, File, Form, UploadFile
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, Response
 
 from ... import rbac
 from ...rbac import Role
@@ -15,7 +15,7 @@ from ...repositories import maps as maps_repo
 from ...repositories import users as users_repo
 from ...repositories import walls as walls_repo
 from ...repositories import wall_sources as sources_repo
-from ...services import images
+from ...services import images, campaign_backup
 from ...services.map_display import activate
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, map_for_manage
@@ -257,3 +257,48 @@ async def delete_map(ctx: CtxDep, user: CsrfUserDep, map_id: int):
     if was_active:
         await notify.campaign_changed(ctx, c["id"], "active-map")
     return _back(f"/campaigns/{c['id']}", ok=f"Map '{m['name']}' deleted")
+
+
+@router.post("/campaigns/{campaign_id}/backup")
+def backup_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int):
+    with ctx.db.connect() as conn:
+        campaign_for_manage(conn, user, campaign_id)
+        try:
+            raw = campaign_backup.export_campaign(conn, campaign_id, ctx.settings.maps_dir)
+        except (OSError, ValueError):
+            return _back(f"/campaigns/{campaign_id}", err="Backup failed: a map image is missing or invalid")
+    return Response(raw, media_type="application/zip", headers={
+        "Content-Disposition": f'attachment; filename="campaign-{campaign_id}-backup.zip"',
+        "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"})
+
+
+@router.post("/campaigns/{campaign_id}/restore")
+async def restore_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+                           backup: Annotated[UploadFile, File()],
+                           confirm: Annotated[str, Form()] = ""):
+    import zipfile
+    created_files = []
+    old_maps = []
+    try:
+        with ctx.db.connect() as conn:
+            conn.execute("BEGIN IMMEDIATE")
+            campaign = campaign_for_manage(conn, user, campaign_id)
+            if confirm.strip() != campaign["name"]:
+                return _back(f"/campaigns/{campaign_id}", err="Type the campaign name to confirm restore")
+            raw = await _read_upload(ctx, backup)
+            old_maps = maps_repo.list_for_campaign(conn, campaign_id)
+            limit = int(ctx.settings.section("storage")["max_upload_mb"]) * 1024 * 1024
+            campaign_backup.restore_campaign(conn, campaign_id, ctx.settings.maps_dir, raw, limit, created_files)
+    except (ValueError, KeyError, TypeError, OSError, sqlite3.DatabaseError, zipfile.BadZipFile, RuntimeError):
+        for path in created_files:
+            images.delete_map_image(ctx.settings.maps_dir, path)
+        return _back(f"/campaigns/{campaign_id}", err="Restore failed: invalid, incompatible or oversized backup")
+    except BaseException:
+        for path in created_files:
+            images.delete_map_image(ctx.settings.maps_dir, path)
+        raise
+    for m in old_maps:
+        images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
+        ctx.fog.invalidate(m["id"])
+    await notify.campaign_changed(ctx, campaign_id, "campaign")
+    return _back(f"/campaigns/{campaign_id}", ok="Campaign restored from backup")

@@ -146,6 +146,22 @@
     {% endif %}
     <button class="primary" type="submit">Save</button>
   </form>
+  <details id="campaign-backup">
+    <summary>Backup / Restore</summary>
+    <p class="muted">Back up this campaign's maps, images, walls, fog, passages, connections and room notes. Accounts and viewer permissions are not included.</p>
+    <form method="post" action="/campaigns/{{ campaign.id }}/backup" class="stack">
+      {% include "partials/_csrf.html" %}
+      <button type="submit">Download campaign backup</button>
+    </form>
+    <h3>Restore current campaign</h3>
+    <p class="muted">Replaces this campaign's name, description and all map content. Owner and viewer access stay unchanged. Download a backup first. Use the same application schema version; the upload limit also applies to expanded size.</p>
+    <form method="post" action="/campaigns/{{ campaign.id }}/restore" enctype="multipart/form-data" class="stack" data-confirm="Replace this campaign with the selected backup? This cannot be undone.">
+      {% include "partials/_csrf.html" %}
+      <label>Campaign backup <input type="file" name="backup" accept=".zip,application/zip" required></label>
+      <label>Type <strong>{{ campaign.name }}</strong> to confirm <input name="confirm" required autocomplete="off"></label>
+      <button type="submit" class="danger">Restore campaign from backup</button>
+    </form>
+  </details>
   <details class="danger-zone">
     <summary>Delete campaign</summary>
     <form method="post" action="/campaigns/{{ campaign.id }}/delete" class="stack">

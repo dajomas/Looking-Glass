@@ -571,3 +571,26 @@ room, and refreshes the named/unnamed overlay without changing player state.
 policy and clears saved name/Markdown in place, incrementing revisions. The API
 holds BEGIN IMMEDIATE around permission checks, geometry reconciliation and mutation.
 Imported entries remain immutable; no migration, cache format or dependency change.
+
+## Campaign backup and restore
+
+`services/campaign_backup.py` implements versioned campaign-only ZIP serialization.
+The campaign form router reuses `campaign_for_manage` and `CsrfUserDep` for both routes.
+Export reads campaign-scoped rows in one SQLite read transaction and adds map image files.
+The database snapshot does not lock image files against concurrent replacements; avoid
+editing the campaign during export or restore.
+
+Restore uses a `BEGIN IMMEDIATE` database transaction. It checks format/schema, allowlisted
+tables and exact columns, references, duplicate IDs, expanded size and image dimensions.
+It never executes archive SQL or extracts archive paths. It generates fresh image paths,
+map cache tokens and transition identities, and remaps map/wall foreign keys. Transition
+links are populated after all endpoints exist. Fog operations precede runtime door state
+restoration so hide-all triggers cannot erase restored runtime states.
+
+The campaign row survives; only name, description and active map are replaced. Accounts,
+ownership and viewer assignments are not imported. Travel replay records are cleared.
+New image files are tracked for cleanup after rollback; old files are deleted after commit.
+Existing fog caches are invalidated and a campaign refresh is broadcast after success.
+Filesystem and SQLite are not one atomic resource: process termination or post-commit
+cleanup failure may leave orphaned files. This does not replace a full data-directory backup.
+No schema migration or new runtime dependency is introduced.
