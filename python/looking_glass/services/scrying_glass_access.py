@@ -5,6 +5,7 @@ import math
 import threading
 import time
 from . import scrying_glass as sg
+from .scrying_glass_matches import expand_matches
 
 SUCCESS_TTL = 60
 FAILURE_TTL = 30
@@ -65,4 +66,4 @@ def lookup(raw, campaign_name, room_name):
     gate = _gate(payload, campaign_name, ttl)
     if not gate["verified"]:
         return {**gate, "matched": False}
-    return {**sg.match_catalog(payload, campaign_name, room_name), "enabled": True, "verified": True, "retry_after_seconds": ttl}
+    return {**expand_matches(sg.match_catalog(payload, campaign_name, room_name), payload), "enabled": True, "verified": True, "retry_after_seconds": ttl}

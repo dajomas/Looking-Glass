@@ -1,11 +1,11 @@
 # Scrying Glass automatic room/setup lookup
 
-Looking Glass patch base: 972c293162946d90c088e122a5743ec9c07cbe5d.
-Compatible Scrying Glass API: f2f41a16c516a64095b048cd9ec6a60a07ba08bc.
-This replaces the manual-check workflow; no Scrying Glass, schema or dependency changes.
+Patch base: Looking Glass 6a562321a5f0f35408b92fe79200c39cd5ad90f2.
+Compatible Scrying Glass catalog API: f2f41a16c516a64095b048cd9ec6a60a07ba08bc.
+No Scrying Glass update, schema migration, new dependency or configuration change is needed.
 
-## Configuration
-Keep the existing top-level config.yaml settings:
+## Configuration and access
+Keep the existing top-level config.yaml block:
 
 ```yaml
 scrying_glass:
@@ -17,113 +17,146 @@ scrying_glass:
   timeout_seconds: 5
 ```
 
-Set LG_SCRYING_GLASS_PASSWORD in the Looking Glass service/container environment and restart.
-A nonempty environment password takes precedence over YAML. Protect environment files and
-never commit secrets. Use the final canonical admin origin including scheme/host/port, with
-no path, URL credentials, query or fragment. The remote account must be an admin assigned
-the matching campaign, or a superadmin. This identity is shared by authorized Looking Glass
-DMs; it is not per-DM remote account mapping. Prefer the least-privileged assigned admin.
+Set the password environment variable in the Looking Glass service/container and restart.
+An environment password takes precedence over YAML. Protect secret files and never commit
+credentials. The remote account must be an admin assigned to the matching campaign or a
+superadmin; prefer least privilege. It is one server-configured identity, not per-DM remote
+account mapping. The admin base URL must be an HTTP(S) origin without URL credentials,
+paths, queries or fragments. HTTPS verification, no environment proxies, no redirects,
+1..30-second per-request timeout and 2 MiB upstream catalog limit remain unchanged.
+HTTP sends credentials without encryption and is suitable only on trusted local networks.
+Private HTTPS requires a trusted CA. Reverse proxies must preserve /login, /api/campaigns
+and the expected 303 login Location of / or /users. Invalid enabled configuration fails
+startup; disabled lookup requires no credentials.
 
-TLS verification remains enabled. HTTP is permitted for trusted local deployments but
-sends credentials unencrypted. Configure trusted CAs for private HTTPS. Environment proxies
-and redirects stay disabled; reverse proxies must preserve /login, /api/campaigns and the
-expected 303 login Location of / or /users. Existing 1..30-second per-request timeouts and
-2 MiB response limits remain. Invalid enabled configuration fails startup. Disabled lookup
-requires no remote credentials.
+## Automatic lookup workflow
+Select a room with a saved, nonblank name outside note edit/draft mode. There is no manual
+check button. Enabled configuration, login/catalog access and one accessible same-name
+campaign must be verified before the room check. Unnamed/dirty/editing selections initiate
+no check; disabled integration remains hidden and does not contact Scrying Glass.
 
-## Automatic room workflow
-There is no button. Select a room with a saved, nonblank name, outside note edit mode.
-Looking Glass first asks its own server to verify the integration. Only when enabled and
-verified does it automatically check for a matching saved battle setup. Verification means
-successful login and catalog retrieval plus exactly one accessible campaign with the same
-trimmed display name and a valid setup list, not merely an open TCP port.
+Successful matches now appear in a prominent green-bordered success panel with a checkmark,
+singular/plural count heading and the complete list of matching setup names. Exact names
+are additionally labelled Exact match. This is a distinct panel, not a subtle status line.
+Long names wrap within the sidebar, and long lists scroll without removing items. The
+heading/count and exact label communicate meaning independently of color; no flashing is
+used. Missing results and access/connection problems use the separate status text, never
+the success panel. Changing rooms, editing, a failed check or disabled access clears stale
+success content. Cached results restore the full list and success styling.
 
-- Unnamed areas, no selection and draft/edit state cause no access verification or room check.
-- Saving a name or cancelling edits can make a room eligible and trigger its check.
-- Disabled integration hides the status and makes no upstream request.
-- Failed/unverified access shows a concise status, with no room-check request from the UI.
-- Verified access permits automatic checks; matching or missing setup is shown in Room notes.
-- Selecting another room invalidates late responses. Clicking another point inside the same
-  area does not repeat an unchanged check. Returning to a recently checked room reuses its
-  result within the verification TTL. No background polling or automatic battle loading.
+The panel is DM-only. It lists possible battle setups but never chooses or loads one.
+Suffixes are opaque: player counts, encounter stages and other variants are all supported.
+No campaign, setup, fog, artwork, battle or player display state is activated or changed.
+Lookup may create a remote login session when the catalog is refreshed.
 
-Selecting the same named room after cache/backoff expiry refreshes or retries. Existing
-room-note refresh hooks may also re-enter this flow; no timer is added. Reloading the page
-clears UI state but does not bypass the server cache/backoff. Correct account/settings and
-restart after changing YAML/environment, as before.
+## Campaign names and room prefixes
+Campaign display names still compare exactly and case-sensitively after trimming surrounding
+whitespace. IDs are independent between applications. Duplicate accessible same-name
+campaigns remain ambiguous; missing/unassigned campaigns are not treated as definite proof
+of nonexistence. All variants are confined to the one authorized matched campaign.
 
-## Matching
-Campaign display names compare exactly and case-sensitively after trimming surrounding
-whitespace; IDs are independent between apps. Duplicate accessible campaign names are
-ambiguous. Missing/unassigned campaigns are reported as not accessible, never as definite
-proof that no remote campaign exists. The selected room's saved notes supply its name;
-client-supplied campaign names, draft names or URLs are not accepted.
+The room's saved name is normalized with Scrying Glass setup_slug rules: trim, lowercase,
+replace runs outside ASCII a-z/0-9 with hyphens, strip edge hyphens, truncate to 80 characters
+and strip a trailing hyphen. Existing saved-name and geometry/revision checks are unchanged.
 
-Setup names use Scrying Glass normalization: trim, lowercase, replace runs outside ASCII
-a-z/0-9 with hyphens, strip edges, truncate at 80 and strip a trailing hyphen. For example,
-Goblin Guardroom -> goblin-guardroom. Different names can map to the same slug; renames
-can break matches. This is an existence check, not a permanent identity association.
+A setup matches when its stored canonical name is either:
+1. Exactly the normalized room name; or
+2. The normalized room name followed by a hyphen and a nonempty suffix.
 
-## Cache and failure behavior
-The new scrying_glass_access service caches verified catalog snapshots for 60 seconds,
-and sanitized fetch/login failures for 30 seconds, using monotonic expiry. A bounded cache
-holds at most eight configuration identities per worker. Its keys hash the origin, account,
-secret and timeout; no plaintext secret appears in cache keys or responses. A lock shares
-one refresh among concurrent callers and tabs. Credentials/cookies stay server-side; the
-unchanged transport clears its temporary cookie jar after each catalog fetch.
+Example:
 
-Verification and room matching share the same cached catalog, avoiding a second login
-for each room. Config/secret changes invalidate cache identity. Catalog/account access
-changes may remain visible for at most 60 seconds. Each worker has its own cache, cleared
-on restart. Expired success is not served as verified after a failed refresh. Failures
-back off; they do not turn into rapid retries across room clicks.
+```text
+Room: 04 - Silent room
+Prefix: 04-silent-room
 
-The browser shares one in-flight verification, caches its gate only until the server TTL,
-and retains at most 64 recent room results. UI/network errors back off 30 seconds.
-Verification is enforced again server-side; clients cannot bypass it with a direct check.
-No active campaign/setup, fog, artwork or battle state is changed. Remote login/session
-creation can occur on a catalog refresh, as in the previous implementation.
+Matches, in display order:
+04-silent-room                  (Exact match)
+04-silent-room-1-4
+04-silent-room-5-6
+04-silent-room-reinforcements
 
-## Looking Glass API and authorization
-Both endpoints are admin-only POSTs under /api/maps/{map_id}/scrying-glass and require the
-normal Looking Glass admin session, CSRF header and permission to manage the map campaign.
-They are not mounted on the viewer app. Responses use Cache-Control: no-store.
-
-POST /access with {} returns ok, enabled, verified, status, message and retry_after_seconds.
-Disabled configuration returns enabled=false/verified=false without contacting Scrying
-Glass. Missing or ambiguous campaigns return verified=false. Upstream/auth/schema problems
-return a sanitized local 502, not a local 401 that would sign the DM out.
-
-POST /check retains the existing request:
-
-```json
-{"x":100,"y":100,"area_key":"<64-character room geometry key>","revision":1}
+Not matched:
+04-silent-roommate
+04-silent-room2
+other-04-silent-room-1-4
 ```
 
-The server validates ownership, room geometry and saved-name revision; it closes its DB
-snapshot before network access. It then requires enabled configuration and verified campaign
-access using the cache before matching. Normal results include matched, status and message;
-verified results also carry the campaign/room/setup identifiers and remaining TTL. Disabled,
-unnamed or unverified calls cannot trigger a room-name match. Stale geometry/revision still
-returns a local 400. No raw upstream response, catalog, password or cookie is returned.
+An exact setup is not required: the two suffixed player-count variants alone count as two
+matches. Suffix meaning is not parsed. Exact match sorts first, remaining variants sort
+case-insensitively with a deterministic name tie-break, and duplicate names are removed.
+Matching itself remains case-sensitive against Scrying Glass's canonical stored setup
+names. Empty/invalid room prefixes cannot match the whole catalog. Distinct room names can
+normalize to the same prefix; renames can break matches. Broader room prefixes may match
+more variants than intended, so retain enough of the room name to disambiguate encounters.
 
-## Tests and deployment checklist
+## Verification, caching and failure behavior
+Verification requires login/catalog access plus one accessible campaign with a valid setup
+list, not just an open TCP port. The per-worker bounded catalog cache and automatic UI gates
+are unchanged: success lasts up to 60 seconds, upstream failures back off for 30 seconds,
+and configuration identity includes origin/account/secret/timeout. Up to eight identities
+are retained per worker; a lock shares refreshes across concurrent callers. A temporary
+cookie jar is cleared after each fetch; credentials/cookies never go to the browser.
+
+The browser shares in-flight verification, caches at most 64 recent room results no longer
+than verified access, and suppresses repeated checks at different points in one unchanged
+room. Full result objects are now cached, including all setup names, not only a message.
+Stale responses cannot overwrite a newly selected room. There is no background timer or
+poll: reselect an eligible room after expiry to refresh/retry. Browser reload does not bypass
+server backoff; server restart clears worker caches. Remote catalog/access changes can take
+up to 60 seconds to become visible. Expired success is not reused after failed verification.
+
+## API result additions
+Admin-only POST /api/maps/{map_id}/scrying-glass/access and /check keep their existing
+Looking Glass session, CSRF and map/campaign-ownership checks. /check validates coordinates,
+geometry key and saved-note revision, derives campaign/name on the server, and closes the
+DB snapshot before outbound HTTP. No client URL, credentials, arbitrary campaign or draft
+name is accepted. Viewer apps have no lookup routes; responses are Cache-Control: no-store.
+
+The /check request is unchanged:
+
+```json
+{"x":100,"y":100,"area_key":"<64-character geometry key>","revision":1}
+```
+
+Verified named-room results add setup_names, match_count and exact_match. setup_name remains
+the normalized room prefix for compatibility; it is not a selected/loaded variant.
+For example, omitting unchanged identity/TTL fields:
+
+```json
+{
+  "matched": true,
+  "status": "matched",
+  "setup_name": "04-silent-room",
+  "setup_names": ["04-silent-room-1-4", "04-silent-room-5-6"],
+  "match_count": 2,
+  "exact_match": false,
+  "message": "2 matching battle setups found."
+}
+```
+
+A valid campaign with no matching prefix yields matched=false, status=setup_not_found,
+setup_names=[], match_count=0 and exact_match=false. Earlier disabled/unnamed/access-failure
+responses may omit the list fields because no matching was performed. Missing/ambiguous
+campaign statuses and access gates are preserved. Local stale geometry/revision still
+returns 400; remote connection/auth/schema failures remain sanitized 502, not local 401.
+Names and messages are rendered with DOM textContent, never inserted as HTML.
+
+## Tests and manual validation
 
 ```sh
-python -m pytest -q python/tests/test_scrying_glass_access.py python/tests/test_scrying_glass_templates.py python/tests/test_scrying_glass_web.py
+python -m pytest -q python/tests/test_scrying_glass_prefix.py python/tests/test_scrying_glass_prefix_templates.py
 node python/tests/test_scrying_glass_room.js
 ```
 
-Cache tests cover enabled/disabled gates, unnamed areas, verified matching, inaccessible or
-ambiguous campaigns, expiry, identity changes, bounded storage, concurrent refresh sharing,
-negative-cache recovery and invalid responses. UI tests cover automatic request ordering,
-no requests while unnamed/editing/dirty, duplicate suppression, caching, backoff and room
-switches during verification/checking. The updated HTTP tests cover access/check CSRF,
-login requirements, viewer exclusion, disabled results and stale revisions; runtime test
-dependencies are required. Existing transport and matching unit tests remain applicable.
+New tests cover exact and multiple arbitrary suffixes, boundary false positives, duplicate
+removal/order, missing results, empty names, canonical case, inaccessible/ambiguous campaign
+outcomes and isolation from other campaigns. UI regression retains automatic gate/backoff/
+TTL/stale-response checks and adds plural/singular headings, exact labels, full-list cache
+restoration, safe name rendering and success-state clearing. Source checks verify the new
+CSS/admin-only panel and unchanged access gate/cache constants.
 
-Manual browser/live-server checks: no check button, no disabled/unnamed activity, match after
-selecting/saving a named room, bad-password/unreachable status with no retry storm, recovery
-after 30 seconds and reselection, updated setup catalog after 60 seconds, rapid room changes,
-and unchanged fog/Double Reveal/battle/player behavior. Browser timing/layout and live
-Scrying Glass integration are not proven by mocked transport or source assertions.
+Run existing matching, access-cache and HTTP tests in the target repository with its normal
+dev dependencies as well. Manual browser/live checks remain necessary: two named variants
+without an exact setup; exact plus variants; long names/narrow sidebar; many variants and
+scrolling; missing/inaccessible results; room switches while checking; expired cache; disabled
+lookup; note editing; player-screen absence; unchanged fog/Double Reveal/battle behavior.

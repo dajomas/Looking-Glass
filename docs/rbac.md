@@ -201,3 +201,12 @@ ownership/role. Prefer an admin assigned only the relevant campaigns, rather tha
 superadmin. Results distinguish no accessible campaign from a definite missing setup.
 The browser never receives remote credentials or cookies. Checks do not activate or load
 a campaign/setup. See [Scrying Glass integration](scrying-glass.md).
+
+### Multiple setup variants
+
+A verified room lookup now returns every exact or hyphen-boundary-prefixed setup name
+within the already-authorized, uniquely matched campaign. It does not search other
+campaigns or widen remote permissions. The success panel lists names only: no variant
+is automatically selected, loaded or activated. Exact matches are labelled explicitly.
+Names are rendered as text, not trusted HTML. Existing enabled/access gates, saved-name
+checks, CSRF protection, geometry/revision checks and secret handling remain unchanged.

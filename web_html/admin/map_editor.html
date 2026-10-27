@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=double-fog-1">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=double-fog-1"><link rel="stylesheet" href="/static/css/scrying_glass.css?v=scrying-prefix-3">{% endblock %}
 {% block flash_messages %}{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
@@ -219,6 +219,7 @@
     <label class="check"><input id="room-select-mode" type="checkbox"> Select room (fog unchanged)</label>
     <button id="room-name-toggle" type="button" aria-pressed="false" aria-controls="room-name-overlay" hidden>Show named / unnamed areas</button>
     <section aria-label="Scrying Glass battle setup" style="overflow-wrap:anywhere">
+      <div id="scrying-room-results" class="scrying-room-results" role="status" aria-live="polite" aria-atomic="true" hidden></div>
       <p id="scrying-room-status" class="small" role="status" aria-live="polite" hidden></p>
     </section>
     <p id="room-status" role="status">Select a room to name it, or reveal one to read its notes.</p>
@@ -294,7 +295,7 @@
 <script src="/static/js/room_name_overlay.js?v=room-names-10"></script>
 <script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>
 <script src="/static/js/room_library_manager.js?v=room-library-unassign-11"></script>
-<script src="/static/js/scrying_glass_room.js?v=scrying-auto-2"></script>
+<script src="/static/js/scrying_glass_room.js?v=scrying-prefix-3"></script>
 <script src="/static/js/room_notes.js?v=scrying-room-1"></script>
 <script src="/static/js/double_reveal_markers.js?v=double-fog-1"></script>
 <script src="/static/js/double_reveal.js?v=double-fog-1"></script>
