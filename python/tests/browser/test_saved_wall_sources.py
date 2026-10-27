@@ -31,12 +31,6 @@ SCENES = [{"name": name, "index": index, "walls": index + 10, "doors": 1,
           [("Tower", 8), ("Room 10", 3), ("alpha", 4), ("Room 2", 5), ("Alpha", 2)]]
 
 
-@pytest.fixture(scope="session")
-def browser():
-    with playwright.sync_playwright() as pw:
-        browser = pw.chromium.launch(headless=True, args=["--no-sandbox"])
-        yield browser
-        browser.close()
 
 
 @pytest.fixture

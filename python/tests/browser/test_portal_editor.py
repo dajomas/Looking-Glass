@@ -8,10 +8,6 @@ from PIL import Image
 pw=pytest.importorskip("playwright.sync_api")
 ROOT=Path(__file__).resolve().parents[3]
 
-@pytest.fixture(scope="module")
-def browser():
-    with pw.sync_playwright() as p:
-        b=p.chromium.launch(headless=True,args=["--no-sandbox"]);yield b;b.close()
 
 @pytest.fixture
 def editor(browser):

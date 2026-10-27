@@ -12,12 +12,13 @@ from test_editor_controls import png
 
 
 @pytest.fixture
-def page():
-    with pw.sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True, args=["--no-sandbox"])
-        page = browser.new_page(viewport={"width": 1200, "height": 800})
+def page(browser):
+    page = browser.new_page(viewport={"width": 1200, "height": 800})
+    try:
         yield page
-        browser.close()
+    finally:
+        page.close()
+
 
 ROOT = Path(__file__).resolve().parents[3]
 

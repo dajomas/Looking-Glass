@@ -11,12 +11,6 @@ pw = pytest.importorskip("playwright.sync_api")
 ROOT = Path(__file__).resolve().parents[3]
 
 
-@pytest.fixture(scope="module")
-def browser():
-    with pw.sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True, args=["--no-sandbox"])
-        yield browser
-        browser.close()
 
 
 @pytest.fixture

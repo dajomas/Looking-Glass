@@ -21,12 +21,6 @@ SCENES = [{"index": 8, "name": "Tower", "walls": 30},
           {"index": 2, "name": "Room 2", "walls": 10}]
 
 
-@pytest.fixture(scope="session")
-def browser():
-    with pw.sync_playwright() as p:
-        b = p.chromium.launch(headless=True, args=["--no-sandbox"])
-        yield b
-        b.close()
 
 
 def upload(name, data=b"test"):
@@ -101,13 +95,22 @@ def app(browser):
             pass
     server = ThreadingHTTPServer(("127.0.0.1", 0), LandingHandler)
     thread = Thread(target=server.serve_forever, daemon=True); thread.start()
-    page.route("**/*", route)
-    page.goto(f"http://127.0.0.1:{server.server_port}/campaigns/4")
-    pw.expect(page.locator("#batch-status")).to_contain_text("Ready")
-    yield page, state
-    assert state["errors"] == []
-    page.close()
-    server.shutdown(); server.server_close(); thread.join()
+    try:
+        page.route("**/*", route)
+        page.goto(f"http://127.0.0.1:{server.server_port}/campaigns/4")
+        pw.expect(page.locator("#campaign-batch-import")).to_have_attribute("aria-busy", "false")
+        pw.expect(page.locator('#batch-assignment-rows select').nth(0)).to_be_enabled()
+        pw.expect(page.locator('#batch-assignment-rows select').nth(0).locator('option[value="7"]')).to_have_count(1)
+        pw.expect(page.locator("#batch-status")).to_be_empty()
+        yield page, state
+        assert state["errors"] == []
+    finally:
+        try:
+            page.close()
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(timeout=2)
 
 
 def row(page, mid):
@@ -126,7 +129,7 @@ def test_import_multiple_maps_and_separate_wall_files(app):
     page.set_input_files("#batch-map-files", [upload("a.png"), upload("b.jpg")])
     page.set_input_files("#batch-wall-files", [upload("a.uvtt"), upload("walls.db")])
     page.click('#batch-upload button[type="submit"]')
-    pw.expect(page.locator("#batch-status")).to_contain_text("4 succeeded, 0 failed")
+    pw.expect(page.locator("#batch-status")).to_contain_text("2 maps, 2 wall sources imported; 0 failed")
     assert state["uploads"] == ["a.png", "b.jpg"]
     assert state["source_uploads"] == ["a.uvtt", "walls.db"]
     assert page.locator("#batch-assignment-rows tr").count() == 3
@@ -138,7 +141,7 @@ def test_same_source_supplies_different_sets_to_existing_maps(app):
     page, state = app
     page.set_input_files("#batch-map-files", [upload("b.png")])
     page.click('#batch-upload button[type="submit"]')
-    pw.expect(page.locator("#batch-status")).to_contain_text("1 succeeded")
+    pw.expect(page.locator("#batch-status")).to_contain_text("1 maps, 0 wall sources imported; 0 failed")
     choose(page, 1, index="5"); choose(page, 101, index="2")
     row(page, 101).locator('input[type="checkbox"]').uncheck()
     page.click("#batch-apply-walls")
@@ -152,7 +155,7 @@ def test_import_sources_only_and_assign_newly_uploaded_source(app):
     page, state = app
     page.set_input_files("#batch-wall-files", [upload("new.dd2vtt")])
     page.click('#batch-upload button[type="submit"]')
-    pw.expect(page.locator("#batch-status")).to_contain_text("1 succeeded, 0 failed")
+    pw.expect(page.locator("#batch-status")).to_contain_text("0 maps, 1 wall sources imported; 0 failed")
     assert state["uploads"] == []
     choose(page, 1, source="9", index="8")
     page.click("#batch-apply-walls")
@@ -165,10 +168,11 @@ def test_partial_upload_failures_keep_successes(app):
     page.set_input_files("#batch-map-files", [upload("bad.png"), upload("good.png")])
     page.set_input_files("#batch-wall-files", [upload("bad.db"), upload("good.uvtt")])
     page.click('#batch-upload button[type="submit"]')
-    pw.expect(page.locator("#batch-status")).to_contain_text("2 succeeded, 2 failed")
+    pw.expect(page.locator("#batch-status")).to_contain_text("1 maps, 1 wall sources imported; 2 failed")
     assert page.locator("#batch-assignment-rows tr").count() == 2
-    assert "Invalid image" in page.locator("#batch-import-results").inner_text()
-    assert "Invalid wall file" in page.locator("#batch-import-results").inner_text()
+    assert state["uploads"] == ["bad.png", "good.png"]
+    assert state["source_uploads"] == ["bad.db", "good.uvtt"]
+    assert page.locator("#batch-import-results").count() == 0
 
 
 def test_sorted_sets_keep_original_import_indices(app):
@@ -211,20 +215,22 @@ def test_map_created_before_editor_failure_is_not_reported_as_failed_upload(app)
     page, state = app
     page.set_input_files("#batch-map-files", upload("editor-error.png"))
     page.click('#batch-upload button[type="submit"]')
-    pw.expect(page.locator("#batch-status")).to_contain_text("1 succeeded, 0 failed")
-    assert "editor returned HTTP 500" in page.locator("#batch-import-results").inner_text()
+    pw.expect(page.locator("#batch-status")).to_contain_text("1 maps, 0 wall sources imported; 0 failed, 1 editor warnings")
+    assert state["uploads"] == ["editor-error.png"]
+    assert page.locator("#batch-import-results").count() == 0
     assert page.locator("#batch-assignment-rows tr").count() == 2
 
 
-def test_empty_upload_and_cancel_assignment_make_no_changes(app):
+def test_empty_upload_is_noop_and_apply_does_not_confirm(app):
     page, state = app
     page.click('#batch-upload button[type="submit"]')
     pw.expect(page.locator("#batch-status")).to_contain_text("Choose map images")
     choose(page, 1)
-    # Replace default confirmation with a deterministic cancelled choice.
-    page.evaluate("window.confirm = () => false")
+    page.evaluate("window.confirmCalls = 0; window.confirm = () => { window.confirmCalls++; return false; }")
     page.click("#batch-apply-walls")
-    assert state["applied"] == []
+    pw.expect(page.locator("#batch-status")).to_contain_text("1 applied, 0 failed")
+    assert len(state["applied"]) == 1
+    assert page.evaluate("window.confirmCalls") == 0
 
 
 def test_labels_expose_uvtt_and_original_single_import_remains():

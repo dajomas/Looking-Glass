@@ -16,10 +16,6 @@ def png(mode='RGB',color=(200,30,30),size=(400,200)):
     b=io.BytesIO();Image.new(mode,size,color).save(b,'PNG');return b.getvalue()
 
 
-@pytest.fixture(scope='session')
-def browser():
-    with pw.sync_playwright() as p:
-        b=p.chromium.launch(headless=True,args=['--no-sandbox']);yield b;b.close()
 
 
 @pytest.fixture

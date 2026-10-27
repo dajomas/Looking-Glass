@@ -4,7 +4,7 @@ import math
 import pytest
 from PIL import Image
 from playwright.sync_api import expect
-from test_portal_editor import editor,browser
+from test_portal_editor import editor
 from test_portal_tools import admin
 
 

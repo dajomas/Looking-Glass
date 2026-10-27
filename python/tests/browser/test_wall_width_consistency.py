@@ -17,12 +17,6 @@ def png(w, h, rgba=False):
     return out.getvalue()
 
 
-@pytest.fixture(scope="module")
-def browser():
-    with pw.sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=True, args=["--no-sandbox"])
-        yield browser
-        browser.close()
 
 
 def open_editor(browser, kind, size):

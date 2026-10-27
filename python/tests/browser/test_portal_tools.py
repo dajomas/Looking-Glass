@@ -5,7 +5,7 @@ from urllib.parse import urlparse
 import pytest
 from PIL import Image,ImageDraw
 from jinja2 import Environment,DictLoader
-from test_portal_editor import editor,browser,open_popup,apply,connect
+from test_portal_editor import editor, open_popup, apply, connect
 from playwright.sync_api import expect
 ROOT=Path(__file__).resolve().parents[3]
 

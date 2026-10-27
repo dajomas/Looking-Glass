@@ -1,6 +1,6 @@
 """Compass labels and explicit None-to-Exit selection; mocked HTTP, real editor."""
 import pytest
-from test_portal_editor import editor,browser,open_popup,apply,connect
+from test_portal_editor import editor, open_popup, apply, connect
 from playwright.sync_api import expect
 
 

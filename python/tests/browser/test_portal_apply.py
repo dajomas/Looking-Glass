@@ -1,7 +1,7 @@
 """Apply checkpoints the editor draft and keeps the portal dialog open."""
 import pytest
 from playwright.sync_api import expect
-from test_portal_editor import editor,browser,open_popup,connect,apply_only
+from test_portal_editor import editor, open_popup, connect, apply_only
 
 
 def close_popup(page):
