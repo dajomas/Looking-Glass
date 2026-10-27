@@ -7,7 +7,7 @@ if [[ -z "${VIRTUAL_ENV:-}" ]]; then
 fi
 mkdir -p test-results || exit 1
 status=0
-python -m pytest -ra python/tests --ignore=python/tests/browser \
+python -m pytest -v -ra python/tests --ignore=python/tests/browser \
   2>&1 | tee test-results/python.log || status=1
 (
   for test in python/tests/test_*.js; do
@@ -18,7 +18,7 @@ python -m pytest -ra python/tests --ignore=python/tests/browser \
 
 if python -u python/tests/check_browser_environment.py \
     2>&1 | tee test-results/browser-preflight.log; then
-  python -m pytest -ra python/tests/browser \
+  python -m pytest -v -ra python/tests/browser \
     2>&1 | tee test-results/browser.log || status=1
 else
   printf '%s\n' 'NOT RUN: browser preflight failed; see browser-preflight.log. This is a failed run, not a pass.' \
