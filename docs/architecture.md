@@ -906,15 +906,20 @@ New-window document navigation is mocked at browser-context scope and removed
 after use; parent page routes remain responsible for the parent editor. The
 inspection stub verifies URL/isolation behavior, not full target-page rendering.
 
-## Editor paint policy: provisional regression correction
+## Editor paint policy and background-test isolation
 
-Both editor stages share the `.stage` rule in `static/css/admin.css`. The patch
-removes persistent `will-change: transform` while retaining transform origin and
-PanZoom transforms. This targets possible cached bitmap resampling of zoomed SVG
-labels and strokes; geometry, stroke width calculations, and label styling are
-unchanged. Both editor templates use a new admin CSS cache version.
+Both editor stages share the `.stage` rule in `static/css/admin.css`; f4d60c3
+already removes persistent `will-change: transform` while retaining transform
+origin and PanZoom transforms. The supplied local run passes both wall-width
+parameters, but the portal zoom-2.5 edge pixel still fails. Therefore removal of
+stage promotion alone must not be described as a confirmed fix for that pixel.
+A specific compositor or font-renderer root cause remains unproven.
 
-The supplied failures passed geometry checks but failed painted-pixel checks.
-A compositor-related cause is a hypothesis, not a verified root cause: original
-browser screenshot tests must pass before treating this rendering change as
-confirmed. No API, database, fog-state, or authorization behavior changes.
+The follow-up isolates the browser test's background-fill measurement from text
+and border paint with temporary screenshot-only styles. Normal label geometry,
+layering and interaction remain independently checked. Missing/white fill
+negative controls check that the isolated probe still detects bad paint. The
+normal final composited edge pixel is no longer the asserted paint location.
+
+This follow-up changes tests and documentation only. It makes no additional
+production CSS/JavaScript, API, database, authorization or dependency changes.

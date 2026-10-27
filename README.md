@@ -505,10 +505,16 @@ and remove that route afterward. These corrections change test coverage only;
 no production rendering, security, fog or database behavior changes.
 See docs/testing.md and Patch/ for validation and remaining limitations.
 
-## Partial browser-regression patch (base 6106456)
+## Browser-regression validation and portal paint probe (base f4d60c3)
 
-This patch separates read-only room selection POSTs from fog mutations in the
-secondary-click browser fixture and removes persistent stage transform promotion.
-The rendering change is provisional: the original screenshot failures have not
-been confirmed resolved. See `Patch/CHANGES.md` and `Patch/VALIDATION.md` for
-classification, limitations, installation, and verification commands.
+The supplied f4d60c3 local run confirms that the secondary-click and both
+wall-width cases pass. Its remaining browser failure is the portal-label
+zoom-2.5 single-pixel check. This follow-up changes only that test's paint probe:
+geometry is checked with text visible; background fill is sampled independently
+using screenshot-only text hiding and a central 3x3 region on all four labels.
+The <110 darkness threshold is unchanged. Six negative controls reject missing
+and white fills at all three zoom levels.
+
+The updated portal module passed 13 tests in 7.14s in the assistant environment.
+The complete post-follow-up browser suite has not been rerun on your host.
+See `Patch/CHANGES.md` and `Patch/VALIDATION.md` for scope and verification.

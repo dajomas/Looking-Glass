@@ -8,6 +8,25 @@ from test_portal_editor import editor
 from test_portal_tools import admin
 
 
+def background_paint_sample(page, fill_override=None):
+    """Measure fill, not glyph ink or a border pixel; screenshot styles are temporary."""
+    rects = page.locator("#wall-overlay .portal-label rect")
+    bounds = [rects.nth(i).bounding_box() for i in range(rects.count())]
+    style = "#wall-overlay .portal-label-text { visibility: hidden !important; }"
+    if fill_override is not None:
+        style += f"#wall-overlay .portal-label-background {{ fill: {fill_override} !important; }}"
+    image = Image.open(io.BytesIO(page.screenshot(style=style))).convert("RGB")
+    samples = []
+    for rect in bounds:
+        assert rect is not None and rect["width"] >= 8 and rect["height"] >= 8
+        x = math.floor(rect["x"] + rect["width"] / 2)
+        y = math.floor(rect["y"] + rect["height"] / 2)
+        samples.append([image.getpixel((x + dx, y + dy))
+                        for dy in (-1, 0, 1) for dx in (-1, 0, 1)])
+    assert len(samples) == 4
+    return image, samples
+
+
 @pytest.mark.parametrize("zoom",[0.5,1,2.5])
 def test_label_background_padding_and_screen_size(editor,zoom,tmp_path):
     page,writes,data=editor
@@ -25,15 +44,31 @@ def test_label_background_padding_and_screen_size(editor,zoom,tmp_path):
         assert (a["width"]-b["width"])*zoom==pytest.approx(8,abs=.02)
         assert (a["height"]-b["height"])*zoom==pytest.approx(5,abs=.02)
         assert float(box["font"].removesuffix("px"))*zoom==pytest.approx(12,abs=.02)
-    # On this fixture's white map, the padding pixel must actually be dark, not just declared in CSS.
-    rect=badges.first.locator("rect").bounding_box()
-    image=Image.open(io.BytesIO(page.screenshot())).convert("RGB")
-    pixel=image.getpixel((round(rect["x"]+2),round(rect["y"]+rect["height"]/2)))
-    if max(pixel) >= 110:
-        image.save(tmp_path / "portal-label-padding.png")
-        (tmp_path / "portal-label-padding.txt").write_text(
-            f"zoom={zoom!r} rect={rect!r} pixel={pixel!r}; threshold remains <110")
-    assert max(pixel)<110,pixel
+    # Geometry above checks padding with text visible. Isolate the actual fill
+    # for paint checks, away from the rounded border and font-dependent ink.
+    image, samples = background_paint_sample(page)
+    if any(max(pixel) >= 110 for patch in samples for pixel in patch):
+        image.save(tmp_path / "portal-label-background.png")
+        (tmp_path / "portal-label-background.txt").write_text(
+            f"zoom={zoom!r} samples={samples!r}; threshold remains <110")
+        page.screenshot(path=str(tmp_path / "portal-label-normal.png"))
+    assert all(max(pixel) < 110 for patch in samples for pixel in patch), samples
+    assert badges.first.locator("text").evaluate("el => getComputedStyle(el).visibility") == "visible"
+    assert not writes
+
+
+@pytest.mark.parametrize("zoom", [0.5, 1, 2.5])
+@pytest.mark.parametrize("fill", ["none", "#fff"])
+def test_background_paint_probe_rejects_missing_or_white_fill(editor, zoom, fill):
+    page, writes, data = editor
+    page.evaluate("zoom=>{const p=window.testPZ,r=p.vp.getBoundingClientRect();p.scale=zoom;p.x=(r.width-p.w*zoom)/2;p.y=(r.height-p.h*zoom)/2;p.apply();}", zoom)
+    _, samples = background_paint_sample(page, fill_override=fill)
+    assert all(max(pixel) >= 110 for patch in samples for pixel in patch), samples
+    # Neither the temporary text hiding nor the control fill persists.
+    assert page.locator("#wall-overlay .portal-label-text").first.evaluate(
+        "el => getComputedStyle(el).visibility") == "visible"
+    assert page.locator("#wall-overlay .portal-label-background").first.evaluate(
+        "el => getComputedStyle(el).fill") == "rgba(8, 12, 20, 0.78)"
     assert not writes
 
 
