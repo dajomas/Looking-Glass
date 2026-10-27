@@ -2,7 +2,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
-from ...services import room_notes, scrying_glass
+from ...services import room_notes, scrying_glass, scrying_glass_access
 from ..access import map_for_manage, fog_inputs
 from ..deps import CtxDep, CsrfUserDep, BadRequest
 
@@ -14,6 +14,17 @@ class RoomLookup(BaseModel):
     y: float = Field(ge=0, allow_inf_nan=False)
     area_key: str = Field(min_length=64, max_length=64)
     revision: int = Field(ge=0)
+
+@router.post("/access")
+def access(ctx: CtxDep, user: CsrfUserDep, map_id: int):
+    with ctx.db.connect() as conn:
+        _, campaign = map_for_manage(conn, user, map_id)
+        campaign_name = campaign["name"]
+    try:
+        result = scrying_glass_access.access(ctx.settings.section("scrying_glass"), campaign_name)
+    except scrying_glass.LookupError as exc:
+        return JSONResponse({"ok": False, "enabled": True, "verified": False, "error": str(exc)}, status_code=502, headers={"Cache-Control": "no-store"})
+    return JSONResponse({"ok": True, **result}, headers={"Cache-Control": "no-store"})
 
 @router.post("/check")
 def check(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: RoomLookup):
@@ -36,7 +47,7 @@ def check(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: RoomLookup):
         campaign_name = campaign["name"]
     # Sync route runs in FastAPI's thread pool; never hold a DB transaction across HTTP.
     try:
-        result = scrying_glass.lookup(ctx.settings.section("scrying_glass"), campaign_name, name)
+        result = scrying_glass_access.lookup(ctx.settings.section("scrying_glass"), campaign_name, name)
     except scrying_glass.LookupError as exc:
         return JSONResponse({"ok": False, "error": str(exc)}, status_code=502, headers={"Cache-Control": "no-store"})
     return JSONResponse({"ok": True, **result}, headers={"Cache-Control": "no-store"})

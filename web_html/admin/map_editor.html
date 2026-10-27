@@ -219,8 +219,7 @@
     <label class="check"><input id="room-select-mode" type="checkbox"> Select room (fog unchanged)</label>
     <button id="room-name-toggle" type="button" aria-pressed="false" aria-controls="room-name-overlay" hidden>Show named / unnamed areas</button>
     <section aria-label="Scrying Glass battle setup" style="overflow-wrap:anywhere">
-      <button id="scrying-room-check" type="button" disabled>Check Scrying Glass</button>
-      <p id="scrying-room-status" class="small" role="status" aria-live="polite">Select a named room to check for a saved battle setup.</p>
+      <p id="scrying-room-status" class="small" role="status" aria-live="polite" hidden></p>
     </section>
     <p id="room-status" role="status">Select a room to name it, or reveal one to read its notes.</p>
     <details id="room-library-import">
@@ -295,7 +294,7 @@
 <script src="/static/js/room_name_overlay.js?v=room-names-10"></script>
 <script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>
 <script src="/static/js/room_library_manager.js?v=room-library-unassign-11"></script>
-<script src="/static/js/scrying_glass_room.js?v=scrying-room-1"></script>
+<script src="/static/js/scrying_glass_room.js?v=scrying-auto-2"></script>
 <script src="/static/js/room_notes.js?v=scrying-room-1"></script>
 <script src="/static/js/double_reveal_markers.js?v=double-fog-1"></script>
 <script src="/static/js/double_reveal.js?v=double-fog-1"></script>
