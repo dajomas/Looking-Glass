@@ -49,10 +49,22 @@ def test_inspection_does_not_activate_viewer(admin):
     page.evaluate("()=>window.dispatchEvent(new Event('focus'))")
     page.locator("#map-passages-panel > summary").click()
     page.locator("#transition-list button").first.click()
-    with page.context.expect_page() as new_page:
-        page.get_by_role("button",name="Inspect destination").click()
-    target=new_page.value;target.wait_for_url("**/maps/2")
-    expect(page.locator("#map-display-dialog")).not_to_be_visible()
-    expect(page.locator("#transition-editor")).to_be_visible()
-    assert not posts
-    target.close()
+    destination_url = "**/maps/2"
+    def destination(route):
+        assert route.request.method == "GET"
+        route.fulfill(content_type="text/html", body="<!doctype html><meta charset='utf-8'><title>Destination inspection</title><p>Upper</p>")
+    page.context.route(destination_url, destination)
+    target = None
+    try:
+        with page.context.expect_page() as new_page:
+            page.get_by_role("button",name="Inspect destination").click()
+        target = new_page.value
+        target.wait_for_url(destination_url)
+        expect(target).to_have_title("Destination inspection")
+        expect(page.locator("#map-display-dialog")).not_to_be_visible()
+        expect(page.locator("#transition-editor")).to_be_visible()
+        assert not posts
+    finally:
+        if target is not None:
+            target.close()
+        page.context.unroute(destination_url, destination)

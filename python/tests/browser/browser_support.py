@@ -1,6 +1,9 @@
 """Real template/dependency boundaries for mocked browser integration pages."""
 from pathlib import Path
 import re
+import io
+from functools import lru_cache
+from PIL import Image
 from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -18,11 +21,29 @@ def template_environment(overrides):
         DictLoader(overrides), FileSystemLoader([str(ROOT / "web_html"), str(ROOT / "templates")])
     ]))
 
+@lru_cache(maxsize=8)
+def transparent_arrow_mask(width, height):
+    buffer = io.BytesIO()
+    Image.new("RGBA", (width, height), (0, 0, 0, 0)).save(buffer, "PNG")
+    return buffer.getvalue()
+
+
 def fulfill_auxiliary(route, data):
     from urllib.parse import urlparse
     path = urlparse(route.request.url).path
     if route.request.method != "GET":
         return False
+    arrow_match = re.fullmatch(r"/api/maps/(\d+)/door-arrows\.png", path)
+    if arrow_match:
+        # Never replace authored door/portal imagery with an empty mask.
+        if int(arrow_match.group(1)) != data.get("id") or data.get("door_arrows") or data.get("portal_routes"):
+            return False
+        width = data.get("work_width", data.get("width"))
+        height = data.get("work_height", data.get("height"))
+        if not isinstance(width, int) or not isinstance(height, int) or width <= 0 or height <= 0:
+            return False
+        route.fulfill(content_type="image/png", body=transparent_arrow_mask(width, height))
+        return True
     if re.fullmatch(r"/api/campaigns/\d+/viewer-status", path):
         payload = {"ok": True, "viewers": [], "blank": not bool(data.get("is_active"))}
     elif path.endswith("/room-note-library"):

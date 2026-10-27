@@ -493,3 +493,14 @@ in HTML layout overrides. Passage fixtures provide two maps, matching the UI's
 multi-map prerequisite. Native sidebar controls are exercised after opening their
 actual disclosures, not by assuming they start open. Production code is unchanged
 in this follow-up. See docs/testing.md and Patch/ for validation and limitations.
+
+
+## Arrow-mask and inspection fixture follow-up (a83394c)
+
+Mocked editor pages now return a correctly sized, fully transparent door-arrow
+PNG only for their own map when they declare no authored arrows or portal routes.
+Authored-arrow fixtures retain their own renderers. Destination-inspection tests
+mock the new tab's document on the browser context, not just its parent page,
+and remove that route afterward. These corrections change test coverage only;
+no production rendering, security, fog or database behavior changes.
+See docs/testing.md and Patch/ for validation and remaining limitations.
