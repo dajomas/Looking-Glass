@@ -2,7 +2,7 @@
 {% block title %}{{ map.name }} · fog editor{% endblock %}
 {% block body_class %}editor-page{% endblock %}
 {% block main_class %}editor{% endblock %}
-{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=double-reveal-ux-3">{% endblock %}
+{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=double-fog-1">{% endblock %}
 {% block flash_messages %}{% endblock %}
 {% block content %}
 <aside class="sidebar" id="sidebar">
@@ -195,6 +195,7 @@
     <canvas id="fog-canvas"></canvas>
     <img id="room-name-overlay" alt="" draggable="false" hidden>
     <img id="room-edit-overlay" alt="" draggable="false" hidden>
+    <div id="double-fog-markers" aria-hidden="true" hidden></div>
     <img id="double-room-mask" alt="" draggable="false" hidden>
     <img id="door-arrows" alt="" draggable="false">
     <svg id="walls-svg" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -209,6 +210,7 @@
   </div>
   <div class="room-name-legend" id="room-name-legend" role="status" hidden></div>
   <div class="room-edit-indicator" id="room-edit-indicator" role="status" hidden></div>
+  <div id="double-fog-legend" class="double-fog-legend small" hidden></div>
   <div class="busy" id="busy" hidden>Working&hellip;</div>
 </section>
 <aside id="room-panel" class="room-panel" aria-label="Room notes">
@@ -290,8 +292,9 @@
 <script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>
 <script src="/static/js/room_library_manager.js?v=room-library-unassign-11"></script>
 <script src="/static/js/room_notes.js?v=imports-7-1"></script>
-<script src="/static/js/double_reveal.js?v=double-reveal-ux-3"></script>
-<script src="/static/js/admin_map_editor.js?v=double-reveal-ux-3"></script>
+<script src="/static/js/double_reveal_markers.js?v=double-fog-1"></script>
+<script src="/static/js/double_reveal.js?v=double-fog-1"></script>
+<script src="/static/js/admin_map_editor.js?v=double-fog-1"></script>
 <script src="/static/js/wall_source_library.js?v=empty-source-8"></script>
 <script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>
 {% endblock %}

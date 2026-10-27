@@ -1147,15 +1147,24 @@ JavaScript toast lifecycle.
    room is highlighted. Enable double reveal, optionally choose another map in this campaign,
    and save. Repeat only for rooms that should have a second appearance.
 5. Press **Done — return to fog** to stop selection, remove its highlight and open Fog
-   with the previous tool focused. This also disables room-note selection. You may
-   also uncheck selection, close Double reveal, choose a fog tool or use R/H outside
-   form fields. Selecting room notes turns off double-reveal selection, and vice versa.
-   These exits do not change saved fog or artwork and do not save configuration edits.
-   The checkbox label wraps within its frame; no extra fog-mode description is shown.
+   with the previous tool focused. This also disables room-note selection. Unchecking
+   selection, closing Double reveal, choosing a fog tool or R/H outside form fields
+   also exits Double Reveal selection. Selecting room notes turns off double-reveal
+   selection, and vice versa. Use Save room configuration to save configuration edits.
+   Checkbox labels wrap inside their frame; no extra fog-mode description is shown.
 
 ### Run the reveal
 
 A normal room reveal shows the initial artwork unless that room was previously changed.
+In normal fog mode, an amber **2** badge marks a configured room awaiting true artwork.
+Hold **Ctrl** and left-click anywhere inside the room to perform its second reveal
+without opening Double reveal. If a destination is assigned, the badge then becomes
+cyan **↗**: a later Ctrl-left-click asks for confirmation before showing the destination
+to players and opening its DM editor. A 600 ms post-reveal guard prevents accidentally
+revealing and travelling with a rapid Ctrl double-click. The first action never travels.
+Badges are DM-only and stay screen-sized while zooming; their position is the saved
+room-selection point, not necessarily the room's center. True rooms without a destination
+have no badge. The existing sidebar buttons remain available as an alternative.
 Select the configured room and press **Reveal true appearance** to replace only that room's
 interior with its corresponding alternate artwork. This does not remove fog; an appearance
 can be prepared while hidden. Other rooms and all wall/door boundaries remain unchanged.
@@ -1200,3 +1209,18 @@ Portal configuration dialogs adjust their position when newly shown controls
 increase their height, keeping the modal within the viewport while preserving
 its position when possible. Draft editing, Apply, Close and Save semantics are
 unchanged by these UI repairs.
+
+
+## Fog-mode shortcut safeguards
+
+Badges appear only in normal admin fog mode, not Double Reveal or room-note selection.
+Invalid geometry has no badge. Hidden rooms may still show a DM badge: their artwork can
+be prepared without revealing fog. Travel requires the source room to be visible and its
+map to be shown to players; destination fog and appearance are preserved. Cancelling the
+confirmation makes no map change. Plain left/right clicks, drag/pinch and unmodified
+double-click viewer zoom keep their existing behavior.
+
+Ctrl-primary in fog mode is reserved and never falls through to fog, doors, transitions
+or viewer zoom, even on invalid rooms or failed requests. Fresh room state is read before
+acting; changed state refreshes markers and requires another click. Restore initial
+appearance and Undo appearance change remain available in Double reveal.

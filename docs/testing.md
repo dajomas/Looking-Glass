@@ -1034,11 +1034,26 @@ Uvicorn are absent. Collection and static checks are reported separately under
 Patch/. Do not add these four cases to successful-test totals until they run.
 
 
-## Double Reveal usability regression
+## Double Reveal fog-mode regressions
 
-Run node python/tests/test_double_reveal.js for selection, configuration, appearance,
-travel, undo, exit paths, focus, no server writes on exit, missing mode-description
-markup and wrapping CSS assertions. These are DOM/source checks, not visual proof.
-Manually check narrow sidebar widths: label stays inside its border, checkbox stays
-visible, text wraps, Done fits, and no fog-mode description appears. Check keyboard
-focus, native details closure and actual fog clicks after exiting in a real browser.
+Run from the repository root:
+
+```sh
+node python/tests/test_double_reveal.js
+node python/tests/test_double_reveal_fog.js
+python -m pytest -q python/tests/test_double_reveal.py python/tests/test_double_reveal_web.py python/tests/test_double_reveal_fog_templates.py
+```
+
+The new Node regression checks marker phases/scale, one action per click, rapid/concurrent
+calls, confirmation/cancellation, travel preconditions, hidden-room artwork, invalid and
+unconfigured rooms, remote phase changes, read/write failures, mode exclusion, Done and
+production click routing without fallthrough. Template checks cover admin-only assets,
+script order, wrapping CSS and absence of the removed description.
+
+Manual browser checks: configure a room/destination, reveal fog, verify amber 2, Ctrl-click
+to reveal true artwork, verify cyan ↗, then cancel/confirm travel. Check player screens
+have no badges/legend and destination fog/artwork are preserved. Check hidden rooms,
+inactive maps, unlinked rooms, remote edits, selection-mode handoff, zoom/pan and narrow
+sidebars. Plain double-click zoom/doors must retain behavior, while a rapid Ctrl double-click
+must not reveal+travel. DOM/source checks do not prove visual layout or native event timing.
+HTTP tests need development/runtime dependencies; skipped tests are not passing tests.

@@ -208,3 +208,14 @@ selection off to use normal fog and door clicks. With selection enabled, clickin
 selects it only; it never automatically reveals truth or switches maps. A separate confirmed
 **Open destination map** action is available only for a visible true room on the active map.
 No player-facing travel control is added.
+
+
+## Double Reveal markers
+
+Amber 2 marks configured rooms awaiting true artwork; cyan ↗ marks true rooms with an
+assigned destination. Ctrl-left-click anywhere inside the room performs the marked
+action. The second reveal does not automatically travel. A later click asks for travel
+confirmation, requiring visible source fog and the active player map. Badges stay
+screen-sized on zoom, use the saved selection point, and never appear on player screens.
+Invalid geometry has no badge. Hidden-room artwork may be prepared without revealing fog.
+See docs/usage.md for stale-state handling and the 600 ms rapid-tap guard.

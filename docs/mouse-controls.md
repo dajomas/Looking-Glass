@@ -162,9 +162,14 @@ explicit controls, not a second ordinary map click. Fog Ctrl+Z remains separate 
 **Undo appearance change** button.
 
 
-## Leaving Double Reveal selection
+## Ctrl-left-click Double Reveal shortcut
 
-Use Done — return to fog to stop room selection and restore the selected fog tool.
-Unchecking selection, closing the panel, choosing a fog tool or R/H outside form fields
-also stops Double Reveal selection. Selection and exit do not alter saved artwork or fog.
-The label wraps in the sidebar and no additional fog-mode description is displayed.
+In normal admin fog mode (Reveal or Hide), Ctrl-left-click inside an amber 2 room reveals
+its true artwork without changing fog. If it has a destination, a cyan ↗ badge replaces
+2; another Ctrl-left-click confirms travel. Source visibility and the active player map
+are required for travel. A 600 ms post-reveal guard prevents accidental rapid follow-up.
+
+Ctrl-primary is reserved and never performs ordinary fog/door/transition/zoom actions.
+Plain clicks, right-clicks, double-click zoom, Ctrl-wheel and drag/pinch retain existing
+behavior. Selection modes keep their selection behavior and hide the badges. Use Done —
+return to fog to leave Double Reveal selection. Labels wrap inside the sidebar.

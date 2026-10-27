@@ -34,6 +34,7 @@
   let wallWidth = 2;
   function updateWallWidth() {
     areaTaps.cancel();
+    doubleReveal?.redraw?.();
     mapTransitions?.draw();
     portalCycle?.refresh();
     const base = wallWidth / pz.scale;
@@ -74,7 +75,8 @@
   }
 
   const roomNotes = new LGRoomNotes(MAP_ID, toast);
-  doubleReveal = LGDoubleReveal({mapId:MAP_ID,run,reload:reloadMap});
+  doubleReveal = LGDoubleReveal({mapId:MAP_ID,run,reload:reloadMap,
+    fogMode:()=>!roomNotes.editing(),scale:()=>pz.scale});
 
   // ------------------------------------------------------------------ rendering
   function cal() {
@@ -164,6 +166,7 @@
     state = s;
     roomNotes.refresh(s);
     doubleReveal?.refresh(s);
+    doubleReveal?.redraw?.();
     mapTransitions?.draw();
     portalCycle?.setState(s,false);
     syncDoorArrowControls();
@@ -215,6 +218,14 @@
     if (state && !busy && roomNotes.editing() && event?.button === 0) {
       areaTaps.cancel(); doorTapQueue.cancel();
       run(() => roomNotes.select(x,y,true)); return;
+    }
+    // Reserve Ctrl-primary in fog mode, even if no valid room is found. Never fall through.
+    if (event?.button === 0 && event.ctrlKey && !roomNotes.editing()) {
+      event.preventDefault?.();
+      areaTaps.cancel();doorTapQueue.cancel();
+      if(state && !busy && x>=0 && y>=0 && x<state.width && y<state.height)
+        run(()=>doubleReveal?.quickAction(x,y));
+      return;
     }
     if (state && !busy && x>=0 && y>=0 && x<state.width && y<state.height && mapTransitions?.tap(x,y,event)) {
       areaTaps.cancel();doorTapQueue.cancel();return;

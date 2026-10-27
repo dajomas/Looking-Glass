@@ -247,18 +247,25 @@ main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48
 .room-name-legend { position: absolute; left: 1rem; top: 1rem; z-index: 8;
   padding: .4rem .65rem; background: #111d; color: #fff; border-radius: .4rem; pointer-events: none; }
 
-/* Double Reveal: visible native controls and labels that fit the sidebar. */
-#double-reveal-panel .check {
-  display:flex; flex-direction:row; align-items:flex-start; gap:.6rem;
-  cursor:pointer; white-space:normal; min-width:0; max-width:100%;
-  overflow-wrap:anywhere;
-}
+/* DM-only, screen-sized room badges; decoration never intercepts map gestures. */
+#double-fog-markers { position:absolute; inset:0; width:100%; height:100%; z-index:6; pointer-events:none; }
+#double-fog-markers[hidden], #double-fog-legend[hidden] { display:none !important; }
+.double-fog-marker { position:absolute; display:flex; align-items:center; justify-content:center;
+  width:28px; height:28px; border:2px solid #111; border-radius:50%;
+  font:700 18px/1 sans-serif; color:#111; box-shadow:0 0 0 2px #fff;
+  transform:translate(-50%,-50%) scale(var(--double-marker-scale,1)); transform-origin:center; }
+.double-fog-reveal { background:#ffc107; }
+.double-fog-travel { background:#5ee0f0; }
+.double-fog-legend { position:absolute; left:1rem; top:1rem; z-index:7; pointer-events:none;
+  max-width:calc(100% - 5rem); padding:.4rem .65rem; border-radius:.4rem;
+  background:#111e; color:#fff; white-space:normal; overflow-wrap:anywhere; }
+/* Visible checkboxes and wrapping labels retain the previous usability corrections. */
+#double-reveal-panel .check { display:flex; flex-direction:row; align-items:flex-start; gap:.6rem;
+  cursor:pointer; white-space:normal; min-width:0; max-width:100%; overflow-wrap:anywhere; }
 #double-reveal-panel .check > span { flex:1 1 0; min-width:0; white-space:normal; }
-#double-reveal-panel input[type="checkbox"] {
-  appearance:auto; -webkit-appearance:checkbox; position:static; opacity:1;
-  width:1.25rem; height:1.25rem; min-width:1.25rem; flex:0 0 1.25rem;
-  padding:0; margin:0; accent-color:var(--accent);
-}
+#double-reveal-panel input[type="checkbox"] { appearance:auto; -webkit-appearance:checkbox;
+  position:static; opacity:1; width:1.25rem; height:1.25rem; min-width:1.25rem;
+  flex:0 0 1.25rem; padding:0; margin:0; accent-color:var(--accent); }
 #double-reveal-panel input[type="checkbox"]:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
 .double-select-control { border:1px solid var(--border); border-radius:6px; padding:.6rem; }
 #double-done { white-space:normal; max-width:100%; }

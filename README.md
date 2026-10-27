@@ -541,9 +541,11 @@ requirements, Playwright and installed Chromium/system libraries. See
 patch, since the assistant environment lacks FastAPI and Uvicorn.
 
 
-## Double Reveal editing usability
+## Double Reveal directly from fog mode
 
-Visible native checkboxes and Done — return to fog make selection explicit. Labels wrap
-inside the sidebar frame; the extra fog-mode description is omitted. Closing the panel
-or choosing a fog tool also leaves selection. See docs/usage.md and
-Patch/DOUBLE_REVEAL_UX_CHANGES.md for details.
+Configured rooms now show DM-only badges: amber `2` means Ctrl-left-click reveals true
+artwork, then cyan `↗` means a later Ctrl-left-click offers assigned-destination travel.
+Travel keeps confirmation and requires a visible source room on the current player map.
+Plain fog clicks retain their meaning. Wrapping checkboxes and Done — return to fog are
+included; the redundant fog-mode paragraph stays removed. See docs/usage.md and
+Patch/DOUBLE_REVEAL_FOG_CHANGES.md.
