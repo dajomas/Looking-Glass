@@ -518,3 +518,24 @@ and white fills at all three zoom levels.
 The updated portal module passed 13 tests in 7.14s in the assistant environment.
 The complete post-follow-up browser suite has not been rerun on your host.
 See `Patch/CHANGES.md` and `Patch/VALIDATION.md` for scope and verification.
+
+## Live end-to-end tests (batch 1, base 58dd6a1)
+
+A separate opt-in suite connects independent DM/player Chromium contexts to real
+admin/viewer Uvicorn listeners, with no HTTP interception or WebSocket mocks.
+Four scenarios cover room reveal/privacy, hide/undo propagation, switching maps,
+and offline preparation. Each test uses temporary SQLite/images/cache and
+OS-assigned loopback ports. It does not use your running campaign or config.
+
+```bash
+source .venv-test/bin/activate
+bash runlive.sh
+# Include this additional group in the normal runner:
+LG_RUN_LIVE_E2E=1 bash runtests.sh
+```
+
+The existing default runner explicitly excludes this additional suite. A default
+suite pass is not a live-E2E pass. Prerequisites: existing development/runtime
+requirements, Playwright and installed Chromium/system libraries. See
+`docs/testing.md` and `Patch/VALIDATION.md`; live execution is pending in this
+patch, since the assistant environment lacks FastAPI and Uvicorn.
