@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Single-section portal editing with real scripts and mocked HTTP responses."""
 import io,json
 from pathlib import Path
@@ -16,7 +17,7 @@ def editor(browser):
     data=dict(ok=True,id=1,name="M",campaign_id=4,cache_token="token",image_version="v1",width=400,height=200,walls_version=1,
               walls=[[10,10,390,10,"wall",True],[100,30,100,170,"portal",True,blank()],[300,30,300,170,"portal",True,blank()]])
     templates={"base.html":'<!doctype html><meta charset="utf-8"><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css"><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block styles %}{% endblock %}{% block scripts %}{% endblock %}</body>',"editor.html":(ROOT/"web_html/admin/wall_editor.html").read_text()}
-    html=Environment(loader=DictLoader(templates)).get_template("editor.html").render(map=data,campaign=dict(id=4,name="C"))
+    html=template_environment(templates).get_template("editor.html").render(map=data,campaign=dict(id=4,name="C"))
     image=io.BytesIO();Image.new("RGB",(400,200),"white").save(image,"PNG")
     writes,errors=[],[];page.on("pageerror",lambda e:errors.append(str(e)))
     page._test_dialog_handler=lambda d:d.accept() if d.type=="confirm" else d.dismiss()

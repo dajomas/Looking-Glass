@@ -98,7 +98,7 @@ def test_alphabetical_natural_order_preserves_original_indices(page):
     assert page.locator("#saved-scene option").evaluate_all("els => els.map(e => e.value)") == ["", "2", "4", "5", "3", "8"]
     page.select_option("#saved-scene", "3")
     page.click("#source-apply")
-    playwright.expect(page.locator("#source-status")).to_have_text("Working...")
+    playwright.expect(page.locator("#source-status")).to_have_text("Uploading / processing… Please wait.")
     body = page.evaluate("window.calls[0].body")
     assert body == {"source_id": 7, "scene_index": 3, "use_scene_calibration": True, "use_pack_image": False}
 

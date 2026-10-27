@@ -471,3 +471,15 @@ no writes on empty submission, and the exact selected assignment afterward.
 This is a test-only correction: production behavior, shared browser lifecycle,
 dependencies and schema are unchanged. See docs/testing.md for focused commands
 and Patch/ for change notes, prior measured validation and remaining limitations.
+
+
+## Browser regression repairs (9f3be8f follow-up)
+
+Browser fixtures now fall back to real project partials behind explicit test
+layout overrides. Minimal gesture and viewer tests load current script
+prerequisites; exact timer tests use frozen virtual time and image-edge tests
+ensure their click is inside the viewport. Production floating portal dialogs
+are clamped again when their content changes size, and empty saved wall sources
+show an explicit empty-state message. Normal clicks, payload assertions and
+pixel thresholds are retained. See docs/testing.md and Patch/ for measured
+validation, scope and remaining visual-test limitations.

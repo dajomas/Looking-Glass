@@ -304,3 +304,13 @@ This follow-up does not install or remove the preceding label/highlight visibili
 patch; its style/script files and cache URLs are preserved when already installed.
 See [Apply/Close behavior](portal-configuration-apply.md), [deployment](deployment.md)
 and [testing](testing.md).
+
+
+## Portal popup growth and small viewports
+
+Changing Entry type to Secret adds controls and may increase the popup height.
+Floating portal dialogs now recheck viewport bounds on content-size changes as
+well as window resize. Their existing position is retained whenever it fits;
+otherwise it is clamped so the resized modal stays within the viewport. Apply
+and Close remain normal native buttons, with unchanged draft/confirmation rules.
+No force-click workaround or automatic draft save is introduced.

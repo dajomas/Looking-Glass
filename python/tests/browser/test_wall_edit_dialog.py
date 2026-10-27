@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Wall endpoint editing and image-edge clamping regressions; mocked API responses."""
 import io
 import json
@@ -22,7 +23,7 @@ def editor(browser):
               walls=[[100.125,30.25,100.125,170.75,"wall",False],[-30,20,-30,180,"door",True]])
     templates={"base.html":'<!doctype html><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css"><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block styles %}{% endblock %}{% block scripts %}{% endblock %}</body>',
                "editor.html":(ROOT/"web_html/admin/wall_editor.html").read_text()}
-    html=Environment(loader=DictLoader(templates)).get_template("editor.html").render(map=data,campaign=dict(id=4,name="C"))
+    html=template_environment(templates).get_template("editor.html").render(map=data,campaign=dict(id=4,name="C"))
     image=io.BytesIO();Image.new("RGB",(400,200),(200,30,30)).save(image,"PNG")
     errors,writes=[],[]
     page.on("pageerror",lambda error:errors.append(str(error)))
@@ -103,6 +104,9 @@ def test_clamping_uses_image_edges_after_zoom_not_viewport_edges(editor,scale):
     page,_,_=editor
     page.locator("#snap-ends").evaluate("el=>el.checked=false")
     page.evaluate("scale=>{const pz=window.testPZ,r=pz.vp.getBoundingClientRect();pz.scale=scale;pz.x=(r.width-pz.w*scale)/2;pz.y=(r.height-pz.h*scale)/2;pz.apply();}",scale)
+    page.evaluate("()=>{const p=window.testPZ,r=p.vp.getBoundingClientRect();p.x=r.width/2-400*p.scale;p.apply();}")
+    hit=page.locator("#wall-overlay").evaluate("""el=>{const p=new DOMPoint(410,100).matrixTransform(el.getScreenCTM()),v=document.getElementById('wall-viewport');return v.contains(document.elementFromPoint(p.x,p.y));}""")
+    assert hit, "The clamping probe must hit the viewport, not adjacent UI"
     tap(page,410,100)
     assert page.locator("#wall-overlay circle").get_attribute("cx")=="400"
 

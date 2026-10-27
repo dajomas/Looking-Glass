@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Real Chromium pointer events against actual editor and PanZoom scripts."""
 import io
 from pathlib import Path
@@ -21,28 +22,22 @@ def picture(rgba=False):
 
 
 def boot(page,fail_first=False):
-    ids=['wall-count','wall-source','op-count','live-state','live-viewers','toast','map-load-error','offline-reveal-warning']
-    buttons=['btn-show','btn-blank','btn-undo','btn-reveal-all','btn-reset','zoom-in','zoom-out','zoom-fit','btn-cal-save','apply-wall-types','retry-map-load']
-    html='<meta name="csrf-token" content="token"><style>#viewport{position:relative;width:800px;height:400px;overflow:hidden}.stage{position:absolute;transform-origin:0 0}.stage>*{position:absolute;width:100%;height:100%}#walls-svg path{stroke:magenta}</style>'
-    html+='<input name="mode" type="radio" value="reveal" checked><input name="mode" type="radio" value="hide">'
-    html+=''.join(f'<span id="{i}"></span>' for i in ids)
-    html+=''.join(f'<button id="{i}">{i}</button>' for i in buttons)
-    html+='<input id="show-walls" type="checkbox" checked><input id="show-preview" type="checkbox"><input id="fog-opacity" value=".55">'
-    html+=''.join(f'<input id="{i}" value="{v}">' for i,v in [('cal-ox',0),('cal-oy',0),('cal-sx',1),('cal-sy',1)])
-    html+='<input id="cal-doors" type="checkbox" checked><select id="map-switch"><option value="1">Map</option></select><div id="busy" hidden></div>'
-    html+='<div id="viewport"><div id="stage" class="stage"><img id="map-img"><canvas id="fog-canvas"></canvas><svg id="walls-svg"></svg></div></div>'
-    html+='<script>window.LG_MAP={id:1,campaign_id:4};window.LGChooseFog=async()=>"reset";</script><script src="/static/js/api.js"></script><script src="/static/js/pan_zoom.js"></script><script src="/static/js/admin_map_editor.js"></script>'
     data={'ok':True,'id':1,'name':'Map','campaign_id':4,'cache_token':'t','image_version':'one',
           'width':400,'height':200,'work_width':400,'work_height':200,'walls_version':1,'fog_version':1,
           'walls_source':'source','calibration':{'offset_x':0,'offset_y':0,'scale_x':1,'scale_y':1,'doors_block':True},
           'walls':[[0,0,400,0,'wall',True]],'op_count':0,'is_active':True,'live_viewers':1,'disabled_wall_types':[]}
+    base = '<!doctype html><meta charset="utf-8"><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css"><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block styles %}{% endblock %}{% block scripts %}{% endblock %}</body>'
+    html=template_environment({"base.html":base}).get_template("admin/map_editor.html").render(
+        map=dict(data,wall_count=1),campaign=dict(id=4,name="C"),siblings=[dict(id=1,name="Map")],fog_opacity=.55,op_count=0)
     state={'gets':0,'posts':[],'errors':[]}
     page.on('pageerror',lambda e:state['errors'].append(str(e)))
     def route(r):
+        if fulfill_auxiliary(r, data): return
         req=r.request;path=urlparse(req.url).path
         if path=='/maps/1':r.fulfill(content_type='text/html',body=html);return
         if path.startswith('/static/'):
-            r.fulfill(content_type='application/javascript',body=(ROOT/path.lstrip('/')).read_text());return
+            r.fulfill(content_type='application/javascript' if path.endswith('.js') else 'text/css',body=(ROOT/path.lstrip('/')).read_text());return
+        if path=='/api/campaigns/4/wall-sources':r.fulfill(json={'sources':[]});return
         if path=='/api/maps/1/image':r.fulfill(content_type='image/png',body=picture());return
         if path=='/api/maps/1/fog.png':r.fulfill(content_type='image/png',body=picture(True));return
         if path=='/api/maps/1':
@@ -58,6 +53,7 @@ def boot(page,fail_first=False):
     pw.expect(page.locator('#walls-svg path')).to_have_count(1)
     page.wait_for_timeout(150)
     pw.expect(page.locator('#busy')).to_be_hidden()
+    assert state['errors'] == []
     return state
 
 
@@ -67,7 +63,7 @@ def boot(page,fail_first=False):
 def test_stationary_click_uses_mode_or_its_inverse(page,mode,button,expected):
     state=boot(page);page.check(f'input[name="mode"][value="{mode}"]')
     page.locator('#viewport').click(button=button,position={'x':400,'y':200})
-    page.wait_for_timeout(100)
+    page.wait_for_timeout(450)
     assert state['posts']==[f'/api/maps/1/{expected}']
     assert page.is_checked(f'input[name="mode"][value="{mode}"]')
     assert state['errors']==[]

@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Follow-up regressions: native slider input, immediate paint, independent panels."""
 import io
 from pathlib import Path
@@ -36,11 +37,12 @@ def load_editor(page, kind):
                  "editor.html": (ROOT / "web_html/admin" / name).read_text(),
                  "partials/_csrf.html": '<input type="hidden" name="csrf_token" value="token">',
                  "partials/_map_display_dialog.html": '<dialog id="map-display-dialog"></dialog>'}
-    html = Environment(loader=DictLoader(templates)).get_template("editor.html").render(
+    html = template_environment(templates).get_template("editor.html").render(
         map=data, campaign=dict(id=4, name="C"), siblings=[dict(id=1, name="M")], fog_opacity=.55, op_count=0)
     state = {"posts": [], "errors": []}
     page.on("pageerror", lambda error: state["errors"].append(str(error)))
     def route(r):
+        if fulfill_auxiliary(r, data): return
         req = r.request
         p = urlparse(req.url).path
         if req.method == "POST":

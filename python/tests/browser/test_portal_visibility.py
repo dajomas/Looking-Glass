@@ -9,7 +9,7 @@ from test_portal_tools import admin
 
 
 @pytest.mark.parametrize("zoom",[0.5,1,2.5])
-def test_label_background_padding_and_screen_size(editor,zoom):
+def test_label_background_padding_and_screen_size(editor,zoom,tmp_path):
     page,writes,data=editor
     page.evaluate("zoom=>{const p=window.testPZ,r=p.vp.getBoundingClientRect();p.scale=zoom;p.x=(r.width-p.w*zoom)/2;p.y=(r.height-p.h*zoom)/2;p.apply();}",zoom)
     badges=page.locator("#wall-overlay .portal-label")
@@ -28,6 +28,10 @@ def test_label_background_padding_and_screen_size(editor,zoom):
     rect=badges.first.locator("rect").bounding_box()
     image=Image.open(io.BytesIO(page.screenshot())).convert("RGB")
     pixel=image.getpixel((round(rect["x"]+2),round(rect["y"]+rect["height"]/2)))
+    if max(pixel) >= 110:
+        image.save(tmp_path / "portal-label-padding.png")
+        (tmp_path / "portal-label-padding.txt").write_text(
+            f"zoom={zoom!r} rect={rect!r} pixel={pixel!r}; threshold remains <110")
     assert max(pixel)<110,pixel
     assert not writes
 

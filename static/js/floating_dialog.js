@@ -8,6 +8,16 @@ window.LGFloatingDialog=function(dialog,handle,centerButton) {
   function place(x,y) {
     position=bounds(x,y);dialog.style.left=position.x+"px";dialog.style.top=position.y+"px";
   }
+  function reflow() {
+    if (!dialog.open) return;
+    const r=dialog.getBoundingClientRect();place(r.left,r.top);
+  }
+  let frame=null;
+  const observer=typeof ResizeObserver!=="undefined" ? new ResizeObserver(()=>{
+    if(!dialog.open || frame!==null)return;
+    frame=requestAnimationFrame(()=>{frame=null;reflow();});
+  }) : null;
+  observer?.observe(dialog);
   function center() {
     const r=dialog.getBoundingClientRect();place((innerWidth-r.width)/2,(innerHeight-r.height)/2);
   }
@@ -33,7 +43,7 @@ window.LGFloatingDialog=function(dialog,handle,centerButton) {
     const r=dialog.getBoundingClientRect(),[x,y]=steps[event.key],step=event.shiftKey?50:10;place(r.left+x*step,r.top+y*step);
   });
   centerButton?.addEventListener("click",center);
-  dialog.addEventListener("close",()=>drag=null);
-  window.addEventListener("resize",()=>{if(dialog.open){const r=dialog.getBoundingClientRect();place(r.left,r.top);}});
-  return {open,center};
+  dialog.addEventListener("close",()=>{drag=null;if(frame!==null){cancelAnimationFrame(frame);frame=null;}});
+  window.addEventListener("resize",reflow);
+  return {open,center,reflow};
 };

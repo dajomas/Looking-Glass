@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Movable dialogs, authored overview and admin-only rotating presentation."""
 import io
 from pathlib import Path
@@ -71,9 +72,10 @@ def admin(browser):
     base='<!doctype html><html><head><meta charset="utf-8"><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css">{% block styles %}{% endblock %}</head><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block scripts %}{% endblock %}</body></html>'
     templates={"base.html":base,"editor.html":(ROOT/"web_html/admin/map_editor.html").read_text(),"partials/_csrf.html":'<input type="hidden" name="csrf_token" value="token">',"partials/_map_display_dialog.html":(ROOT/"templates/partials/_map_display_dialog.html").read_text(),"partials/_map_transitions.html":(ROOT/"templates/partials/_map_transitions.html").read_text()}
     templates["partials/_double_reveal.html"]=(ROOT/"templates/partials/_double_reveal.html").read_text()
-    html=Environment(loader=DictLoader(templates)).get_template("editor.html").render(map=dict(data,wall_count=0),campaign=dict(id=4,name="C"),siblings=[dict(id=1,name="M")],fog_opacity=.55,op_count=0)
+    html=template_environment(templates).get_template("editor.html").render(map=dict(data,wall_count=0),campaign=dict(id=4,name="C"),siblings=[dict(id=1,name="M")],fog_opacity=.55,op_count=0)
     errors,posts=[],[];page.on("pageerror",lambda e:errors.append(str(e)))
     def route(r):
+        if fulfill_auxiliary(r, data): return
         path=urlparse(r.request.url).path
         if r.request.method=="POST":posts.append((path,r.request.post_data_json));r.fulfill(json=data)
         elif path=="/maps/1":r.fulfill(content_type="text/html",body=html)
@@ -131,3 +133,20 @@ def test_admin_hidden_tab_and_disabled_admin_arrows_clear_overlay(admin):
     page.locator("#retry-map-load").click()
     expect(page.locator("#portal-cycle-overlay polygon")).to_have_count(0)
     assert not posts
+
+
+def test_dynamic_secret_fields_keep_portal_actions_in_view(editor):
+    page, _, _ = editor
+    open_popup(page)
+    connect(page)
+    apply(page)
+    open_popup(page)
+    page.locator("#portal-side-0-kind").select_option("secret")
+    page.locator("#portal-side-0-after").select_option("locked_door")
+    page.evaluate("() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))")
+    rect = page.locator("#portal-dialog").bounding_box()
+    assert rect["y"] >= 0
+    assert rect["y"] + rect["height"] <= page.viewport_size["height"]
+    page.locator("#portal-apply").click()
+    page.locator("#portal-close").click()
+    expect(page.locator("#portal-dialog")).not_to_be_visible()

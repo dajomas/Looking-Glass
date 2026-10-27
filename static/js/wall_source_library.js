@@ -76,7 +76,7 @@
     for (const item of scenes) {
       scene.add(new Option(`${item.name} — ${item.walls} walls, ${item.doors} doors [${item.index + 1}]`, String(item.index)));
     }
-    status.textContent = "Choose the wall set to apply. No walls have been changed.";
+    status.textContent = scenes.length ? "Choose the wall set to apply. No walls have been changed." : "No wall sets found in this source. No walls have been changed.";
   }
   source.addEventListener("change", () => run(inspect));
   scene.addEventListener("change", () => {

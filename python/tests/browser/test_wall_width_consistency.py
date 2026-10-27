@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Compare the real fog/wall renderers at multiple map sizes, zooms and widths."""
 import io
 from pathlib import Path
@@ -36,12 +37,13 @@ def open_editor(browser, kind, size):
     templates = {"base.html": base, "editor.html": (ROOT/"web_html/admin"/name).read_text(),
                  "partials/_csrf.html": '<input type="hidden" name="csrf_token" value="token">',
                  "partials/_map_display_dialog.html": '<dialog id="map-display-dialog"></dialog>'}
-    html = Environment(loader=DictLoader(templates)).get_template("editor.html").render(
+    html = template_environment(templates).get_template("editor.html").render(
         map=data, campaign=dict(id=4, name="C"), siblings=[dict(id=1, name="M")], fog_opacity=.55, op_count=0)
     errors, writes = [], []
     page.on("pageerror", lambda error: errors.append(str(error)))
     artwork, mask = png(width, height), png(width, height, True)
     def route(r):
+        if fulfill_auxiliary(r, data): return
         p = urlparse(r.request.url).path
         if r.request.method == "POST":
             writes.append(p)

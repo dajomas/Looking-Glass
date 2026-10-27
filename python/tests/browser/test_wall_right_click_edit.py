@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Stationary right-click opens wall Edit; drags and primary tools stay unchanged."""
 import io
 from pathlib import Path
@@ -21,7 +22,7 @@ def editor(browser):
                 walls=[[100.125,30.25,100.125,170.75,"wall",False],[200,30,200,170,"door",True]])
     templates = {"base.html": '<!doctype html><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css"><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block styles %}{% endblock %}{% block scripts %}{% endblock %}</body>',
                  "editor.html":(ROOT/"web_html/admin/wall_editor.html").read_text()}
-    html = Environment(loader=DictLoader(templates)).get_template("editor.html").render(map=data,campaign=dict(id=4,name="C"))
+    html = template_environment(templates).get_template("editor.html").render(map=data,campaign=dict(id=4,name="C"))
     image = io.BytesIO();Image.new("RGB",(400,200),(200,30,30)).save(image,"PNG")
     errors, writes = [], []
     page.on("pageerror",lambda error:errors.append(str(error)))

@@ -1,3 +1,4 @@
+from browser_support import template_environment, fulfill_auxiliary
 """Chromium tests of actual editor/viewer scripts and rendered editor markup."""
 import base64
 import io
@@ -35,11 +36,12 @@ def editor(page,fail=False):
      'partials/_csrf.html':'<input name="csrf_token" value="token" type="hidden">',
      'partials/_map_display_dialog.html':'<dialog id="map-display-dialog"><p id="map-display-question"></p></dialog>'}
     templates["partials/_double_reveal.html"]=(ROOT/"templates/partials/_double_reveal.html").read_text()
-    html=Environment(loader=DictLoader(templates)).get_template('admin/map_editor.html').render(
+    html=template_environment(templates).get_template('admin/map_editor.html').render(
         map=dict(data,wall_count=2),campaign={'id':4,'name':'C'},siblings=[{'id':1,'name':'M'}],op_count=0,fog_opacity=.55)
     page.on('pageerror',lambda e:state['errors'].append(str(e)))
     page.on('dialog',lambda d:d.dismiss())
     def route(r):
+        if fulfill_auxiliary(r, data): return
         req=r.request;path=urlparse(req.url).path
         if path=='/maps/1':r.fulfill(content_type='text/html',body=html);return
         if path.startswith('/static/'):
@@ -102,6 +104,7 @@ def test_reveal_offline_displays_warning_without_publishing(page):
 def test_selection_restored_after_option_reload_and_page_reload(page):
     html="""<!doctype html><select id="saved-source"><option value="">Choose</option><option value="7">Database</option></select><select id="saved-scene"><option value="">Choose</option><option value="3">Tower</option></select><script src="/static/js/keep_select_values.js"></script>"""
     def route(r):
+        if fulfill_auxiliary(r, data): return
         if urlparse(r.request.url).path.startswith('/static/'):
             r.fulfill(content_type='application/javascript',body=(ROOT/'static/js/keep_select_values.js').read_text())
         else:r.fulfill(content_type='text/html',body=html)
@@ -116,7 +119,7 @@ def test_viewer_centers_revealed_bounds(page):
     image='data:image/png;base64,'+base64.b64encode(png()).decode()
     page.set_content('<div id="viewport" style="width:800px;height:500px;position:relative"><div id="stage" style="transform-origin:0 0"><img id="map"></div></div><div id="waiting"><span id="waiting-text"></span></div><i id="conn-dot"></i><span id="map-name"></span><button id="btn-fit"></button><button id="btn-full"></button><div id="hud"></div>')
     page.evaluate("""image=>{window.LG_CAMPAIGN=4;window.fetch=async()=>({ok:true,json:async()=>({map:{name:'M',width:400,height:200,version:'1-1',image_url:image,revealed_bounds:{x:280,y:80,width:100,height:100}}})});window.WebSocket=class{};}""",image)
-    page.add_script_tag(path=str(ROOT/'static/js/pan_zoom.js'));page.add_script_tag(path=str(ROOT/'static/js/viewer_display.js'))
+    page.add_script_tag(path=str(ROOT/'static/js/pan_zoom.js'));page.add_script_tag(path=str(ROOT/'static/js/viewer_area_zoom.js'));page.add_script_tag(path=str(ROOT/'static/js/viewer_display.js'))
     page.wait_for_function("document.getElementById('map').naturalWidth===400")
     center=page.locator('#stage').evaluate("el=>{const m=new DOMMatrix(getComputedStyle(el).transform);return {x:m.a*330+m.e,y:m.d*130+m.f};}")
     assert center['x']==pytest.approx(400,abs=1)

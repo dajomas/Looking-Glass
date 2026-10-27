@@ -1,5 +1,6 @@
 """Real Chromium, mocked API. No production server is modified."""
 import json
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 import pytest
@@ -67,7 +68,9 @@ def test_source_apply_has_no_confirmation_and_preserves_index(page):
 
 def batch(page):
     page.set_content('<meta name="csrf-token" content="token"><section id="campaign-batch-import" data-campaign-id="4">\n<form id="batch-upload"><input id="batch-map-files" type="file" multiple><input id="batch-wall-files" type="file" multiple><button>Import</button></form>\n<ul id="batch-import-results"></ul><p id="batch-status"></p><table><tbody id="batch-assignment-rows"></tbody></table>\n<button id="batch-apply-walls">Apply</button><button id="batch-refresh-sources">Refresh</button>\n<script id="batch-existing-maps" type="application/json">[{"id":1,"name":"Map"}]</script></section>')
-    page.clock.install()
+    clock_start = datetime(2025, 1, 1, tzinfo=timezone.utc)
+    page.clock.install(time=clock_start)
+    page.clock.pause_at(clock_start + timedelta(seconds=1))
     page.evaluate("""()=>{
       window.confirms=0;window.applied=null;window.pendingUploads=[];
       window.confirm=()=>{window.confirms++;return false;};
@@ -93,9 +96,9 @@ def test_batch_one_progress_line_total_and_exact_four_second_clear(page):
     assert 'first.uvtt' not in page.locator('#batch-status').inner_text()
     page.evaluate('window.pendingUploads.shift()({source:{id:9}})')
     pw.expect(page.locator('#batch-status')).to_contain_text('0 maps, 2 wall sources imported; 0 failed')
-    page.clock.fast_forward(3999)
+    page.clock.run_for(3999)
     assert page.locator('#batch-status').inner_text()
-    page.clock.fast_forward(1)
+    page.clock.run_for(1)
     assert page.locator('#batch-status').inner_text()==''
 
 
