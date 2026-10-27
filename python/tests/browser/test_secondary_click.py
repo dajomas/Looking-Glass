@@ -61,7 +61,7 @@ def boot(page,fail_first=False):
     ('reveal','left','reveal'),('reveal','right','hide'),
     ('hide','left','hide'),('hide','right','reveal')])
 def test_stationary_click_uses_mode_or_its_inverse(page,mode,button,expected):
-    state=boot(page);page.check(f'input[name="mode"][value="{mode}"]')
+    state=boot(page);page.locator('#fog-panel > summary').click();page.check(f'input[name="mode"][value="{mode}"]')
     page.locator('#viewport').click(button=button,position={'x':400,'y':200})
     page.wait_for_timeout(450)
     assert state['posts']==[f'/api/maps/1/{expected}']

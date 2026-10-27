@@ -72,10 +72,10 @@ def admin(browser):
     base='<!doctype html><html><head><meta charset="utf-8"><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css">{% block styles %}{% endblock %}</head><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block scripts %}{% endblock %}</body></html>'
     templates={"base.html":base,"editor.html":(ROOT/"web_html/admin/map_editor.html").read_text(),"partials/_csrf.html":'<input type="hidden" name="csrf_token" value="token">',"partials/_map_display_dialog.html":(ROOT/"templates/partials/_map_display_dialog.html").read_text(),"partials/_map_transitions.html":(ROOT/"templates/partials/_map_transitions.html").read_text()}
     templates["partials/_double_reveal.html"]=(ROOT/"templates/partials/_double_reveal.html").read_text()
-    html=template_environment(templates).get_template("editor.html").render(map=dict(data,wall_count=0),campaign=dict(id=4,name="C"),siblings=[dict(id=1,name="M")],fog_opacity=.55,op_count=0)
+    html=template_environment(templates).get_template("editor.html").render(map=dict(data,wall_count=0),campaign=dict(id=4,name="C"),siblings=[dict(id=1,name="M"),dict(id=2,name="Upper")],fog_opacity=.55,op_count=0)
     errors,posts=[],[];page.on("pageerror",lambda e:errors.append(str(e)))
     def route(r):
-        if fulfill_auxiliary(r, data): return
+        if not urlparse(r.request.url).path.endswith("/transitions") and fulfill_auxiliary(r, data): return
         path=urlparse(r.request.url).path
         if r.request.method=="POST":posts.append((path,r.request.post_data_json));r.fulfill(json=data)
         elif path=="/maps/1":r.fulfill(content_type="text/html",body=html)
@@ -88,7 +88,7 @@ def admin(browser):
         elif path=="/api/maps/1/image":r.fulfill(content_type="image/png",body=_png())
         elif path=="/api/maps/1/fog.png":r.fulfill(content_type="image/png",body=_png("fog"))
         elif path=="/api/maps/1/door-arrows.png":r.fulfill(content_type="image/png",body=_png("arrows",routes))
-        elif path=="/api/campaigns/4/transitions":r.fulfill(json=dict(ok=True,active_map_id=1,endpoints=[],maps=[dict(id=1,name="M",viewer_transition_markers=1,viewer_transition_labels=1)]))
+        elif path=="/api/campaigns/4/transitions":r.fulfill(json=dict(ok=True,active_map_id=1,endpoints=[],maps=[dict(id=1,name="M",viewer_transition_markers=1,viewer_transition_labels=1),dict(id=2,name="Upper",viewer_transition_markers=1,viewer_transition_labels=1)]))
         elif path=="/api/campaigns/4/wall-sources":r.fulfill(json=dict(sources=[]))
         else:r.fulfill(status=404)
     page.route("**/*",route);page.goto("http://looking-glass.test/maps/1")

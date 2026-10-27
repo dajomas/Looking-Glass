@@ -32,3 +32,24 @@ def test_auxiliary_empty_library_payload():
                             fulfill=lambda **kwargs: calls.append(kwargs))
     assert support.fulfill_auxiliary(route, {}) is True
     assert calls == [{"json": {"ok": True, "entries": []}}]
+
+
+def test_viewer_status_has_actual_readonly_schema():
+    calls = []
+    route = SimpleNamespace(request=SimpleNamespace(url="http://test/api/campaigns/4/viewer-status", method="GET"),
+                            fulfill=lambda **kwargs: calls.append(kwargs))
+    assert support.fulfill_auxiliary(route, {"is_active": True}) is True
+    assert calls == [{"json": {"ok": True, "viewers": [], "blank": False}}]
+
+
+def test_viewer_status_does_not_match_unknown_route_or_write():
+    for path, method in [("/unrelated/viewer-status", "GET"), ("/api/campaigns/4/viewer-status", "POST")]:
+        route = SimpleNamespace(request=SimpleNamespace(url="http://test" + path, method=method))
+        assert support.fulfill_auxiliary(route, {}) is False
+
+
+def test_mock_base_has_utf8_without_mutating_override():
+    original = {"base.html": "<!doctype html><title>é</title>"}
+    rendered = support.template_environment(original).get_template("base.html").render()
+    assert rendered.startswith('<!doctype html><meta charset="utf-8">')
+    assert original["base.html"] == "<!doctype html><title>é</title>"

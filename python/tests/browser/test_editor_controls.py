@@ -104,7 +104,6 @@ def test_reveal_offline_displays_warning_without_publishing(page):
 def test_selection_restored_after_option_reload_and_page_reload(page):
     html="""<!doctype html><select id="saved-source"><option value="">Choose</option><option value="7">Database</option></select><select id="saved-scene"><option value="">Choose</option><option value="3">Tower</option></select><script src="/static/js/keep_select_values.js"></script>"""
     def route(r):
-        if fulfill_auxiliary(r, data): return
         if urlparse(r.request.url).path.startswith('/static/'):
             r.fulfill(content_type='application/javascript',body=(ROOT/'static/js/keep_select_values.js').read_text())
         else:r.fulfill(content_type='text/html',body=html)
@@ -130,7 +129,11 @@ def test_collapsible_battle_sidebar_panels(page):
     state = editor(page)
     pw.expect(page.locator('#walls-svg path')).to_have_count(2)
     for panel, control in (("players-panel", "btn-show"), ("fog-panel", "fog-opacity"), ("wall-legend", "apply-wall-types"), ("walls-panel", "wall-width")):
+        details = page.locator(f"#{panel}")
         summary = page.locator(f"#{panel} > summary")
+        if not details.evaluate("el => el.open"):
+            summary.click()
+        pw.expect(page.locator(f"#{control}")).to_be_visible()
         summary.click()
         pw.expect(page.locator(f"#{control}")).to_be_hidden()
         summary.click()

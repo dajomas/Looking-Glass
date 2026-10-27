@@ -85,6 +85,8 @@ def painted_width(page, overlay):
 @pytest.mark.parametrize("kind", ["battle", "wall"])
 def test_native_drag_changes_label_and_painted_stroke_before_any_edit(page, kind):
     state, overlay = load_editor(page, kind)
+    if kind == "battle":
+        page.locator("#walls-panel > summary").click()
     before = painted_width(page, overlay)
     slider = page.locator("#wall-width")
     slider.scroll_into_view_if_needed()
@@ -105,6 +107,8 @@ def test_native_drag_changes_label_and_painted_stroke_before_any_edit(page, kind
 @pytest.mark.parametrize("kind", ["battle", "wall"])
 def test_keyboard_width_zoom_and_reload(page, kind):
     state, overlay = load_editor(page, kind)
+    if kind == "battle":
+        page.locator("#walls-panel > summary").click()
     slider = page.locator("#wall-width")
     slider.focus()
     slider.press("Home")
@@ -123,12 +127,17 @@ def test_keyboard_width_zoom_and_reload(page, kind):
 
 def test_sources_and_legend_are_independent_siblings(page):
     state, _ = load_editor(page, "battle")
+    for ident in ("saved-wall-library", "wall-legend"):
+        assert page.locator(f"#{ident}").evaluate("el => !el.parentElement.closest('details')")
     page.locator("#walls-panel > summary").click()
+    pw.expect(page.locator("#wall-width")).to_be_visible()
+    page.locator("#saved-wall-library > summary").click()
     pw.expect(page.locator("#wall-width")).to_be_hidden()
     pw.expect(page.locator("#source-save")).to_be_visible()
     pw.expect(page.locator("#apply-wall-types")).to_be_visible()
-    for ident in ("saved-wall-library", "wall-legend"):
-        assert page.locator(f"#{ident}").evaluate("el => !el.parentElement.closest('details')")
-        page.locator(f"#{ident} > summary").click()
-        assert not page.locator(f"#{ident}").evaluate("el => el.open")
+    page.locator("#wall-legend > summary").click()
+    pw.expect(page.locator("#apply-wall-types")).to_be_hidden()
+    pw.expect(page.locator("#source-save")).to_be_visible()
+    page.locator("#wall-legend > summary").click()
+    pw.expect(page.locator("#apply-wall-types")).to_be_visible()
     assert not state["posts"] and not state["errors"]

@@ -483,3 +483,13 @@ are clamped again when their content changes size, and empty saved wall sources
 show an explicit empty-state message. Normal clicks, payload assertions and
 pixel thresholds are retained. See docs/testing.md and Patch/ for measured
 validation, scope and remaining visual-test limitations.
+
+
+## Browser fixture contract follow-up (bd7bf83)
+
+The mocked editor harness now supplies the read-only viewer-status endpoint,
+keeps metadata helpers out of the standalone dropdown test, and declares UTF-8
+in HTML layout overrides. Passage fixtures provide two maps, matching the UI's
+multi-map prerequisite. Native sidebar controls are exercised after opening their
+actual disclosures, not by assuming they start open. Production code is unchanged
+in this follow-up. See docs/testing.md and Patch/ for validation and limitations.
