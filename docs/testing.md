@@ -1032,3 +1032,18 @@ capture and `test-results/live-e2e.log` when using the runner.
 Live execution has not been completed in the assistant environment: FastAPI and
 Uvicorn are absent. Collection and static checks are reported separately under
 Patch/. Do not add these four cases to successful-test totals until they run.
+
+
+## Double Reveal selection exit regression
+
+Run `node python/tests/test_double_reveal.js` from the repository root. The DOM harness
+checks selection, save/appearance/travel/undo, mutual exclusion, Done, panel closure,
+fog-control changes, the exported shortcut exit and unchecking selection. Exit actions
+must hide the mask and perform no server writes.
+
+Manual browser checks: verify both checkboxes are visible when checked and unchecked,
+Tab focus is visible, Space toggles selection, the status announces the mode, Done
+opens Fog and focuses the selected tool, and closing the panel restores fog clicking.
+Check R/H outside form fields and room-note mode handoff. Confirm saved appearance and
+fog survive exits. DOM tests do not validate rendering, native details event timing
+or assistive-technology announcements; perform these checks in a real browser.

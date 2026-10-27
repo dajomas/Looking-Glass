@@ -410,8 +410,8 @@
     if (/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)) return;
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); $("btn-undo").click(); return; }
     switch (e.key.toLowerCase()) {
-      case "r": document.querySelector('input[name="mode"][value="reveal"]').checked = true; break;
-      case "h": document.querySelector('input[name="mode"][value="hide"]').checked = true; break;
+      case "r": doubleReveal?.leaveSelection(); document.querySelector('input[name="mode"][value="reveal"]').checked = true; break;
+      case "h": doubleReveal?.leaveSelection(); document.querySelector('input[name="mode"][value="hide"]').checked = true; break;
       case "f": pz.fit(); break;
       case "+": case "=": pz.zoomCenter(1.25); break;
       case "-": pz.zoomCenter(0.8); break;

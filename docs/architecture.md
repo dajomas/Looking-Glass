@@ -940,3 +940,14 @@ img installed by production viewer JS. Final-state map consistency is covered;
 transient frame atomicity and exhaustive privacy checks are future batches.
 
 There are no production code, schema, API or dependency changes in this batch.
+
+
+## Double Reveal selection lifecycle
+
+static/js/double_reveal.js owns selection state. syncMode updates the live status and
+hides the mask when inactive; leaveSelection is shared by panel closure, fog controls,
+room-note selection and the editor R/H shortcuts. returnToFog additionally disables
+room-note selection with a change event, opens Fog and focuses its selected input.
+The panel toggle handler tests current open state to handle coalesced details events.
+No API, schema or persistence changes are required. Native checkbox styling is scoped
+to the Double Reveal panel; cache tokens cover the changed editor CSS and scripts.

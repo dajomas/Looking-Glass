@@ -539,3 +539,11 @@ suite pass is not a live-E2E pass. Prerequisites: existing development/runtime
 requirements, Playwright and installed Chromium/system libraries. See
 `docs/testing.md` and `Patch/VALIDATION.md`; live execution is pending in this
 patch, since the assistant environment lacks FastAPI and Uvicorn.
+
+
+## Double Reveal editing controls
+
+The Double Reveal panel has visible native checkboxes, an explicit mode status and a
+"Done — return to fog" button. Closing the panel, selecting a fog tool or using R/H
+outside form fields also exits Double Reveal selection without changing saved artwork
+or fog. See docs/usage.md and Patch/DOUBLE_REVEAL_UX_CHANGES.md.

@@ -5,6 +5,8 @@ class Element {
   replaceChildren(...children){this.children=children;}
   append(...children){this.children.push(...children);}
   addEventListener(name,fn){this.listeners[name]=fn;}
+  dispatchEvent(event){this.listeners[event.type]?.(event);}
+  focus(){this.focused=true;}
 }
 const ids=new Map(),get=id=>{if(!ids.has(id))ids.set(id,new Element());return ids.get(id);};
 let state={ok:true,cache_token:"t",walls_version:1,fog_version:2,image_revision:1,active_map_id:1,
@@ -12,7 +14,9 @@ let state={ok:true,cache_token:"t",walls_version:1,fog_version:2,image_revision:
 const fresh=()=>JSON.parse(JSON.stringify(state));
 const row={area_key:"a".repeat(64),x:20,y:30,revision:0,true_active:0,destination_map_id:null,name:"Stair room",valid_geometry:true,revealed:true};
 const reads=[],writes=[],errors=[];let pending,approved=true;
-const ctx={window:{},document:{getElementById:get,createElement:()=>new Element()},
+const ctx={window:{},document:{getElementById:get,createElement:()=>new Element(),
+    querySelectorAll:()=>[get("fog-reveal"),get("fog-hide")],querySelector:()=>get("fog-reveal")},
+  Event:function(type){this.type=type;},
   Option:function(text,value){this.text=text;this.value=value;},location:{},confirm:()=>approved,
   LGApi:{get:async path=>{reads.push(path);const result=fresh();if(path.includes("/room?"))result.selected=state.rooms[0]||{...row};return result;},
     post:async(path,body)=>{writes.push({path,body});
@@ -42,6 +46,24 @@ const flush=()=>new Promise(resolve=>setImmediate(resolve));
   get("double-undo").onclick();await pending;assert.equal(writes[3].path,"/api/maps/1/double-reveal/undo");
   get("room-select-mode").checked=true;get("room-select-mode").listeners.change();assert.equal(control.selecting(),false);
   assert.equal(get("double-room-mask").hidden,true);assert.deepEqual(errors,[]);
+  const writeCount=writes.length;
+  const enter=()=>{get("double-select").checked=true;get("double-select").onchange();};
+  enter();assert.equal(control.selecting(),true);
+  assert.match(get("double-mode-status").textContent,/Double Reveal selection mode/);
+  get("double-done").onclick();
+  assert.equal(control.selecting(),false);assert.equal(get("double-room-mask").hidden,true);
+  assert.equal(get("fog-panel").open,true);assert.equal(get("double-reveal-panel").open,false);
+  assert.equal(get("fog-reveal").focused,true);
+  assert.match(get("double-mode-status").textContent,/Fog mode/);
+  enter();get("double-reveal-panel").open=false;get("double-reveal-panel").listeners.toggle();
+  assert.equal(control.selecting(),false);
+  enter();get("fog-hide").listeners.change();assert.equal(control.selecting(),false);
+  enter();control.leaveSelection();assert.equal(control.selecting(),false);
+  enter();get("double-select").checked=false;get("double-select").onchange();
+  assert.equal(control.selecting(),false);assert.equal(get("double-room-mask").hidden,true);
+  assert.equal(writes.length,writeCount,"Leaving selection must not mutate server state");
+  const template=fs.readFileSync("templates/partials/_double_reveal.html","utf8");
+  assert.match(template,/for="double-select"/);assert.match(template,/id="double-done" type="button"/);
   const source=fs.readFileSync("static/js/admin_map_editor.js","utf8");
   const tap=source.slice(source.indexOf("  function onTap("),source.indexOf("  const simple ="));
   let selections=0,cancels=0;
