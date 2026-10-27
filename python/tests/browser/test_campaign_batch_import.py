@@ -225,11 +225,16 @@ def test_empty_upload_is_noop_and_apply_does_not_confirm(app):
     page, state = app
     page.click('#batch-upload button[type="submit"]')
     pw.expect(page.locator("#batch-status")).to_contain_text("Choose map images")
+    assert state["uploads"] == []
+    assert state["source_uploads"] == []
+    assert state["applied"] == []
     choose(page, 1)
-    page.evaluate("window.confirmCalls = 0; window.confirm = () => { window.confirmCalls++; return false; }")
+    page.evaluate("() => { window.confirmCalls = 0; window.confirm = () => { window.confirmCalls++; return false; }; }")
+    assert page.evaluate("window.confirmCalls") == 0
     page.click("#batch-apply-walls")
     pw.expect(page.locator("#batch-status")).to_contain_text("1 applied, 0 failed")
-    assert len(state["applied"]) == 1
+    assert state["applied"] == [(1, {"source_id": 7, "scene_index": 2,
+                                    "use_scene_calibration": True, "use_pack_image": False})]
     assert page.evaluate("window.confirmCalls") == 0
 
 

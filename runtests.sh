@@ -28,9 +28,7 @@ fi
 
 HASH=$(git rev-parse --short=7 HEAD 2>/dev/null) || HASH=unversioned
 # Preserve the existing concatenated gzip/base64 result format.
-if ! gzip -c test-results/browser-preflight.log test-results/browser.log \
-    test-results/javascript.log test-results/python.log \
-    | base64 > "test-results.${HASH}.txt"; then
+if ! gzip -c test-results/* | base64 > "test-results.${HASH}.txt"; then
   status=1
 fi
 exit "$status"

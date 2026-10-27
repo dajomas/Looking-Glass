@@ -46,3 +46,15 @@ and verify Apply never calls window.confirm. Production behavior is unchanged.
 Run python -m pytest --setup-plan -q python/tests/browser to check fixture
 resolution (not UI execution), then python -m pytest -ra python/tests/browser.
 Measured results and limitations are recorded in Patch/.
+
+
+## Empty-upload and no-confirm regression coverage
+
+The browser regression verifies no uploads or assignments occur for an empty
+submission. After selecting a source and wall set, Apply must send exactly one
+assignment with the selected source, original scene index, calibration choice
+and use_pack_image=false, without invoking window.confirm. The confirmation spy
+is installed inside an explicit page.evaluate initializer, with a zero baseline
+checked before clicking Apply and checked again after the completed assignment.
+This protects the existing workflow; it does not change production JavaScript,
+introduce a confirmation dialog or change upload semantics.

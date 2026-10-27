@@ -461,3 +461,13 @@ and verify Apply never calls window.confirm. Production behavior is unchanged.
 Run python -m pytest --setup-plan -q python/tests/browser to check fixture
 resolution (not UI execution), then python -m pytest -ra python/tests/browser.
 Measured results and limitations are recorded in Patch/.
+
+
+## Batch confirmation regression correction (2b81e59)
+
+The empty-upload/no-confirm browser regression initializes its confirmation spy
+through an explicit page.evaluate callback. It checks zero calls before Apply,
+no writes on empty submission, and the exact selected assignment afterward.
+This is a test-only correction: production behavior, shared browser lifecycle,
+dependencies and schema are unchanged. See docs/testing.md for focused commands
+and Patch/ for change notes, prior measured validation and remaining limitations.
