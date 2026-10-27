@@ -247,8 +247,13 @@ main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48
 .room-name-legend { position: absolute; left: 1rem; top: 1rem; z-index: 8;
   padding: .4rem .65rem; background: #111d; color: #fff; border-radius: .4rem; pointer-events: none; }
 
-/* Double Reveal uses visible native checkboxes, not text-only mode controls. */
-#double-reveal-panel .check { display:flex; flex-direction:row; align-items:center; gap:.6rem; cursor:pointer; }
+/* Double Reveal: visible native controls and labels that fit the sidebar. */
+#double-reveal-panel .check {
+  display:flex; flex-direction:row; align-items:flex-start; gap:.6rem;
+  cursor:pointer; white-space:normal; min-width:0; max-width:100%;
+  overflow-wrap:anywhere;
+}
+#double-reveal-panel .check > span { flex:1 1 0; min-width:0; white-space:normal; }
 #double-reveal-panel input[type="checkbox"] {
   appearance:auto; -webkit-appearance:checkbox; position:static; opacity:1;
   width:1.25rem; height:1.25rem; min-width:1.25rem; flex:0 0 1.25rem;
@@ -256,5 +261,5 @@ main.editor.room-panel-collapsed { grid-template-columns: 300px minmax(0,1fr) 48
 }
 #double-reveal-panel input[type="checkbox"]:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
 .double-select-control { border:1px solid var(--border); border-radius:6px; padding:.6rem; }
-#double-mode-status { border-left:3px solid var(--accent); padding-left:.6rem; }
+#double-done { white-space:normal; max-width:100%; }
 #double-reveal-panel [hidden] { display:none !important; }

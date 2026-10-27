@@ -942,12 +942,11 @@ transient frame atomicity and exhaustive privacy checks are future batches.
 There are no production code, schema, API or dependency changes in this batch.
 
 
-## Double Reveal selection lifecycle
+## Double Reveal selection lifecycle and layout
 
-static/js/double_reveal.js owns selection state. syncMode updates the live status and
-hides the mask when inactive; leaveSelection is shared by panel closure, fog controls,
-room-note selection and the editor R/H shortcuts. returnToFog additionally disables
-room-note selection with a change event, opens Fog and focuses its selected input.
-The panel toggle handler tests current open state to handle coalesced details events.
-No API, schema or persistence changes are required. Native checkbox styling is scoped
-to the Double Reveal panel; cache tokens cover the changed editor CSS and scripts.
+double_reveal.js owns leaveSelection, shared by panel closure, fog controls and R/H
+shortcuts. Done also disables room-note selection with a change event, opens Fog and
+focuses the selected tool. Mode exits do not write server state. Scoped checkbox rules
+override common.css label.check white-space:nowrap with white-space:normal; min-width:0
+on the flex text allows wrapping without shrinking the checkbox. No mode-description
+element or script dependency remains. No API, dependency or schema changes are needed.

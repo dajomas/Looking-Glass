@@ -8,15 +8,9 @@
       fog_version:data.fog_version,image_revision:data.image_revision});
     const selectMode = $("double-select"), mask = $("double-room-mask");
     const panel = $("double-reveal-panel");
-    function syncMode() {
-      $("double-mode-status").textContent = selectMode.checked
-        ? "Double Reveal selection mode — click a room; fog is unchanged. Use Done to return to fog."
-        : "Fog mode — map clicks use the selected fog tool (unless room-note selection is active).";
-      if (!selectMode.checked) mask.hidden = true;
-    }
     function leaveSelection() {
       selectMode.checked = false;
-      syncMode();
+      mask.hidden = true;
     }
     function returnToFog() {
       leaveSelection();
@@ -27,14 +21,12 @@
       }
       panel.open = false;
       $("fog-panel").open = true;
-      const tool = document.querySelector('input[name="mode"]:checked');
-      tool?.focus();
+      document.querySelector('input[name="mode"]:checked')?.focus();
     }
     $("double-done").onclick = returnToFog;
     panel.addEventListener("toggle", () => { if (!panel.open) leaveSelection(); });
     document.querySelectorAll('input[name="mode"]').forEach(input =>
       input.addEventListener("change", leaveSelection));
-    syncMode();
     function show(result, point) {
       data = result;
       if (point) selected = result.selected;
@@ -124,7 +116,6 @@
           roomMode.dispatchEvent(new Event("change", {bubbles:true}));
         }
       }
-      syncMode();
       if(data)show(data); else run(()=>refresh());
     };
     $("room-select-mode").addEventListener("change",()=>{if($("room-select-mode").checked) leaveSelection();});

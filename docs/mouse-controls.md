@@ -164,9 +164,7 @@ explicit controls, not a second ordinary map click. Fog Ctrl+Z remains separate 
 
 ## Leaving Double Reveal selection
 
-In Double Reveal selection mode, primary map clicks select rooms without changing fog.
-The visible selection checkbox and mode status identify this mode. Use Done — return
-to fog to open Fog and restore the previously selected fog tool; this also disables
-room-note selection. Unchecking the checkbox, closing the Double reveal panel, choosing
-a fog radio control or pressing R/H outside form fields also exits Double Reveal selection.
-The mode change itself makes no server write and does not save configuration edits.
+Use Done — return to fog to stop room selection and restore the selected fog tool.
+Unchecking selection, closing the panel, choosing a fog tool or R/H outside form fields
+also stops Double Reveal selection. Selection and exit do not alter saved artwork or fog.
+The label wraps in the sidebar and no additional fog-mode description is displayed.

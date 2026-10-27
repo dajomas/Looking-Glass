@@ -1034,16 +1034,11 @@ Uvicorn are absent. Collection and static checks are reported separately under
 Patch/. Do not add these four cases to successful-test totals until they run.
 
 
-## Double Reveal selection exit regression
+## Double Reveal usability regression
 
-Run `node python/tests/test_double_reveal.js` from the repository root. The DOM harness
-checks selection, save/appearance/travel/undo, mutual exclusion, Done, panel closure,
-fog-control changes, the exported shortcut exit and unchecking selection. Exit actions
-must hide the mask and perform no server writes.
-
-Manual browser checks: verify both checkboxes are visible when checked and unchecked,
-Tab focus is visible, Space toggles selection, the status announces the mode, Done
-opens Fog and focuses the selected tool, and closing the panel restores fog clicking.
-Check R/H outside form fields and room-note mode handoff. Confirm saved appearance and
-fog survive exits. DOM tests do not validate rendering, native details event timing
-or assistive-technology announcements; perform these checks in a real browser.
+Run node python/tests/test_double_reveal.js for selection, configuration, appearance,
+travel, undo, exit paths, focus, no server writes on exit, missing mode-description
+markup and wrapping CSS assertions. These are DOM/source checks, not visual proof.
+Manually check narrow sidebar widths: label stays inside its border, checkbox stays
+visible, text wraps, Done fits, and no fog-mode description appears. Check keyboard
+focus, native details closure and actual fog clicks after exiting in a real browser.

@@ -1146,14 +1146,12 @@ JavaScript toast lifecycle.
 4. Enable **Select double-reveal room (fog unchanged)** and click inside a room. The selected
    room is highlighted. Enable double reveal, optionally choose another map in this campaign,
    and save. Repeat only for rooms that should have a second appearance.
-5. Press **Done — return to fog** to leave selection mode, clear the selection highlight,
-   open the Fog panel and focus the previously selected fog tool. This also turns off
-   room-note selection. No fog, artwork or saved room configuration changes.
-   You can also uncheck the visibly boxed selection checkbox, close the Double reveal
-   panel, select a fog tool, or use R/H outside a form field to stop Double Reveal
-   selection. The mode status explains whether clicks select rooms or use the fog tool.
-   Selecting room notes turns off double-reveal selection, and vice versa.
-   Mode changes do not save unsaved room-configuration edits; use Save room configuration first.
+5. Press **Done — return to fog** to stop selection, remove its highlight and open Fog
+   with the previous tool focused. This also disables room-note selection. You may
+   also uncheck selection, close Double reveal, choose a fog tool or use R/H outside
+   form fields. Selecting room notes turns off double-reveal selection, and vice versa.
+   These exits do not change saved fog or artwork and do not save configuration edits.
+   The checkbox label wraps within its frame; no extra fog-mode description is shown.
 
 ### Run the reveal
 

@@ -541,9 +541,9 @@ requirements, Playwright and installed Chromium/system libraries. See
 patch, since the assistant environment lacks FastAPI and Uvicorn.
 
 
-## Double Reveal editing controls
+## Double Reveal editing usability
 
-The Double Reveal panel has visible native checkboxes, an explicit mode status and a
-"Done — return to fog" button. Closing the panel, selecting a fog tool or using R/H
-outside form fields also exits Double Reveal selection without changing saved artwork
-or fog. See docs/usage.md and Patch/DOUBLE_REVEAL_UX_CHANGES.md.
+Visible native checkboxes and Done — return to fog make selection explicit. Labels wrap
+inside the sidebar frame; the extra fog-mode description is omitted. Closing the panel
+or choosing a fog tool also leaves selection. See docs/usage.md and
+Patch/DOUBLE_REVEAL_UX_CHANGES.md for details.
