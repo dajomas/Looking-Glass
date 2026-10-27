@@ -432,5 +432,17 @@ The follow-up patch clarifies saved-source upload and passive-wall labels and
 aligns wall-type HTTP regression tests with the existing `disabled_wall_types`
 request schema (422 on invalid input). It does not add a `disabled` alias or
 change runtime wall/fog behavior. See [the API contract](docs/api.md#wall-type-boundary-request-contract)
-and [browser-test host setup](docs/testing.md#chromium-launch-errors-on-linux--wsl).
+and [browser-test host setup](docs/testing.md#rocky-linux-10--wsl-browser-preflight).
 Patch/ contains change notes, measured validation results and a commit message.
+
+
+## Rocky browser preflight follow-up (eee89c4)
+
+The browser preflight now distinguishes DOM content from rendered text and logs
+font configuration, font matching and both observed text values. Rendering
+failures remain failures; they are not bypassed by checking DOM content alone.
+See [Rocky/WSL test-host setup](docs/testing.md#rocky-linux-10--wsl-browser-preflight)
+for native Fontconfig/fonts installation, configuration recovery and rerunning
+`python -u python/tests/check_browser_environment.py` before `bash runtests.sh`.
+No application behavior, browser flags, database schema or production dependencies
+are changed by this follow-up. Patch/ records scope and measured validation.

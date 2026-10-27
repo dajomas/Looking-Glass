@@ -4,6 +4,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from importlib.metadata import PackageNotFoundError, version
 import os
 import platform
+import shutil
 from pathlib import Path
 import subprocess
 import sys
@@ -23,6 +24,38 @@ class Handler(BaseHTTPRequestHandler):
         pass
 
 
+def check_dom(page):
+    locator = page.locator("#check")
+    source = locator.text_content()
+    rendered = locator.inner_text()
+    print(f"DOM diagnostic: text_content={source!r}, inner_text={rendered!r}", flush=True)
+    if source != "Ready":
+        raise RuntimeError(f"DOM content mismatch: expected 'Ready', got {source!r}")
+    if rendered != "Ready":
+        raise RuntimeError(
+            f"Rendered text mismatch: expected 'Ready', got {rendered!r}. "
+            "Inspect Fontconfig/font diagnostics and browser stderr. On Rocky: "
+            "sudo dnf install -y fontconfig dejavu-sans-fonts; fc-match sans-serif. "
+            "Also inspect FONTCONFIG_FILE and FONTCONFIG_PATH overrides. "
+            "This is a rendering check failure, not evidence of a browser crash."
+        )
+
+
+def font_diagnostics():
+    for key in ("FONTCONFIG_FILE", "FONTCONFIG_PATH"):
+        print(f"{key}={os.environ.get(key, '<unset>')!r}", flush=True)
+    if not shutil.which("fc-match"):
+        print("WARNING: fc-match not found; install Fontconfig and fonts on the test host.", flush=True)
+        return
+    try:
+        result = subprocess.run(["fc-match", "sans-serif"], capture_output=True,
+                                text=True, timeout=5, check=False)
+        print(f"fc-match sans-serif (exit {result.returncode}): "
+              f"{result.stdout.strip()!r}; stderr={result.stderr.strip()!r}", flush=True)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        print(f"WARNING: font diagnostics unavailable: {exc}", flush=True)
+
+
 def probe():
     from playwright.sync_api import sync_playwright
 
@@ -39,7 +72,7 @@ def probe():
                 page.goto(f"http://127.0.0.1:{server.server_port}/", timeout=15000)
                 assert page.title() == "Looking Glass browser preflight"
                 page.set_content("<title>DOM check</title><button id='check'>Ready</button>")
-                assert page.locator("#check").inner_text() == "Ready"
+                check_dom(page)
                 print("PASS: launch, local HTTP navigation and DOM check", flush=True)
             finally:
                 browser.close()
@@ -69,6 +102,7 @@ def main(argv=None):
     except PackageNotFoundError:
         print("FAIL: install Playwright in this test environment: python -m pip install playwright")
         return 1
+    font_diagnostics()
     env = dict(os.environ)
     env["DEBUG"] = ",".join(filter(None, [env.get("DEBUG"), "pw:browser"]))
     try:
