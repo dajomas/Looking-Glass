@@ -72,6 +72,7 @@ def open_editor(browser, kind, size):
     pw.expect(page.locator(overlay + " path")).to_have_count(3)
     pw.expect(page.locator("#wall-width")).to_be_enabled()
     page.wait_for_timeout(150)
+    assert page.locator(".stage").evaluate("el => getComputedStyle(el).willChange") == "auto"
     page.add_style_tag(content=".viewport {background: #000 !important;} .stage > img, .stage > canvas {visibility: hidden !important;}")
     return page, overlay, errors, writes
 

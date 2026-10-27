@@ -29,7 +29,7 @@ def boot(page,fail_first=False):
     base = '<!doctype html><meta charset="utf-8"><meta name="csrf-token" content="token"><link rel="stylesheet" href="/static/css/common.css"><body class="editor-page"><main class="editor">{% block content %}{% endblock %}</main>{% block styles %}{% endblock %}{% block scripts %}{% endblock %}</body>'
     html=template_environment({"base.html":base}).get_template("admin/map_editor.html").render(
         map=dict(data,wall_count=1),campaign=dict(id=4,name="C"),siblings=[dict(id=1,name="Map")],fog_opacity=.55,op_count=0)
-    state={'gets':0,'posts':[],'errors':[]}
+    state={'gets':0,'posts':[],'room_lookups':[],'errors':[]}
     page.on('pageerror',lambda e:state['errors'].append(str(e)))
     def route(r):
         if fulfill_auxiliary(r, data): return
@@ -44,6 +44,10 @@ def boot(page,fail_first=False):
             state['gets']+=1
             if fail_first and state['gets']==1:r.fulfill(status=500,json={'ok':False,'error':'Initial state failed'})
             else:r.fulfill(json=data)
+            return
+        if req.method=='POST' and path=='/api/maps/1/room-at':
+            state['room_lookups'].append(req.post_data_json)
+            r.fulfill(json={'ok':True,'revealed':False})
             return
         if req.method=='POST':
             state['posts'].append(path);r.fulfill(json=dict(data,area_fraction=.1,leak_warning=False));return
@@ -65,6 +69,10 @@ def test_stationary_click_uses_mode_or_its_inverse(page,mode,button,expected):
     page.locator('#viewport').click(button=button,position={'x':400,'y':200})
     page.wait_for_timeout(450)
     assert state['posts']==[f'/api/maps/1/{expected}']
+    assert len(state['room_lookups']) == 1
+    point = state['room_lookups'][0]
+    assert set(point) == {'x', 'y'}
+    assert 0 <= point['x'] < 400 and 0 <= point['y'] < 200
     assert page.is_checked(f'input[name="mode"][value="{mode}"]')
     assert state['errors']==[]
 

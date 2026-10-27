@@ -504,3 +504,11 @@ mock the new tab's document on the browser context, not just its parent page,
 and remove that route afterward. These corrections change test coverage only;
 no production rendering, security, fog or database behavior changes.
 See docs/testing.md and Patch/ for validation and remaining limitations.
+
+## Partial browser-regression patch (base 6106456)
+
+This patch separates read-only room selection POSTs from fog mutations in the
+secondary-click browser fixture and removes persistent stage transform promotion.
+The rendering change is provisional: the original screenshot failures have not
+been confirmed resolved. See `Patch/CHANGES.md` and `Patch/VALIDATION.md` for
+classification, limitations, installation, and verification commands.

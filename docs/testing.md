@@ -916,3 +916,19 @@ python -m pytest -v python/tests/browser/test_passage_modal_layout.py::test_insp
 The zoom-2.5 screenshot threshold and its diagnostic capture are unchanged.
 Neither this focused fix nor a focused test pass certifies the complete suite.
 Patch/ distinguishes measured patch validation from supplied baseline results.
+
+## Browser regressions: partial patch for 6106456
+
+The secondary-click fixture records `/api/maps/1/room-at` separately from fog
+mutations. HTTP POST does not by itself imply a mutation: this endpoint performs
+room selection lookup. Each stationary click must still produce exactly one
+expected reveal/hide mutation, one coordinate lookup, and no page errors. Unknown
+POSTs remain in the mutation log, so unexpected writes cannot be silently ignored.
+
+Portal visibility and wall-width browser checks now also assert that `.stage`
+has computed `will-change: auto`. Existing pixel darkness and width tolerances
+are unchanged. The added `test_vector_paint_policy.py` guards the shared CSS policy.
+
+Browser reruns were not completed. Do not count a timed-out or failed execution
+as a pass. Run `bash runtests.sh` in the configured test environment; see
+`Patch/VALIDATION.md` for focused commands and the evidence boundary.

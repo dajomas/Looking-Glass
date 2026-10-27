@@ -905,3 +905,16 @@ The cached PNG does not modify production server rendering or viewer responses.
 New-window document navigation is mocked at browser-context scope and removed
 after use; parent page routes remain responsible for the parent editor. The
 inspection stub verifies URL/isolation behavior, not full target-page rendering.
+
+## Editor paint policy: provisional regression correction
+
+Both editor stages share the `.stage` rule in `static/css/admin.css`. The patch
+removes persistent `will-change: transform` while retaining transform origin and
+PanZoom transforms. This targets possible cached bitmap resampling of zoomed SVG
+labels and strokes; geometry, stroke width calculations, and label styling are
+unchanged. Both editor templates use a new admin CSS cache version.
+
+The supplied failures passed geometry checks but failed painted-pixel checks.
+A compositor-related cause is a hypothesis, not a verified root cause: original
+browser screenshot tests must pass before treating this rendering change as
+confirmed. No API, database, fog-state, or authorization behavior changes.

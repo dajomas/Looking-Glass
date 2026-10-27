@@ -12,6 +12,7 @@ from test_portal_tools import admin
 def test_label_background_padding_and_screen_size(editor,zoom,tmp_path):
     page,writes,data=editor
     page.evaluate("zoom=>{const p=window.testPZ,r=p.vp.getBoundingClientRect();p.scale=zoom;p.x=(r.width-p.w*zoom)/2;p.y=(r.height-p.h*zoom)/2;p.apply();}",zoom)
+    assert page.locator(".stage").evaluate("el => getComputedStyle(el).willChange") == "auto"
     badges=page.locator("#wall-overlay .portal-label")
     expect(badges).to_have_count(4)
     boxes=badges.evaluate_all("""els=>els.map(g=>{const r=g.querySelector('rect'),t=g.querySelector('text'),a=r.getBBox(),b=t.getBBox(),s=getComputedStyle(r);return {rect:{x:a.x,y:a.y,width:a.width,height:a.height},text:{x:b.x,y:b.y,width:b.width,height:b.height},fill:s.fill,stroke:s.stroke,vector:s.vectorEffect,font:getComputedStyle(t).fontSize,pointer:getComputedStyle(g).pointerEvents,order:g.firstElementChild===r};})""")
