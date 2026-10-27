@@ -48,6 +48,14 @@ DEFAULTS: dict[str, Any] = {
         "feather_px": 2,           # soft fog edge on the viewer image
         "admin_fog_opacity": 0.55,
     },
+    "scrying_glass": {
+        "enabled": False,
+        "base_url": "",
+        "username": "",
+        "password": "",
+        "password_env": "LG_SCRYING_GLASS_PASSWORD",
+        "timeout_seconds": 5,
+    },
     "viewer": {
         "max_image_dim": 4096,     # viewer composite is downscaled to fit this
         "image_format": "webp",    # webp | jpeg | png
@@ -146,4 +154,6 @@ def load_settings(path: str | os.PathLike | None = None, overrides: dict | None 
             raw[sec][key] = cast(os.environ[env])
     if overrides:
         raw = _deep_merge(raw, overrides)
+    from .services.scrying_glass import options
+    options(raw["scrying_glass"])
     return Settings(raw=raw, config_path=cfg_path)

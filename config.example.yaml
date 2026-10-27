@@ -37,3 +37,12 @@ viewer:
   max_image_dim: 4096      # player image is downscaled to fit
   image_format: webp       # webp | jpeg | png
   image_quality: 85
+
+# Optional read-only battle-setup existence lookup, using saved room-note names.
+scrying_glass:
+  enabled: false
+  base_url: ""       # e.g. https://scrying.example.net:8443 (admin origin, no path)
+  username: ""       # admin with the matching campaign assigned, or superadmin
+  password: ""       # prefer the environment variable below over a YAML secret
+  password_env: LG_SCRYING_GLASS_PASSWORD
+  timeout_seconds: 5 # 1..30 seconds per upstream request; TLS verification stays on

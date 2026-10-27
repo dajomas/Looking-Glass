@@ -6,6 +6,7 @@ window.LGRoomNotes = class {
     this.editMode=false;this.saving=false;this.draftVersion=0;
     this.mapId=mapId;this.toast=toast;this.point=null;this.room=null;this.dirty=false;this.generation=0;this.revealed=null;this.stateStamp=null;this.refreshGeneration=0;
     this.$=id=>document.getElementById(id);
+    this.scrying=window.LGScryingGlassRoom ? new window.LGScryingGlassRoom(mapId) : null;
     this.nameOverlay=window.LGRoomNameOverlay?new window.LGRoomNameOverlay(mapId,toast):null;
     this.marker=window.LGRoomEditMarker?new window.LGRoomEditMarker(mapId,toast):null;
     this.libraryManager=window.LGRoomLibraryManager?new window.LGRoomLibraryManager(this):null;
@@ -109,6 +110,7 @@ window.LGRoomNotes = class {
   updateDirty() {
     this.dirty=Boolean(this.room&&this.editMode&&!this.sameContent(
       this.$("room-name").value,this.$("room-markdown").value,this.room.name,this.room.markdown));
+    this.scrying?.set(this.room,this.point,this.editMode,this.dirty);
     return this.dirty;
   }
   hasUnsavedChanges() {return this.updateDirty();}
@@ -165,6 +167,7 @@ window.LGRoomNotes = class {
     this.renderLibrary();
     this.$("room-select-mode").closest("label").hidden=false;
     this.marker?.set(this.editMode,this.room,this.point);
+    this.scrying?.set(this.room,this.point,this.editMode,this.dirty);
     if(opening)this.loadLibrary();
   }
   insert(text, selectStart=0, selectLength=text.length) {

@@ -189,3 +189,15 @@ reject stale version stamps. All routes are mounted exclusively on the admin app
 The viewer application has no raw alternate-image endpoint, room configuration response or
 clickable navigation action. Same-campaign links are checked in services and enforced by
 SQLite triggers. The data/maps directory must remain private rather than statically served.
+
+
+## Scrying Glass lookup authorization
+
+Only authenticated Looking Glass DMs who manage a map's campaign can check its saved
+room-name match. The route is admin-only and CSRF-protected; geometry and note revision
+are checked server-side. It is absent from viewer routing. The configured Scrying Glass
+identity is shared server-side; remote campaign access still depends on that account's
+ownership/role. Prefer an admin assigned only the relevant campaigns, rather than a
+superadmin. Results distinguish no accessible campaign from a definite missing setup.
+The browser never receives remote credentials or cookies. Checks do not activate or load
+a campaign/setup. See [Scrying Glass integration](scrying-glass.md).

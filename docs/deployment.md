@@ -975,3 +975,14 @@ FONTCONFIG_FILE/FONTCONFIG_PATH overrides. Reinstall Fontconfig if its installed
 configuration is missing. See [testing.md](testing.md#fontconfig-and-rendered-text-failures)
 for diagnosis and recovery commands. No system changes are performed by the
 preflight or this patch, and GPU warnings alone do not establish a crash cause.
+
+
+## Optional Scrying Glass lookup
+
+A read-only Room notes lookup can query a matching Scrying Glass campaign/battle setup.
+It is disabled by default. Configure the top-level scrying_glass block using the admin
+origin (scheme/host/port), account, password environment variable and request timeout.
+Set the secret in the Looking Glass service environment and restart. HTTPS is recommended;
+TLS verification remains enabled. No migration or extra dependency is required. Existing
+configuration files continue working without this block. See [Scrying Glass integration](scrying-glass.md)
+for complete configuration, API contract, testing and reverse-proxy restrictions.
