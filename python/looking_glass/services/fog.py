@@ -25,7 +25,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageChops, ImageDraw, ImageFilter
 from scipy import ndimage
 
 from .wall_model import Calibration, FogOp, WallSegment
@@ -181,7 +181,7 @@ class FogEngine:
                 f.unlink(missing_ok=True)
 
     def cache_identity(self, spec: MapSpec) -> str:
-        config = ("fog-cache-v2", spec.identity, self.work_max_dim, self.thickness,
+        config = ("fog-cache-v3-inward-feather", spec.identity, self.work_max_dim, self.thickness,
                   self.feather, self.fog_rgb, self.viewer_max_dim,
                   self.viewer_format, self.viewer_quality)
         return hashlib.sha256(repr(config).encode()).hexdigest()[:32]
@@ -275,8 +275,10 @@ class FogEngine:
         elif not revealed:
             m = np.zeros(area.shape, dtype=bool)
         else:
-            m = np.isin(area.labels, np.fromiter(revealed, dtype=np.int32))
-            m = ndimage.binary_dilation(m, iterations=self.thickness)
+            interiors = np.isin(area.labels, np.fromiter(revealed, dtype=np.int32))
+            m = ndimage.binary_dilation(interiors, iterations=self.thickness)
+            # Wall coverage must not disclose another hidden open component.
+            m &= interiors | (area.labels == 0)
         self._masks.put(key, m)
         return m
 
@@ -336,9 +338,11 @@ class FogEngine:
             if not m.any():
                 composed = fog
             else:
-                mask_img = Image.fromarray((m * 255).astype(np.uint8), "L").resize(base.size, Image.Resampling.BILINEAR)
+                support = Image.fromarray((m * 255).astype(np.uint8), "L").resize(base.size, Image.Resampling.NEAREST)
+                mask_img = support
                 if self.feather > 0:
-                    mask_img = mask_img.filter(ImageFilter.GaussianBlur(self.feather))
+                    # Soften inward only; neither resizing nor blur may expand support.
+                    mask_img = ImageChops.darker(support.filter(ImageFilter.GaussianBlur(self.feather)), support)
                 composed = Image.composite(base, fog, mask_img)
             arrows = self.door_arrow_overlay(spec, segments, ops).resize(base.size, Image.Resampling.NEAREST)
             composed.paste(arrows, (0, 0), arrows)
