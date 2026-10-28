@@ -549,3 +549,12 @@ Travel keeps confirmation and requires a visible source room on the current play
 Plain fog clicks retain their meaning. Wrapping checkboxes and Done — return to fog are
 included; the redundant fog-mode paragraph stays removed. See docs/usage.md and
 Patch/DOUBLE_REVEAL_FOG_CHANGES.md.
+
+
+## Bug-fix backlog
+
+[TODO.md](TODO.md) tracks the 15 bug-hunt findings, proposed solutions and
+acceptance checks. Fix them one at a time on `features/perplexity`, with an
+individually reviewed implementation and recorded validation. All entries start
+open; the earlier combined draft was not committed. See [HANDOVER.md](HANDOVER.md)
+for the current recovery context and delivery workflow.
