@@ -5,8 +5,9 @@ Target: `dajomas/Looking-Glass`, branch `features/perplexity`.
 
 ## Workflow
 
-All items remain open. The earlier combined draft was not committed; do not
-apply it wholesale. Re-read live code and reproduce each finding before fixing.
+Bug 1 is complete; the other 14 items remain open. The earlier combined draft
+was not committed; do not apply it wholesale. Re-read live code and reproduce
+each remaining finding before fixing.
 For each item: agree a minimal solution, add a regression, implement, validate,
 update relevant docs and HANDOVER.md, then approve the exact GitHub write.
 Check off only after delivery; record commit SHA, actual test results and limits.
@@ -20,7 +21,11 @@ while keeping changes individually reviewable. Package paths below refer to
 ## Findings and proposed solutions
 
 ### 1. Feathered fog exposes hidden artwork
-- [ ] Open; high priority; isolated rendering reproduction.
+- [x] Complete; delivered on `features/perplexity`.
+- Fix commit: `253b33ddae49d403a3985bf99135ce07226e95e4`.
+- Validation: 15 new regression cases and 246 related service tests passed on
+  Python 3.14.4. HTTP/browser/live-viewer/JPEG/WebP visual checks remain
+  outstanding; the broader non-HTTP suite was not fully green (see HANDOVER.md).
 - Problem: `services/fog.py` blurs the reveal mask into hidden-room artwork.
 - Solution: feather inward, clip permitted coverage, prevent dilation into hidden
   interiors, and invalidate unsafe old composites through a new cache identity.
