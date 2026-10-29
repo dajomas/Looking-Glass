@@ -119,8 +119,8 @@ async def viewer_preview(ctx: CtxDep, user: UserDep, map_id: int):
     with ctx.db.connect() as conn:
         map_for_manage(conn, user, map_id)
         spec, segs, ops = fog_inputs(ctx, conn, map_id)
-    path = await asyncio.to_thread(ctx.fog.viewer_image, spec, segs, ops)
-    return FileResponse(path, media_type=ctx.fog.viewer_media_type, headers={"Cache-Control": "no-store"})
+    content = await asyncio.to_thread(ctx.fog.viewer_bytes, spec, segs, ops)
+    return Response(content, media_type=ctx.fog.viewer_media_type, headers={"Cache-Control": "no-store"})
 
 
 async def _fog_op(ctx, user, map_id: int, op: str, point: Point | None = None) -> dict:

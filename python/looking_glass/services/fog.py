@@ -322,6 +322,11 @@ class FogEngine:
         self.door_arrow_overlay(spec, segments, ops).save(buf, "PNG")
         return buf.getvalue()
 
+    def viewer_bytes(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> bytes:
+        """Capture a composite before managed cache cleanup can remove its file."""
+        with self._lock(spec.id):
+            return self.viewer_image(spec, segments, ops).read_bytes()
+
     def viewer_image(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> Path:
         """Composite the fogged map with viewer-only arrow visibility; never mutate admin state."""
         spec = replace(spec, door_arrows_enabled=spec.viewer_arrows_enabled, arrow_audience="viewer")

@@ -582,3 +582,19 @@ updated script URL. No backend, migration or dependency change is required.
 
 Run `node --test python/tests/test_viewer_refresh.js` from the repository root;
 see HANDOVER.md for measured regression results and integration limitations.
+
+## Composite response lifetime (bug 4)
+
+Viewer image and admin viewer-preview routes capture encoded composite bytes
+under the fog engine's existing per-map reentrant lock before returning an HTTP
+response. Managed cache invalidation or a newer render can then delete the cache
+file without breaking response delivery. Rendering and reading remain off the
+event loop via `asyncio.to_thread`. Viewer access/version rechecks, image media
+types and `Cache-Control: no-store` are retained; raw-map routes are unchanged.
+
+The bug 1 inward-only fog protections and bug 3 viewer-recovery implementation
+are preserved. No schema, configuration or dependency change is required. This
+lock coordinates one FogEngine instance, not external deletion or multiple
+processes sharing a cache. Each in-flight response holds its encoded image bytes.
+
+Regression commands and measured limitations are recorded in HANDOVER.md.

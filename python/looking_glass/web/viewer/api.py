@@ -9,7 +9,7 @@ import logging
 import json
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import Response, JSONResponse
 
 from ...services.viewer_sync import display_version
 from ...services.reveal_bounds import revealed_bounds
@@ -58,13 +58,13 @@ async def image(ctx: CtxDep, user: UserDep, campaign_id: int, v: str | None = No
         if v is not None and v != expected:
             raise BadRequest("Map display changed; refresh the campaign state.")
         spec, segs, ops = fog_inputs(ctx, conn, c["active_map_id"])
-    path = await asyncio.to_thread(ctx.fog.viewer_image, spec, segs, ops)
+    content = await asyncio.to_thread(ctx.fog.viewer_bytes, spec, segs, ops)
     with ctx.db.connect() as conn:
         c = campaign_for_view(conn, user, campaign_id)
         current = maps_repo.get(conn, c["active_map_id"]) if c["active_map_id"] else None
         if current is None or _version(current) != expected:
             raise BadRequest("Map display changed during rendering; refresh the campaign state.")
-    return FileResponse(path, media_type=ctx.fog.viewer_media_type,
+    return Response(content, media_type=ctx.fog.viewer_media_type,
                         headers={"Cache-Control": "no-store"})
 
 
