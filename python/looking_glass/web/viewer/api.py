@@ -98,7 +98,7 @@ SESSION_RECHECK_SECONDS = 15
 def _session_allowed(ctx, session_hash: str, campaign_id: int) -> bool:
     with ctx.db.connect() as conn:
         user = sessions_repo.lookup_hash(conn, session_hash, "viewer")
-        if user is None or not rbac.can_use_viewer_portal(user):
+        if user is None or user["must_change_password"] or not rbac.can_use_viewer_portal(user):
             return False
         campaign = campaigns_repo.get(conn, campaign_id)
         return campaign is not None and rbac.can_view_campaign(conn, user, campaign)
@@ -110,6 +110,9 @@ async def live(ws: WebSocket, campaign_id: int):
     user = resolve_user(ctx, "viewer", ws.cookies.get(cookie_name(ws)))
     if user is None:
         await ws.close(code=4401)
+        return
+    if user["must_change_password"]:
+        await ws.close(code=4403)
         return
     with ctx.db.connect() as conn:
         c = campaigns_repo.get(conn, campaign_id)
