@@ -70,10 +70,11 @@ async def update_user(ctx: CtxDep, user: SuperadminDep, user_id: int,
         if target["id"] == user["id"] and (role != Role.SUPERADMIN or not active):
             raise BadRequest("You cannot demote or deactivate yourself.")
         _guard_last_superadmin(conn, target, new_role=role, new_active=active)
+        revoke_sessions = role != target["role"] or not active
         users_repo.update(conn, user_id, display_name=display_name, role=role, active=active)
-        if role != target["role"] or not active:
+        if revoke_sessions:
             sessions_repo.delete_for_user(conn, user_id)
-    if not active:
+    if revoke_sessions:
         await ctx.hub.kick_user(user_id)
     return _back("/users", ok=f"User '{target['username']}' updated")
 
