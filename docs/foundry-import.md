@@ -107,6 +107,27 @@ editor. Nudge with the arrow buttons (Shift = 10 px) or type values, then
 press **Apply alignment**. The preview updates instantly. Fog is recalculated
 when you apply.
 
+## Numeric geometry and calibration
+
+Converted wall coordinates, scene origins and derived coordinates must be finite.
+Explicit scene dimensions, grid sizes, UVTT pixels-per-grid and map sizes must be
+positive and finite; scene padding must be non-negative and finite. Omitted or
+null optional size/grid metadata uses the documented defaults. Explicit zero or
+negative sizes/scales and nonnumeric grid values are rejected, not defaulted.
+Negative coordinates and image offsets are supported, as are finite numeric
+strings. Metadata-free wall lists remain supported with unit calibration.
+
+Target-map calibration and the resulting endpoint coordinates are validated before
+wall replacement, including when retaining a map's existing calibration. Numeric
+values that overflow during padding, scaling or transformation are rejected.
+A finite source value alone does not guarantee that its target transform is usable.
+
+A direct numeric validation failure produces an import error. ZIPs retain their
+per-entry policy: an invalid entry can be skipped while usable companion entries
+are imported; a ZIP with no supported wall sets is rejected. Review the selected
+wall set before applying it. Records without usable wall coordinates and
+zero-length wall segments retain their wall-list omission behavior.
+
 ## Tips for clean areas
 
 - Walls only need to *nearly* meet. Lines are drawn `fog.wall_thickness` px

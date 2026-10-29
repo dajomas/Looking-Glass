@@ -27,6 +27,46 @@ class WallImportError(ValueError):
     pass
 
 
+def _number(value: Any, field: str, *, positive: bool = False, nonnegative: bool = False) -> float:
+    try:
+        result = float(value)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise WallImportError(f"{field} must be a finite number.") from exc
+    if not math.isfinite(result):
+        raise WallImportError(f"{field} must be a finite number.")
+    if positive and result <= 0:
+        raise WallImportError(f"{field} must be positive.")
+    if nonnegative and result < 0:
+        raise WallImportError(f"{field} must not be negative.")
+    return result
+
+
+def _optional_size(value: Any, field: str) -> float | None:
+    return None if value is None else _number(value, field, positive=True)
+
+
+def validated_calibration(ws: WallSet, image_w: int, image_h: int, *, calibration=None):
+    """Check actual target transforms before inspection or wall replacement."""
+    _number(image_w, "Target image width", positive=True)
+    _number(image_h, "Target image height", positive=True)
+    _optional_size(ws.scene_width, "Scene width")
+    _optional_size(ws.scene_height, "Scene height")
+    try:
+        cal = ws.suggested_calibration(image_w, image_h) if calibration is None else calibration
+        for field in ("offset_x", "offset_y", "scale_x", "scale_y"):
+            _number(getattr(cal, field), f"Calibration {field}", positive=field.startswith("scale"))
+        for seg in ws.segments:
+            for x, y in ((seg.x1, seg.y1), (seg.x2, seg.y2)):
+                tx, ty = cal.apply(x, y)
+                _number(tx, "Calibrated wall X")
+                _number(ty, "Calibrated wall Y")
+    except (TypeError, ValueError, OverflowError, ZeroDivisionError) as exc:
+        if isinstance(exc, WallImportError):
+            raise
+        raise WallImportError("Wall calibration must produce finite coordinates and positive scales.") from exc
+    return cal
+
+
 # ---------------------------------------------------------------------------
 # Foundry wall classification
 # ---------------------------------------------------------------------------
@@ -70,9 +110,14 @@ def _wall_coords(doc: dict) -> tuple[float, float, float, float] | None:
     if not isinstance(c, (list, tuple)) or len(c) < 4:
         return None
     try:
-        x1, y1, x2, y2 = (float(v) for v in c[:4])
+        coords = tuple(float(v) for v in c[:4])
     except (TypeError, ValueError):
         return None
+    except OverflowError as exc:
+        raise WallImportError("Wall coordinates must be finite numbers.") from exc
+    for value in coords:
+        _number(value, "Wall coordinate")
+    x1, y1, x2, y2 = coords
     if x1 == x2 and y1 == y2:
         return None
     return x1, y1, x2, y2
@@ -92,31 +137,36 @@ def _segments_from_wall_docs(docs: Iterable[dict]) -> list[WallSegment]:
 
 
 def _grid_size(scene: dict) -> float:
-    g = scene.get("grid", 100)
+    g = scene.get("grid")
     if isinstance(g, dict):
-        g = g.get("size", 100)
-    try:
-        return float(g) or 100.0
-    except (TypeError, ValueError):
-        return 100.0
+        g = g.get("size")
+    return _number(100 if g is None else g, "Foundry grid size", positive=True)
 
 
 def foundry_scene_origin(scene: dict) -> tuple[float, float]:
-    """Top-left of the background image in Foundry canvas coordinates.
-
-    Foundry pads the scene by `padding` (rounded up to whole grid cells) and the
-    background may be shifted with background.offsetX/Y (v10+) or shiftX/Y (v9).
-    """
-    width = float(scene.get("width") or 0)
-    height = float(scene.get("height") or 0)
-    padding = float(scene.get("padding", 0.25) or 0)
+    """Top-left of the background image in Foundry canvas coordinates."""
+    width = _optional_size(scene.get("width"), "Scene width")
+    height = _optional_size(scene.get("height"), "Scene height")
+    p = scene.get("padding", 0.25)
+    padding = _number(0 if p is None else p, "Scene padding", nonnegative=True)
     grid = _grid_size(scene)
-    pad_x = math.ceil(width * padding / grid) * grid if width else 0.0
-    pad_y = math.ceil(height * padding / grid) * grid if height else 0.0
+
+    def padded(size: float | None) -> float:
+        if size is None:
+            return 0.0
+        cells = _number(size * padding / grid, "Scene padded grid count", nonnegative=True)
+        try:
+            return _number(math.ceil(cells) * grid, "Scene padded origin")
+        except OverflowError as exc:
+            raise WallImportError("Scene padded origin must be finite.") from exc
+
     bg = scene.get("background") if isinstance(scene.get("background"), dict) else {}
-    off_x = float(bg.get("offsetX", scene.get("shiftX", 0)) or 0)
-    off_y = float(bg.get("offsetY", scene.get("shiftY", 0)) or 0)
-    return pad_x + off_x, pad_y + off_y
+    x = bg.get("offsetX", scene.get("shiftX", 0))
+    y = bg.get("offsetY", scene.get("shiftY", 0))
+    off_x = _number(0 if x is None else x, "Background offset X")
+    off_y = _number(0 if y is None else y, "Background offset Y")
+    return (_number(padded(width) + off_x, "Scene origin X"),
+            _number(padded(height) + off_y, "Scene origin Y"))
 
 
 def _scene_image(scene: dict) -> tuple[str, str, bool]:
@@ -133,17 +183,16 @@ def _scene_image(scene: dict) -> tuple[str, str, bool]:
 
 def _wallset_from_scene(scene: dict, fmt: str) -> WallSet:
     segments = _segments_from_wall_docs(scene.get("walls") or [])
-    ox, oy = foundry_scene_origin(scene) if scene.get("width") else (0.0, 0.0)
+    width = _optional_size(scene.get("width"), "Scene width")
+    height = _optional_size(scene.get("height"), "Scene height")
+    ox, oy = foundry_scene_origin(scene)
+    if width is None:
+        ox, oy = 0.0, 0.0
     return WallSet(
-        name=str(scene.get("name") or "Unnamed scene"),
-        segments=segments,
-        source_format=fmt,
-        scene_width=float(scene["width"]) if scene.get("width") else None,
-        scene_height=float(scene["height"]) if scene.get("height") else None,
-        origin_x=ox,
-        origin_y=oy,
-        image_data=_scene_image(scene)[0],
-        image_reference=_scene_image(scene)[1],
+        name=str(scene.get("name") or "Unnamed scene"), segments=segments,
+        source_format=fmt, scene_width=width, scene_height=height,
+        origin_x=ox, origin_y=oy,
+        image_data=_scene_image(scene)[0], image_reference=_scene_image(scene)[1],
         image_is_thumbnail=_scene_image(scene)[2],
     )
 
@@ -158,13 +207,22 @@ def _is_uvtt(data: Any) -> bool:
 
 def _parse_uvtt(data: dict, name: str) -> WallSet:
     res = data.get("resolution") or {}
-    ppg = float(res.get("pixels_per_grid") or 70)
+    ppg_value = res.get("pixels_per_grid")
+    ppg = _number(70 if ppg_value is None else ppg_value, "UVTT pixels_per_grid", positive=True)
     origin = res.get("map_origin") or {"x": 0, "y": 0}
     size = res.get("map_size") or {}
-    ox, oy = float(origin.get("x", 0)), float(origin.get("y", 0))
+    ox = _number(origin.get("x", 0), "UVTT origin X")
+    oy = _number(origin.get("y", 0), "UVTT origin Y")
+    width = _optional_size(size.get("x"), "UVTT map width")
+    height = _optional_size(size.get("y"), "UVTT map height")
+    w = None if width is None else _number(width * ppg, "UVTT pixel width", positive=True)
+    h = None if height is None else _number(height * ppg, "UVTT pixel height", positive=True)
 
     def px(p: dict) -> tuple[float, float]:
-        return (float(p["x"]) - ox) * ppg, (float(p["y"]) - oy) * ppg
+        x = _number(p["x"], "UVTT point X")
+        y = _number(p["y"], "UVTT point Y")
+        return (_number((x - ox) * ppg, "UVTT transformed X"),
+                _number((y - oy) * ppg, "UVTT transformed Y"))
 
     from .uvtt_export import extension_segments
     try:
@@ -175,8 +233,7 @@ def _parse_uvtt(data: dict, name: str) -> WallSet:
         ext_name = data["looking_glass"].get("name")
         return WallSet(name=ext_name if isinstance(ext_name, str) and ext_name else name,
                        segments=extended, source_format="uvtt",
-                       scene_width=float(size.get("x", 0)) * ppg or None,
-                       scene_height=float(size.get("y", 0)) * ppg or None,
+                       scene_width=w, scene_height=h,
                        image_data=data.get("image", "") if isinstance(data.get("image", ""), str) else "")
 
     segments: list[WallSegment] = []
@@ -191,8 +248,6 @@ def _parse_uvtt(data: dict, name: str) -> WallSet:
         if len(bounds) >= 2:
             (x1, y1), (x2, y2) = px(bounds[0]), px(bounds[1])
             segments.append(WallSegment(x1, y1, x2, y2, "door", True))
-    w = float(size.get("x", 0)) * ppg or None
-    h = float(size.get("y", 0)) * ppg or None
     return WallSet(name=name, segments=segments, source_format="uvtt", scene_width=w, scene_height=h,
                    image_data=data.get("image", "") if isinstance(data.get("image", ""), str) else "")
 
