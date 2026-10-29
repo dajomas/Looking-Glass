@@ -57,3 +57,35 @@ item 12 remains open until the final delivery step. Do not describe intermediate
 steps as the complete three-commit delivery. Record actual returned SHAs after
 successful writes. No generated Patch/ content, archive or other-branch write
 is included.
+
+### Step 1 delivered; step 2 regression coverage prepared
+
+Step 1 is delivered in 0b8b3189487d373b5fd3613c16c6fa7f694b1136 on
+features/perplexity. Post-write reads verified the importer and 90-case parser
+regression blobs recorded above. No tests were rerun during that write, and
+no Actions result has been verified. Earlier preparation wording is historical.
+
+Step 2 is prepared against that commit and adds only:
+- python/tests/test_import_policy_routes.py: 30 isolated route/ZIP-policy cases;
+  candidate blob 590710a25139a340cadb3e7df9abf4f80e574251.
+- python/tests/test_import_shapes_web.py: 29 intended real-app HTTP/DB cases;
+  candidate blob 1e906c3ec298db4dedb6d69deca140b7db2defbc.
+Both complete files were reconstructed, checked against those candidate hashes
+and compiled successfully during step 2 preparation. No tests were collected or
+executed during this preparation. The earlier 30 isolated passes are not a new
+normal-checkout run; the 29 HTTP/DB cases remain unexecuted, not passing/skipped.
+
+The HTTP module exercises real existing application/login/CSRF/DB fixtures,
+including persistent geometry/calibration/source comparisons, malformed legacy
+sources, map-upload partial success, mixed/invalid-only ZIPs and source retention
+after target rejection. The isolated module deliberately doubles parser/apply,
+DB/repositories, permissions, images and responses and strips route decorators
+and annotations by AST; it does not prove persistent rollback or HTTP behavior.
+
+Normal-checkout command after step 2 delivery:
+PYTHONPATH=python python -m pytest -q python/tests/test_import_policy_routes.py python/tests/test_import_shapes_web.py
+The existing Python/HTTP workflow selects these files through python/tests;
+verify its exact delivered-SHA results and artifacts rather than inferring a pass
+from workflow existence or commit delivery. Runtime code, the guide, index and
+TODO are unchanged in step 2. TODO completion and final delivery-status records
+remain step 3; this preparation entry is not proof of step 2 delivery.
