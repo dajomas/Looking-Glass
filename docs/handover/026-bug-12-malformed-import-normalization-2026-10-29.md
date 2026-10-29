@@ -89,3 +89,43 @@ verify its exact delivered-SHA results and artifacts rather than inferring a pas
 from workflow existence or commit delivery. Runtime code, the guide, index and
 TODO are unchanged in step 2. TODO completion and final delivery-status records
 remain step 3; this preparation entry is not proof of step 2 delivery.
+
+### Final implementation-delivery record; acceptance remains pending
+
+Step 2 is delivered in 8c4094a9356274f17e4cb02398c64210de658508 on
+features/perplexity. Post-write reads verified both test blobs recorded above.
+No tests were executed during that write. The earlier preparation statements
+are historical; successful delivery is not evidence of HTTP/DB or CI acceptance.
+
+The authorized three-commit sequence is:
+1. 0b8b3189487d373b5fd3613c16c6fa7f694b1136: importer implementation,
+   90-case parser regression, import guide and split handover/index.
+2. 8c4094a9356274f17e4cb02398c64210de658508: isolated policy and HTTP/DB
+   regression modules plus the preceding handover update.
+3. This containing documentation commit: TODO completion and this final record.
+   Report its actual returned SHA only after the write succeeds; no self-referential
+   commit hash is invented in these file contents.
+
+The third commit completes the agreed implementation-delivery workflow when its
+approved write succeeds. It changes only TODO.md and this handover section. The
+TODO checkbox means implementation delivered, not integration accepted. Bugs 2
+and 13-15 remain open; the suggested implementation order is 2, 13, 14, 15.
+The signature guarantee was waived explicitly. No merge, tag, release creation,
+other-branch write, generated Patch/ material or archive is part of delivery.
+
+No tests were rerun during final documentation preparation. Retain the actual
+historical results above without summing separate runs or turning intended HTTP
+cases into passes. No Actions run URL, exact tested SHA/job result, artifact or
+deployment acceptance has been verified here. The existing workflow may provide
+that evidence after a push, but a workflow definition is not that evidence.
+
+Remaining acceptance in a normal checkout with application dependencies:
+PYTHONPATH=python python -m pytest -q python/tests/test_import_shapes.py python/tests/test_import_numbers.py python/tests/test_foundry_import.py python/tests/test_nedb_replay.py python/tests/test_uvtt_export.py python/tests/test_pack_images.py
+PYTHONPATH=python python -m pytest -q python/tests/test_import_policy_routes.py python/tests/test_import_shapes_web.py
+Run real inspection/import/saved-source requests and verify stored geometry,
+calibration, source bytes and intentional map-upload partial success. Check
+application initialization, authentication/CSRF, migrated-DB behavior and the full
+suite, then validate the target Python 3.14 deployment and browser/live behavior.
+Record failures, skipped/empty cases and unrelated baseline defects honestly;
+do not hide failures, weaken assertions, swallow programming errors or bundle
+other backlog fixes to manufacture acceptance.
