@@ -5,8 +5,8 @@ Target: `dajomas/Looking-Glass`, branch `features/perplexity`.
 
 ## Workflow
 
-Bugs 1, 3 and 4 have delivered implementations; the other 12 items remain open.
-Bug 4 HTTP/deployment acceptance remains pending; see its validation limits below.
+Bugs 1, 3, 4 and 5 have delivered implementations; the other 11 items remain open.
+Bugs 4 and 5 integration/deployment acceptance remains pending; see their validation limits below.
 The earlier combined draft was not committed; do not apply it wholesale.
 Re-read live code and reproduce each remaining finding before fixing.
 For each item: agree a minimal solution, add a regression, implement, validate,
@@ -14,7 +14,7 @@ update relevant docs and HANDOVER.md, then approve the exact GitHub write.
 Check off only after delivery; record commit SHA, actual test results and limits.
 Proposed solutions/migrations are not installed or pre-approved changes.
 
-Suggested remaining order: 5, 6, 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
+Suggested remaining order: 6, 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
 Coordinate session items 5-7, parser items 10-12 and image-lifetime items 4/14/15,
 while keeping changes individually reviewable. Package paths below refer to
 `python/looking_glass/`; static findings still need application-level reproduction.
@@ -81,12 +81,36 @@ while keeping changes individually reviewable. Package paths below refer to
   the fix fully integration-validated.
 
 ### 5. Viewer sockets outlive session expiry/logout
-- [ ] Open; static finding in viewer live(), auth logout, sessions and event hub.
+- [x] Implementation delivered on `features/perplexity`; ASGI/deployment acceptance pending.
+- Fix commit: `88c705eb98d42bbd39fef536b0515666ee298696`.
+- Documentation commit: `cbcf2b5bd2a8af87ec303b66388df338357ab0ea`.
+- Baseline: `10c5d4af419b08d7639d2e3867e49fe518798b47`. The user approved
+  documentation-first, two-commit delivery for this item only.
+- Validation during preparation on Python 3.12.8: baseline regressions produced
+  9 failures and 2 passes; candidate regressions produced 11 passes and one
+  skipped module containing seven ASGI/WebSocket cases. FastAPI/Starlette were
+  unavailable. Baseline's WebSocket annotation import alone was shimmed; hub
+  and repository logic was unchanged. All six changed/new Python files compiled.
+  Unit coverage used real SQLite and mocked sockets. No ASGI transport, actual
+  live-loop timer, full-suite, browser, live-server or Python 3.14 deployment
+  checks were executed. No application tests were rerun during GitHub delivery
+  or this documentation-only update. See HANDOVER.md for details.
 - Problem: admission-only authentication leaves stale event subscriptions.
-- Solution: bind sockets to hashed session identities, close that session on
-  logout, and recheck access before events and on a bounded idle timer.
-- Test: no post-revocation events; idle sockets close; other valid sessions stay
-  connected. Do not retain raw tokens for socket indexing.
+- Solution: sockets now use hashed session identities; logout disconnects that
+  session after committed deletion. Session/user/campaign access is rechecked
+  before event/pong delivery, before status reports and on a 15-second idle
+  timer. A post-subscription check covers logout during admission. Per-socket
+  locks serialize delivery with explicit kicks; other valid sessions stay connected.
+- Limits: immediate logout kicks are in-process; other processes observe DB
+  revocation through their checks. The idle interval excludes scheduling, DB
+  and transport delays. Already in-flight frames cannot be recalled. Raw tokens
+  are not added to socket indexes or authorization-check closures.
+- Test: no new events are authorized after revocation is observed; idle sockets
+  close and other valid sessions remain connected. Integration cases remain
+  unexecuted, not passed.
+- Remaining acceptance: run both new regression modules with normal dependencies,
+  then verify expiry/logout, idle closure and session isolation on the deployed
+  Python 3.14 application. Bugs 6 and 7 remain separate and open.
 
 ### 6. Role changes leave viewer sockets connected
 - [ ] Open; static finding in `web/admin/users.py`; coordinate with item 5.
