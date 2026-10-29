@@ -15,11 +15,13 @@ class Session:
             page.on("pageerror", lambda error, name=name: self.page_errors.append(f"{name}: {error}"))
 
     def login(self, page, url, username, password):
+        from urllib.parse import urlsplit
+
         page.goto(url + "/login")
         page.locator('input[name="username"]').fill(username)
         page.locator('input[name="password"]').fill(password)
         page.locator('button[type="submit"]').click()
-        page.wait_for_url(lambda url: "/login" not in url.path)
+        page.wait_for_url(lambda url: "/login" not in urlsplit(url).path)
 
     def form(self, path, fields):
         response = self.dm.request.post(self.admin_url + path,

@@ -84,6 +84,11 @@ The default runner excludes that opt-in suite. Browser tests require Playwright,
 Chromium and the appropriate system libraries. See [testing](docs/testing.md)
 for environment preparation, commands and suite scope.
 
+The login helper also has an isolated regression check, runnable from the
+repository root without Playwright: `python -m pytest -q python/tests/test_live_login_helper.py`.
+It checks URL-string parsing and form actions with a page double; it does not
+replace the live-browser suite. See the [validation record](docs/handover/025-ci-live-login-url-fix-2026-10-29.md).
+
 ## Documentation
 
 - [Usage guide](docs/usage.md)
