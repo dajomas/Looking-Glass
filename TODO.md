@@ -5,8 +5,8 @@ Target: `dajomas/Looking-Glass`, branch `features/perplexity`.
 
 ## Workflow
 
-Bugs 1, 3, 4 and 5 have delivered implementations; the other 11 items remain open.
-Bugs 4 and 5 integration/deployment acceptance remains pending; see their validation limits below.
+Bugs 1, 3, 4, 5 and 6 have delivered implementations; the other 10 items remain open.
+Bugs 4, 5 and 6 integration/deployment acceptance remains pending; see their validation limits below.
 The earlier combined draft was not committed; do not apply it wholesale.
 Re-read live code and reproduce each remaining finding before fixing.
 For each item: agree a minimal solution, add a regression, implement, validate,
@@ -14,7 +14,7 @@ update relevant docs and HANDOVER.md, then approve the exact GitHub write.
 Check off only after delivery; record commit SHA, actual test results and limits.
 Proposed solutions/migrations are not installed or pre-approved changes.
 
-Suggested remaining order: 6, 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
+Suggested remaining order: 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
 Coordinate session items 5-7, parser items 10-12 and image-lifetime items 4/14/15,
 while keeping changes individually reviewable. Package paths below refer to
 `python/looking_glass/`; static findings still need application-level reproduction.
@@ -110,15 +110,42 @@ while keeping changes individually reviewable. Package paths below refer to
   unexecuted, not passed.
 - Remaining acceptance: run both new regression modules with normal dependencies,
   then verify expiry/logout, idle closure and session isolation on the deployed
-  Python 3.14 application. Bugs 6 and 7 remain separate and open.
+  Python 3.14 application. Bug 7 remains separate and open.
 
 ### 6. Role changes leave viewer sockets connected
-- [ ] Open; static finding in `web/admin/users.py`; coordinate with item 5.
+- [x] Implementation delivered on `features/perplexity`; ASGI/deployment acceptance pending.
+- Fix commit: `90fa8ba8b2a895d0a193b4aebfbe8f776f26a83e`.
+- Documentation commit: `d1c6ee1ab9665611884d2d2028f724daf6e805c0`.
+- Baseline: `aafa602fd1cae81f7157c57698f786e1b08c9ceb`. The user separately
+  approved documentation-first, two-commit delivery for bug 6.
+- Validation during preparation on Python 3.12.8 / pytest 8.3.5: baseline
+  regressions produced 6 failures and 14 passes; candidate focused modules
+  produced 20 passes and one skipped module containing four ASGI/WebSocket
+  cases. FastAPI was unavailable. All three changed/new Python files compiled.
+  The executed tests loaded the actual route function bodies through AST,
+  with routing decorators removed and annotations postponed; SQLite transactions
+  were real, while repository, role enum, redirect and hub boundaries were test
+  doubles. An independent SQLite connection in the hub spy verified committed
+  state before the kick. No HTTP, actual repository, dependency-injection,
+  WebSocket transport, full-suite, browser, live-server or Python 3.14 acceptance
+  checks were executed. No application tests were rerun during GitHub delivery
+  or this documentation-only update. See HANDOVER.md for details.
 - Problem: role changes revoke sessions, but only deactivation kicks sockets.
-- Solution: disconnect affected sockets after committing a session/access-revoking
-  role change.
-- Test: demotion removes inherited access without disrupting unrelated users
-  or disconnecting unchanged permitted roles.
+- Solution: `update_user()` now uses one `revoke_sessions` predicate for session
+  deletion inside the transaction and the user socket kick after commit. All
+  changed roles, including promotions, retain the existing session-revocation
+  policy. Active unchanged-role/profile saves and existing reactivation behavior
+  are preserved; deactivation still kicks. Rejected or rolled-back changes do
+  not trigger a kick. Bug 5 access checks and safety guards are unchanged.
+- Test: all nine active-role pairs, deactivation, reactivation, unknown users,
+  self-revocation, last-superadmin protection and rollback/commit-boundary
+  failures are covered by isolated tests. The four ASGI cases remain unexecuted.
+- Limits: explicit kicks use the existing in-process hub; already in-flight
+  network data cannot be recalled. Unit coverage is not ASGI/deployment acceptance.
+- Remaining acceptance: run both new regression modules without skips using
+  normal dependencies, then verify immediate role-change closure, loss of
+  inherited access and unaffected viewer/profile-save behavior on the deployed
+  Python 3.14 application. Bug 7 remains separate and open.
 
 ### 7. Forced password change is bypassed by WebSockets
 - [ ] Open; static mismatch in `web/deps.py` and viewer live(); relates to item 5.
