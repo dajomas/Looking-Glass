@@ -397,3 +397,20 @@ Successful HTTP access records are suppressed by default; failed requests and
 diagnostics are retained at the configured log level. Set
 `server.access_log_success: true` for full HTTP access logging. See
 [deployment](docs/deployment.md).
+
+## GitHub Actions integration checks
+
+The integration workflow is stored in
+`.github/workflows/integration-tests.yml`. It defines two Python 3.14 checks:
+
+- `Python / HTTP`: the service and in-process HTTP/WebSocket suite, excluding
+  the separate browser and live end-to-end directories.
+- `Live Uvicorn`: the opt-in live end-to-end suite against real application
+  listeners, using Playwright Chromium.
+
+The workflow installs runtime/development dependencies, performs a hard import
+preflight for FastAPI, Starlette, Uvicorn, python-multipart, HTTPX and pytest,
+and rejects missing reports, empty results, failed tests and skipped tests.
+Validation evidence is uploaded as workflow artifacts. A workflow definition is
+not evidence of a successful run. See [CI details](docs/testing.md#github-actions-integration-validation)
+for scope, commands, artifacts and merge-gate setup.
