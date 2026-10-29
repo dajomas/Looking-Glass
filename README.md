@@ -648,3 +648,21 @@ changes still clear the required-change flag and revoke other sessions while
 retaining the current session. Profile/password/session writes share one database
 transaction. Both portals use the same handler. No schema, dependency or setting
 change is required. See HANDOVER.md for measured validation and HTTP acceptance limits.
+
+## Bounded login-throttle retention (bug 9)
+
+The in-process login throttle retains at most 4,096 active IP/username keys and
+only the newest configured failure-threshold timestamps per key. Check-only
+requests do not create entries; subsequent checks or failures also reclaim
+expired histories for abandoned keys. Existing rolling-window expiry, username
+case handling and successful-login reset remain unchanged.
+
+At capacity, untracked keys are temporarily blocked rather than evicting active
+histories. This can deny legitimate new-key logins until histories expire or a
+tracked successful login resets its key. Already-started authentication is not
+cancelled and checks do not reserve slots. The cap bounds key/timestamp counts,
+not total bytes of arbitrary-length keys or deployment-wide request traffic.
+State remains process-local and resets on restart. Cleanup is request-driven,
+not a background timer, and scans the bounded table under its existing lock.
+No migration, configuration key or dependency is added. See HANDOVER.md for
+measured tests, the capacity-race limitation and pending HTTP/deployment acceptance.
