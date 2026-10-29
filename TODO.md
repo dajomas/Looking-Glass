@@ -5,15 +5,15 @@ Target: `dajomas/Looking-Glass`, branch `features/perplexity`.
 
 ## Workflow
 
-Bug 1 is complete; the other 14 items remain open. The earlier combined draft
-was not committed; do not apply it wholesale. Re-read live code and reproduce
-each remaining finding before fixing.
+Bugs 1 and 3 are complete; the other 13 items remain open. The earlier combined
+draft was not committed; do not apply it wholesale. Re-read live code and
+reproduce each remaining finding before fixing.
 For each item: agree a minimal solution, add a regression, implement, validate,
 update relevant docs and HANDOVER.md, then approve the exact GitHub write.
 Check off only after delivery; record commit SHA, actual test results and limits.
 Proposed solutions/migrations are not installed or pre-approved changes.
 
-Suggested order: 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
+Suggested remaining order: 4, 5, 6, 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
 Coordinate session items 5-7, parser items 10-12 and image-lifetime items 4/14/15,
 while keeping changes individually reviewable. Package paths below refer to
 `python/looking_glass/`; static findings still need application-level reproduction.
@@ -43,9 +43,16 @@ while keeping changes individually reviewable. Package paths below refer to
   names correctly, and allow recovery without changing fog.
 
 ### 3. Viewer stays blank after a transient state error
-- [ ] Open; static finding in `static/js/viewer_display.js`, refresh().
+- [x] Complete; delivered on `features/perplexity`.
+- Fix commit: `b162dfca0e502f07a2d20ef7b654b7f9e19f3ee4`.
+- Location: `static/js/viewer_display.js`, refresh().
+- Validation: all 10 viewer-refresh tests and all 27 top-level JavaScript
+  regression scripts passed with Node v20.20.1. Transport and DOM behavior were
+  mocked; real HTTP/WebSocket, browser and live multi-viewer acceptance remain
+  unexecuted. No application tests were rerun for this documentation update.
 - Problem: failure hides the stage; a same-version retry returns early as ready.
-- Solution: invalidate installed-display state or explicitly restore it on recovery.
+- Solution: the same-version fast path now requires a visible stage; otherwise
+  reload, decode and install the current image before reporting ready.
 - Test: loaded map -> HTTP 500 -> same-version success restores image/status
   without a DM mutation; stale-response protection remains.
 
