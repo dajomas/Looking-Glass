@@ -5,8 +5,8 @@ Target: `dajomas/Looking-Glass`, branch `features/perplexity`.
 
 ## Workflow
 
-Bugs 1, 3, 4, 5 and 6 have delivered implementations; the other 10 items remain open.
-Bugs 4, 5 and 6 integration/deployment acceptance remains pending; see their validation limits below.
+Bugs 1, 3, 4, 5, 6 and 7 have delivered implementations; the other 9 items remain open.
+Bugs 4, 5, 6 and 7 integration/deployment acceptance remains pending; see their validation limits below.
 The earlier combined draft was not committed; do not apply it wholesale.
 Re-read live code and reproduce each remaining finding before fixing.
 For each item: agree a minimal solution, add a regression, implement, validate,
@@ -14,7 +14,7 @@ update relevant docs and HANDOVER.md, then approve the exact GitHub write.
 Check off only after delivery; record commit SHA, actual test results and limits.
 Proposed solutions/migrations are not installed or pre-approved changes.
 
-Suggested remaining order: 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
+Suggested remaining order: 8, 9, 10, 11, 12, 2, 13, 14, 15.
 Coordinate session items 5-7, parser items 10-12 and image-lifetime items 4/14/15,
 while keeping changes individually reviewable. Package paths below refer to
 `python/looking_glass/`; static findings still need application-level reproduction.
@@ -110,7 +110,7 @@ while keeping changes individually reviewable. Package paths below refer to
   unexecuted, not passed.
 - Remaining acceptance: run both new regression modules with normal dependencies,
   then verify expiry/logout, idle closure and session isolation on the deployed
-  Python 3.14 application. Bug 7 remains separate and open.
+  Python 3.14 application. Bug 7 was implemented separately; see item 7.
 
 ### 6. Role changes leave viewer sockets connected
 - [x] Implementation delivered on `features/perplexity`; ASGI/deployment acceptance pending.
@@ -145,14 +145,45 @@ while keeping changes individually reviewable. Package paths below refer to
 - Remaining acceptance: run both new regression modules without skips using
   normal dependencies, then verify immediate role-change closure, loss of
   inherited access and unaffected viewer/profile-save behavior on the deployed
-  Python 3.14 application. Bug 7 remains separate and open.
+  Python 3.14 application. Bug 7 was implemented separately; see item 7.
 
 ### 7. Forced password change is bypassed by WebSockets
-- [ ] Open; static mismatch in `web/deps.py` and viewer live(); relates to item 5.
+- [x] Implementation delivered on `features/perplexity`; ASGI/deployment acceptance pending.
+- Fix commit: `07c5e8b9debad7c2fa7a3362e804c76d2cc30746`.
+- Documentation commit: `3c770fd4b90f375e5dac4c177cb85e674f7ce58a`.
+- Baseline: `b95ac2123e5c11ee2e13d4d642c6986cc0340d65`. The user separately
+  approved documentation-first, two-commit delivery for bug 7.
+- Validation during preparation on Python 3.12.8 / pytest 8.3.5: new baseline
+  regressions produced 12 failures and 7 passes; all 19 new unit cases passed
+  on the candidate. The focused run produced 50 passes and one skipped module:
+  19 new cases, bug 5's 11 existing unit cases and bug 6's 20 isolated route cases.
+  The skipped new module contains seven ASGI/WebSocket cases; FastAPI was absent.
+  All three changed/new Python files compiled successfully. Actual route function
+  bodies were exercised through an AST loader with decorators removed and
+  annotations postponed. Most socket, repository/RBAC and hub boundaries were
+  doubles; one case used the real unchanged EventHub to block event delivery
+  after the flag changed. The timeout control-path case injected TimeoutError,
+  not a measured wall-clock timer. No real account/password-change recovery,
+  HTTP, dependency-injection, ASGI transport, full-suite, browser, live-server
+  or Python 3.14 acceptance checks ran. No application tests were rerun during
+  GitHub delivery or this documentation-only update. See HANDOVER.md for details.
 - Problem: resolve_user() bypasses require_user()'s password-change restriction.
-- Solution: enforce the restriction at admission and subsequent access checks.
-- Test: required-change users cannot subscribe before changing passwords and
-  can reconnect afterward; no viewer mutation API is introduced.
+- Solution: viewer live() now rejects required-change users with code 4403 before
+  accept/subscribe, and `_session_allowed()` rejects the flag in ongoing access
+  checks. Existing post-subscribe, event/pong/report and idle checks inherit the
+  restriction. All roles are covered; HTTP account/logout exceptions remain
+  unchanged so password-change recovery and logout stay available. No viewer
+  mutation API was introduced; bugs 5 and 6 remain otherwise unchanged.
+- Test: unit cases cover admission/recheck for all three roles, valid ping/status,
+  existing denial behavior, flag changes during accept/receive, the timeout path,
+  reconnection after clearing the flag and real-hub event rejection. The seven
+  ASGI cases remain unexecuted, not passed.
+- Limits: idle checks retain the existing 15-second interval, subject to
+  scheduling/DB/transport delays; no immediate flag-change kick was added.
+  Already in-flight data cannot be recalled; existing in-process hub limits apply.
+- Remaining acceptance: execute the new ASGI module without skips with normal
+  dependencies, then verify required-change admission, real password-change
+  recovery, logout and existing-socket restriction on the Python 3.14 deployment.
 
 ### 8. Failed account forms partially save display names
 - [ ] Open; route ordering/transaction semantics verified in isolation.
