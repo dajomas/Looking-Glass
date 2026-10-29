@@ -100,7 +100,8 @@
       reportSync("ready","blank");
       return;
     }
-    if (s.map.version === version) {reportSync("ready",version); return;}
+    // A matching version is ready only while its decoded image is still displayed.
+    if (s.map.version === version && !stage.hidden) {reportSync("ready",version); return;}
     reportSync("loading",s.map.version);
     const mapChanged = !version || version.split("-")[0] !== s.map.version.split("-")[0];
     // Preload so the swap is seamless (no flash of fog on every reveal).

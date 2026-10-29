@@ -570,3 +570,15 @@ No migration, dependency, configuration key or port change is introduced.
 Run `python -m pytest -q python/tests/test_fog.py python/tests/test_fog_privacy.py`
 from the repository root. Tests use lossless PNG output for exact pixel checks;
 see HANDOVER.md for measured validation and outstanding integration checks.
+
+## Viewer state recovery (bug 3)
+
+A successful same-version state response can skip image loading only while the
+previous decoded image is still displayed. If a state error hid the stage, the
+viewer decodes and installs the current image again before reporting Up to date.
+Already visible maps keep the fast path; blank states and stale-response guards
+retain their existing behavior. Reload viewer tabs after deployment to load the
+updated script URL. No backend, migration or dependency change is required.
+
+Run `node --test python/tests/test_viewer_refresh.js` from the repository root;
+see HANDOVER.md for measured regression results and integration limitations.
