@@ -616,3 +616,13 @@ No schema, configuration or dependency change is required. Bugs 6 (explicit role
 change kicks) and 7 (forced-password-change admission) remain separate TODO items.
 See HANDOVER.md for regression commands, measured results and integration limits.
 
+## Role-change socket revocation (bug 6)
+
+Saving a changed user role now disconnects that user's viewer sockets after the
+user/session transaction commits, matching the existing session-revocation rule.
+This applies to promotions as well as demotions because both already invalidate
+sessions. Deactivation keeps its existing disconnect behavior. An active user's
+unchanged-role/profile save does not revoke sessions or disconnect sockets.
+Other users are unaffected; rejected or rolled-back updates do not trigger kicks.
+The bug 5 session checks remain unchanged. No schema, configuration or dependency
+change is required. See HANDOVER.md for measured tests and ASGI acceptance limits.
