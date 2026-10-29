@@ -50,9 +50,13 @@ def apply_walls(ctx: AppContext, conn: sqlite3.Connection, map_row: sqlite3.Row,
     if not 0 <= scene_index < len(sets):
         raise BadRequest(f"Scene index {scene_index} out of range (file contains {len(sets)} scenes).")
     ws = sets[scene_index]
+    from ...services.foundry_import import validated_calibration
+    from ...services.wall_model import Calibration
+    current = None if use_scene_calibration else Calibration(
+        map_row["wall_offset_x"], map_row["wall_offset_y"], map_row["wall_scale_x"], map_row["wall_scale_y"])
+    cal = validated_calibration(ws, map_row["width"], map_row["height"], calibration=current)
     count = walls_repo.replace(conn, map_row["id"], ws.segments)
     if use_scene_calibration:
-        cal = ws.suggested_calibration(map_row["width"], map_row["height"])
         maps_repo.set_calibration(conn, map_row["id"], cal.offset_x, cal.offset_y, cal.scale_x, cal.scale_y,
                                   bool(map_row["doors_block"]))
     maps_repo.set_walls_source(conn, map_row["id"], f"{ws.source_format}: {filename} [{ws.name}]")

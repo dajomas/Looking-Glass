@@ -70,7 +70,11 @@ def register_routes(router, map_payload):
         sets = await asyncio.to_thread(_parse, source["raw"], source["filename"])
         scenes = []
         for index, ws in enumerate(sets):
-            cal = ws.suggested_calibration(m["width"], m["height"])
+            from ...services.foundry_import import validated_calibration
+            try:
+                cal = validated_calibration(ws, m["width"], m["height"])
+            except WallImportError as exc:
+                raise BadRequest(str(exc)) from exc
             scenes.append({
                 "index": index, "name": ws.name, "format": ws.source_format,
                 "walls": len(ws.segments),
