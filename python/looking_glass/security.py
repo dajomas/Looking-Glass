@@ -50,7 +50,14 @@ def constant_eq(a: str | None, b: str | None) -> bool:
 
 
 class LoginThrottle:
-    """Tiny in-memory brute-force throttle keyed by (ip, username)."""
+    """Process-local rolling-window throttle with bounded failure retention.
+
+    Saturation denies untracked keys rather than evicting active histories.
+    Checks do not reserve capacity: authentication already in flight can finish
+    after capacity fills, in which case fail() cannot allocate another key.
+    """
+
+    MAX_KEYS = 4096
 
     def __init__(self, max_failures: int, lockout_seconds: int):
         self.max_failures = max_failures
@@ -61,16 +68,36 @@ class LoginThrottle:
     def _key(self, ip: str, username: str) -> str:
         return f"{ip}|{username.lower()}"
 
+    def _prune(self, now: float) -> None:
+        # Called only while holding _lock; includes abandoned keys.
+        for key in list(self._fails):
+            hits = [t for t in self._fails[key] if now - t < self.lockout]
+            if hits:
+                self._fails[key] = hits
+            else:
+                del self._fails[key]
+
     def blocked(self, ip: str, username: str) -> bool:
-        now = time.monotonic()
         with self._lock:
-            hits = [t for t in self._fails.get(self._key(ip, username), []) if now - t < self.lockout]
-            self._fails[self._key(ip, username)] = hits
-            return len(hits) >= self.max_failures
+            self._prune(time.monotonic())
+            hits = self._fails.get(self._key(ip, username), [])
+            return (len(hits) >= self.max_failures or
+                    (not hits and len(self._fails) >= self.MAX_KEYS))
 
     def fail(self, ip: str, username: str) -> None:
         with self._lock:
-            self._fails.setdefault(self._key(ip, username), []).append(time.monotonic())
+            now = time.monotonic()
+            self._prune(now)
+            if self.max_failures <= 0 or self.lockout <= 0:
+                return
+            key = self._key(ip, username)
+            if key not in self._fails:
+                if len(self._fails) >= self.MAX_KEYS:
+                    return
+                self._fails[key] = []
+            hits = self._fails[key]
+            hits.append(now)
+            del hits[:-self.max_failures]
 
     def reset(self, ip: str, username: str) -> None:
         with self._lock:
