@@ -17,7 +17,7 @@ Foundry v11+ stores worlds in LevelDB directories; export the scene with
 
 import json
 import math
-from collections.abc import Iterable
+from collections.abc import Iterable, Sized
 from typing import Any
 
 from .wall_model import WallSegment, WallSet
@@ -25,6 +25,13 @@ from .wall_model import WallSegment, WallSet
 
 class WallImportError(ValueError):
     pass
+
+
+def _input_items(value: Any, field: str) -> Iterable:
+    # Keep legacy iterable filtering; reject only shapes that cannot be iterated.
+    if not isinstance(value, Iterable):
+        raise WallImportError(f"{field} must be an iterable collection.")
+    return value
 
 
 def _number(value: Any, field: str, *, positive: bool = False, nonnegative: bool = False) -> float:
@@ -84,7 +91,11 @@ def classify_foundry_wall(doc: dict) -> tuple[str, bool]:
     Doors are always stored as blocking; whether they split areas is decided
     per map at fog time (maps.doors_block) so it can be toggled without re-import.
     """
-    door = int(doc.get("door", 0) or 0)
+    door_value = doc.get("door", 0) or 0
+    try:
+        door = int(door_value)
+    except (TypeError, ValueError, OverflowError) as exc:
+        raise WallImportError("Foundry door must be convertible to an integer.") from exc
     move = doc.get("move", 20 if _is_v10_values(doc) else 1)
     sight = doc.get("sight", doc.get("sense", 20 if _is_v10_values(doc) else 1))
     move = 0 if move is None else move
@@ -125,7 +136,7 @@ def _wall_coords(doc: dict) -> tuple[float, float, float, float] | None:
 
 def _segments_from_wall_docs(docs: Iterable[dict]) -> list[WallSegment]:
     out: list[WallSegment] = []
-    for doc in docs:
+    for doc in _input_items(docs, "Foundry walls"):
         if not isinstance(doc, dict):
             continue
         coords = _wall_coords(doc)
@@ -207,10 +218,16 @@ def _is_uvtt(data: Any) -> bool:
 
 def _parse_uvtt(data: dict, name: str) -> WallSet:
     res = data.get("resolution") or {}
+    if not isinstance(res, dict):
+        raise WallImportError("UVTT resolution must be an object.")
     ppg_value = res.get("pixels_per_grid")
     ppg = _number(70 if ppg_value is None else ppg_value, "UVTT pixels_per_grid", positive=True)
     origin = res.get("map_origin") or {"x": 0, "y": 0}
     size = res.get("map_size") or {}
+    if not isinstance(origin, dict):
+        raise WallImportError("UVTT map_origin must be an object.")
+    if not isinstance(size, dict):
+        raise WallImportError("UVTT map_size must be an object.")
     ox = _number(origin.get("x", 0), "UVTT origin X")
     oy = _number(origin.get("y", 0), "UVTT origin Y")
     width = _optional_size(size.get("x"), "UVTT map width")
@@ -219,6 +236,8 @@ def _parse_uvtt(data: dict, name: str) -> WallSet:
     h = None if height is None else _number(height * ppg, "UVTT pixel height", positive=True)
 
     def px(p: dict) -> tuple[float, float]:
+        if not isinstance(p, dict) or "x" not in p or "y" not in p:
+            raise WallImportError("UVTT point must be an object containing x and y.")
         x = _number(p["x"], "UVTT point X")
         y = _number(p["y"], "UVTT point Y")
         return (_number((x - ox) * ppg, "UVTT transformed X"),
@@ -238,14 +257,21 @@ def _parse_uvtt(data: dict, name: str) -> WallSet:
 
     segments: list[WallSegment] = []
     for key in ("line_of_sight", "objects_line_of_sight"):
-        for poly in data.get(key) or []:
-            pts = [px(p) for p in poly if isinstance(p, dict) and "x" in p and "y" in p]
+        for poly in _input_items(data.get(key) or [], f"UVTT {key}"):
+            pts = [px(p) for p in _input_items(poly, f"UVTT {key} polyline")
+                   if isinstance(p, dict) and "x" in p and "y" in p]
             for (x1, y1), (x2, y2) in zip(pts, pts[1:]):
                 if (x1, y1) != (x2, y2):
                     segments.append(WallSegment(x1, y1, x2, y2, "wall", True))
-    for portal in data.get("portals") or []:
+    for portal in _input_items(data.get("portals") or [], "UVTT portals"):
+        if not isinstance(portal, dict):
+            raise WallImportError("UVTT portal must be an object.")
         bounds = portal.get("bounds") or []
+        if not isinstance(bounds, Sized):
+            raise WallImportError("UVTT portal bounds must be a collection of points.")
         if len(bounds) >= 2:
+            if not isinstance(bounds, (list, tuple)):
+                raise WallImportError("UVTT portal bounds must be a list of point objects.")
             (x1, y1), (x2, y2) = px(bounds[0]), px(bounds[1])
             segments.append(WallSegment(x1, y1, x2, y2, "door", True))
     return WallSet(name=name, segments=segments, source_format="uvtt", scene_width=w, scene_height=h,

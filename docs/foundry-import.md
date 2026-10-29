@@ -128,6 +128,31 @@ are imported; a ZIP with no supported wall sets is rejected. Review the selected
 wall set before applying it. Records without usable wall coordinates and
 zero-length wall segments retain their wall-list omission behavior.
 
+## Malformed input and partial imports
+
+Expected input failures such as unusable Foundry door conversions, non-iterable
+wall/geometry containers, non-object UVTT resolution/origin/size metadata and
+malformed portal records or endpoints produce an import error. Portal endpoints
+used to form a segment must be objects containing both `x` and `y`.
+
+This validation does not impose a new strict schema on all inputs. Existing
+falsy/default handling and iterable filtering remain, as do omission of unusable
+Foundry coordinates, filtering of incomplete standard-UVTT polyline points and
+ignoring portal bounds too short to form a segment. Numeric and calibration rules
+above still apply. Saved source bytes and existing map walls are not repaired.
+
+ZIP validation remains per entry, not all-or-nothing: malformed entries can be
+skipped while usable companions import. An invalid-only pack is rejected. Review
+the resulting wall sets and original source indexes before applying geometry.
+
+When creating a map with accompanying walls, an invalid wall import can leave
+the successfully imported map and report that its walls were not imported. A
+source rejected during parsing is not saved; if parsing succeeds and a later
+target-calibration/application check rejects it, the already saved source can
+remain available. Explicit wall imports and source inspections report rejection
+instead of treating the upload as a successful wall replacement. File-size errors
+outside wall parsing and image-file cleanup have their existing separate behavior.
+
 ## Tips for clean areas
 
 - Walls only need to *nearly* meet. Lines are drawn `fog.wall_thickness` px
@@ -194,7 +219,7 @@ artwork and walls intact.
 | Door | Blue solid | Blocks when Doors split areas is on |
 | Locked Door | Orange dashed | Same boundary rule; double-click its arrow to unlock only |
 | Unlocked Door | Orange solid | Same boundary rule; double-click to lock |
-| Secret door | Purple dashed | Blocks when Doors split areas is on |
+| Secret door | Purple dashed | Same boundary rule |
 | Window / terrain | Green solid | Blocks areas |
 | Invisible wall | Yellow dashed | Blocks areas |
 | Ethereal | Grey dashed | Never blocks (source semantics) |
