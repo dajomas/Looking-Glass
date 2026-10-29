@@ -1,0 +1,172 @@
+name: Looking Glass integration tests
+
+on:
+  push:
+    branches:
+      - features/perplexity
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: integration-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: Python / HTTP
+            suite: python
+          - name: Live Uvicorn
+            suite: live
+
+    env:
+      PYTHONPATH: ${{ github.workspace }}/python
+      PYTHONUNBUFFERED: "1"
+      LG_RUN_LIVE_E2E: "1"
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+
+      - name: Install application and test dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+
+      - name: Install live-browser dependencies
+        if: matrix.suite == 'live'
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+
+      - name: Verify dependencies and record environment
+        run: |
+          mkdir -p test-results
+
+          {
+            git rev-parse HEAD
+            python --version
+            python -m pip --version
+            uname -a
+          } > test-results/environment.txt
+
+          python -m pip check
+          python -m pip freeze > test-results/installed-packages.txt
+
+          python - <<'PY' | tee test-results/dependency-preflight.txt
+          from importlib import import_module
+          from importlib.metadata import version
+
+          required = {
+              "fastapi": "fastapi",
+              "starlette": "starlette",
+              "uvicorn": "uvicorn",
+              "python-multipart": "python_multipart",
+              "httpx": "httpx",
+              "pytest": "pytest",
+          }
+
+          for distribution, module in required.items():
+              import_module(module)
+              print(f"{distribution}=={version(distribution)}")
+          PY
+
+      - name: Run Python and HTTP tests
+        if: matrix.suite == 'python'
+        run: |
+          set -o pipefail
+          python -m pytest \
+            -v -ra \
+            python/tests \
+            --ignore=python/tests/browser \
+            --ignore=python/tests/live_e2e \
+            --junitxml=test-results/results.xml \
+            2>&1 | tee test-results/pytest.log
+
+      - name: Run live Uvicorn integration tests
+        if: matrix.suite == 'live'
+        run: |
+          set -o pipefail
+          python -m pytest \
+            -v -ra \
+            python/tests/live_e2e \
+            --junitxml=test-results/results.xml \
+            2>&1 | tee test-results/pytest.log
+
+      - name: Reject skipped tests or empty results
+        if: ${{ !cancelled() }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+
+          report = Path("test-results/results.xml")
+          if not report.is_file():
+              raise SystemExit("FAIL: pytest did not produce a JUnit report")
+
+          root = ET.parse(report).getroot()
+          cases = list(root.iter("testcase"))
+
+          if not cases:
+              raise SystemExit("FAIL: no test cases were reported")
+
+          skipped = [
+              case for case in cases
+              if case.find("skipped") is not None
+          ]
+          failed = [
+              case for case in cases
+              if case.find("failure") is not None
+              or case.find("error") is not None
+          ]
+
+          print(
+              f"Reported: {len(cases)}; "
+              f"failed/error: {len(failed)}; "
+              f"skipped: {len(skipped)}"
+          )
+
+          for case in skipped:
+              reason = case.find("skipped").get("message", "")
+              print(
+                  f"SKIPPED: {case.get('classname', '')}"
+                  f"::{case.get('name', '')}: {reason}"
+              )
+
+          if skipped or failed:
+              raise SystemExit(
+                  "FAIL: required integration tests must pass without skips"
+              )
+          PY
+
+      - name: Upload validation evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-${{ matrix.suite }}-${{ github.sha }}
+          path: test-results/
+          if-no-files-found: warn
+          retention-days: 14
