@@ -5,15 +5,16 @@ Target: `dajomas/Looking-Glass`, branch `features/perplexity`.
 
 ## Workflow
 
-Bugs 1 and 3 are complete; the other 13 items remain open. The earlier combined
-draft was not committed; do not apply it wholesale. Re-read live code and
-reproduce each remaining finding before fixing.
+Bugs 1, 3 and 4 have delivered implementations; the other 12 items remain open.
+Bug 4 HTTP/deployment acceptance remains pending; see its validation limits below.
+The earlier combined draft was not committed; do not apply it wholesale.
+Re-read live code and reproduce each remaining finding before fixing.
 For each item: agree a minimal solution, add a regression, implement, validate,
 update relevant docs and HANDOVER.md, then approve the exact GitHub write.
 Check off only after delivery; record commit SHA, actual test results and limits.
 Proposed solutions/migrations are not installed or pre-approved changes.
 
-Suggested remaining order: 4, 5, 6, 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
+Suggested remaining order: 5, 6, 7, 8, 9, 10, 11, 12, 2, 13, 14, 15.
 Coordinate session items 5-7, parser items 10-12 and image-lifetime items 4/14/15,
 while keeping changes individually reviewable. Package paths below refer to
 `python/looking_glass/`; static findings still need application-level reproduction.
@@ -57,12 +58,27 @@ while keeping changes individually reviewable. Package paths below refer to
   without a DM mutation; stale-response protection remains.
 
 ### 4. Cache cleanup races with image responses
-- [ ] Open; static concurrency finding in renderer/viewer/admin preview routes.
+- [x] Implementation delivered on `features/perplexity`; HTTP/deployment acceptance pending.
+- Fix commit: `0b0f8f7089d064c9060b15165fbe52aa88d46222`.
+- Baseline: `54cae125d996ceccff6cc61d3942edea88209c4e`; bug 1 privacy rendering
+  and bug 3 recovery/documentation are preserved. The earlier stale-baseline
+  archive and `edd5c121f3ee292a6cf3d75dfa8f991c464595c8` are superseded.
+- Validation during corrected archive preparation: 73 passed, 1 skipped on
+  Python 3.14.4, including existing bug 1 privacy regressions. The skipped
+  module contains five HTTP cases; FastAPI was unavailable. No ASGI integration,
+  full-suite, browser or live-server checks were run. No application tests were
+  rerun for this documentation-only update. See HANDOVER.md for details.
 - Problem: cleanup can delete a path before FileResponse opens it.
-- Solution: capture bytes under the render/invalidation lock or provide an
-  equivalent lifetime guarantee; retain authorization/version checks.
+- Solution: `FogEngine.viewer_bytes()` captures encoded bytes under the existing
+  per-map RLock; viewer image and admin preview routes return byte Responses
+  via `asyncio.to_thread`, retaining authorization/version checks and no-store.
+- Limits: coordinates one FogEngine instance, not external deletion or shared-cache
+  multi-process access; each in-flight response holds encoded bytes in memory.
 - Test: concurrent rendering, invalidation and delivery cause neither missing
   files nor wrong-version images; cache cleanup remains bounded.
+- Remaining acceptance: execute the included HTTP tests with normal dependencies
+  and verify viewer/admin preview during reveal/hide/map changes before declaring
+  the fix fully integration-validated.
 
 ### 5. Viewer sockets outlive session expiry/logout
 - [ ] Open; static finding in viewer live(), auth logout, sessions and event hub.
