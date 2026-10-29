@@ -193,14 +193,16 @@ async def inspect_walls(ctx: CtxDep, user: CsrfUserDep, map_id: int, file: Annot
         m, _ = map_for_manage(conn, user, map_id)
     raw = await _read_upload(ctx, file)
     try:
+        from ...services.foundry_import import validated_calibration
         sets = parse_wall_file(raw, file.filename or "")
+        calibrations = [validated_calibration(s, m["width"], m["height"]) for s in sets]
     except WallImportError as exc:
         raise BadRequest(str(exc))
     return {"ok": True, "scenes": [
         {"index": i, "name": s.name, "format": s.source_format, "walls": len(s.segments),
          "doors": sum(1 for w in s.segments if w.kind in ("door", "secret", "locked_door", "unlocked_door")),
          "scene_width": s.scene_width, "scene_height": s.scene_height,
-         "calibration": vars_cal(s.suggested_calibration(m["width"], m["height"]))}
+         "calibration": vars_cal(calibrations[i])}
         for i, s in enumerate(sets)]}
 
 
