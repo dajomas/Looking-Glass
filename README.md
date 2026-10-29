@@ -626,3 +626,15 @@ unchanged-role/profile save does not revoke sessions or disconnect sockets.
 Other users are unaffected; rejected or rolled-back updates do not trigger kicks.
 The bug 5 session checks remain unchanged. No schema, configuration or dependency
 change is required. See HANDOVER.md for measured tests and ASGI acceptance limits.
+
+## Forced-password-change viewer gate (bug 7)
+
+A user required to change their password cannot accept a viewer WebSocket or
+subscribe to campaign events, regardless of role. After a connection is admitted,
+the existing session checks also reject a newly required password change before
+event/pong delivery or status reports, and during the bounded idle recheck.
+The close code is 4403. Existing account/password-change and logout routes remain
+available; after a successful password change the user can reconnect normally.
+No viewer mutation API, schema, configuration or dependency change is introduced.
+Bugs 5 and 6 remain otherwise unchanged. See HANDOVER.md for measured validation
+and outstanding ASGI/deployment acceptance.
