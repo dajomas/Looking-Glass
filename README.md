@@ -598,3 +598,21 @@ lock coordinates one FogEngine instance, not external deletion or multiple
 processes sharing a cache. Each in-flight response holds its encoded image bytes.
 
 Regression commands and measured limitations are recorded in HANDOVER.md.
+
+## Viewer socket session lifetime (bug 5)
+
+Viewer sockets are bound to hashed session identities. Logout closes sockets for
+that session after deleting it, without disconnecting other sessions of the same
+user. Session validity and current campaign access are checked before each event
+and pong, before accepting status reports, and at most every 15 seconds while
+idle. Invalid sockets close with code 4403 and leave the synchronization tracker.
+A socket admitted just as logout occurs is rechecked after subscription.
+
+The event hub and explicit kicks serialize each socket's delivery and closure;
+already in-flight network data cannot be recalled. Immediate logout notification
+is local to the shared in-process hub; other processes observe revocation through
+their checks. The 15-second idle interval excludes event-loop/DB/transport delays.
+No schema, configuration or dependency change is required. Bugs 6 (explicit role
+change kicks) and 7 (forced-password-change admission) remain separate TODO items.
+See HANDOVER.md for regression commands, measured results and integration limits.
+
