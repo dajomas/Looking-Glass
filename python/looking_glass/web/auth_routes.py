@@ -8,7 +8,7 @@ from fastapi.responses import RedirectResponse
 from .. import rbac
 from ..repositories import sessions as sessions_repo
 from ..repositories import users as users_repo
-from ..security import verify_password
+from ..security import token_hash, verify_password
 from .deps import CsrfUserDep, CtxDep, UserDep, cookie_name, optional_user
 from .templating import render
 
@@ -61,11 +61,12 @@ def login_submit(request: Request, ctx: CtxDep,
 
 
 @router.post("/logout")
-def logout(request: Request, ctx: CtxDep, user: CsrfUserDep):
+async def logout(request: Request, ctx: CtxDep, user: CsrfUserDep):
     token = request.cookies.get(cookie_name(request))
     if token:
         with ctx.db.connect() as conn:
             sessions_repo.delete(conn, token)
+        await ctx.hub.kick_session(token_hash(token))
     resp = RedirectResponse("/login", status_code=303)
     resp.delete_cookie(cookie_name(request), path="/")
     return resp

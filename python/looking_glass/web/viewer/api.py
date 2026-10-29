@@ -17,6 +17,8 @@ from ...services.revealed_regions import revealed_area_signatures
 from ...services.viewer_area import revealed_area_bounds
 from ...repositories import campaigns as campaigns_repo
 from ...repositories import maps as maps_repo
+from ...repositories import sessions as sessions_repo
+from ...security import token_hash
 from ..access import campaign_for_view, fog_inputs
 from ..deps import BadRequest, CtxDep, NotFound, UserDep, cookie_name, resolve_user
 from ... import rbac
@@ -90,6 +92,18 @@ async def area_bounds(ctx: CtxDep, user: UserDep, campaign_id: int, x: float, y:
                         headers={"Cache-Control": "no-store"})
 
 
+SESSION_RECHECK_SECONDS = 15
+
+
+def _session_allowed(ctx, session_hash: str, campaign_id: int) -> bool:
+    with ctx.db.connect() as conn:
+        user = sessions_repo.lookup_hash(conn, session_hash, "viewer")
+        if user is None or not rbac.can_use_viewer_portal(user):
+            return False
+        campaign = campaigns_repo.get(conn, campaign_id)
+        return campaign is not None and rbac.can_view_campaign(conn, user, campaign)
+
+
 @router.websocket("/ws/c/{campaign_id}")
 async def live(ws: WebSocket, campaign_id: int):
     ctx = ws.app.state.ctx
@@ -103,19 +117,28 @@ async def live(ws: WebSocket, campaign_id: int):
     if not allowed:
         await ws.close(code=4404)
         return
+    session_hash = token_hash(ws.cookies[cookie_name(ws)])
+    ws.state.session_hash = session_hash
+    ws.state.access_check = lambda: _session_allowed(ctx, session_hash, campaign_id)
     await ws.accept()
     ws.state.user_id = user["id"]
     ws.state.username = user["username"]
     await ctx.hub.subscribe(campaign_id, ws)
     try:
-        while True:
-            msg = await ws.receive_text()   # keep-alive pings from the client
+        while await ctx.hub.check_access(campaign_id, ws):
+            try:
+                msg = await asyncio.wait_for(ws.receive_text(), timeout=SESSION_RECHECK_SECONDS)
+            except TimeoutError:
+                continue
+            if not await ctx.hub.check_access(campaign_id, ws):
+                break
             if len(msg) > 2048:
                 await ws.close(code=1009)
                 break
             if msg == "ping":
                 ctx.hub.sync.touch(ws.state.sync_id)
-                await ws.send_text('{"type":"pong"}')
+                if not await ctx.hub.send_text(campaign_id, ws, '{"type":"pong"}'):
+                    break
             else:
                 try:
                     report = json.loads(msg)

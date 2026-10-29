@@ -16,12 +16,17 @@ def create(conn: sqlite3.Connection, user_id: int, entry: str, ttl_seconds: int)
 
 def lookup(conn: sqlite3.Connection, token: str, entry: str) -> sqlite3.Row | None:
     """Return the joined session+user row for a valid, unexpired token on this entry point."""
+    return lookup_hash(conn, token_hash(token), entry)
+
+
+def lookup_hash(conn: sqlite3.Connection, session_hash: str, entry: str) -> sqlite3.Row | None:
+    """Resolve an already hashed session identity without retaining its raw token."""
     return conn.execute(
         """SELECT s.csrf_token, s.expires_at, u.id, u.username, u.display_name, u.role, u.active,
                   u.must_change_password
              FROM sessions s JOIN users u ON u.id = s.user_id
             WHERE s.token_hash = ? AND s.entry = ? AND s.expires_at > ?""",
-        (token_hash(token), entry, int(time.time())),
+        (session_hash, entry, int(time.time())),
     ).fetchone()
 
 
