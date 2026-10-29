@@ -201,7 +201,9 @@ def _parse_uvtt(data: dict, name: str) -> WallSet:
 # Entry point
 # ---------------------------------------------------------------------------
 def _parse_ndjson(text: str) -> list[dict]:
-    docs = []
+    # Replay identified records before converting documents to wall sets.
+    by_id: dict[str, dict] = {}
+    anon: list[dict] = []
     for line in text.splitlines():
         line = line.strip()
         if not line:
@@ -210,16 +212,18 @@ def _parse_ndjson(text: str) -> list[dict]:
             obj = json.loads(line)
         except json.JSONDecodeError as exc:
             raise WallImportError(f"Invalid NeDB line: {exc}") from exc
-        if isinstance(obj, dict) and not obj.get("$$deleted"):
-            docs.append(obj)
-    # NeDB is append-only: later lines with the same _id supersede earlier ones.
-    by_id: dict[str, dict] = {}
-    anon: list[dict] = []
-    for d in docs:
-        if "_id" in d:
-            by_id[d["_id"]] = d
-        else:
-            anon.append(d)
+        if not isinstance(obj, dict):
+            continue
+        if "_id" in obj:
+            identity = obj["_id"]
+            if not isinstance(identity, str) or not identity:
+                raise WallImportError("Invalid NeDB _id: expected a non-empty string.")
+            if obj.get("$$deleted"):
+                by_id.pop(identity, None)
+            else:
+                by_id[identity] = obj
+        elif not obj.get("$$deleted"):
+            anon.append(obj)
     return list(by_id.values()) + anon
 
 

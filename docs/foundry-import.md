@@ -14,6 +14,27 @@ Foundry v11+ worlds use **LevelDB directories**, which can't be uploaded
 directly. Use *Export Data* on the scene, or unpack with the official CLI:
 `fvtt package unpack -n <world> --type World` gives JSON per scene.
 
+## NeDB record histories
+
+NeDB newline-delimited records are replayed in file order. A document with an
+`_id` replaces that ID's current document. A record with a truthy `$$deleted`
+value removes it; a later document can recreate the same ID. Deleting an absent
+ID has no effect. Identified records require non-empty string IDs; malformed
+IDs produce an import error. IDs are case-sensitive and are not trimmed.
+
+Non-deleted documents without `_id` are retained independently. Anonymous
+deletion records and non-object lines are ignored. Live identified documents
+are returned in insertion order, followed by anonymous documents in source
+order. Updating an ID keeps its position; deleting and recreating it inserts it
+after the other live IDs. Wall sets without usable segments are omitted. A direct
+import with no usable walls reports `No walls found`; a ZIP with no supported
+wall sets reports the ZIP import error.
+
+This replay applies to NeDB record histories, including histories inside ZIP
+packs. A complete JSON object or array follows JSON import rules, not NeDB replay.
+Saved source bytes and walls already copied to maps are not rewritten by parsing;
+review the selected wall set before explicitly applying it to an existing map.
+
 ## Select a wall set and reuse the database
 
 A database may contain many scenes, including variants of the same location.
