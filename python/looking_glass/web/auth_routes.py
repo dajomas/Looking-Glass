@@ -85,7 +85,6 @@ def account_submit(request: Request, ctx: CtxDep, user: CsrfUserDep,
                    confirm_password: Annotated[str, Form()] = ""):
     min_len = int(ctx.settings.section("security")["min_password_length"])
     with ctx.db.connect() as conn:
-        users_repo.update(conn, user["id"], display_name=display_name)
         if new_password or user["must_change_password"]:
             row = users_repo.get_with_hash(conn, user["username"])
             if not verify_password(current_password, row["password_hash"]):
@@ -99,4 +98,5 @@ def account_submit(request: Request, ctx: CtxDep, user: CsrfUserDep,
                 return render(request, "account.html", status_code=400, error="Choose a different password.")
             users_repo.set_password(conn, user["id"], new_password, must_change=False)
             sessions_repo.delete_for_user(conn, user["id"], keep_token=request.cookies.get(cookie_name(request)))
+        users_repo.update(conn, user["id"], display_name=display_name)
     return RedirectResponse("/account?ok=Account+updated", status_code=303)
