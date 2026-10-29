@@ -638,3 +638,13 @@ available; after a successful password change the user can reconnect normally.
 No viewer mutation API, schema, configuration or dependency change is introduced.
 Bugs 5 and 6 remain otherwise unchanged. See HANDOVER.md for measured validation
 and outstanding ASGI/deployment acceptance.
+
+## Atomic account form validation (bug 8)
+
+Failed password-change forms no longer save a submitted display name. Current
+password, minimum length, confirmation and different-password checks finish before
+any account write. Valid profile-only saves remain supported; valid password
+changes still clear the required-change flag and revoke other sessions while
+retaining the current session. Profile/password/session writes share one database
+transaction. Both portals use the same handler. No schema, dependency or setting
+change is required. See HANDOVER.md for measured validation and HTTP acceptance limits.
