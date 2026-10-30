@@ -1,7 +1,9 @@
 """Campaign, viewer-assignment and battle-map management (form posts)."""
 
 import asyncio
+import logging
 import sqlite3
+from contextlib import contextmanager
 from typing import Annotated
 from urllib.parse import quote_plus
 
@@ -24,6 +26,7 @@ from ..deps import BadRequest, CsrfUserDep, CtxDep, Forbidden, UserDep
 from ..templating import render
 from . import notify
 
+log = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -33,6 +36,38 @@ def _back(path: str, ok: str | None = None, err: str | None = None) -> RedirectR
     elif err:
         path += f"?err={quote_plus(err)}"
     return RedirectResponse(path, status_code=303)
+
+
+@contextmanager
+def _image_write_connection(ctx: AppContext, relative_path: str):
+    """Remove a newly stored image if its database write fails.
+
+    Pass only the path returned by this request's successful image store.
+    Never pass the existing image being replaced.
+    """
+    try:
+        with ctx.db.connect() as conn:
+            yield conn
+    except BaseException:
+        try:
+            with ctx.db.connect() as check:
+                referenced = check.execute(
+                    "SELECT 1 FROM maps WHERE image_file = ? LIMIT 1",
+                    (relative_path,),
+                ).fetchone() is not None
+            if referenced:
+                log.warning(
+                    "Retaining map image %s after a database error: "
+                    "a committed map still references it", relative_path,
+                )
+            else:
+                images.delete_map_image(ctx.settings.maps_dir, relative_path)
+        except Exception:
+            log.warning(
+                "Could not verify or remove map image %s after a database write failure; "
+                "retaining any remaining file", relative_path, exc_info=True,
+            )
+        raise
 
 
 async def _read_upload(ctx: AppContext, upload: UploadFile) -> bytes:
@@ -196,7 +231,7 @@ async def upload_map(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
         return _back(f"/campaigns/{campaign_id}", err=str(exc))
     map_name = name.strip() or (image.filename or "Battle map").rsplit(".", 1)[0]
     msg = f"Map '{map_name}' imported ({stored.width}x{stored.height})"
-    with ctx.db.connect() as conn:
+    with _image_write_connection(ctx, stored.relative_path) as conn:
         mid = maps_repo.create(conn, campaign_id, map_name, stored.relative_path, stored.width, stored.height,
                                bool(ctx.settings.section("fog")["doors_block"]))
         if walls is not None and walls.filename:
@@ -241,7 +276,7 @@ async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Anno
         stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, c["id"])
     except images.ImageImportError as exc:
         return _back(f"/maps/{map_id}", err=str(exc))
-    with ctx.db.connect() as conn:
+    with _image_write_connection(ctx, stored.relative_path) as conn:
         maps_repo.replace_image(conn, map_id, stored.relative_path, stored.width, stored.height)
         from ...services.room_notes import reconcile_map
         reconcile_map(ctx, conn, map_id)
@@ -258,7 +293,7 @@ async def delete_map(ctx: CtxDep, user: CsrfUserDep, map_id: int):
         was_active = c["active_map_id"] == map_id
         maps_repo.delete(conn, map_id)
     images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
-    ctx.fog.invalidate(map_id)
+    ctx.fog.invalidate(m["id"])
     if was_active:
         await notify.campaign_changed(ctx, c["id"], "active-map")
     return _back(f"/campaigns/{c['id']}", ok=f"Map '{m['name']}' deleted")
