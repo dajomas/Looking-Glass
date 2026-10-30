@@ -64,6 +64,11 @@ def test_width_defaults_and_script_order():
 def test_viewer_port_preserved():
     from looking_glass.config import DEFAULTS
     assert DEFAULTS["server"]["viewer_port"] == 5100
-    text = (ROOT / "docs/deployment.md").read_text()
+    # Check operational sections rather than the split guide's navigation index.
+    text = "".join((ROOT / "docs/deployment" / section).read_text(encoding="utf-8")
+                   for section in ("002-1-native-installation-rhel-rocky.md",
+                                   "003-2-systemd-service.md",
+                                   "004-3-networking.md",
+                                   "005-4-podman-deployment.md"))
     assert "systemd service" in text and "viewer_port: 5100" in text
     assert "6000" not in text

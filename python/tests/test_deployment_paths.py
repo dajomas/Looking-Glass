@@ -19,8 +19,7 @@ def test_native_unit_paths():
     assert "/opt/looking-glass/data" not in unit
 
 def test_container_paths_are_explicit():
-    doc = (ROOT / "docs/deployment.md").read_text()
-    podman = doc.split("## 4. Podman deployment")[1].split("## 5.")[0]
+    podman = (ROOT / "docs/deployment/005-4-podman-deployment.md").read_text(encoding="utf-8")
     assert "-e LG_CONFIG=/etc/looking-glass/config.yaml" in podman
     assert "-e LG_DATA_DIR=/app/data" in podman
     assert "/etc/looking-glass/config.yaml:/etc/looking-glass/config.yaml:ro,Z" in podman
@@ -28,7 +27,11 @@ def test_container_paths_are_explicit():
     assert "--userns=keep-id" in podman
 
 def test_first_install_uses_production_example():
-    doc = (ROOT / "docs/deployment.md").read_text()
+    # The navigation index no longer contains installation commands.
+    doc = "".join((ROOT / "docs/deployment" / section).read_text(encoding="utf-8")
+                  for section in ("002-1-native-installation-rhel-rocky.md",
+                                  "005-4-podman-deployment.md",
+                                  "007-6-backups-and-upgrades.md"))
     assert doc.count("docs/examples/config.production.yaml /etc/looking-glass/config.yaml") == 2
     assert "### Move an existing native installation" in doc
     assert "--config /etc/looking-glass/config.yaml list-users" in doc
