@@ -1,0 +1,36 @@
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6191283Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6207812Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6219521Z Temporarily overriding HOME='/home/runner/work/_temp/0acad358-3f9a-42ef-83a1-f25c1d8e9370' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6220980Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6226182Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6276882Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6291190Z ##[group]Determining repository object format
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6377630Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6380627Z ##[group]Initializing the repository
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6381839Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6391383Z hint: Using 'master' as the name for the initial branch. This default branch name
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6393467Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6394974Z hint: to use in all of your new repositories, which will suppress this warning,
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6395867Z hint: call:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6396314Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6396842Z hint: 	git config --global init.defaultBranch <name>
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6397457Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6398043Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6399037Z hint: 'development'. The just-created branch can be renamed via this command:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6399812Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6400260Z hint: 	git branch -m <name>
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6400749Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6401369Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6402439Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6413536Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6504202Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6515208Z ##[group]Disabling automatic garbage collection
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6515853Z [command]/usr/bin/git config --local gc.auto 0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6540880Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6541745Z ##[group]Setting up auth
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6542358Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6547148Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6594490Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6882562Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6888117Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.6925982Z [command]/usr/bin/git submodule foreach --recursive sh -c "git 

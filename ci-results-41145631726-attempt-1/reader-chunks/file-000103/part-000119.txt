@@ -1,0 +1,44 @@
+ive Uvicorn	Check out repository	2026-10-30T23:38:38.9055491Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9056423Z ##[group]Determining the checkout info
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9058650Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9061039Z [command]/usr/bin/git sparse-checkout disable
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9124583Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9163315Z ##[group]Checking out the ref
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9168692Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9977756Z Switched to a new branch 'features/perplexity'
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9983305Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Live Uvicorn	Check out repository	2026-10-30T23:38:38.9992098Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T23:38:39.0049987Z [command]/usr/bin/git log -1 --format=%H
+Live Uvicorn	Check out repository	2026-10-30T23:38:39.0086441Z b07df241f51556f61d8bf66f0dbe124a9621d3b6
+Live Uvicorn	Initialize evidence	﻿2026-10-30T23:38:39.0328510Z ##[group]Run mkdir -p test-results
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0329220Z ^[[36;1mmkdir -p test-results^[[0m
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0329841Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0330501Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0356639Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0357303Z env:
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0357840Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0358501Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0358960Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Initialize evidence	2026-10-30T23:38:39.0359387Z ##[endgroup]
+Live Uvicorn	Set up Python	﻿2026-10-30T23:38:39.0598820Z ##[group]Run actions/setup-python@v6
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0599387Z with:
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0599798Z   python-version: 3.14
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0600242Z   cache: pip
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0600767Z   cache-dependency-path: requirements.txt
+Live Uvicorn	Set up Python	requirements-dev.txt
+Live Uvicorn	Set up Python	
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0601406Z   check-latest: false
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0604596Z   token: ***
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0605062Z   update-environment: true
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0605525Z   allow-prereleases: false
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0605997Z   freethreaded: false
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0606415Z env:
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0606937Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0607584Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0608010Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.0608415Z ##[endgroup]
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.2095223Z ##[group]Installed versions
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.2200062Z Successfully set up CPython (3.14.9)
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.2202430Z ##[endgroup]
+Live Uvicorn	Set up Python	2026-10-30T23:38:39.2581701Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Live Uvicorn	Set up Python	2026-10-30T23:38:40.5976266Z

@@ -1,0 +1,41 @@
+36;1m    "uvicorn": "uvicorn",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9291446Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9291621Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9291766Z ^[[36;1m    "pytest": "pytest",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9291902Z ^[[36;1m}^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9292046Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9292223Z ^[[36;1m    import_module(module)^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9292403Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9292580Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9310286Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9310470Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9310647Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9310847Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9310972Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9311137Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9311369Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9311602Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9311815Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9312021Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9312230Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:51.9312411Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:52.1861985Z No broken requirements found.
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:52.6333473Z fastapi==0.162.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:52.6336459Z starlette==1.10.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.0105012Z uvicorn==0.54.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.0106370Z python-multipart==0.0.32
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.0258579Z httpx2==2.16.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.0947035Z pytest==9.2.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1587611Z ##[group]Run set -o pipefail
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1587807Z ^[[36;1mset -o pipefail^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1588258Z ^[[36;1mpython -m pytest -v -ra python/tests --ignore=python/tests/browser --ignore=python/tests/live_e2e --ignore=python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1605594Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1605783Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1605951Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1606152Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1606277Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1606432Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1606667Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1606894Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1607147Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:53.1607353Z   Python3_ROOT_DI

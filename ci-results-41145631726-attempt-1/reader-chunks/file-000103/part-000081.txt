@@ -1,0 +1,29 @@
+ed and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.4163332Z Uploaded bytes 36809
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.4614143Z Finished uploading artifact content to blob storage!
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.4614711Z SHA256 digest of uploaded artifact zip is 57996ba9614936af1f924c3d8549beea3b9071c4674ca7c88c7d047439e081d4
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.4615844Z Finalizing artifact upload
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.9176356Z Artifact integration-python-b07df241f51556f61d8bf66f0dbe124a9621d3b6.zip successfully finalized. Artifact ID 13021021149
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.9177307Z Artifact integration-python-b07df241f51556f61d8bf66f0dbe124a9621d3b6 has been successfully uploaded! Final size is 36809 bytes. Artifact ID is 13021021149
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.9180794Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41145631726/artifacts/13021021149
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:13.9338041Z Post job cleanup.
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0134338Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0234560Z Post job cleanup.
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0790696Z [command]/usr/bin/git version
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0823477Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0851012Z Temporarily overriding HOME='/home/runner/work/_temp/008e113d-2775-4741-9118-50338ace01cb' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0851708Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0855110Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0888983Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0894177Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.0943383Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1156252Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1160774Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1193514Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1409458Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1424382Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1460168Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1464450Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1465024Z includeif.gitdir:/github/workspace/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1465482Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:40:14.1469921Z [command]/usr/bin/git config --local --get-all includ

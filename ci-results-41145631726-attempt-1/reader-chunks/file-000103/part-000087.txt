@@ -1,0 +1,31 @@
+NOWN STEP	2026-10-30T23:38:38.8277058Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:40.3776800Z /home/runner/.cache/pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:40.4897837Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.1668266Z Received 125305856 of 125305856 (100.0%), 188.5 MBs/sec
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.1671968Z Cache Size: ~120 MB (125305856 B)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.1702342Z [command]/usr/bin/tar -xf /home/runner/work/_temp/687f8e7e-3024-4664-951f-7739eafa6301/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3625474Z Cache restored successfully
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3690943Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3998306Z ##[group]Run python -m pip install --upgrade pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3998747Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3999123Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4024161Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4024522Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4024835Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4025211Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4025444Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4025897Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4026384Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4026843Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4027231Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4027612Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4028031Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:41.4028619Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8411678Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:44.1886416Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:44.1901887Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:44.2338631Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:44.2351152Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:44.2633979Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:44.2647739Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:44.2934339Z Collecting 

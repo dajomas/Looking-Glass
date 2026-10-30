@@ -1,0 +1,22 @@
+■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:39:17.5505599Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:39:17.6006443Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:39:17.6668908Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:39:17.7105812Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:39:17.7558574Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:39:17.8369458Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:39:20.3397296Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Live Uvicorn	Verify dependencies and record environment	﻿2026-10-30T23:39:20.3719196Z ##[group]Run python --version >> test-results/environment.txt
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3719750Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3720212Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3720637Z ^[[36;1mpython -m pip check^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3721011Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3721497Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3721905Z ^[[36;1mfrom importlib import import_module^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3722254Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3722578Z ^[[36;1mrequired = {^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3722816Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3723099Z ^[[36;1m    "starlette": "starlette",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3723384Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3723705Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:39:20.3724068Z ^[[36;1m    "httpx2": "httpx2",^[[0m

@@ -1,0 +1,29 @@
+config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7111384Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7117083Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7156468Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7348883Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-57fd06d5-1c98-482e-a6a0-e0b0afd78435.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7389364Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-57fd06d5-1c98-482e-a6a0-e0b0afd78435.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7425877Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-57fd06d5-1c98-482e-a6a0-e0b0afd78435.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7462050Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-57fd06d5-1c98-482e-a6a0-e0b0afd78435.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7504591Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-57fd06d5-1c98-482e-a6a0-e0b0afd78435.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7540759Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7548723Z ##[group]Fetching the repository
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:37.7549633Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b07df241f51556f61d8bf66f0dbe124a9621d3b6:refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3841482Z From https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3864698Z  * [new ref]         b07df241f51556f61d8bf66f0dbe124a9621d3b6 -> origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3875613Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3887116Z   origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3894766Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3924132Z b07df241f51556f61d8bf66f0dbe124a9621d3b6
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3928562Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3929409Z ##[group]Determining the checkout info
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3930382Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3932978Z [command]/usr/bin/git sparse-checkout disable
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.3984263Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.4017987Z ##[group]Checking out the ref
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.4020680Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.4637665Z Switched to a new branch 'features/perplexity'
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.4642619Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.4648329Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:38.4688014Z [command]/usr/bin/git 

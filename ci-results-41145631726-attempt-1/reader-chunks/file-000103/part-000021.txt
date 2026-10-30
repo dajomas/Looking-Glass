@@ -1,0 +1,31 @@
+v.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3386972Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3387162Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3387329Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3387525Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3387664Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3387830Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3388105Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3388342Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3388543Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3388743Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3388968Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:41.3389145Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.2578444Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8077640Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8086600Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8352456Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8360432Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8549872Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8559814Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8778743Z Collecting python-multipart>=0.0.12 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 4))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.8786298Z   Using cached python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.9066945Z Collecting pyyaml>=6.0 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 5))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.9074626Z   Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.9988823Z Collecting pillow>=11.3 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 6))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:42.9996530Z   Using cached pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:43.1006505Z Collecting numpy>=2.3 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 7))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:43.1014736Z   Using cached numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:43.1664793Z Collecting scipy>=1.16 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 8))
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:43.1672307Z   Using cached scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T23:38:43.1910380Z Collecting mistune<4,>=3.1 (from -r /home/runn

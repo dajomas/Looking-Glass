@@ -1,0 +1,111 @@
+           "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:73e8e28808d74d6dbda2de51ad5d2897",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "e096ccfcb9b60c1ae300dd6e85b8412075c76f47090c378a31fcc9f27b553654",
+            "SandboxKey": "/var/run/docker/netns/e096ccfcb9b6",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32772"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32773"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "d6eaa37263f3614cefbd33eeb49ec6a2b0690ff8dff879de13b90bd965909d52",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "ca:c0:7a:f3:cc:99",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "ca:c0:7a:f3:cc:99",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "d5a80e2e1d4474d793f5137f6868c828bb3c336a34e67ec8dc7d5261ac1b7844",
+                    "EndpointID": "d6eaa37263f3614cefbd33eeb49ec6a2b0690ff8dff879de13b90bd965909d52",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'inspect', 'looking-glass-test-6b12b518f65143b9934a309bfa33892f']
+exit=0
+[
+    {
+        "Id": "a537d3321844be4a1492c9ffd98b4e0a2c59c9224c5f9fdc1d4ff5802b8ccef2",
+        "Created": "2026-10-30T23:39:20.828634709Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3238,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T23:39:20.843351205Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:3c7c11b5288e54a000a4e83bf997ab1aa2a9055b587aefe0522c349ea18a46c6",
+        "ResolvConfPath": "/var/lib/docker/containers/a537d3321844be4a1492c9ffd98b4e0a2c59c9224c5f9fdc1d4ff5802b8ccef2/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/a537d3321844be4a1492c9ffd98b4e0a2c59c9224c5f9fdc1d4ff5802b8cce

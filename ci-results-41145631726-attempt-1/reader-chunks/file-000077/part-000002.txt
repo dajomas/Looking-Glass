@@ -1,0 +1,82 @@
+        "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "looking-glass-test-data-6b12b518f65143b9934a309bfa33892f",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac",
+                "LowerDir": "/var/lib/docker/overlay2/4d661079997574164af70abe8d36dba7bc0c1dde7f7ffcd78319512e9eff196c-init/diff:/var/lib/docker/overlay2/gmgap63cpbcx64iluofz7rhw5/diff:/var/lib/docker/overlay2/96pzvpmtcg36yfyctdg02yz7r/diff:/var/lib/docker/overlay2/mzqeef5h6j4gmxtis9hsniao7/diff:/var/lib/docker/overlay2/migrnxfjdl4bn5v3rd99w2ae3/diff:/var/lib/docker/overlay2/ug55negjbnijc6hwk6neou6tg/diff:/var/lib/docker/overlay2/rlomuxv0ikkmitf3mxxeygjjy/diff:/var/lib/docker/overlay2/2ne44ik0ymnd7izlay4kzmjgw/diff:/var/lib/docker/overlay2/cssl41ri9irudl1lc9jbli958/diff:/var/lib/docker/overlay2/pog7l2erkvomutmaa9svx8ek2/diff:/var/lib/docker/overlay2/a498c107489ed20a3acfddea5d5867c78e47f2263106de5a320d3894ef24419b/diff:/var/lib/docker/overlay2/5fba7ad9b6b8e053bff933dff557308872dbac09cd43b9fa6c155ca6cfaa4e93/diff:/var/lib/docker/overlay2/52ace232c3aaefab0d30b96103c4efeadf8534684ef9819923f6a28c588e5f55/diff:/var/lib/docker/overlay2/ff9766db9dc946e0e0eab766886adf5d7498fbe98f5c695d32977be2c1bf5858/diff",
+                "MergedDir": "/var/lib/docker/overlay2/4d661079997574164af70abe8d36dba7bc0c1dde7f7ffcd78319512e9eff196c/merged",
+                "UpperDir": "/var/lib/docker/overlay2/4d661079997574164af70abe8d36dba7bc0c1dde7f7ffcd78319512e9eff196c/diff",
+                "WorkDir": "/var/lib/docker/overlay2/4d661079997574164af70abe8d36dba7bc0c1dde7f7ffcd78319512e9eff196c/work"
+          

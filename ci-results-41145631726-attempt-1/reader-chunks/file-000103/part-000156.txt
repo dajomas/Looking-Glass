@@ -1,0 +1,31 @@
+data import version^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6312546Z ^[[36;1mrequired = {^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6312785Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6313069Z ^[[36;1m    "starlette": "starlette",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6313365Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6313665Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6314022Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6314277Z ^[[36;1m    "pytest": "pytest",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6314514Z ^[[36;1m}^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6314770Z ^[[36;1mfor distribution, module in required.items():^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6315440Z ^[[36;1m    import_module(module)^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6315783Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6316112Z ^[[36;1mPY^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6338006Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6338376Z env:
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6338691Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6339106Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6339333Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6339618Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6340083Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6340530Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6340925Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6341314Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6341706Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:04.6342040Z ##[endgroup]
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:05.1282984Z No broken requirements found.
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:05.9322693Z fastapi==0.162.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:05.9327678Z starlette==1.10.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:06.5297661Z uvicorn==0.54.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:06.5300873Z python-multipart==0.0.32
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T23:39:06.

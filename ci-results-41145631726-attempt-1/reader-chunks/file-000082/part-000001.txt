@@ -1,0 +1,84 @@
+['docker', 'version']
+exit=0
+Client: Docker Engine - Community
+ Version:           28.0.4
+ API version:       1.48
+ Go version:        go1.23.7
+ Git commit:        b8034c0
+ Built:             Tue Mar 25 15:07:16 2025
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          28.0.4
+  API version:      1.48 (minimum version 1.24)
+  Go version:       go1.23.7
+  Git commit:       6430e49
+  Built:            Tue Mar 25 15:07:16 2025
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.4.2
+  GitCommit:        b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc:
+  Version:          1.5.2
+  GitCommit:        v1.5.2-0-g29dd3dc2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+
+['docker', 'build', '--pull', '-f', '/home/runner/work/Looking-Glass/Looking-Glass/Containerfile', '-t', 'looking-glass-test:73e8e28808d74d6dbda2de51ad5d2897', '/home/runner/work/Looking-Glass/Looking-Glass']
+exit=0
+
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Containerfile
+#1 transferring dockerfile: 833B 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.14-slim
+#2 ...
+
+#3 [auth] library/python:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.14-slim
+#2 DONE 0.7s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [ 1/10] FROM docker.io/library/python:3.14-slim@sha256:cd89c30eda26ee911a4611b18680086e0ea42e6f5f8cbe653d07fa7958c9cec8
+#5 resolve docker.io/library/python:3.14-slim@sha256:cd89c30eda26ee911a4611b18680086e0ea42e6f5f8cbe653d07fa7958c9cec8 0.0s done
+#5 ...
+
+#6 [internal] load build context
+#6 transferring context: 2.36MB 0.1s done
+#6 DONE 0.1s
+
+#5 [ 1/10] FROM docker.io/library/python:3.14-slim@sha256:cd89c30eda26ee911a4611b18680086e0ea42e6f5f8cbe653d07fa7958c9cec8
+#5 sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282 0B / 1.29MB 0.2s
+#5 sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403 0B / 12.41MB 0.2s
+#5 sha256:cd89c30eda26ee911a4611b18680086e0ea42e6f5f8cbe653d07fa7958c9cec8 10.37kB / 10.37kB done
+#5 sha256:ec6a14df5b63e3fbb3498e3240f7f640c230f9dca67683d23265db3866697f2d 1.75kB / 1.75kB done
+#5 sha256:b37832cc2a1f91289afeccd6d96cfb9d480024615956dc078069ea82ffce1338 5.09kB / 5.09kB done
+#5 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 20.97MB / 29.86MB 0.2s
+#5 sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282 1.29MB / 1.29MB 0.4s
+#5 sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403 12.41MB / 12.41MB 0.4s
+#5 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 29.86MB / 29.86MB 0.4s
+#5 extracting sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5
+#5 sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282 1.29MB / 1.29MB 0.5s done
+#5 sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403 12.41MB / 12.41MB 0.5s done
+#5 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 29.86MB / 29.86MB 0.5s done
+#5 sha256:40a79f5805ed632260bcefb9f20f1db1f62ba605ded5fe5b350795e17d6f9704 250B / 250B 0.6s
+#5 sha256:40a79f5805ed632260bcefb9f20f1db1f62ba605ded5fe5b350795e17d6f9704 250B / 250B 0.6s done
+#5 extracting sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 0.5s done
+#5 extracting sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282
+#5 extracting sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282 0.1s done
+#5 extracting sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403
+#5 extracting sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403 0.3s done
+#5 extracting sha256:40a79f5805ed632260bcefb9f20f1db1f62ba605ded5fe5b350795e17d6f9704
+#5 extracting sha256:40a79f5805ed632260

@@ -1,0 +1,37 @@
+026-10-30T23:38:37.5934907Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.5935407Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.5935857Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8708333Z Syncing repository: dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8710943Z ##[group]Getting Git version info
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8711845Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8712986Z [command]/usr/bin/git version
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8713518Z git version 2.56.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8733048Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8743801Z Temporarily overriding HOME='/home/runner/work/_temp/7383a1b8-57cc-479c-94a1-d2a30c474aac' before making global git config changes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8745899Z Adding repository directory to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8750180Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8817713Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8823647Z ##[group]Determining repository object format
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8828737Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8832278Z ##[group]Initializing the repository
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8835099Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8945678Z hint: Using 'master' as the name for the initial branch. This default branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8947416Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8948430Z hint: to use in all of your new repositories, which will suppress this warning,
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8949190Z hint: call:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8949601Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8950124Z hint: 	git config --global init.defaultBranch <name>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8951057Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8951715Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8952689Z hint: 'development'. The just-created branch can be renamed via this command:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8953445Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8953880Z hint: 	git branch -m <name>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8954364Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8954991Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8968642Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.8983596Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.9036402Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.9037562Z ##[group]Disabling automatic garbage collection
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.9039778Z [command]/usr/bin/git config --local gc.auto 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T23:38:37.9077536Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN ST

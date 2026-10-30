@@ -1,0 +1,100 @@
+['docker', 'volume', 'create', 'looking-glass-test-data-6b12b518f65143b9934a309bfa33892f']
+exit=0
+looking-glass-test-data-6b12b518f65143b9934a309bfa33892f
+
+
+['docker', 'run', '--detach', '--name', 'looking-glass-test-6b12b518f65143b9934a309bfa33892f', '--publish', '127.0.0.1::5000', '--publish', '127.0.0.1::5100', '--mount', 'type=volume,source=looking-glass-test-data-6b12b518f65143b9934a309bfa33892f,target=/app/data', '--mount', 'type=bind,source=/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json,target=/app/ci-config.json,readonly', '--env', 'LG_SUPERADMIN_PASSWORD=container-bootstrap-password', 'looking-glass-test:73e8e28808d74d6dbda2de51ad5d2897', 'python', 'python/main.py', '--config', '/app/ci-config.json', 'serve']
+exit=0
+f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac
+
+
+['docker', 'inspect', 'looking-glass-test-6b12b518f65143b9934a309bfa33892f']
+exit=0
+[
+    {
+        "Id": "f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac",
+        "Created": "2026-10-30T23:39:18.53526953Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2927,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T23:39:18.548011792Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:3c7c11b5288e54a000a4e83bf997ab1aa2a9055b587aefe0522c349ea18a46c6",
+        "ResolvConfPath": "/var/lib/docker/containers/f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac/hostname",
+        "HostsPath": "/var/lib/docker/containers/f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac/hosts",
+        "LogPath": "/var/lib/docker/containers/f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac/f4b66d001a2793f8abaf9da2caa1a62d58ab1c9663cbcfa73a76840ccd512aac-json.log",
+        "Name": "/looking-glass-test-6b12b518f65143b9934a309bfa33892f",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+    
