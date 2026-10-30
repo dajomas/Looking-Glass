@@ -115,7 +115,7 @@ def test_admin_default_rotation_slider_pause_and_no_writes(admin):
 def test_admin_viewport_visibility_and_reduced_motion(admin):
     page,posts,data=admin;page.emulate_media(reduced_motion="reduce")
     expect(page.locator("#portal-cycle-overlay polygon")).to_have_count(2)
-    assert page.locator("#portal-cycle-overlay polygon").first.evaluate("e=>getComputedStyle(e).animationName")=="none"
+    expect(page.locator("#portal-cycle-overlay polygon").first).to_have_css("animation-name", "none")
     page.evaluate("()=>{window.testPZ.x=10000;window.testPZ.apply();}")
     expect(page.locator("#portal-cycle-overlay polygon")).to_have_count(0)
     page.evaluate("()=>window.testPZ.fit()")
