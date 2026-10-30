@@ -1,0 +1,29 @@
+5%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:13.2163021Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[400] PASSED [ 96%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:20.5305996Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[4000] PASSED [ 97%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:21.1515809Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[battle] PASSED [ 97%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:21.6564958Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[wall] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.1847480Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[battle] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.5677869Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[wall] PASSED [ 99%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9882940Z python/tests/browser/test_wall_width_followup.py::test_sources_and_legend_are_independent_siblings PASSED [100%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9884072Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9884383Z =================================== FAILURES ===================================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9884951Z _________ test_admin_highlight_phases_have_distinct_color_and_outline __________
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9885320Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9885704Z admin = (<Page url='http://looking-glass.test/maps/1'>, [], {'ok': True, 'id': 1, 'name': 'M', 'campaign_id': 4, ...})
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9886183Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9886415Z     def test_admin_highlight_phases_have_distinct_color_and_outline(admin):
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9886880Z         page,posts,data=admin
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9887203Z         first=phase(page,100);second=phase(page,800)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9887558Z >       assert len(first)==len(second)==2
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9887882Z E       AssertionError: assert 2 == 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9888661Z E        +  where 2 = len([{'fill': 'rgb(255, 234, 0)', 'stroke': 'rgb(0, 0, 0)', 'opacity': '1', 'width': '4px', ...}, {'fill': 'rgb(255, 234, 0)', 'stroke': 'rgb(0, 0, 0)', 'opacity': '1', 'width': '4px', ...}])
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9889420Z E        +  and   0 = len([])
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9889590Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9889801Z python/tests/browser/test_portal_visibility.py:101: AssertionError
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9890444Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9891082Z =========================== short test summary info ============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9891887Z FAILED python/tests/browser/test_portal_visibility.py::test_admin_highlight_phases_have_distinct_color_and_outline - AssertionError: assert 2 == 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9892902Z  +  where 2 = len([{'fill': 'rgb(255, 234, 0)', 'stroke': 'rgb(0, 0, 0)', 'opacity': '1', 'width': '4px', ...}, {'fill': 'rgb(255, 234, 0)', 'stroke': 'rgb(0, 0, 0)', 'opacity': '1', 'width': '4px', ...}])
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:53:22.9893736Z  +  and   0 = len([])
+Browser / mocked HTTP	UNKNOWN STEP	2026-

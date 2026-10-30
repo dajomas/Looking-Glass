@@ -1,0 +1,24 @@
+ll 'core.sshCommand' || :"
+Recovery	Post Check out repository	2026-10-30T09:52:24.5173794Z Removing HTTP extra header
+Recovery	Post Check out repository	2026-10-30T09:52:24.5180463Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Recovery	Post Check out repository	2026-10-30T09:52:24.5222597Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Recovery	Post Check out repository	2026-10-30T09:52:24.5442460Z Removing includeIf entries pointing to credentials config files
+Recovery	Post Check out repository	2026-10-30T09:52:24.5448746Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Recovery	Post Check out repository	2026-10-30T09:52:24.5471077Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5472825Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5474080Z includeif.gitdir:/github/workspace/.git.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5475094Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5480085Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5499093Z /home/runner/work/_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5509649Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5542470Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5565858Z /home/runner/work/_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5576194Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5608386Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5630526Z /github/runner_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5640352Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5673709Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T09:52:24.5692462Z /github/runner_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5698770Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-2aecd4ed-8fe9-44d7-8012-dd321b206945.config
+Recovery	Post Check out repository	2026-10-30T09:52:24.5737175Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Recovery	Post Check out repository	2026-10-30T09:52:24.5937320Z Removing credentials config '/home/runner/work/_temp/git-crede

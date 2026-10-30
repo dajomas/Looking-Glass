@@ -1,0 +1,30 @@
+09:52:15.8161928Z ^[[36;1mset -o pipefail^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8162471Z ^[[36;1mpython -m pytest -v -ra python/tests/browser --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8183318Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8183659Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8184251Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8184636Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8184865Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8185138Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8185565Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8186185Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8186599Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8187030Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8187432Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:15.8187758Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:16.5454525Z ============================= test session starts ==============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:16.5564851Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:16.5570128Z cachedir: .pytest_cache
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:16.5570765Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:16.5571389Z plugins: anyio-4.15.1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:17.0221185Z collecting ... collected 169 items
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:17.0228402Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:18.1946314Z python/tests/browser/test_campaign_batch_import.py::test_import_multiple_maps_and_separate_wall_files PASSED [  0%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:18.8576425Z python/tests/browser/test_campaign_batch_import.py::test_same_source_supplies_different_sets_to_existing_maps PASSED [  1%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:19.3910776Z python/tests/browser/test_campaign_batch_import.py::test_import_sources_only_and_assign_newly_uploaded_source PASSED [  1%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:20.0784989Z python/tests/browser/test_campaign_batch_import.py::test_partial_upload_failures_keep_successes PASSED [  2%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:20.6116674Z python/tests/browser/test_campaign_batch_import.py::test_sorted_sets_keep_original_import_indices PASSED [  2%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:21.1473854Z python/tests/browser/test_campaign_batch_import.py::test_source_change_clears_selection_and_inspect_failure_is_retryable PASSED [  3%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:21.6801778Z python/tests/browser/test_campaign_batch_import.py::test_failed_assignment_retains_selection_for_retry PASSED [  4%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:22.3245132Z python/tests/browser/test_campaign_batch_import.py::test_map_created_before_editor_failure_is_not_reported_as_failed_upload PASSED [  4%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T09:52:22.8584391Z python/tests/browser/test_campaign_batch_import.py::test_empty_upload_is_noop_and_apply_does_not_confirm PA

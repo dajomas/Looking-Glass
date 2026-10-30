@@ -1,0 +1,79 @@
+ats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "cae97e5fb8f165f2d09f2c5285179966a22d5f6d9db974b2884f47958a3654de",
+                "LowerDir": "/var/lib/docker/overlay2/6df8ef5eaac3c9b80916c5f36996d6883fecc0713fa9cd42ce9cae3d4fc96ade-init/diff:/var/lib/docker/overlay2/9z5aqxtfgxem4kisj4r1jmjv7/diff:/var/lib/docker/overlay2/t6n69py8vx3faw6lqi1sto2au/diff:/var/lib/docker/overlay2/7jx3kt23m9cpgvpim05isar9d/diff:/var/lib/docker/overlay2/l5jhyzr99q2goko4r4jvltm28/diff:/var/lib/docker/overlay2/pyse48rwky8at39sjc6jiak5b/diff:/var/lib/docker/overlay2/fq496bok6zje2p39r3fz8df62/diff:/var/lib/docker/overlay2/dyoip9to89qpyv3jsss2fllq4/diff:/var/lib/docker/overlay2/pyen112cigk2mawr8p3m0pcgq/diff:/var/lib/docker/overlay2/qpvn3dm9tb8076pe8nq8bjjom/diff:/var/lib/docker/overlay2/62688161d94a1dd451e784b9822bab65d3c55549e3ae89c303c841c5a370f2b2/diff:/var/lib/docker/overlay2/d990900fc4465c0d9fe364f0762678781767d85f9e847cfc0ff63279f919a88b/diff:/var/lib/docker/overlay2/eb87e82774abec245edb3ca1182fd6380143d765144e848719682e0f79b572d7/diff:/var/lib/docker/overlay2/5bee718553d33fdb24bad5215417f6178b8860a729a1c123beb598cf11904c70/diff",
+                "MergedDir": "/var/lib/docker/overlay2/6df8ef5eaac3c9b80916c5f36996d6883fecc0713fa9cd42ce9cae3d4fc96ade/merged",
+                "UpperDir": "/var/lib/docker/overlay2/6df8ef5eaac3c9b80916c5f36996d6883fecc0713fa9cd42ce9cae3d4fc96ade/diff",
+                "WorkDir": "/var/lib/docker/overlay2/6df8ef5eaac3c9b80916c5f36996d6883fecc0713fa9cd42ce9cae3d4fc96ade/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-74141472de0d42a4bc1268c229511acf",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-74141472de0d42a4bc1268c229511acf/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "cae97e5fb8f1",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.r

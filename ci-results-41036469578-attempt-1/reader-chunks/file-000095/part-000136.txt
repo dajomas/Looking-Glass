@@ -1,0 +1,36 @@
+:23.0737019Z ^[[36;1mfor case in skipped:^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0737421Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0737857Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0738263Z ^[[36;1mif skipped or failed:^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0738855Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0739243Z ^[[36;1mPY^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0751730Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0752164Z env:
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0752488Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0752901Z   PYTHONUNBUFFERED: 1
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0753173Z   LG_RUN_LIVE_E2E: 1
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0753525Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0753947Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0754372Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0754768Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0755187Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0755570Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0755924Z ##[endgroup]
+Recovery	Reject skipped tests or empty results	2026-10-30T09:52:23.0988538Z Reported: 6; failed/error: 0; skipped: 0
+Recovery	Upload validation evidence	﻿2026-10-30T09:52:23.1081733Z ##[group]Run actions/upload-artifact@v4
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1082141Z with:
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1082498Z   name: integration-recovery-33ccdbc4ed3b9c141ab7799fc53231ca0bd831fa
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1082953Z   path: test-results/
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1083275Z   if-no-files-found: warn
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1083558Z   retention-days: 14
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1083841Z   compression-level: 6
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1084135Z   overwrite: false
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1084411Z   include-hidden-files: false
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1084722Z env:
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1085046Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1085461Z   PYTHONUNBUFFERED: 1
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1085874Z   LG_RUN_LIVE_E2E: 1
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1086190Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1086646Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1087079Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Upload validation evidence	2026-10-30T09:52:23.1087491Z   Python2_ROOT_DIR: /opt/h

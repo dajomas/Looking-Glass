@@ -1,0 +1,42 @@
+2026-10-30T09:51:32.9418827Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Initialize evidence	2026-10-30T09:51:32.9420395Z env:
+Recovery	Initialize evidence	2026-10-30T09:51:32.9421735Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Initialize evidence	2026-10-30T09:51:32.9423314Z   PYTHONUNBUFFERED: 1
+Recovery	Initialize evidence	2026-10-30T09:51:32.9424331Z   LG_RUN_LIVE_E2E: 1
+Recovery	Initialize evidence	2026-10-30T09:51:32.9425360Z ##[endgroup]
+Recovery	Set up Python	﻿2026-10-30T09:51:32.9725731Z ##[group]Run actions/setup-python@v6
+Recovery	Set up Python	2026-10-30T09:51:32.9726885Z with:
+Recovery	Set up Python	2026-10-30T09:51:32.9727748Z   python-version: 3.14
+Recovery	Set up Python	2026-10-30T09:51:32.9728776Z   cache: pip
+Recovery	Set up Python	2026-10-30T09:51:32.9729914Z   cache-dependency-path: requirements.txt
+Recovery	Set up Python	requirements-dev.txt
+Recovery	Set up Python	
+Recovery	Set up Python	2026-10-30T09:51:32.9731365Z   check-latest: false
+Recovery	Set up Python	2026-10-30T09:51:32.9740138Z   token: ***
+Recovery	Set up Python	2026-10-30T09:51:32.9741105Z   update-environment: true
+Recovery	Set up Python	2026-10-30T09:51:32.9742120Z   allow-prereleases: false
+Recovery	Set up Python	2026-10-30T09:51:32.9743077Z   freethreaded: false
+Recovery	Set up Python	2026-10-30T09:51:32.9743993Z env:
+Recovery	Set up Python	2026-10-30T09:51:32.9745100Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Set up Python	2026-10-30T09:51:32.9746512Z   PYTHONUNBUFFERED: 1
+Recovery	Set up Python	2026-10-30T09:51:32.9747454Z   LG_RUN_LIVE_E2E: 1
+Recovery	Set up Python	2026-10-30T09:51:32.9748389Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T09:51:33.0877381Z ##[group]Installed versions
+Recovery	Set up Python	2026-10-30T09:51:33.0948915Z Successfully set up CPython (3.14.9)
+Recovery	Set up Python	2026-10-30T09:51:33.0950803Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T09:51:33.1212599Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Recovery	Set up Python	2026-10-30T09:51:33.4038083Z /home/runner/.cache/pip
+Recovery	Set up Python	2026-10-30T09:51:33.5924572Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Recovery	Set up Python	2026-10-30T09:51:34.5970259Z Received 124835150 of 124835150 (100.0%), 138.9 MBs/sec
+Recovery	Set up Python	2026-10-30T09:51:34.5971323Z Cache Size: ~119 MB (124835150 B)
+Recovery	Set up Python	2026-10-30T09:51:34.5994872Z [command]/usr/bin/tar -xf /home/runner/work/_temp/166c1399-7b0d-4dcf-8f1a-5cdb50cf13c5/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Recovery	Set up Python	2026-10-30T09:51:34.7371213Z Cache restored successfully
+Recovery	Set up Python	2026-10-30T09:51:34.7415586Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Recovery	Install application and test dependencies	﻿2026-10-30T09:51:34.7560254Z ##[group]Run python -m pip install --upgrade pip
+Recovery	Install application and test dependencies	2026-10-30T09:51:34.7560697Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Recovery	Install application and test dependencies	2026-10-30T09:51:34.7561107Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Recovery	Install application and test dependencies	2026-10-30T09:51:34.7575765Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Install application and test dependencies	2026-10-30T09:51:34.7576189Z env:
+Recovery	Install application and test dependencies	2026-10-30T09:51:34.7576703Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Install application and test dependencies	2026-10-30T09:51:34.7577115Z   PYTHONUNBUFFERED: 1
+Recovery	Install application and test dependencies	2026-10-30T09:51:34.7577407Z   LG_RUN_LIVE_
