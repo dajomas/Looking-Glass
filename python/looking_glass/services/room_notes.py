@@ -25,10 +25,42 @@ def area_key(area, label, width, height):
     return key
 
 def payload(conn, map_id, key, revealed):
-    row = conn.execute("SELECT * FROM room_notes WHERE map_id=? AND area_key=?", (map_id, key)).fetchone()
-    return {"area_key": key, "revealed": revealed, "name": row["name"] if row else "",
-            "markdown": row["markdown"] if row else "", "revision": row["revision"] if row else 0,
-            "html": render(row["markdown"]) if row else ""}
+    """Return content and its validation context from one transaction."""
+    if not conn.in_transaction:
+        raise RuntimeError("Room payload requires an active transaction.")
+
+    context = conn.execute(
+        """
+        SELECT cache_token, walls_version, room_notes_version
+        FROM maps
+        WHERE id = ?
+        """,
+        (map_id,),
+    ).fetchone()
+
+    if context is None:
+        raise RuntimeError("Map disappeared while loading room notes.")
+
+    row = conn.execute(
+        """
+        SELECT name, markdown, revision
+        FROM room_notes
+        WHERE map_id = ? AND area_key = ?
+        """,
+        (map_id, key),
+    ).fetchone()
+
+    return {
+        "area_key": key,
+        "revealed": revealed,
+        "name": row["name"] if row else "",
+        "markdown": row["markdown"] if row else "",
+        "revision": row["revision"] if row else 0,
+        "html": render(row["markdown"]) if row else "",
+        "cache_token": context["cache_token"],
+        "walls_version": context["walls_version"],
+        "room_notes_version": context["room_notes_version"],
+    }
 
 
 def edit_mask_png(area, label):
