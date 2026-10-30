@@ -126,10 +126,54 @@ when the tests actually pass. It does not simulate power loss, interruption at
 every SQL statement, all historical migrations, filesystem/database atomicity,
 or interruption during restore/duplication. No production failure hook exists.
 
+## Reliability batch 2, increment 3: storage-failure safety
+
+Eleven new Python / HTTP cases use temporary data and scoped injected errors,
+not real disk exhaustion or permission changes. `test_storage_failures.py` covers
+image-create permission denial, partial PNG encoding failure with ENOSPC, UUID
+collision preservation, recovery-ZIP create denial/partial write/file-fsync/
+directory-fsync errors, and real SQLite contention between two connections.
+The contender's busy timeout is shortened on that connection only. Tests verify
+prior file contents and committed rows remain intact, failed recovery ZIPs are
+removed, and retry succeeds after the injected fault/lock is removed. Directory
+fsync injection targets the Linux CI durability path; it is not Windows coverage.
+
+`test_storage_failure_web.py` adds EACCES, ENOSPC and EIO restore-gate cases.
+A valid preview is prepared first; recovery storage then fails before live
+replacement. Tests distinguish trial imports into inspection clones from writes
+to the real test database, require the restore-blocked response, preserve every
+DB row and map/recovery file, and require no success notification. This checks
+the HTTP/service gate, not delivery to a real connected browser (increment 4).
+
+The image fault reproduced a real partial-file leak in the prior store helper.
+`images.store_map_image` now exclusively creates its destination before encoding.
+Only after creation succeeds does it own that path. Encoding/close failures close
+the stream and attempt to remove the partial file; a collision cannot overwrite
+or delete another file. If unlink itself fails, a warning is logged and the
+original error is retained. This is best-effort failure cleanup, not crash-safe
+atomic publication or fsync durability. Empty directories may remain. Storage
+errors are not newly translated into friendly upload/replace HTTP responses.
+
+Failures after a fully successful image store but a subsequent upload/replace DB
+write failure remain a separate orphan-cleanup gap: this increment does not
+claim coverage or a fix for that transaction boundary. No upload/replace route
+transaction logic or backup implementation changes are made here.
+
+Run the new cases locally with installed development requirements:
+
+```sh
+PYTHONPATH=python python -m pytest -v python/tests/test_storage_failures.py python/tests/test_storage_failure_web.py
+```
+
+Existing top-level discovery collects all 11 cases without workflow/collector
+changes. Failed-case tracebacks and values reach the existing Python job log
+and JUnit artifact. No real account or campaign data is used.
+
 ## Local commands
 
 ```sh
 PYTHONPATH=python python -m pytest -v python/tests/test_ci_evidence_chunks.py
+PYTHONPATH=python python -m pytest -v python/tests/test_storage_failures.py python/tests/test_storage_failure_web.py
 PYTHONPATH=python python -m pytest -v python/tests/recovery/test_restart.py
 PYTHONPATH=python python -m pytest -v python/tests/recovery/test_migration_interruption.py
 LG_RUN_CONTAINER_TESTS=1 PYTHONPATH=python python -m pytest -v python/tests/recovery
@@ -157,7 +201,7 @@ Identity is initialized before dependency setup; full setup output remains in
 Actions logs. One pytest invocation covers all Recovery tests, so reports do not
 overwrite one another. Missing/empty/failed/error or reported-skipped results
 fail the common audit. Pipelines preserve test exits. Existing discovery already
-includes increment 2; neither workflow nor collector needs changing for it.
+includes increments 2/3; neither workflow nor collector needs changing for them.
 
 Live uses ci-live-tmp and copies generated traces, DM/player screenshots and
 page-errors.json to test-results/live-diagnostics. Extra viewer contexts do not
@@ -181,20 +225,21 @@ protection settings and skip-ci evidence-commit implications are unchanged.
 
 ## Validation and remaining work
 
-Increment 1 was reviewed green in run 41022509451 at
-9397eaf499235c98cad271b5e4b9e91f67e3714a: 1,134 Python tests, 29 subtests,
-27 JS scripts, 162 browser, seven live and four Recovery cases (two Docker).
-Those results do not validate the new migration-interruption cases.
+Increment 2 was reviewed green in run 41025509410 at
+183a4787001597095a4ba26303ca57b04557b3ed: 1,134 Python tests, 29 subtests,
+27 JS scripts, 162 browser, seven live and six Recovery cases. Both interruption
+summaries recorded killed child exit -9, retry exit 0 and final schema version 17.
+Those results do not validate this new storage-failure increment.
 
-Increment 2 passed Python syntax parsing and two isolated synthetic SQLite
-subprocess handshake/kill/rollback/retry experiments on Python 3.12.8 / SQLite
-3.46.1. They validated the barrier/process approach, not the full checkout or
-real migration scripts. The new repository cases, full suites and Python 3.14 CI
-were not executed by the assistant for this increment. CI acceptance is pending.
+For increment 3, the assistant verified the live images.py blob before preparing
+its change, reproduced the pre-fix partial-PNG leak, and passed focused candidate
+checks for partial cleanup, permission failure, collision preservation, valid
+retry and real SQLite contention/retry on Python 3.12.8 / SQLite 3.46.1. Candidate
+source and new test modules parsed. The full committed pytest/HTTP/recovery-ZIP
+cases and Python 3.14 CI were not executed; acceptance is pending CI.
 
-Batch 2 still needs permission/disk/lock failure injection and live access
-revocation. Later backlog includes property-based state machines, delayed-response/
-restore live scenarios, interruption during restore/duplication, and collector/
-runner harness regressions. General crash/power-loss atomicity, Podman/SELinux,
-other platforms/browser engines and manual deployment checks remain outside the
-claims established by these targeted tests.
+Batch 2 still needs live access revocation (increment 4). Post-image-store DB
+failure cleanup also remains an explicitly identified gap. Later work includes
+property-based state machines, delayed-response/restore live cases, broader
+interruption coverage and collector/runner regressions. General power-loss,
+cross-file atomicity and other platform/browser claims remain out of scope.

@@ -1,11 +1,14 @@
 """Battle map image import / validation."""
 
 import io
+import logging
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
 
 from PIL import Image, ImageOps, UnidentifiedImageError
+
+log = logging.getLogger(__name__)
 
 ALLOWED_FORMATS = {"PNG": "png", "JPEG": "jpg", "WEBP": "webp", "GIF": "gif", "BMP": "bmp", "TIFF": "tif"}
 
@@ -44,7 +47,17 @@ def store_map_image(raw: bytes, maps_dir: Path, campaign_id: int) -> StoredImage
     rel = Path(str(campaign_id)) / f"{uuid.uuid4().hex}.png"
     dest = maps_dir / rel
     dest.parent.mkdir(parents=True, exist_ok=True)
-    canonical.save(dest, "PNG")
+    # Acquire ownership before encoding; a collision must never overwrite/delete a file.
+    stream = dest.open("xb")
+    try:
+        with stream:
+            canonical.save(stream, "PNG")
+    except BaseException:
+        try:
+            dest.unlink(missing_ok=True)
+        except OSError:
+            log.warning("Could not remove failed map image %s", rel, exc_info=True)
+        raise
     return StoredImage(rel.as_posix(), w, h)
 
 
