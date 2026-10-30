@@ -1,0 +1,41 @@
+17Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Initialize evidence	2026-10-30T08:18:06.7466723Z env:
+JavaScript regressions	Initialize evidence	2026-10-30T08:18:06.7467348Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Initialize evidence	2026-10-30T08:18:06.7468334Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Initialize evidence	2026-10-30T08:18:06.7468829Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Initialize evidence	2026-10-30T08:18:06.7469296Z ##[endgroup]
+JavaScript regressions	Set up Python	﻿2026-10-30T08:18:06.7685562Z ##[group]Run actions/setup-python@v6
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7686214Z with:
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7686649Z   python-version: 3.14
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7687099Z   cache: pip
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7687898Z   cache-dependency-path: requirements.txt
+JavaScript regressions	Set up Python	requirements-dev.txt
+JavaScript regressions	Set up Python	
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7688695Z   check-latest: false
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7694238Z   token: ***
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7694675Z   update-environment: true
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7695196Z   allow-prereleases: false
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7695713Z   freethreaded: false
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7696158Z env:
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7696770Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7697552Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7698270Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.7698720Z ##[endgroup]
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.8761607Z ##[group]Installed versions
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.8831859Z Successfully set up CPython (3.14.9)
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.8833385Z ##[endgroup]
+JavaScript regressions	Set up Python	2026-10-30T08:18:06.9079569Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+JavaScript regressions	Set up Python	2026-10-30T08:18:07.1326313Z /home/runner/.cache/pip
+JavaScript regressions	Set up Python	2026-10-30T08:18:07.3123168Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+JavaScript regressions	Set up Python	2026-10-30T08:18:08.3799606Z Received 124835150 of 124835150 (100.0%), 128.2 MBs/sec
+JavaScript regressions	Set up Python	2026-10-30T08:18:08.3800100Z Cache Size: ~119 MB (124835150 B)
+JavaScript regressions	Set up Python	2026-10-30T08:18:08.3818005Z [command]/usr/bin/tar -xf /home/runner/work/_temp/1b6f815d-1663-4e52-8451-d059b7ff53f8/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+JavaScript regressions	Set up Python	2026-10-30T08:18:08.5231634Z Cache restored successfully
+JavaScript regressions	Set up Python	2026-10-30T08:18:08.5293035Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+JavaScript regressions	Set up Node.js	﻿2026-10-30T08:18:08.5617134Z ##[group]Run actions/setup-node@v4
+JavaScript regressions	Set up Node.js	2026-10-30T08:18:08.5617357Z with:
+JavaScript regressions	Set up Node.js	2026-10-30T08:18:08.5617480Z   node-version: 24
+JavaScript regressions	Set up Node.js	2026-10-30T08:18:08.5617611Z   always-auth: false
+JavaScript regressions	Set up Node.js	2026-10-30T08:18:08.5617974Z   check-latest: false
+JavaScript regressions	Set up Node.js	2026-10-30T08:18:08.5619429Z   token: ***
+JavaScrip

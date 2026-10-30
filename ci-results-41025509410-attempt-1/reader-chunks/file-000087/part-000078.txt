@@ -1,0 +1,36 @@
+.3486173Z ##[group]Getting Git version info
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3486602Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3487155Z [command]/usr/bin/git version
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3567006Z git version 2.56.0
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3582790Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3601298Z Temporarily overriding HOME='/home/runner/work/_temp/a5842e84-9f3c-4831-b6c6-24c7ac78483f' before making global git config changes
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3602721Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3607714Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3655635Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3663616Z ##[group]Determining repository object format
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3664306Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3741691Z ##[group]Initializing the repository
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3742488Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3778648Z hint: Using 'master' as the name for the initial branch. This default branch name
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3779833Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3780769Z hint: to use in all of your new repositories, which will suppress this warning,
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3781438Z hint: call:
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3781787Z hint:
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3782247Z hint: 	git config --global init.defaultBranch <name>
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3782772Z hint:
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3783254Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3784132Z hint: 'development'. The just-created branch can be renamed via this command:
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3784788Z hint:
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3785280Z hint: 	git branch -m <name>
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3785678Z hint:
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3788533Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3789471Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3800426Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3850207Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3851096Z ##[group]Disabling automatic garbage collection
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3853688Z [command]/usr/bin/git config --local gc.auto 0
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3890091Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3890969Z ##[group]Setting up auth
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3892712Z Removing SSH command configuration
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3899040Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Check out repository	2026-10-30T08:18:06.3947550Z [command]/usr/bin/git submodule foreach --re

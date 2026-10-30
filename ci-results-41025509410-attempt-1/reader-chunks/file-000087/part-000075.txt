@@ -1,0 +1,27 @@
+715Z Finished uploading artifact content to blob storage!
+Recovery	Upload validation evidence	2026-10-30T08:19:10.3659943Z SHA256 digest of uploaded artifact zip is 56491387bcfbbbf331158197ea5001014ec1c420a418f8c7c937a126fd29747d
+Recovery	Upload validation evidence	2026-10-30T08:19:10.3660881Z Finalizing artifact upload
+Recovery	Upload validation evidence	2026-10-30T08:19:10.7711183Z Artifact integration-recovery-183a4787001597095a4ba26303ca57b04557b3ed.zip successfully finalized. Artifact ID 12963645915
+Recovery	Upload validation evidence	2026-10-30T08:19:10.7712819Z Artifact integration-recovery-183a4787001597095a4ba26303ca57b04557b3ed has been successfully uploaded! Final size is 27396 bytes. Artifact ID is 12963645915
+Recovery	Upload validation evidence	2026-10-30T08:19:10.7726862Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41025509410/artifacts/12963645915
+Recovery	Post Set up Python	﻿2026-10-30T08:19:10.7902236Z Post job cleanup.
+Recovery	Post Set up Python	2026-10-30T08:19:10.9137165Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb, not saving cache.
+Recovery	Post Check out repository	﻿2026-10-30T08:19:10.9274518Z Post job cleanup.
+Recovery	Post Check out repository	2026-10-30T08:19:11.0214364Z [command]/usr/bin/git version
+Recovery	Post Check out repository	2026-10-30T08:19:11.0276237Z git version 2.56.0
+Recovery	Post Check out repository	2026-10-30T08:19:11.0316353Z Temporarily overriding HOME='/home/runner/work/_temp/1543e191-082a-412d-8760-f5f186c64ae9' before making global git config changes
+Recovery	Post Check out repository	2026-10-30T08:19:11.0317950Z Adding repository directory to the temporary git global config as a safe directory
+Recovery	Post Check out repository	2026-10-30T08:19:11.0325525Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Post Check out repository	2026-10-30T08:19:11.0366744Z Removing SSH command configuration
+Recovery	Post Check out repository	2026-10-30T08:19:11.0376109Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Recovery	Post Check out repository	2026-10-30T08:19:11.0427157Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Recovery	Post Check out repository	2026-10-30T08:19:11.0705507Z Removing HTTP extra header
+Recovery	Post Check out repository	2026-10-30T08:19:11.0713058Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Recovery	Post Check out repository	2026-10-30T08:19:11.0757414Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Recovery	Post Check out repository	2026-10-30T08:19:11.1001041Z Removing includeIf entries pointing to credentials config files
+Recovery	Post Check out repository	2026-10-30T08:19:11.1011681Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Recovery	Post Check out repository	2026-10-30T08:19:11.1039491Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Recovery	Post Check out repository	2026-10-30T08:19:11.1040924Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T08:19:11.1041812Z includeif.gitdir:/github/workspace/.git.path
+Recovery	Post Check out repository	2026-10-30T08:19:11.1042512Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T08:19:11.1048947Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.

@@ -1,0 +1,29 @@
+T08:20:03.5875187Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:03.5875529Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:03.7635742Z (node:5200) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:03.7636718Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:03.7709186Z With the provided path, there will be 6 files uploaded
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:03.7710702Z Artifact name is valid!
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:03.7711997Z Root directory input is valid!
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.0381303Z Beginning upload of artifact content to blob storage
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.0689594Z (node:5200) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.2108990Z Uploaded bytes 11153
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.2562126Z Finished uploading artifact content to blob storage!
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.2563343Z SHA256 digest of uploaded artifact zip is f8d9760a40712f7ee79e8a39aaaa6c73c6e1ecc2b6d35b7abc291505e556e393
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.2564619Z Finalizing artifact upload
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.6715225Z Artifact integration-browser-183a4787001597095a4ba26303ca57b04557b3ed.zip successfully finalized. Artifact ID 12963536923
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.6717865Z Artifact integration-browser-183a4787001597095a4ba26303ca57b04557b3ed has been successfully uploaded! Final size is 11153 bytes. Artifact ID is 12963536923
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.6722289Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41025509410/artifacts/12963536923
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.6928909Z Post job cleanup.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.8216290Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb, not saving cache.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.8368103Z Post job cleanup.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9520231Z [command]/usr/bin/git version
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9585067Z git version 2.56.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9645688Z Temporarily overriding HOME='/home/runner/work/_temp/293960db-8cca-42b9-b2f1-8dd4699ed5d7' before making global git config changes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9649694Z Adding repository directory to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9651108Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9708271Z Removing SSH command configuration
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9710100Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:04.9771329Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:05.0155908Z Removing HTTP extra header
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:20:05.0157307Z [command]/usr/bin/git config --

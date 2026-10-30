@@ -1,0 +1,41 @@
+epth: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5925331Z   fetch-tags: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5925683Z   show-progress: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5926033Z   lfs: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5926352Z   submodules: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5926697Z   set-safe-directory: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5927093Z   allow-unsafe-pr-checkout: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5927676Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5928121Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5928664Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5929054Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.5929396Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8116753Z Syncing repository: dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8118327Z ##[group]Getting Git version info
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8118933Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8119781Z [command]/usr/bin/git version
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8120179Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8121407Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8141145Z Temporarily overriding HOME='/home/runner/work/_temp/7042298d-5edc-4e6f-9e05-7717a753a7ed' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8142710Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8143825Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8169857Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8171817Z ##[group]Determining repository object format
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8179640Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8180548Z ##[group]Initializing the repository
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8181441Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8266831Z hint: Using 'master' as the name for the initial branch. This default branch name
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8268201Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8269081Z hint: to use in all of your new repositories, which will suppress this warning,
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8269881Z hint: call:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8270380Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8270892Z hint: 	git config --global init.defaultBranch <name>
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8271476Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8272428Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8274117Z hint: 'development'. The just-created branch can be renamed via this command:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8275348Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8276019Z hint: 	git branch -m <name>
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8276696Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8277581Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8279113Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:18:05.8293523Z [command]/usr/bin/git remote add origin https:

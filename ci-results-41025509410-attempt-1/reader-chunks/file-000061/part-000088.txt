@@ -1,0 +1,92 @@
+4zwu3u5kjwnnnqg5x9i3c6xei/diff:/var/lib/docker/overlay2/wd0wkxbrjcnoth37uxgynprke/diff:/var/lib/docker/overlay2/cku4o8knem4f4p0fq6njgfcbu/diff:/var/lib/docker/overlay2/7e098e5f122039b362c94e3d7fe29de1b70ded4b204ab3e39317584c4803248d/diff:/var/lib/docker/overlay2/f91614c22af2f5cd9c9240e296aa415906a9713f78066a30778f568facf57618/diff:/var/lib/docker/overlay2/0747e9e5442519befe2af70fd95b4e9d0f1ba7f08b3b55c57a0af3f204fd25db/diff:/var/lib/docker/overlay2/b0ee928efb7e65e7639ae6282fe96a5fe59a5e492306170f7c52eb4c6afb8810/diff",
+                "MergedDir": "/var/lib/docker/overlay2/bb3c3cf58ee6d70d1a493479cd4a1e0e476b2bf1617d968699e834fde56e0fe5/merged",
+                "UpperDir": "/var/lib/docker/overlay2/bb3c3cf58ee6d70d1a493479cd4a1e0e476b2bf1617d968699e834fde56e0fe5/diff",
+                "WorkDir": "/var/lib/docker/overlay2/bb3c3cf58ee6d70d1a493479cd4a1e0e476b2bf1617d968699e834fde56e0fe5/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-f91746030c5b49eea19062b90fe68b1f",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-f91746030c5b49eea19062b90fe68b1f/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "835c7caa0df5",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:9312036428804fe1bccc2916c7e5e0a4",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "",
+            "SandboxKey": "",
+            "Ports": {},
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {

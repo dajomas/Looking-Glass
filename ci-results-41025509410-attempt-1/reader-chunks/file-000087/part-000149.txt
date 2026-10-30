@@ -1,0 +1,32 @@
+t",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7473499Z ^[[36;1m}^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7473648Z ^[[36;1mfor distribution, module in required.items():^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7473835Z ^[[36;1m    import_module(module)^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7474019Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7474205Z ^[[36;1mPY^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7492166Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7492360Z env:
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7492532Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7492739Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7492870Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7493031Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7493270Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7493508Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7493727Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7493938Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7494163Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:21.7494352Z ##[endgroup]
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:22.0464106Z No broken requirements found.
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:22.5124183Z fastapi==0.162.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:22.5126229Z starlette==1.10.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:22.6534360Z uvicorn==0.54.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:22.6536065Z python-multipart==0.0.32
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:22.6746049Z httpx==0.28.1
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T08:18:22.7356598Z pytest==9.2.0
+JavaScript regressions	Record Node.js environment	﻿2026-10-30T08:18:22.8440697Z ##[group]Run node --version >> test-results/environment.txt
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8440988Z ^[[36;1mnode --version >> test-results/environment.txt^[[0m
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8441200Z ^[[36;1mnpm --version >> test-results/environment.txt^[[0m
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8459083Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8459272Z env:
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8459444Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Record Node.js en

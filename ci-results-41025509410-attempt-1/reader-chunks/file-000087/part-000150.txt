@@ -1,0 +1,31 @@
+vironment	2026-10-30T08:18:22.8459645Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8459918Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8460077Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8460311Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8460542Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8460748Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8460955Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8461187Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Record Node.js environment	2026-10-30T08:18:22.8461368Z ##[endgroup]
+JavaScript regressions	Run JavaScript regressions	﻿2026-10-30T08:18:22.9133105Z ##[group]Run set -o pipefail
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9133312Z ^[[36;1mset -o pipefail^[[0m
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9133531Z ^[[36;1mpython tools/run_javascript_tests.py 2>&1 | tee test-results/javascript.log^[[0m
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9151258Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9151457Z env:
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9151658Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9151875Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9152002Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9152158Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9152393Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9152623Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9152832Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9153040Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9153247Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:22.9153458Z ##[endgroup]
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:23.0045434Z test_admin_area_taps.js: exit=0, seconds=0.032, log=test_admin_area_taps.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:23.0366135Z test_arrow_visibility.js: exit=0, seconds=0.032, log=test_arrow_visibility.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:23.0686943Z test_campaign_quick_nav.js: exit=0, seconds=0.032, log=test_campaign_quick_nav.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:23.1008798Z test_door_arrow_click.js: exit=0, seconds=0.032, log=test_door_arrow_click.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:23.1331093Z test_door_arrow_hit.js: exit=0, seconds=0.032, log=test_door_arrow_hit.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:23.1651702Z test_door_gestures.js: exit=0, seconds=0.032, log=test_door_gestures.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:18:23.1972234

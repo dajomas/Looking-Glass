@@ -1,0 +1,121 @@
+ress": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'inspect', 'looking-glass-test-4db65b870b724345879b1b192dbbadb0']
+exit=0
+[
+    {
+        "Id": "77e03c68b24ea0f2f48d5d0745e503213f2919fbe585148b2a0415ac8b4d72c4",
+        "Created": "2026-10-30T08:18:54.988327198Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2728,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T08:18:55.031121107Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:7dce8520295b11d83eae5df8dc192fe7a2a7ae07885bedb8ffcc2b7ffb41abd8",
+        "ResolvConfPath": "/var/lib/docker/containers/77e03c68b24ea0f2f48d5d0745e503213f2919fbe585148b2a0415ac8b4d72c4/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/77e03c68b24ea0f2f48d5d0745e503213f2919fbe585148b2a0415ac8b4d72c4/hostname",
+        "HostsPath": "/var/lib/docker/containers/77e03c68b24ea0f2f48d5d0745e503213f2919fbe585148b2a0415ac8b4d72c4/hosts",
+        "LogPath": "/var/lib/docker/containers/77e03c68b24ea0f2f48d5d0745e503213f2919fbe585148b2a0415ac8b4d72c4/77e03c68b24ea0f2f48d5d0745e503213f2919fbe585148b2a0415ac8b4d72c4-json.log",
+        "Name": "/looking-glass-test-4db65b870b724345879b1b192dbbadb0",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "Cpu
