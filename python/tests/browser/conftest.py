@@ -1,5 +1,7 @@
 import pytest
 
+from looking_glass_test_helpers import png_bytes, two_room_scene  # noqa: F401
+
 @pytest.fixture(scope="session")
 def browser():
     pw = pytest.importorskip("playwright.sync_api")
