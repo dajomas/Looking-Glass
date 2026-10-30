@@ -479,3 +479,55 @@ Increment 4 (live access revocation), broader property/race/fault coverage and
 collector/runner regressions remain follow-up work. README was reviewed and its
 high-level scope stays unchanged; docs/ci-tests.md documents the precise cases,
 minimal image fix, local command and limits.
+
+## Live revocation delivery and reviewed CI (2026-10-30)
+
+Increment 4 was delivered at ac8a77f5396531e6cf7a7b1db48ec39baf848344.
+It adds four real Chromium/live-server cases for shared-session logout, campaign
+assignment removal, deactivation and role change. Affected sockets must close
+4403; independent old-cookie state/image requests must receive 401 or 404, while
+an unaffected session/account receives pixel-verified hide/undo updates. Extra
+synthetic accounts preserve existing fixture IDs, and extra revocation contexts
+collect errors/failure traces/screenshots plus token-free status observations.
+No runtime authorization, workflow or collector changes were made. The original
+approved write omitted HANDOVER despite its summary; this section records that
+previously missing handover rather than claiming it was included at delivery.
+
+Run 41029015169 tested that implementation commit; evidence was reviewed at
+97e5a628f136b2ff1102f074009bbc6f530f0c3c. All 11 live cases, including the four new
+revocation cases, passed. Python / HTTP, JavaScript and Recovery jobs were green;
+Browser / mocked HTTP reported 161 passed and one wall-width NaN failure. This
+validates the specified live scenarios, not the whole workflow, idle/multi-worker
+revocation or every race. Previously delivered pixels cannot be recalled and no
+new blank-screen product requirement was introduced. The post-image-store DB
+failure/orphan gap and broader backlog remain open. Earlier preparation-time
+pending statements above are historical and do not override these reviewed results.
+
+## Wall-width browser measurement race correction (2026-10-30)
+
+The failure in run 41029015169 occurred at the first four-pixel assertion in
+`test_wall_width_is_screen_constant_and_survives_reload`, before zoom/reload.
+The editor replaces wall paths using svg.innerHTML on state refresh, including
+its scheduled post-artwork startup refresh. Chromium 134.0.6998.35 experiments
+showed that an old detached path returns empty computed strokeWidth and CTM.a=1,
+so parseFloat produces NaN despite a valid four-pixel replacement. Under rapid
+path replacement, 150 locator-based samples returned NaN and 150 same-turn DOM
+query/measurement samples did not. This establishes a reproducible failure
+mechanism, not retrospective proof of the original CI sample's connectivity.
+
+The test now queries the current path and measures CSS/CTM in one JavaScript
+execution, using bounded five-second polling with the unchanged four-pixel
++/-0.01 tolerance at initial, zoomed and reloaded checkpoints. Missing paths,
+nonfinite measurements and invalid scale cannot pass. Timeout diagnostics include
+connectivity, raw CSS stroke width, CTM scale, calculated width and slider value.
+Preference persistence and no-POST/page-error assertions remain; those checks
+also run after reload. No application rendering code, fixed sleeps, test-level
+retries, skips, tolerance relaxation, workflow or collector changes are included.
+README.md was reviewed and remains accurate; no cosmetic README edit is needed.
+
+The candidate helper passed actual Chromium 134 focused checks: static four-pixel
+measurement, 100 samples during repeated SVG replacement, rejection of a 4.02px
+stroke and rejection of a missing path with useful diagnostics. Helper syntax
+parsed. These checks used a minimal SVG fixture, not the full checkout/editor.
+The full modified repository browser test/suites and Python 3.14 CI have not been
+executed by the assistant for this candidate; new CI acceptance remains required.

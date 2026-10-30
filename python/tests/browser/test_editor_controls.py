@@ -141,17 +141,44 @@ def test_collapsible_battle_sidebar_panels(page):
     assert not state['posts'] and not state['errors']
 
 
+def _expect_wall_screen_width(page, width=4, timeout=5000):
+    sample = """() => {
+      const el = document.querySelector('#walls-svg .w-wall');
+      const matrix = el?.getScreenCTM();
+      const css = el ? getComputedStyle(el).strokeWidth : null;
+      const scale = matrix?.a ?? null;
+      const pixels = css !== null && scale !== null ? parseFloat(css) * scale : NaN;
+      return {found: !!el, connected: !!el?.isConnected, stroke_width: css, scale,
+              finite: Number.isFinite(pixels), screen_width: Number.isFinite(pixels) ? pixels : null,
+              slider: document.getElementById('wall-width')?.value ?? null};
+    }"""
+    predicate = """expected => {
+      const value = (SAMPLE)();
+      return value.connected && value.finite && value.scale > 0 &&
+             Math.abs(value.screen_width - expected) <= 0.01 ? value : false;
+    }""".replace("SAMPLE", sample)
+    try:
+        result = page.wait_for_function(predicate, arg=width, timeout=timeout)
+    except pw.TimeoutError:
+        pytest.fail(f"Wall screen width did not reach {width} +/- 0.01 px within {timeout} ms; "
+                    f"last measurement: {page.evaluate(sample)}")
+    try:
+        measured = result.json_value()
+    finally:
+        result.dispose()
+    assert measured["screen_width"] == pytest.approx(width, abs=.01), measured
+
+
 def test_wall_width_is_screen_constant_and_survives_reload(page):
     state = editor(page)
     pw.expect(page.locator('#walls-svg path')).to_have_count(2)
     page.locator('#wall-width').evaluate("el => { el.value = '4'; el.dispatchEvent(new Event('input', {bubbles:true})); }")
-    def screen_width():
-        return page.locator('#walls-svg .w-wall').evaluate("el => parseFloat(getComputedStyle(el).strokeWidth) * el.getScreenCTM().a")
-    assert screen_width() == pytest.approx(4, abs=.01)
+    _expect_wall_screen_width(page)
     page.click('#zoom-in')
-    assert screen_width() == pytest.approx(4, abs=.01)
+    _expect_wall_screen_width(page)
     assert not state['posts'] and not state['errors']
     page.reload()
     pw.expect(page.locator('#walls-svg path')).to_have_count(2)
     assert page.locator('#wall-width').input_value() == '4'
-    assert screen_width() == pytest.approx(4, abs=.01)
+    _expect_wall_screen_width(page)
+    assert not state['posts'] and not state['errors']
