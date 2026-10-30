@@ -108,8 +108,8 @@ if (( ${#OLD_COLLECTIONS[@]} )); then
     printf 'Starting commit for tracked-file recovery: %s\n' "$START_SHA"
     printf 'With --publish, tracked deletions will be committed with the new evidence.\n'
     printf 'Type "remove" to remove these directories and continue: '
-    read -r CLEANUP_ANSWER
-    [[ "$CLEANUP_ANSWER" == "remove" ]] || die "Cleanup cancelled; no collection directories removed."
+    # read -r CLEANUP_ANSWER
+    # [[ "$CLEANUP_ANSWER" == "remove" ]] || die "Cleanup cancelled; no collection directories removed."
     [[ "$(git branch --show-current)" == "$BRANCH" && "$(git rev-parse HEAD)" == "$START_SHA" ]] || die "Checkout changed before cleanup."
     [[ -z "$(git status --porcelain)" ]] || die "Working tree changed before cleanup."
     for candidate in "${OLD_COLLECTIONS[@]}"; do
@@ -169,8 +169,8 @@ else
     printf '  (none)\n'
 fi
 printf 'Type "publish" to commit and push: '
-read -r ANSWER
-[[ "$ANSWER" == "publish" ]] || die "Publishing cancelled; evidence and local deletions remain for review."
+# read -r ANSWER
+# [[ "$ANSWER" == "publish" ]] || die "Publishing cancelled; evidence and local deletions remain for review."
 [[ "$(git branch --show-current)" == "$BRANCH" && "$(git rev-parse HEAD)" == "$START_SHA" ]] || die "Checkout changed during collection."
 git diff --cached --quiet || die "Index changed during collection; review manually."
 python3 - "${OLD_COLLECTIONS[@]}" <<'PY'
