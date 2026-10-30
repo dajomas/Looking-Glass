@@ -14,7 +14,7 @@
 <h1>Retained room notes · {{ map.name }}</h1>
 <p><a href="/maps/{{ map.id }}">Open fog editor</a> · <a href="/campaigns/{{ campaign.id }}">Campaign</a></p>
 <p>Management only. Recovery does not reveal fog or change the player screen. Existing editor drafts in other tabs remain there; save or copy them before replacing saved notes. Those drafts may become stale after recovery.</p>
-<p role="note">Development branch: archive backup/restore and duplication are unfinished. Do not rely on campaign ZIPs to preserve retained notes yet.</p>
+<p role="note">Development branch: retained-note backup/restore and clean duplication are implemented, but validation is pending. Do not use with valuable campaign data yet.</p>
 <noscript>This workspace requires JavaScript. No recovery is performed without an explicit request.</noscript>
 <p id="recovery-status" role="status" aria-live="polite">Loading retained notes…</p>
 <div class="recovery-grid">

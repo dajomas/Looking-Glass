@@ -3,7 +3,7 @@ import uuid
 from . import images
 from ..repositories import campaigns
 
-AUTHORED = ("walls", "map_wall_type_settings", "room_notes", "imported_room_notes", "map_transitions", "double_reveal_maps", "double_reveal_rooms")
+AUTHORED = ("walls", "map_wall_type_settings", "room_notes", "imported_room_notes", "room_note_archives", "map_transitions", "double_reveal_maps", "double_reveal_rooms")
 
 
 def _insert(conn, table, row):
@@ -43,7 +43,7 @@ def duplicate(conn, source_id, maps_dir, created_files, name, owner_id, map_id=N
         if (stored.width, stored.height) != (row["width"], row["height"]):
             raise ValueError("Image dimensions do not match")
         row.update(campaign_id=target, image_file=stored.relative_path, cache_token=uuid.uuid4().hex,
-                   walls_version=0, fog_version=0)
+                   walls_version=0, fog_version=0, room_notes_version=0)
         row.pop("created_at", None)
         if map_id is not None:
             row["name"] = name
@@ -54,6 +54,7 @@ def duplicate(conn, source_id, maps_dir, created_files, name, owner_id, map_id=N
                 data = dict(item)
                 data["map_id"] = new
                 identity = data.pop("id", None)
+                # Archive source_revision and all historical source_* fields remain intact.
                 if "revision" in data:
                     data["revision"] = 1
                 if table == "double_reveal_maps":
