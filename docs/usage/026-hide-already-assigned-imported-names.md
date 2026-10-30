@@ -17,6 +17,8 @@ disabled and says “All imported room names are assigned”.
 Availability refreshes on opening the editor, after saving, and after import.
 Opening an editor again picks up another session's saved changes; this is dropdown
 filtering, not a database uniqueness lock against simultaneous manual assignments.
-Preserved room-note records detached by geometry edits also reserve their saved
-names until those records are renamed/cleared or otherwise managed in the database.
+When geometry reconciliation archives and releases an invalid assignment, its
+name reservation is released too. Detached archives do not reserve imported
+names. Explicitly recovering content onto a current room creates an active
+assignment again. See [retained-note recovery](../room-note-recovery.md).
 

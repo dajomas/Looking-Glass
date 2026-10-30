@@ -1,12 +1,13 @@
 # Retained room-note recovery UI and API
 
-Archive-aware recovery, campaign ZIP backup/restore and clean duplication are
-implemented. The five-suite integration run 41124059137 passed against
-source d5fea76382118277a16ac0c2fd15a7e67508bfe8. Final acceptance remains
-pending targeted coverage additions and the disposable-upgrade exercise;
-this is not a deployment approval. Keep stopped database/image backups before
-upgrades and do not test upgrades against the only copy of valuable data.
-See [coverage and acceptance](handover/062-bug-2-coverage-acceptance-2026-10-30.md).
+Bug 2 was accepted by the user on 2026-10-30 at 22:37 CET. Archive-aware recovery,
+campaign ZIP backup/restore and clean duplication are implemented. Acceptance is
+not evidence of a new test run or execution of the disposable schema-17 upgrade
+exercise, which remains an outstanding validation item. It is not blanket
+deployment approval. Keep stopped database/image backups before upgrades and
+never test against the only copy of valuable data. See the current
+[closure and evidence limits](handover/066-bug-2-accepted-closure-2026-10-30.md)
+and the historical [coverage/checklist](handover/062-bug-2-coverage-acceptance-2026-10-30.md).
 
 ## Management workspace
 

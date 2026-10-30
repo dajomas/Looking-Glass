@@ -1,9 +1,11 @@
 # Retained-note campaign backups, restore and clean duplication
 
-Development branch: archive-aware ZIP backup/restore and clean duplication are
-implemented but acceptance remains pending. Do not deploy against valuable
-campaign data until remaining bug-2 validation and documentation are complete.
-Keep stopped database/image backups before upgrades.
+Archive-aware ZIP backup/restore and clean duplication are implemented and
+covered by the user's Bug 2 acceptance on 2026-10-30 at 22:37 CET. Acceptance
+is distinct from executed validation and does not establish deployment safety
+for every existing installation. The disposable schema-17 upgrade/recovery
+exercise remains unrecorded as executed. Keep stopped database/image backups
+before upgrades. See [closure and evidence limits](handover/066-bug-2-accepted-closure-2026-10-30.md).
 
 Campaign ZIP exports contain room_note_archives as campaign-scoped map content.
 Exact names, Markdown, origin UUIDs, timestamps and historical source provenance
@@ -59,7 +61,6 @@ The caller owns restore/copy transaction rollback and newly created image
 cleanup. These increments do not solve process termination, disk exhaustion or
 all image lifetime issues. See [backup record](handover/057-bug-2-archive-backup-restore-2026-10-30.md)
 and [duplication record](handover/058-bug-2-archive-clean-duplication-2026-10-30.md)
-for supplied regressions, validation limits and unfinished work. Recovery UI/API
-guidance remains in [room-note recovery](room-note-recovery.md). Conservative
-development-state warnings remain until acceptance; implementation is not proof
-of a successful workflow, restore or deployment.
+for historical regressions and validation limits. Recovery UI/API guidance remains
+in [room-note recovery](room-note-recovery.md). Implementation and user acceptance
+are not proof of a newly executed workflow, restore or deployment.

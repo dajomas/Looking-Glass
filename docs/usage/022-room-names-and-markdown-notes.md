@@ -22,13 +22,26 @@ restores the saved version. Concurrent saves are rejected by revision check.
 Room identity uses an exact fingerprint of its rasterized interior, not its
 transient component number. Unchanged interiors retain notes after unrelated wall
 changes. Changes to the room outline, calibration, image dimensions or work
-resolution may detach the old record. Detached notes remain in SQLite and appear
-as inactive in the admin list API; automatic reassignment and a recovery UI are
-not provided. Back up the database before changing geometry. Reset/undo affect
-fog only, not saved notes. When multiple named rooms are revealed together, the
-panel selects the first newly revealed named room alphabetically; click another
-revealed room in reveal mode to inspect its notes. Initial page load does not
-arbitrarily select one of the already revealed rooms.
+resolution may invalidate an association. Reconciliation retains the exact saved
+name and Markdown in a detached archive before releasing the invalid assignment
+and its imported-name reservation. Returning geometry does not automatically
+reattach that archive. Back up the database and images before changing geometry.
+
+Open Retained notes in the admin map navigation to inspect archived content and
+select a current interior in a separate recovery workspace. Recovery is explicit
+and management-only. Replacing a nonempty target needs additional confirmation
+and first retains that target's saved content too. The source archive remains.
+Save or copy existing editor drafts first: recovery can make their selection
+context stale, and old drafts are not automatically restamped. Recovery changes
+notes only, not fog, the active map or viewer images. Archives are included in
+campaign ZIP backup/restore and clean duplication; explicit map/campaign deletion
+still removes its owned archives. See [recovery](../room-note-recovery.md) and
+[portability](../room-note-backup.md).
+
+Reset/undo affect fog only, not saved notes. When multiple named rooms are revealed
+together, the panel selects the first newly revealed named room alphabetically;
+click another revealed room in reveal mode to inspect its notes. Initial page
+load does not arbitrarily select one of the already revealed rooms.
 
 ### Room notes: read mode, edit mode and formatting
 
