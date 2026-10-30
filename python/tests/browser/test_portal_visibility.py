@@ -1,9 +1,10 @@
 """Readable SVG labels and high-contrast admin route phases; mocked API responses."""
 import io
 import math
+from time import monotonic
 import pytest
 from PIL import Image
-from playwright.sync_api import expect
+from playwright.sync_api import expect, TimeoutError as PlaywrightTimeoutError
 from test_portal_editor import editor
 from test_portal_tools import admin
 
@@ -91,8 +92,69 @@ def test_long_section_labels_fit_their_backgrounds(editor):
     assert all(a>b for a,b in sizes);assert not writes
 
 
-def phase(page,time):
-    return page.locator("#portal-cycle-overlay polygon").evaluate_all("""(els,time)=>els.map(e=>{for(const a of e.getAnimations()){a.pause();a.currentTime=time;}const s=getComputedStyle(e);return {fill:s.fill,stroke:s.stroke,opacity:s.opacity,width:s.strokeWidth,vector:s.vectorEffect,filter:s.filter};})""",time)
+def _phase_sample(page, time, timeout=5000):
+    try:
+        result = page.wait_for_function("""time => {
+          const svg=document.getElementById('portal-cycle-overlay');
+          const els=svg ? [...svg.querySelectorAll('polygon')] : [];
+          const busy=document.getElementById('busy'), arrows=document.getElementById('door-arrows');
+          if (!svg?.dataset.routeId || els.length!==2 || els.some(e=>!e.isConnected) ||
+              (busy && !busy.hidden) || (arrows && (!arrows.complete || !arrows.naturalWidth))) return false;
+          const animations=els.map(e=>e.getAnimations().filter(a=>a.animationName==='portal-route-flash'));
+          if (animations.some(group=>group.length!==1)) return false;
+          for (const group of animations) for (const a of group) {a.pause();a.currentTime=time;}
+          const styles=els.map(e=>{const s=getComputedStyle(e);return {
+            fill:s.fill,stroke:s.stroke,opacity:s.opacity,width:s.strokeWidth,
+            vector:s.vectorEffect,filter:s.filter};});
+          const points=[...els[0].points], matrix=els[0].getScreenCTM();
+          if (!points.length || !matrix) return false;
+          const p=new DOMPoint(points.reduce((s,p)=>s+p.x,0)/points.length,
+                               points.reduce((s,p)=>s+p.y,0)/points.length).matrixTransform(matrix);
+          if (!Number.isFinite(p.x) || !Number.isFinite(p.y)) return false;
+          const point=[Math.round(p.x),Math.round(p.y)], mask=getComputedStyle(svg).maskImage;
+          window.__portalPhaseCapture={els,time,route:svg.dataset.routeId,mask,point};
+          return {styles,point};
+        }""", arg=time, timeout=timeout)
+    except PlaywrightTimeoutError:
+        diagnostic = page.evaluate("""() => {
+          const s=document.getElementById('portal-cycle-overlay');
+          return {route:s?.dataset.routeId, count:s?.querySelectorAll('polygon').length,
+            status:document.getElementById('portal-cycle-status')?.textContent,
+            busy:document.getElementById('busy')?.hidden,
+            animations:s ? [...s.querySelectorAll('polygon')].map(e=>e.getAnimations().map(a=>a.animationName)) : []};
+        }""")
+        pytest.fail(f"Portal phase {time} ms did not become sampleable: {diagnostic}")
+    try:
+        return result.json_value()
+    finally:
+        result.dispose()
+
+
+def phase(page, time):
+    return _phase_sample(page, time)["styles"]
+
+
+def phase_screenshot(page, time, timeout=5000):
+    deadline = monotonic() + timeout / 1000
+    while monotonic() < deadline:
+        sample = _phase_sample(page, time, timeout=max(1, int((deadline-monotonic())*1000)))
+        image = Image.open(io.BytesIO(page.screenshot(timeout=max(1, int((deadline-monotonic())*1000))))).convert("RGB")
+        unchanged = page.evaluate("""() => {
+          const c=window.__portalPhaseCapture,s=document.getElementById('portal-cycle-overlay');
+          const els=s ? [...s.querySelectorAll('polygon')] : [];
+          if (!c || els.length!==2 || els.some((e,i)=>e!==c.els[i] || !e.isConnected) ||
+              s.dataset.routeId!==c.route || getComputedStyle(s).maskImage!==c.mask) return false;
+          const points=[...els[0].points],matrix=els[0].getScreenCTM();
+          if (!points.length || !matrix) return false;
+          const p=new DOMPoint(points.reduce((s,p)=>s+p.x,0)/points.length,
+                               points.reduce((s,p)=>s+p.y,0)/points.length).matrixTransform(matrix);
+          return Math.round(p.x)===c.point[0] && Math.round(p.y)===c.point[1] &&
+            els.every(e=>{const a=e.getAnimations().filter(a=>a.animationName==='portal-route-flash');
+              return a.length===1 && a[0].playState==='paused' && Math.abs(a[0].currentTime-c.time)<0.01;});
+        }""")
+        if unchanged:
+            return image, sample["point"]
+    pytest.fail(f"Portal overlay kept changing during phase {time} ms screenshot capture")
 
 
 def test_admin_highlight_phases_have_distinct_color_and_outline(admin):
@@ -105,10 +167,9 @@ def test_admin_highlight_phases_have_distinct_color_and_outline(admin):
     for value in second:
         assert value["fill"]=="rgb(21, 56, 208)" and value["stroke"]=="rgb(255, 255, 255)"
         assert value["opacity"]=="1"
-    # Inspect an interior pixel in each rendered phase (the normal arrow alpha mask remains active).
-    point=page.locator("#portal-cycle-overlay").evaluate("e=>{const p=new DOMPoint(68,55).matrixTransform(e.getScreenCTM());return [Math.round(p.x),Math.round(p.y)];}")
+    # Reject captures invalidated by redraw, not captures with incorrect colors.
     for time,rgb in [(100,(255,234,0)),(800,(21,56,208))]:
-        phase(page,time);image=Image.open(io.BytesIO(page.screenshot())).convert("RGB")
+        image,point=phase_screenshot(page,time)
         pixel=image.getpixel(tuple(point));assert all(abs(a-b)<=3 for a,b in zip(pixel,rgb)),(pixel,rgb)
     overlay=page.locator("#portal-cycle-overlay")
     assert overlay.evaluate("e=>getComputedStyle(e).pointerEvents")=="none"
