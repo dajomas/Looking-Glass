@@ -1,0 +1,37 @@
+x64/lib/python3.14/importlib/__init__.py", line 88, in import_module
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.6913400Z     return _bootstrap._gcd_import(name[level:], package, level)
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.6913901Z            ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.6914430Z   File "<frozen importlib._bootstrap>", line 1406, in _gcd_import
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.6914999Z   File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.6915608Z   File "<frozen importlib._bootstrap>", line 1335, in _find_and_load_unlocked
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.6916124Z ModuleNotFoundError: No module named 'httpx'
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7493086Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7584688Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7585042Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7585321Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7585623Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7585971Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7586288Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7586632Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7587011Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7587322Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7587603Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7588347Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7588813Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7589457Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7590140Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7590782Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7591083Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7591555Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7591980Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7592345Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7592726Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7613093Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7613430Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7613726Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7614104Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7614327Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7614607Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7615036Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:43.7615487Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:51:

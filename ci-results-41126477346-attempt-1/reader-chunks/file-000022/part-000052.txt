@@ -1,0 +1,26 @@
+ve instead.
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:44.9897183Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:44.9997880Z With the provided path, there will be 3 files uploaded
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:44.9999196Z Artifact name is valid!
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:44.9999893Z Root directory input is valid!
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.2249339Z Beginning upload of artifact content to blob storage
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.2485639Z (node:2465) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.2929730Z Uploaded bytes 1093
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.3143191Z Finished uploading artifact content to blob storage!
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.3144694Z SHA256 digest of uploaded artifact zip is 8d065d0957ae914a7e6838bc71e78c90f1ee057ddd311cd0ec89e00e24f62e10
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.3146915Z Finalizing artifact upload
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.7457309Z Artifact integration-javascript-87ca101faa76ff4d9d351c53f36eb19db0302982.zip successfully finalized. Artifact ID 13011256307
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.7459520Z Artifact integration-javascript-87ca101faa76ff4d9d351c53f36eb19db0302982 has been successfully uploaded! Final size is 1093 bytes. Artifact ID is 13011256307
+JavaScript regressions	Upload validation evidence	2026-10-30T20:51:45.7461570Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41126477346/artifacts/13011256307
+JavaScript regressions	Post Check out repository	﻿2026-10-30T20:51:45.7700777Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8649949Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8701776Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8748226Z Temporarily overriding HOME='/home/runner/work/_temp/8db5e60e-2217-4eb4-adcb-fa55f0bfad80' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8749942Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8754201Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8798325Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8805993Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.8852218Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.9213005Z Removing HTTP extra header
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.9214317Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Post Check out repository	2026-10-30T20:51:45.9253025Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extrahead

@@ -1,0 +1,26 @@
+ion evidence	2026-10-30T20:52:16.5527860Z Beginning upload of artifact content to blob storage
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:16.5675798Z (node:3018) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:16.6090125Z Uploaded bytes 1118
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:16.6247038Z Finished uploading artifact content to blob storage!
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:16.6247570Z SHA256 digest of uploaded artifact zip is 8a9a848b6dcb7f41286fe8c383d46e03976959c8e5aeb190a834e96d5425180b
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:16.6248534Z Finalizing artifact upload
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:17.0120459Z Artifact integration-live-87ca101faa76ff4d9d351c53f36eb19db0302982.zip successfully finalized. Artifact ID 13010524076
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:17.0121640Z Artifact integration-live-87ca101faa76ff4d9d351c53f36eb19db0302982 has been successfully uploaded! Final size is 1118 bytes. Artifact ID is 13010524076
+Live Uvicorn	Upload validation evidence	2026-10-30T20:52:17.0125765Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41126477346/artifacts/13010524076
+Live Uvicorn	Post Check out repository	﻿2026-10-30T20:52:17.0267736Z Post job cleanup.
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.0930262Z [command]/usr/bin/git version
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.0950790Z git version 2.55.0
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.0978075Z Temporarily overriding HOME='/home/runner/work/_temp/b0efe15f-4858-4320-bc3a-5dae9bcf2719' before making global git config changes
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.0979196Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.0981471Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1004849Z Removing SSH command configuration
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1010157Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1034453Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1224621Z Removing HTTP extra header
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1228258Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1250724Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1406205Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1410685Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1440443Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1441399Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:52:17.1441962Z includeif.gitdir:/github/workspace/

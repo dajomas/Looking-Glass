@@ -1,0 +1,32 @@
+ging-26.3 pillow-13.0.0 pluggy-1.7.0 pydantic-2.14.2 pydantic-core-2.50.2 pygments-2.21.0 pytest-9.2.0 python-dotenv-1.2.4 python-multipart-0.0.32 pyyaml-6.0.3 scipy-1.18.1 starlette-1.10.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.4 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 webencodings-0.6.1 websockets-17.4
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.3988459Z ##[group]Run python -m pip install playwright
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.3988868Z ^[[36;1mpython -m pip install playwright^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.3989238Z ^[[36;1mpython -m playwright install --with-deps chromium^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4009670Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4010011Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4010313Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4010697Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4011285Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4011580Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4012013Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4012436Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4012804Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4013173Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4013575Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.4013896Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.8728896Z Collecting playwright
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.8744918Z   Using cached playwright-1.64.1-py3-none-manylinux1_x86_64.whl.metadata (3.3 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.8991614Z Collecting pyee<15,>=13 (from playwright)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:40.9004620Z   Using cached pyee-14.0.0-py3-none-any.whl.metadata (1.8 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:41.0586394Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:41.0600879Z   Using cached greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:41.0628986Z Requirement already satisfied: typing-extensions in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (from pyee<15,>=13->playwright) (4.16.0)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:41.0646860Z Using cached playwright-1.64.1-py3-none-manylinux1_x86_64.whl (48.5 MB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:41.0837628Z Using cached greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (670 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:41.0850547Z Using cached pyee-14.0.0-py3-none-any.whl (15 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:41.1762122Z Installing collected packages: pyee, greenlet, playwright
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:42.1393047Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:42.1430446Z Successfully installed greenlet-3.5.6 playwright-1.64.1 pyee-14.0.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:42.5648448Z Installing dependencies...
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:42.5715386Z Switching to root user to install dependencies...
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:51:42.6556250Z Get:1 file:/etc/a

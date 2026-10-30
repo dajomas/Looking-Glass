@@ -1,0 +1,29 @@
+ine 1406, in _gcd_import
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T20:51:44.6120856Z   File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T20:51:44.6121660Z   File "<frozen importlib._bootstrap>", line 1335, in _find_and_load_unlocked
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T20:51:44.6122312Z ModuleNotFoundError: No module named 'httpx'
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T20:51:44.6649161Z ##[error]Process completed with exit code 1.
+JavaScript regressions	Reject skipped tests or empty results	﻿2026-10-30T20:51:44.6740259Z ##[group]Run python - <<'PY'
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6740604Z ^[[36;1mpython - <<'PY'^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6740861Z ^[[36;1mfrom pathlib import Path^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6741160Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6741515Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6741836Z ^[[36;1mif not report.is_file():^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6742180Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6742574Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6742888Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6743173Z ^[[36;1mif not cases:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6743476Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6743931Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6744538Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6745228Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6745999Z ^[[36;1mfor case in skipped:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6746327Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6746796Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6747221Z ^[[36;1mif skipped or failed:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6747597Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6747980Z ^[[36;1mPY^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6768987Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6769340Z env:
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T20:51:44.6769651Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressi
