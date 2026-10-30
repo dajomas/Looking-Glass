@@ -9,7 +9,7 @@ import subprocess
 import time
 import uuid
 
-import httpx
+import httpx2 as httpx
 from PIL import Image
 import pytest
 

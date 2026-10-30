@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
 
-import httpx
+import httpx2 as httpx
 import pytest
 
 ROOT = Path(__file__).resolve().parents[3]

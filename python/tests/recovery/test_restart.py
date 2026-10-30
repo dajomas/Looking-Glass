@@ -10,7 +10,7 @@ import subprocess
 import sys
 import time
 
-import httpx
+import httpx2 as httpx
 from PIL import Image
 import pytest
 
