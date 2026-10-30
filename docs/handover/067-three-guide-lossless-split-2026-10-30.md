@@ -25,18 +25,21 @@ exact original 63257 bytes, SHA-256
 15710ae2def97bfbaa1d71094fffc28a8413040b4d13045dfc99fb71f4930648.
 The testing manifest and replacement index are not yet delivered.
 
-## Deployment first content stage
+## Deployment content stages
 
-This stage adds deployment sections 001-012 only (22159 original source bytes).
-The complete generated 36-file set reconstructs 47889 bytes exactly, SHA-256
+Sections 001-012 were delivered in 77cb5bbbc052d76e738c99e10db4e5f4eef8180d.
+All 12 committed blobs match their source slices (22159 bytes), rechecked
+before preparing this follow-up. This stage adds the remaining sections
+013-036 (25730 bytes), not the manifest/index. The complete generated 36-file
+set reconstructs 47889 bytes exactly, SHA-256
 ecad8b97c0545edf12383e94e3a60540ec738f680ee237cd36312562075a4e07.
-Its largest content file is 4864 bytes. Compare the committed section hashes
-against the prepared source slices after a successful write.
+Its largest content file is 4864 bytes. Compare all 36 committed section hashes
+against the source slices after a successful write.
 
 All three monolithic guide paths remain unchanged and authoritative. Remaining:
-deployment 013-036 (25730 bytes), all architecture content, three manifests and
-three replacement indexes, final verification and a short HANDOVER.md link.
-Do not describe the complete three-guide split as delivered until all are present.
+all architecture content, three manifests and three replacement indexes, final
+verification and a short HANDOVER.md link. Do not describe the complete
+three-guide split as delivered until all are present.
 
 ## Decisions and limitations
 
