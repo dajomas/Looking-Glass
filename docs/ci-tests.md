@@ -1,108 +1,131 @@
 # Complete automated CI test suites
 
 This is the current CI contract for `.github/workflows/integration-tests.yml`.
-It supersedes CI-specific descriptions of the previous two-job workflow in
-`docs/testing.md`; that guide's general local/manual validation material remains
-useful. This document describes configuration, not evidence of a passing run.
+It supersedes CI-specific descriptions of earlier workflows in `docs/testing.md`;
+that guide's general local/manual validation material remains useful.
+Configuration and test definitions are not evidence of a passing run.
 
 ## Checks
 
-Every configured push to `features/perplexity`, pull request and manual dispatch
-runs four independent matrix jobs on Ubuntu 24.04, with fail-fast disabled and a
+Configured pushes to `features/perplexity`, pull requests and manual dispatches
+run five independent matrix jobs on Ubuntu 24.04, with fail-fast disabled and a
 30-minute timeout per job:
 
 | Check | Discovery/command | Runtime |
 |---|---|---|
-| Python / HTTP | `python/tests`, excluding browser and live_e2e | Python 3.14 |
+| Python / HTTP | `python/tests`, excluding browser, live_e2e and recovery | Python 3.14 |
 | JavaScript regressions | every top-level `python/tests/test_*.js` | Node.js 24; Python report runner |
 | Browser / mocked HTTP | `python/tests/browser` | Python 3.14, Playwright Chromium |
 | Live Uvicorn | `python/tests/live_e2e`, with `LG_RUN_LIVE_E2E=1` | Python 3.14, Playwright Chromium |
+| Recovery | `python/tests/recovery` | Python 3.14, real CLI child processes and HTTP |
 
-The Python development/runtime requirements are installed and hard-import checked
-in each job. Browser jobs additionally install Playwright and Chromium's system
-dependencies, then run `python/tests/check_browser_environment.py` as a required
-launch/navigation/DOM preflight. Its output records Playwright/Chromium and font
-diagnostics. Browser fixture import-skips cannot produce a passing job because the
-JUnit audit rejects skips. Conditionally inapplicable workflow steps are not
-skipped test cases.
+All jobs install development/runtime requirements and hard-import check the web
+stack. Browser/live jobs install Playwright, Chromium and system dependencies,
+then require `check_browser_environment.py`. Its diagnostics include browser and
+font information. A reported pytest skip fails the JUnit audit. Conditionally
+inapplicable workflow steps are not skipped test cases.
 
-`python/tests/browser/test_upload_busy.py` adapts the existing standalone
-`check_upload_busy_browser.py` into pytest discovery without changing its checks.
-It exercises real Chromium against mocked responses, not a live campaign.
-The original standalone command remains usable. The local runtests.sh browser
-phase also discovers the adapter automatically.
+The mocked-browser suite includes the standalone upload-busy check through a
+separate-process pytest adapter, isolating async and synchronous Playwright loops.
+The original standalone command and local runtests.sh discovery remain available.
+
+## Reliability batch 1
+
+Recovery tests launch `python/main.py --config <temporary-config> serve` as a real
+subprocess with isolated data and loopback ports. Inherited LG_* overrides are
+removed and an explicit test-only bootstrap password is supplied. They exercise
+normal shutdown/restart and forced termination after acknowledged committed
+writes. After restart they check both listener health, existing viewer session
+access, persisted snapshot and map version, revealed/hidden pixels in the real
+viewer image response, SQLite integrity/foreign keys and anonymous denial.
+This is HTTP/image persistence validation, not browser reconnection across a
+server restart, in-flight transaction interruption, power-loss simulation or
+cross-file crash atomicity. Port reservation must be released for the real CLI;
+a port-allocation race fails startup rather than retrying silently.
+
+Live tests additionally cover offline disconnect/reconnect convergence and two
+viewer tabs sharing a session or using independent sessions for the same viewer
+account. Both receive fog changes, and the surviving tab continues through hide
+and undo after the other closes. These do not add distinct-account isolation,
+access-revocation, delayed-response or checkpoint-restore live scenarios yet.
+
+Nine Python tooling cases cover Unicode/CRLF, single-line XML, binary and empty
+chunk reconstruction, per-file size bounds, damage/source-change detection,
+no-overwrite policy and complete paginated-index reconstruction. No production
+evidence or real GitHub account is used by those tests.
+
+Run the new groups locally from the repository root:
+
+```sh
+PYTHONPATH=python python -m pytest -v python/tests/test_ci_evidence_chunks.py
+PYTHONPATH=python python -m pytest -v python/tests/recovery
+LG_RUN_LIVE_E2E=1 PYTHONPATH=python python -m pytest -v python/tests/live_e2e
+```
+
+A broad local pytest invocation also discovers recovery tests; the CI Python job
+excludes them explicitly so they execute only in their own CI matrix job.
 
 ## JavaScript reporting
 
-Run `python tools/run_javascript_tests.py` from the repository root. It launches
-all matching scripts in sorted order with the checkout root as working directory,
-continues after script failures, and fails on empty discovery, a nonzero exit,
-missing executable or timeout. Default timeout is 120 seconds per script;
-`--timeout`, `--test-dir`, `--output-dir` and `--node` support focused validation.
-
-`test-results/javascript-inventory.tsv` records every discovered script, exit
-status, duration and log filename. Each script has a complete separate log.
-`results.xml` reports one case per script, not each nested Node test/subtest.
-A passing script means its Node process returned zero; nested skip/TODO semantics
-are not parsed by this wrapper and must be inspected in its output when relevant.
-There is no JavaScript package installation: scripts use Node built-in modules.
-The local runtests.sh JavaScript loop remains unchanged; the reporting runner is
-an additional entry point used by CI.
+`python tools/run_javascript_tests.py` runs matching scripts in sorted order,
+continues after failures and rejects empty discovery, a missing executable,
+nonzero exits or a 120-second per-script timeout. Options include `--timeout`,
+`--test-dir`, `--output-dir` and `--node`. The inventory TSV records filename,
+exit status, duration and log path. Each script has a full separate log and one
+JUnit case; nested Node case/skip/TODO semantics are not parsed. No npm packages
+are required by the existing built-in-module regression scripts.
 
 ## Evidence and gates
 
-Every job uploads `test-results/` even after a failed step, with names
-`integration-python-<sha>`, `integration-javascript-<sha>`,
-`integration-browser-<sha>` and `integration-live-<sha>` (14-day retention).
-The directory is initialized before dependency installation so early failures
-retain source/platform identity when checkout succeeds. Full setup output remains
-in the Actions job logs. Each executed suite writes a JUnit report; a separate
-audit rejects missing, empty, failed/error or skipped-case reports. Test exit
-statuses are preserved through tee pipelines.
+Each job uploads `test-results/` even after failure, as
+`integration-<suite>-<sha>` with 14-day retention. The five suite identifiers are
+python, javascript, browser, live and recovery. Evidence identity is initialized
+before dependency installation. Full setup output remains in Actions logs.
+Reports must exist, contain cases and contain no failures/errors/reported skips;
+test command exit statuses remain visible through tee pipelines.
 
-`getworkflow.sh` downloads all artifacts for the selected run, records full run
-logs/metadata, generates reader chunks and prints the copyable run/tested-SHA/
-evidence-SHA handoff after a successful publish. Older runs naturally have fewer
-artifact groups. Artifact download remains run-scoped rather than attempt-filtered;
-verify provenance after reruns.
+The live job uses `--basetemp=ci-live-tmp` (pytest replaces that dedicated test
+temporary directory). Its always-run diagnostic collection copies generated
+`*-trace.zip`, `dm-*.png`, `player-*.png` and `page-errors.json` files into
+`test-results/live-diagnostics/`, preserving relative paths. The existing live
+fixture produces traces/screenshots on failures; a passing run need not contain
+them. Extra viewer contexts in the new multi-session test do not have their own
+trace capture. Recovery retains each child's server log under
+`test-results/recovery/`; temporary databases/configuration are not uploaded.
+All these artifacts contain synthetic test data; review logs before publishing.
 
-Before downloading a new run, the collector requires a clean checkout on
-`features/perplexity`, validates the selected run and refuses an already existing
-new output path. It lists old repository-root directories whose names exactly
-match `ci-results-<digits>` or `ci-results-<digits>-attempt-<digits>`, then requires
-typing `remove` before deleting them locally. Symlinks, dirty trees and ignored
-files inside matching directories block cleanup. Other names are untouched.
-With `--publish`, the separately confirmed publication stages tracked deletions
-and new evidence together, so old collections disappear from the branch's current
-files. Without `--publish`, old tracked deletions remain unstaged and GitHub is
-unchanged. Cancellation/failure after cleanup does not automatically restore old
-files; their tracked contents remain in the printed starting commit. Preserve
-local work before retrying: a partially completed run makes the checkout dirty.
-Git history and GitHub Actions artifacts are not erased by this cleanup.
+The existing getworkflow.sh handles every artifact group without modification,
+including binary traces through base64 reader chunks. It prints the copyable
+run/tested-SHA/evidence-SHA handoff only after a successful publish.
+Download remains run-scoped, not attempt-filtered; verify provenance after reruns.
 
-Repository administrators must separately require all four named checks in branch
-protection/rulesets if they are intended merge gates. This change does not alter
-those settings or write to another branch. Existing `[skip ci]` evidence-only
-commits still suppress push/PR workflows; consider required-check implications.
+Before downloading a new run, the collector requires a clean features/perplexity
+checkout and valid completed run. It refuses an existing new output path, lists
+old root directories named exactly ci-results-<digits> or its attempt-suffixed
+form and requires typing remove before local deletion. Dirty/ignored contents
+and symlinks block cleanup. With --publish, a separate confirmation stages old
+tracked deletions with new evidence. Local-only runs leave deletions unstaged.
+Cancellation/failure after cleanup does not automatically restore files; tracked
+contents remain recoverable from the printed starting commit. No history rewrite
+or Actions artifact deletion occurs.
 
-## Limits and validation
+Repository administrators must require all five named checks separately in merge
+rules if desired. This change does not alter protection settings or other branches.
+Evidence-only [skip ci] commits retain their existing required-check implications.
 
-This runs the existing automated regression groups on one Linux/Python/Chromium
-configuration. It does not automate the manual deployment checklist, add Windows,
-Firefox or WebKit coverage, prove production behaviour, or automatically discover
-arbitrarily named future standalone checks. Add future automated checks to an
-existing discovery group or explicitly wire them into CI.
+## Validation and follow-up work
 
-Local preparation validated workflow YAML parsing/matrix structure and five
-isolated report-runner scenarios: success, continued execution after a failure,
-timeout, empty discovery and missing executable. Runner fixtures used Python as
-a stand-in executable, not actual JavaScript tests. The full project checkout,
-Node regressions, Chromium adapter and hosted Actions workflow were not executed
-by the assistant. The first four-suite CI run is acceptance evidence still needed.
+Batch 1 adds 14 cases: two recovery, three live and nine chunking cases. The three
+new Python test modules passed local syntax parsing. Full checkout tests, real
+application subprocesses, browser tests, hosted Actions and actionlint were not
+executed by the assistant for this batch. First five-suite acceptance is pending.
+The previous four-suite run 41017872020 was reviewed green at
+e6f932b688682328177dc7ef0063400bb75514be; those results do not transfer to this batch.
 
-Collector cleanup preparation additionally passed five isolated temporary-Git
-scenarios: matching directory removal with committed deletion and historical
-recovery, dirty-tree rejection, symlink rejection, ignored-file rejection, and
-no matching collections. Similarly named noncollection data remained intact.
-These exercised the cleanup/staging logic, not the complete collector with
-GitHub authentication, downloads, chunking, prompts and remote publication.
+Remaining planned work: built-container health/volume persistence, controlled
+in-flight migration/restore interruption, disk/permission/locking fault injection,
+bounded property-based fog/import state machines, delayed-response and revocation/
+restore live cases, and committed collector-cleanup/JavaScript-runner regressions.
+These are explicitly not implemented in batch 1. One Linux/Python/Chromium
+configuration does not replace manual deployment checks or other platform/browser
+coverage. Future standalone checks still need a discovery group or explicit wiring.

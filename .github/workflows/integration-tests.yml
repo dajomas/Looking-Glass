@@ -31,6 +31,8 @@ jobs:
             suite: browser
           - name: Live Uvicorn
             suite: live
+          - name: Recovery
+            suite: recovery
     env:
       PYTHONPATH: ${{ github.workspace }}/python
       PYTHONUNBUFFERED: "1"
@@ -112,7 +114,7 @@ jobs:
         if: matrix.suite == 'python'
         run: |
           set -o pipefail
-          python -m pytest -v -ra python/tests --ignore=python/tests/browser --ignore=python/tests/live_e2e --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
+          python -m pytest -v -ra python/tests --ignore=python/tests/browser --ignore=python/tests/live_e2e --ignore=python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
 
       - name: Run JavaScript regressions
         if: matrix.suite == 'javascript'
@@ -130,7 +132,29 @@ jobs:
         if: matrix.suite == 'live'
         run: |
           set -o pipefail
-          python -m pytest -v -ra python/tests/live_e2e --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
+          python -m pytest -v -ra python/tests/live_e2e --basetemp=ci-live-tmp --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
+
+      - name: Run process recovery tests
+        if: matrix.suite == 'recovery'
+        run: |
+          set -o pipefail
+          python -m pytest -v -ra python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
+
+      - name: Collect live failure diagnostics
+        if: ${{ always() && matrix.suite == 'live' }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          source = Path("ci-live-tmp")
+          destination = Path("test-results/live-diagnostics")
+          for pattern in ("*-trace.zip", "dm-*.png", "player-*.png", "page-errors.json"):
+              for path in source.rglob(pattern):
+                  if path.is_file() and not path.is_symlink():
+                      target = destination / path.relative_to(source)
+                      target.parent.mkdir(parents=True, exist_ok=True)
+                      shutil.copy2(path, target)
+          PY
 
       - name: Reject skipped tests or empty results
         if: ${{ !cancelled() }}
