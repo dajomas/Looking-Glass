@@ -1,0 +1,43 @@
+220dad53391d8122a7cb409e037584
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.2865033Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.2865659Z ##[group]Determining the checkout info
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.2866803Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.2871244Z [command]/usr/bin/git sparse-checkout disable
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.2930914Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.2968973Z ##[group]Checking out the ref
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.2972742Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3379748Z Switched to a new branch 'features/perplexity'
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3384274Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3392141Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3449567Z [command]/usr/bin/git log -1 --format=%H
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3485373Z e13c1e7fbe220dad53391d8122a7cb409e037584
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3863241Z ##[group]Run actions/setup-python@v6
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3863780Z with:
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3864176Z   python-version: 3.14
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3864596Z   cache: pip
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3865113Z   cache-dependency-path: requirements.txt
+Python / HTTP	UNKNOWN STEP	requirements-dev.txt
+Python / HTTP	UNKNOWN STEP	
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3865713Z   check-latest: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3868964Z   token: ***
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3869416Z   update-environment: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3869871Z   allow-prereleases: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3870301Z   freethreaded: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3870699Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3871215Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3871834Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3872248Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.3872645Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.5255058Z ##[group]Installed versions
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.5350826Z Successfully set up CPython (3.14.9)
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.5352019Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:02.5939175Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:04.1996115Z /home/runner/.cache/pip
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:04.2979677Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:04.9280683Z Received 124835150 of 124835150 (100.0%), 214.9 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:04.9281468Z Cache Size: ~119 MB (124835150 B)
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:04.9310604Z [command]/usr/bin/tar -xf /home/runner/work/_temp/16e88674-8ff9-4aaf-b65a-efa20f6b8ea0/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:05.1346700Z Cache restored successfully
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:05.1404263Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:05.1716932Z ##[group]Run python -m pip install --upgrade pip
+Python / H

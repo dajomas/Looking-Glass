@@ -1,0 +1,44 @@
+^[[36;1mfrom importlib import import_module^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1919168Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1919501Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1919690Z ^[[36;1mrequired = {^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1919920Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1920190Z ^[[36;1m    "starlette": "starlette",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1920459Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1920751Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1921055Z ^[[36;1m    "httpx": "httpx",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1921300Z ^[[36;1m    "pytest": "pytest",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1921541Z ^[[36;1m}^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1921722Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1921965Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1922474Z ^[[36;1m    import_module(module)^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1922794Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1923114Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1944916Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1945266Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1945573Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1945940Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1946159Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1946447Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1946866Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1947282Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1947652Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1948298Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1948697Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.1949018Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:22.6262303Z No broken requirements found.
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:23.3464172Z fastapi==0.162.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:23.3468928Z starlette==1.10.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:23.8798246Z uvicorn==0.54.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:23.8801381Z python-multipart==0.0.32
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:23.9062713Z httpx==0.28.1
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0126251Z pytest==9.2.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0922836Z ##[group]Run set -o pipefail
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0923170Z ^[[36;1mset -o pipefail^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0923428Z ^[[36;1mpython -m pytest \^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0923675Z ^[[36;1m  -v -ra \^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0923894Z ^[[36;1m  python/tests \^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0924166Z ^[[36;1m  --ignore=python/tests/browser \^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0924491Z ^[[36;1m  --ignore=python/tests/live_e2e \^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0924809Z ^[[36;1m  --junitxml=test-results/results.xml \^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:28:24.0925131Z ^[[36;1m  2

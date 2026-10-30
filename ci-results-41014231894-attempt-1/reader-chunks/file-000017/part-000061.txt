@@ -1,0 +1,30 @@
+4.8349291Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:34.8491015Z With the provided path, there will be 5 files uploaded
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:34.8498545Z Artifact name is valid!
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:34.8499319Z Root directory input is valid!
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.0650174Z Beginning upload of artifact content to blob storage
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.0963516Z (node:4306) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.1575398Z Uploaded bytes 34236
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.1786330Z Finished uploading artifact content to blob storage!
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.1787504Z SHA256 digest of uploaded artifact zip is e7badc6c197d6990b86b33decd7cd2e7eeca2fc8c9f0b7595ce4b81fd8aecb04
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.1789810Z Finalizing artifact upload
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.5635850Z Artifact integration-python-e13c1e7fbe220dad53391d8122a7cb409e037584.zip successfully finalized. Artifact ID 12958677069
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.5637326Z Artifact integration-python-e13c1e7fbe220dad53391d8122a7cb409e037584 has been successfully uploaded! Final size is 34236 bytes. Artifact ID is 12958677069
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.5643286Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41014231894/artifacts/12958677069
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.5873001Z Post job cleanup.
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.6795082Z [command]/usr/bin/git version
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.6826695Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.6902582Z Temporarily overriding HOME='/home/runner/work/_temp/af5895d4-fdcf-4d0a-9610-8d42f108fe6e' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.6904007Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.6909654Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.6947989Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.6955808Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7000137Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7277020Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7283478Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7342395Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7612179Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7620246Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7659655Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:29:35.7661320Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Python / HTTP	UNKN
