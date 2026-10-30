@@ -1,0 +1,84 @@
+
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "looking-glass-test-data-7e2f3eb9b3cc45819d51722fa581a1d0",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "c195f2aae64dd00a91cdab510fadd1232934c44110246796a3af750576ce091d",
+                "LowerDir": "/var/lib/docker/overlay2/232e6692e49bca5092479430b3f1b5ab881947dec44ddd56e24c55b053a1afb1-init/diff:/var/lib/docker/overlay2/m7awu3e5rnlllimmtxivm4zbu/diff:/var/lib/docker/overlay2/nh75algjm0lvdrwwqxzvmap5u/diff:/var/lib/docker/overlay2/k5u1wvtalc1erdtxjtzxnmh1y/diff:/var/lib/docker/overlay2/47e9p0o4bwmdomt9ikj6qcdc5/diff:/var/lib/docker/overlay2/r8gyn5opxya3gdiuk1b2sndz7/diff:/var/lib/docker/overlay2/3jmm6e36s07n7cg749mnuk0kf/diff:/var/lib/docker/overlay2/y2c3j08hyv37fol405yz4w4dk/diff:/var/lib/docker/overlay2/0x8o3aez4z1j55z70mvx5aei3/diff:/var/lib/docker/overlay2/og2i8f8wznjc7987bzb1wch0m/diff:/var/lib/docker/overlay2/0d0bc7e06127d634235cf50eec74a8024e6ac47b5f8e06b93d457c65074aee92/diff:/var/lib/docker/overlay2/b671e2b4c5e060945d8bf195716ed791676efdf3df32980f4efb9e018cb9fa31/diff:/var/lib/docker/overlay2/35c2369674a4ce51ffed2c7226c74606202e4c1abcc72dc52e143dcd6204eb00/diff:/var/lib/docker/overlay2/cd86d56d5f1be902b9304d626b426b4d3c71a6d28f3415236f1450e0e66f2f2e/diff",
+                "MergedDir": "/var/lib/docker/overlay2/232e6692e49bca5092479430b3f1b5ab881947dec44ddd56e24c55b053a1afb1/merged",
+                "UpperDir": "/var/lib/docker/overlay2/232e6692e49bca5092479430b3f1b5ab881947dec44ddd56e24c55b053a1afb1/diff",
+                "WorkDir": "/var/lib/docker/overlay2/232e6692e49bca5092479430b3f1b5ab881947dec44ddd56e24c55b053a1afb1/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data

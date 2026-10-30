@@ -1,0 +1,28 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+cachedir: .pytest_cache
+rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+plugins: anyio-4.15.1
+collecting ... collected 18 items
+
+python/tests/live_e2e/test_live_checkpoints.py::test_live_checkpoint_restore_reinstalls_same_map_fog PASSED [  5%]
+python/tests/live_e2e/test_live_checkpoints.py::test_live_checkpoint_restore_switches_active_map_and_saved_fog PASSED [ 11%]
+python/tests/live_e2e/test_live_checkpoints.py::test_live_rejected_checkpoint_restore_preserves_connected_viewer PASSED [ 16%]
+python/tests/live_e2e/test_live_display.py::test_live_reveal_keeps_adjacent_room_hidden PASSED [ 22%]
+python/tests/live_e2e/test_live_display.py::test_live_hide_and_undo_reach_player PASSED [ 27%]
+python/tests/live_e2e/test_live_display.py::test_live_map_switch_uses_destination_artwork_and_fog PASSED [ 33%]
+python/tests/live_e2e/test_live_display.py::test_live_offline_preparation_does_not_publish PASSED [ 38%]
+python/tests/live_e2e/test_live_resilience.py::test_live_reconnect_fetches_changes_missed_while_offline PASSED [ 44%]
+python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[shared-session-tabs] PASSED [ 50%]
+python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[independent-sessions] PASSED [ 55%]
+python/tests/live_e2e/test_live_revocation.py::test_live_logout_revokes_shared_tabs_but_preserves_independent_session PASSED [ 61%]
+python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[remove-assignment] PASSED [ 66%]
+python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[deactivate] PASSED [ 72%]
+python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[change-role] PASSED [ 77%]
+python/tests/live_e2e/test_live_zip_restore.py::test_live_zip_restore_and_downloaded_recovery_reach_connected_player PASSED [ 83%]
+python/tests/live_e2e/test_live_zip_restore.py::test_live_rejected_zip_restore_preserves_connected_viewer[wrong-confirmation] PASSED [ 88%]
+python/tests/live_e2e/test_live_zip_restore.py::test_live_rejected_zip_restore_preserves_connected_viewer[different-zip] PASSED [ 94%]
+python/tests/live_e2e/test_live_zip_restore.py::test_live_rejected_zip_restore_preserves_connected_viewer[stale-preview] PASSED [100%]
+
+- generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+======================== 18 passed in 83.50s (0:01:23) =========================

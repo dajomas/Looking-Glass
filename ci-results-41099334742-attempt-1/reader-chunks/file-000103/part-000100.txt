@@ -1,0 +1,27 @@
+0T17:30:21.2628375Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:21.2628557Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:21.8616090Z ============================= test session starts ==============================
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:21.8689646Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:21.8692529Z cachedir: .pytest_cache
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:21.8692806Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:21.8693094Z plugins: anyio-4.15.1
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6535739Z collecting ... collected 1231 items
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6552675Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6590785Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_idempotent PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6595990Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_rejects_string PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6601242Z python/tests/test_access_logging.py::AccessLoggingTests::test_debug_opt_in PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6605557Z python/tests/test_access_logging.py::AccessLoggingTests::test_failed_requests_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6624092Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6626208Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6630688Z python/tests/test_access_logging.py::AccessLoggingTests::test_unknown_formats_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.6636879Z python/tests/test_access_logging.py::AccessLoggingTests::test_warnings_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.7535724Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values0-Current password is incorrect.-False] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.8347493Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values0-Current password is incorrect.-True] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.9064301Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values1-New password must be at least 8 characters.-False] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:23.9862662Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values1-New password must be at least 8 characters.-True] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:24.0578962Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values2-Passwords do not match.-False] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:24.1303792Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values2-Passwords do not match.-True] PASSED [  1%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:24.2013281Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values3-Choose a different password.-False] PASSED [  1%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:24.2759062Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values3-Choose a different password.-True] PASSED [  1%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:24.3500618Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[viewer-values0-Current password is incorrect.-False] PASSED [  1%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:30:24.4387228Z python/tests/test_account_atom

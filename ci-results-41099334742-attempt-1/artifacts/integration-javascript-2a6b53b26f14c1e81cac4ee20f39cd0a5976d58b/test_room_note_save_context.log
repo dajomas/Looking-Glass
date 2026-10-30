@@ -1,0 +1,7 @@
+PASS: save uses selected context, not newer background stamps, and installs returned context
+PASS: rejection retains draft and context, releases controls and never automatically retries
+PASS: a delayed selection cannot overwrite editing begun after the request
+PASS: saving invalidates pending selection, blocks duplicate submission and installs only save result
+PASS: a refresh begun before saving cannot clear the successfully saved selection
+PASS: out-of-order selection responses cannot replace the latest selected context
+6 room-note save-context cases passed

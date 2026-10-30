@@ -1,0 +1,37 @@
+KNOWN STEP	2026-10-30T17:31:35.8782733Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8782793Z     def normalize_backup(data):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8783012Z         """Normalize only recognized legacy documents parsed privately from JSON."""
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8783351Z         if (not isinstance(data, dict) or data.get("format") != "looking-glass-campaign"
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8783801Z                 or type(data.get("version")) is not int or data["version"] != 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8784230Z                 or type(data.get("schema")) is not int or data["schema"] not in (15, 16, 17, 18)):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8784520Z             raise ValueError("Unsupported backup format or database schema")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8784755Z         tables = data.get("tables")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8784916Z         if not isinstance(tables, dict):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8785182Z             raise ValueError("Invalid backup tables")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8785356Z         maps = tables.get("maps")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8785531Z         if not isinstance(maps, list) or len(maps) > 1000000:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8785729Z             raise ValueError("Invalid backup maps")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8785901Z         if data["schema"] in (15, 16, 17):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8786063Z             if "room_note_archives" in tables:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8786279Z >               raise ValueError("Unexpected retained-note data in a legacy backup")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8786538Z E               ValueError: Unexpected retained-note data in a legacy backup
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8786846Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8786994Z python/looking_glass/services/backup_room_notes.py:19: ValueError
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8787245Z ______________ test_recovery_overwrite_requires_a_json_boolean[1] ______________
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8787404Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8788444Z flow = namespace(ctx=AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100,...r\n\n**Gold** and café 🐉.\n\n<script>secret()</script>\n'}, publications=[(1, {'type': 'refresh', 'reason': 'walls'})])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8788947Z overwrite = 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8789019Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8789116Z     @pytest.mark.parametrize("overwrite", [1, "true", None])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8789357Z     def test_recovery_overwrite_requires_a_json_boolean(flow, overwrite):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8789572Z         source = detach(flow)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8789721Z         body = recovery_body(flow)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8789877Z         body["overwrite"] = overwrite
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8790031Z         before = state(flow.ctx)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8790190Z         response = recover(flow, source, body)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8790382Z         assert response.status_code == 422, response.text
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8790724Z >       assert any(error["loc"][-1] == "overwrite" for error in response.json()["detail"])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8790972Z                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8791158Z E       KeyError: 'detail'
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8791241Z 
+Pytho

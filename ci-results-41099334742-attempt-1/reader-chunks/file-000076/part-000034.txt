@@ -1,0 +1,36 @@
+e.status_code == 422, response.text
+&gt;       assert any(error["loc"][-1] == "overwrite" for error in response.json()["detail"])
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'detail'
+
+python/tests/test_room_note_recovery_web.py:72: KeyError</failure></testcase><testcase classname="python.tests.test_room_note_recovery_web" name="test_recovery_overwrite_requires_a_json_boolean[true]" time="0.386"><failure message="KeyError: 'detail'">flow = namespace(ctx=AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100,...r\n\n**Gold** and café 🐉.\n\n&lt;script&gt;secret()&lt;/script&gt;\n'}, publications=[(1, {'type': 'refresh', 'reason': 'walls'})])
+overwrite = 'true'
+
+    @pytest.mark.parametrize("overwrite", [1, "true", None])
+    def test_recovery_overwrite_requires_a_json_boolean(flow, overwrite):
+        source = detach(flow)
+        body = recovery_body(flow)
+        body["overwrite"] = overwrite
+        before = state(flow.ctx)
+        response = recover(flow, source, body)
+        assert response.status_code == 422, response.text
+&gt;       assert any(error["loc"][-1] == "overwrite" for error in response.json()["detail"])
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'detail'
+
+python/tests/test_room_note_recovery_web.py:72: KeyError</failure></testcase><testcase classname="python.tests.test_room_note_recovery_web" name="test_recovery_overwrite_requires_a_json_boolean[None]" time="0.423"><failure message="KeyError: 'detail'">flow = namespace(ctx=AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100,...r\n\n**Gold** and café 🐉.\n\n&lt;script&gt;secret()&lt;/script&gt;\n'}, publications=[(1, {'type': 'refresh', 'reason': 'walls'})])
+overwrite = None
+
+    @pytest.mark.parametrize("overwrite", [1, "true", None])
+    def test_recovery_overwrite_requires_a_json_boolean(flow, overwrite):
+        source = detach(flow)
+        body = recovery_body(flow)
+        body["overwrite"] = overwrite
+        before = state(flow.ctx)
+        response = recover(flow, source, body)
+        assert response.status_code == 422, response.text
+&gt;       assert any(error["loc"][-1] == "overwrite" for error in response.json()["detail"])
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'detail'
+
+python/tests/test_room_note_recovery_web.py:72: KeyError</failure></testcase><testcase classname="python.tests.test_room_note_recovery_web" name="test_recovery_rejects_client_supplied_replacement_content[name]" time="0.432" /><testcase classname="python.tests.test_room_note_recovery_web" name="test_recovery_rejects_client_supplied_replacement_content[markdown]" time="0.403" /><testcase classname="python.tests.test_room_note_recovery_web" name="test_recovery_services_require_caller_transactions" time="0.134" /><testcase classname="python.tests.test_room_note_recovery_web" name="test_archive_routes_are_per_admin_app_and_absent_from_viewer" time="0.149"><failure message="AssertionError: assert (set() == {('/api/maps/...ver', 'POST')}&#10;  &#10;  Extra items in the right set:&#10;  ('/api/maps/{map_id}/room-note-archives', 'GET')&#10;  ('/api/maps/{map_id}/room-note-archives/{archive_id}/recover', 'POST')&#10;  &#10;  Full diff: (-: missing in left side, +: extra in left side)&#10;  + set()&#10;  - {&#10;  -     (&#10;  -         '/api/maps/{map_id}/room-note-archives',&#10;  -         'GET',&#10;  -     ),&#10;  -     (&#10;  -         '/api/maps/{map_id}/room-note-archives/{archive_id}/recover',&#10;[+3 more lines; full report in element text]">env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...70&gt;), &lt;fastapi.applications.FastAPI object at 0x7fbc56531fd0&gt;, &lt;fastapi.applications.FastAPI object at 

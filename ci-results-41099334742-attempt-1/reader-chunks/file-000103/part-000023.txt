@@ -1,0 +1,31 @@
+ort name 'png_bytes' from 'conftest' (/home/runner/work/Looking-Glass/Looking-Glass/python/tests/browser/conftest.py)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7758217Z =============================== warnings summary ===============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7758897Z ../../../../../opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7760518Z   /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7762208Z     from starlette.testclient import TestClient as TestClient  # noqa
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7762569Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7762826Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7763472Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7764009Z =========================== short test summary info ============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7764407Z ERROR python/tests/browser/test_room_note_recovery_ui.py
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7765073Z !!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.7765666Z ========================= 1 warning, 1 error in 0.96s ==========================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9394289Z ##[error]Process completed with exit code 2.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9462898Z ##[group]Run python - <<'PY'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9463248Z ^[[36;1mpython - <<'PY'^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9463501Z ^[[36;1mfrom pathlib import Path^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9463796Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9464143Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9464470Z ^[[36;1mif not report.is_file():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9464814Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9465193Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9465506Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9465798Z ^[[36;1mif not cases:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9466100Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9466567Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9467186Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9467839Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9468279Z ^[[36;1mfor case in skipped:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9468575Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:49.9469037Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T1

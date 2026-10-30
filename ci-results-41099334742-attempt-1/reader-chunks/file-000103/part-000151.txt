@@ -1,0 +1,35 @@
+NOWN STEP	2026-10-30T17:31:35.8760035Z         db,s,_=env
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8760297Z         with db.connect() as c:raw=backup.export_campaign(c,1,s.maps_dir)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8760638Z         with zipfile.ZipFile(io.BytesIO(raw)) as old:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8760974Z             data=json.loads(old.read('campaign.json'));data['schema']=schema
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8761320Z             for name in dr.TABLES:data['tables'].pop(name)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8761586Z             out=io.BytesIO()
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8761811Z             with zipfile.ZipFile(out,'w') as new:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8762068Z                 for name in old.namelist():
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8762633Z                     if name=='campaign.json':new.writestr(name,json.dumps(data))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8763047Z                     elif not name.startswith('alternate/'):new.writestr(name,old.read(name))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8763513Z >       with db.connect() as c:backup.restore_campaign(c,1,s.maps_dir,out.getvalue(),10**7,[])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8763910Z                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8764113Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8764206Z python/tests/test_double_reveal.py:144: 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8764500Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8764875Z python/looking_glass/services/campaign_backup.py:77: in restore_campaign
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8765285Z     data = normalize_backup(json.loads(archive.read("campaign.json")))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8765619Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8765920Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8766130Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8766493Z data = {'format': 'looking-glass-campaign', 'version': 1, 'schema': 15, 'campaign': {'name': 'Adventure', 'description': '', 'active_map_id': None}, ...}
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8767043Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8767130Z     def normalize_backup(data):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8767456Z         """Normalize only recognized legacy documents parsed privately from JSON."""
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8767912Z         if (not isinstance(data, dict) or data.get("format") != "looking-glass-campaign"
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8768331Z                 or type(data.get("version")) is not int or data["version"] != 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8768746Z                 or type(data.get("schema")) is not int or data["schema"] not in (15, 16, 17, 18)):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8769177Z             raise ValueError("Unsupported backup format or database schema")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8769501Z         tables = data.get("tables")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8769737Z         if not isinstance(tables, dict):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8770003Z             raise ValueError("Invalid backup tables")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8770280Z         maps = tables.get("maps")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8770729Z         if not isinstance(maps, list) or len(maps) > 1000000:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8771045Z             raise ValueError("Invalid backup maps")
+Python / HTTP	UNKNOWN STEP	

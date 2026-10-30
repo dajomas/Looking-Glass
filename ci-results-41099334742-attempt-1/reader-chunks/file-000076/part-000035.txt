@@ -1,0 +1,64 @@
+0x7fbc56530980&gt;)
+
+    def test_archive_routes_are_per_admin_app_and_absent_from_viewer(env):
+        ctx, _, _ = env
+        expected = {
+            ("/api/maps/{map_id}/room-note-archives", "GET"),
+            ("/api/maps/{map_id}/room-note-archives/{archive_id}/recover", "POST"),
+        }
+        for app in (create_admin_app(ctx), create_admin_app(ctx)):
+            found = [(route.path, method) for route in app.routes
+                     for method in getattr(route, "methods", ())
+                     if (getattr(route, "path", ""), method) in expected]
+&gt;           assert set(found) == expected and len(found) == 2
+E           AssertionError: assert (set() == {('/api/maps/...ver', 'POST')}
+E             
+E             Extra items in the right set:
+E             ('/api/maps/{map_id}/room-note-archives', 'GET')
+E             ('/api/maps/{map_id}/room-note-archives/{archive_id}/recover', 'POST')
+E             
+E             Full diff: (-: missing in left side, +: extra in left side)
+E             + set()
+E             - {
+E             -     (
+E             -         '/api/maps/{map_id}/room-note-archives',
+E             -         'GET',
+E             -     ),
+E             -     (
+E             -         '/api/maps/{map_id}/room-note-archives/{archive_id}/recover',
+E             -         'POST',
+E             -     ),
+E             - })
+
+python/tests/test_room_note_recovery_web.py:108: AssertionError</failure></testcase><testcase classname="python.tests.test_room_notes" name="test_geometry_identity_not_component_number" time="0.000" /><testcase classname="python.tests.test_room_notes" name="test_markdown_safety_and_formatting" time="0.001" /><testcase classname="python.tests.test_room_notes" name="test_migration_idempotent_and_foreign_key_cascade" time="0.015" /><testcase classname="python.tests.test_room_notes" name="test_payload_requires_an_active_transaction" time="0.013" /><testcase classname="python.tests.test_room_notes" name="test_payload_context_tracks_saved_content_and_preserves_other_maps" time="0.015" /><testcase classname="python.tests.test_room_notes" name="test_payload_generation_and_content_follow_transaction_rollback" time="0.017" /><testcase classname="python.tests.test_room_notes_controls" name="test_upgrade_preserves_notes_and_allows_clear" time="0.070"><failure message="RuntimeError: Room payload requires an active transaction.">tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_upgrade_preserves_notes_a0')
+
+    def test_upgrade_preserves_notes_and_allows_clear(tmp_path):
+        path=tmp_path/"old.sqlite"
+        conn=sqlite3.connect(path)
+        conn.execute("CREATE TABLE schema_version(version INTEGER NOT NULL)")
+        for version,script in enumerate(MIGRATIONS[:-1],1):
+            conn.executescript(script)
+            conn.execute("INSERT INTO schema_version VALUES(?)",(version,))
+            conn.commit()
+        conn.execute("INSERT INTO campaigns(id,name) VALUES(1,'Campaign')")
+        conn.execute("INSERT INTO maps(id,campaign_id,name,image_file,width,height) VALUES(1,1,'Map','map.png',400,200)")
+        conn.execute("INSERT INTO room_notes VALUES(1,'key',100,100,'Crypt','Gold',7)")
+        conn.execute("INSERT INTO imported_room_notes(map_id,name,markdown,digest) VALUES(1,'Library','Treasure','digest')")
+        conn.commit();conn.close()
+        db=Database(path)
+        assert db.migrate()==len(MIGRATIONS)
+        assert db.migrate()==len(MIGRATIONS)
+        with db.connect() as conn:
+&gt;           before=payload(conn,1,'key',True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/test_room_notes_controls.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conn = &lt;sqlite3.Connection object at 0x7fbc5632fe20&gt;, map_id = 1, key = 'key'
+revealed = True
+
+    def payload(conn, map_id, key, revealed):
+        """Return content and its validation context from one transaction."""
+        if not conn.in_transaction:
+&gt;           

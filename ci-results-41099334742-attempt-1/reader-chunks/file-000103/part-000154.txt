@@ -1,0 +1,36 @@
+n / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8791329Z python/tests/test_room_note_recovery_web.py:72: KeyError
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8791568Z ____________ test_recovery_overwrite_requires_a_json_boolean[true] _____________
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8791728Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8792181Z flow = namespace(ctx=AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100,...r\n\n**Gold** and café 🐉.\n\n<script>secret()</script>\n'}, publications=[(1, {'type': 'refresh', 'reason': 'walls'})])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8792626Z overwrite = 'true'
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8792705Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8792796Z     @pytest.mark.parametrize("overwrite", [1, "true", None])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8793037Z     def test_recovery_overwrite_requires_a_json_boolean(flow, overwrite):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8793246Z         source = detach(flow)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8793396Z         body = recovery_body(flow)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8793550Z         body["overwrite"] = overwrite
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8793702Z         before = state(flow.ctx)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8793861Z         response = recover(flow, source, body)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8794046Z         assert response.status_code == 422, response.text
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8794280Z >       assert any(error["loc"][-1] == "overwrite" for error in response.json()["detail"])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8794521Z                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8794703Z E       KeyError: 'detail'
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8794784Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8794869Z python/tests/test_room_note_recovery_web.py:72: KeyError
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8795102Z ____________ test_recovery_overwrite_requires_a_json_boolean[None] _____________
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8795259Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8795700Z flow = namespace(ctx=AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100,...r\n\n**Gold** and café 🐉.\n\n<script>secret()</script>\n'}, publications=[(1, {'type': 'refresh', 'reason': 'walls'})])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8796220Z overwrite = None
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8796295Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8796384Z     @pytest.mark.parametrize("overwrite", [1, "true", None])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8796621Z     def test_recovery_overwrite_requires_a_json_boolean(flow, overwrite):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8796965Z         source = detach(flow)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8797195Z         body = recovery_body(flow)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8797419Z         body["overwrite"] = overwrite
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8797662Z         before = state(flow.ctx)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8797902Z         response = recover(flow, source, body)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8798165Z         assert response.status_code == 422, response.text
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8798406Z >       assert any(error["loc"][-1] == "overwrite" for error in response.json()["detail"])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8798645Z                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8798827Z E       KeyError: 'detail'
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:31:35.8798908Z 

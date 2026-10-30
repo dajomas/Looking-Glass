@@ -1,0 +1,45 @@
+        }
+        }
+    }
+]
+
+
+['docker', 'logs', 'looking-glass-test-7e2f3eb9b3cc45819d51722fa581a1d0']
+exit=0
+
+2026-10-30 17:30:56,213 INFO    looking_glass: Admin  portal: http://0.0.0.0:5000
+2026-10-30 17:30:56,214 INFO    looking_glass: Viewer portal: http://0.0.0.0:5100
+2026-10-30 17:30:56,229 INFO    uvicorn.error: Started server process [1]
+2026-10-30 17:30:56,230 INFO    uvicorn.error: Waiting for application startup.
+2026-10-30 17:30:56,230 INFO    uvicorn.error: Started server process [1]
+2026-10-30 17:30:56,230 INFO    uvicorn.error: Waiting for application startup.
+2026-10-30 17:30:56,231 INFO    uvicorn.error: Application startup complete.
+2026-10-30 17:30:56,231 INFO    uvicorn.error: Application startup complete.
+2026-10-30 17:30:56,231 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+2026-10-30 17:30:56,231 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5100 (Press CTRL+C to quit)
+2026-10-30 17:30:56,399 INFO    uvicorn.access: 172.17.0.1:58644 - "GET /api/c/1/state HTTP/1.1" 401
+2026-10-30 17:30:56,422 INFO    looking_glass: Shutting down...
+2026-10-30 17:30:56,437 INFO    uvicorn.error: Shutting down
+2026-10-30 17:30:56,437 INFO    uvicorn.error: Shutting down
+2026-10-30 17:30:56,538 INFO    uvicorn.error: Waiting for application shutdown.
+2026-10-30 17:30:56,538 INFO    uvicorn.error: Waiting for application shutdown.
+2026-10-30 17:30:56,538 INFO    uvicorn.error: Application shutdown complete.
+2026-10-30 17:30:56,538 INFO    uvicorn.error: Finished server process [1]
+2026-10-30 17:30:56,538 INFO    uvicorn.error: Application shutdown complete.
+2026-10-30 17:30:56,538 INFO    uvicorn.error: Finished server process [1]
+
+['docker', 'rm', 'looking-glass-test-7e2f3eb9b3cc45819d51722fa581a1d0']
+exit=0
+looking-glass-test-7e2f3eb9b3cc45819d51722fa581a1d0
+
+
+['docker', 'rm', '--force', 'looking-glass-test-7e2f3eb9b3cc45819d51722fa581a1d0']
+exit=0
+
+Error response from daemon: No such container: looking-glass-test-7e2f3eb9b3cc45819d51722fa581a1d0
+
+['docker', 'volume', 'rm', 'looking-glass-test-data-7e2f3eb9b3cc45819d51722fa581a1d0']
+exit=0
+looking-glass-test-data-7e2f3eb9b3cc45819d51722fa581a1d0
+
+

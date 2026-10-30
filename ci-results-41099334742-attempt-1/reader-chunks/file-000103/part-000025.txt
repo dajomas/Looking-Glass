@@ -1,0 +1,28 @@
+17:30:50.1684785Z (node:3143) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.1686143Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.1783338Z With the provided path, there will be 6 files uploaded
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.1784291Z Artifact name is valid!
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.1784732Z Root directory input is valid!
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.4060475Z Beginning upload of artifact content to blob storage
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.4353241Z (node:3143) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.4607100Z Uploaded bytes 4882
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.4761936Z Finished uploading artifact content to blob storage!
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.4763063Z SHA256 digest of uploaded artifact zip is 2eb93e2a29743eb108357b85d87b1eb7158fabc4185787d3fba687c4f2247cf6
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.4765503Z Finalizing artifact upload
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.9219599Z Artifact integration-browser-2a6b53b26f14c1e81cac4ee20f39cd0a5976d58b.zip successfully finalized. Artifact ID 12997442041
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.9221454Z Artifact integration-browser-2a6b53b26f14c1e81cac4ee20f39cd0a5976d58b has been successfully uploaded! Final size is 4882 bytes. Artifact ID is 12997442041
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.9226800Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41099334742/artifacts/12997442041
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:50.9443066Z Post job cleanup.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0312944Z [command]/usr/bin/git version
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0364209Z git version 2.56.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0413815Z Temporarily overriding HOME='/home/runner/work/_temp/6755e900-dd54-4f66-8494-6c5d67e698dd' before making global git config changes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0414784Z Adding repository directory to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0420664Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0463693Z Removing SSH command configuration
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0474802Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0527082Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0883542Z Removing HTTP extra header
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0889949Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.0959834Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:30:51.1280847Z Removing includeIf entries pointing to credentials config files
+Browser / mocked HTTP	UNKNOWN STE

@@ -1,0 +1,35 @@
+
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0707571Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0708014Z ^[[36;1mfrom importlib import import_module^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0708415Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0708775Z ^[[36;1mrequired = {^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0709042Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0709355Z ^[[36;1m    "starlette": "starlette",^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0710163Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0710530Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0710940Z ^[[36;1m    "httpx": "httpx",^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0711226Z ^[[36;1m    "pytest": "pytest",^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0711501Z ^[[36;1m}^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0711780Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0712150Z ^[[36;1m    import_module(module)^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0712512Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0712880Z ^[[36;1mPY^[[0m
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0733638Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0734019Z env:
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0734339Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0734739Z   PYTHONUNBUFFERED: 1
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0734981Z   LG_RUN_LIVE_E2E: 1
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0735288Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0735765Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0736245Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0736673Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0737084Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0737495Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.0737843Z ##[endgroup]
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:23.5206130Z No broken requirements found.
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:24.1885925Z fastapi==0.162.0
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:24.1890631Z starlette==1.10.0
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:24.3996416Z uvicorn==0.54.0
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:24.4000208Z python-multipart==0.0.32
+Recovery	Verify dependencies and record environment	2026-10-30T17:30:24.4277668Z httpx==0.28.1
+Recove
