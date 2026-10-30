@@ -16,20 +16,27 @@ newline state. Each guide also has a compact reconstruction manifest and
 replacement index. No source wording or historical commands/results are
 semantically corrected. Prepared-file checks are not committed-file verification.
 
-## Testing content stages
+## Testing content: delivered and verified
 
-Sections 001-023 were delivered in b14c34bbc2d018ca7f867adf44f30acc4b969089.
-All 23 committed Git blobs matched their source slices (18477 bytes); that
-comparison was repeated before preparing this follow-up. This stage adds all
-remaining testing content 024-042 (44780 bytes), not the manifest/index.
-The full generated 42-file testing set reconstructs 63257 bytes exactly, SHA-256
+Sections 001-023 were delivered in b14c34bbc2d018ca7f867adf44f30acc4b969089;
+024-042 followed in d7ed53c5627b92c23fce9b6b43dd40c1310dc22f. All 42 committed
+Git blobs matched their source slices. Ordered concatenation reconstructs the
+exact original 63257 bytes, SHA-256
 15710ae2def97bfbaa1d71094fffc28a8413040b4d13045dfc99fb71f4930648.
-After a successful write, verify all 42 returned section blobs against the source.
+The testing manifest and replacement index are not yet delivered.
+
+## Deployment first content stage
+
+This stage adds deployment sections 001-012 only (22159 original source bytes).
+The complete generated 36-file set reconstructs 47889 bytes exactly, SHA-256
+ecad8b97c0545edf12383e94e3a60540ec738f680ee237cd36312562075a4e07.
+Its largest content file is 4864 bytes. Compare the committed section hashes
+against the prepared source slices after a successful write.
 
 All three monolithic guide paths remain unchanged and authoritative. Remaining:
-testing manifest/index, all deployment/architecture content and their manifests/
-indexes, final verification and a short HANDOVER.md link. Do not describe the
-complete three-guide split as delivered until all are present.
+deployment 013-036 (25730 bytes), all architecture content, three manifests and
+three replacement indexes, final verification and a short HANDOVER.md link.
+Do not describe the complete three-guide split as delivered until all are present.
 
 ## Decisions and limitations
 
