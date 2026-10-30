@@ -1,0 +1,30 @@
+hon/3.14.9/x64/bin/python
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:48.1965267Z cachedir: .pytest_cache
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:48.1966144Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:48.1966926Z plugins: anyio-4.15.1
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:48.2961289Z collecting ... collected 7 items
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:48.2965906Z 
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:52.6721269Z python/tests/live_e2e/test_live_display.py::test_live_reveal_keeps_adjacent_room_hidden PASSED [ 14%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:56.0250116Z python/tests/live_e2e/test_live_display.py::test_live_hide_and_undo_reach_player PASSED [ 28%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:20:59.5707706Z python/tests/live_e2e/test_live_display.py::test_live_map_switch_uses_destination_artwork_and_fog PASSED [ 42%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:21:03.1471841Z python/tests/live_e2e/test_live_display.py::test_live_offline_preparation_does_not_publish PASSED [ 57%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:21:06.3304728Z python/tests/live_e2e/test_live_resilience.py::test_live_reconnect_fetches_changes_missed_while_offline PASSED [ 71%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:21:09.9804729Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[shared-session-tabs] PASSED [ 85%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:21:14.4765378Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[independent-sessions] PASSED [100%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:21:14.4766930Z 
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:21:14.4767693Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:21:14.4769093Z ============================== 7 passed in 26.28s ==============================
+Live Uvicorn	Collect live failure diagnostics	﻿2026-10-30T07:21:15.0800774Z ##[group]Run python - <<'PY'
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0801285Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0801634Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0801979Z ^[[36;1mimport shutil^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0802292Z ^[[36;1msource = Path("ci-live-tmp")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0802753Z ^[[36;1mdestination = Path("test-results/live-diagnostics")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0803393Z ^[[36;1mfor pattern in ("*-trace.zip", "dm-*.png", "player-*.png", "page-errors.json"):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0804001Z ^[[36;1m    for path in source.rglob(pattern):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0804460Z ^[[36;1m        if path.is_file() and not path.is_symlink():^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0804972Z ^[[36;1m            target = destination / path.relative_to(source)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0805519Z ^[[36;1m            target.parent.mkdir(parents=True, exist_ok=True)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0806002Z ^[[36;1m            shutil.copy2(path, target)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0806375Z ^[[36;1mPY^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:21:15.0827539Z shell

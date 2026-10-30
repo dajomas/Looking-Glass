@@ -1,0 +1,38 @@
+6-10-30T07:20:42.6688721Z No broken requirements found.
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T07:20:43.4988252Z fastapi==0.162.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T07:20:43.4993753Z starlette==1.10.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T07:20:44.0010388Z uvicorn==0.54.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T07:20:44.0014247Z python-multipart==0.0.32
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T07:20:44.0300558Z httpx==0.28.1
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T07:20:44.1801496Z pytest==9.2.0
+Live Uvicorn	Verify browser environment	﻿2026-10-30T07:20:44.2904335Z ##[group]Run set -o pipefail
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2904737Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2905323Z ^[[36;1mpython -u python/tests/check_browser_environment.py 2>&1 | tee test-results/browser-preflight.log^[[0m
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2926333Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2926745Z env:
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2927108Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2927564Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2927831Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2928161Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2928679Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2929192Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2929667Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2930342Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2930816Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.2931244Z ##[endgroup]
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4073913Z Python: 3.14.9 Executable: /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4089340Z Platform: Linux-7.0.0-1017-azure-x86_64-with-glibc2.39
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4100927Z PRETTY_NAME="Ubuntu 24.04.5 LTS"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4101515Z NAME="Ubuntu"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4101961Z VERSION_ID="24.04"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4102448Z VERSION="24.04.5 LTS (Noble Numbat)"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4103070Z VERSION_CODENAME=noble
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4103556Z ID=ubuntu
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4103980Z ID_LIKE=debian
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4104519Z HOME_URL="https://www.ubuntu.com/"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4105239Z SUPPORT_URL="https://help.ubuntu.com/"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4106009Z BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4107063Z PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4107972Z UBUNTU_CODENAME=noble
+Live Uvicorn	Verify browser environment	2026-10-30T07:20:44.4108533Z LOGO=ubuntu-logo
+Li

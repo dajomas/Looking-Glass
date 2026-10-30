@@ -1,0 +1,46 @@
+7Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Recovery	Check out repository	2026-10-30T07:19:56.9998949Z 5f33869a133c4a601e9d66e9f3e84c2e93d1366f
+Recovery	Check out repository	2026-10-30T07:19:57.0003351Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T07:19:57.0003928Z ##[group]Determining the checkout info
+Recovery	Check out repository	2026-10-30T07:19:57.0004608Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T07:19:57.0008208Z [command]/usr/bin/git sparse-checkout disable
+Recovery	Check out repository	2026-10-30T07:19:57.0056809Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Recovery	Check out repository	2026-10-30T07:19:57.0090085Z ##[group]Checking out the ref
+Recovery	Check out repository	2026-10-30T07:19:57.0092828Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Recovery	Check out repository	2026-10-30T07:19:57.0465329Z Switched to a new branch 'features/perplexity'
+Recovery	Check out repository	2026-10-30T07:19:57.0468578Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Recovery	Check out repository	2026-10-30T07:19:57.0474775Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T07:19:57.0520646Z [command]/usr/bin/git log -1 --format=%H
+Recovery	Check out repository	2026-10-30T07:19:57.0551430Z 5f33869a133c4a601e9d66e9f3e84c2e93d1366f
+Recovery	Initialize evidence	﻿2026-10-30T07:19:57.0734397Z ##[group]Run mkdir -p test-results
+Recovery	Initialize evidence	2026-10-30T07:19:57.0734832Z ^[[36;1mmkdir -p test-results^[[0m
+Recovery	Initialize evidence	2026-10-30T07:19:57.0735188Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Recovery	Initialize evidence	2026-10-30T07:19:57.0735560Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Recovery	Initialize evidence	2026-10-30T07:19:57.0756275Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Initialize evidence	2026-10-30T07:19:57.0756643Z env:
+Recovery	Initialize evidence	2026-10-30T07:19:57.0756964Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Initialize evidence	2026-10-30T07:19:57.0757323Z   PYTHONUNBUFFERED: 1
+Recovery	Initialize evidence	2026-10-30T07:19:57.0757781Z   LG_RUN_LIVE_E2E: 1
+Recovery	Initialize evidence	2026-10-30T07:19:57.0758042Z ##[endgroup]
+Recovery	Set up Python	﻿2026-10-30T07:19:57.0918246Z ##[group]Run actions/setup-python@v6
+Recovery	Set up Python	2026-10-30T07:19:57.0918579Z with:
+Recovery	Set up Python	2026-10-30T07:19:57.0918818Z   python-version: 3.14
+Recovery	Set up Python	2026-10-30T07:19:57.0919070Z   cache: pip
+Recovery	Set up Python	2026-10-30T07:19:57.0919369Z   cache-dependency-path: requirements.txt
+Recovery	Set up Python	requirements-dev.txt
+Recovery	Set up Python	
+Recovery	Set up Python	2026-10-30T07:19:57.0919721Z   check-latest: false
+Recovery	Set up Python	2026-10-30T07:19:57.0921245Z   token: ***
+Recovery	Set up Python	2026-10-30T07:19:57.0921486Z   update-environment: true
+Recovery	Set up Python	2026-10-30T07:19:57.0921751Z   allow-prereleases: false
+Recovery	Set up Python	2026-10-30T07:19:57.0922011Z   freethreaded: false
+Recovery	Set up Python	2026-10-30T07:19:57.0922253Z env:
+Recovery	Set up Python	2026-10-30T07:19:57.0922546Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Set up Python	2026-10-30T07:19:57.0922902Z   PYTHONUNBUFFERED: 1
+Recovery	Set up Python	2026-10-30T07:19:57.0923147Z   LG_RUN_LIVE_E2E: 1
+Recovery	Set up Python	2026-10-30T07:19:57.0923397Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T07:19:57.1832352Z ##[group]Installed versions
+Recovery	Set up Python	2026-10-30T07:19:57.1890664Z Successfully set up CPython (3.14.9)
+Recovery	Set up Python	2026-10-30T07:19:57.1891484Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T07:19:57.2133306Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Recovery	Set up Python	2026-10-30T07:19:57.9854348Z

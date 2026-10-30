@@ -1,0 +1,13 @@
+_media(reduced_motion="reduce")
+        values=page.locator("#portal-cycle-overlay polygon").evaluate_all("els=>els.map(e=>{const s=getComputedStyle(e);return {animation:s.animationName,fill:s.fill,stroke:s.stroke,opacity:s.opacity};})")
+        assert len(values)==2
+>       assert all(v==dict(animation="none",fill="rgb(255, 234, 0)",stroke="rgb(0, 0, 0)",opacity="1") for v in values)
+E       assert False
+E        +  where False = all(<generator object test_admin_reduced_motion_is_bright_and_steady.<locals>.<genexpr> at 0x7f3467efec40>)
+
+python/tests/browser/test_portal_visibility.py:123: AssertionError
+- generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+=========================== short test summary info ============================
+FAILED python/tests/browser/test_portal_visibility.py::test_admin_reduced_motion_is_bright_and_steady - assert False
+ +  where False = all(<generator object test_admin_reduced_motion_is_bright_and_steady.<locals>.<genexpr> at 0x7f3467efec40>)
+======================== 1 failed, 161 passed in 50.42s ========================
