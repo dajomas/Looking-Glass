@@ -1,0 +1,36 @@
+64
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:48.2206149Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:48.2206545Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:48.2206941Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:48.2207265Z ##[endgroup]
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:48.6415551Z No broken requirements found.
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:49.3487261Z fastapi==0.162.0
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:49.3491480Z starlette==1.10.0
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:49.9335094Z uvicorn==0.54.0
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:49.9339166Z python-multipart==0.0.32
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:49.9597325Z httpx==0.28.1
+Recovery	Verify dependencies and record environment	2026-10-30T07:32:50.0625717Z pytest==9.2.0
+Recovery	Run process recovery tests	﻿2026-10-30T07:32:50.1430388Z ##[group]Run set -o pipefail
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1430727Z ^[[36;1mset -o pipefail^[[0m
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1431292Z ^[[36;1mpython -m pytest -v -ra python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1452444Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1452801Z env:
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1453105Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1453475Z   PYTHONUNBUFFERED: 1
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1453693Z   LG_RUN_LIVE_E2E: 1
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1453971Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1454636Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1455066Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1455450Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1455822Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1456264Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Run process recovery tests	2026-10-30T07:32:50.1456604Z ##[endgroup]
+Recovery	Run process recovery tests	2026-10-30T07:32:50.9318868Z ============================= test session starts ==============================
+Recovery	Run process recovery tests	2026-10-30T07:32:50.9429024Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Recovery	Run process recovery tests	2026-10-30T07:32:50.9433661Z cachedir: .pytest_cache
+Recovery	Run process recovery tests	2026-10-30T07:32:50.9434544Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Run process recovery tests	2026-10-30T07:32:50.9435162Z plugins: anyio-4.15.1
+Recovery	Run process recovery tests	2026-10-30T07:32:52.5477576Z collecting ... collected 2 items
+Recovery	Run process recovery tests	2026-10-30T07:32:52.5480740Z 
+Recovery	Run process recovery tests	2026-10-30T07:32:55.5615161Z python/tests/recovery/test_restart.py::test_restart_preserves_displayed_fog_and_access[graceful-restart] PASSED [ 50%]
+Recovery	Run process recovery tests	2026-10-30T07:32:58.2540122Z python/tests/recovery/test

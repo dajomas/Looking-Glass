@@ -1,0 +1,24 @@
+26-10-30T07:33:03.531Z pw:browser [pid=2877][err] [1030/073303.530427:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.5381658Z 2026-10-30T07:33:03.536Z pw:browser [pid=2877][err] [1030/073303.535573:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.5383060Z 2026-10-30T07:33:03.536Z pw:browser [pid=2877][err] [1030/073303.536135:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.5464212Z 2026-10-30T07:33:03.538Z pw:browser [pid=2877][err] [1030/073303.538458:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.5465558Z Chromium version: 156.0.8078.4
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.5604632Z 2026-10-30T07:33:03.560Z pw:browser [pid=2877][err] [1030/073303.558470:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1655] drmGetDevices2() has not found any devices
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.5646633Z 2026-10-30T07:33:03.563Z pw:browser [pid=2877][err] [1030/073303.563863:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6091863Z 2026-10-30T07:33:03.608Z pw:browser [pid=2877][err] [1030/073303.608474:INFO:CONSOLE:3] "--playwright--set--content--04b7420d30125d2cd14ae7affe3b2e50--", source:  (3)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6354781Z DOM diagnostic: text_content='Ready', inner_text='Ready'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6357405Z PASS: launch, local HTTP navigation and DOM check
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6361588Z 2026-10-30T07:33:03.636Z pw:browser [pid=2877] <gracefully close start>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6496136Z 2026-10-30T07:33:03.649Z pw:browser [pid=2877][err] [1030/073303.649221:WARNING:net/extras/sqlite/sqlite_persistent_store_backend_base.cc:182] Failed to post task from operator()@net/extras/sqlite/sqlite_persistent_shared_dictionary_store.cc:260 to client_task_runner_.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6605634Z 2026-10-30T07:33:03.660Z pw:browser [pid=2877] <process did exit: exitCode=0, signal=null>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6606617Z 2026-10-30T07:33:03.660Z pw:browser [pid=2877] starting temporary directories cleanup
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6639801Z 2026-10-30T07:33:03.663Z pw:browser [pid=2877] finished temporary directories cleanup
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:03.6640276Z 2026-10-30T07:33:03.663Z pw:browser [pid=2877] <gracefully close end>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:04.1628225Z ##[group]Run set -o pipefail
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:04.1628504Z ^[[36;1mset -o pipefail^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:04.1628927Z ^[[36;1mpython -m pytest -v -ra python/tests/browser --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:04.1646972Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:04.1647255Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:04.1647504Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:33:04.1647801Z   PYTHONUNBUFFERED: 1
+Browser / mo

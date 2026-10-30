@@ -1,0 +1,27 @@
+to show where the warning was created)
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:46.7801742Z With the provided path, there will be 33 files uploaded
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:46.7806096Z Artifact name is valid!
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:46.7806534Z Root directory input is valid!
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.0518242Z Beginning upload of artifact content to blob storage
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.0905485Z (node:2439) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.2356269Z Uploaded bytes 9531
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.2785392Z Finished uploading artifact content to blob storage!
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.2786198Z SHA256 digest of uploaded artifact zip is 3a47bb58e592d6d1195fd385b3adfb62cd9b0dacd77bbaa4c55a67cb6806ca11
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.2786796Z Finalizing artifact upload
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.7282763Z Artifact integration-javascript-6315be869139ee17536222795f4ae07e3d014c44.zip successfully finalized. Artifact ID 12961318079
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.7284334Z Artifact integration-javascript-6315be869139ee17536222795f4ae07e3d014c44 has been successfully uploaded! Final size is 9531 bytes. Artifact ID is 12961318079
+JavaScript regressions	Upload validation evidence	2026-10-30T07:32:47.7288928Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41020692166/artifacts/12961318079
+JavaScript regressions	Post Set up Node.js	﻿2026-10-30T07:32:47.7458135Z Post job cleanup.
+JavaScript regressions	Post Set up Node.js	2026-10-30T07:32:47.8468698Z (node:2451) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+JavaScript regressions	Post Set up Node.js	2026-10-30T07:32:47.8469750Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Post Set up Python	﻿2026-10-30T07:32:47.8596108Z Post job cleanup.
+JavaScript regressions	Post Set up Python	2026-10-30T07:32:47.9618608Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb, not saving cache.
+JavaScript regressions	Post Check out repository	﻿2026-10-30T07:32:47.9752806Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0463454Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0538011Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0569958Z Temporarily overriding HOME='/home/runner/work/_temp/84be8065-600b-4c92-a199-fad5ac845504' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0571234Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0574940Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0607737Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0613860Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Post Check out repository	2026-10-30T07:32:48.0647853Z [command]/usr/bin/git submodule foreach --rec

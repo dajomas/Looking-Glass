@@ -1,0 +1,33 @@
+829639Z fastapi==0.162.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T07:32:44.7832973Z starlette==1.10.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T07:32:44.9538871Z uvicorn==0.54.0
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T07:32:44.9541385Z python-multipart==0.0.32
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T07:32:44.9735940Z httpx==0.28.1
+JavaScript regressions	Verify dependencies and record environment	2026-10-30T07:32:45.0551662Z pytest==9.2.0
+JavaScript regressions	Record Node.js environment	﻿2026-10-30T07:32:45.1278971Z ##[group]Run node --version >> test-results/environment.txt
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1279338Z ^[[36;1mnode --version >> test-results/environment.txt^[[0m
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1279642Z ^[[36;1mnpm --version >> test-results/environment.txt^[[0m
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1297720Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1297994Z env:
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1298248Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1298540Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1298880Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1299104Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1299441Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1299778Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1300074Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1300365Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1300695Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Record Node.js environment	2026-10-30T07:32:45.1301176Z ##[endgroup]
+JavaScript regressions	Run JavaScript regressions	﻿2026-10-30T07:32:45.2306125Z ##[group]Run set -o pipefail
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2306426Z ^[[36;1mset -o pipefail^[[0m
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2306741Z ^[[36;1mpython tools/run_javascript_tests.py 2>&1 | tee test-results/javascript.log^[[0m
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2324709Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2324992Z env:
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2325244Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2325561Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2325747Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2325972Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2326313Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2326640Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Run JavaScript regressions	2026-10-30T07:32:45.2326932Z   Python2_ROOT_DIR: /opt/hostedto

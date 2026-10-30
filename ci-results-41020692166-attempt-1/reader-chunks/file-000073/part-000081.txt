@@ -1,0 +1,43 @@
+actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.6739126Z Complete job name: Python / HTTP
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7426567Z ##[group]Run actions/checkout@v6
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7427332Z with:
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7427763Z   repository: dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7431132Z   token: ***
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7431546Z   ssh-strict: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7431973Z   ssh-user: git
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7432547Z   persist-credentials: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7433016Z   clean: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7433434Z   sparse-checkout-cone-mode: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7433934Z   fetch-depth: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7434354Z   fetch-tags: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7434777Z   show-progress: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7435195Z   lfs: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7435598Z   submodules: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7436033Z   set-safe-directory: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7436512Z   allow-unsafe-pr-checkout: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7437239Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7437767Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7438423Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7438905Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.7439323Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9862585Z Syncing repository: dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9864602Z ##[group]Getting Git version info
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9865381Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9866527Z [command]/usr/bin/git version
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9877335Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9897420Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9910444Z Temporarily overriding HOME='/home/runner/work/_temp/54619963-c907-4541-bd75-80d7834d7018' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9912676Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9916277Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9965166Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9968747Z ##[group]Determining repository object format
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9970766Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9972002Z ##[group]Initializing the repository
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:23.9978934Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:24.0087498Z hint: Using 'master' as the name for the initial branch. This default branch name
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:24.0089016Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:24.0090395Z hint: to use in all of your new repositories, which will suppress this warning,
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:24.0091465Z hint: call:
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:24.0092045Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:32:24.0092935Z hint: 	git config --global init.def

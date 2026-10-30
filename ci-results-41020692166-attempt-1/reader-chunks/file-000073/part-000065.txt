@@ -1,0 +1,40 @@
+aScript regressions	Check out repository	2026-10-30T07:32:25.1291291Z ##[group]Checking out the ref
+JavaScript regressions	Check out repository	2026-10-30T07:32:25.1294337Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-10-30T07:32:25.1733397Z Switched to a new branch 'features/perplexity'
+JavaScript regressions	Check out repository	2026-10-30T07:32:25.1736749Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+JavaScript regressions	Check out repository	2026-10-30T07:32:25.1744725Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-10-30T07:32:25.1790218Z [command]/usr/bin/git log -1 --format=%H
+JavaScript regressions	Check out repository	2026-10-30T07:32:25.1820460Z 6315be869139ee17536222795f4ae07e3d014c44
+JavaScript regressions	Initialize evidence	﻿2026-10-30T07:32:25.2048710Z ##[group]Run mkdir -p test-results
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2049857Z ^[[36;1mmkdir -p test-results^[[0m
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2051277Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2052641Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2075851Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2077110Z env:
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2078141Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2079448Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2080276Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Initialize evidence	2026-10-30T07:32:25.2081240Z ##[endgroup]
+JavaScript regressions	Set up Python	﻿2026-10-30T07:32:25.2340493Z ##[group]Run actions/setup-python@v6
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2341619Z with:
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2342323Z   python-version: 3.14
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2343106Z   cache: pip
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2344092Z   cache-dependency-path: requirements.txt
+JavaScript regressions	Set up Python	requirements-dev.txt
+JavaScript regressions	Set up Python	
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2345335Z   check-latest: false
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2352651Z   token: ***
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2353400Z   update-environment: true
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2354272Z   allow-prereleases: false
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2355115Z   freethreaded: false
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2355872Z env:
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2356848Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2358097Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2358874Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.2359627Z ##[endgroup]
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.3467666Z ##[group]Installed versions
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.3556294Z Successfully set up CPython (3.14.9)
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.3558683Z ##[endgroup]
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.3816871Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.6371161Z /home/runner/.cache/pip
+JavaScript regressions	Set up Python	2026-10-30T07:32:25.7997320Z Cache hit for: setup-p

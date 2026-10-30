@@ -1,0 +1,41 @@
+42Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Recovery	Set up job	2026-10-30T07:32:24.5014610Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Recovery	Set up job	2026-10-30T07:32:24.5910039Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Recovery	Set up job	2026-10-30T07:32:24.8068435Z Complete job name: Recovery
+Recovery	Check out repository	﻿2026-10-30T07:32:24.8908645Z ##[group]Run actions/checkout@v6
+Recovery	Check out repository	2026-10-30T07:32:24.8909892Z with:
+Recovery	Check out repository	2026-10-30T07:32:24.8910460Z   repository: dajomas/Looking-Glass
+Recovery	Check out repository	2026-10-30T07:32:24.8915060Z   token: ***
+Recovery	Check out repository	2026-10-30T07:32:24.8915538Z   ssh-strict: true
+Recovery	Check out repository	2026-10-30T07:32:24.8915975Z   ssh-user: git
+Recovery	Check out repository	2026-10-30T07:32:24.8916414Z   persist-credentials: true
+Recovery	Check out repository	2026-10-30T07:32:24.8916908Z   clean: true
+Recovery	Check out repository	2026-10-30T07:32:24.8917386Z   sparse-checkout-cone-mode: true
+Recovery	Check out repository	2026-10-30T07:32:24.8917913Z   fetch-depth: 1
+Recovery	Check out repository	2026-10-30T07:32:24.8918343Z   fetch-tags: false
+Recovery	Check out repository	2026-10-30T07:32:24.8918787Z   show-progress: true
+Recovery	Check out repository	2026-10-30T07:32:24.8919232Z   lfs: false
+Recovery	Check out repository	2026-10-30T07:32:24.8919639Z   submodules: false
+Recovery	Check out repository	2026-10-30T07:32:24.8920090Z   set-safe-directory: true
+Recovery	Check out repository	2026-10-30T07:32:24.8920613Z   allow-unsafe-pr-checkout: false
+Recovery	Check out repository	2026-10-30T07:32:24.8921477Z env:
+Recovery	Check out repository	2026-10-30T07:32:24.8922084Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Check out repository	2026-10-30T07:32:24.8922807Z   PYTHONUNBUFFERED: 1
+Recovery	Check out repository	2026-10-30T07:32:24.8923271Z   LG_RUN_LIVE_E2E: 1
+Recovery	Check out repository	2026-10-30T07:32:24.8923756Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T07:32:25.2315739Z Syncing repository: dajomas/Looking-Glass
+Recovery	Check out repository	2026-10-30T07:32:25.2318216Z ##[group]Getting Git version info
+Recovery	Check out repository	2026-10-30T07:32:25.2319168Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-10-30T07:32:25.2320505Z [command]/usr/bin/git version
+Recovery	Check out repository	2026-10-30T07:32:25.2465560Z git version 2.56.0
+Recovery	Check out repository	2026-10-30T07:32:25.2519264Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T07:32:25.2531926Z Temporarily overriding HOME='/home/runner/work/_temp/8107ba18-8d84-4faa-8aef-0f41afa1e79e' before making global git config changes
+Recovery	Check out repository	2026-10-30T07:32:25.2535004Z Adding repository directory to the temporary git global config as a safe directory
+Recovery	Check out repository	2026-10-30T07:32:25.2538553Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-10-30T07:32:25.2603876Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-10-30T07:32:25.2705973Z ##[group]Determining repository object format
+Recovery	Check out repository	2026-10-30T07:32:25.2708731Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T07:32:25.2710181Z ##[group]Initializing the repository
+Recovery	Check out repository	2026-10-30T07:32:25.2711651Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-10-30T07:32:25.2744011Z hint: Using 'master' as the name for the initial branch. This default branch name
+Recovery	Check out repository	2026-10-30T07:32:25.2746050Z hint

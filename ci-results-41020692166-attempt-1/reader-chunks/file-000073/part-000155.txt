@@ -1,0 +1,15 @@
+10-30T07:33:00.3100426Z /home/runner/work/_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3115186Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3163186Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T07:33:00.3196099Z /home/runner/work/_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3207757Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3265100Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Recovery	Post Check out repository	2026-10-30T07:33:00.3290859Z /github/runner_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3301786Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3348727Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-10-30T07:33:00.3382490Z /github/runner_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3393222Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config
+Recovery	Post Check out repository	2026-10-30T07:33:00.3446068Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Recovery	Post Check out repository	2026-10-30T07:33:00.3713042Z Removing credentials config '/home/runner/work/_temp/git-credentials-c0b50f30-3687-4288-9a26-1161b49fe1f0.config'
+Recovery	Complete job	﻿2026-10-30T07:33:00.3868329Z Cleaning up orphan processes
+Recovery	Complete job	2026-10-30T07:33:00.4348314Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

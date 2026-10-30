@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+cachedir: .pytest_cache
+rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+plugins: anyio-4.15.1
+collecting ... collected 2 items
+
+python/tests/recovery/test_restart.py::test_restart_preserves_displayed_fog_and_access[graceful-restart] PASSED [ 50%]
+python/tests/recovery/test_restart.py::test_restart_preserves_displayed_fog_and_access[committed-state-after-kill] PASSED [100%]
+
+- generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+============================== 2 passed in 7.32s ===============================
