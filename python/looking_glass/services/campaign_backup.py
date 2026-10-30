@@ -14,9 +14,10 @@ import json
 import uuid
 import zipfile
 from . import images
+from .backup_room_notes import normalize_backup, validate_room_note_rows
 from ..db import MIGRATIONS
 
-MAP_TABLES = ("walls", "fog_ops", "map_fog_snapshots", "map_wall_type_settings", "room_notes", "imported_room_notes", "map_transitions", "double_reveal_maps", "double_reveal_rooms", "double_reveal_history")
+MAP_TABLES = ("walls", "fog_ops", "map_fog_snapshots", "map_wall_type_settings", "room_notes", "imported_room_notes", "room_note_archives", "map_transitions", "double_reveal_maps", "double_reveal_rooms", "double_reveal_history")
 WALL_TABLES = ("door_runtime_states", "passage_runtime_states")
 TABLES = ("maps", "wall_sources") + MAP_TABLES + WALL_TABLES
 
@@ -73,15 +74,7 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
             raise ValueError("Expanded backup exceeds the upload limit")
         if len(raw) > limit:
             raise ValueError("Compressed backup exceeds the upload limit")
-        data = json.loads(archive.read("campaign.json"))
-        compatible_schema = data["schema"] in (15, 16, len(MIGRATIONS))
-        if data["schema"] in (15, 16):
-            for table in ("double_reveal_maps", "double_reveal_rooms", "double_reveal_history"):
-                if table in data["tables"]:
-                    raise ValueError("Unexpected double reveal data in a legacy backup")
-                data["tables"][table] = []
-        if data["format"] != "looking-glass-campaign" or data["version"] != 1 or not compatible_schema:
-            raise ValueError("Unsupported backup format or database schema")
+        data = normalize_backup(json.loads(archive.read("campaign.json")))
         tables = data["tables"]
         if set(tables) != set(TABLES):
             raise ValueError("Incomplete backup")
@@ -92,6 +85,7 @@ def restore_campaign(conn, campaign_id, maps_dir, raw, limit, created_files):
             for row in rows:
                 if not isinstance(row, dict) or set(row) != columns:
                     raise ValueError("Backup columns do not match this version")
+        validate_room_note_rows(tables)
         for table, rows in tables.items():
             ids = [r["id"] for r in rows if "id" in r]
             if len(ids) != len(set(ids)):
@@ -229,7 +223,7 @@ def inspect_campaign(conn, campaign_id, raw, limit):
         finally:
             clone.close()
     with zipfile.ZipFile(io.BytesIO(raw)) as archive:
-        data = json.loads(archive.read("campaign.json"))
+        data = normalize_backup(json.loads(archive.read("campaign.json")))
         return {"name": data["campaign"]["name"], "description": data["campaign"]["description"],
                 "schema": data["schema"], "current_schema": len(MIGRATIONS),
                 "maps": [{"name": m["name"], "width": m["width"], "height": m["height"]}

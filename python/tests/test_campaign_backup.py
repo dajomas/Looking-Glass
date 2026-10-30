@@ -73,7 +73,7 @@ def test_expanded_limit(env):
             restore_campaign(c,1,maps,raw,1,[])
 
 
-@pytest.mark.parametrize('schema,accepted',[(15,True),(16,True),(14,False)])
+@pytest.mark.parametrize('schema,accepted',[(15,True),(16,True),(17,True),(14,False)])
 def test_checkpoint_migration_backup_compatibility(env,schema,accepted):
     db,maps,raw=env
     out=io.BytesIO()
@@ -82,6 +82,10 @@ def test_checkpoint_migration_backup_compatibility(env,schema,accepted):
             body=source.read(name)
             if name=='campaign.json':
                 data=json.loads(body);data['schema']=schema
+                if schema in (15,16,17):
+                    data['tables'].pop('room_note_archives')
+                    for row in data['tables']['maps']:
+                        row.pop('room_notes_version')
                 if schema in (15,16):
                     for table in ('double_reveal_maps','double_reveal_rooms','double_reveal_history'):
                         data['tables'].pop(table,None)
