@@ -25,20 +25,27 @@ exact original 63257 bytes, SHA-256
 15710ae2def97bfbaa1d71094fffc28a8413040b4d13045dfc99fb71f4930648.
 The testing manifest and replacement index are not yet delivered.
 
-## Deployment content stages
+## Deployment content: delivered and verified
 
-Sections 001-012 were delivered in 77cb5bbbc052d76e738c99e10db4e5f4eef8180d.
-All 12 committed blobs match their source slices (22159 bytes), rechecked
-before preparing this follow-up. This stage adds the remaining sections
-013-036 (25730 bytes), not the manifest/index. The complete generated 36-file
-set reconstructs 47889 bytes exactly, SHA-256
+Sections 001-012 were delivered in 77cb5bbbc052d76e738c99e10db4e5f4eef8180d;
+013-036 followed in c14088ffb53f226697b0e04cf76edf069f842640. All 36 committed
+Git blobs matched their source slices. Ordered concatenation reconstructs the
+exact original 47889 bytes, SHA-256
 ecad8b97c0545edf12383e94e3a60540ec738f680ee237cd36312562075a4e07.
-Its largest content file is 4864 bytes. Compare all 36 committed section hashes
-against the source slices after a successful write.
+The largest section is 4864 bytes. Deployment manifest/index remain pending.
+
+## Architecture first content stage
+
+This stage adds architecture sections 001-022 only (34680 original source bytes).
+The full generated 44-file set reconstructs 65461 bytes exactly, SHA-256
+87f917d4cd37b558edda20fab4c86f17513047e6c0ab5b3cd2399053676eb0e9.
+Compare the committed section hashes against source slices after a successful
+write. These source sections intentionally retain historical descriptions,
+including room-note wording predating Bug 2; they are not semantic corrections.
 
 All three monolithic guide paths remain unchanged and authoritative. Remaining:
-all architecture content, three manifests and three replacement indexes, final
-verification and a short HANDOVER.md link. Do not describe the complete
+architecture 023-044 (30781 bytes), three manifests and three replacement indexes,
+final verification and a short HANDOVER.md link. Do not describe the complete
 three-guide split as delivered until all are present.
 
 ## Decisions and limitations
