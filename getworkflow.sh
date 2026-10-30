@@ -107,7 +107,7 @@ if (( ${#OLD_COLLECTIONS[@]} )); then
     printf '  %s\n' "${OLD_COLLECTIONS[@]}"
     printf 'Starting commit for tracked-file recovery: %s\n' "$START_SHA"
     printf 'With --publish, tracked deletions will be committed with the new evidence.\n'
-    printf 'Type "remove" to remove these directories and continue: '
+    # printf 'Type "remove" to remove these directories and continue: '
     # read -r CLEANUP_ANSWER
     # [[ "$CLEANUP_ANSWER" == "remove" ]] || die "Cleanup cancelled; no collection directories removed."
     [[ "$(git branch --show-current)" == "$BRANCH" && "$(git rev-parse HEAD)" == "$START_SHA" ]] || die "Checkout changed before cleanup."
@@ -168,7 +168,7 @@ if (( ${#OLD_COLLECTIONS[@]} )); then
 else
     printf '  (none)\n'
 fi
-printf 'Type "publish" to commit and push: '
+# printf 'Type "publish" to commit and push: '
 # read -r ANSWER
 # [[ "$ANSWER" == "publish" ]] || die "Publishing cancelled; evidence and local deletions remain for review."
 [[ "$(git branch --show-current)" == "$BRANCH" && "$(git rev-parse HEAD)" == "$START_SHA" ]] || die "Checkout changed during collection."
