@@ -28,20 +28,25 @@ Original introductory error-envelope and room-note descriptions may predate
 Bug 2; the index links the current recovery contract rather than silently
 rewriting preserved source bytes. Semantic corrections follow extraction.
 
-## Partial usage stage: content 001-016 only
+## Usage content: complete set staged; index not switched
 
-This stage adds docs/usage/001-016 as byte-preserved source slices (18813 bytes).
-It does not replace docs/usage.md or add the usage manifest/index. The original
-80085-byte usage monolith remains authoritative until the full set is delivered.
-After the successful write, verify every returned section blob against the source.
-Do not describe the complete two-guide split patch as finished.
+Usage content 001-016 was delivered in 799fd5d46045b374af387204a39dec79ba51017b;
+all 16 committed blobs matched their source slices, totaling 18813 bytes.
+This follow-up stages the remaining 26 content files (61272 bytes). Source
+section numbers end at 041, with section 020 split into part-01 and part-02;
+there are 42 content files in total. Do not invent or renumber a section 042.
 
-Remaining: 26 usage content files (including an oversized section's continuation),
-the usage manifest/replacement index, final combined split record and HANDOVER.md
-index link. All content must be present before the usage root becomes its index.
-The full prepared 42-file usage transformation reconstructs its source exactly,
-with no file above 10000 bytes and fence-aware heading detection. Prepared-file
-checks are not claims that all those files have been committed.
+The full generated set reconstructs the original 80085-byte usage guide exactly,
+SHA-256 ca61942f723010f0b90641bbbb7fdeccd020d3382cc40e7e0aa20ea023d8b150.
+Its largest content file is 9816 bytes. Fence-aware heading detection preserves
+example room headings inside code blocks rather than splitting them as sections.
+After a successful write, verify all returned content blobs and reconstruction.
+Prepared reconstruction checks do not substitute for that committed-file check.
+
+The usage root docs/usage.md remains unchanged and authoritative at this stage.
+No usage manifest or replacement index is included. Remaining structural work:
+usage manifest/index, final combined split record and HANDOVER.md index link.
+The two-guide patch is not fully applied until those pieces are delivered.
 
 README.md and HANDOVER.md were reviewed on the original baseline and remain
 unchanged in the staged content/index commits. This focused record captures
