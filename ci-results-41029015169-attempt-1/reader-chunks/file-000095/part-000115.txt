@@ -1,0 +1,27 @@
+#[group]Run python -m pip install --upgrade pip
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7553787Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7554188Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7578843Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7579368Z env:
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7579968Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7580391Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7580661Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7580979Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7581456Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7581928Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7582330Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7582727Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7583143Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:21.7583520Z ##[endgroup]
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:22.8506154Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.5713154Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.5726686Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6042736Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6055088Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6230581Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6242598Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6384310Z Collecting python-multipart>=0.0.12 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 4))
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6396247Z   Using cached python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6779791Z Collecting pyyaml>=6.0 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 5))
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.6792990Z   Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Live Uvicorn	Install application and test dependencies	2026-10-30T08:49:23.8495270Z Collecting pillow>=11.3 (from

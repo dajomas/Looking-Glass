@@ -1,0 +1,33 @@
+me/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T08:50:50.7157799Z ============================= 11 passed in 46.26s ==============================
+Live Uvicorn	Collect live failure diagnostics	﻿2026-10-30T08:50:51.1407174Z ##[group]Run python - <<'PY'
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1407541Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1407817Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1408514Z ^[[36;1mimport shutil^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1408789Z ^[[36;1msource = Path("ci-live-tmp")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1409169Z ^[[36;1mdestination = Path("test-results/live-diagnostics")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1409898Z ^[[36;1mfor pattern in ("*-trace.zip", "dm-*.png", "player-*.png", "page-errors.json"):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1410363Z ^[[36;1m    for path in source.rglob(pattern):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1410733Z ^[[36;1m        if path.is_file() and not path.is_symlink():^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1411146Z ^[[36;1m            target = destination / path.relative_to(source)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1411571Z ^[[36;1m            target.parent.mkdir(parents=True, exist_ok=True)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1411957Z ^[[36;1m            shutil.copy2(path, target)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1412258Z ^[[36;1mPY^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1432785Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1433201Z env:
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1433512Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1433897Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1434145Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1434440Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1434901Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1435334Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1435727Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1436128Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1436545Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T08:50:51.1436891Z ##[endgroup]
+Live Uvicorn	Reject skipped tests or empty results	﻿2026-10-30T08:50:51.1905700Z ##[group]Run python - <<'PY'
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T08:50:51.1906074Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T08:50:51.1906356Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T08:50:51.1906675Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T08:50:51.1907050Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T08:50:51.1907400Z ^[

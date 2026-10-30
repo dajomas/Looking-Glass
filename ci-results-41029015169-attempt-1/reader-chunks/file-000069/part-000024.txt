@@ -1,0 +1,104 @@
+         "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "f5c5ab788985ce485126c3ec027423702837cd5d31e85ab229bfb9bc8413059d",
+            "SandboxKey": "/var/run/docker/netns/f5c5ab788985",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32770"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32771"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "59bc3b3b247620985e07217cd19f7ec0c85fd6dfb5cdd540204796575cafcd77",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "46:cd:f3:57:94:01",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "46:cd:f3:57:94:01",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "9c0b8e207e1d37e30363db46b3262527e98962be6162bd281fd760523be0e30b",
+                    "EndpointID": "59bc3b3b247620985e07217cd19f7ec0c85fd6dfb5cdd540204796575cafcd77",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'inspect', 'looking-glass-test-036e52f193bb4f93847c586040662241']
+exit=0
+[
+    {
+        "Id": "8ff57bf27dc2a3951db817df48b9b7010e74ff21489d76317728ec11be8fc414",
+        "Created": "2026-10-30T08:50:03.202267353Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3126,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T08:50:03.22434421Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:33cdb0bed9514acce3b4b0a4ef4a0a7050258ed047e620ba889a7ef228539aeb",
+        "ResolvConfPath": "/var/lib/docker/containers/8ff57bf27dc2a3951db817df48b9b7010e74ff21489d76317728ec11be8fc414/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/8ff57bf27dc2a3951db817df48b9b7010e74ff21489d76317728ec11be8fc414/hostname",
+        "HostsPath": "/var/lib/docker/containers/8ff57bf27dc2a3951db817df48b9b7010e74ff21489d76317728ec11be8fc414/hosts",
+        "LogPath": "/var/lib/docker/containers/8ff57bf27dc2a3951db817df48b9b7010e74ff21489d76317728ec11be8fc414/8ff57bf27dc2a3951db817df48b9b7010e74ff21489d76317728ec11be8fc414-json.log",
+        "Name": "/looking-glass-test-036e52f193bb4f93847c586040662241",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "Containe

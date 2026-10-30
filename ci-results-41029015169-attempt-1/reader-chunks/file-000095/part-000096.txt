@@ -1,0 +1,39 @@
+	UNKNOWN STEP	2026-10-30T08:49:58.0993512Z httpx==0.28.1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.1960301Z pytest==9.2.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2796668Z ##[group]Run set -o pipefail
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2797123Z ^[[36;1mset -o pipefail^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2797702Z ^[[36;1mpython -u python/tests/check_browser_environment.py 2>&1 | tee test-results/browser-preflight.log^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2812305Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2812839Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2813240Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2813755Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2814070Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2814524Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2815064Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2815585Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2816066Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2816538Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2817108Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.2817518Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3819450Z Python: 3.14.9 Executable: /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3830010Z Platform: Linux-7.0.0-1017-azure-x86_64-with-glibc2.39
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3830849Z PRETTY_NAME="Ubuntu 24.04.5 LTS"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3831726Z NAME="Ubuntu"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3832104Z VERSION_ID="24.04"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3832582Z VERSION="24.04.5 LTS (Noble Numbat)"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3833034Z VERSION_CODENAME=noble
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3833449Z ID=ubuntu
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3833797Z ID_LIKE=debian
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3834201Z HOME_URL="https://www.ubuntu.com/"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3834721Z SUPPORT_URL="https://help.ubuntu.com/"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3835245Z BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3835968Z PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3836490Z UBUNTU_CODENAME=noble
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3836804Z LOGO=ubuntu-logo
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3837022Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3845858Z Playwright: 1.64.1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3846284Z FONTCONFIG_FILE='<unset>'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3846771Z FONTCONFIG_PATH='<unset>'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.3964468Z fc-match sans-serif (exit 0): 'DejaVuSans.ttf: "DejaVu Sans" "Book"'; stderr=''
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.8362211Z Chromium executable: /home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:49:58.8429291Z

@@ -1,0 +1,26 @@
+8:51:05.1667927Z Artifact integration-browser-ac8a77f5396531e6cf7a7b1db48ec39baf848344.zip successfully finalized. Artifact ID 12964902245
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.1668939Z Artifact integration-browser-ac8a77f5396531e6cf7a7b1db48ec39baf848344 has been successfully uploaded! Final size is 12111 bytes. Artifact ID is 12964902245
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.1676325Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41029015169/artifacts/12964902245
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.1878518Z Post job cleanup.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2738178Z [command]/usr/bin/git version
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2778553Z git version 2.56.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2815594Z Temporarily overriding HOME='/home/runner/work/_temp/138da238-b858-4ba7-8f72-87d178a83b51' before making global git config changes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2816879Z Adding repository directory to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2821233Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2856825Z Removing SSH command configuration
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2864884Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.2899025Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3130549Z Removing HTTP extra header
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3135946Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3168752Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3371213Z Removing includeIf entries pointing to credentials config files
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3382382Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3417694Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3418849Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3419773Z includeif.gitdir:/github/workspace/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3420503Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3427586Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3462595Z /home/runner/work/_temp/git-credentials-3aa1bb97-d4a8-42dc-b54a-08b21cae1079.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3480164Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-3aa1bb97-d4a8-42dc-b54a-08b21cae1079.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3508495Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:51:05.3530914Z /home/run

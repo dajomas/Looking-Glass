@@ -1,0 +1,27 @@
+10-30T08:49:41.4968646Z test_room_notes.js: exit=0, seconds=0.032, log=test_room_notes.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:49:41.5610012Z test_scrying_glass_room.js: exit=0, seconds=0.064, log=test_scrying_glass_room.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:49:41.5929911Z test_sidebar_sections.js: exit=0, seconds=0.032, log=test_sidebar_sections.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:49:41.6248932Z test_travel_approval.js: exit=0, seconds=0.032, log=test_travel_approval.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:49:41.6889455Z test_viewer_area_zoom.js: exit=0, seconds=0.064, log=test_viewer_area_zoom.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:49:41.8031794Z test_viewer_refresh.js: exit=0, seconds=0.114, log=test_viewer_refresh.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:49:41.8673055Z test_viewer_sync.js: exit=0, seconds=0.064, log=test_viewer_sync.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T08:49:41.9315214Z test_wall_appearance.js: exit=0, seconds=0.064, log=test_wall_appearance.log
+JavaScript regressions	Reject skipped tests or empty results	﻿2026-10-30T08:49:41.9490725Z ##[group]Run python - <<'PY'
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9491088Z ^[[36;1mpython - <<'PY'^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9491335Z ^[[36;1mfrom pathlib import Path^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9491638Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9491972Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9492286Z ^[[36;1mif not report.is_file():^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9492632Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9493011Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9493309Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9493585Z ^[[36;1mif not cases:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9493878Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9494332Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9494925Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9495628Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9496066Z ^[[36;1mfor case in skipped:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9496372Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9497186Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9497623Z ^[[36;1mif skipped or failed:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T08:49:41.9497987Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass withou

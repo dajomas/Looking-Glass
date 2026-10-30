@@ -1,0 +1,18 @@
+✔ late old decode cannot overwrite the latest reveal (5.510796ms)
+✔ blanking prevents an older image from becoming visible (1.236734ms)
+✔ display prompt resolves restore/reset and Escape as cancel (1.470494ms)
+✔ destination prompts for current reveals even with empty checkpoint (1.911463ms)
+✔ destination without any reveals skips the prompt (0.923826ms)
+✔ same-version recovery after HTTP 500 waits for image installation (1.400441ms)
+✔ same-version recovery after HTTP 404 waits for image installation (1.318467ms)
+✔ an already visible same-version image keeps the fast path (1.019526ms)
+✔ a blank state after an HTTP error remains a truthful waiting screen (1.190247ms)
+✔ a late recovery decode cannot overwrite a newer map (1.478468ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 23.89284
