@@ -103,3 +103,7 @@ prefix. README.md was reviewed and needs no change for this documentation-only
 extraction. No application tests were run. Existing archive files and the
 original manifest are unchanged. Pre-existing index links for records 020 and
 021 were corrected to the actual existing filenames; no files were renamed.
+
+## Current work
+
+- [Bug 2: regression-first integration contracts (2026-10-30)](docs/handover/049-bug-2-integration-contract-tests-2026-10-30.md)
