@@ -1,8 +1,12 @@
 # Retained room-note recovery UI and API
 
-Development-branch feature: archive portability and acceptance are not complete.
-Do not deploy this intermediate branch against valuable campaign data or rely
-on campaign ZIPs to preserve retained notes yet.
+Archive-aware recovery, campaign ZIP backup/restore and clean duplication are
+implemented. The five-suite integration run 41124059137 passed against
+source d5fea76382118277a16ac0c2fd15a7e67508bfe8. Final acceptance remains
+pending targeted coverage additions and the disposable-upgrade exercise;
+this is not a deployment approval. Keep stopped database/image backups before
+upgrades and do not test upgrades against the only copy of valuable data.
+See [coverage and acceptance](handover/062-bug-2-coverage-acceptance-2026-10-30.md).
 
 ## Management workspace
 
@@ -31,6 +35,21 @@ outcome: inspect the current target before another deliberate request.
 Both API routes exist only on the admin application and require management
 permission. Recovery additionally requires X-CSRF-Token. They do not activate
 maps, reveal/hide fog or publish viewer updates.
+
+## Retention and portability
+
+Geometry reconciliation releases invalid room assignments only after retaining
+their exact saved names and Markdown. Archives stay detached even if old geometry
+returns. Imported library text remains separate from custom saved edits; releasing
+an imported name does not replace those edits with the library's original text.
+
+Archive map_id is current ownership. source_* fields, source_revision, timestamp
+and origin_uuid describe historical provenance. Restore and duplication remap
+current ownership/local IDs, not that history; repeated copies can share an
+origin UUID. Clean copies start with fresh map identity and local note generation,
+without automatic activation or recovered assignments. Explicit deletion of an
+owning map/campaign cascades its archives; retention is not a substitute for backups.
+See [archive backup/restore and clean duplication](room-note-backup.md).
 
 ## Listing
 
@@ -78,11 +97,12 @@ The source archive and historical provenance are retained after recovery.
 Success returns no-store JSON with ok and the refreshed ordinary room payload.
 Missing/invalid fields use 422; stale context or unconfirmed replacement uses
 400; a missing/wrong-map archive uses 404. Existing auth/CSRF errors remain.
-Database failures roll back the request and are not reported as success.
-A repeated request is stale after success. Do not automatically retry with new
-stamps after a transport error; inspect current content first.
+API validation errors use the shared {ok:false,error:"field: message"} envelope,
+not a detail array. Database failures roll back the request and are not reported
+as success. A repeated request is stale after success. Do not automatically retry
+with new stamps after a transport error; inspect current content first.
 
 No archive edit/delete/consume/purge API is introduced. Explicit owning-map or
 campaign deletion still follows migration 18's cascading ownership lifecycle.
 See [backend record](handover/055-bug-2-explicit-recovery-2026-10-30.md) and
-[UI record](handover/056-bug-2-recovery-ui-2026-10-30.md) for validation limits.
+[UI record](handover/056-bug-2-recovery-ui-2026-10-30.md) for historical validation limits.
