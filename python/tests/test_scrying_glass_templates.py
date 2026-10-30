@@ -6,7 +6,8 @@ def test_admin_only_and_script_order():
     assert html.index("scrying_glass_room.js") < html.index("room_notes.js")
     assert 'id="scrying-room-check"' not in html
     assert 'aria-live="polite" hidden></p>' in html
-    assert "scrying-auto-2" in html
+    assert 'href="/static/css/scrying_glass.css?v=scrying-prefix-3"' in html
+    assert 'src="/static/js/scrying_glass_room.js?v=scrying-prefix-3"' in html
     app=(ROOT/"python/looking_glass/web/app_factory.py").read_text()
     assert "admin_scrying_glass.router" in app.split("def create_admin_app",1)[1].split("def create_viewer_app",1)[0]
     assert "admin_scrying_glass.router" not in app.split("def create_viewer_app",1)[1]
