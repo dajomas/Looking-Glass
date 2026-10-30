@@ -68,6 +68,9 @@ def live_servers(tmp_path):
         with ctx.db.connect() as conn:
             users.create(conn, "live-dm", "live-dm-password", Role.ADMIN)
             users.create(conn, "live-player", "live-player-password", Role.VIEWER)
+            # Preserve existing IDs 1/2; revocation controls use viewer 3 and root 4.
+            users.create(conn, "live-other-player", "live-other-player-password", Role.VIEWER)
+            users.create(conn, "live-root", "live-root-password", Role.SUPERADMIN)
         urls = []
         for app in (create_admin_app(ctx), create_viewer_app(ctx)):
             while True:

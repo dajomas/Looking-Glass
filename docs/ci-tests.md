@@ -103,7 +103,7 @@ The child blocks on a private stdin pipe; it is never released to finish normall
 The parent waits for this handshake (15-second bound), confirms a separate
 connection still sees exactly the committed version-2 schema/data, kills only
 that child and requires termination within five seconds. No timed random kill
-is used to choose the transaction boundary.
+is used to choose the interruption boundary.
 
 After termination, reopening must show the same legacy schema and original rows,
 recorded version 2, and passing integrity/foreign-key checks. A new unmodified
@@ -142,8 +142,8 @@ fsync injection targets the Linux CI durability path; it is not Windows coverage
 A valid preview is prepared first; recovery storage then fails before live
 replacement. Tests distinguish trial imports into inspection clones from writes
 to the real test database, require the restore-blocked response, preserve every
-DB row and map/recovery file, and require no success notification. This checks
-the HTTP/service gate, not delivery to a real connected browser (increment 4).
+DB row and map/recovery file, and require no success notification. These are
+HTTP/service gate cases, separate from the live access-revocation cases below.
 
 The image fault reproduced a real partial-file leak in the prior store helper.
 `images.store_map_image` now exclusively creates its destination before encoding.
@@ -168,6 +168,54 @@ PYTHONPATH=python python -m pytest -v python/tests/test_storage_failures.py pyth
 Existing top-level discovery collects all 11 cases without workflow/collector
 changes. Failed-case tracebacks and values reach the existing Python job log
 and JUnit artifact. No real account or campaign data is used.
+
+## Reliability batch 2, increment 4: live access revocation
+
+Four cases in `python/tests/live_e2e/test_live_revocation.py` exercise real
+Chromium, loopback HTTP and WebSockets without changing runtime auth code:
+
+- Logout closes both tabs sharing the selected viewer session with code 4403;
+  a different session for the same account continues receiving hide/undo updates.
+- Removing a campaign assignment closes both independent sessions for the target
+  viewer; old cookies receive 404 from campaign state and previously valid image
+  URLs, while a distinct assigned viewer account remains usable.
+- Deactivation revokes both target sessions with code 4403 and old-cookie state/
+  image requests receive 401; another authorized account continues updating.
+- Changing the target role from viewer to admin likewise invalidates its old
+  sessions (401/4403). This does not assert that the new role can never log in;
+  it tests revocation of existing credentials when the role changes.
+
+Close events are observed by a test-only WebSocket subclass that preserves native
+connections and records event codes in per-tab sessionStorage, surviving login
+redirects. No socket frames, HTTP responses or server access checks are mocked.
+Every affected tab must observe 4403 within 10 seconds. Old-cookie requests use a
+separate HTTPX client, so denial cannot be attributed merely to cookie removal
+in the browser. Denial is checked before and after the authorized survivor's
+pixel-verified hide/undo updates. Unaffected pages must not record a 4403 closure.
+
+The isolated live fixture retains original DM/player IDs 1/2 and adds synthetic
+other-viewer id 3 and superadmin id 4. No production accounts/configuration are
+read or modified. The real superadmin user-update route performs deactivation/
+role changes; the normal campaign form route removes assignment. The tests do
+not call repositories directly to simulate the revocation operation.
+
+Extra contexts collect uncaught page errors, with traces/screenshots on failure.
+Their filenames match the existing live diagnostic-copy patterns. Token-free
+close/status observations are always attempted under
+`test-results/live-revocation/<case>/observations.json`. Traces may contain
+synthetic test credentials like existing live traces; review before publishing.
+All extra contexts/pages are cleaned up by the dependent fixture.
+
+This targets the current shared-process immediate-kick path, not multi-worker
+notification, all in-flight races, idle expiry timing, forced password changes or
+new-session admission under every changed role. Previously delivered pixels
+cannot be recalled; there is no new assertion requiring old pixels to be erased
+or a new blank-screen product requirement. State/image denial and socket closure
+are the security boundary checked here. Workflow and collector need no update.
+
+```sh
+LG_RUN_LIVE_E2E=1 PYTHONPATH=python python -m pytest -v python/tests/live_e2e/test_live_revocation.py
+```
 
 ## Local commands
 
@@ -200,12 +248,13 @@ Each job always uploads test-results as integration-<suite>-<sha>, retaining it
 Identity is initialized before dependency setup; full setup output remains in
 Actions logs. One pytest invocation covers all Recovery tests, so reports do not
 overwrite one another. Missing/empty/failed/error or reported-skipped results
-fail the common audit. Pipelines preserve test exits. Existing discovery already
-includes increments 2/3; neither workflow nor collector needs changing for them.
+fail the common audit. Pipelines preserve test exits. Existing discovery includes
+increments 2/3/4; neither workflow nor collector needs changing for them.
 
 Live uses ci-live-tmp and copies generated traces, DM/player screenshots and
-page-errors.json to test-results/live-diagnostics. Extra viewer contexts do not
-yet have individual traces. Recovery server logs are under test-results/recovery;
+page-errors.json to test-results/live-diagnostics. The new revocation helpers
+capture their extra contexts too; older resilience tests' extra contexts still
+lack dedicated traces. Recovery server logs are under test-results/recovery;
 Docker version/build logs under test-results/container-build; container case
 commands/inspect/server output under test-results/container. Inspect output has
 synthetic test credentials, not real account data; review before publishing.
@@ -229,17 +278,20 @@ Increment 2 was reviewed green in run 41025509410 at
 183a4787001597095a4ba26303ca57b04557b3ed: 1,134 Python tests, 29 subtests,
 27 JS scripts, 162 browser, seven live and six Recovery cases. Both interruption
 summaries recorded killed child exit -9, retry exit 0 and final schema version 17.
-Those results do not validate this new storage-failure increment.
+Those results do not validate increments 3/4.
 
-For increment 3, the assistant verified the live images.py blob before preparing
-its change, reproduced the pre-fix partial-PNG leak, and passed focused candidate
-checks for partial cleanup, permission failure, collision preservation, valid
-retry and real SQLite contention/retry on Python 3.12.8 / SQLite 3.46.1. Candidate
-source and new test modules parsed. The full committed pytest/HTTP/recovery-ZIP
-cases and Python 3.14 CI were not executed; acceptance is pending CI.
+Increment 3 preparation verified the live image blob, reproduced a partial-PNG
+leak and passed focused candidate image/SQLite checks plus syntax parsing. Full
+committed storage/HTTP cases have not been run or their CI acceptance reviewed
+by the assistant. Increment 4 passed new-module syntax parsing and a Node
+simulation of recorder close-code storage, persistence and context isolation.
+That simulation used stand-in sockets/storage, not a real browser. Chromium,
+live servers, full suites and Python 3.14 CI were not executed for increment 4.
+Both increments require new CI acceptance; no passing counts are inferred here.
 
-Batch 2 still needs live access revocation (increment 4). Post-image-store DB
-failure cleanup also remains an explicitly identified gap. Later work includes
-property-based state machines, delayed-response/restore live cases, broader
-interruption coverage and collector/runner regressions. General power-loss,
+The four planned batch-2 increment definitions are now prepared, but the batch is
+not accepted complete until all pending cases pass. Post-image-store DB failure
+cleanup remains an explicitly identified gap. Later work includes property-based
+state machines, delayed-response/restore live cases, broader interruption,
+idle/multi-worker revocation and collector/runner regressions. General power-loss,
 cross-file atomicity and other platform/browser claims remain out of scope.
