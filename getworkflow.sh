@@ -8,6 +8,7 @@ WORKFLOW="integration-tests.yml"
 RUN_ID=""
 PUBLISH=0
 TMP=""
+OLD_COLLECTIONS=()
 
 die() {
     printf 'ERROR: %s\n' "$*" >&2
@@ -18,15 +19,20 @@ usage() {
     cat <<'EOF'
 Usage: bash getworkflow.sh [RUN_ID] [--publish]
 
-Without RUN_ID, collect the latest completed integration workflow run.
-Without --publish, collect locally without committing or pushing.
-With --publish, require a clean, up-to-date features/perplexity checkout,
-then prompt before committing and pushing only the collected evidence.
+Require a clean features/perplexity checkout, even for local-only collection.
+Without RUN_ID, select the latest completed integration workflow run.
+Before downloading, list prior root ci-results-RUN[-attempt-N] directories
+and prompt before removing them locally. Dirty/ignored data is not removed.
+Without --publish, no commit or push occurs; old deletions remain unstaged.
+With --publish, require an up-to-date checkout and prompt before committing
+old tracked deletions together with the new evidence and pushing.
+Failure after cleanup leaves tracked old evidence recoverable from starting HEAD.
+Git history and GitHub Actions artifacts are not deleted.
 Requires Bash, Git, authenticated GitHub CLI, jq and Python 3.
-Creates lossless reader-chunks alongside the unchanged original evidence.
-To chunk existing evidence without downloading again:
+Creates lossless reader-chunks alongside the unchanged new original evidence.
+To chunk existing evidence without running cleanup or downloading again:
   python3 tools/chunk_ci_evidence.py ci-results-RUN_ID-attempt-ATTEMPT
-To verify the reading copy against the originals:
+To verify a reading copy:
   python3 tools/chunk_ci_evidence.py --verify ci-results-RUN_ID-attempt-ATTEMPT
 EOF
 }
@@ -55,17 +61,18 @@ cd "$ROOT"
 [[ -f tools/chunk_ci_evidence.py ]] || die "Missing tools/chunk_ci_evidence.py"
 ACTUAL_REPO="$(gh repo view --json nameWithOwner --jq '.nameWithOwner')"
 [[ "${ACTUAL_REPO,,}" == "${REPO,,}" ]] || die "Checkout resolves to $ACTUAL_REPO, expected $REPO."
+[[ "$(git branch --show-current)" == "$BRANCH" ]] || die "Collection cleanup requires branch $BRANCH."
+[[ -z "$(git status --porcelain)" ]] || die "Cleanup requires a clean working tree and index; preserve or commit local work first."
+START_SHA="$(git rev-parse HEAD)"
 
 if (( PUBLISH )); then
-    [[ "$(git branch --show-current)" == "$BRANCH" ]] || die "Publishing requires branch $BRANCH."
-    [[ -z "$(git status --porcelain)" ]] || die "Publishing requires a clean working tree and index."
     ORIGIN_URL="$(git remote get-url --push origin)"
     case "$ORIGIN_URL" in
         "https://github.com/$REPO"|"https://github.com/$REPO.git"|"git@github.com:$REPO"|"git@github.com:$REPO.git"|"ssh://git@github.com/$REPO"|"ssh://git@github.com/$REPO.git") ;;
         *) die "Unexpected origin push URL: $ORIGIN_URL" ;;
     esac
     git fetch origin "refs/heads/$BRANCH"
-    [[ "$(git rev-parse HEAD)" == "$(git rev-parse FETCH_HEAD)" ]] || die "Local HEAD differs from origin/$BRANCH; reconcile first."
+    [[ "$START_SHA" == "$(git rev-parse FETCH_HEAD)" ]] || die "Local HEAD differs from origin/$BRANCH; reconcile first."
 fi
 
 if [[ -z "$RUN_ID" ]]; then
@@ -82,19 +89,50 @@ ATTEMPT="$(jq -r '.attempt' "$TMP/run.json")"
 CONCLUSION="$(jq -r '.conclusion' "$TMP/run.json")"
 [[ "$STATUS" == "completed" ]] || die "Run $RUN_ID is $STATUS, not completed."
 [[ "$RUN_BRANCH" == "$BRANCH" ]] || die "Run belongs to $RUN_BRANCH, expected $BRANCH."
+[[ "$ATTEMPT" =~ ^[0-9]+$ ]] || die "Invalid run attempt."
 EXPECTED_WORKFLOW_ID="$(gh api "repos/$REPO/actions/workflows/$WORKFLOW" --jq '.id')"
 [[ "$(jq -r '.workflowDatabaseId' "$TMP/run.json")" == "$EXPECTED_WORKFLOW_ID" ]] || die "Run does not belong to $WORKFLOW."
 
 OUT="ci-results-${RUN_ID}-attempt-${ATTEMPT}"
-[[ ! -e "$OUT" ]] || die "$OUT already exists; refusing to mix or overwrite evidence."
+[[ ! -e "$OUT" && ! -L "$OUT" ]] || die "$OUT already exists; select a new run/attempt or use the chunk helper for existing evidence."
+for candidate in ci-results-*; do
+    [[ "$candidate" =~ ^ci-results-[0-9]+(-attempt-[0-9]+)?$ ]] || continue
+    [[ ! -L "$candidate" && -d "$candidate" ]] || die "Refusing non-directory or symlink collection: $candidate"
+    [[ -z "$(git ls-files --others --ignored --exclude-standard -- "$candidate")" ]] || die "Ignored local files exist inside $candidate; preserve them before cleanup."
+    OLD_COLLECTIONS+=("$candidate")
+done
+
+if (( ${#OLD_COLLECTIONS[@]} )); then
+    printf '\nPrior collections to remove locally before downloading:\n'
+    printf '  %s\n' "${OLD_COLLECTIONS[@]}"
+    printf 'Starting commit for tracked-file recovery: %s\n' "$START_SHA"
+    printf 'With --publish, tracked deletions will be committed with the new evidence.\n'
+    printf 'Type "remove" to remove these directories and continue: '
+    read -r CLEANUP_ANSWER
+    [[ "$CLEANUP_ANSWER" == "remove" ]] || die "Cleanup cancelled; no collection directories removed."
+    [[ "$(git branch --show-current)" == "$BRANCH" && "$(git rev-parse HEAD)" == "$START_SHA" ]] || die "Checkout changed before cleanup."
+    [[ -z "$(git status --porcelain)" ]] || die "Working tree changed before cleanup."
+    for candidate in "${OLD_COLLECTIONS[@]}"; do
+        [[ ! -L "$candidate" && -d "$candidate" ]] || die "Collection changed before cleanup: $candidate"
+        [[ -z "$(git ls-files --others --ignored --exclude-standard -- "$candidate")" ]] || die "Ignored files appeared in $candidate; cleanup stopped."
+    done
+    for candidate in "${OLD_COLLECTIONS[@]}"; do
+        rm -rf -- "$candidate"
+    done
+    printf 'Old tracked files remain recoverable from %s if collection fails.\n' "$START_SHA"
+fi
+
 mkdir -p "$OUT/artifacts"
 cp "$TMP/run.json" "$OUT/run.json"
 {
     printf 'Collected at: %s\n' "$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
     printf 'Repository: %s\nRun ID: %s\nAttempt: %s\n' "$REPO" "$RUN_ID" "$ATTEMPT"
     printf 'Tested SHA: %s\nConclusion: %s\n' "$RUN_SHA" "$CONCLUSION"
-    printf 'Collector checkout SHA: %s\n' "$(git rev-parse HEAD)"
+    printf 'Collector checkout SHA: %s\n' "$START_SHA"
     printf 'Artifacts are run-scoped, not guaranteed attempt-specific. Verify contained SHAs and provenance.\n'
+    for candidate in "${OLD_COLLECTIONS[@]}"; do
+        printf 'Prior collection removed locally: %s\n' "$candidate"
+    done
 } > "$OUT/collection.txt"
 
 if gh run view "$RUN_ID" --repo "$REPO" --attempt "$ATTEMPT" --log > "$OUT/workflow.log" 2> "$OUT/log-download.stderr"; then
@@ -119,19 +157,37 @@ printf '\nCollected evidence in %s\n' "$OUT"
 cat "$OUT/collection.txt"
 printf 'Review the collection report and evidence before publishing.\n'
 if (( ! PUBLISH )); then
-    printf 'No commit or push performed.\n'
+    printf 'No commit or push performed. Prior tracked deletions remain unstaged; GitHub is unchanged.\n'
     exit 0
 fi
 
 printf '\nLogs/artifacts may contain sensitive data.\n'
-printf 'Type "publish" to commit and push this evidence: '
+printf 'Publication includes the new evidence and these prior collection deletions:\n'
+if (( ${#OLD_COLLECTIONS[@]} )); then
+    printf '  %s\n' "${OLD_COLLECTIONS[@]}"
+else
+    printf '  (none)\n'
+fi
+printf 'Type "publish" to commit and push: '
 read -r ANSWER
-[[ "$ANSWER" == "publish" ]] || die "Publishing cancelled; evidence remains locally."
-[[ "$(git branch --show-current)" == "$BRANCH" ]] || die "Branch changed during collection."
-git diff --quiet && git diff --cached --quiet || die "Tracked files or index changed during collection; review manually."
+[[ "$ANSWER" == "publish" ]] || die "Publishing cancelled; evidence and local deletions remain for review."
+[[ "$(git branch --show-current)" == "$BRANCH" && "$(git rev-parse HEAD)" == "$START_SHA" ]] || die "Checkout changed during collection."
+git diff --cached --quiet || die "Index changed during collection; review manually."
+python3 - "${OLD_COLLECTIONS[@]}" <<'PY'
+import os
+import subprocess
+import sys
+allowed = set(sys.argv[1:])
+fields = subprocess.check_output(["git", "diff", "--name-status", "--no-renames", "-z"]).split(b"\0")
+for index in range(0, len(fields) - 1, 2):
+    status = fields[index]
+    path = os.fsdecode(fields[index + 1])
+    if status != b"D" or path.split("/", 1)[0] not in allowed:
+        raise SystemExit(f"Unexpected tracked change during collection: {status!r} {path}")
+PY
 python3 tools/chunk_ci_evidence.py --verify "$OUT"
-git add -- "$OUT"
-git commit -m "Add CI evidence for run ${RUN_ID}, attempt ${ATTEMPT} [skip ci]"
+git add -A -- "$OUT" "${OLD_COLLECTIONS[@]}"
+git commit -m "Replace CI evidence with run ${RUN_ID}, attempt ${ATTEMPT} [skip ci]"
 git push origin "HEAD:refs/heads/$BRANCH"
 printf '\nPublished commit: %s\n' "$(git rev-parse HEAD)"
 printf 'Branch: %s\nEvidence: %s\n' "$BRANCH" "$OUT"

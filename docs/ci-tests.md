@@ -60,11 +60,25 @@ in the Actions job logs. Each executed suite writes a JUnit report; a separate
 audit rejects missing, empty, failed/error or skipped-case reports. Test exit
 statuses are preserved through tee pipelines.
 
-`getworkflow.sh` needs no update: it downloads all artifacts for the selected run,
-records full run logs/metadata, generates reader chunks and prints the copyable
-run/tested-SHA/evidence-SHA handoff after a successful publish. Older runs naturally
-have fewer artifact groups. Artifact download remains run-scoped rather than
-attempt-filtered; verify provenance after reruns.
+`getworkflow.sh` downloads all artifacts for the selected run, records full run
+logs/metadata, generates reader chunks and prints the copyable run/tested-SHA/
+evidence-SHA handoff after a successful publish. Older runs naturally have fewer
+artifact groups. Artifact download remains run-scoped rather than attempt-filtered;
+verify provenance after reruns.
+
+Before downloading a new run, the collector requires a clean checkout on
+`features/perplexity`, validates the selected run and refuses an already existing
+new output path. It lists old repository-root directories whose names exactly
+match `ci-results-<digits>` or `ci-results-<digits>-attempt-<digits>`, then requires
+typing `remove` before deleting them locally. Symlinks, dirty trees and ignored
+files inside matching directories block cleanup. Other names are untouched.
+With `--publish`, the separately confirmed publication stages tracked deletions
+and new evidence together, so old collections disappear from the branch's current
+files. Without `--publish`, old tracked deletions remain unstaged and GitHub is
+unchanged. Cancellation/failure after cleanup does not automatically restore old
+files; their tracked contents remain in the printed starting commit. Preserve
+local work before retrying: a partially completed run makes the checkout dirty.
+Git history and GitHub Actions artifacts are not erased by this cleanup.
 
 Repository administrators must separately require all four named checks in branch
 protection/rulesets if they are intended merge gates. This change does not alter
@@ -85,3 +99,10 @@ timeout, empty discovery and missing executable. Runner fixtures used Python as
 a stand-in executable, not actual JavaScript tests. The full project checkout,
 Node regressions, Chromium adapter and hosted Actions workflow were not executed
 by the assistant. The first four-suite CI run is acceptance evidence still needed.
+
+Collector cleanup preparation additionally passed five isolated temporary-Git
+scenarios: matching directory removal with committed deletion and historical
+recovery, dirty-tree rejection, symlink rejection, ignored-file rejection, and
+no matching collections. Similarly named noncollection data remained intact.
+These exercised the cleanup/staging logic, not the complete collector with
+GitHub authentication, downloads, chunking, prompts and remote publication.
