@@ -1,0 +1,79 @@
+ true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "1509c8ef79fe2ed5299be5bcb1b9732be46b4798d7263b74d51527f800ba913c",
+                "LowerDir": "/var/lib/docker/overlay2/3af7ceb8a85d75e9cff0735034a0014603a89763c2896bf739c87e7cd1567cdc-init/diff:/var/lib/docker/overlay2/hohri013ioe68dmrpp212t4al/diff:/var/lib/docker/overlay2/n56bc5kuobfdqwqe3ibmaezni/diff:/var/lib/docker/overlay2/rkd7httcijaj6xw985gsosw94/diff:/var/lib/docker/overlay2/0ur8e8hv7ho2xybh5f19x3ec3/diff:/var/lib/docker/overlay2/k0tlyupn5tzos0fiuwcn3p3xs/diff:/var/lib/docker/overlay2/k60m5bf37ymyq2tkgrl92slzj/diff:/var/lib/docker/overlay2/xiqbdh49dkqu2cwegqcyfz1tf/diff:/var/lib/docker/overlay2/yry34r2iw7to15xvkcp6epcq8/diff:/var/lib/docker/overlay2/4liqy4ercy8138177xh7hjysj/diff:/var/lib/docker/overlay2/cea379e20c99ed5140cb57da55395c5153f0cf148f13515ae993513ba5da3059/diff:/var/lib/docker/overlay2/9df215a9a1301a1eb8f0d2709b325aaa97ba2f08439ac769295e152288f2af92/diff:/var/lib/docker/overlay2/8512891672f81440bf10e5c7a633b87b06495d9a86538b72b71c6a35af906e60/diff:/var/lib/docker/overlay2/12434b4a3236b218657faa72146156d380917e04919f34e7f725ed6e11025737/diff",
+                "MergedDir": "/var/lib/docker/overlay2/3af7ceb8a85d75e9cff0735034a0014603a89763c2896bf739c87e7cd1567cdc/merged",
+                "UpperDir": "/var/lib/docker/overlay2/3af7ceb8a85d75e9cff0735034a0014603a89763c2896bf739c87e7cd1567cdc/diff",
+                "WorkDir": "/var/lib/docker/overlay2/3af7ceb8a85d75e9cff0735034a0014603a89763c2896bf739c87e7cd1567cdc/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-a5c056be68fe41159641e60c793f8c27",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-a5c056be68fe41159641e60c793f8c27/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "1509c8ef79fe",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+     

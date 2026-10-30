@@ -1,0 +1,33 @@
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2562887Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2563159Z ^[[36;1m    "starlette": "starlette",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2563430Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2563731Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2564067Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2564657Z ^[[36;1m    "pytest": "pytest",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2564978Z ^[[36;1m}^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2565237Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2565778Z ^[[36;1m    import_module(module)^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2566111Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2566439Z ^[[36;1mPY^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2587384Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2587733Z env:
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2588038Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2588419Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2588645Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2588920Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2589349Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2589787Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2590181Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2590581Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2591005Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.2591336Z ##[endgroup]
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:10.6776225Z No broken requirements found.
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:11.4575166Z fastapi==0.162.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:11.4579592Z starlette==1.10.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:12.8017805Z uvicorn==0.54.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:12.8021152Z python-multipart==0.0.32
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:12.8267421Z httpx2==2.16.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T21:08:12.9320020Z pytest==9.2.0
+Live Uvicorn	Verify browser environment	﻿2026-10-30T21:08:13.0008040Z ##[group]Run set -o pipefail
+Live Uvicorn	Verify browser environment	2026-10-30T21:08:13.0008384Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	Verify browser environment	2026-10-30T21:08:13.0008880Z ^[[36;1mpython -u python/tests/check_browser_
