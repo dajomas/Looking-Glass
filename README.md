@@ -416,16 +416,16 @@ The integration workflow is stored in
   standalone upload-busy regression through a separate-process pytest adapter.
 - `Live Uvicorn`: real listeners and Chromium, including offline reconnect
   and shared/independent-session tab convergence tests.
-- `Recovery`: real CLI subprocess restart and committed-state-after-termination
-  checks using isolated data, authenticated HTTP and fogged-image pixel checks.
+- `Recovery`: CLI process restart and built-container deployment/volume-persistence
+  checks with isolated data, HTTP and fogged-image pixel validation. Docker cases
+  are mandatory in CI; local runs require `LG_RUN_CONTAINER_TESTS=1` and Docker.
 
 Browser jobs require Chromium/system dependencies and browser preflight. All jobs
 retain evidence and reject missing, empty or failed JUnit reports; reported skips
 also fail validation. JavaScript reports count scripts rather than nested Node
-cases. Live failure traces/screenshots are copied into uploaded evidence, and
-recovery retains child-server logs. The collector `getworkflow.sh` handles all
-suite artifacts without changes. These tests do not yet cover in-flight crash
-atomicity, built-container persistence or other operating systems/browser engines.
-A workflow definition is not evidence of success, and merge gates require separate
-repository settings. See [current CI details](docs/ci-tests.md) for commands,
-artifacts, reporting scope, validation status and the remaining reliability backlog.
+cases. Live failure traces/screenshots and recovery/server/build logs are retained.
+The collector `getworkflow.sh` handles every suite artifact without changes.
+In-flight crash atomicity, broad fault injection, other operating systems and
+other browser engines remain outside this coverage. A workflow definition is not
+evidence of success, and merge gates require separate repository settings. See
+[current CI details](docs/ci-tests.md) for commands, evidence and remaining work.

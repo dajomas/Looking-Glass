@@ -134,8 +134,10 @@ jobs:
           set -o pipefail
           python -m pytest -v -ra python/tests/live_e2e --basetemp=ci-live-tmp --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
 
-      - name: Run process recovery tests
+      - name: Run recovery and container tests
         if: matrix.suite == 'recovery'
+        env:
+          LG_RUN_CONTAINER_TESTS: "1"
         run: |
           set -o pipefail
           python -m pytest -v -ra python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
