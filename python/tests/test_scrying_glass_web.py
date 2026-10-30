@@ -3,7 +3,18 @@ pytest.importorskip("fastapi")
 from fastapi.testclient import TestClient
 from test_web import env
 from test_map_transitions_web import prepare
-from looking_glass.services import scrying_glass_access
+from looking_glass.services import scrying_glass, scrying_glass_access
+
+
+@pytest.fixture(autouse=True)
+def disabled_scrying_glass(settings, monkeypatch):
+    monkeypatch.setitem(settings.raw, "scrying_glass", {"enabled": False})
+
+    def unexpected_fetch(*args, **kwargs):
+        raise AssertionError("Disabled Scrying Glass tests must not fetch a catalog")
+
+    monkeypatch.setattr(scrying_glass, "fetch_catalog", unexpected_fetch)
+
 
 def test_lookup_auth_and_disabled(env):
     ctx,admin,viewer,dm,h,cid,mids=prepare(env)

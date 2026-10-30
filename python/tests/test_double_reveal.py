@@ -136,13 +136,20 @@ def test_legacy_backup_still_restores(env,schema):
     with zipfile.ZipFile(io.BytesIO(raw)) as old:
         data=json.loads(old.read('campaign.json'));data['schema']=schema
         for name in dr.TABLES:data['tables'].pop(name)
+        data['tables'].pop('room_note_archives')
+        for row in data['tables']['maps']:
+            row.pop('room_notes_version')
         out=io.BytesIO()
         with zipfile.ZipFile(out,'w') as new:
             for name in old.namelist():
                 if name=='campaign.json':new.writestr(name,json.dumps(data))
                 elif not name.startswith('alternate/'):new.writestr(name,old.read(name))
     with db.connect() as c:backup.restore_campaign(c,1,s.maps_dir,out.getvalue(),10**7,[])
-    with db.connect() as c:assert c.execute('SELECT COUNT(*) FROM double_reveal_maps').fetchone()[0]==0
+    with db.connect() as c:
+        assert c.execute('SELECT COUNT(*) FROM double_reveal_maps').fetchone()[0]==0
+        assert c.execute('SELECT COUNT(*) FROM room_note_archives').fetchone()[0]==0
+        assert c.execute('SELECT COUNT(*) FROM maps WHERE campaign_id=1').fetchone()[0]==2
+        assert c.execute('PRAGMA foreign_key_check').fetchall()==[]
 
 def test_duplicate_campaign_resets_runtime_remaps_links(env):
     db,s,_=env

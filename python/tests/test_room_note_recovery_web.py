@@ -1,11 +1,13 @@
 """Additional recovery contracts; existing archive HTTP cases cover core recovery."""
 import pytest
+from fastapi.testclient import TestClient
 
 from test_web import env
 from test_room_note_archive_web import (
     flow, archives, detach, save, recover, recovery_body, ok, state, viewer_snapshot,
 )
 from looking_glass.services import room_note_recovery
+from looking_glass.web import app_factory
 from looking_glass.web.app_factory import create_admin_app, create_viewer_app
 
 
@@ -100,16 +102,35 @@ def test_recovery_services_require_caller_transactions(env):
         assert not conn.in_transaction
 
 
-def test_archive_routes_are_per_admin_app_and_absent_from_viewer(env):
+def test_archive_routes_are_per_admin_app_and_absent_from_viewer(env, monkeypatch):
     ctx, _, _ = env
     expected = {
         ("/api/maps/{map_id}/room-note-archives", "GET"),
         ("/api/maps/{map_id}/room-note-archives/{archive_id}/recover", "POST"),
     }
-    for app in (create_admin_app(ctx), create_admin_app(ctx)):
-        found = [(route.path, method) for route in app.routes
+    routers = []
+    register = app_factory.register_room_note_archives
+
+    def record_registration(router, *args, **kwargs):
+        register(router, *args, **kwargs)
+        routers.append(router)
+
+    monkeypatch.setattr(app_factory, "register_room_note_archives", record_registration)
+    apps = [create_admin_app(ctx), create_admin_app(ctx)]
+    assert len(routers) == 2 and routers[0] is not routers[1]
+    for app, router in zip(apps, routers):
+        found = [(route.path, method) for route in router.routes
                  for method in getattr(route, "methods", ())
                  if (getattr(route, "path", ""), method) in expected]
         assert set(found) == expected and len(found) == 2
+        paths = app.openapi()["paths"]
+        assert all(method.lower() in paths.get(path, {}) for path, method in expected)
+        with TestClient(app) as client:
+            assert client.get("/api/maps/999/room-note-archives").status_code == 401
+            assert client.post("/api/maps/999/room-note-archives/1/recover", json={}).status_code == 401
     viewer = create_viewer_app(ctx)
-    assert not any("room-note-archives" in getattr(route, "path", "") for route in viewer.routes)
+    assert len(routers) == 2
+    assert not any("room-note-archives" in path for path in viewer.openapi()["paths"])
+    with TestClient(viewer) as client:
+        assert client.get("/api/maps/999/room-note-archives").status_code == 404
+        assert client.post("/api/maps/999/room-note-archives/1/recover", json={}).status_code == 404

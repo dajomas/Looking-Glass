@@ -22,6 +22,7 @@ def test_upgrade_preserves_notes_and_allows_clear(tmp_path):
     assert db.migrate()==len(MIGRATIONS)
     assert db.migrate()==len(MIGRATIONS)
     with db.connect() as conn:
+        conn.execute("BEGIN")
         before=payload(conn,1,'key',True)
         assert before['revision']==7 and before['name']=='Crypt' and before['markdown']=='Gold'
         conn.execute("UPDATE room_notes SET name='',revision=revision+1 WHERE map_id=1")
