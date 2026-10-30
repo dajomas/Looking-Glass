@@ -1,10 +1,34 @@
-# Retained room-note recovery API
+# Retained room-note recovery UI and API
 
-Development-branch API: the recovery UI, archive portability and acceptance
-are not complete. Do not deploy this intermediate branch against valuable
-campaign data or rely on campaign ZIPs to preserve retained notes yet.
+Development-branch feature: archive portability and acceptance are not complete.
+Do not deploy this intermediate branch against valuable campaign data or rely
+on campaign ZIPs to preserve retained notes yet.
 
-Both routes exist only on the admin application and require campaign-management
+## Management workspace
+
+On an admin map page, Retained notes in the top navigation opens a separate tab
+at /maps/{map_id}/room-note-recovery. The original editor and its unsaved draft
+are not replaced. Save or copy any existing draft before replacing saved notes;
+recovery can make its old save context stale. The original tab is not silently
+refreshed or rebased.
+
+Choose a retained entry, inspect its full Markdown source and historical
+provenance, then click an interior on the artwork or use the keyboard-accessible
+X/Y coordinate form to inspect the current target. Preview text is rendered as
+text, not trusted HTML. Load older notes for additional archive pages; Refresh
+starts at the newest page without automatically selecting or recovering content.
+
+Every recovery requires explicit confirmation. A nonempty target additionally
+requires the replacement checkbox after reviewing its saved content. Target
+content is archived first. The original source archive is retained.
+
+Errors preserve selections/previews and require explicit target reinspection
+before another attempt; there is no automatic retry or rebasing. If map
+incarnation or boundaries changed since page load, reload the workspace. Pending
+recovery warns before leaving the page. A transport error can have an uncertain
+outcome: inspect the current target before another deliberate request.
+
+Both API routes exist only on the admin application and require management
 permission. Recovery additionally requires X-CSRF-Token. They do not activate
 maps, reveal/hide fog or publish viewer updates.
 
@@ -60,5 +84,5 @@ stamps after a transport error; inspect current content first.
 
 No archive edit/delete/consume/purge API is introduced. Explicit owning-map or
 campaign deletion still follows migration 18's cascading ownership lifecycle.
-See [handover](handover/055-bug-2-explicit-recovery-2026-10-30.md) for validation
-limits and unfinished work.
+See [backend record](handover/055-bug-2-explicit-recovery-2026-10-30.md) and
+[UI record](handover/056-bug-2-recovery-ui-2026-10-30.md) for validation limits.

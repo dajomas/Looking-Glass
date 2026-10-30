@@ -113,3 +113,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 2: editor save context and delayed-response protection (2026-10-30)](docs/handover/053-bug-2-editor-save-context-2026-10-30.md)
 - [Bug 2: strict ordinary-save validation; acceptance pending (2026-10-30)](docs/handover/054-bug-2-strict-save-validation-2026-10-30.md)
 - [Bug 2: explicit archive listing and recovery; acceptance pending (2026-10-30)](docs/handover/055-bug-2-explicit-recovery-2026-10-30.md)
+- [Bug 2: dedicated recovery UI; acceptance pending (2026-10-30)](docs/handover/056-bug-2-recovery-ui-2026-10-30.md)

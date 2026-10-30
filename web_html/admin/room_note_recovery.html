@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ map.name }} · retained room notes{% endblock %}
+{% block styles %}
+<style>
+.recovery-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.5rem}
+.recovery-grid section{min-width:0}.recovery-grid pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:40vh;overflow:auto;padding:.75rem;border:1px solid currentColor}
+#recovery-list{max-height:35vh;overflow:auto}#recovery-list button{display:block;margin:.4rem 0;width:100%;text-align:left;overflow-wrap:anywhere}
+#recovery-map{display:block;width:100%;height:auto;cursor:crosshair}#recovery-status{overflow-wrap:anywhere}
+@media(max-width:800px){.recovery-grid{grid-template-columns:1fr}}
+</style>
+{% endblock %}
+{% block content %}
+<div id="room-recovery" data-map-id="{{ map.id }}" data-width="{{ map.width }}" data-height="{{ map.height }}" data-cache-token="{{ map.cache_token }}" data-walls-version="{{ map.walls_version }}" data-page-size="50">
+<h1>Retained room notes · {{ map.name }}</h1>
+<p><a href="/maps/{{ map.id }}">Open fog editor</a> · <a href="/campaigns/{{ campaign.id }}">Campaign</a></p>
+<p>Management only. Recovery does not reveal fog or change the player screen. Existing editor drafts in other tabs remain there; save or copy them before replacing saved notes. Those drafts may become stale after recovery.</p>
+<p role="note">Development branch: archive backup/restore and duplication are unfinished. Do not rely on campaign ZIPs to preserve retained notes yet.</p>
+<noscript>This workspace requires JavaScript. No recovery is performed without an explicit request.</noscript>
+<p id="recovery-status" role="status" aria-live="polite">Loading retained notes…</p>
+<div class="recovery-grid">
+<section aria-labelledby="recovery-source-heading">
+<h2 id="recovery-source-heading">1. Choose retained notes</h2>
+<button id="recovery-refresh" type="button">Refresh retained notes</button>
+<div id="recovery-list" tabindex="0" aria-label="Retained note choices"></div>
+<button id="recovery-more" type="button" hidden>Load older notes</button>
+<h3 id="recovery-source-name">No retained note selected</h3>
+<pre id="recovery-source" aria-label="Retained Markdown source"></pre>
+<details><summary>Historical provenance</summary><pre id="recovery-provenance"></pre></details>
+</section>
+<section aria-labelledby="recovery-target-heading">
+<h2 id="recovery-target-heading">2. Inspect a current target room</h2>
+<p>Click an interior on the artwork, or enter image-pixel coordinates. Wall pixels are rejected. This is inspection, not a fog action.</p>
+<img id="recovery-map" src="/api/maps/{{ map.id }}/image" width="{{ map.width }}" height="{{ map.height }}" alt="{{ map.name }} — use the coordinate form for keyboard target selection">
+<form id="recovery-target-form" class="stack">
+<label>Target X <input id="recovery-x" type="number" min="0" step="any" required></label>
+<label>Target Y <input id="recovery-y" type="number" min="0" step="any" required></label>
+<button type="submit">Inspect target room</button>
+</form>
+<h3 id="recovery-target-name">No target inspected</h3>
+<pre id="recovery-target-markdown" aria-label="Current target Markdown source"></pre>
+<label id="recovery-replace-label" class="check" hidden><input id="recovery-replace" type="checkbox"> Replace the inspected target's saved name and notes; archive them first</label>
+<button id="recovery-apply" type="button" disabled>Recover into inspected room</button>
+<p class="small">Recovery retains the original archive. There is no automatic reattachment or purge. Every recovery requires confirmation.</p>
+</section>
+</div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/api.js"></script>
+<script src="/static/js/room_note_recovery_page.js?v=room-recovery-1"></script>
+{% endblock %}

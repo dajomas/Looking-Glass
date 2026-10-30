@@ -15,6 +15,7 @@ from .admin import session_checkpoints as admin_checkpoints
 from .admin import users as admin_users
 from .admin import wall_editor as admin_wall_editor
 from .admin import viewer_zoom as admin_viewer_zoom
+from .admin import room_note_recovery_page as admin_room_note_recovery_page
 from .admin.room_note_archives import register_room_note_archives
 from .context import AppContext
 from .templating import build_templates
@@ -55,6 +56,7 @@ def create_admin_app(ctx: AppContext) -> FastAPI:
     app.include_router(admin_campaigns.router)
     app.include_router(admin_users.router)
     app.include_router(admin_api.router)
+    app.include_router(admin_room_note_recovery_page.router)
     # A fresh router per app avoids mutating the shared admin_api router.
     archive_router = APIRouter(prefix="/api")
     register_room_note_archives(archive_router, admin_api._room_at, admin_api._require_current_room)
