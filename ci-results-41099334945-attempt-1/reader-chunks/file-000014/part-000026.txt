@@ -1,0 +1,30 @@
+eturned context
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4421917Z PASS: rejection retains draft and context, releases controls and never automatically retries
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4422728Z PASS: a delayed selection cannot overwrite editing begun after the request
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4423679Z PASS: saving invalidates pending selection, blocks duplicate submission and installs only save result
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4424570Z PASS: a refresh begun before saving cannot clear the successfully saved selection
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4425734Z PASS: out-of-order selection responses cannot replace the latest selected context
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4426330Z 6 room-note save-context cases passed
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4426562Z 
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4426739Z RUN python/tests/test_room_notes.js
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4808567Z Room notes UI, confirmation, auto-edit and assigned-name filtering tests passed
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.4809120Z 
+regressions	Require nonempty passing reports without skips	﻿2026-10-30T17:31:12.4921766Z ##[group]Run python - <<'PY'
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4922117Z ^[[36;1mpython - <<'PY'^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4922367Z ^[[36;1mfrom pathlib import Path^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4922660Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4922946Z ^[[36;1minvalid = []^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4923214Z ^[[36;1mfor name in ('results.xml', 'javascript.xml'):^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4923562Z ^[[36;1m    report = Path('test-results') / name^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4923872Z ^[[36;1m    if not report.is_file():^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4924375Z ^[[36;1m        invalid.append(f'{name}: missing')^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4924668Z ^[[36;1m        continue^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4925368Z ^[[36;1m    cases = list(ET.parse(report).getroot().iter('testcase'))^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4925946Z ^[[36;1m    rejected = [c for c in cases if any(c.find(tag) is not None for tag in ('failure', 'error', 'skipped'))]^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4926541Z ^[[36;1m    print(f'{name}: {len(cases)} cases, {len(rejected)} rejected')^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4926946Z ^[[36;1m    if not cases or rejected:^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4927315Z ^[[36;1m        invalid.append(f'{name}: empty, failed, errored or skipped')^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4927676Z ^[[36;1mif invalid:^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4927916Z ^[[36;1m    raise SystemExit('; '.join(invalid))^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4928190Z ^[[36;1mPY^[[0m
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4948507Z shell: /usr/bin/bash --noprofile --norc 

@@ -1,0 +1,32 @@
+26-10-30T17:31:11.8751953Z   -         '/api/maps/{map_id}/room-note-archives',
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8752251Z   -         'GET',
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8752456Z   -     ),
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8752639Z   -     (
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8752956Z   -         '/api/maps/{map_id}/room-note-archives/{archive_id}/recover',
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8753337Z   -         'POST',
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8753539Z   -     ),
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8753718Z   - })
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8754468Z FAILED python/tests/test_room_notes_controls.py::test_upgrade_preserves_notes_and_allows_clear - RuntimeError: Room payload requires an active transaction.
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8755605Z ================== 5 failed, 129 passed, 1 warning in 48.40s ===================
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:12.2536857Z ##[error]Process completed with exit code 1.
+regressions	Execute room JavaScript regressions	﻿2026-10-30T17:31:12.2603551Z ##[group]Run set -o pipefail
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2603917Z ^[[36;1mset -o pipefail^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2604246Z ^[[36;1mpython - <<'PY' 2>&1 | tee test-results/javascript.log^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2604607Z ^[[36;1mfrom pathlib import Path^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2605118Z ^[[36;1mimport subprocess^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2605389Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2605771Z ^[[36;1mscripts = sorted(Path('python/tests').glob('test_room*.js'))^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2606156Z ^[[36;1mif not scripts:^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2606457Z ^[[36;1m    raise SystemExit('No room JavaScript scripts found')^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2606952Z ^[[36;1msuite = ET.Element('testsuite', name='bug-2-javascript', tests=str(len(scripts)))^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2607370Z ^[[36;1mfailed = 0^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2607588Z ^[[36;1mfor script in scripts:^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2607869Z ^[[36;1m    print(f'RUN {script}', flush=True)^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2608349Z ^[[36;1m    case = ET.SubElement(suite, 'testcase', classname='room_javascript', name=script.name)^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2608826Z ^[[36;1m    try:^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2609222Z ^[[36;1m        result = subprocess.run(['node', str(script)], capture_output=True, text=True, timeout=120)^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2609727Z ^[[36;1m        output = result.stdout + result.stderr^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2610049Z ^[[36;1m        print(output, flush=True)^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2610381Z ^[[36;1m        ET.SubElement(case, 'system-out').text = output^[[0m
+regressions	Execute room JavaScript regressions	2026-10-30T17:31:12.2610910Z ^[[36;1m        if result.returncode:^[[0m
+regressions	

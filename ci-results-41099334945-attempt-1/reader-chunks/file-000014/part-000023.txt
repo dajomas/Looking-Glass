@@ -1,0 +1,27 @@
+nd HTTP regressions	2026-10-30T17:31:11.8737618Z         if not conn.in_transaction:
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8738061Z >           raise RuntimeError("Room payload requires an active transaction.")
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8738600Z E           RuntimeError: Room payload requires an active transaction.
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8738865Z 
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8739102Z python/looking_glass/services/room_notes.py:30: RuntimeError
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8739576Z =============================== warnings summary ===============================
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8740218Z ../../../../../opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8741386Z   /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8742539Z     from starlette.testclient import TestClient as TestClient  # noqa
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8742824Z 
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8743103Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8743787Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8744393Z =========================== short test summary info ============================
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8745402Z FAILED python/tests/test_room_note_recovery_web.py::test_recovery_overwrite_requires_a_json_boolean[1] - KeyError: 'detail'
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8746381Z FAILED python/tests/test_room_note_recovery_web.py::test_recovery_overwrite_requires_a_json_boolean[true] - KeyError: 'detail'
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8747337Z FAILED python/tests/test_room_note_recovery_web.py::test_recovery_overwrite_requires_a_json_boolean[None] - KeyError: 'detail'
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8748675Z FAILED python/tests/test_room_note_recovery_web.py::test_archive_routes_are_per_admin_app_and_absent_from_viewer - AssertionError: assert (set() == {('/api/maps/...ver', 'POST')}
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8749388Z   
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8749601Z   Extra items in the right set:
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8749990Z   ('/api/maps/{map_id}/room-note-archives/{archive_id}/recover', 'POST')
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8750423Z   ('/api/maps/{map_id}/room-note-archives', 'GET')
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8750713Z   
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8751003Z   Full diff: (-: missing in left side, +: extra in left side)
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8751332Z   + set()
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8751514Z   - {
+regressions	Execute focused Python and HTTP regressions	2026-10-30T17:31:11.8751694Z   -     (
+regressions	Execute focused Python and HTTP regressions	20

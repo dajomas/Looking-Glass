@@ -1,0 +1,46 @@
+regressions	Set up job	﻿2026-10-30T17:30:02.5559086Z Current runner version: '2.338.0'
+regressions	Set up job	2026-10-30T17:30:02.5586536Z ##[group]Runner Image Provisioner
+regressions	Set up job	2026-10-30T17:30:02.5587486Z Hosted Compute Agent
+regressions	Set up job	2026-10-30T17:30:02.5588093Z Version: 20261021.618
+regressions	Set up job	2026-10-30T17:30:02.5588831Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+regressions	Set up job	2026-10-30T17:30:02.5589600Z Build Date: 2026-10-21T00:45:21Z
+regressions	Set up job	2026-10-30T17:30:02.5590328Z Worker ID: {7bf25699-cc4f-4c2b-bf60-1cf3f6830cb7}
+regressions	Set up job	2026-10-30T17:30:02.5591073Z Region: westus
+regressions	Set up job	2026-10-30T17:30:02.5591640Z Cloud: Azure
+regressions	Set up job	2026-10-30T17:30:02.5592222Z ##[endgroup]
+regressions	Set up job	2026-10-30T17:30:02.5593690Z ##[group]Operating System
+regressions	Set up job	2026-10-30T17:30:02.5595229Z Ubuntu
+regressions	Set up job	2026-10-30T17:30:02.5595991Z 24.04.5
+regressions	Set up job	2026-10-30T17:30:02.5596580Z LTS
+regressions	Set up job	2026-10-30T17:30:02.5597159Z ##[endgroup]
+regressions	Set up job	2026-10-30T17:30:02.5597775Z ##[group]Runner Image
+regressions	Set up job	2026-10-30T17:30:02.5598389Z Image: ubuntu-24.04
+regressions	Set up job	2026-10-30T17:30:02.5599067Z Version: 20261025.353.1
+regressions	Set up job	2026-10-30T17:30:02.5600168Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+regressions	Set up job	2026-10-30T17:30:02.5602065Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+regressions	Set up job	2026-10-30T17:30:02.5603086Z ##[endgroup]
+regressions	Set up job	2026-10-30T17:30:02.5604314Z ##[group]GITHUB_TOKEN Permissions
+regressions	Set up job	2026-10-30T17:30:02.5606590Z Contents: read
+regressions	Set up job	2026-10-30T17:30:02.5607381Z Metadata: read
+regressions	Set up job	2026-10-30T17:30:02.5608000Z ##[endgroup]
+regressions	Set up job	2026-10-30T17:30:02.5610636Z Secret source: Actions
+regressions	Set up job	2026-10-30T17:30:02.5611704Z Cache mode: write
+regressions	Set up job	2026-10-30T17:30:02.5612711Z Prepare workflow directory
+regressions	Set up job	2026-10-30T17:30:02.6231319Z Prepare all required actions
+regressions	Set up job	2026-10-30T17:30:02.6283343Z Getting action download info
+regressions	Set up job	2026-10-30T17:30:02.9983701Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+regressions	Set up job	2026-10-30T17:30:03.1362706Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+regressions	Set up job	2026-10-30T17:30:03.2425622Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+regressions	Set up job	2026-10-30T17:30:03.3977234Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+regressions	Set up job	2026-10-30T17:30:03.6588038Z Complete job name: regressions
+regressions	Run actions/checkout@v6	﻿2026-10-30T17:30:03.7588196Z ##[group]Run actions/checkout@v6
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7589542Z with:
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7590346Z   repository: dajomas/Looking-Glass
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7600428Z   token: ***
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7601223Z   ssh-strict: true
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7602003Z   ssh-user: git
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7602797Z   persist-credentials: true
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7603689Z   clean: true
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7604494Z   sparse-checkout-cone-mode: true
+regressions	Run actions/checkout@v6	2026-10-30T17:30:03.7605709Z   fetch-depth: 1
+regressions	Run actions/checkout@v6	2026-

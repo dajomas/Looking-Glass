@@ -1,0 +1,35 @@
+ts.test_room_notes_controls" name="test_upgrade_preserves_notes_and_allows_clear" time="0.080"><failure message="RuntimeError: Room payload requires an active transaction.">tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_upgrade_preserves_notes_a0')
+
+    def test_upgrade_preserves_notes_and_allows_clear(tmp_path):
+        path=tmp_path/"old.sqlite"
+        conn=sqlite3.connect(path)
+        conn.execute("CREATE TABLE schema_version(version INTEGER NOT NULL)")
+        for version,script in enumerate(MIGRATIONS[:-1],1):
+            conn.executescript(script)
+            conn.execute("INSERT INTO schema_version VALUES(?)",(version,))
+            conn.commit()
+        conn.execute("INSERT INTO campaigns(id,name) VALUES(1,'Campaign')")
+        conn.execute("INSERT INTO maps(id,campaign_id,name,image_file,width,height) VALUES(1,1,'Map','map.png',400,200)")
+        conn.execute("INSERT INTO room_notes VALUES(1,'key',100,100,'Crypt','Gold',7)")
+        conn.execute("INSERT INTO imported_room_notes(map_id,name,markdown,digest) VALUES(1,'Library','Treasure','digest')")
+        conn.commit();conn.close()
+        db=Database(path)
+        assert db.migrate()==len(MIGRATIONS)
+        assert db.migrate()==len(MIGRATIONS)
+        with db.connect() as conn:
+&gt;           before=payload(conn,1,'key',True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/test_room_notes_controls.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+conn = &lt;sqlite3.Connection object at 0x7f19a0959d50&gt;, map_id = 1, key = 'key'
+revealed = True
+
+    def payload(conn, map_id, key, revealed):
+        """Return content and its validation context from one transaction."""
+        if not conn.in_transaction:
+&gt;           raise RuntimeError("Room payload requires an active transaction.")
+E           RuntimeError: Room payload requires an active transaction.
+
+python/looking_glass/services/room_notes.py:30: RuntimeError</failure></testcase><testcase classname="python.tests.test_campaign_backup" name="test_roundtrip" time="0.028" /><testcase classname="python.tests.test_campaign_backup" name="test_rollback" time="0.026" /><testcase classname="python.tests.test_campaign_backup" name="test_expanded_limit" time="0.024" /><testcase classname="python.tests.test_campaign_backup" name="test_checkpoint_migration_backup_compatibility[15-True]" time="0.031" /><testcase classname="python.tests.test_campaign_backup" name="test_checkpoint_migration_backup_compatibility[16-True]" time="0.028" /><testcase classname="python.tests.test_campaign_backup" name="test_checkpoint_migration_backup_compatibility[17-True]" time="0.027" /><testcase classname="python.tests.test_campaign_backup" name="test_checkpoint_migration_backup_compatibility[14-False]" time="0.024" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_inspection_read_only" time="0.032" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_preview_binding" time="0.027" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_recovery_restorable" time="0.034" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_bad_image_no_changes" time="0.053" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_invalid_structure[missing]" time="0.028" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_invalid_structure[extra]" time="0.027" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_invalid_structure[duplicate]" time="0.025" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_invalid_structure[schema]" time="0.032" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_recovery_failure_keeps_campaign" time="0.026" /><testcase classname="python.tests.test_campaign_backup_inspection" name="test_recovery_limit_failure" time="0.027" /><testcas

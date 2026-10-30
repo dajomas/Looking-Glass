@@ -1,0 +1,25 @@
+6-10-30T17:30:04.2576920Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2581351Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2638370Z ##[endgroup]
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2641380Z ##[group]Disabling automatic garbage collection
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2643527Z [command]/usr/bin/git config --local gc.auto 0
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2680797Z ##[endgroup]
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2683195Z ##[group]Setting up auth
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2684585Z Removing SSH command configuration
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2686728Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.2729419Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3157733Z Removing HTTP extra header
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3164273Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3216905Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3480356Z Removing includeIf entries pointing to credentials config files
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3487463Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3537072Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3790408Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-988d708a-9fdb-49de-ade4-8221a5b10185.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3842624Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-988d708a-9fdb-49de-ade4-8221a5b10185.config
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3887450Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-988d708a-9fdb-49de-ade4-8221a5b10185.config
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3931879Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-988d708a-9fdb-49de-ade4-8221a5b10185.config
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.3982414Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-988d708a-9fdb-49de-ade4-8221a5b10185.config
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.4022272Z ##[endgroup]
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.4023995Z ##[group]Fetching the repository
+regressions	Run actions/checkout@v6	2026-10-30T17:30:04.4029716Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2a6b53b26f14c1e81cac4ee20f39cd0a5976d58b:refs/remotes/origin/features/perplexity
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1507557Z From https://gi

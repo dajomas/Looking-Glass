@@ -1,0 +1,35 @@
+-e -o pipefail {0}
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4948855Z env:
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4949145Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4949521Z   PYTHONUNBUFFERED: 1
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4949803Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4950214Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4950643Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4951014Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4951399Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4951793Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.4952111Z ##[endgroup]
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.5264284Z results.xml: 134 cases, 5 rejected
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.5266467Z javascript.xml: 5 cases, 0 rejected
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.5267027Z results.xml: empty, failed, errored or skipped
+regressions	Require nonempty passing reports without skips	2026-10-30T17:31:12.5314298Z ##[error]Process completed with exit code 1.
+regressions	Upload execution evidence	﻿2026-10-30T17:31:12.5379761Z ##[group]Run actions/upload-artifact@v4
+regressions	Upload execution evidence	2026-10-30T17:31:12.5380078Z with:
+regressions	Upload execution evidence	2026-10-30T17:31:12.5380380Z   name: bug-2-regressions-2a6b53b26f14c1e81cac4ee20f39cd0a5976d58b
+regressions	Upload execution evidence	2026-10-30T17:31:12.5380748Z   path: test-results/
+regressions	Upload execution evidence	2026-10-30T17:31:12.5380971Z   if-no-files-found: error
+regressions	Upload execution evidence	2026-10-30T17:31:12.5381203Z   retention-days: 14
+regressions	Upload execution evidence	2026-10-30T17:31:12.5381414Z   compression-level: 6
+regressions	Upload execution evidence	2026-10-30T17:31:12.5381627Z   overwrite: false
+regressions	Upload execution evidence	2026-10-30T17:31:12.5381837Z   include-hidden-files: false
+regressions	Upload execution evidence	2026-10-30T17:31:12.5382076Z env:
+regressions	Upload execution evidence	2026-10-30T17:31:12.5382359Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+regressions	Upload execution evidence	2026-10-30T17:31:12.5382724Z   PYTHONUNBUFFERED: 1
+regressions	Upload execution evidence	2026-10-30T17:31:12.5383014Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Upload execution evidence	2026-10-30T17:31:12.5383441Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+regressions	Upload execution evidence	2026-10-30T17:31:12.5383859Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Upload execution evidence	2026-10-30T17:31:12.5384231Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Upload execution evidence	2026-10-30T17:31:12.5384630Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+regressions	Upload execution evidence	2026-10-30T17:31:12.5385355Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+regressions	Upload execution evidence	2026-10-30T17:31:12.5385680Z ##[endgroup]
+regressions	Upload execution evidence	2026-10-30T17:31:12.7164042Z (node:6465) [DEP0040] DeprecationWarning

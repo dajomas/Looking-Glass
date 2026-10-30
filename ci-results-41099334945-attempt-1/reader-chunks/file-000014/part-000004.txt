@@ -1,0 +1,41 @@
+thub.com/dajomas/Looking-Glass
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1509075Z  * [new ref]         2a6b53b26f14c1e81cac4ee20f39cd0a5976d58b -> origin/features/perplexity
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1627100Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1627870Z   origin/features/perplexity
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1628977Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1629615Z 2a6b53b26f14c1e81cac4ee20f39cd0a5976d58b
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1630844Z ##[endgroup]
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1631494Z ##[group]Determining the checkout info
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1632206Z ##[endgroup]
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1632743Z [command]/usr/bin/git sparse-checkout disable
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1689273Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1730671Z ##[group]Checking out the ref
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.1735426Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.2482707Z Switched to a new branch 'features/perplexity'
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.2488444Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.2497608Z ##[endgroup]
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.2555120Z [command]/usr/bin/git log -1 --format=%H
+regressions	Run actions/checkout@v6	2026-10-30T17:30:05.2592312Z 2a6b53b26f14c1e81cac4ee20f39cd0a5976d58b
+regressions	Run actions/setup-python@v6	﻿2026-10-30T17:30:05.2912379Z ##[group]Run actions/setup-python@v6
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2912936Z with:
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2913337Z   python-version: 3.14
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2913770Z   check-latest: false
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2917318Z   token: ***
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2917748Z   update-environment: true
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2918230Z   allow-prereleases: false
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2918668Z   freethreaded: false
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2919070Z env:
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2919565Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2920151Z   PYTHONUNBUFFERED: 1
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.2920559Z ##[endgroup]
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.4338382Z ##[group]Installed versions
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.4438853Z Successfully set up CPython (3.14.9)
+regressions	Run actions/setup-python@v6	2026-10-30T17:30:05.4440389Z ##[endgroup]
+regressions	Run actions/setup-node@v4	﻿2026-10-30T17:30:05.4682896Z ##[group]Run actions/setup-node@v4
+regressions	Run actions/setup-node@v4	2026-10-30T17:30:05.4683478Z with:
+regressions	Run actions/setup-node@v4	2026-10-30T17:30:05.4683881Z   node-version: 24
+regressions	Run actions/setup-node@v4	2026-10-30T17:30:05.4684298Z   always-auth: false
+regressions	Run actions/setup-node@v4	2026-10-30T17:30:05.4684714Z   check-latest: false
+regressions	Run actions/setup-node@v4	2026-10-30T17:30:05.4688555Z   token: ***
+regressions	Run actions/setup-node@v4	2026-10-30T17:30:05.4688954Z env:
+regressions	Run act

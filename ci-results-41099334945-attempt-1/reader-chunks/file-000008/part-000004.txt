@@ -1,0 +1,43 @@
+
+python/tests/test_room_notes.py::test_payload_context_tracks_saved_content_and_preserves_other_maps PASSED [ 73%]
+python/tests/test_room_notes.py::test_payload_generation_and_content_follow_transaction_rollback PASSED [ 74%]
+python/tests/test_room_notes_controls.py::test_upgrade_preserves_notes_and_allows_clear FAILED [ 75%]
+python/tests/test_campaign_backup.py::test_roundtrip PASSED              [ 76%]
+python/tests/test_campaign_backup.py::test_rollback PASSED               [ 76%]
+python/tests/test_campaign_backup.py::test_expanded_limit PASSED         [ 77%]
+python/tests/test_campaign_backup.py::test_checkpoint_migration_backup_compatibility[15-True] PASSED [ 78%]
+python/tests/test_campaign_backup.py::test_checkpoint_migration_backup_compatibility[16-True] PASSED [ 79%]
+python/tests/test_campaign_backup.py::test_checkpoint_migration_backup_compatibility[17-True] PASSED [ 79%]
+python/tests/test_campaign_backup.py::test_checkpoint_migration_backup_compatibility[14-False] PASSED [ 80%]
+python/tests/test_campaign_backup_inspection.py::test_inspection_read_only PASSED [ 81%]
+python/tests/test_campaign_backup_inspection.py::test_preview_binding PASSED [ 82%]
+python/tests/test_campaign_backup_inspection.py::test_recovery_restorable PASSED [ 82%]
+python/tests/test_campaign_backup_inspection.py::test_bad_image_no_changes PASSED [ 83%]
+python/tests/test_campaign_backup_inspection.py::test_invalid_structure[missing] PASSED [ 84%]
+python/tests/test_campaign_backup_inspection.py::test_invalid_structure[extra] PASSED [ 85%]
+python/tests/test_campaign_backup_inspection.py::test_invalid_structure[duplicate] PASSED [ 85%]
+python/tests/test_campaign_backup_inspection.py::test_invalid_structure[schema] PASSED [ 86%]
+python/tests/test_campaign_backup_inspection.py::test_recovery_failure_keeps_campaign PASSED [ 87%]
+python/tests/test_campaign_backup_inspection.py::test_recovery_limit_failure PASSED [ 88%]
+python/tests/test_campaign_backup_inspection.py::test_preview_restart PASSED [ 88%]
+python/tests/test_campaign_backup_inspection_templates.py::test_preview_template_escaping_and_fields PASSED [ 89%]
+python/tests/test_campaign_backup_inspection_templates.py::test_campaign_uses_inspect_not_direct_restore PASSED [ 90%]
+python/tests/test_campaign_backup_inspection_web.py::test_inspect_restore_recovery_http PASSED [ 91%]
+python/tests/test_duplication.py::DuplicationTests::test_campaign_links_and_reset PASSED [ 91%]
+python/tests/test_duplication.py::DuplicationTests::test_independent_image PASSED [ 92%]
+python/tests/test_duplication.py::DuplicationTests::test_invalid_name_and_map PASSED [ 93%]
+python/tests/test_duplication.py::DuplicationTests::test_map_external_link_detached PASSED [ 94%]
+python/tests/test_duplication.py::DuplicationTests::test_map_internal_link_remapped PASSED [ 94%]
+python/tests/test_duplication.py::DuplicationTests::test_missing_image_rolls_back PASSED [ 95%]
+python/tests/test_duplication.py::DuplicationTests::test_partial_copy_cleanup_contract PASSED [ 96%]
+python/tests/test_fog_snapshot_migration.py::test_interleaved_history_preserves_order_coordinates_and_empty_maps PASSED [ 97%]
+python/tests/test_fog_snapshot_migration.py::test_already_migrated_snapshot_is_not_rebuilt PASSED [ 97%]
+python/tests/test_fog_snapshot_migration.py::test_later_upgrade_preserves_saved_snapshot PASSED [ 98%]
+python/tests/test_fog_snapshot_migration.py::test_initialization_failure_rolls_back_schema_data_and_version PASSED [ 99%]
+python/tests/test_fog_snapshot_migration.py::test_version_record_failure_rolls_back_initialization PASSED [100%]
+
+=================================== FAILURES ===================================
+______________ test_recovery_overwrite_requires_a_json_boolean[1] ______________
+
+flow = namespace(ctx=AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100,...r\n\n**Gold** and café 🐉.\n\n<script>secret()</script>\n'}, publications=[(1, {'type': 'refresh', 'reason': 'walls'})])
+ove
