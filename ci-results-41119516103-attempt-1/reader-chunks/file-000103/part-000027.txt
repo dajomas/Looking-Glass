@@ -1,0 +1,46 @@
+:11.1303754Z Current runner version: '2.338.2'
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1328388Z ##[group]Runner Image Provisioner
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1329339Z Hosted Compute Agent
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1329949Z Version: 20261021.618
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1330560Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1331287Z Build Date: 2026-10-21T00:45:21Z
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1331986Z Worker ID: {c29452b2-0ec8-4f38-8a2e-d4bb9b07462b}
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1332699Z Region: westcentralus
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1333259Z Cloud: Azure
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1333813Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1335509Z ##[group]Operating System
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1336179Z Ubuntu
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1336697Z 24.04.5
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1337170Z LTS
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1337699Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1338225Z ##[group]Runner Image
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1338815Z Image: ubuntu-24.04
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1339376Z Version: 20261025.353.1
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1340496Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1342299Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1343280Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1344549Z ##[group]GITHUB_TOKEN Permissions
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1346437Z Contents: read
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1347005Z Metadata: read
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1347547Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1349388Z Secret source: Actions
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1350322Z Cache mode: write
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1351003Z Prepare workflow directory
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1877274Z Prepare all required actions
+Live Uvicorn	Set up job	2026-10-30T19:58:11.1926016Z Getting action download info
+Live Uvicorn	Set up job	2026-10-30T19:58:11.5026733Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Live Uvicorn	Set up job	2026-10-30T19:58:11.5993436Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Live Uvicorn	Set up job	2026-10-30T19:58:11.7118390Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Live Uvicorn	Set up job	2026-10-30T19:58:11.8562756Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Live Uvicorn	Set up job	2026-10-30T19:58:12.1752436Z Complete job name: Live Uvicorn
+Live Uvicorn	Check out repository	﻿2026-10-30T19:58:12.2717435Z ##[group]Run actions/checkout@v6
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2718824Z with:
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2719832Z   repository: dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2728381Z   token: ***
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2729327Z   ssh-strict: true
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2730291Z   ssh-user: git
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2731231Z   persist-credentials: true
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2732267Z   clean: true
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2733209Z   sparse-checkout-cone-mode: true
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2734394Z   fetch-depth: 1
+Live Uvicorn	Check out repository	2026-10-30T19:58:12.2735388

@@ -1,0 +1,32 @@
+ results	2026-10-30T19:59:21.3465694Z ^[[36;1mif not report.is_file():^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3466047Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3466438Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3466766Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3467061Z ^[[36;1mif not cases:^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3467371Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3467834Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3468454Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3469163Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3469614Z ^[[36;1mfor case in skipped:^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3469918Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3470394Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3470819Z ^[[36;1mif skipped or failed:^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3471185Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3471559Z ^[[36;1mPY^[[0m
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3491652Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3491998Z env:
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3492297Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3492663Z   PYTHONUNBUFFERED: 1
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3492891Z   LG_RUN_LIVE_E2E: 1
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3493170Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3493609Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3494052Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3494437Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3495004Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3495397Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3495729Z ##[endgroup]
+Recovery	Reject skipped tests or empty results	2026-10-30T19:59:21.3812636Z Reported: 6; failed/error: 0; skipped: 0
+Recovery	Upload validation evidence	﻿2026-10-30T19:59:21.3931355Z ##[group]Run actions/upload-artifact@v4
+Recovery	Upload validation evidence	2026-10-30T19:59:21.3931699Z with:
+Recovery	Upload validation evidence	2026-10-30T19:59:21.3932030Z   name: integration-recovery-bf6661cd8af1be13a3004e524e2725c937b70782
+Recovery	Upload validation evidence	2026-10-30T19:59:21.3932430Z 

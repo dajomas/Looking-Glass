@@ -1,0 +1,43 @@
+2.6786259Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +bf6661cd8af1be13a3004e524e2725c937b70782:refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8010421Z From https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8013932Z  * [new ref]         bf6661cd8af1be13a3004e524e2725c937b70782 -> origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8024999Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8061773Z   origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8070223Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8102137Z bf6661cd8af1be13a3004e524e2725c937b70782
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8109533Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8112461Z ##[group]Determining the checkout info
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8115673Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8117711Z [command]/usr/bin/git sparse-checkout disable
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8177781Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8219266Z ##[group]Checking out the ref
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8222252Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8935922Z Switched to a new branch 'features/perplexity'
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8943875Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.8952187Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9002629Z [command]/usr/bin/git log -1 --format=%H
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9039228Z bf6661cd8af1be13a3004e524e2725c937b70782
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9324524Z ##[group]Run mkdir -p test-results
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9325992Z ^[[36;1mmkdir -p test-results^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9327812Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9329652Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9357998Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9359642Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9361027Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9362796Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9363906Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9364964Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9700766Z ##[group]Run actions/setup-python@v6
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9702033Z with:
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9702951Z   python-version: 3.14
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9703964Z   cache: pip
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9705256Z   cache-dependency-path: requirements.txt
+Python / HTTP	UNKNOWN STEP	requirements-dev.txt
+Python / HTTP	UNKNOWN STEP	
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9707226Z   check-latest: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9716840Z   token: ***
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9717833Z   update-environment: true
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9718960Z   allow-prereleases: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9720050Z   freethreaded: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:13.9721026Z env:
+Python / HTTP	UNKNOWN STEP	20

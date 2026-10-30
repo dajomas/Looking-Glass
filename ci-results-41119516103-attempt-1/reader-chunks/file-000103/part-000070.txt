@@ -1,0 +1,29 @@
+026-10-30T19:58:51.9727058Z test_viewer_refresh.js: exit=0, seconds=0.114, log=test_viewer_refresh.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T19:58:52.0872296Z test_viewer_sync.js: exit=0, seconds=0.114, log=test_viewer_sync.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T19:58:52.1515759Z test_wall_appearance.js: exit=0, seconds=0.064, log=test_wall_appearance.log
+JavaScript regressions	Reject skipped tests or empty results	﻿2026-10-30T19:58:52.1705204Z ##[group]Run python - <<'PY'
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1705572Z ^[[36;1mpython - <<'PY'^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1705829Z ^[[36;1mfrom pathlib import Path^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1706122Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1706472Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1706806Z ^[[36;1mif not report.is_file():^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1707156Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1707543Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1707848Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1708136Z ^[[36;1mif not cases:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1708432Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1708901Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1709508Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1710210Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1710957Z ^[[36;1mfor case in skipped:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1711268Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1711742Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1712186Z ^[[36;1mif skipped or failed:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1712552Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1712940Z ^[[36;1mPY^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1734250Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1734604Z env:
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1734917Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1735291Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T19:58:52.1735524Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Reject s

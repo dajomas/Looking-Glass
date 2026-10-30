@@ -1,0 +1,44 @@
+ory	2026-10-30T19:58:13.7127069Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Recovery	Check out repository	2026-10-30T19:58:13.7882656Z Switched to a new branch 'features/perplexity'
+Recovery	Check out repository	2026-10-30T19:58:13.7888073Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Recovery	Check out repository	2026-10-30T19:58:13.7895980Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T19:58:13.7955684Z [command]/usr/bin/git log -1 --format=%H
+Recovery	Check out repository	2026-10-30T19:58:13.7996298Z bf6661cd8af1be13a3004e524e2725c937b70782
+Recovery	Initialize evidence	﻿2026-10-30T19:58:13.8279157Z ##[group]Run mkdir -p test-results
+Recovery	Initialize evidence	2026-10-30T19:58:13.8279668Z ^[[36;1mmkdir -p test-results^[[0m
+Recovery	Initialize evidence	2026-10-30T19:58:13.8280117Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Recovery	Initialize evidence	2026-10-30T19:58:13.8280594Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Recovery	Initialize evidence	2026-10-30T19:58:13.8305806Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Initialize evidence	2026-10-30T19:58:13.8306254Z env:
+Recovery	Initialize evidence	2026-10-30T19:58:13.8306616Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Initialize evidence	2026-10-30T19:58:13.8307067Z   PYTHONUNBUFFERED: 1
+Recovery	Initialize evidence	2026-10-30T19:58:13.8307348Z   LG_RUN_LIVE_E2E: 1
+Recovery	Initialize evidence	2026-10-30T19:58:13.8307612Z ##[endgroup]
+Recovery	Set up Python	﻿2026-10-30T19:58:13.8542855Z ##[group]Run actions/setup-python@v6
+Recovery	Set up Python	2026-10-30T19:58:13.8543310Z with:
+Recovery	Set up Python	2026-10-30T19:58:13.8543617Z   python-version: 3.14
+Recovery	Set up Python	2026-10-30T19:58:13.8543899Z   cache: pip
+Recovery	Set up Python	2026-10-30T19:58:13.8544282Z   cache-dependency-path: requirements.txt
+Recovery	Set up Python	requirements-dev.txt
+Recovery	Set up Python	
+Recovery	Set up Python	2026-10-30T19:58:13.8544744Z   check-latest: false
+Recovery	Set up Python	2026-10-30T19:58:13.8547749Z   token: ***
+Recovery	Set up Python	2026-10-30T19:58:13.8548042Z   update-environment: true
+Recovery	Set up Python	2026-10-30T19:58:13.8548368Z   allow-prereleases: false
+Recovery	Set up Python	2026-10-30T19:58:13.8548673Z   freethreaded: false
+Recovery	Set up Python	2026-10-30T19:58:13.8548954Z env:
+Recovery	Set up Python	2026-10-30T19:58:13.8549315Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Set up Python	2026-10-30T19:58:13.8549783Z   PYTHONUNBUFFERED: 1
+Recovery	Set up Python	2026-10-30T19:58:13.8550065Z   LG_RUN_LIVE_E2E: 1
+Recovery	Set up Python	2026-10-30T19:58:13.8550346Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T19:58:14.0019000Z ##[group]Installed versions
+Recovery	Set up Python	2026-10-30T19:58:14.0120537Z Successfully set up CPython (3.14.9)
+Recovery	Set up Python	2026-10-30T19:58:14.0121663Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T19:58:14.0615415Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Recovery	Set up Python	2026-10-30T19:58:15.7544443Z /home/runner/.cache/pip
+Recovery	Set up Python	2026-10-30T19:58:16.0468572Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Recovery	Set up Python	2026-10-30T19:58:17.3558917Z Received 4194304 of 124835150 (3.4%), 4.0 MBs/sec
+Recovery	Set up Python	2026-10-30T19:58:18.3566044Z Received 104857600 of 124835150 (84.0%), 50.0 MBs/sec
+Recovery	Set up Python	2026-10-30T19:58:19.0503064Z Received 124835150 of 124835150 (100.0%), 44.2 MBs/sec
+Recovery	Set up Python	2026-10-30T19:58:19.0503750Z Cache Size: ~119 MB (124835150 B)
+Recovery	Set up Python	2026-10-30T19:58:19.0530559Z [command]/usr/bin/tar -xf /home/runner/work/_temp/cb676af4-9fdf-4609-84b7-5e0dde58467c/cache.tzst -P -C /ho

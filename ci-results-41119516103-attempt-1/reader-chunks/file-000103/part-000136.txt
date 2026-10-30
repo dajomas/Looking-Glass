@@ -1,0 +1,41 @@
+get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0962195Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0962577Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0962972Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0983094Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0983435Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0983738Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0984106Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0984332Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0984617Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0985068Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0985512Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0985908Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0986289Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0986882Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.0987212Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1314491Z Reported: 1231; failed/error: 0; skipped: 0
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1421066Z ##[group]Run actions/upload-artifact@v4
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1421389Z with:
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1421700Z   name: integration-python-bf6661cd8af1be13a3004e524e2725c937b70782
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1422091Z   path: test-results/
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1422326Z   if-no-files-found: warn
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1422564Z   retention-days: 14
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1422782Z   compression-level: 6
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1422998Z   overwrite: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1423217Z   include-hidden-files: false
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1423459Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1423756Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1424122Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1424342Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1424630Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1425051Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1425468Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1425890Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1426276Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1426987Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.1427327Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.3135384Z (node:8669) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.3137249Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.3264261Z With the provided path, there will be 5 files uploaded
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:00:35.32

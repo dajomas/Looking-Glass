@@ -1,0 +1,29 @@
+WN STEP	2026-10-30T19:58:12.5348537Z hint: 'development'. The just-created branch can be renamed via this command:
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5350134Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5351176Z hint: 	git branch -m <name>
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5352294Z hint:
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5353584Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5365233Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5382043Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5449602Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5451109Z ##[group]Disabling automatic garbage collection
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5462667Z [command]/usr/bin/git config --local gc.auto 0
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5494600Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5495909Z ##[group]Setting up auth
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5497120Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5504071Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5547760Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5968208Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.5976190Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6020999Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6258397Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6262522Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6306127Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6551315Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-27e55279-5247-4a43-98c0-2c7cfc018984.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6600933Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-27e55279-5247-4a43-98c0-2c7cfc018984.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6643615Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-27e55279-5247-4a43-98c0-2c7cfc018984.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6686386Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-27e55279-5247-4a43-98c0-2c7cfc018984.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6738860Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-27e55279-5247-4a43-98c0-2c7cfc018984.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6778286Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:12.6779705Z ##[group]Fetching the repository
+Python / HTTP	UNKNOWN STEP	2026-10-30T19:58:1
