@@ -1,0 +1,26 @@
+58:31.8159420Z SHA256 digest of uploaded artifact zip is f560475d102a4f7fc1d25cb7d8d9033a0fe9220c61bc3875b193ae9e08d4a688
+JavaScript regressions	Upload validation evidence	2026-10-30T20:58:31.8160778Z Finalizing artifact upload
+JavaScript regressions	Upload validation evidence	2026-10-30T20:58:32.2787910Z Artifact integration-javascript-c77d2820607c319be0f82ac7848a376e19595602.zip successfully finalized. Artifact ID 13010694114
+JavaScript regressions	Upload validation evidence	2026-10-30T20:58:32.2789803Z Artifact integration-javascript-c77d2820607c319be0f82ac7848a376e19595602 has been successfully uploaded! Final size is 9998 bytes. Artifact ID is 13010694114
+JavaScript regressions	Upload validation evidence	2026-10-30T20:58:32.2795461Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41127343497/artifacts/13010694114
+JavaScript regressions	Post Set up Node.js	﻿2026-10-30T20:58:32.3002732Z Post job cleanup.
+JavaScript regressions	Post Set up Node.js	2026-10-30T20:58:32.4288005Z (node:2937) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+JavaScript regressions	Post Set up Node.js	2026-10-30T20:58:32.4289560Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Post Set up Python	﻿2026-10-30T20:58:32.4466292Z Post job cleanup.
+JavaScript regressions	Post Set up Python	2026-10-30T20:58:32.6134441Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --files-from manifest.txt --use-compress-program zstdmt
+JavaScript regressions	Post Set up Python	2026-10-30T20:58:34.0999153Z Sent 19726336 of 125305856 (15.7%), 18.8 MBs/sec
+JavaScript regressions	Post Set up Python	2026-10-30T20:58:35.1005021Z Sent 70189056 of 125305856 (56.0%), 33.5 MBs/sec
+JavaScript regressions	Post Set up Python	2026-10-30T20:58:36.1013905Z Sent 123535360 of 125305856 (98.6%), 39.2 MBs/sec
+JavaScript regressions	Post Set up Python	2026-10-30T20:58:36.5011155Z Sent 125305856 of 125305856 (100.0%), 35.1 MBs/sec
+JavaScript regressions	Post Set up Python	2026-10-30T20:58:36.7955647Z Cache saved with the key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+JavaScript regressions	Post Check out repository	﻿2026-10-30T20:58:36.8131175Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9044719Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9092892Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9156868Z Temporarily overriding HOME='/home/runner/work/_temp/fd135278-bb6c-4cc9-b123-d12492304198' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9158815Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9161115Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9201629Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9209376Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9258863Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9538191Z Removing HTTP extra header
+JavaScript regressions	Post Check out repository	2026-10-30T20:58:36.9544747Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extrahead

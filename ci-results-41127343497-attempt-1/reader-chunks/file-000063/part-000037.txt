@@ -1,0 +1,40 @@
+806c4678c61a1)
+Live Uvicorn	Set up job	2026-10-30T20:58:02.5299092Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Live Uvicorn	Set up job	2026-10-30T20:58:02.6534055Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Live Uvicorn	Set up job	2026-10-30T20:58:02.9035112Z Complete job name: Live Uvicorn
+Live Uvicorn	Check out repository	﻿2026-10-30T20:58:02.9539908Z ##[group]Run actions/checkout@v6
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9540370Z with:
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9540618Z   repository: dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9542648Z   token: ***
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9542885Z   ssh-strict: true
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9543130Z   ssh-user: git
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9543377Z   persist-credentials: true
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9543647Z   clean: true
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9543895Z   sparse-checkout-cone-mode: true
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9544182Z   fetch-depth: 1
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9544422Z   fetch-tags: false
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9544668Z   show-progress: true
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9544911Z   lfs: false
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9545140Z   submodules: false
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9545389Z   set-safe-directory: true
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9545795Z   allow-unsafe-pr-checkout: false
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9546173Z env:
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9546479Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9546867Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9547116Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Check out repository	2026-10-30T20:58:02.9547386Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1504602Z Syncing repository: dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1506316Z ##[group]Getting Git version info
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1507005Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1579615Z [command]/usr/bin/git version
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1580129Z git version 2.56.0
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1592952Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1604797Z Temporarily overriding HOME='/home/runner/work/_temp/6b2fce5e-89bc-43d7-90af-175bc9931d2e' before making global git config changes
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1605805Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1610423Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1658710Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1661380Z ##[group]Determining repository object format
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1663129Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1663531Z ##[group]Initializing the repository
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1667869Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-30T20:58:03.1747261Z hint: Using 'master' as the name for the initial branch. This default bran
