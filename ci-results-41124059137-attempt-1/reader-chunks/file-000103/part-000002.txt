@@ -1,0 +1,39 @@
+2:46.1287632Z   ssh-user: git
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1287874Z   persist-credentials: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1288139Z   clean: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1288384Z   sparse-checkout-cone-mode: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1288665Z   fetch-depth: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1288900Z   fetch-tags: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1289143Z   show-progress: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1289384Z   lfs: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1289611Z   submodules: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1289855Z   set-safe-directory: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1290128Z   allow-unsafe-pr-checkout: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1290491Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1290793Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1291170Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1291432Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.1291674Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3629488Z Syncing repository: dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3630750Z ##[group]Getting Git version info
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3631155Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3631721Z [command]/usr/bin/git version
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3722791Z git version 2.56.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3737249Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3747902Z Temporarily overriding HOME='/home/runner/work/_temp/30e7baca-b0bf-477c-a922-b5f433c9318c' before making global git config changes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3749166Z Adding repository directory to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3752733Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3799795Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3802847Z ##[group]Determining repository object format
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3804979Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3805609Z ##[group]Initializing the repository
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3808283Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3918263Z hint: Using 'master' as the name for the initial branch. This default branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3919325Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.3920954Z hint: to use in all of your new repositories, which will suppress this warning,
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.4001022Z hint: call:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.4001568Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.4002227Z hint: 	git config --global init.defaultBranch <name>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.4002862Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.4003463Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:32:46.4004543Z hint: 'development'. The 

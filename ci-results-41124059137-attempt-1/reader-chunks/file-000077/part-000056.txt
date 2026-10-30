@@ -1,0 +1,100 @@
+9c8740cb088ee139228a484b5/diff:/var/lib/docker/overlay2/c46c73b1ca68bf8f8c0c296b9e83aaf810c321989c213a34f1b948fc0dee5449/diff",
+                "MergedDir": "/var/lib/docker/overlay2/95f063b198b96aa18c3eb18a26410fd4d7ef83e8af4d5e29b44e97ea3c21cadb/merged",
+                "UpperDir": "/var/lib/docker/overlay2/95f063b198b96aa18c3eb18a26410fd4d7ef83e8af4d5e29b44e97ea3c21cadb/diff",
+                "WorkDir": "/var/lib/docker/overlay2/95f063b198b96aa18c3eb18a26410fd4d7ef83e8af4d5e29b44e97ea3c21cadb/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-03fe4c5c99534bcc94ca581a91e3af1c",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-03fe4c5c99534bcc94ca581a91e3af1c/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "493c001a79d7",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:8b2d81ab6f9c439f9908438134c45f19",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "2eb719af820951b4782b3baa443262eee6fbeea1a41e078721c9962cc16b5964",
+            "SandboxKey": "/var/run/docker/netns/2eb719af8209",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32772"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32773"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "ff7ccf91b88e6f1f90aaf118d827d6b9f2a51388953d1aa3fe699369785c4b94",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6Prefi

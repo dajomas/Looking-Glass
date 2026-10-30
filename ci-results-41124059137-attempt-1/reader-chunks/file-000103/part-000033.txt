@@ -1,0 +1,25 @@
+y to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7308991Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7341445Z Removing SSH command configuration
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7346238Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7377516Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7588253Z Removing HTTP extra header
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7593506Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7632147Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7863405Z Removing includeIf entries pointing to credentials config files
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7870228Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7923476Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7924351Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7924998Z includeif.gitdir:/github/workspace/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7925536Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7947530Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7970814Z /home/runner/work/_temp/git-credentials-9a6575b7-a7f9-434c-be2f-d4388e279a0f.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.7980850Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-9a6575b7-a7f9-434c-be2f-d4388e279a0f.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.8032549Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.8066968Z /home/runner/work/_temp/git-credentials-9a6575b7-a7f9-434c-be2f-d4388e279a0f.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.8077081Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-9a6575b7-a7f9-434c-be2f-d4388e279a0f.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.8122520Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.8156083Z /github/runner_temp/git-credentials-9a6575b7-a7f9-434c-be2f-d4388e279a0f.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.8165407Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-9a6575b7-a7f9-434c-be2f-d4388e279a0f.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:34:20.8209617Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Browser / mocked HTTP	U

@@ -1,0 +1,23 @@
+.7492293Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.7774218Z Removing HTTP extra header
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.7782670Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.7844114Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8235367Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8244476Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8300029Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8302243Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8303961Z includeif.gitdir:/github/workspace/.git.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8305249Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8321269Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8374563Z /home/runner/work/_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8390767Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8478681Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8522282Z /home/runner/work/_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8531687Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8584284Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8619411Z /github/runner_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8628923Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8679031Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8716040Z /github/runner_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8727199Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-6d3a3b77-6c5c-4980-b82f-e3fed9618d7c.config
+Live Uvicorn	Post Check out repository	2026-10-30T20:34:58.8778294Z [co

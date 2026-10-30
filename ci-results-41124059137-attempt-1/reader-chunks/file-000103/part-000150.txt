@@ -1,0 +1,33 @@
+2026-10-30T20:32:47.7015255Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Set up Python	2026-10-30T20:32:47.7016841Z   PYTHONUNBUFFERED: 1
+Recovery	Set up Python	2026-10-30T20:32:47.7017746Z   LG_RUN_LIVE_E2E: 1
+Recovery	Set up Python	2026-10-30T20:32:47.7018754Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T20:32:47.8423263Z ##[group]Installed versions
+Recovery	Set up Python	2026-10-30T20:32:47.8522993Z Successfully set up CPython (3.14.9)
+Recovery	Set up Python	2026-10-30T20:32:47.8526242Z ##[endgroup]
+Recovery	Set up Python	2026-10-30T20:32:47.8891641Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Recovery	Set up Python	2026-10-30T20:32:48.1902038Z /home/runner/.cache/pip
+Recovery	Set up Python	2026-10-30T20:32:48.2891923Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Recovery	Set up Python	2026-10-30T20:32:48.9865742Z Received 124835150 of 124835150 (100.0%), 182.9 MBs/sec
+Recovery	Set up Python	2026-10-30T20:32:48.9893398Z Cache Size: ~119 MB (124835150 B)
+Recovery	Set up Python	2026-10-30T20:32:48.9894364Z [command]/usr/bin/tar -xf /home/runner/work/_temp/ea2e93bb-dd6a-4199-95a5-89f8c3b4963a/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Recovery	Set up Python	2026-10-30T20:32:49.2069132Z Cache restored successfully
+Recovery	Set up Python	2026-10-30T20:32:49.2125771Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Recovery	Install application and test dependencies	﻿2026-10-30T20:32:49.2430629Z ##[group]Run python -m pip install --upgrade pip
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2431082Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2431465Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2456084Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2456470Z env:
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2456802Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2457196Z   PYTHONUNBUFFERED: 1
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2457429Z   LG_RUN_LIVE_E2E: 1
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2457718Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2458512Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2459013Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2459432Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2459816Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2460217Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.2460586Z ##[endgroup]
+Recovery	Install application and test dependencies	2026-10-30T20:32:49.7475538Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+Recovery	Install application and test dependencies	2026-10-30T20:32:50.3661723Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Recovery	Install application and test dependencies	2026-10-30T20:32:50.3676681Z

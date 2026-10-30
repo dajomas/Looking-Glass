@@ -1,0 +1,110 @@
+
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "looking-glass-test-data-ab659a70f8a04b7c9ffd5cf36487e6c3",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "22e782fb1b426a3471485f8cf8953457980f73ab4e3163e873a0ec020b8a09e3",
+                "LowerDir": "/var/lib/docker/overlay2/ef0b94f751914859ca4030d82f18263209755401dbc2feefed153f5d19f25269-init/diff:/var/lib/docker/overlay2/pfexmau1uxe4yabg4cklwg3lx/diff:/var/lib/docker/overlay2/w7lhu59cz8eptykotj3kpfkea/diff:/var/lib/docker/overlay2/w6iqqldhq0qs220nfpot59kez/diff:/var/lib/docker/overlay2/ypa2b99qjeicmly40a1b06eku/diff:/var/lib/docker/overlay2/li3qbsk2iov6kx2qy1onjo6gh/diff:/var/lib/docker/overlay2/udnmaz3lm58r6v999svokmg3o/diff:/var/lib/docker/overlay2/wez4ok2b8i7oi878au3oazdet/diff:/var/lib/docker

@@ -1,0 +1,35 @@
+ts or empty results	2026-10-30T20:34:57.5131343Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5131803Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5132217Z ^[[36;1mif skipped or failed:^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5132570Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5133148Z ^[[36;1mPY^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5152703Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5153050Z env:
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5153345Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5153719Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5153945Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5154219Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5154637Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5155055Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5155433Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5155809Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5156182Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5156508Z ##[endgroup]
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T20:34:57.5456532Z Reported: 18; failed/error: 0; skipped: 0
+Live Uvicorn	Upload validation evidence	﻿2026-10-30T20:34:57.5572289Z ##[group]Run actions/upload-artifact@v4
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5572619Z with:
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5572943Z   name: integration-live-d5fea76382118277a16ac0c2fd15a7e67508bfe8
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5573327Z   path: test-results/
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5573560Z   if-no-files-found: warn
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5573793Z   retention-days: 14
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5574016Z   compression-level: 6
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5574302Z   overwrite: false
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5574552Z   include-hidden-files: false
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5574800Z env:
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5575091Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5575463Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5575684Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5575958Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5576387Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Upload validation evidence	2026-10-30T20:34:57.5576821Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Upload validation evide

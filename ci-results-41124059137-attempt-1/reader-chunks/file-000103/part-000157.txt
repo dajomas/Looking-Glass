@@ -1,0 +1,32 @@
+-30T20:33:06.3888867Z uvicorn==0.54.0
+Recovery	Verify dependencies and record environment	2026-10-30T20:33:06.3892244Z python-multipart==0.0.32
+Recovery	Verify dependencies and record environment	2026-10-30T20:33:06.4135437Z httpx==0.28.1
+Recovery	Verify dependencies and record environment	2026-10-30T20:33:06.5019306Z pytest==9.2.0
+Recovery	Run recovery and container tests	﻿2026-10-30T20:33:06.5798112Z ##[group]Run set -o pipefail
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5798798Z ^[[36;1mset -o pipefail^[[0m
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5799361Z ^[[36;1mpython -m pytest -v -ra python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5820276Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5820632Z env:
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5820934Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5821316Z   PYTHONUNBUFFERED: 1
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5821535Z   LG_RUN_LIVE_E2E: 1
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5821807Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5822233Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5822650Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5823027Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5823401Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5823813Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5824143Z   LG_RUN_CONTAINER_TESTS: 1
+Recovery	Run recovery and container tests	2026-10-30T20:33:06.5824385Z ##[endgroup]
+Recovery	Run recovery and container tests	2026-10-30T20:33:07.1723972Z ============================= test session starts ==============================
+Recovery	Run recovery and container tests	2026-10-30T20:33:07.1819320Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Recovery	Run recovery and container tests	2026-10-30T20:33:07.1824460Z cachedir: .pytest_cache
+Recovery	Run recovery and container tests	2026-10-30T20:33:07.1824986Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Run recovery and container tests	2026-10-30T20:33:07.1825516Z plugins: anyio-4.15.1
+Recovery	Run recovery and container tests	2026-10-30T20:33:08.2073133Z collecting ... collected 6 items
+Recovery	Run recovery and container tests	2026-10-30T20:33:08.2076671Z 
+Recovery	Run recovery and container tests	2026-10-30T20:33:29.8316103Z python/tests/recovery/test_container.py::test_container_nonroot_listeners_templates_and_static_assets PASSED [ 16%]
+Recovery	Run recovery and container tests	2026-10-30T20:33:35.5416677Z python/tests/recovery/test_container.py::test_container_new_instance_preserves_named_volume_and_viewer_session PASSED [ 33%]
+Recovery	Run recovery and container tests	2026-10-30T20:33:35.6804537Z python/tests/recovery/test_migration_interruption.py::test_interrupted_migration_rolls_back_and_retries[before-initialization] PASSED [ 50%]
+Recovery	Run recovery and container tests	2026-10-30T20:33:35.8186540Z python/tests/recovery/test_migration_interruption.py::test_interrupted_migration_rolls_back_and_retries[after-initialization] PASSED [ 66%]
+Recovery	Run recovery and container tests	2026-10-30T20:33:38.8449442Z python/tests/recovery/test_restart.py::test_restart_pr

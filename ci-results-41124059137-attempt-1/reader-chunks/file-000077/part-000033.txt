@@ -1,0 +1,112 @@
+lobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "6a:f1:09:ff:19:5f",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "6a:f1:09:ff:19:5f",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "b063bc4239c0573df19ce515bea00eb9368e8e1955d82fe34e7c6f8922b643ab",
+                    "EndpointID": "3127b130f55a5bb4a3f3f2c9c79193dbd81644f6a9c15b8684347e64bc500d8a",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'inspect', 'looking-glass-test-03fe4c5c99534bcc94ca581a91e3af1c']
+exit=0
+[
+    {
+        "Id": "c74c021066c109207afe32617ae9d8d1297cdd689324acd14307de40112e1395",
+        "Created": "2026-10-30T20:33:29.861912141Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3131,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T20:33:29.878707555Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:8c495493272b9857d0d89b0283bba2ec7a5de9b925bb9728e91243b767650db4",
+        "ResolvConfPath": "/var/lib/docker/containers/c74c021066c109207afe32617ae9d8d1297cdd689324acd14307de40112e1395/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/c74c021066c109207afe32617ae9d8d1297cdd689324acd14307de40112e1395/hostname",
+        "HostsPath": "/var/lib/docker/containers/c74c021066c109207afe32617ae9d8d1297cdd689324acd14307de40112e1395/hosts",
+        "LogPath": "/var/lib/docker/containers/c74c021066c109207afe32617ae9d8d1297cdd689324acd14307de40112e1395/c74c021066c109207afe32617ae9d8d1297cdd689324acd14307de40112e1395-json.log",
+        "Name": "/looking-glass-test-03fe4c5c99534bcc94ca581a91e3af1c",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],

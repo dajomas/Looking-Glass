@@ -1,0 +1,25 @@
+181Z Artifact integration-javascript-d5fea76382118277a16ac0c2fd15a7e67508bfe8.zip successfully finalized. Artifact ID 13010815066
+JavaScript regressions	Upload validation evidence	2026-10-30T20:33:16.6767417Z Artifact integration-javascript-d5fea76382118277a16ac0c2fd15a7e67508bfe8 has been successfully uploaded! Final size is 10013 bytes. Artifact ID is 13010815066
+JavaScript regressions	Upload validation evidence	2026-10-30T20:33:16.6772627Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41124059137/artifacts/13010815066
+JavaScript regressions	Post Set up Node.js	﻿2026-10-30T20:33:16.6983247Z Post job cleanup.
+JavaScript regressions	Post Set up Node.js	2026-10-30T20:33:16.8299309Z (node:3344) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+JavaScript regressions	Post Set up Node.js	2026-10-30T20:33:16.8300932Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Post Set up Python	﻿2026-10-30T20:33:16.8516581Z Post job cleanup.
+JavaScript regressions	Post Set up Python	2026-10-30T20:33:16.9889600Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb, not saving cache.
+JavaScript regressions	Post Check out repository	﻿2026-10-30T20:33:17.0029587Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.0979416Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1030800Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1081568Z Temporarily overriding HOME='/home/runner/work/_temp/15e38faf-a08b-432e-8dd8-54a8e4b68e77' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1083212Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1088475Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1136043Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1136985Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1199551Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1508037Z Removing HTTP extra header
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1509207Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1547890Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1939568Z Removing includeIf entries pointing to credentials config files
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.1940825Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.2007009Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.2008706Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-10-30T20:33:17.2010

@@ -1,0 +1,83 @@
+UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "looking-glass-test-data-03fe4c5c99534bcc94ca581a91e3af1c",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "493c001a79d7fa4623fcc9e8ad3efd9f525fb9877d4bb66bdc298f19dc488a57",
+                "LowerDir": "/var/lib/docker/overlay2/95f063b198b96aa18c3eb18a26410fd4d7ef83e8af4d5e29b44e97ea3c21cadb-init/diff:/var/lib/docker/overlay2/pfexmau1uxe4yabg4cklwg3lx/diff:/var/lib/docker/overlay2/w7lhu59cz8eptykotj3kpfkea/diff:/var/lib/docker/overlay2/w6iqqldhq0qs220nfpot59kez/diff:/var/lib/docker/overlay2/ypa2b99qjeicmly40a1b06eku/diff:/var/lib/docker/overlay2/li3qbsk2iov6kx2qy1onjo6gh/diff:/var/lib/docker/overlay2/udnmaz3lm58r6v999svokmg3o/diff:/var/lib/docker/overlay2/wez4ok2b8i7oi878au3oazdet/diff:/var/lib/docker/overlay2/7iriauucfy9sz3idlqhoqtwo1/diff:/var/lib/docker/overlay2/vhxnelros1yuom3at0x2w77ie/diff:/var/lib/docker/overlay2/40c2f00d40e6ce124771443057abed1cc0848f8ad0a69b7c20ff0376202f181e/diff:/var/lib/docker/overlay2/ed36e3323014a3c9c75edab37b79970b44b91e20ee395e7c9c19ced8ed83be8a/diff:/var/lib/docker/overlay2/f38fa2fdbc8e074d5ca6cf8edb7801bc5b330e29c8740cb088ee139228a484b5/diff:/var/lib/docker/overlay2/c46c73b1ca68bf8f8c0c296b9e83aaf810c321989c213a34f1b948fc0dee5449/diff",
+                "MergedDir": "/var/lib/docker/overlay2/95f063b198b96aa18c3eb18a26410fd4d7ef83e8af4d5e29b44e97ea3c21cadb/merged",
+                "UpperDir": "/var/lib/docker/overlay2/95f063b198b96aa18c3eb18a26410fd4d7ef83e8af4d5e29b44e97ea3c21cadb/diff",
+                "WorkDir": "/var/lib/docker/overlay2/95f063b198b96aa18c3eb18a26410fd4d7ef83e8af4d5e29b44e97ea3c21cadb/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-03fe4c5c99534
