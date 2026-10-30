@@ -1,0 +1,39 @@
+n	Post Check out repository	2026-10-30T23:27:03.0008126Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-3ecb5959-73aa-446e-bfbd-dff9e3855650.config
+Live Uvicorn	Post Check out repository	2026-10-30T23:27:03.0046823Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T23:27:03.0060381Z /github/runner_temp/git-credentials-3ecb5959-73aa-446e-bfbd-dff9e3855650.config
+Live Uvicorn	Post Check out repository	2026-10-30T23:27:03.0067795Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-3ecb5959-73aa-446e-bfbd-dff9e3855650.config
+Live Uvicorn	Post Check out repository	2026-10-30T23:27:03.0105081Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Live Uvicorn	Post Check out repository	2026-10-30T23:27:03.0249260Z Removing credentials config '/home/runner/work/_temp/git-credentials-3ecb5959-73aa-446e-bfbd-dff9e3855650.config'
+Live Uvicorn	Complete job	﻿2026-10-30T23:27:03.0350186Z Cleaning up orphan processes
+Live Uvicorn	Complete job	2026-10-30T23:27:03.0571530Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Recovery	Set up job	﻿2026-10-30T23:25:09.1688775Z Current runner version: '2.338.2'
+Recovery	Set up job	2026-10-30T23:25:09.1705913Z ##[group]Runner Image Provisioner
+Recovery	Set up job	2026-10-30T23:25:09.1706436Z Hosted Compute Agent
+Recovery	Set up job	2026-10-30T23:25:09.1706970Z Version: 20261021.618
+Recovery	Set up job	2026-10-30T23:25:09.1707352Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+Recovery	Set up job	2026-10-30T23:25:09.1707829Z Build Date: 2026-10-21T00:45:21Z
+Recovery	Set up job	2026-10-30T23:25:09.1708250Z Worker ID: {618d12e5-4df9-442f-8661-6521eaf31238}
+Recovery	Set up job	2026-10-30T23:25:09.1708658Z Region: centralus
+Recovery	Set up job	2026-10-30T23:25:09.1709082Z Cloud: Azure
+Recovery	Set up job	2026-10-30T23:25:09.1709424Z ##[endgroup]
+Recovery	Set up job	2026-10-30T23:25:09.1710182Z ##[group]Operating System
+Recovery	Set up job	2026-10-30T23:25:09.1710570Z Ubuntu
+Recovery	Set up job	2026-10-30T23:25:09.1710898Z 24.04.5
+Recovery	Set up job	2026-10-30T23:25:09.1711316Z LTS
+Recovery	Set up job	2026-10-30T23:25:09.1711644Z ##[endgroup]
+Recovery	Set up job	2026-10-30T23:25:09.1712006Z ##[group]Runner Image
+Recovery	Set up job	2026-10-30T23:25:09.1712652Z Image: ubuntu-24.04
+Recovery	Set up job	2026-10-30T23:25:09.1713048Z Version: 20261025.353.1
+Recovery	Set up job	2026-10-30T23:25:09.1713706Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+Recovery	Set up job	2026-10-30T23:25:09.1714752Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+Recovery	Set up job	2026-10-30T23:25:09.1715333Z ##[endgroup]
+Recovery	Set up job	2026-10-30T23:25:09.1716065Z ##[group]GITHUB_TOKEN Permissions
+Recovery	Set up job	2026-10-30T23:25:09.1717235Z Contents: read
+Recovery	Set up job	2026-10-30T23:25:09.1717591Z Metadata: read
+Recovery	Set up job	2026-10-30T23:25:09.1717988Z ##[endgroup]
+Recovery	Set up job	2026-10-30T23:25:09.1719527Z Secret source: Actions
+Recovery	Set up job	2026-10-30T23:25:09.1720201Z Cache mode: write
+Recovery	Set up job	2026-10-30T23:25:09.1720615Z Prepare workflow directory
+Recovery	Set up job	2026-10-30T23:25:09.2061144Z Prepare all required actions
+Recovery	Set up job	2026-10-30T23:25:09.2095802Z Getting action download info
+Recovery	Set up job	2026-10-30T23:25:09.4424529Z Download action repository 'actions/checkout@v6' (SHA:

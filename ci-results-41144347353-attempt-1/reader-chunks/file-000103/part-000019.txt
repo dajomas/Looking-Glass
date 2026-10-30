@@ -1,0 +1,21 @@
+           |   0% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.3066987Z |■■■■■■■■                                                                        |  10% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.3538444Z |■■■■■■■■■■■■■■■■                                                                |  20% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.3869614Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.4324891Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.4535407Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.4758751Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.5127389Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.5346042Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.5701626Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:41.5902336Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T23:25:43.5688775Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Live Uvicorn	Verify dependencies and record environment	﻿2026-10-30T23:25:43.6063197Z ##[group]Run python --version >> test-results/environment.txt
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:25:43.6063848Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:25:43.6064360Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:25:43.6064836Z ^[[36;1mpython -m pip check^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:25:43.6065236Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:25:43.6065734Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:25:43.6066168Z ^[[36;1mfrom importlib import import_module^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T23:25:43.6066849Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Live Uvico
