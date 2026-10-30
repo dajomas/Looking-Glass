@@ -117,8 +117,20 @@ def test_admin_highlight_phases_have_distinct_color_and_outline(admin):
 
 
 def test_admin_reduced_motion_is_bright_and_steady(admin):
-    page,posts,data=admin;page.emulate_media(reduced_motion="reduce")
-    values=page.locator("#portal-cycle-overlay polygon").evaluate_all("els=>els.map(e=>{const s=getComputedStyle(e);return {animation:s.animationName,fill:s.fill,stroke:s.stroke,opacity:s.opacity};})")
-    assert len(values)==2
-    assert all(v==dict(animation="none",fill="rgb(255, 234, 0)",stroke="rgb(0, 0, 0)",opacity="1") for v in values)
+    page, posts, data = admin
+    page.emulate_media(reduced_motion="reduce")
+    page.wait_for_function(
+        "window.matchMedia('(prefers-reduced-motion: reduce)').matches",
+        timeout=5000,
+    )
+    polygons = page.locator("#portal-cycle-overlay polygon")
+    expect(polygons).to_have_count(2, timeout=5000)
+    # Media emulation and computed-style updates need not settle in one turn.
+    # Locator assertions wait for each exact value and report actual CSS on failure.
+    for index in range(2):
+        polygon = polygons.nth(index)
+        expect(polygon).to_have_css("animation-name", "none", timeout=5000)
+        expect(polygon).to_have_css("fill", "rgb(255, 234, 0)", timeout=5000)
+        expect(polygon).to_have_css("stroke", "rgb(0, 0, 0)", timeout=5000)
+        expect(polygon).to_have_css("opacity", "1", timeout=5000)
     assert not posts
