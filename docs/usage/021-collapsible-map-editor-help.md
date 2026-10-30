@@ -131,4 +131,3 @@ Use Replace map image to replace the artwork for the current map.
 Choose an image file, then select Upload.
 After uploading, check that the walls line up with the new image and inspect the player preview before continuing play.
 
-

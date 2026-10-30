@@ -16,4 +16,3 @@ Cross-map endpoint session overrides remain separate and are not reset by it.
 Restore still uses the existing checkpoint semantics; the labels do not change
 activation behavior. Cancel still performs no activation or reset.
 
-
