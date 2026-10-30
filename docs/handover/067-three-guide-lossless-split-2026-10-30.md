@@ -34,19 +34,22 @@ exact original 47889 bytes, SHA-256
 ecad8b97c0545edf12383e94e3a60540ec738f680ee237cd36312562075a4e07.
 The largest section is 4864 bytes. Deployment manifest/index remain pending.
 
-## Architecture first content stage
+## Architecture content stages
 
-This stage adds architecture sections 001-022 only (34680 original source bytes).
-The full generated 44-file set reconstructs 65461 bytes exactly, SHA-256
+Sections 001-022 were delivered in 08c6b98216520ec04a04fc3a08b95351021eb710.
+All 22 committed blobs match their source slices (34680 bytes), rechecked
+before preparing this follow-up. This stage adds sections 023-044 (30781 bytes),
+not the manifest/index. The full generated 44-file set reconstructs 65461 bytes
+exactly, SHA-256
 87f917d4cd37b558edda20fab4c86f17513047e6c0ab5b3cd2399053676eb0e9.
-Compare the committed section hashes against source slices after a successful
-write. These source sections intentionally retain historical descriptions,
-including room-note wording predating Bug 2; they are not semantic corrections.
+Compare all 44 committed section hashes against source slices after a successful
+write. Historical descriptions, including room-note wording predating Bug 2,
+remain verbatim; this is not a semantic correction or a reversal of acceptance.
 
 All three monolithic guide paths remain unchanged and authoritative. Remaining:
-architecture 023-044 (30781 bytes), three manifests and three replacement indexes,
-final verification and a short HANDOVER.md link. Do not describe the complete
-three-guide split as delivered until all are present.
+three manifests and three replacement indexes, final verification and a short
+HANDOVER.md link. Do not describe the complete three-guide split as delivered
+until all are present.
 
 ## Decisions and limitations
 
@@ -54,9 +57,9 @@ README.md and HANDOVER.md were reviewed at the unchanged live baseline. Their
 existing guide links remain correct; no cosmetic edits are made in this content
 stage. This focused record tracks progress; the root handover pointer follows
 during finalization. Existing handover/TODO/API/usage manifests and evidence
-remain untouched. Bug 2 acceptance is unchanged. Original relative links and
-fragments remain verbatim; resolve them against each old docs/<guide>.md base
-until deliberately rebased. Legacy fragment links require review at index switch.
-No new application tests, CI success or deployment validation is claimed. Every
-delivery commit includes [skip ci]. No runtime files, dependencies, migrations
-or archive-only Patch/ material are changed.
+remain untouched. Original relative links and fragments remain verbatim; resolve
+them against each old docs/<guide>.md base until deliberately rebased. Legacy
+fragment links require review at index switch. No new application tests, CI
+success or deployment validation is claimed. Every delivery commit includes
+[skip ci]. No runtime files, dependencies, migrations or archive-only Patch/
+material are changed.
