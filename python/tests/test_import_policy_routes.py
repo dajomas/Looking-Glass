@@ -62,11 +62,19 @@ class ImportPolicyRouteTests(unittest.TestCase):
         self.modules_patch = patch.dict(sys.modules, {support.__name__: support})
         self.modules_patch.start()
         self.addCleanup(self.modules_patch.stop)
+        self.reference_row = None
+        self.log = Mock(spec=["warning"])
+        def reference_query(sql, parameters):
+            self.assertEqual(sql, "SELECT 1 FROM maps WHERE image_file = ? LIMIT 1")
+            self.assertEqual(parameters, ("new.png",))
+            self.events.append("reference_check")
+            return SimpleNamespace(fetchone=lambda: self.reference_row)
+        self.reference_query = Mock(side_effect=reference_query)
         @contextmanager
         def connect():
             self.events.append("open")
             try:
-                yield object()
+                yield SimpleNamespace(execute=self.reference_query)
             except BaseException:
                 self.events.append("exception_exit")
                 raise
@@ -86,7 +94,7 @@ class ImportPolicyRouteTests(unittest.TestCase):
         self.ctx = SimpleNamespace(db=SimpleNamespace(connect=connect), fog=SimpleNamespace(invalidate=Mock()),
             settings=SimpleNamespace(maps_dir=Path("unused"), section=lambda section:
                 {"max_upload_mb": 1} if section == "storage" else {"doors_block": True}))
-        self.ns = dict(asyncio=asyncio, WallImportError=InputError, BadRequest=ClientError,
+        self.ns = dict(asyncio=asyncio, log=self.log, WallImportError=InputError, BadRequest=ClientError,
             parse_wall_file=self.parse, apply_walls=self.apply, images=self.images,
             maps_repo=self.maps, sources_repo=self.sources, notify=self.notify,
             campaign_for_manage=Mock(), map_for_manage=Mock(return_value=(self.row, {})),
@@ -94,6 +102,9 @@ class ImportPolicyRouteTests(unittest.TestCase):
             _map_payload=Mock(return_value={"ok": True}), map_payload=Mock(return_value={"ok": True}),
             image_bytes=Mock(return_value=b"image"), vars_cal=vars)
         self.read = load_function("campaigns.py", "_read_upload", self.ns)
+        # load_function strips decorators; restore the actual contextmanager wrapper.
+        self.ns["_image_write_connection"] = contextmanager(
+            load_function("campaigns.py", "_image_write_connection", self.ns))
         self.upload = load_function("campaigns.py", "upload_map", self.ns)
         for name in ("_source", "_summary", "_parse", "save_source", "inspect_source", "import_source"):
             load_function("wall_sources.py", name, self.ns)
@@ -105,6 +116,52 @@ class ImportPolicyRouteTests(unittest.TestCase):
 
     def call(self, function, *args):
         return asyncio.run(function(*args))
+
+    def assert_failed_upload_cleanup(self):
+        self.assertEqual(self.events, ["open", "normal_exit", "open", "create_map",
+                                      "exception_exit", "open", "reference_check", "normal_exit"])
+        self.reference_query.assert_called_once_with(
+            "SELECT 1 FROM maps WHERE image_file = ? LIMIT 1", ("new.png",))
+        self.images.delete_map_image.assert_called_once_with(Path("unused"), "new.png")
+        self.log.warning.assert_not_called()
+
+    def test_image_write_helper_retains_referenced_image(self):
+        self.reference_row = (1,)
+        error = KeyError("original")
+        with self.assertRaises(KeyError) as caught:
+            with self.ns["_image_write_connection"](self.ctx, "new.png"):
+                raise error
+        self.assertIs(caught.exception, error)
+        self.assertEqual(self.events, ["open", "exception_exit", "open", "reference_check", "normal_exit"])
+        self.reference_query.assert_called_once_with(
+            "SELECT 1 FROM maps WHERE image_file = ? LIMIT 1", ("new.png",))
+        self.images.delete_map_image.assert_not_called()
+        self.log.warning.assert_called_once()
+
+    def test_image_write_helper_preserves_error_when_reference_check_fails(self):
+        self.reference_query.side_effect = OSError("verification unavailable")
+        error = KeyError("original")
+        with self.assertRaises(KeyError) as caught:
+            with self.ns["_image_write_connection"](self.ctx, "new.png"):
+                raise error
+        self.assertIs(caught.exception, error)
+        self.reference_query.assert_called_once_with(
+            "SELECT 1 FROM maps WHERE image_file = ? LIMIT 1", ("new.png",))
+        self.images.delete_map_image.assert_not_called()
+        self.log.warning.assert_called_once()
+        self.assertTrue(self.log.warning.call_args.kwargs["exc_info"])
+
+    def test_image_write_helper_preserves_error_when_delete_fails(self):
+        self.images.delete_map_image.side_effect = OSError("unlink denied")
+        error = KeyError("original")
+        with self.assertRaises(KeyError) as caught:
+            with self.ns["_image_write_connection"](self.ctx, "new.png"):
+                raise error
+        self.assertIs(caught.exception, error)
+        self.assertEqual(self.events, ["open", "exception_exit", "open", "reference_check", "normal_exit"])
+        self.images.delete_map_image.assert_called_once_with(Path("unused"), "new.png")
+        self.log.warning.assert_called_once()
+        self.assertTrue(self.log.warning.call_args.kwargs["exc_info"])
 
     def assert_no_import_effects(self):
         self.maps.create.assert_not_called()
@@ -251,7 +308,7 @@ class ImportPolicyRouteTests(unittest.TestCase):
             self.call(self.upload, self.ctx, {}, 7, self.image, "", self.file)
         self.assertIs(caught.exception, error)
         self.sources.save.assert_not_called()
-        self.assertEqual(self.events[-1], "exception_exit")
+        self.assert_failed_upload_cleanup()
 
     def test_upload_wall_size_error_remains_outside_partial_parse_handler(self):
         self.file.raw = b"x" * (1024 * 1024 + 1)
@@ -259,7 +316,7 @@ class ImportPolicyRouteTests(unittest.TestCase):
             self.call(self.upload, self.ctx, {}, 7, self.image, "", self.file)
         self.parse.assert_not_called()
         self.sources.save.assert_not_called()
-        self.assertEqual(self.events[-1], "exception_exit")
+        self.assert_failed_upload_cleanup()
 
     def test_missing_source_remains_client_rejection(self):
         self.sources.get.return_value = None
