@@ -116,3 +116,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 2: dedicated recovery UI; acceptance pending (2026-10-30)](docs/handover/056-bug-2-recovery-ui-2026-10-30.md)
 - [Bug 2: archive-aware backup and restore; acceptance pending (2026-10-30)](docs/handover/057-bug-2-archive-backup-restore-2026-10-30.md)
 - [Bug 2: archive-aware clean duplication; acceptance pending (2026-10-30)](docs/handover/058-bug-2-archive-clean-duplication-2026-10-30.md)
+- [Bug 2: validation response assertions; execution pending (2026-10-30)](docs/handover/060-bug-2-validation-envelope-2026-10-30.md)

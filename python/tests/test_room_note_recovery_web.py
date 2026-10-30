@@ -69,8 +69,13 @@ def test_recovery_overwrite_requires_a_json_boolean(flow, overwrite):
     before = state(flow.ctx)
     response = recover(flow, source, body)
     assert response.status_code == 422, response.text
-    assert any(error["loc"][-1] == "overwrite" for error in response.json()["detail"])
+    assert response.headers["content-type"].split(";")[0] == "application/json"
+    error = response.json()
+    assert error["ok"] is False
+    assert isinstance(error["error"], str)
+    assert error["error"].startswith("overwrite:"), error
     assert state(flow.ctx) == before
+    assert archives(flow) == [source]
 
 
 @pytest.mark.parametrize("field", ["name", "markdown"])
