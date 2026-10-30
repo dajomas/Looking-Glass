@@ -37,6 +37,8 @@ No application code or test results are changed by this documentation split.
 - [CI fix 1: live login URL predicate (2026-10-29)](docs/handover/025-ci-live-login-url-fix-2026-10-29.md)
 - [Bug 12: malformed import normalization (2026-10-29)](docs/handover/026-bug-12-malformed-import-normalization-2026-10-29.md)
 
+- [Lossless TODO split (2026-10-30)](docs/handover/027-lossless-todo-split-2026-10-30.md)
+
 ## Preservation and verification
 
 The ordered source files, byte counts and SHA-256 hashes are recorded in
