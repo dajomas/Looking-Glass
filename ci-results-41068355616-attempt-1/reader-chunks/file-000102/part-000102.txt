@@ -1,0 +1,31 @@
+ASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:18.6719510Z python/tests/test_wall_sources_repository.py::test_filename_normalization[C:\\exports\\maps.db-maps.db] PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:18.6925695Z python/tests/test_wall_sources_repository.py::test_filename_normalization[-walls] PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:18.7139914Z python/tests/test_wall_sources_repository.py::test_filename_normalization[filename3-expected3] PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:18.7407378Z python/tests/test_wall_sources_repository.py::test_campaign_delete_cascades PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:18.7624963Z python/tests/test_wall_sources_repository.py::test_source_delete_keeps_map_walls_and_ids_not_reused PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:18.7834966Z python/tests/test_wall_sources_repository.py::test_transaction_rollback PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:19.4902968Z python/tests/test_wall_sources_web.py::test_saved_source_reused_on_independent_maps PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:19.5251259Z python/tests/test_wall_types.py::test_upgrade_v2_preserves_map PASSED    [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:19.5259752Z python/tests/test_wall_types.py::test_filters_non_destructive_all_types PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:19.5289617Z python/tests/test_wall_types.py::test_disabled_wall_merges_rooms PASSED  [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:19.5425128Z python/tests/test_wall_types.py::test_admin_base_matches_fully_revealed_viewer PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:19.5434957Z python/tests/test_wall_types.py::test_each_type_can_be_disabled_independently PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:19.8286662Z python/tests/test_web.py::test_viewer_cannot_use_admin_port PASSED       [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:20.1400115Z python/tests/test_web.py::test_unauthenticated_redirects PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:20.4241575Z python/tests/test_web.py::test_admin_cookie_not_valid_on_viewer_port PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:20.8812087Z python/tests/test_web.py::test_user_management_is_superadmin_only PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:21.2323024Z python/tests/test_web.py::test_last_superadmin_protected PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.0102564Z python/tests/test_web.py::test_full_campaign_flow PASSED                 [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6043606Z python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password PASSED [100%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6044356Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6044621Z =================================== FAILURES ===================================
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6069985Z _ ImportPolicyRouteTests.test_map_upload_apply_rejection_retains_already_saved_source _
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6070881Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6072239Z self = <test_import_policy_routes.ImportPolicyRouteTests testMethod=test_map_upload_apply_rejection_retains_already_saved_source>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6073396Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6073853Z     def test_map_upload_apply_rejection_retains_already_saved_source(self):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6074903Z         self.apply.side_effect = InputError("target calibration rejected")
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6075709Z >       response = self.call(self.upload, self.ctx, {}, 7, self.image, "", self.file)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6076283Z                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN 

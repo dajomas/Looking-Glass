@@ -1,0 +1,40 @@
+in/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.2898674Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.2899982Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.2901582Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.2902547Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.2903453Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3223107Z ##[group]Run actions/setup-python@v6
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3224265Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3225061Z   python-version: 3.14
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3225952Z   cache: pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3227125Z   cache-dependency-path: requirements.txt
+Browser / mocked HTTP	UNKNOWN STEP	requirements-dev.txt
+Browser / mocked HTTP	UNKNOWN STEP	
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3228953Z   check-latest: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3238405Z   token: ***
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3239268Z   update-environment: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3240258Z   allow-prereleases: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3241219Z   freethreaded: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3242075Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3243194Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3244681Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3245575Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.3246416Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.4641647Z ##[group]Installed versions
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.4747131Z Successfully set up CPython (3.14.9)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.4750381Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:47.5115979Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:48.9331440Z /home/runner/.cache/pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:49.0814434Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.0100441Z Received 124835150 of 124835150 (100.0%), 147.5 MBs/sec
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.0101387Z Cache Size: ~119 MB (124835150 B)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.0131768Z [command]/usr/bin/tar -xf /home/runner/work/_temp/5fafb147-126a-47aa-9447-ae79ed8fedd1/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2108536Z Cache restored successfully
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2167816Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2494576Z ##[group]Run python -m pip install --upgrade pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2495012Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2495386Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2520852Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2521242Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T14:02:50.2521575Z   PYTHONPATH: /home/runner/work/Looking-G

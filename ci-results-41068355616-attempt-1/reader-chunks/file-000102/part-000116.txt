@@ -1,0 +1,27 @@
+f38 has been successfully uploaded! Final size is 36998 bytes. Artifact ID is 12984276363
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.9736505Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41068355616/artifacts/12984276363
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.9949011Z Post job cleanup.
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.0822524Z [command]/usr/bin/git version
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.0869113Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.0911140Z Temporarily overriding HOME='/home/runner/work/_temp/3619af1c-3d4a-4634-bd86-132a1df67041' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.0912818Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.0916817Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.0953020Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.0960195Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1002299Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1325992Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1332115Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1373902Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1667993Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1676065Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1719090Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1720639Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1721762Z includeif.gitdir:/github/workspace/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1722709Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1731255Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1773448Z /home/runner/work/_temp/git-credentials-73c0fcab-7dc3-4d95-8dd3-b2bb2ba08b35.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1787336Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-73c0fcab-7dc3-4d95-8dd3-b2bb2ba08b35.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1837852Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1873399Z /home/runner/work/_temp/git-credentials-73c0fcab-7dc3-4d95-8dd3-b2bb2ba08b35.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1890538Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-73c0fcab-7dc3-4d95-8dd3-b2bb2ba08b35.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:24.1944985Z [command]/usr/bin/git config --local --get-all includeif.git

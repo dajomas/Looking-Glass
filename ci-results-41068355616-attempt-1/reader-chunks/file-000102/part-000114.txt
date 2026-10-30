@@ -1,0 +1,35 @@
+_import_policy_routes.py::ImportPolicyRouteTests::test_valid_multiset_upload_waits_for_explicit_selection - NameError: name '_image_write_connection' is not defined
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6256561Z FAILED python/tests/test_import_policy_routes.py::ImportPolicyRouteTests::test_valid_single_set_upload_saves_then_applies - NameError: name '_image_write_connection' is not defined
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6257404Z === 8 failed, 1152 passed, 1 warning, 29 subtests passed in 75.17s (0:01:15) ===
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0597148Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0678924Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0679457Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0679717Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0680014Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0680362Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0680681Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0681031Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0681404Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0681712Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0681993Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0682287Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0682744Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0683355Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0684035Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0684484Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0684786Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0685250Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0685675Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0686046Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0686428Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0706583Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0706930Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0707237Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0707606Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0707840Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0708122Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0708729Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0709172Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0709561Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0709942Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:23.0710327Z   LD_LIBRA

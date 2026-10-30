@@ -1,0 +1,79 @@
+est-data-5650965ac5a2482b9f90ec55b4eeb026",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "de85a04caf29478cf9f1cbaaeb3e2a6503e58589d7558a2cd62791e9cf4361f6",
+                "LowerDir": "/var/lib/docker/overlay2/60799e132fdb34b03096e92aeb5c477b9493ce9394c622bc286c316f28ec99aa-init/diff:/var/lib/docker/overlay2/xb21kdofdt052ttk66rajndj4/diff:/var/lib/docker/overlay2/psvnr9blnuxwjnl9ncoexdm6w/diff:/var/lib/docker/overlay2/muocksja2ifn4r57julv830v4/diff:/var/lib/docker/overlay2/t4b48w2ocw615b0wf4d02l02a/diff:/var/lib/docker/overlay2/i7a6mwk8zodccwvjdrvicn0r3/diff:/var/lib/docker/overlay2/lcg523c98y3muharouwfwls3d/diff:/var/lib/docker/overlay2/2aeyjojyq0ywtgclrmwho9ijd/diff:/var/lib/docker/overlay2/gke6xprl0nr7q9mrbpmrnrll6/diff:/var/lib/docker/overlay2/6wa1a59x6g8joirn0oetoa95u/diff:/var/lib/docker/overlay2/de8a942de2162c7dca404a2dcfe718bb86d81f31639fec95584537a97a676a2c/diff:/var/lib/docker/overlay2/70b8a143e73487602343bd48682eebb3a66f9d3ea93710c83656af8f0237b64d/diff:/var/lib/docker/overlay2/c7ae7a4f61c5fa331eac41e9caa55fc8fef85ce95fab8a444948b5c1280e4d44/diff:/var/lib/docker/overlay2/10e809445b19861839630b469d03cc818ff277e97a276e29cc8c1892491f0b2a/diff",
+                "MergedDir": "/var/lib/docker/overlay2/60799e132fdb34b03096e92aeb5c477b9493ce9394c622bc286c316f28ec99aa/merged",
+                "UpperDir": "/var/lib/docker/overlay2/60799e132fdb34b03096e92aeb5c477b9493ce9394c622bc286c316f28ec99aa/diff",
+                "WorkDir": "/var/lib/docker/overlay2/60799e132fdb34b03096e92aeb5c477b9493ce9394c622bc286c316f28ec99aa/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-5650965ac5a2482b9f90ec55b4eeb026",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-5650965ac5a2482b9f90ec55b4eeb026/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "de85a04caf29",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/u

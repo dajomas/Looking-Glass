@@ -1,0 +1,27 @@
+0 (Press CTRL+C to quit)
+2026-10-30 14:03:34,294 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5100 (Press CTRL+C to quit)
+2026-10-30 14:03:34,600 INFO    looking_glass: Shutting down...
+2026-10-30 14:03:34,612 INFO    uvicorn.error: Shutting down
+2026-10-30 14:03:34,612 INFO    uvicorn.error: Shutting down
+2026-10-30 14:03:34,712 INFO    uvicorn.error: Waiting for application shutdown.
+2026-10-30 14:03:34,712 INFO    uvicorn.error: Waiting for application shutdown.
+2026-10-30 14:03:34,713 INFO    uvicorn.error: Application shutdown complete.
+2026-10-30 14:03:34,713 INFO    uvicorn.error: Finished server process [1]
+2026-10-30 14:03:34,713 INFO    uvicorn.error: Application shutdown complete.
+2026-10-30 14:03:34,713 INFO    uvicorn.error: Finished server process [1]
+
+['docker', 'rm', 'looking-glass-test-8c6c31b3f14943948d24749ea8301c39']
+exit=0
+looking-glass-test-8c6c31b3f14943948d24749ea8301c39
+
+
+['docker', 'rm', '--force', 'looking-glass-test-8c6c31b3f14943948d24749ea8301c39']
+exit=0
+
+Error response from daemon: No such container: looking-glass-test-8c6c31b3f14943948d24749ea8301c39
+
+['docker', 'volume', 'rm', 'looking-glass-test-data-8c6c31b3f14943948d24749ea8301c39']
+exit=0
+looking-glass-test-data-8c6c31b3f14943948d24749ea8301c39
+
+

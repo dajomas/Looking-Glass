@@ -1,0 +1,35 @@
+or: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+JavaScript regressions	Set up Python	2026-10-30T14:02:51.6944061Z Received 16777216 of 124835150 (13.4%), 15.8 MBs/sec
+JavaScript regressions	Set up Python	2026-10-30T14:02:52.5006536Z Received 124835150 of 124835150 (100.0%), 65.4 MBs/sec
+JavaScript regressions	Set up Python	2026-10-30T14:02:52.5007303Z Cache Size: ~119 MB (124835150 B)
+JavaScript regressions	Set up Python	2026-10-30T14:02:52.5036594Z [command]/usr/bin/tar -xf /home/runner/work/_temp/da105b05-fa58-4be1-8cdf-c61e558a025a/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+JavaScript regressions	Set up Python	2026-10-30T14:02:52.7409099Z Cache restored successfully
+JavaScript regressions	Set up Python	2026-10-30T14:02:52.7467017Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+JavaScript regressions	Set up Node.js	﻿2026-10-30T14:02:52.7803660Z ##[group]Run actions/setup-node@v4
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7804018Z with:
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7804228Z   node-version: 24
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7804455Z   always-auth: false
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7804695Z   check-latest: false
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7807251Z   token: ***
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7807471Z env:
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7807801Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7808189Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7808417Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7808705Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7809558Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7810028Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7810427Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7810828Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7811219Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.7811574Z ##[endgroup]
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.9662360Z Found in cache @ /opt/hostedtoolcache/node/24.22.1/x64
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.9663613Z (node:2642) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.9664358Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:52.9666671Z ##[group]Environment details
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:55.5824797Z node: v24.22.1
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:55.5825326Z npm: 11.19.1
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:55.5825765Z yarn: 1.22.22
+JavaScript regressions	Set up Node.js	2026-10-30T14:02:55.5827233Z ##[endgroup]
+JavaScript regressions	Install application and test dependencies	﻿2026-10-30T14:02:55.5961673Z ##[group]Run python -m pip install --upgrade pip
+JavaScript regressions	Install application and test dependencies	2026-10-30T14:02:55.5962167Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+JavaScript regressions	Install application and test dependencies	2026-10-

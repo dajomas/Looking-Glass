@@ -1,0 +1,27 @@
+tive instead.
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:17.5354704Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:17.5492938Z With the provided path, there will be 33 files uploaded
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:17.5499491Z Artifact name is valid!
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:17.5500585Z Root directory input is valid!
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:17.9929736Z Beginning upload of artifact content to blob storage
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.0527864Z (node:2937) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.3162078Z Uploaded bytes 9523
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.3894875Z Finished uploading artifact content to blob storage!
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.3896215Z SHA256 digest of uploaded artifact zip is 306fd879b9e2137ef329fb3699ddc94953959e83a6a9fd0a5788d2f5e3d3ccc0
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.3897353Z Finalizing artifact upload
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.8500071Z Artifact integration-javascript-87850207839691354af438551f3736e41d113f38.zip successfully finalized. Artifact ID 12983991401
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.8502425Z Artifact integration-javascript-87850207839691354af438551f3736e41d113f38 has been successfully uploaded! Final size is 9523 bytes. Artifact ID is 12983991401
+JavaScript regressions	Upload validation evidence	2026-10-30T14:03:18.8510214Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41068355616/artifacts/12983991401
+JavaScript regressions	Post Set up Node.js	﻿2026-10-30T14:03:18.8717147Z Post job cleanup.
+JavaScript regressions	Post Set up Node.js	2026-10-30T14:03:19.0085117Z (node:2950) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+JavaScript regressions	Post Set up Node.js	2026-10-30T14:03:19.0086287Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Post Set up Python	﻿2026-10-30T14:03:19.0298004Z Post job cleanup.
+JavaScript regressions	Post Set up Python	2026-10-30T14:03:19.1772855Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb, not saving cache.
+JavaScript regressions	Post Check out repository	﻿2026-10-30T14:03:19.1961522Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-10-30T14:03:19.2991134Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-10-30T14:03:19.3044178Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-10-30T14:03:19.3095367Z Temporarily overriding HOME='/home/runner/work/_temp/e19b5585-85d5-4bbd-8b82-6ce1f14c6fa3' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-10-30T14:03:19.3096993Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-10-30T14:03:19.3102618Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-10-30T14:03:19.3145684Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-10-30T14:03:19.3154993Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCo

@@ -1,0 +1,31 @@
+ies, which will suppress this warning,
+Recovery	Check out repository	2026-10-30T14:02:47.3001198Z hint: call:
+Recovery	Check out repository	2026-10-30T14:02:47.3002297Z hint:
+Recovery	Check out repository	2026-10-30T14:02:47.3003721Z hint: 	git config --global init.defaultBranch <name>
+Recovery	Check out repository	2026-10-30T14:02:47.3006446Z hint:
+Recovery	Check out repository	2026-10-30T14:02:47.3008849Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Recovery	Check out repository	2026-10-30T14:02:47.3012763Z hint: 'development'. The just-created branch can be renamed via this command:
+Recovery	Check out repository	2026-10-30T14:02:47.3015927Z hint:
+Recovery	Check out repository	2026-10-30T14:02:47.3020459Z hint: 	git branch -m <name>
+Recovery	Check out repository	2026-10-30T14:02:47.3022525Z hint:
+Recovery	Check out repository	2026-10-30T14:02:47.3025231Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Recovery	Check out repository	2026-10-30T14:02:47.3029781Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Recovery	Check out repository	2026-10-30T14:02:47.3035109Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Recovery	Check out repository	2026-10-30T14:02:47.3081773Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T14:02:47.3084821Z ##[group]Disabling automatic garbage collection
+Recovery	Check out repository	2026-10-30T14:02:47.3087749Z [command]/usr/bin/git config --local gc.auto 0
+Recovery	Check out repository	2026-10-30T14:02:47.3125252Z ##[endgroup]
+Recovery	Check out repository	2026-10-30T14:02:47.3129326Z ##[group]Setting up auth
+Recovery	Check out repository	2026-10-30T14:02:47.3131322Z Removing SSH command configuration
+Recovery	Check out repository	2026-10-30T14:02:47.3143213Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Recovery	Check out repository	2026-10-30T14:02:47.3299397Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Recovery	Check out repository	2026-10-30T14:02:47.4011773Z Removing HTTP extra header
+Recovery	Check out repository	2026-10-30T14:02:47.4020003Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Recovery	Check out repository	2026-10-30T14:02:47.4065730Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Recovery	Check out repository	2026-10-30T14:02:47.4304836Z Removing includeIf entries pointing to credentials config files
+Recovery	Check out repository	2026-10-30T14:02:47.4312426Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Recovery	Check out repository	2026-10-30T14:02:47.4358635Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Recovery	Check out repository	2026-10-30T14:02:47.4613452Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-82680493-2cc0-4c75-8c12-086f63008790.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Recovery	Check out repository	2026-10-30T14:02:47.4665722Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-82680493-2cc0-4c75-8c12-086f63008790.config
+Recovery	Check out repository	2026-10-30T14:02:47.4709131Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-82680493-2cc0-4c75-8c12-086f63008790.config
+Recovery	Check out repository	2026-10-30T14:02:47.4755439Z [command]/usr/bin/

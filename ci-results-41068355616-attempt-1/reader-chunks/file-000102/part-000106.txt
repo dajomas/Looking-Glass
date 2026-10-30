@@ -1,0 +1,36 @@
+/x64/lib/python3.14/asyncio/runners.py:128: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6134464Z     return self._loop.run_until_complete(task)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6134750Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6135219Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/base_events.py:720: in run_until_complete
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6135700Z     return future.result()
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6135924Z            ^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6136193Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6136430Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6137231Z ctx = namespace(db=namespace(connect=<function ImportPolicyRouteTests.setUp.<locals>.connect at 0x7fb149774d50>), fog=namesp...ace(maps_dir=PosixPath('unused'), section=<function ImportPolicyRouteTests.setUp.<locals>.<lambda> at 0x7fb149775c70>))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6138351Z user = {}, campaign_id = 7
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6139019Z image = <test_import_policy_routes.Upload object at 0x7fb149b0be70>, name = ''
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6139502Z walls = <test_import_policy_routes.Upload object at 0x7fb149b0b5b0>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6139762Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6139954Z     async def upload_map(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6140358Z                          image: Annotated[UploadFile, File()],
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6140717Z                          name: Annotated[str, Form(max_length=120)] = "",
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6141104Z                          walls: Annotated[UploadFile | None, File()] = None):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6141447Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6141745Z             campaign_for_manage(conn, user, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6142070Z         raw = await _read_upload(ctx, image)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6142332Z         try:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6142727Z             stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6143229Z         except images.ImageImportError as exc:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6143579Z             return _back(f"/campaigns/{campaign_id}", err=str(exc))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6144015Z         map_name = name.strip() or (image.filename or "Battle map").rsplit(".", 1)[0]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6144485Z         msg = f"Map '{map_name}' imported ({stored.width}x{stored.height})"
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6144921Z >       with _image_write_connection(ctx, stored.relative_path) as conn:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6145278Z              ^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6145730Z E       NameError: name '_image_write_connection' is not defined
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6145989Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6146142Z python/looking_glass/web/admin/campaigns.py:234: NameError
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6146687Z _ ImportPolicyRouteTests.test_upload_uncaught_programming_error_is_not_newly_swallowed _
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6147070Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6147475Z self = <test_import_policy_routes.ImportPolicyRouteTests testMethod=test_upload_uncaught_programming_error_is_not_newly_swallowed>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6147975Z 
+P

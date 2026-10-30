@@ -1,0 +1,36 @@
+026-10-30T14:04:22.6114798Z     async def upload_map(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6115511Z                          image: Annotated[UploadFile, File()],
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6116124Z                          name: Annotated[str, Form(max_length=120)] = "",
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6116784Z                          walls: Annotated[UploadFile | None, File()] = None):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6117405Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6117928Z             campaign_for_manage(conn, user, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6118474Z         raw = await _read_upload(ctx, image)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6119248Z         try:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6119957Z             stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6120840Z         except images.ImageImportError as exc:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6121513Z             return _back(f"/campaigns/{campaign_id}", err=str(exc))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6122321Z         map_name = name.strip() or (image.filename or "Battle map").rsplit(".", 1)[0]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6123150Z         msg = f"Map '{map_name}' imported ({stored.width}x{stored.height})"
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6123917Z >       with _image_write_connection(ctx, stored.relative_path) as conn:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6124532Z              ^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6125093Z E       NameError: name '_image_write_connection' is not defined
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6125743Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6126027Z python/looking_glass/web/admin/campaigns.py:234: NameError
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6126859Z __ ImportPolicyRouteTests.test_map_upload_invalid_walls_keeps_partial_success __
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6127462Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6128123Z self = <test_import_policy_routes.ImportPolicyRouteTests testMethod=test_map_upload_invalid_walls_keeps_partial_success>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6129259Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6129563Z     def test_map_upload_invalid_walls_keeps_partial_success(self):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6130085Z         self.parse.side_effect = InputError("malformed walls")
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6130529Z >       response = self.call(self.upload, self.ctx, {}, 7, self.image, "", self.file)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6130963Z                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6131185Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6131315Z python/tests/test_import_policy_routes.py:159: 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6131672Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6132048Z python/tests/test_import_policy_routes.py:107: in call
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6132377Z     return asyncio.run(function(*args))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6132646Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6133029Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/runners.py:205: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6133444Z     return runner.run(main)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6133676Z            ^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6134033Z /opt/hostedtoolcache/Python/3.14.9

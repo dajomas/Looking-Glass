@@ -1,0 +1,36 @@
+	2026-10-30T14:04:22.6173421Z         try:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6173813Z             stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6174314Z         except images.ImageImportError as exc:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6174660Z             return _back(f"/campaigns/{campaign_id}", err=str(exc))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6175098Z         map_name = name.strip() or (image.filename or "Battle map").rsplit(".", 1)[0]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6175577Z         msg = f"Map '{map_name}' imported ({stored.width}x{stored.height})"
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6176036Z >       with _image_write_connection(ctx, stored.relative_path) as conn:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6176387Z              ^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6176711Z E       NameError: name '_image_write_connection' is not defined
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6176966Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6177130Z python/looking_glass/web/admin/campaigns.py:234: NameError
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6177604Z ___ ImportPolicyRouteTests.test_upload_without_walls_does_not_parse_or_save ____
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6177931Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6178286Z self = <test_import_policy_routes.ImportPolicyRouteTests testMethod=test_upload_without_walls_does_not_parse_or_save>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6178920Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6179080Z     def test_upload_without_walls_does_not_parse_or_save(self):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6179494Z >       self.call(self.upload, self.ctx, {}, 7, self.image, "", None)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6179743Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6179871Z python/tests/test_import_policy_routes.py:194: 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6180352Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6180737Z python/tests/test_import_policy_routes.py:107: in call
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6181065Z     return asyncio.run(function(*args))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6181331Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6181717Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/runners.py:205: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6182138Z     return runner.run(main)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6182361Z            ^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6182710Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/runners.py:128: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6183137Z     return self._loop.run_until_complete(task)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6183430Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6183896Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/base_events.py:720: in run_until_complete
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6184377Z     return future.result()
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6184605Z            ^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6184877Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6185112Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6185915Z ctx = namespace(db=namespace(connect=<function ImportPolicyRouteTests.setUp.<locals>.connect at 0x7fb149ad61f0>), fog=namesp...ace(maps_dir=PosixPath('unused'), section=<function ImportPolicyRouteTests.setUp.<locals>.<lambda> at 0x7fb149ad5e80>))
+Python / HTTP	UNKNOWN ST

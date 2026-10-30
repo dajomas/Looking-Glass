@@ -1,0 +1,36 @@
+le_set_upload_saves_then_applies ____
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6224699Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6225060Z self = <test_import_policy_routes.ImportPolicyRouteTests testMethod=test_valid_single_set_upload_saves_then_applies>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6225508Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6225670Z     def test_valid_single_set_upload_saves_then_applies(self):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6226120Z >       response = self.call(self.upload, self.ctx, {}, 7, self.image, "", self.file)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6226550Z                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6226777Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6227026Z python/tests/test_import_policy_routes.py:180: 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6227385Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6227765Z python/tests/test_import_policy_routes.py:107: in call
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6228101Z     return asyncio.run(function(*args))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6228373Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6228935Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/runners.py:205: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6229352Z     return runner.run(main)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6229581Z            ^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6229937Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/runners.py:128: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6230366Z     return self._loop.run_until_complete(task)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6230652Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6231123Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/base_events.py:720: in run_until_complete
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6231609Z     return future.result()
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6231837Z            ^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6232111Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6232361Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6233179Z ctx = namespace(db=namespace(connect=<function ImportPolicyRouteTests.setUp.<locals>.connect at 0x7fb1499738a0>), fog=namesp...ace(maps_dir=PosixPath('unused'), section=<function ImportPolicyRouteTests.setUp.<locals>.<lambda> at 0x7fb149973ed0>))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6234153Z user = {}, campaign_id = 7
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6234496Z image = <test_import_policy_routes.Upload object at 0x7fb1483008f0>, name = ''
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6234961Z walls = <test_import_policy_routes.Upload object at 0x7fb1483003b0>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6235235Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6235432Z     async def upload_map(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6235852Z                          image: Annotated[UploadFile, File()],
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6236209Z                          name: Annotated[str, Form(max_length=120)] = "",
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6236603Z                          walls: Annotated[UploadFile | None, File()] = None):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6237099Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6237406Z             campaign_for_manage(conn, user, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6237723Z         raw = a

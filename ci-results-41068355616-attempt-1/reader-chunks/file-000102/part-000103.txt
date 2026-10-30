@@ -1,0 +1,35 @@
+STEP	2026-10-30T14:04:22.6076584Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6076753Z python/tests/test_import_policy_routes.py:171: 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6077211Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6077693Z python/tests/test_import_policy_routes.py:107: in call
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6078110Z     return asyncio.run(function(*args))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6078456Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6079650Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/runners.py:205: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6080597Z     return runner.run(main)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6081101Z            ^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6081747Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/runners.py:128: in run
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6082520Z     return self._loop.run_until_complete(task)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6083012Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6083822Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/asyncio/base_events.py:720: in run_until_complete
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6084346Z     return future.result()
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6084587Z            ^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6084872Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6085136Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6086037Z ctx = namespace(db=namespace(connect=<function ImportPolicyRouteTests.setUp.<locals>.connect at 0x7fb14963f740>), fog=namesp...ace(maps_dir=PosixPath('unused'), section=<function ImportPolicyRouteTests.setUp.<locals>.<lambda> at 0x7fb149777d70>))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6087143Z user = {}, campaign_id = 7
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6087721Z image = <test_import_policy_routes.Upload object at 0x7fb148374050>, name = ''
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6088226Z walls = <test_import_policy_routes.Upload object at 0x7fb148376550>
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6088892Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6089139Z     async def upload_map(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6089592Z                          image: Annotated[UploadFile, File()],
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6089969Z                          name: Annotated[str, Form(max_length=120)] = "",
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6090379Z                          walls: Annotated[UploadFile | None, File()] = None):
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6090745Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6091073Z             campaign_for_manage(conn, user, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6091418Z         raw = await _read_upload(ctx, image)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6091695Z         try:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6092111Z             stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, campaign_id)
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6092645Z         except images.ImageImportError as exc:
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6093009Z             return _back(f"/campaigns/{campaign_id}", err=str(exc))
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6093467Z         map_name = name.strip() or (image.filename or "Battle map").rsplit(".", 1)[0]
+Python / HTTP	UNKNOWN STEP	2026-10-30T14:04:22.6093962Z         msg = f"Map '{map_name}' imported ({stored.width}x{s
