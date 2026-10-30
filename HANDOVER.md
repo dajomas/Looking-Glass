@@ -110,3 +110,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 2: migration 18 intermediate; do not deploy (2026-10-30)](docs/handover/050-bug-2-migration-18-2026-10-30.md)
 - [Bug 2: archive-before-detach reconciliation; acceptance pending (2026-10-30)](docs/handover/051-bug-2-archive-reconciliation-2026-10-30.md)
 - [Bug 2: ordinary-save payload context prerequisite (2026-10-30)](docs/handover/052-bug-2-room-save-context-2026-10-30.md)
+- [Bug 2: editor save context and delayed-response protection (2026-10-30)](docs/handover/053-bug-2-editor-save-context-2026-10-30.md)

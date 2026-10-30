@@ -85,19 +85,35 @@ window.LGRoomNotes = class {
     this.setEditMode(false);
     this.$("room-form").onsubmit=async e=>{
       e.preventDefault();if(!this.room||!this.point||!this.editMode||this.saving)return;
+      // Capture the selected room, never newer stamps from background state.
+      const selected={...this.room};
+      const request={
+        ...this.point,area_key:selected.area_key,revision:selected.revision,
+        cache_token:selected.cache_token,walls_version:selected.walls_version,
+        room_notes_version:selected.room_notes_version,
+        name:this.$("room-name").value,markdown:this.$("room-markdown").value
+      };
+      // Invalidate selection and refresh results already in flight.
+      const generation=++this.generation;
+      ++this.refreshGeneration;
       this.saving=true;
-      this.$("room-form").querySelectorAll("input,textarea,select,button").forEach(el=>el.disabled=true);
+      const controls=this.$("room-form").querySelectorAll("input,textarea,select,button");
+      controls.forEach(el=>el.disabled=true);
       try {
-        const room=await LGApi.post(`/api/maps/${this.mapId}/room-notes`,{
-          ...this.point,area_key:this.room.area_key,revision:this.room.revision,
-          name:this.$("room-name").value,markdown:this.$("room-markdown").value});
-        this.dirty=false;this.show(room);this.toast("Room saved");
+        const saved=await LGApi.post(`/api/maps/${this.mapId}/room-notes`,request);
+        if(generation!==this.generation){
+          this.toast("Room saved. Select the room again to load its current notes.","info");
+          return;
+        }
+        this.show(saved);this.toast("Room saved");
         await this.loadLibrary();
         this.nameOverlay?.refresh();
-      } catch(error) {this.toast(error.message,"error");}
-      finally {
+      } catch(error) {
+        // Preserve the draft and old context; never rebase or retry automatically.
+        this.updateDirty();this.toast(error.message,"error");
+      } finally {
         this.saving=false;
-        this.$("room-form").querySelectorAll("input,textarea,select,button").forEach(el=>el.disabled=false);
+        controls.forEach(el=>el.disabled=false);
         this.renderLibrary();
       }
     };
@@ -226,8 +242,9 @@ window.LGRoomNotes = class {
     if(this.saving)return;
     if(this.hasUnsavedChanges() && !confirm("Discard unsaved room notes?"))return;
     const generation=++this.generation;
+    const draftVersion=this.draftVersion;
     const room=await LGApi.post(`/api/maps/${this.mapId}/room-at`,{x,y});
-    if(generation!==this.generation)return;
+    if(generation!==this.generation||draftVersion!==this.draftVersion||this.saving)return;
     if(!explicit && !room.revealed) {
       this.point=null;this.room=null;this.dirty=false;this.setEditMode(false);
       this.$("room-form").hidden=true;this.$("room-preview").textContent="";
