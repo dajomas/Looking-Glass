@@ -277,6 +277,15 @@ async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Anno
     except images.ImageImportError as exc:
         return _back(f"/maps/{map_id}", err=str(exc))
     with _image_write_connection(ctx, stored.relative_path) as conn:
+        # Serialize the compatibility check with alternate uploads and replacement.
+        conn.execute("BEGIN IMMEDIATE")
+        m, c = map_for_manage(conn, user, map_id)
+        if (stored.width, stored.height) != (m["width"], m["height"]) and conn.execute(
+                "SELECT 1 FROM double_reveal_maps WHERE map_id = ?", (map_id,)).fetchone():
+            raise BadRequest(
+                f"Original image must remain {m['width']} × {m['height']} pixels while "
+                "alternate artwork exists. Resize the replacement to match; "
+                "existing artwork and play state were not changed.")
         maps_repo.replace_image(conn, map_id, stored.relative_path, stored.width, stored.height)
         from ...services.room_notes import reconcile_map
         reconcile_map(ctx, conn, map_id)

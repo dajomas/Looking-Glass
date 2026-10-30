@@ -74,3 +74,34 @@ current-state rechecks before success. Existing incompatible installations,
 image retirement/unlink failures, crashes and explicit dimension-changing
 reconfiguration remain outside scope. Cleanup inherits existing conservative
 retention if reference verification or deletion fails. Bugs 14/15 stay separate.
+
+## Regression delivery and runtime follow-up
+
+The regression-first commit succeeded as
+500ada998a34785a61f2cf4c87f74cdbed6f1ae9 on features/perplexity. Post-write
+reads verified test blob 95a0d297e2eafa26dfa456617230331f7c0d1d33 and unchanged
+campaigns.py baseline cd259bd88d4df41eee7699ce867fe7aef8e7906e. No tests ran
+during that write. The earlier proposed/unchanged-runtime statements above
+describe that first stage, not the containing runtime follow-up.
+
+This containing commit completes implementation delivery when its approved write
+succeeds. It adds the nine-line compatibility guard described above, updates
+the current usage section and marks the individual backlog item implementation
+delivered, not accepted. Report the actual returned commit SHA only after success.
+The runtime candidate is Git blob ac251388575d9e5c3d3a14c19ad48f222c1c6a94,
+matching the earlier compiled and isolated-tested candidate. Tests are preserved
+unchanged. This source identity check is not a fresh test execution.
+
+The lock precedes map reload and alternate lookup, serializing the decision with
+alternate uploads. Reauthorization and the current old-image path come from that
+transaction. Rejection precedes note reconciliation and all successful-replacement
+side effects. Only this route changes runtime behavior; upload, deletion, restore,
+retirement and schema handling are not redesigned.
+
+No application tests or CI evidence were executed/reviewed in this follow-up.
+The normal-checkout command and UI/CI acceptance above remain outstanding.
+README.md still needs no edit; HANDOVER.md already points here and needs no
+additional index churn. Original split manifests stay untouched. An existing
+incompatible alternate image is not repaired by this guard, and same-size
+replacement cannot validate alignment. Do not deploy the isolated-test result
+as proof of HTTP, concurrent-process or target-Python acceptance.

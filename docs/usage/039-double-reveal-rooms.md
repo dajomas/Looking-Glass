@@ -52,6 +52,13 @@ Deleting a destination map clears its links.
 
 ### Maintenance and limitations
 
+- Replacing the original image while alternate artwork exists requires the original's
+  current normalized pixel dimensions, even if no double-reveal rooms are enabled.
+  A dimension mismatch returns an error without changing the saved original, alternate
+  artwork, room configuration, notes or play state; the rejected upload is removed.
+  Resize the replacement to match before retrying. Same-size original replacement stays
+  supported, but matching dimensions do not prove alignment. Without alternate artwork,
+  original-image dimension changes remain supported; check wall calibration afterwards.
 - Replacement alternate images preserve appearance states: already-true rooms immediately
   use replacement artwork. The UI asks for confirmation. Use the same aligned dimensions.
 - Disabling a room removes its configuration and appearance history and restores its initial
