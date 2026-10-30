@@ -60,3 +60,26 @@ commit. This test-fix commit does not remove it or claim retirement succeeded.
 Preserve the regression tests, main five-suite integration workflow and
 historical record 059; add a dated retirement/status note after actual deletion.
 No other branch, merge, archive or Patch/ material is part of this change.
+
+## Delivered changes and workflow retirement (2026-10-31)
+
+The test correction and this record/index pointer were delivered in
+b226590a3f2e90198cfff6c46e59a6fcde9b8bdb on features/perplexity. The returned
+commit diff was reviewed: only the two test modules, this focused record and
+the single HANDOVER.md pointer changed. All existing assert expressions remain.
+
+The separately approved deletion succeeded in
+b07df241f51556f61d8bf66f0dbe124a9621d3b6 on features/perplexity. Its verified
+commit inventory contains exactly one removed file:
+.github/workflows/bug-2-regressions.yml (111 lines). The earlier queued/present
+statements describe the preparation baseline, not current workflow state.
+The standalone Bug 2 regression execution workflow is retired from this branch.
+Regression tests, .github/workflows/integration-tests.yml, historical record 059
+and Bug 2's accepted closure are unchanged. This does not cancel or erase an
+already-created Actions run, its retained evidence or Git history.
+
+No tests were executed during either write and no new CI result was reviewed.
+The focused normal-checkout command above and exact-source CI verification
+remain outstanding. This status update changes only this record; README.md
+remains accurate and HANDOVER.md already links here, so neither needs another
+edit. Historical reconstruction manifests remain untouched.
