@@ -337,6 +337,78 @@ MIGRATIONS: list[str] = [
     CREATE TRIGGER double_reveal_rooms_delete AFTER DELETE ON double_reveal_rooms
     BEGIN UPDATE maps SET fog_version=fog_version+1 WHERE id=OLD.map_id; END;
     """,
+    # 18 - retain detached room notes and invalidate stale note editors
+    """
+    ALTER TABLE maps
+        ADD COLUMN room_notes_version INTEGER NOT NULL DEFAULT 0;
+
+    CREATE TABLE room_note_archives (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+
+        -- Current ownership; remapped during restore and duplication.
+        map_id INTEGER NOT NULL
+            REFERENCES maps(id) ON DELETE CASCADE,
+
+        -- Original archival event; preserved across portable copies.
+        origin_uuid TEXT NOT NULL,
+
+        -- Historical provenance, not foreign keys to current objects.
+        source_map_id INTEGER NOT NULL,
+        source_campaign_id INTEGER NOT NULL,
+        source_map_name TEXT NOT NULL,
+        source_campaign_name TEXT NOT NULL,
+        source_map_token TEXT NOT NULL,
+        observed_walls_version INTEGER NOT NULL,
+        source_width INTEGER NOT NULL,
+        source_height INTEGER NOT NULL,
+
+        -- Complete original assignment, copied without normalization.
+        area_key TEXT NOT NULL,
+        x REAL NOT NULL,
+        y REAL NOT NULL,
+        name TEXT NOT NULL,
+        markdown TEXT NOT NULL,
+        source_revision INTEGER NOT NULL,
+
+        reason TEXT NOT NULL CHECK (
+            reason IN ('geometry_changed', 'recovery_replacement')
+        ),
+        archived_at TEXT NOT NULL DEFAULT (datetime('now'))
+    );
+
+    CREATE INDEX idx_room_note_archives_map
+        ON room_note_archives(map_id, id DESC);
+
+    CREATE TRIGGER room_notes_insert_version
+    AFTER INSERT ON room_notes
+    BEGIN
+        UPDATE maps
+        SET room_notes_version = room_notes_version + 1
+        WHERE id = NEW.map_id;
+    END;
+
+    CREATE TRIGGER room_notes_update_version
+    AFTER UPDATE ON room_notes
+    BEGIN
+        UPDATE maps
+        SET room_notes_version = room_notes_version + 1
+        WHERE id = OLD.map_id;
+
+        -- Normally assignments stay on one map. Cover an explicit move
+        -- without incrementing the same map twice.
+        UPDATE maps
+        SET room_notes_version = room_notes_version + 1
+        WHERE id = NEW.map_id AND NEW.map_id != OLD.map_id;
+    END;
+
+    CREATE TRIGGER room_notes_delete_version
+    AFTER DELETE ON room_notes
+    BEGIN
+        UPDATE maps
+        SET room_notes_version = room_notes_version + 1
+        WHERE id = OLD.map_id;
+    END;
+    """,
 ]
 
 

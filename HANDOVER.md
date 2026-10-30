@@ -107,3 +107,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 ## Current work
 
 - [Bug 2: regression-first integration contracts (2026-10-30)](docs/handover/049-bug-2-integration-contract-tests-2026-10-30.md)
+- [Bug 2: migration 18 intermediate; do not deploy (2026-10-30)](docs/handover/050-bug-2-migration-18-2026-10-30.md)
