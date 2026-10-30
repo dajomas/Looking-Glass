@@ -367,10 +367,13 @@ class RoomPoint(Point):
     pass
 
 class RoomNoteIn(Point):
-    area_key: str = Field(min_length=64, max_length=64)
+    area_key: str = Field(min_length=64, max_length=64, strict=True)
     name: str = Field(default="", max_length=200)
     markdown: str = Field(default="", max_length=100000)
-    revision: int = Field(ge=0)
+    revision: int = Field(ge=0, strict=True)
+    cache_token: str = Field(min_length=1, max_length=128, strict=True)
+    walls_version: int = Field(ge=0, strict=True)
+    room_notes_version: int = Field(ge=0, strict=True)
 
 
 def _room_at(ctx, conn, map_id, point):
@@ -394,19 +397,36 @@ def room_at(ctx: CtxDep, user: CsrfUserDep, map_id: int, point: RoomPoint):
         return {"ok": True, **_room_at(ctx, conn, map_id, point)}
 
 
+def _require_current_room(current, submitted):
+    fields = ("cache_token", "walls_version", "room_notes_version", "area_key", "revision")
+    if any(current[field] != getattr(submitted, field) for field in fields):
+        raise BadRequest(
+            "Room geometry or notes changed. Your draft has not been applied. "
+            "Copy any draft you want to keep, then select the room again before saving."
+        )
+
+
 @router.post("/maps/{map_id}/room-notes")
 def save_room_note(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: RoomNoteIn):
     with ctx.db.connect() as conn:
-        map_for_manage(conn, user, map_id)
+        # Serialize authorization, reconciliation, validation and mutation.
         conn.execute("BEGIN IMMEDIATE")
+        map_for_manage(conn, user, map_id)
         current = _room_at(ctx, conn, map_id, body)
-        if current["area_key"] != body.area_key or current["revision"] != body.revision:
-            raise BadRequest("Room geometry or notes changed. Select the room again before saving.")
-        conn.execute("""INSERT INTO room_notes(map_id,area_key,x,y,name,markdown) VALUES(?,?,?,?,?,?)
+        _require_current_room(current, body)
+        result = conn.execute(
+            """INSERT INTO room_notes(map_id,area_key,x,y,name,markdown)
+            VALUES(?,?,?,?,?,?)
             ON CONFLICT(map_id,area_key) DO UPDATE SET name=excluded.name,
-            markdown=excluded.markdown,revision=room_notes.revision+1""",
-            (map_id, body.area_key, body.x, body.y, body.name.strip(), body.markdown))
-        return {"ok": True, **_room_at(ctx, conn, map_id, body)}
+            markdown=excluded.markdown,revision=room_notes.revision+1
+            WHERE room_notes.revision=?""",
+            (map_id, body.area_key, body.x, body.y, body.name.strip(),
+             body.markdown, body.revision),
+        )
+        if result.rowcount != 1:
+            raise BadRequest("Room notes changed while saving. Select the room again before saving.")
+        updated = _room_at(ctx, conn, map_id, body)
+        return JSONResponse({"ok": True, **updated}, headers={"Cache-Control": "no-store"})
 
 
 @router.get("/maps/{map_id}/room-notes")

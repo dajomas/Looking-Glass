@@ -13,8 +13,12 @@ def test_unassign_requires_owner_and_csrf_preserves_fog_and_rejects_stale_save(e
     dm.post(library+'/import',files={'file':('rooms.md',b'# Crypt\nOriginal','text/markdown')},headers=headers)
     entry=dm.get(library).json()['entries'][0]
     room=dm.post(base+'/room-at',json={'x':100,'y':100},headers=headers).json()
-    body={'x':100,'y':100,'area_key':room['area_key'],'revision':room['revision'],'name':'Crypt','markdown':'Custom edits'}
-    saved=dm.post(base+'/room-notes',json=body,headers=headers).json()
+    stamp_fields=('cache_token','walls_version','room_notes_version')
+    body={'x':100,'y':100,'area_key':room['area_key'],'revision':room['revision'],'name':'Crypt','markdown':'Custom edits',
+          **{key:room[key] for key in stamp_fields}}
+    response=dm.post(base+'/room-notes',json=body,headers=headers)
+    assert response.status_code==200,response.text
+    saved=response.json()
     endpoint=library+f"/{entry['id']}/unassign"
     assert dm.post(endpoint,json={}).status_code==403
     other=login(admin,'dm2','dmpass123')
@@ -26,6 +30,8 @@ def test_unassign_requires_owner_and_csrf_preserves_fog_and_rejects_stale_save(e
     assert not result['entries'][0]['assigned'] and result['entries'][0]['markdown']=='Original'
     cleared=dm.post(base+'/room-at',json={'x':100,'y':100},headers=headers).json()
     assert cleared['name']==cleared['markdown']=='' and cleared['revision']>saved['revision']
-    assert dm.post(base+'/room-notes',json={**body,'revision':saved['revision']},headers=headers).status_code==400
+    assert cleared['room_notes_version']>saved['room_notes_version']
+    stale={**body,**{key:saved[key] for key in stamp_fields},'revision':saved['revision']}
+    assert dm.post(base+'/room-notes',json=stale,headers=headers).status_code==400
     assert dm.get(base).json()['fog_version']==before['fog_version']
     assert dm.post(endpoint,json={},headers=headers).json()['unassigned']==0

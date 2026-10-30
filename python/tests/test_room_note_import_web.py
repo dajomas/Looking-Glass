@@ -16,6 +16,7 @@ def test_room_import_access_and_assignment(env):
     route=base+"/room-note-library"
     upload={"file":("rooms.md",b"# Crypt\n**Gold**\n# Hall\nBones\n","text/markdown")}
     headers={"X-CSRF-Token":token}
+    stamp_fields=("cache_token","walls_version","room_notes_version")
     assert dm.post(route+"/import",files=upload).status_code==403
     other=login(admin,"dm2","dmpass123")
     assert other.get(route).status_code==403
@@ -29,10 +30,13 @@ def test_room_import_access_and_assignment(env):
     assert len(dm.get(route).json()["entries"])==2
     room=dm.post(base+"/room-at",json={"x":100,"y":100},headers=headers).json()
     entry=dm.get(route).json()["entries"][0]
-    body={"x":100,"y":100,"area_key":room["area_key"],"revision":room["revision"],"name":entry["name"],"markdown":entry["markdown"]}
+    body={"x":100,"y":100,"area_key":room["area_key"],"revision":room["revision"],"name":entry["name"],"markdown":entry["markdown"],
+          **{key:room[key] for key in stamp_fields}}
     saved=dm.post(base+"/room-notes",json=body,headers=headers)
     assert saved.status_code==200,saved.text
+    assert saved.headers["cache-control"]=="no-store"
     assert saved.json()["name"]=="Crypt" and "<strong>Gold</strong>" in saved.json()["html"]
+    assert saved.json()["room_notes_version"]>room["room_notes_version"]
     assert dm.get(base).json()["fog_version"]==state["fog_version"]
 
     library=dm.get(route).json()["entries"]
@@ -54,15 +58,17 @@ def test_room_import_access_and_assignment(env):
     assert dm.delete(route+f"/{crypt['id']}",headers=headers).status_code==400
     removed=dm.delete(route+f"/{hall['id']}",headers=headers)
     assert removed.status_code==200 and len(removed.json()["entries"])==1
-    # Clearing keeps revision history and rejects a subsequent stale edit.
-    clear={**body,"revision":saved.json()["revision"],"name":"","markdown":""}
+    # Clearing uses the last saved context; the original request remains stale.
+    clear={**body,**{key:saved.json()[key] for key in stamp_fields},
+           "revision":saved.json()["revision"],"name":"","markdown":""}
     cleared=dm.post(base+"/room-notes",json=clear,headers=headers)
     assert cleared.status_code==200,cleared.text
     assert cleared.json()["name"]==cleared.json()["markdown"]==""
     assert cleared.json()["revision"]>saved.json()["revision"]
     assert next(e for e in dm.get(route).json()["entries"] if e["name"]=="Crypt")["assigned"] is False
     assert dm.post(base+"/room-notes",json=body,headers=headers).status_code==400
-    notes_only={**clear,"revision":cleared.json()["revision"],"markdown":"Notes without a name"}
+    notes_only={**clear,**{key:cleared.json()[key] for key in stamp_fields},
+                "revision":cleared.json()["revision"],"markdown":"Notes without a name"}
     result=dm.post(base+"/room-notes",json=notes_only,headers=headers)
     assert result.status_code==200,result.text
     assert result.json()["name"]=="" and result.json()["markdown"]=="Notes without a name"
