@@ -1,0 +1,37 @@
+t report was produced")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1721607Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1721875Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1722121Z ^[[36;1mif not cases:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1722400Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1722990Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1723541Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1724122Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1724521Z ^[[36;1mfor case in skipped:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1724786Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1725222Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1725593Z ^[[36;1mif skipped or failed:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1725907Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1726227Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1743899Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1744188Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1744436Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1744742Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1744928Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1745163Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1745494Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1745827Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1746118Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1746413Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1746703Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1746965Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2010040Z FAIL: required tests must pass without skips
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2010482Z Reported: 162; failed/error: 1; skipped: 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2048187Z ##[error]Process completed with exit code 1.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2100869Z ##[group]Run actions/upload-artifact@v4
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2101142Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2101429Z   name: integration-browser-e6447ca6a57e63d879bc34c0b17130550450baa5
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2101770Z   path: test-results/
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2101972Z   if-no-files-found: warn
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2102168Z   retention-days: 14
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.2102361Z   compression-level: 6
+Browser / m

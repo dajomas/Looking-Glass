@@ -1,0 +1,35 @@
+0-30T08:38:54.7651145Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7657377Z =============================== warnings summary ===============================
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7658290Z ../../../../../opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7659440Z   /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7660416Z     from starlette.testclient import TestClient as TestClient  # noqa
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7660734Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7660972Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7661808Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:54.7686970Z ======== 1145 passed, 1 warning, 29 subtests passed in 71.62s (0:01:11) ========
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4180643Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4181016Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4181284Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4181604Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4181965Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4182290Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4182639Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4183027Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4183340Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4183634Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4183940Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4184430Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4185054Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4185690Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4186359Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4186686Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4187173Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4187595Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4187971Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4188360Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4210803Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4211166Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4211479Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4211870Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4212105Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T08:38:55.4212399Z   pythonLocation: /opt/hostedtoolcache/Python/3.14

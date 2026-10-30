@@ -1,0 +1,102 @@
+ '--env', 'PYTHONPATH=/app/python', 'looking-glass-test-9df368d36ff14f0d9e85d46491c85bfc', 'python', '-c', "from looking_glass.config import load_settings\nfrom looking_glass.db import Database\nfrom looking_glass.repositories import users\nfrom looking_glass.rbac import Role\nsettings = load_settings('/app/ci-config.json')\nwith Database(settings.database_path).connect() as conn:\n    users.create(conn, 'restart-dm', 'restart-dm-password', Role.ADMIN)\n    viewer = users.create(conn, 'restart-player', 'restart-player-password', Role.VIEWER)\nprint(viewer)\n"]
+exit=0
+3
+
+
+['docker', 'stop', '--time', '10', 'looking-glass-test-9df368d36ff14f0d9e85d46491c85bfc']
+exit=0
+Flag --time has been deprecated, use --timeout instead
+looking-glass-test-9df368d36ff14f0d9e85d46491c85bfc
+
+
+['docker', 'inspect', 'looking-glass-test-9df368d36ff14f0d9e85d46491c85bfc']
+exit=0
+[
+    {
+        "Id": "6b5266fd4c5303f5a58882828accec0ae002c1396849f8a40fa4896b2caaba13",
+        "Created": "2026-10-30T08:38:13.702313006Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T08:38:13.719927977Z",
+            "FinishedAt": "2026-10-30T08:38:16.634217371Z",
+            "Health": {
+                "Status": "unhealthy",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:9904a710d79556735bb357d6aa5579c39e8dbd97626f6bfb637f245ec0978743",
+        "ResolvConfPath": "/var/lib/docker/containers/6b5266fd4c5303f5a58882828accec0ae002c1396849f8a40fa4896b2caaba13/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/6b5266fd4c5303f5a58882828accec0ae002c1396849f8a40fa4896b2caaba13/hostname",
+        "HostsPath": "/var/lib/docker/containers/6b5266fd4c5303f5a58882828accec0ae002c1396849f8a40fa4896b2caaba13/hosts",
+        "LogPath": "/var/lib/docker/containers/6b5266fd4c5303f5a58882828accec0ae002c1396849f8a40fa4896b2caaba13/6b5266fd4c5303f5a58882828accec0ae002c1396849f8a40fa4896b2caaba13-json.log",
+        "Name": "/looking-glass-test-9df368d36ff14f0d9e85d46491c85bfc",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged"

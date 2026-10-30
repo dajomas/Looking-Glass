@@ -1,0 +1,40 @@
+026-10-30T08:38:58.5557577Z /github/runner_temp/git-credentials-df8eb519-9bad-488d-8cd7-be53c2df8d6c.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:58.5564944Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-df8eb519-9bad-488d-8cd7-be53c2df8d6c.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:58.5603457Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:58.5810121Z Removing credentials config '/home/runner/work/_temp/git-credentials-df8eb519-9bad-488d-8cd7-be53c2df8d6c.config'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:58.5949199Z Cleaning up orphan processes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:58.6253862Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Recovery	Set up job	﻿2026-10-30T08:37:20.1717934Z Current runner version: '2.338.0'
+Recovery	Set up job	2026-10-30T08:37:20.1743233Z ##[group]Runner Image Provisioner
+Recovery	Set up job	2026-10-30T08:37:20.1744405Z Hosted Compute Agent
+Recovery	Set up job	2026-10-30T08:37:20.1745041Z Version: 20261021.618
+Recovery	Set up job	2026-10-30T08:37:20.1745638Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+Recovery	Set up job	2026-10-30T08:37:20.1746287Z Build Date: 2026-10-21T00:45:21Z
+Recovery	Set up job	2026-10-30T08:37:20.1746961Z Worker ID: {5fbae30a-f7ad-4173-8c53-b5b025af2a21}
+Recovery	Set up job	2026-10-30T08:37:20.1747598Z Region: westus3
+Recovery	Set up job	2026-10-30T08:37:20.1748108Z Cloud: Azure
+Recovery	Set up job	2026-10-30T08:37:20.1748675Z ##[endgroup]
+Recovery	Set up job	2026-10-30T08:37:20.1750087Z ##[group]Operating System
+Recovery	Set up job	2026-10-30T08:37:20.1750730Z Ubuntu
+Recovery	Set up job	2026-10-30T08:37:20.1751220Z 24.04.5
+Recovery	Set up job	2026-10-30T08:37:20.1751720Z LTS
+Recovery	Set up job	2026-10-30T08:37:20.1752224Z ##[endgroup]
+Recovery	Set up job	2026-10-30T08:37:20.1752753Z ##[group]Runner Image
+Recovery	Set up job	2026-10-30T08:37:20.1753342Z Image: ubuntu-24.04
+Recovery	Set up job	2026-10-30T08:37:20.1754090Z Version: 20261025.353.1
+Recovery	Set up job	2026-10-30T08:37:20.1755068Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+Recovery	Set up job	2026-10-30T08:37:20.1756735Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+Recovery	Set up job	2026-10-30T08:37:20.1757635Z ##[endgroup]
+Recovery	Set up job	2026-10-30T08:37:20.1758666Z ##[group]GITHUB_TOKEN Permissions
+Recovery	Set up job	2026-10-30T08:37:20.1760628Z Contents: read
+Recovery	Set up job	2026-10-30T08:37:20.1761180Z Metadata: read
+Recovery	Set up job	2026-10-30T08:37:20.1761770Z ##[endgroup]
+Recovery	Set up job	2026-10-30T08:37:20.1763957Z Secret source: Actions
+Recovery	Set up job	2026-10-30T08:37:20.1764794Z Cache mode: write
+Recovery	Set up job	2026-10-30T08:37:20.1765538Z Prepare workflow directory
+Recovery	Set up job	2026-10-30T08:37:20.2300390Z Prepare all required actions
+Recovery	Set up job	2026-10-30T08:37:20.2350262Z Getting action download info
+Recovery	Set up job	2026-10-30T08:37:20.5621944Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Recovery	Set up job	2026-10-30T08:37:20.9160255Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Recovery	Set up job	2026-10-30T08:37:21.0081065Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Recovery	Set up job	2026-10-30T08:37:21.1303453Z Download action repository 'actions/upload-artifact

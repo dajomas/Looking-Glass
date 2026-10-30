@@ -1,0 +1,36 @@
+ocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0345108Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0345294Z =================================== FAILURES ===================================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0345910Z ____________ test_wall_width_is_screen_constant_and_survives_reload ____________
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0346304Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0346508Z page = <Page url='http://looking-glass.test/maps/1'>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0346802Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0351574Z     def test_wall_width_is_screen_constant_and_survives_reload(page):
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0351914Z         state = editor(page)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0352194Z         pw.expect(page.locator('#walls-svg path')).to_have_count(2)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0352673Z         page.locator('#wall-width').evaluate("el => { el.value = '4'; el.dispatchEvent(new Event('input', {bubbles:true})); }")
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0353082Z         def screen_width():
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0353521Z             return page.locator('#walls-svg .w-wall').evaluate("el => parseFloat(getComputedStyle(el).strokeWidth) * el.getScreenCTM().a")
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0353993Z >       assert screen_width() == pytest.approx(4, abs=.01)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0354476Z E       assert nan == 4 ± 0.01
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0354677Z E         
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0354852Z E         comparison failed
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0355045Z E         Obtained: nan
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0355262Z E         Expected: 4 ± 0.01
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0355385Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0355528Z python/tests/browser/test_editor_controls.py:150: AssertionError
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0355969Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0356408Z =========================== short test summary info ============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0356995Z FAILED python/tests/browser/test_editor_controls.py::test_wall_width_is_screen_constant_and_survives_reload - assert nan == 4 ± 0.01
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0357428Z   
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0357603Z   comparison failed
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0357783Z   Obtained: nan
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0357979Z   Expected: 4 ± 0.01
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.0358211Z ======================== 1 failed, 161 passed in 56.48s ========================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1661209Z ##[error]Process completed with exit code 1.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1719219Z ##[group]Run python - <<'PY'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1719504Z ^[[36;1mpython - <<'PY'^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1719722Z ^[[36;1mfrom pathlib import Path^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1719978Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1720277Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1720541Z ^[[36;1mif not report.is_file():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T08:38:57.1721226Z ^[[36;1m    raise SystemExit("FAIL: no JUni

@@ -1,0 +1,22 @@
+d]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.2771683Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3048794Z Removing includeIf entries pointing to credentials config files
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3057484Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3101309Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3102271Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3102889Z includeif.gitdir:/github/workspace/.git.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3103385Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3112646Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3146535Z /home/runner/work/_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3158035Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3208015Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3242329Z /home/runner/work/_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3256832Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3303123Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3336404Z /github/runner_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3348511Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3395256Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3428200Z /github/runner_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3439054Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-fc0ef52b-c1cc-42a3-8776-dab3eef65bdd.config
+JavaScript regressions	Post Check out repository	2026-10-30T08:37:48.3486960Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+JavaScript regressions	Post Check o
