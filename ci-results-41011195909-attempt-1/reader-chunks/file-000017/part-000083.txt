@@ -1,0 +1,25 @@
+      with db.connect() as c:
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1950646Z             assert maps.get(c, a)["cache_token"]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1951780Z             saved = json.loads(c.execute("SELECT operations FROM map_fog_snapshots WHERE map_id = ?", (a,)).fetchone()[0])
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1952677Z >           assert [o["op"] for o in saved] == ["reveal", "hide_all"]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1953193Z E           AssertionError: assert ['hide_all', 'reveal'] == ['reveal', 'hide_all']
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1953640Z E             
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1954119Z E             At index 0 diff: 'hide_all' != 'reveal'
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1954437Z E             
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1954755Z E             Full diff: (-: missing in left side, +: extra in left side)
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1955427Z E               [
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1955765Z E             +     'hide_all',
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1956173Z E                   'reveal',
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1956467Z E             -     'hide_all',
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1956697Z E               ]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1956831Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1956992Z python/tests/test_map_display.py:131: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1957409Z _______________________ test_admin_only_and_script_order _______________________
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1957767Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1957943Z     def test_admin_only_and_script_order():
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1958557Z         html=(ROOT/"web_html/admin/map_editor.html").read_text()
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1959319Z         assert html.index("scrying_glass_room.js") < html.index("room_notes.js")
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1960096Z         assert 'id="scrying-room-check"' not in html
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1960720Z         assert 'aria-live="polite" hidden></p>' in html
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1961301Z >       assert "scrying-auto-2" in html
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1974787Z E       assert 'scrying-auto-2' in '{% extends "base.html" %}\n{% block title %}{{ map.name }} · fog editor{% endblock %}\n{% block body_class %}editor-page{% endblock %}\n{% block main_class %}editor{% endblock %}\n{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=double-fog-1"><link rel="stylesheet" href="/static/css/scrying_glass.css?v=scrying-prefix-3">{% endblock %}\n{% block flash_messages %}{% endblock %}\n{% block content %}\n<aside class="sidebar" id="sidebar">\n  <div class="side-block">\n    <p class="crumbs"><a href="/">Campaigns</a> / <a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a></p>\n    <label class="sr-only" for="map-switch">Switch map</label>\n    <select id="map-switch">\n      {% for s in siblings %}<option value="{{ s.id }}" {{ \'selected\' if s.id == map.id }}>{{ s.name }}</option>{% endfor %}\n    </select>\n  </div>\n\n  {% include "partials/_admin_sidebar_help.html" %}\n\n  <div class="side-block">\n    <details id="players-panel" class="sidebar-panel" name="fog-editor-panels">\n      <summary>Players</summary>\n      <div class="panel-content">\n    {% include "partials/_viewer_sync.html" %}\n    <div class="live-row">\n      <span id="live-state" clas...ipt>\n<script src="/static/js/wall_appearance.js?v=wall-width-2"></script>\n<script src="/static/js/admin_area_taps.js?v=admin-viewer-zoom-1"></script>\n<script src="/static/js/door_gestures.js?v=passages-1"></script>\n<script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>\n<scrip

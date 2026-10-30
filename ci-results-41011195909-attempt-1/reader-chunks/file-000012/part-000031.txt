@@ -1,0 +1,35 @@
+d", "", 1)
+            a = maps.create(c, cid, "A", "a.png", 400, 200, True)
+            fog_ops.add(c, a, "reveal", 100, 100, 1)
+            fog_ops.add(c, a, "hide_all", None, None, 1)
+        assert db.migrate() == len(MIGRATIONS)
+        assert db.migrate() == len(MIGRATIONS)
+        with db.connect() as c:
+            assert maps.get(c, a)["cache_token"]
+            saved = json.loads(c.execute("SELECT operations FROM map_fog_snapshots WHERE map_id = ?", (a,)).fetchone()[0])
+>           assert [o["op"] for o in saved] == ["reveal", "hide_all"]
+E           AssertionError: assert ['hide_all', 'reveal'] == ['reveal', 'hide_all']
+E             
+E             At index 0 diff: 'hide_all' != 'reveal'
+E             
+E             Full diff: (-: missing in left side, +: extra in left side)
+E               [
+E             +     'hide_all',
+E                   'reveal',
+E             -     'hide_all',
+E               ]
+
+python/tests/test_map_display.py:131: AssertionError
+_______________________ test_admin_only_and_script_order _______________________
+
+    def test_admin_only_and_script_order():
+        html=(ROOT/"web_html/admin/map_editor.html").read_text()
+        assert html.index("scrying_glass_room.js") < html.index("room_notes.js")
+        assert 'id="scrying-room-check"' not in html
+        assert 'aria-live="polite" hidden></p>' in html
+>       assert "scrying-auto-2" in html
+E       assert 'scrying-auto-2' in '{% extends "base.html" %}\n{% block title %}{{ map.name }} · fog editor{% endblock %}\n{% block body_class %}editor-page{% endblock %}\n{% block main_class %}editor{% endblock %}\n{% block styles %}<link rel="stylesheet" href="/static/css/admin.css?v=double-fog-1"><link rel="stylesheet" href="/static/css/scrying_glass.css?v=scrying-prefix-3">{% endblock %}\n{% block flash_messages %}{% endblock %}\n{% block content %}\n<aside class="sidebar" id="sidebar">\n  <div class="side-block">\n    <p class="crumbs"><a href="/">Campaigns</a> / <a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a></p>\n    <label class="sr-only" for="map-switch">Switch map</label>\n    <select id="map-switch">\n      {% for s in siblings %}<option value="{{ s.id }}" {{ \'selected\' if s.id == map.id }}>{{ s.name }}</option>{% endfor %}\n    </select>\n  </div>\n\n  {% include "partials/_admin_sidebar_help.html" %}\n\n  <div class="side-block">\n    <details id="players-panel" class="sidebar-panel" name="fog-editor-panels">\n      <summary>Players</summary>\n      <div class="panel-content">\n    {% include "partials/_viewer_sync.html" %}\n    <div class="live-row">\n      <span id="live-state" clas...ipt>\n<script src="/static/js/wall_appearance.js?v=wall-width-2"></script>\n<script src="/static/js/admin_area_taps.js?v=admin-viewer-zoom-1"></script>\n<script src="/static/js/door_gestures.js?v=passages-1"></script>\n<script src="/static/js/door_arrow_hit.js?v=door-arrow-click-1"></script>\n<script src="/static/js/portal_cycle.js?v=portal-tools-4"></script>\n<script src="/static/js/map_transitions.js?v=travel-approval-6"></script>\n<script src="/static/js/room_name_overlay.js?v=room-names-10"></script>\n<script src="/static/js/room_edit_marker.js?v=room-tools-9"></script>\n<script src="/static/js/room_library_manager.js?v=room-library-unassign-11"></script>\n<script src="/static/js/scrying_glass_room.js?v=scrying-prefix-3"></script>\n<script src="/static/js/room_notes.js?v=scrying-room-1"></script>\n<script src="/static/js/double_reveal_markers.js?v=double-fog-1"></script>\n<script src="/static/js/double_reveal.js?v=double-fog-1"></script>\n<script src="/static/js/admin_map_editor.js?v=double-fog-1"></script>\n<script src="/static/js/wall_source_library.js?v=empty-source-8"></script>\n<script src="/static/js/sidebar_sections.js?v=sidebar-accordion-1"></script>\n{% endblock %}\n'
+
+python/tests/test_scrying_glass_templates.py:9: AssertionError
+=============================== warnings summary ===============================
+../../../../../o

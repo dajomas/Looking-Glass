@@ -1,0 +1,33 @@
+0843Z python/tests/test_wall_sources_repository.py::test_transaction_rollback PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.0648387Z python/tests/test_wall_sources_web.py::test_saved_source_reused_on_independent_maps PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.0970476Z python/tests/test_wall_types.py::test_upgrade_v2_preserves_map PASSED    [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.0979361Z python/tests/test_wall_types.py::test_filters_non_destructive_all_types PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.1010356Z python/tests/test_wall_types.py::test_disabled_wall_merges_rooms PASSED  [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.1145421Z python/tests/test_wall_types.py::test_admin_base_matches_fully_revealed_viewer PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.1154962Z python/tests/test_wall_types.py::test_each_type_can_be_disabled_independently PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.3982334Z python/tests/test_web.py::test_viewer_cannot_use_admin_port PASSED       [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:58.7160757Z python/tests/test_web.py::test_unauthenticated_redirects PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:59.0007958Z python/tests/test_web.py::test_admin_cookie_not_valid_on_viewer_port PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:59.4589234Z python/tests/test_web.py::test_user_management_is_superadmin_only PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:57:59.8123459Z python/tests/test_web.py::test_last_superadmin_protected PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:00.5965614Z python/tests/test_web.py::test_full_campaign_flow PASSED                 [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1935742Z python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password PASSED [100%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1936713Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1937077Z =================================== FAILURES ===================================
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1937761Z __________ test_upgrade_preserves_existing_history_and_is_idempotent ___________
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1938212Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1938569Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_upgrade_preserves_existin0')
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1939074Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1939378Z     def test_upgrade_preserves_existing_history_and_is_idempotent(tmp_path):
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1940240Z         db = Database(tmp_path / "old.db")
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1940645Z         with db.connect() as c:
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1941057Z             c.executescript(MIGRATIONS[0] + MIGRATIONS[1])
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1941935Z             c.executescript("CREATE TABLE schema_version(version INTEGER NOT NULL); INSERT INTO schema_version VALUES (2);")
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1942957Z             c.execute("INSERT INTO users(id,username,password_hash,role) VALUES(1,'dm','','admin')")
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1943553Z             cid = campaigns.create(c, "Old", "", 1)
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1943962Z             a = maps.create(c, cid, "A", "a.png", 400, 200, True)
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1944349Z             fog_ops.add(c, a, "reveal", 100, 100, 1)
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1944713Z             fog_ops.add(c, a, "hide_all", None, None, 1)
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1945290Z         assert db.migrate() == len(MIGRATIONS)
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1946006Z         assert db.migrate() == len(MIGRATIONS)
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:01.1946932Z   

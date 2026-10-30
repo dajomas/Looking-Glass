@@ -1,0 +1,26 @@
+ooking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.0654643Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.0663472Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.0709833Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.0976572Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.0993029Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1046887Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1337105Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1346480Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1387633Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1388900Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1390127Z includeif.gitdir:/github/workspace/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1391040Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1402344Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1440082Z /home/runner/work/_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1453887Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1507327Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1555956Z /home/runner/work/_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1568866Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1617931Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1655335Z /github/runner_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1664011Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1711455Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1746684Z /github/runner_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T05:58:03.1755581Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-8e145206-17f7-4aa2-bb0d-ed5117ad5bb5.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T
