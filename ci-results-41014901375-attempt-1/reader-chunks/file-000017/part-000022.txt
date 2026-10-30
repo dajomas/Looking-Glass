@@ -1,0 +1,34 @@
+731630Z python/tests/live_e2e/test_live_display.py::test_live_map_switch_uses_destination_artwork_and_fog PASSED [ 75%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T06:35:50.6495224Z python/tests/live_e2e/test_live_display.py::test_live_offline_preparation_does_not_publish PASSED [100%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T06:35:50.6496046Z 
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T06:35:50.6496792Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T06:35:50.6497664Z ============================== 4 passed in 15.21s ==============================
+Live Uvicorn	Reject skipped tests or empty results	﻿2026-10-30T06:35:51.0620579Z ##[group]Run python - <<'PY'
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0621092Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0621458Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0621947Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0622336Z ^[[36;1m^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0622723Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0623346Z ^[[36;1mif not report.is_file():^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0624008Z ^[[36;1m    raise SystemExit("FAIL: pytest did not produce a JUnit report")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0624517Z ^[[36;1m^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0625040Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0625480Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0625886Z ^[[36;1m^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0626170Z ^[[36;1mif not cases:^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0626650Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0627072Z ^[[36;1m^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0627375Z ^[[36;1mskipped = [^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0627842Z ^[[36;1m    case for case in cases^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0628281Z ^[[36;1m    if case.find("skipped") is not None^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0628654Z ^[[36;1m]^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0628946Z ^[[36;1mfailed = [^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0629312Z ^[[36;1m    case for case in cases^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0629690Z ^[[36;1m    if case.find("failure") is not None^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0630143Z ^[[36;1m    or case.find("error") is not None^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0630508Z ^[[36;1m]^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0630796Z ^[[36;1m^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0631150Z ^[[36;1mprint(^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0631460Z ^[[36;1m    f"Reported: {len(cases)}; "^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T06:35:51.0631893Z ^[[36;1m    f"failed/error: {len(failed)}; "^[[0m
+Live Uvicorn	Reject skipped tests 

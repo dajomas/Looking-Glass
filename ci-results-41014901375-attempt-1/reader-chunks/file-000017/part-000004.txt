@@ -1,0 +1,43 @@
+es/perplexity
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8088671Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8112638Z   origin/features/perplexity
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8122412Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8146188Z 977f65a390586e8b7262380e0ba3acd678cb4bf4
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8151266Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8153704Z ##[group]Determining the checkout info
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8156408Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8157908Z [command]/usr/bin/git sparse-checkout disable
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8213676Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8246937Z ##[group]Checking out the ref
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8249756Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8646062Z Switched to a new branch 'features/perplexity'
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8649888Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8657616Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8698123Z [command]/usr/bin/git log -1 --format=%H
+Live Uvicorn	Check out repository	2026-10-30T06:34:53.8724628Z 977f65a390586e8b7262380e0ba3acd678cb4bf4
+Live Uvicorn	Set up Python	﻿2026-10-30T06:34:53.9111351Z ##[group]Run actions/setup-python@v6
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9112768Z with:
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9113862Z   python-version: 3.14
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9114939Z   cache: pip
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9116164Z   cache-dependency-path: requirements.txt
+Live Uvicorn	Set up Python	requirements-dev.txt
+Live Uvicorn	Set up Python	
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9117787Z   check-latest: false
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9127784Z   token: ***
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9128804Z   update-environment: true
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9129864Z   allow-prereleases: false
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9130998Z   freethreaded: false
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9131918Z env:
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9133258Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9134982Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9136000Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Set up Python	2026-10-30T06:34:53.9136968Z ##[endgroup]
+Live Uvicorn	Set up Python	2026-10-30T06:34:54.0534866Z ##[group]Installed versions
+Live Uvicorn	Set up Python	2026-10-30T06:34:54.0628091Z Successfully set up CPython (3.14.9)
+Live Uvicorn	Set up Python	2026-10-30T06:34:54.0630270Z ##[endgroup]
+Live Uvicorn	Set up Python	2026-10-30T06:34:54.0944034Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Live Uvicorn	Set up Python	2026-10-30T06:34:54.3711866Z /home/runner/.cache/pip
+Live Uvicorn	Set up Python	2026-10-30T06:34:54.5499153Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Live Uvicorn	Set up Python	2026-10-30T06:34:55.7313657Z Received 124835150 of 124835150 (100.0%), 120.3 MBs/sec
+Live Uvicorn	Set up Python	2026-10-30T06:34:55.7314643Z Cache Size: ~119 MB (124835150 B)
+Live Uvicorn	Set up Python	2026-10-30T06:34:55.7340356Z [command]/usr/bin/tar -xf /home/runner/work

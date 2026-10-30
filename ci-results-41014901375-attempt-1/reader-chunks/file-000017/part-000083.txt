@@ -1,0 +1,44 @@
+mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1607530Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1607673Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1607857Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1608071Z ^[[36;1m    raise SystemExit("FAIL: pytest did not produce a JUnit report")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1608288Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1608414Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1608599Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1608756Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1608867Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1609039Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1609226Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1609387Z ^[[36;1mskipped = [^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1609528Z ^[[36;1m    case for case in cases^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1609696Z ^[[36;1m    if case.find("skipped") is not None^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1609855Z ^[[36;1m]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1609966Z ^[[36;1mfailed = [^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1610101Z ^[[36;1m    case for case in cases^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1610262Z ^[[36;1m    if case.find("failure") is not None^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1610436Z ^[[36;1m    or case.find("error") is not None^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1610590Z ^[[36;1m]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1610698Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1610804Z ^[[36;1mprint(^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1610934Z ^[[36;1m    f"Reported: {len(cases)}; "^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1611099Z ^[[36;1m    f"failed/error: {len(failed)}; "^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1611270Z ^[[36;1m    f"skipped: {len(skipped)}"^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1611848Z ^[[36;1m)^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1612002Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1612117Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1612308Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1612489Z ^[[36;1m    print(^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1612640Z ^[[36;1m        f"SKIPPED: {case.get('classname', '')}"^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1612833Z ^[[36;1m        f"::{case.get('name', '')}: {reason}"^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1612998Z ^[[36;1m    )^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1613110Z ^[[36;1m^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1613225Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1613373Z ^[[36;1m    raise SystemExit(^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1613569Z ^[[36;1m        "FAIL: required integration tests must pass without skips"^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1613769Z ^[[36;1m    )^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1613883Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1631117Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1631456Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1631634Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:36:00.1631848Z   PYTHONUNBUFFER
