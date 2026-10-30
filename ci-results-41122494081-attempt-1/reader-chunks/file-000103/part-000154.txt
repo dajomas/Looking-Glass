@@ -1,0 +1,35 @@
+[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4641663Z ^[[36;1m}^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4641931Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4642496Z ^[[36;1m    import_module(module)^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4642837Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4643393Z ^[[36;1mPY^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4665802Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4666186Z env:
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4666505Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4666899Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4667140Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4667431Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4667857Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4668296Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4668694Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4669068Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4669457Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.4669786Z ##[endgroup]
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:16.9060925Z No broken requirements found.
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:17.6242116Z fastapi==0.162.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:17.6246093Z starlette==1.10.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:18.1569872Z uvicorn==0.54.0
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:18.1572458Z python-multipart==0.0.32
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:18.1828713Z httpx==0.28.1
+Live Uvicorn	Verify dependencies and record environment	2026-10-30T20:22:18.2860960Z pytest==9.2.0
+Live Uvicorn	Verify browser environment	﻿2026-10-30T20:22:18.3822986Z ##[group]Run set -o pipefail
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3823352Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3823849Z ^[[36;1mpython -u python/tests/check_browser_environment.py 2>&1 | tee test-results/browser-preflight.log^[[0m
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3846255Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3846608Z env:
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3846921Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3847293Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3847535Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Verify browser environment	2026-10-30T20:22:18.3847837Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-

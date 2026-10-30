@@ -1,0 +1,39 @@
+33020Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1233224Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1233490Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1233769Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1234022Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1234309Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1234611Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1234856Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1235283Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1235535Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1235894Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1236371Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1236891Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1237233Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1237485Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1237862Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1238186Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1238474Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1238771Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1256398Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1256674Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1256930Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1257224Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1257412Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1257644Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1257981Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1258304Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1258760Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1259057Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1259357Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1259613Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1541766Z Reported: 1234; failed/error: 0; skipped: 0
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1637932Z ##[group]Run actions/upload-artifact@v4
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1638203Z with:
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1638466Z   name: integration-python-4562069e532cfa13377830bf6b256142d9913f68
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1638783Z   path: test-results/
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1638978Z   if-no-files-found: warn
+Python / HTTP	UNKNOWN STEP	2026-10-30T20:23:52.1639189Z   retention-days: 14
+Python / HTTP	UNKNOWN STEP	2026-10

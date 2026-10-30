@@ -1,0 +1,34 @@
+P	UNKNOWN STEP	2026-10-30T20:23:19.2122150Z =========================== short test summary info ============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2122936Z FAILED python/tests/browser/test_room_note_recovery_ui.py::test_pagination_preserves_selected_source_and_makes_no_recovery_request - AssertionError: Locator expected to be hidden
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2123682Z Actual value: visible 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2124005Z Call log:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2124402Z   - Expect "to_be_hidden" locator("#recovery-more") with timeout 5000ms
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2124848Z   - waiting for locator("#recovery-more")
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2125460Z     14 × locator resolved to <button hidden="" type="button" id="recovery-more">Load older notes</button>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2126039Z        - unexpected value "visible"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2126242Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2126388Z Aria snapshot:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2126723Z - button "Load older notes"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2127125Z ============= 1 failed, 171 passed, 1 warning in 72.36s (0:01:12) ==============
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5080695Z ##[error]Process completed with exit code 1.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5157461Z ##[group]Run python - <<'PY'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5157866Z ^[[36;1mpython - <<'PY'^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5158426Z ^[[36;1mfrom pathlib import Path^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5158819Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5159239Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5159690Z ^[[36;1mif not report.is_file():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5160132Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5160571Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5160963Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5161341Z ^[[36;1mif not cases:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5161749Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5162410Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5163151Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5163807Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5164333Z ^[[36;1mfor case in skipped:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5164738Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5165240Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5165781Z ^[[36;1mif skipped or failed:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5166209Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.5166647Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:1

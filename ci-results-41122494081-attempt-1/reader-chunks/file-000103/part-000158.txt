@@ -1,0 +1,25 @@
+0T20:22:53.4001142Z python/tests/live_e2e/test_live_display.py::test_live_offline_preparation_does_not_publish PASSED [ 38%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:22:56.6895051Z python/tests/live_e2e/test_live_resilience.py::test_live_reconnect_fetches_changes_missed_while_offline PASSED [ 44%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:00.2459498Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[shared-session-tabs] PASSED [ 50%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:04.1046797Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[independent-sessions] PASSED [ 55%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:08.7664590Z python/tests/live_e2e/test_live_revocation.py::test_live_logout_revokes_shared_tabs_but_preserves_independent_session PASSED [ 61%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:13.9349897Z python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[remove-assignment] PASSED [ 66%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:19.4273119Z python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[deactivate] PASSED [ 72%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:24.9249998Z python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[change-role] PASSED [ 77%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:31.0195894Z python/tests/live_e2e/test_live_zip_restore.py::test_live_zip_restore_and_downloaded_recovery_reach_connected_player PASSED [ 83%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:36.1622021Z python/tests/live_e2e/test_live_zip_restore.py::test_live_rejected_zip_restore_preserves_connected_viewer[wrong-confirmation] PASSED [ 88%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:41.1146342Z python/tests/live_e2e/test_live_zip_restore.py::test_live_rejected_zip_restore_preserves_connected_viewer[different-zip] PASSED [ 94%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:46.8466806Z python/tests/live_e2e/test_live_zip_restore.py::test_live_rejected_zip_restore_preserves_connected_viewer[stale-preview] PASSED [100%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:46.8467495Z 
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:46.8467826Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T20:23:46.8468883Z ======================== 18 passed in 86.06s (0:01:26) =========================
+Live Uvicorn	Collect live failure diagnostics	﻿2026-10-30T20:23:47.3709571Z ##[group]Run python - <<'PY'
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3709925Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3710188Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3710464Z ^[[36;1mimport shutil^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3710715Z ^[[36;1msource = Path("ci-live-tmp")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3711094Z ^[[36;1mdestination = Path("test-results/live-diagnostics")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3711595Z ^[[36;1mfor pattern in ("*-trace.zip", "dm-*.png", "player-*.png", "page-errors.json"):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3712081Z ^[[36;1m    for path in source.rglob(pattern):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T20:23:47.3712788Z ^[[36;1m        if path.is_file() and not path.is_symlink():^[[0m
+Live Uvicorn	Collect live failure

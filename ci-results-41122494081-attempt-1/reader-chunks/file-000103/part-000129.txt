@@ -1,0 +1,23 @@
+Z python/tests/browser/test_wall_right_click_edit.py::test_right_drag_pans_without_opening_or_mutating[edit] PASSED [ 91%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:03.6838450Z python/tests/browser/test_wall_right_click_edit.py::test_right_click_apply_undo_redo_uses_existing_draft_workflow PASSED [ 91%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:03.8914096Z python/tests/browser/test_wall_right_click_edit.py::test_right_click_cancels_pending_start_only_when_wall_hit PASSED [ 92%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:04.0662271Z python/tests/browser/test_wall_right_click_edit.py::test_hit_tolerance_is_screen_pixels_after_zoom PASSED [ 93%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:04.2509996Z python/tests/browser/test_wall_right_click_edit.py::test_small_pointer_jitter_opens_dialog_but_cancelled_pointer_does_not PASSED [ 93%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:04.3995293Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[add] PASSED [ 94%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:04.5470319Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[remove] PASSED [ 94%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:04.6879275Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[type] PASSED [ 95%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:04.8270325Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[edit] PASSED [ 95%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:10.4590593Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[400] PASSED [ 96%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:17.0071300Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[4000] PASSED [ 97%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:17.5804524Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[battle] PASSED [ 97%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:18.0661152Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[wall] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:18.5190403Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[battle] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:18.8528181Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[wall] PASSED [ 99%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2097228Z python/tests/browser/test_wall_width_followup.py::test_sources_and_legend_are_independent_siblings PASSED [100%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2098099Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2098593Z =================================== FAILURES ===================================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2099381Z ___ test_pagination_preserves_selected_source_and_makes_no_recovery_request ____
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2099911Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2102905Z flow = namespace(ctx=AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100,...r\n\n**Gold** and café 🐉.\n\n<script>secret()</script>\n'}, publications=[(1, {'type': 'refresh', 'reason': 'walls'})])
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2104387Z workspace = (<Page url='http://recovery.test/maps/1/room-note-recovery'>, {'id': 1, 'map_id': 1, 'origin_uuid': 'f4f2075a743e4e16960c992911ef416c', 'source_map_id': 1, ...}, [], [], [], 'http://recovery.test/maps/1/room-note-recovery')
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.21

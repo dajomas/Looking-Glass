@@ -1,0 +1,31 @@
+758aaf3-465c-40a5-8da6-01b292b2d68d.config
+JavaScript regressions	Check out repository	2026-10-30T20:21:24.3156971Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-8758aaf3-465c-40a5-8da6-01b292b2d68d.config
+JavaScript regressions	Check out repository	2026-10-30T20:21:24.3203206Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-8758aaf3-465c-40a5-8da6-01b292b2d68d.config
+JavaScript regressions	Check out repository	2026-10-30T20:21:24.3240993Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-10-30T20:21:24.3242269Z ##[group]Fetching the repository
+JavaScript regressions	Check out repository	2026-10-30T20:21:24.3248687Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4562069e532cfa13377830bf6b256142d9913f68:refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0469099Z From https://github.com/dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0470175Z  * [new ref]         4562069e532cfa13377830bf6b256142d9913f68 -> origin/features/perplexity
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0477976Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0510030Z   origin/features/perplexity
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0518446Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0547183Z 4562069e532cfa13377830bf6b256142d9913f68
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0551745Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0552726Z ##[group]Determining the checkout info
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0553727Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0557691Z [command]/usr/bin/git sparse-checkout disable
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0608905Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0644134Z ##[group]Checking out the ref
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.0648398Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.1222610Z Switched to a new branch 'features/perplexity'
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.1226329Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.1233450Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.1282296Z [command]/usr/bin/git log -1 --format=%H
+JavaScript regressions	Check out repository	2026-10-30T20:21:25.1314833Z 4562069e532cfa13377830bf6b256142d9913f68
+JavaScript regressions	Initialize evidence	﻿2026-10-30T20:21:25.1522425Z ##[group]Run mkdir -p test-results
+JavaScript regressions	Initialize evidence	2026-10-30T20:21:25.1523123Z ^[[36;1mmkdir -p test-results^[[0m
+JavaScript regressions	Initialize evidence	2026-10-30T20:21:25.1523766Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-10-30T20:21:25.1524481Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-10-30T20:21:25.1547700Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Initialize evidence	2026-10-30T20:21:25.1548360Z env:
+JavaScript regressions	Initialize evidence	2026-10-30T20:21:25.1548915Z   PYTHONPATH: /home/runner/work/Looking-Glass/Loo

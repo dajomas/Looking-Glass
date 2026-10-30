@@ -1,0 +1,34 @@
+05141Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2105426Z     def test_pagination_preserves_selected_source_and_makes_no_recovery_request(flow,workspace):
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2106044Z         page,source,requests,decisions,errors,path=workspace
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2106495Z         for index in range(2):
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2106893Z             save(flow,f"Target {index}",f"Replacement {index}")
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2107392Z             ok(recover(flow,source,recovery_body(flow,overwrite=True)))
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2107890Z         page.goto(path)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2108632Z         page.locator("[data-archive-id]").first.click()
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2109510Z         selected=page.locator("#recovery-source").text_content()
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2110145Z         page.locator("#recovery-more").click()
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2110723Z         expect(page.locator("[data-archive-id]")).to_have_count(2)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2111167Z         page.locator("#recovery-more").click()
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2111586Z         expect(page.locator("[data-archive-id]")).to_have_count(3)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2112102Z >       expect(page.locator("#recovery-more")).to_be_hidden()
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2112564Z E       AssertionError: Locator expected to be hidden
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2112956Z E       Actual value: visible 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2113285Z E       Call log:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2113700Z E         - Expect "to_be_hidden" locator("#recovery-more") with timeout 5000ms
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2114196Z E         - waiting for locator("#recovery-more")
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2114917Z E           14 × locator resolved to <button hidden="" type="button" id="recovery-more">Load older notes</button>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2115461Z E              - unexpected value "visible"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2115861Z E       
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2116154Z E       Aria snapshot:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2116536Z E       - button "Load older notes"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2116766Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2117024Z python/tests/browser/test_room_note_recovery_ui.py:125: AssertionError
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2117526Z =============================== warnings summary ===============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2118094Z ../../../../../opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2119405Z   /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2120382Z     from starlette.testclient import TestClient as TestClient  # noqa
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2120660Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2120931Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T20:23:19.2121551Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Browser / mocked HTT
