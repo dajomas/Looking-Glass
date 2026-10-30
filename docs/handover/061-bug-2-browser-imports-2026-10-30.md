@@ -18,3 +18,11 @@ PYTHONPATH=python python -m pytest -v -ra python/tests/browser
 ```
 
 Then rerun/review full integration checks for the delivered source SHA. Collection repair may expose previously unexecuted browser assertion failures; none are hidden or claimed resolved. Bug 2 acceptance remains open. No downloadable archive was requested and no Patch/ material is committed.
+
+## Follow-up: honor hidden recovery controls (2026-10-30)
+
+Prepared against features/perplexity 76578861ce693f595b9cdfa9829039d7a5bc8277. Committed run 41122494081 tested 4562069e532cfa13377830bf6b256142d9913f68: four non-browser integration jobs succeeded; browser collection completed and execution reported 171 passed and one failure. The supplied local output likewise reports three helper regressions passed, 172 browser tests collected, and 171 passed with one failure. These results verify the import repair, not the CSS follow-up.
+
+The pagination visibility assertion found recovery-more still rendered despite its hidden attribute being present. Shared common.css gives buttons display:inline-flex, overriding native hidden display behavior. The recovery template now includes #room-recovery [hidden]{display:none !important;} to preserve actual hidden rendering for both pagination and the replacement-confirmation label. The rule is scoped to this workspace; shared styling, JavaScript, API behavior, permissions, data and other pages are unchanged. The existing to_be_hidden browser assertion remains intact; no timeout, skip, selector weakening or workflow change is included.
+
+README.md and HANDOVER.md were reviewed again and need no cosmetic changes for this scoped correction. Validation for the CSS follow-up is source review only: no new pytest/browser execution or CI result has been verified. Rerun test_room_note_recovery_ui.py, then the full browser suite and all integration jobs against the delivered SHA. The connected GitHub tools do not expose Actions status/artifact retrieval; if public lookup is unavailable, collect the new run with getworkflow.sh for review. Push success is not CI success. Keep Bug 2 open pending that evidence and remaining acceptance work.

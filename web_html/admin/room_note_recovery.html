@@ -2,6 +2,7 @@
 {% block title %}{{ map.name }} · retained room notes{% endblock %}
 {% block styles %}
 <style>
+#room-recovery [hidden]{display:none !important;}
 .recovery-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.5rem}
 .recovery-grid section{min-width:0}.recovery-grid pre{white-space:pre-wrap;overflow-wrap:anywhere;max-height:40vh;overflow:auto;padding:.75rem;border:1px solid currentColor}
 #recovery-list{max-height:35vh;overflow:auto}#recovery-list button{display:block;margin:.4rem 0;width:100%;text-align:left;overflow-wrap:anywhere}
