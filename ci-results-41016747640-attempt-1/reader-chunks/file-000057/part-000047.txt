@@ -1,0 +1,42 @@
+Z Image: ubuntu-24.04
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3895837Z Version: 20261025.353.1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3898304Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3901419Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3903190Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3905185Z ##[group]GITHUB_TOKEN Permissions
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3908275Z Contents: read
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3909679Z Metadata: read
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3910756Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3914023Z Secret source: Actions
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3915753Z Cache mode: write
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.3916971Z Prepare workflow directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.4588061Z Prepare all required actions
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.4667463Z Getting action download info
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.7637877Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.8708002Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:35.9439655Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.0333596Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.2391712Z Complete job name: Browser / mocked HTTP
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3266915Z ##[group]Run actions/checkout@v6
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3267802Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3268255Z   repository: dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3272386Z   token: ***
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3272814Z   ssh-strict: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3273242Z   ssh-user: git
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3273676Z   persist-credentials: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3274154Z   clean: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3274592Z   sparse-checkout-cone-mode: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3275101Z   fetch-depth: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3275511Z   fetch-tags: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3275944Z   show-progress: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3276381Z   lfs: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3276798Z   submodules: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3277249Z   set-safe-directory: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3277746Z   allow-unsafe-pr-checkout: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3278701Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3279285Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3279982Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3280467Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.3280899Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:53:36.6532219Z Syncing repository: dajomas/Looking-Glass
+Bro

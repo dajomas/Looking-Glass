@@ -1,0 +1,24 @@
+--get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2521829Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2832630Z Removing includeIf entries pointing to credentials config files
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2843291Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2889292Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2890709Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2891908Z includeif.gitdir:/github/workspace/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2892748Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2902673Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2942934Z /home/runner/work/_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.2960130Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3033201Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3078761Z /home/runner/work/_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3094963Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3158879Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3201383Z /github/runner_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3212974Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3263035Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3301213Z /github/runner_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3343015Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3398999Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3691741Z Removing credentials config '/home/runner/work/_temp/git-credentials-8d6a7bce-8e6b-4f0a-9b83-af3c87d4ffc4.config'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.3858246Z Cleaning up orphan processes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:32.4237248Z ##[warning]Node.js 20 

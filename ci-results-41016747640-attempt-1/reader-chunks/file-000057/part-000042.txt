@@ -1,0 +1,28 @@
+s.js: exit=0, seconds=0.032, log=test_portal_compass.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:56.9788653Z test_portal_modal_actions.js: exit=0, seconds=0.214, log=test_portal_modal_actions.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.0109388Z test_portal_sections.js: exit=0, seconds=0.032, log=test_portal_sections.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.0429114Z test_portal_tools.js: exit=0, seconds=0.032, log=test_portal_tools.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.0748661Z test_room_edit_marker.js: exit=0, seconds=0.032, log=test_room_edit_marker.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.1068255Z test_room_library_manager.js: exit=0, seconds=0.032, log=test_room_library_manager.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.1387714Z test_room_name_overlay.js: exit=0, seconds=0.032, log=test_room_name_overlay.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.1707126Z test_room_notes.js: exit=0, seconds=0.032, log=test_room_notes.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.2027264Z test_scrying_glass_room.js: exit=0, seconds=0.032, log=test_scrying_glass_room.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.2346812Z test_sidebar_sections.js: exit=0, seconds=0.032, log=test_sidebar_sections.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.2666753Z test_travel_approval.js: exit=0, seconds=0.032, log=test_travel_approval.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.3307063Z test_viewer_area_zoom.js: exit=0, seconds=0.064, log=test_viewer_area_zoom.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.4449616Z test_viewer_refresh.js: exit=0, seconds=0.114, log=test_viewer_refresh.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.5091137Z test_viewer_sync.js: exit=0, seconds=0.064, log=test_viewer_sync.log
+JavaScript regressions	Run JavaScript regressions	2026-10-30T06:53:57.5411370Z test_wall_appearance.js: exit=0, seconds=0.032, log=test_wall_appearance.log
+JavaScript regressions	Reject skipped tests or empty results	﻿2026-10-30T06:53:57.5534556Z ##[group]Run python - <<'PY'
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5534809Z ^[[36;1mpython - <<'PY'^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5534961Z ^[[36;1mfrom pathlib import Path^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5535136Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5535336Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5535521Z ^[[36;1mif not report.is_file():^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5535719Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5535947Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5536127Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5536292Z ^[[36;1mif not cases:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5536467Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:57.5536734Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T06:53:5

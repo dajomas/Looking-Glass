@@ -1,0 +1,40 @@
+ HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5619360Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5619517Z python/tests/browser/test_upload_busy.py:10: 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5619940Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5620241Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5620446Z main = <coroutine object main at 0x7f6892965d00>, debug = None
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5620860Z loop_factory = None
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5621011Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5621165Z     def run(main, *, debug=None, loop_factory=None):
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5621574Z         """Execute the coroutine and return the result.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5621886Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5622159Z         This function runs the passed coroutine, taking care of
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5622582Z         managing the asyncio event loop, finalizing asynchronous
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5622958Z         generators and closing the default executor.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5623245Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5623547Z         This function cannot be called when another asyncio event loop is
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5623920Z         running in the same thread.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5624176Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5624439Z         If debug is True, the event loop will be run in debug mode.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5624877Z         If loop_factory is passed, it is used for new event loop creation.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5625234Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5625541Z         This function always creates a new event loop and closes it at the end.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5626061Z         It should be used as a main entry point for asyncio programs, and should
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5626454Z         ideally only be called once.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5626706Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5626988Z         The executor is given a timeout duration of 5 minutes to shutdown.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5627459Z         If the executor hasn't finished within that duration, a warning is
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5627834Z         emitted and the executor is closed.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5628345Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5628893Z         Example:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5629259Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5629603Z             async def main():
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5629948Z                 await asyncio.sleep(1)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5630223Z                 print('hello')
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5630451Z     
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5630862Z             asyncio.run(main())
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5631106Z         """
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5631340Z         if events._get_running_loop() is not None:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5631662Z             # fail fast with short traceback
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T06:55:30.5631950Z >           raise RuntimeError(
+Browser / mocked HTTP	UNKNOWN STEP	2026-10

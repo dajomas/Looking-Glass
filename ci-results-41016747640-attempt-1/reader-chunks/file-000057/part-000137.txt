@@ -1,0 +1,33 @@
+ch_type_can_be_disabled_independently PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:05.0376837Z python/tests/test_web.py::test_viewer_cannot_use_admin_port PASSED       [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:05.3252556Z python/tests/test_web.py::test_unauthenticated_redirects PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:05.6013748Z python/tests/test_web.py::test_admin_cookie_not_valid_on_viewer_port PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:06.0217548Z python/tests/test_web.py::test_user_management_is_superadmin_only PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:06.3505437Z python/tests/test_web.py::test_last_superadmin_protected PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.0684156Z python/tests/test_web.py::test_full_campaign_flow PASSED                 [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6195165Z python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password PASSED [100%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6195759Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6196097Z =============================== warnings summary ===============================
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6196936Z ../../../../../opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6198165Z   /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6199217Z     from starlette.testclient import TestClient as TestClient  # noqa
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6207177Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6207994Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6209631Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:07.6210929Z ======== 1125 passed, 1 warning, 29 subtests passed in 66.82s (0:01:06) ========
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0348831Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0349172Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0349423Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0349714Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0350052Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0350353Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0350682Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0351041Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0351338Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0351612Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0351903Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0352362Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0352945Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0353542Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0353958Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T06:55:08.0354256Z ^[[36;1m    reason = case.find

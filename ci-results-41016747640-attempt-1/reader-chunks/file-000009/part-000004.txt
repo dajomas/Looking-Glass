@@ -1,0 +1,48 @@
+n.tests.browser.test_secondary_click" name="test_space_right_drag_does_not_edit_fog" time="0.460" /><testcase classname="python.tests.browser.test_secondary_click" name="test_middle_click_does_not_edit_fog" time="0.366" /><testcase classname="python.tests.browser.test_secondary_click" name="test_startup_refresh_recovers_without_blanking_players" time="0.370" /><testcase classname="python.tests.browser.test_secondary_click" name="test_pointer_cancel_never_edits_fog" time="0.399" /><testcase classname="python.tests.browser.test_secondary_click" name="test_default_panzoom_does_not_emit_secondary_taps" time="0.113" /><testcase classname="python.tests.browser.test_travel_approval" name="test_approval_labels_follow_each_fresh_preview" time="0.755" /><testcase classname="python.tests.browser.test_travel_return" name="test_back_and_escape_keep_pending_passage_fields" time="0.499" /><testcase classname="python.tests.browser.test_ui_refinement" name="test_no_reveals_resets_without_prompt_and_rechecks_next_selection" time="0.090" /><testcase classname="python.tests.browser.test_ui_refinement" name="test_reveals_prompt_and_then_reset_after_new_empty_check" time="0.117" /><testcase classname="python.tests.browser.test_ui_refinement" name="test_checkpoint_error_does_not_reset_or_display" time="0.068" /><testcase classname="python.tests.browser.test_ui_refinement" name="test_source_apply_has_no_confirmation_and_preserves_index" time="0.132" /><testcase classname="python.tests.browser.test_ui_refinement" name="test_batch_one_progress_line_total_and_exact_four_second_clear" time="0.157" /><testcase classname="python.tests.browser.test_ui_refinement" name="test_batch_apply_does_not_confirm" time="0.146" /><testcase classname="python.tests.browser.test_ui_refinement" name="test_removed_one_off_section_has_no_dangling_editor_handlers" time="0.001" /><testcase classname="python.tests.browser.test_upload_busy" name="test_upload_busy_browser_regression" time="0.011"><failure message="RuntimeError: asyncio.run() cannot be called from a running event loop">def test_upload_busy_browser_regression():
+        source = Path(__file__).resolve().parents[1] / "check_upload_busy_browser.py"
+        check = runpy.run_path(str(source))["main"]
+&gt;       checks = asyncio.run(check())
+                 ^^^^^^^^^^^^^^^^^^^^
+
+python/tests/browser/test_upload_busy.py:10: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+main = &lt;coroutine object main at 0x7f6892965d00&gt;, debug = None
+loop_factory = None
+
+    def run(main, *, debug=None, loop_factory=None):
+        """Execute the coroutine and return the result.
+    
+        This function runs the passed coroutine, taking care of
+        managing the asyncio event loop, finalizing asynchronous
+        generators and closing the default executor.
+    
+        This function cannot be called when another asyncio event loop is
+        running in the same thread.
+    
+        If debug is True, the event loop will be run in debug mode.
+        If loop_factory is passed, it is used for new event loop creation.
+    
+        This function always creates a new event loop and closes it at the end.
+        It should be used as a main entry point for asyncio programs, and should
+        ideally only be called once.
+    
+        The executor is given a timeout duration of 5 minutes to shutdown.
+        If the executor hasn't finished within that duration, a warning is
+        emitted and the executor is closed.
+    
+        Example:
+    
+            async def main():
+                await asyncio.sleep(1)
+                print('hello')
+    
+            asyncio.run(main())
+        """
+        if events._get_running_loop() is not None:
+            # fail fast with short traceback
+&gt;           raise RuntimeError(
+                "asyncio.run() cannot be called from a running event loop")
+E           RuntimeError: asyncio.run() cannot be called from a running event loop
+
+/opt/hostedtoolcache/Pyth
