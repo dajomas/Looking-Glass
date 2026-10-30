@@ -1,0 +1,28 @@
+ps://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3552467Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3554132Z ##[group]Disabling automatic garbage collection
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3568450Z [command]/usr/bin/git config --local gc.auto 0
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3619782Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3622353Z ##[group]Setting up auth
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3623920Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3626411Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.3684771Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4159627Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4167872Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4223520Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4509338Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4518364Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4575740Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4876437Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-77522211-2566-4db2-83b4-37e4b61c3d72.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.4941681Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-77522211-2566-4db2-83b4-37e4b61c3d72.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.5002001Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-77522211-2566-4db2-83b4-37e4b61c3d72.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.5057958Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-77522211-2566-4db2-83b4-37e4b61c3d72.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.5120285Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-77522211-2566-4db2-83b4-37e4b61c3d72.config
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.5167036Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.5168677Z ##[group]Fetching the repository
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:12.5178746Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9397eaf499235c98cad271b5e4b9e91f67e3714a:refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:13.0657339Z From https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:13.0660060Z  * [new ref]         9397eaf499235c98cad271b5e4b9e91f67e3714a -> origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:13.0672942Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:50:13.0716381Z   origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-10-30

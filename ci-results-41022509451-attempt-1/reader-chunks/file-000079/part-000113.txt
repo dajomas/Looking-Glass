@@ -1,0 +1,33 @@
+ |  80% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:50.4219482Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:50.4834072Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7260767Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7552561Z ##[group]Run python --version >> test-results/environment.txt
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7553104Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7553532Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7553901Z ^[[36;1mpython -m pip check^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7554593Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7555057Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7555470Z ^[[36;1mfrom importlib import import_module^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7555807Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7556113Z ^[[36;1mrequired = {^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7556360Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7556637Z ^[[36;1m    "starlette": "starlette",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7556916Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7557244Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7557568Z ^[[36;1m    "httpx": "httpx",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7557827Z ^[[36;1m    "pytest": "pytest",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7558075Z ^[[36;1m}^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7558352Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7558678Z ^[[36;1m    import_module(module)^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7559002Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7559329Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7581786Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7582345Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7582665Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7583044Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7583280Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7583567Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7583992Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:50:52.7584602Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	

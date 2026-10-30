@@ -1,0 +1,33 @@
+[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7576522Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7576758Z ^[[36;1mif skipped or failed:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7576969Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7577177Z ^[[36;1mPY^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7594696Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7594886Z env:
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7595060Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7595553Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7595679Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7595836Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7596082Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7596315Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7596528Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7596736Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7596954Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7597140Z ##[endgroup]
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T07:50:28.7827283Z Reported: 27; failed/error: 0; skipped: 0
+JavaScript regressions	Upload validation evidence	﻿2026-10-30T07:50:28.7918600Z ##[group]Run actions/upload-artifact@v4
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7918787Z with:
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7918970Z   name: integration-javascript-9397eaf499235c98cad271b5e4b9e91f67e3714a
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7919192Z   path: test-results/
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7919349Z   if-no-files-found: warn
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7919484Z   retention-days: 14
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7919615Z   compression-level: 6
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7919741Z   overwrite: false
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7919867Z   include-hidden-files: false
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7920002Z env:
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7920164Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7920365Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7920489Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7920648Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Upload validation evidence	2026-10-30T07:50:28.7920883Z   PKG_CONFIG_PATH: 

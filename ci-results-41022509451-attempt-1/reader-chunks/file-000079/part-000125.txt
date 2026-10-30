@@ -1,0 +1,39 @@
+)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7148748Z ^[[36;1mfor case in skipped:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7149069Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7149529Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7149944Z ^[[36;1mif skipped or failed:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7150315Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7150697Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7172585Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7172951Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7173268Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7173645Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7173881Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7174181Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7174849Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7175274Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7175654Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7176027Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7176455Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7176788Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7512287Z Reported: 162; failed/error: 0; skipped: 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7624736Z ##[group]Run actions/upload-artifact@v4
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7625276Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7625617Z   name: integration-browser-9397eaf499235c98cad271b5e4b9e91f67e3714a
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7626012Z   path: test-results/
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7626260Z   if-no-files-found: warn
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7626503Z   retention-days: 14
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7626740Z   compression-level: 6
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7626974Z   overwrite: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7627204Z   include-hidden-files: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7627449Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7627750Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7628123Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7628361Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7628651Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7629098Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7629518Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7629931Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7630321Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked H

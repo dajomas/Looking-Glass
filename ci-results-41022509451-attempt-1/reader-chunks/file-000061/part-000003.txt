@@ -1,0 +1,109 @@
+   },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-a081df9fec5446bba98fb2d8b8d68405",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-a081df9fec5446bba98fb2d8b8d68405/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "c611733b2e60",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:582cc425ff104751b6a2094211a7939c",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "29151a46f39afde5e7b76dd71c9d11969b3a1bc299feff3df6b039fde8405886",
+            "SandboxKey": "/var/run/docker/netns/29151a46f39a",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32770"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32771"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "42507192f9d429490882871b65798efebd69c722287df57f7c2425c3235321a7",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "02:97:58:7e:57:3f",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "02:97:58:7e:57:3f",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "bc91f4cbba5d2a5b797f7b3c48

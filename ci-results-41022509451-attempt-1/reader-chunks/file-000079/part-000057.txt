@@ -1,0 +1,31 @@
+cted3] PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:51.9165281Z python/tests/test_wall_sources_repository.py::test_campaign_delete_cascades PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:51.9401101Z python/tests/test_wall_sources_repository.py::test_source_delete_keeps_map_walls_and_ids_not_reused PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:51.9633311Z python/tests/test_wall_sources_repository.py::test_transaction_rollback PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:52.8119094Z python/tests/test_wall_sources_web.py::test_saved_source_reused_on_independent_maps PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:52.8488596Z python/tests/test_wall_types.py::test_upgrade_v2_preserves_map PASSED    [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:52.8499166Z python/tests/test_wall_types.py::test_filters_non_destructive_all_types PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:52.8536964Z python/tests/test_wall_types.py::test_disabled_wall_merges_rooms PASSED  [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:52.8694567Z python/tests/test_wall_types.py::test_admin_base_matches_fully_revealed_viewer PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:52.8705005Z python/tests/test_wall_types.py::test_each_type_can_be_disabled_independently PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:53.2048592Z python/tests/test_web.py::test_viewer_cannot_use_admin_port PASSED       [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:53.5773613Z python/tests/test_web.py::test_unauthenticated_redirects PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:53.9114797Z python/tests/test_web.py::test_admin_cookie_not_valid_on_viewer_port PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:54.4461299Z python/tests/test_web.py::test_user_management_is_superadmin_only PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:54.8634899Z python/tests/test_web.py::test_last_superadmin_protected PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:55.7771808Z python/tests/test_web.py::test_full_campaign_flow PASSED                 [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4861925Z python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password PASSED [100%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4863326Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4863804Z =============================== warnings summary ===============================
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4865456Z ../../../../../opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4868534Z   /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4871298Z     from starlette.testclient import TestClient as TestClient  # noqa
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4872196Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4872637Z -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4873886Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:56.4874985Z ======== 1134 passed, 1 warning, 29 subtests passed in 79.56s (0:01:19) ========
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:57.2736722Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:57.2737113Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:57.2737403Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:57.2738019Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T07:51:57.2738429Z ^[[36;1mreport = Path("test-results/results.xml"

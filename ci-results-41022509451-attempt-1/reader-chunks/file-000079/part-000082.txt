@@ -1,0 +1,29 @@
+sions	Set up Node.js	2026-10-30T07:50:13.8619542Z Found in cache @ /opt/hostedtoolcache/node/24.22.1/x64
+JavaScript regressions	Set up Node.js	2026-10-30T07:50:13.8619911Z ##[group]Environment details
+JavaScript regressions	Set up Node.js	2026-10-30T07:50:14.1394287Z node: v24.22.1
+JavaScript regressions	Set up Node.js	2026-10-30T07:50:14.1397367Z npm: 11.19.1
+JavaScript regressions	Set up Node.js	2026-10-30T07:50:14.1397550Z yarn: 1.22.22
+JavaScript regressions	Set up Node.js	2026-10-30T07:50:14.1399513Z ##[endgroup]
+JavaScript regressions	Install application and test dependencies	﻿2026-10-30T07:50:14.1523549Z ##[group]Run python -m pip install --upgrade pip
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1523833Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1524052Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1547664Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1547888Z env:
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1548066Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1548272Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1548405Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1548570Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1548814Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1549049Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1549263Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1549471Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1549686Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.1549917Z ##[endgroup]
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:14.5513649Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:15.1062667Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:15.1093416Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:15.1390749Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:15.1400989Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:15.1617437Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+JavaScript regressions	Install application and test dependencies	2026-10-30T07:50:15.1627232Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+JavaScript regressions	Install applicatio

@@ -1,0 +1,117 @@
+e9eaa5b9629dc6e3f0f9bc7845db6991439d78",
+                    "EndpointID": "42507192f9d429490882871b65798efebd69c722287df57f7c2425c3235321a7",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'inspect', 'looking-glass-test-a081df9fec5446bba98fb2d8b8d68405']
+exit=0
+[
+    {
+        "Id": "c611733b2e60aaa88f649cb30bd6ae63f9fdda48a228547902284d9bbd27e9c8",
+        "Created": "2026-10-30T07:50:46.785100437Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2862,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T07:50:46.802447583Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:1cb44896a0c506b773c5c39eaf22a0960f4b111fe3747a11ef66d8c15bd230e1",
+        "ResolvConfPath": "/var/lib/docker/containers/c611733b2e60aaa88f649cb30bd6ae63f9fdda48a228547902284d9bbd27e9c8/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/c611733b2e60aaa88f649cb30bd6ae63f9fdda48a228547902284d9bbd27e9c8/hostname",
+        "HostsPath": "/var/lib/docker/containers/c611733b2e60aaa88f649cb30bd6ae63f9fdda48a228547902284d9bbd27e9c8/hosts",
+        "LogPath": "/var/lib/docker/containers/c611733b2e60aaa88f649cb30bd6ae63f9fdda48a228547902284d9bbd27e9c8/c611733b2e60aaa88f649cb30bd6ae63f9fdda48a228547902284d9bbd27e9c8-json.log",
+        "Name": "/looking-glass-test-a081df9fec5446bba98fb2d8b8d68405",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+    

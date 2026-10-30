@@ -1,0 +1,30 @@
+de_and_undo_reach_player PASSED [ 28%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:16.2838135Z python/tests/live_e2e/test_live_display.py::test_live_map_switch_uses_destination_artwork_and_fog PASSED [ 42%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:19.5196945Z python/tests/live_e2e/test_live_display.py::test_live_offline_preparation_does_not_publish PASSED [ 57%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:22.5647887Z python/tests/live_e2e/test_live_resilience.py::test_live_reconnect_fetches_changes_missed_while_offline PASSED [ 71%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:26.0072221Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[shared-session-tabs] PASSED [ 85%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:29.7058038Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[independent-sessions] PASSED [100%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:29.7059105Z 
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:29.7059665Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Live Uvicorn	Run live Uvicorn integration tests	2026-10-30T07:51:29.7071050Z ============================== 7 passed in 24.75s ==============================
+Live Uvicorn	Collect live failure diagnostics	﻿2026-10-30T07:51:30.0330010Z ##[group]Run python - <<'PY'
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0330390Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0330641Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0330909Z ^[[36;1mimport shutil^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0331151Z ^[[36;1msource = Path("ci-live-tmp")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0331503Z ^[[36;1mdestination = Path("test-results/live-diagnostics")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0331992Z ^[[36;1mfor pattern in ("*-trace.zip", "dm-*.png", "player-*.png", "page-errors.json"):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0332449Z ^[[36;1m    for path in source.rglob(pattern):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0332798Z ^[[36;1m        if path.is_file() and not path.is_symlink():^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0333186Z ^[[36;1m            target = destination / path.relative_to(source)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0333589Z ^[[36;1m            target.parent.mkdir(parents=True, exist_ok=True)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0333951Z ^[[36;1m            shutil.copy2(path, target)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0334240Z ^[[36;1mPY^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0354687Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0355270Z env:
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0355587Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0355994Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0356223Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0356511Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0357383Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T07:51:30.0357828Z   Python_ROOT_DIR: /opt/hostedtoolc

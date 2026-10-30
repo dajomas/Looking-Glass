@@ -1,0 +1,28 @@
+est_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[add] PASSED [ 93%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:45.3226183Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[remove] PASSED [ 94%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:45.4772388Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[type] PASSED [ 95%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:45.6315460Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[edit] PASSED [ 95%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:51.4556648Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[400] PASSED [ 96%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:58.1614451Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[4000] PASSED [ 96%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:58.8167296Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[battle] PASSED [ 97%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:59.3309934Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[wall] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:51:59.8016511Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[battle] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.1789445Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[wall] PASSED [ 99%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.5822878Z python/tests/browser/test_wall_width_followup.py::test_sources_and_legend_are_independent_siblings PASSED [100%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.5824084Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.5824938Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.5825838Z ======================== 162 passed in 63.58s (0:01:03) ========================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7143000Z ##[group]Run python - <<'PY'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7143354Z ^[[36;1mpython - <<'PY'^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7143625Z ^[[36;1mfrom pathlib import Path^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7143942Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7144529Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7144857Z ^[[36;1mif not report.is_file():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7145212Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7145618Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7145937Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7146235Z ^[[36;1mif not cases:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7146567Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7147036Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7147645Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T07:52:00.7148303Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped

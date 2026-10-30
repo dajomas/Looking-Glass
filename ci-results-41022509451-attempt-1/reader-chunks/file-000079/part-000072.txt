@@ -1,0 +1,34 @@
+lette==1.10.0
+Recovery	Verify dependencies and record environment	2026-10-30T07:50:25.4759410Z uvicorn==0.54.0
+Recovery	Verify dependencies and record environment	2026-10-30T07:50:25.4764133Z python-multipart==0.0.32
+Recovery	Verify dependencies and record environment	2026-10-30T07:50:25.4951954Z httpx==0.28.1
+Recovery	Verify dependencies and record environment	2026-10-30T07:50:25.5450035Z pytest==9.2.0
+Recovery	Run recovery and container tests	﻿2026-10-30T07:50:25.6047957Z ##[group]Run set -o pipefail
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6048167Z ^[[36;1mset -o pipefail^[[0m
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6048489Z ^[[36;1mpython -m pytest -v -ra python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6065452Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6065637Z env:
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6065810Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6066014Z   PYTHONUNBUFFERED: 1
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6066141Z   LG_RUN_LIVE_E2E: 1
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6066298Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6066533Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6066763Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6066971Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6067184Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6067421Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6067612Z   LG_RUN_CONTAINER_TESTS: 1
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.6067748Z ##[endgroup]
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.9512288Z ============================= test session starts ==============================
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.9567625Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.9570579Z cachedir: .pytest_cache
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.9570826Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Run recovery and container tests	2026-10-30T07:50:25.9571105Z plugins: anyio-4.15.1
+Recovery	Run recovery and container tests	2026-10-30T07:50:26.5745332Z collecting ... collected 4 items
+Recovery	Run recovery and container tests	2026-10-30T07:50:26.5747459Z 
+Recovery	Run recovery and container tests	2026-10-30T07:50:46.7630470Z python/tests/recovery/test_container.py::test_container_nonroot_listeners_templates_and_static_assets PASSED [ 25%]
+Recovery	Run recovery and container tests	2026-10-30T07:50:50.9326853Z python/tests/recovery/test_container.py::test_container_new_instance_preserves_named_volume_and_viewer_session PASSED [ 50%]
+Recovery	Run recovery and container tests	2026-10-30T07:50:53.0238021Z python/tests/recovery/test_restart.py::test_restart_preserves_displayed_fog_and_access[graceful-restart] PASSED [ 75%]
+Recovery	Run recovery and container tests	2026-10-30T07:50:54.8125829Z python/tests/recovery/test_restart.py::test_restart_preserves_displayed_fog_and_access[committed-state-after-kill] PASSED [100%]
+Recovery	Run recovery and container tests	2026-10-30T07:50:54.8126190Z 
+Recovery	Run 

@@ -1,0 +1,78 @@
+Quota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "looking-glass-test-data-a081df9fec5446bba98fb2d8b8d68405",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "c611733b2e60aaa88f649cb30bd6ae63f9fdda48a228547902284d9bbd27e9c8",
+                "LowerDir": "/var/lib/docker/overlay2/fd348764fe56dd9558f37be68acf7aca5212a8f22a6a3341cac1c4e8a24a1697-init/diff:/var/lib/docker/overlay2/w0x5iapjf3wkellsibtkozz28/diff:/var/lib/docker/overlay2/iketxqsa7gq7pxa894a5my9di/diff:/var/lib/docker/overlay2/rkyx5twk4lzx8q6now6etaj8g/diff:/var/lib/docker/overlay2/szykaudcazsctojdkvmitsrbq/diff:/var/lib/docker/overlay2/zellehj8ybs2go12khan72f3s/diff:/var/lib/docker/overlay2/jr5th3jl9310q6yqiuc7jh218/diff:/var/lib/docker/overlay2/s738g6y9kps84n7obx7simp92/diff:/var/lib/docker/overlay2/owv1itid9c6gzpe137j38e5ow/diff:/var/lib/docker/overlay2/qnc05mw0aadffjq3aqwnvj2vr/diff:/var/lib/docker/overlay2/bbb796a56def0f16d92f8b586b8fe1d3f9322d761b265493a32b1032a60591c0/diff:/var/lib/docker/overlay2/ed54ffbaa80fff6aa7777899165ae9acfbe718914e02606f249bdffe9d5e13ff/diff:/var/lib/docker/overlay2/08c52ca9570fc5d387845592560d31542e71c8f9d7c9390e01e4c4b97bb55c71/diff:/var/lib/docker/overlay2/daffee525720a45bda7391916cdaa9aa2031999abf56a2f7157d88e2dc4c5720/diff",
+                "MergedDir": "/var/lib/docker/overlay2/fd348764fe56dd9558f37be68acf7aca5212a8f22a6a3341cac1c4e8a24a1697/merged",
+                "UpperDir": "/var/lib/docker/overlay2/fd348764fe56dd9558f37be68acf7aca5212a8f22a6a3341cac1c4e8a24a1697/diff",
+                "WorkDir": "/var/lib/docker/overlay2/fd348764fe56dd9558f37be68acf7aca5212a8f22a6a3341cac1c4e8a24a1697/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-a081df9fec5446bba98fb2d8b8d68405",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-a081df9fec5446bba98fb2d8b8d68405/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/
