@@ -1,0 +1,111 @@
+name: Bug 2 regression execution
+
+on:
+  push:
+    branches: [features/perplexity]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bug-2-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regressions:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PYTHONPATH: ${{ github.workspace }}/python
+      PYTHONUNBUFFERED: '1'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.14'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Record tested source and environment
+        run: |
+          mkdir -p test-results
+          git rev-parse HEAD > test-results/environment.txt
+          python --version >> test-results/environment.txt
+          node --version >> test-results/environment.txt
+          uname -a >> test-results/environment.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m pip check
+          python -m pip freeze > test-results/installed-packages.txt
+      - name: Execute focused Python and HTTP regressions
+        id: python
+        run: |
+          set -o pipefail
+          shopt -s nullglob
+          tests=(python/tests/test_room*.py python/tests/test_campaign_backup*.py python/tests/test_duplication.py python/tests/test_fog_snapshot_migration.py)
+          printf '%s\n' "${tests[@]}" > test-results/python-selection.txt
+          python -m pytest -v -ra "${tests[@]}" --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
+      - name: Execute room JavaScript regressions
+        if: ${{ !cancelled() && steps.python.outcome != 'skipped' }}
+        run: |
+          set -o pipefail
+          python - <<'PY' 2>&1 | tee test-results/javascript.log
+          from pathlib import Path
+          import subprocess
+          import xml.etree.ElementTree as ET
+          scripts = sorted(Path('python/tests').glob('test_room*.js'))
+          if not scripts:
+              raise SystemExit('No room JavaScript scripts found')
+          suite = ET.Element('testsuite', name='bug-2-javascript', tests=str(len(scripts)))
+          failed = 0
+          for script in scripts:
+              print(f'RUN {script}', flush=True)
+              case = ET.SubElement(suite, 'testcase', classname='room_javascript', name=script.name)
+              try:
+                  result = subprocess.run(['node', str(script)], capture_output=True, text=True, timeout=120)
+                  output = result.stdout + result.stderr
+                  print(output, flush=True)
+                  ET.SubElement(case, 'system-out').text = output
+                  if result.returncode:
+                      failed += 1
+                      ET.SubElement(case, 'failure', message=f'exit {result.returncode}').text = output
+              except (OSError, subprocess.TimeoutExpired) as error:
+                  failed += 1
+                  ET.SubElement(case, 'error', message=str(error))
+          suite.set('failures', str(failed))
+          ET.ElementTree(suite).write('test-results/javascript.xml', encoding='utf-8', xml_declaration=True)
+          raise SystemExit(bool(failed))
+          PY
+      - name: Require nonempty passing reports without skips
+        if: ${{ always() && !cancelled() }}
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          invalid = []
+          for name in ('results.xml', 'javascript.xml'):
+              report = Path('test-results') / name
+              if not report.is_file():
+                  invalid.append(f'{name}: missing')
+                  continue
+              cases = list(ET.parse(report).getroot().iter('testcase'))
+              rejected = [c for c in cases if any(c.find(tag) is not None for tag in ('failure', 'error', 'skipped'))]
+              print(f'{name}: {len(cases)} cases, {len(rejected)} rejected')
+              if not cases or rejected:
+                  invalid.append(f'{name}: empty, failed, errored or skipped')
+          if invalid:
+              raise SystemExit('; '.join(invalid))
+          PY
+      - name: Upload execution evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: bug-2-regressions-${{ github.sha }}
+          path: test-results/
+          if-no-files-found: error
+          retention-days: 14
