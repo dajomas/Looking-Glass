@@ -1,0 +1,109 @@
+     },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "35ff1db51484",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:c511a7ec4e2c45b6af1006874c40ec7c",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "",
+            "SandboxKey": "",
+            "Ports": {},
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "6d7d212499a417c8998359687f365bf46f5ee7a7badd3553de02233d0fd8cc23",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'logs', 'looking-glass-test-7d0a73f1af7c404abf9cba1e007c18e0']
+exit=0
+
+2026-10-30 17:56:03,082 WARNING looking_glass: ================================================================
+Created superadmin 'superadmin' from LG_SUPERADMIN_PASSWORD
+================================================================
+2026-10-30 17:56:03,093 INFO    looking_glass: Admin  portal: http://0.0.0.0:5000
+2026-10-30 17:56:03,093 INFO    looking_glass: Viewer portal: http://0.0.0.0:5100
+2026-10-30 17:56:03,106 INFO    uvicorn.error: Started server process [1]
+2026-10-30 17:56:03,106 INFO    uvicorn.error: Waiting for application startup.
+2026-10-30 17:56:03,106 INFO    uvicorn.error

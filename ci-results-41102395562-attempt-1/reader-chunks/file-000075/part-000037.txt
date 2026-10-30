@@ -1,0 +1,14 @@
+l diff: (-: missing in left side, +: extra in left side)
+  + set()
+  - {
+  -     (
+  -         '/api/maps/{map_id}/room-note-archives',
+  -         'GET',
+  -     ),
+  -     (
+  -         '/api/maps/{map_id}/room-note-archives/{archive_id}/recover',
+  -         'POST',
+  -     ),
+  - })
+FAILED python/tests/test_room_notes_controls.py::test_upgrade_preserves_notes_and_allows_clear - RuntimeError: Room payload requires an active transaction.
+== 4 failed, 1227 passed, 1 warning, 29 subtests passed in 147.89s (0:02:27) ===

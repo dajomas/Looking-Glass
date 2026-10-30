@@ -1,0 +1,33 @@
+WN STEP	2026-10-30T17:55:13.3841926Z /home/runner/.cache/pip
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:13.5660665Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:14.6761647Z Received 88080384 of 124835150 (70.6%), 83.8 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:15.6771921Z Received 120640846 of 124835150 (96.6%), 57.4 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:15.7756336Z Received 124835150 of 124835150 (100.0%), 56.6 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:15.7758187Z Cache Size: ~119 MB (124835150 B)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:15.7794323Z [command]/usr/bin/tar -xf /home/runner/work/_temp/a9e711af-c617-4c99-8d54-a6fe0b599bca/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0063516Z Cache restored successfully
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0159523Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-052effe0bf4232230c073c2ad96b823d2e0df5111433c3b94a41bd60738313fb
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0597549Z ##[group]Run python -m pip install --upgrade pip
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0598215Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0598793Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0629587Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0630229Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0630815Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0631457Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0631857Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0632329Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0633074Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0633753Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0634391Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0635489Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0636270Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:16.0636837Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:17.1777870Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:18.0558982Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:18.0585496Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:18.0959199Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:18.0973298Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:18.1124836Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:18.1138632Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:55:18.1262957Z Collecting python-multipart>=0.0.12 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 4))
+Python / HTTP	UNKNOWN STEP	2026-10-30T1

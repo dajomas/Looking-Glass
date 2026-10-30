@@ -1,0 +1,28 @@
+ Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0968905Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0969190Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0969637Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0970072Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0970491Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0970900Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0971321Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.0971661Z ##[endgroup]
+Live Uvicorn	Reject skipped tests or empty results	2026-10-30T17:57:21.1272243Z Reported: 18; failed/error: 0; skipped: 0
+Live Uvicorn	Post Check out repository	﻿2026-10-30T17:57:22.4348141Z Post job cleanup.
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5356738Z [command]/usr/bin/git version
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5408120Z git version 2.56.0
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5465818Z Temporarily overriding HOME='/home/runner/work/_temp/f613ae5f-782f-4e96-98cb-d640c2f43bb8' before making global git config changes
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5467708Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5469148Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5511536Z Removing SSH command configuration
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5518890Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5559536Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5832676Z Removing HTTP extra header
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5835945Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.5882212Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.6165706Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.6173130Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.6215302Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.6216958Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.6218528Z includeif.gitdir:/github/workspace/.git.path
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.6219772Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-10-30T17:57:22.6228266Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Loo

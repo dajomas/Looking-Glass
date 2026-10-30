@@ -1,0 +1,39 @@
+ed HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4171350Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4171710Z ^[[36;1mpython -m pip check^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4172084Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4172547Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4172940Z ^[[36;1mfrom importlib import import_module^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4173276Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4173579Z ^[[36;1mrequired = {^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4173809Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4174079Z ^[[36;1m    "starlette": "starlette",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4174352Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4174681Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4174991Z ^[[36;1m    "httpx": "httpx",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4175238Z ^[[36;1m    "pytest": "pytest",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4175481Z ^[[36;1m}^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4175729Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4176047Z ^[[36;1m    import_module(module)^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4176529Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4176854Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4198364Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4198713Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4199014Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4199401Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4199626Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4199905Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4200337Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4200776Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4201152Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4201531Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4201916Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.4202237Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:55.8281657Z No broken requirements found.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:56.5189585Z fastapi==0.162.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:56.5194177Z starlette==1.10.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:57.0440622Z uvicorn==0.54.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:57.0444527Z python-multipart==0.0.32
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:57.0698791Z httpx==0.28.1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:57.1713035Z pytest==9.2.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:57.2405264Z ##[group]Run set -o pipefail
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30

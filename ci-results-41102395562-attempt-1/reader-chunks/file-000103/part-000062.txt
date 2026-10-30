@@ -1,0 +1,35 @@
+KNOWN STEP	2026-10-30T17:58:05.9461621Z python/tests/test_web.py::test_full_campaign_flow PASSED                 [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6719541Z python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password PASSED [100%]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6725883Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6726483Z =================================== FAILURES ===================================
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6728294Z ____________________ test_legacy_backup_still_restores[15] _____________________
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6729467Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6732421Z env = (<looking_glass.db.Database object at 0x7f000078a800>, Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000,...y': 85, 'title': 'Looking Glass'}}, config_path=None), <looking_glass.services.fog.FogEngine object at 0x7f00019d2150>)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6735636Z schema = 15
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6736018Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6736327Z     @pytest.mark.parametrize('schema',[15,16])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6737139Z     def test_legacy_backup_still_restores(env,schema):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6737829Z         db,s,_=env
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6738355Z         with db.connect() as c:raw=backup.export_campaign(c,1,s.maps_dir)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6739078Z         with zipfile.ZipFile(io.BytesIO(raw)) as old:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6739769Z             data=json.loads(old.read('campaign.json'));data['schema']=schema
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6740482Z             for name in dr.TABLES:data['tables'].pop(name)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6741039Z             out=io.BytesIO()
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6741513Z             with zipfile.ZipFile(out,'w') as new:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6742334Z                 for name in old.namelist():
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6743787Z                     if name=='campaign.json':new.writestr(name,json.dumps(data))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6745576Z                     elif not name.startswith('alternate/'):new.writestr(name,old.read(name))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6747210Z >       with db.connect() as c:backup.restore_campaign(c,1,s.maps_dir,out.getvalue(),10**7,[])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6748596Z                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6749299Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6749599Z python/tests/test_double_reveal.py:144: 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6750554Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6751810Z python/looking_glass/services/campaign_backup.py:77: in restore_campaign
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6753172Z     data = normalize_backup(json.loads(archive.read("campaign.json")))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6754249Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6755397Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6756106Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6757347Z data = {'format': 'looking-glass-campaign', 'version': 1, 'schema': 15, 'campaign': {'name': 'Adventure', 'description': '', 'active_map_id': None}, ...}
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6758602Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6758816Z     def normalize_backup(data):
+Python / HTTP	UNKNOWN STEP	2026-10-30T

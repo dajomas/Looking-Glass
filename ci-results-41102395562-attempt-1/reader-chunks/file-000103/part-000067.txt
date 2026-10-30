@@ -1,0 +1,38 @@
+ated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6853998Z =========================== short test summary info ============================
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6855086Z FAILED python/tests/test_double_reveal.py::test_legacy_backup_still_restores[15] - ValueError: Unexpected retained-note data in a legacy backup
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6856404Z FAILED python/tests/test_double_reveal.py::test_legacy_backup_still_restores[16] - ValueError: Unexpected retained-note data in a legacy backup
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6857916Z FAILED python/tests/test_room_note_recovery_web.py::test_archive_routes_are_per_admin_app_and_absent_from_viewer - AssertionError: assert (set() == {('/api/maps/...ver', 'POST')}
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6858975Z   
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6859274Z   Extra items in the right set:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6859871Z   ('/api/maps/{map_id}/room-note-archives', 'GET')
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6860444Z   ('/api/maps/{map_id}/room-note-archives/{archive_id}/recover', 'POST')
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6860959Z   
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6861322Z   Full diff: (-: missing in left side, +: extra in left side)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6861817Z   + set()
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6862092Z   - {
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6862360Z   -     (
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6862694Z   -         '/api/maps/{map_id}/room-note-archives',
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6863158Z   -         'GET',
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6863453Z   -     ),
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6863722Z   -     (
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6864105Z   -         '/api/maps/{map_id}/room-note-archives/{archive_id}/recover',
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6864608Z   -         'POST',
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6864915Z   -     ),
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6865320Z   - })
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6866198Z FAILED python/tests/test_room_notes_controls.py::test_upgrade_preserves_notes_and_allows_clear - RuntimeError: Room payload requires an active transaction.
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6867335Z == 4 failed, 1227 passed, 1 warning, 29 subtests passed in 147.89s (0:02:27) ===
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9319849Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9421631Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9422087Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9422423Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9422827Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9423316Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9423753Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9424226Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9424749Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9425358Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9425758Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9426171Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:07.9426813Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN ST

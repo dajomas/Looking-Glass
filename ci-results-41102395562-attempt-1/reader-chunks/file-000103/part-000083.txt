@@ -1,0 +1,40 @@
+)
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5112210Z Complete job name: Browser / mocked HTTP
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5961949Z ##[group]Run actions/checkout@v6
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5962854Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5963331Z   repository: dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5967328Z   token: ***
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5967991Z   ssh-strict: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5968448Z   ssh-user: git
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5968903Z   persist-credentials: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5969395Z   clean: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5969843Z   sparse-checkout-cone-mode: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5970377Z   fetch-depth: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5970815Z   fetch-tags: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5971268Z   show-progress: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5971717Z   lfs: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5972140Z   submodules: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5972590Z   set-safe-directory: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5973103Z   allow-unsafe-pr-checkout: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5973906Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5974493Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5975206Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5975709Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.5976157Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8673056Z Syncing repository: dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8674882Z ##[group]Getting Git version info
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8675712Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8676799Z [command]/usr/bin/git version
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8799252Z git version 2.56.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8810321Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8820747Z Temporarily overriding HOME='/home/runner/work/_temp/19b68056-3e5c-4086-890f-38fc94802a6b' before making global git config changes
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8822775Z Adding repository directory to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8828179Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8891195Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8895674Z ##[group]Determining repository object format
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8904371Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8906132Z ##[group]Initializing the repository
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.8916915Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.9027130Z hint: Using 'master' as the name for the initial branch. This default branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.9029179Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:11.9030834Z hint: to use in all of your new repositories, which wi

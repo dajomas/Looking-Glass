@@ -1,0 +1,105 @@
+ull,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "fd2b714f8b4bc8a3ce333a8ab08bd1b4d9588f57cddc182de40ef0dc9adffab8",
+            "SandboxKey": "/var/run/docker/netns/fd2b714f8b4b",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32768"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32769"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "745875a03ec7523e6986da04f2aefaa1cd8feeea15c19a8127c9278ee8a79853",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "a6:de:a1:35:eb:cf",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "a6:de:a1:35:eb:cf",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "6d7d212499a417c8998359687f365bf46f5ee7a7badd3553de02233d0fd8cc23",
+                    "EndpointID": "745875a03ec7523e6986da04f2aefaa1cd8feeea15c19a8127c9278ee8a79853",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'inspect', 'looking-glass-test-7d0a73f1af7c404abf9cba1e007c18e0']
+exit=0
+[
+    {
+        "Id": "35ff1db5148409d59978008e6e30906e35f6d96c6ee23a0f11f60ca1f59bd391",
+        "Created": "2026-10-30T17:56:01.349474051Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2743,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-10-30T17:56:01.381834659Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:21ad0846c43b84c6915cee97109a954d541899c47afcf470675122bcb798a06f",
+        "ResolvConfPath": "/var/lib/docker/containers/35ff1db5148409d59978008e6e30906e35f6d96c6ee23a0f11f60ca1f59bd391/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/35ff1db5148409d59978008e6e30906e35f6d96c6ee23a0f11f60ca1f59bd391/hostname",
+        "HostsPath": "/var/lib/docker/containers/35ff1db5148409d59978008e6e30906e35f6d96c6ee23a0f11f60ca1f59bd391/hosts",
+        "LogPath": "/var/lib/docker/containers/35ff1db5148409d59978008e6e30906e35f6d96c6ee23a0f11f60ca1f59bd391/35ff1db5148409d59978008e6e30906e35f6d96c6ee23a0f11f60ca1f59bd391-json.log",
+        "Name": "/looking-glass-test-7d0a73f1af7c404abf9cba1e007c18e0",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            

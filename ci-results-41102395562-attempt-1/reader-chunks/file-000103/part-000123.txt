@@ -1,0 +1,29 @@
+026-10-30T17:55:37.7305352Z ^[[36;1mpython - <<'PY'^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7305613Z ^[[36;1mfrom pathlib import Path^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7305924Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7306292Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7306620Z ^[[36;1mif not report.is_file():^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7306971Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7307354Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7307666Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7307958Z ^[[36;1mif not cases:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7308261Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7308729Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7309319Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7310018Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7310462Z ^[[36;1mfor case in skipped:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7310972Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7311447Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7311871Z ^[[36;1mif skipped or failed:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7312241Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7312622Z ^[[36;1mPY^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7334698Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7335054Z env:
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7335373Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7335738Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7335970Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7336247Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7336689Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7337109Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-10-30T17:55:37.7337487Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regre

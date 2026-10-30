@@ -1,0 +1,33 @@
+17:55:58.2894088Z 2026-10-30T17:55:58.289Z pw:browser [pid=3298] <gracefully close start>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.3140715Z 2026-10-30T17:55:58.313Z pw:browser [pid=3298] <process did exit: exitCode=0, signal=null>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.3141688Z 2026-10-30T17:55:58.314Z pw:browser [pid=3298] starting temporary directories cleanup
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.3183472Z 2026-10-30T17:55:58.318Z pw:browser [pid=3298] finished temporary directories cleanup
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.3184776Z 2026-10-30T17:55:58.318Z pw:browser [pid=3298] <gracefully close end>
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7944770Z ##[group]Run set -o pipefail
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7945102Z ^[[36;1mset -o pipefail^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7945640Z ^[[36;1mpython -m pytest -v -ra python/tests/browser --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7966495Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7966850Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7967154Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7967910Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7968142Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7968426Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7968855Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7969276Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7969651Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7970070Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7970472Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:58.7970801Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:59.6654299Z ============================= test session starts ==============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:59.6750457Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:59.6755477Z cachedir: .pytest_cache
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:59.6755995Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:55:59.6756566Z plugins: anyio-4.15.1
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.4906637Z collecting ... collected 169 items / 1 error
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.5720694Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.5721241Z ==================================== ERRORS ====================================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.5722410Z _____ ERROR collecting python/tests/browser/test_room_note_recovery_ui.py ______
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.5723900Z ImportError while importing test module '/home/runner/work/Looking-Glass/Looking-Glass/python/tests/browser/test_room_note_recovery_ui.py'.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.5725219Z Hint: make sure your test modules/packages have valid Python names.
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.5725921Z Traceback:
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-30T17:56:00.5726771Z /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/importlib/__

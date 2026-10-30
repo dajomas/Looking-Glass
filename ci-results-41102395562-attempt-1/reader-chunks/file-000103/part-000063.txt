@@ -1,0 +1,35 @@
+17:58:06.6759688Z         """Normalize only recognized legacy documents parsed privately from JSON."""
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6760874Z         if (not isinstance(data, dict) or data.get("format") != "looking-glass-campaign"
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6761982Z                 or type(data.get("version")) is not int or data["version"] != 1
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6763057Z                 or type(data.get("schema")) is not int or data["schema"] not in (15, 16, 17, 18)):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6764191Z             raise ValueError("Unsupported backup format or database schema")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6765204Z         tables = data.get("tables")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6765809Z         if not isinstance(tables, dict):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6766495Z             raise ValueError("Invalid backup tables")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6767452Z         maps = tables.get("maps")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6768077Z         if not isinstance(maps, list) or len(maps) > 1000000:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6768766Z             raise ValueError("Invalid backup maps")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6769380Z         if data["schema"] in (15, 16, 17):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6769970Z             if "room_note_archives" in tables:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6770758Z >               raise ValueError("Unexpected retained-note data in a legacy backup")
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6771710Z E               ValueError: Unexpected retained-note data in a legacy backup
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6772264Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6772612Z python/looking_glass/services/backup_room_notes.py:19: ValueError
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6773571Z ____________________ test_legacy_backup_still_restores[16] _____________________
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6774150Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6775738Z env = (<looking_glass.db.Database object at 0x7f00026f57c0>, Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000,...y': 85, 'title': 'Looking Glass'}}, config_path=None), <looking_glass.services.fog.FogEngine object at 0x7f00019d2210>)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6777542Z schema = 16
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6777754Z 
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6778004Z     @pytest.mark.parametrize('schema',[15,16])
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6778653Z     def test_legacy_backup_still_restores(env,schema):
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6779231Z         db,s,_=env
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6779808Z         with db.connect() as c:raw=backup.export_campaign(c,1,s.maps_dir)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6780559Z         with zipfile.ZipFile(io.BytesIO(raw)) as old:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6781285Z             data=json.loads(old.read('campaign.json'));data['schema']=schema
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6781833Z             for name in dr.TABLES:data['tables'].pop(name)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6782436Z             out=io.BytesIO()
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6782769Z             with zipfile.ZipFile(out,'w') as new:
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6783324Z                 for name in old.namelist():
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6783796Z                     if name=='campaign.json':new.writestr(name,json.dumps(data))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6784389Z                     elif not name.startswith('alternate/'):new.writestr(name,old.read(name))
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:06.6785376Z >       with db.connect() 

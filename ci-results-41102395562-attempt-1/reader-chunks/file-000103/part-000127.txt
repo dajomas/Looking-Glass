@@ -1,0 +1,43 @@
+nformation see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Live Uvicorn	Set up job	﻿2026-10-30T17:55:10.0332545Z Current runner version: '2.338.0'
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0360432Z ##[group]Runner Image Provisioner
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0361438Z Hosted Compute Agent
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0362038Z Version: 20261021.618
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0362808Z Commit: 21505ad2541d5be6135ed84fc33697146cf75b8e
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0363561Z Build Date: 2026-10-21T00:45:21Z
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0364267Z Worker ID: {11b53c2e-6f6f-4e5b-808d-ea2c25f270a5}
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0365277Z Region: canadacentral
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0365883Z Cloud: Azure
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0366510Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0368090Z ##[group]Operating System
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0368733Z Ubuntu
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0369363Z 24.04.5
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0369884Z LTS
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0370477Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0371057Z ##[group]Runner Image
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0371664Z Image: ubuntu-24.04
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0372296Z Version: 20261025.353.1
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0373381Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261025.353/images/ubuntu/Ubuntu2404-Readme.md
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0375637Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261025.353
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0376639Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0377855Z ##[group]GITHUB_TOKEN Permissions
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0380091Z Contents: read
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0380820Z Metadata: read
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0381428Z ##[endgroup]
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0383878Z Secret source: Actions
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0384883Z Cache mode: write
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0386037Z Prepare workflow directory
+Live Uvicorn	Set up job	2026-10-30T17:55:10.0977134Z Prepare all required actions
+Live Uvicorn	Set up job	2026-10-30T17:55:10.1027159Z Getting action download info
+Live Uvicorn	Set up job	2026-10-30T17:55:10.3604306Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Live Uvicorn	Set up job	2026-10-30T17:55:10.5120513Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Live Uvicorn	Set up job	2026-10-30T17:55:10.6028062Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Live Uvicorn	Set up job	2026-10-30T17:55:10.7397022Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Live Uvicorn	Set up job	2026-10-30T17:55:11.0787034Z Complete job name: Live Uvicorn
+Live Uvicorn	Install browser dependencies	﻿2026-10-30T17:55:31.9747529Z ##[group]Run python -m pip install playwright
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:31.9747973Z ^[[36;1mpython -m pip install playwright^[[0m
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:31.9748355Z ^[[36;1mpython -m playwright install --with-deps chromium^[[0m
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:31.9768451Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:31.9768800Z env:
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:31.9769103Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Install browser dependencies	202

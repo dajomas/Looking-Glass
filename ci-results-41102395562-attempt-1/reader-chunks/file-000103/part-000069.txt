@@ -1,0 +1,30 @@
+0018907Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.0019568Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.0020229Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.0020818Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.2123060Z (node:8513) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.2124790Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.2295137Z With the provided path, there will be 5 files uploaded
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.2296105Z Artifact name is valid!
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.2296555Z Root directory input is valid!
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.4432228Z Beginning upload of artifact content to blob storage
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.4818507Z (node:8513) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.5291639Z Uploaded bytes 40982
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.5493545Z Finished uploading artifact content to blob storage!
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.5495365Z SHA256 digest of uploaded artifact zip is 3a4c626d6968fe23b2a0e8ea97f74c3abfed0d3fec4582c37dd89a6ead87ec76
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:08.5497950Z Finalizing artifact upload
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.1769165Z Artifact integration-python-095f84afa09a28f03c72d97bd03034c5342ae6c7.zip successfully finalized. Artifact ID 12997964390
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.1772211Z Artifact integration-python-095f84afa09a28f03c72d97bd03034c5342ae6c7 has been successfully uploaded! Final size is 40982 bytes. Artifact ID is 12997964390
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.1779339Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41102395562/artifacts/12997964390
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.2088078Z Post job cleanup.
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3169215Z [command]/usr/bin/git version
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3238259Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3286412Z Temporarily overriding HOME='/home/runner/work/_temp/9ba63372-7bc7-4bf8-8add-abd5b2824740' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3288125Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3296116Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3346675Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3354573Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3413920Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3740125Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3748888Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-10-30T17:58:09.3805221Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-al

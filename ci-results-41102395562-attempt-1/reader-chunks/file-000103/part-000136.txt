@@ -1,0 +1,25 @@
+l browser dependencies	2026-10-30T17:55:50.4233568Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:50.5076679Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:50.5720748Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:50.6464809Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:50.7165887Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-10-30T17:55:53.1632750Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Live Uvicorn	Collect live failure diagnostics	﻿2026-10-30T17:57:21.0404039Z ##[group]Run python - <<'PY'
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0404408Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0404677Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0406107Z ^[[36;1mimport shutil^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0406398Z ^[[36;1msource = Path("ci-live-tmp")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0406776Z ^[[36;1mdestination = Path("test-results/live-diagnostics")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0407270Z ^[[36;1mfor pattern in ("*-trace.zip", "dm-*.png", "player-*.png", "page-errors.json"):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0407723Z ^[[36;1m    for path in source.rglob(pattern):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0408077Z ^[[36;1m        if path.is_file() and not path.is_symlink():^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0408462Z ^[[36;1m            target = destination / path.relative_to(source)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0408879Z ^[[36;1m            target.parent.mkdir(parents=True, exist_ok=True)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0409255Z ^[[36;1m            shutil.copy2(path, target)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0409543Z ^[[36;1mPY^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0430024Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0430424Z env:
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0430730Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0431129Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0431371Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Collect live failure diagnostics	2026-10-30T17:57:21.0431654Z   pythonLocation: /opt/hostedtoolcache/Python
