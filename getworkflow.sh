@@ -135,3 +135,7 @@ git commit -m "Add CI evidence for run ${RUN_ID}, attempt ${ATTEMPT} [skip ci]"
 git push origin "HEAD:refs/heads/$BRANCH"
 printf '\nPublished commit: %s\n' "$(git rev-parse HEAD)"
 printf 'Branch: %s\nEvidence: %s\n' "$BRANCH" "$OUT"
+CURRENT_SHA="$(git rev-parse HEAD)"
+printf '\nCopy/paste the following message:\n\n'
+printf 'The new databaseId is %s and is against commit hash %s\n\n' "$RUN_ID" "$RUN_SHA"
+printf 'Current commit hash is %s\n' "$CURRENT_SHA"
