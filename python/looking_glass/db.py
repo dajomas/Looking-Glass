@@ -9,6 +9,8 @@ from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
 
+from .migration_hooks import apply_migration
+
 # Each entry is applied once, in order. Never edit an applied migration;
 # append a new one instead.
 MIGRATIONS: list[str] = [
@@ -374,7 +376,7 @@ class Database:
             for idx, script in enumerate(MIGRATIONS, start=1):
                 if idx <= current:
                     continue
-                conn.executescript("BEGIN;" + script + f"; INSERT INTO schema_version VALUES ({idx}); COMMIT;")
+                apply_migration(conn, idx, script)
                 current = idx
             return current
         finally:
