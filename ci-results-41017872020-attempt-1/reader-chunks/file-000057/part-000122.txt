@@ -1,0 +1,28 @@
+0-30T07:05:13.3476647Z 
+Live Uvicorn	Install application and test dependencies	2026-10-30T07:05:13.3503074Z Successfully installed MarkupSafe-3.0.4 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 bleach-6.4.0 certifi-2026.10.23 click-8.5.0 fastapi-0.162.0 h11-0.16.0 httpcore-1.0.9 httptools-0.9.0 httpx-0.28.1 idna-3.20 iniconfig-2.3.1 jinja2-3.1.6 mistune-3.4.0 numpy-2.5.4 opentelemetry-api-1.45.2 packaging-26.3 pillow-13.0.0 pluggy-1.7.0 pydantic-2.14.2 pydantic-core-2.50.2 pygments-2.21.0 pytest-9.2.0 python-dotenv-1.2.4 python-multipart-0.0.32 pyyaml-6.0.3 scipy-1.18.1 starlette-1.10.0 typing-extensions-4.16.0 typing-inspection-0.4.4 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 webencodings-0.6.1 websockets-17.3
+Live Uvicorn	Install browser dependencies	﻿2026-10-30T07:05:13.5529778Z ##[group]Run python -m pip install playwright
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5530038Z ^[[36;1mpython -m pip install playwright^[[0m
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5530249Z ^[[36;1mpython -m playwright install --with-deps chromium^[[0m
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5548029Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5548222Z env:
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5548407Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5548615Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5548744Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5548917Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5549164Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5549406Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5549789Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5550005Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5550228Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.5550444Z ##[endgroup]
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.8706925Z Collecting playwright
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.8720128Z   Using cached playwright-1.64.1-py3-none-manylinux1_x86_64.whl.metadata (3.3 kB)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.8902729Z Collecting pyee<15,>=13 (from playwright)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.8915949Z   Using cached pyee-14.0.0-py3-none-any.whl.metadata (1.8 kB)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.9786232Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.9797825Z   Using cached greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.9817323Z Requirement already satisfied: typing-extensions in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (from pyee<15,>=13->playwright) (4.16.0)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.9830447Z Using cached playwright-1.64.1-py3-none-manylinux1_x86_64.whl (48.5 MB)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.9960412Z Using cached greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (670 kB)
+Live Uvicorn	Install browser dependencies	2026-10-30T07:05:13.9970712Z Using cached pyee-14.0.0-py3-none-any.whl (15 kB)
+Live Uvicorn	Install browser dep
