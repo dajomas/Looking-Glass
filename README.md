@@ -406,16 +406,22 @@ diagnostics are retained at the configured log level. Set
 ## GitHub Actions integration checks
 
 The integration workflow is stored in
-`.github/workflows/integration-tests.yml`. It defines two Python 3.14 checks:
+`.github/workflows/integration-tests.yml`. It defines four independent checks:
 
-- `Python / HTTP`: the service and in-process HTTP/WebSocket suite, excluding
-  the separate browser and live end-to-end directories.
-- `Live Uvicorn`: the opt-in live end-to-end suite against real application
-  listeners, using Playwright Chromium.
+- `Python / HTTP`: Python 3.14 service and in-process HTTP/WebSocket tests,
+  excluding the separate browser and live end-to-end directories.
+- `JavaScript regressions`: every top-level `python/tests/test_*.js` script
+  under Node.js 24, with per-script logs, exit inventory and JUnit reporting.
+- `Browser / mocked HTTP`: the Playwright Chromium suite, including the
+  existing standalone upload-busy regression through a pytest adapter.
+- `Live Uvicorn`: the live end-to-end suite against real application listeners,
+  using Python 3.14 and Playwright Chromium.
 
-The workflow installs runtime/development dependencies, performs a hard import
-preflight for FastAPI, Starlette, Uvicorn, python-multipart, HTTPX and pytest,
-and rejects missing reports, empty results, failed tests and skipped tests.
-Validation evidence is uploaded as workflow artifacts. A workflow definition is
-not evidence of a successful run. See [CI details](docs/testing.md#github-actions-integration-validation)
-for scope, commands, artifacts and merge-gate setup.
+Browser jobs install Chromium/system dependencies and require the browser
+preflight. All jobs retain evidence and reject missing, empty or failed JUnit
+reports; reported skipped test cases also fail validation. JavaScript reports
+count scripts rather than nested Node cases. The collector `getworkflow.sh`
+automatically downloads and chunks all four artifact groups without changes.
+A workflow definition is not evidence of a successful run, and merge gates
+require separate repository settings. See [current CI details](docs/ci-tests.md)
+for commands, artifacts, reporting scope, validation status and limitations.

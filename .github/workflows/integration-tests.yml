@@ -19,28 +19,34 @@ jobs:
     name: ${{ matrix.name }}
     runs-on: ubuntu-24.04
     timeout-minutes: 30
-
     strategy:
       fail-fast: false
       matrix:
         include:
           - name: Python / HTTP
             suite: python
+          - name: JavaScript regressions
+            suite: javascript
+          - name: Browser / mocked HTTP
+            suite: browser
           - name: Live Uvicorn
             suite: live
-
     env:
       PYTHONPATH: ${{ github.workspace }}/python
       PYTHONUNBUFFERED: "1"
       LG_RUN_LIVE_E2E: "1"
-
     defaults:
       run:
         shell: bash
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
+
+      - name: Initialize evidence
+        run: |
+          mkdir -p test-results
+          git rev-parse HEAD > test-results/environment.txt
+          uname -a >> test-results/environment.txt
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -51,35 +57,32 @@ jobs:
             requirements.txt
             requirements-dev.txt
 
+      - name: Set up Node.js
+        if: matrix.suite == 'javascript'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
       - name: Install application and test dependencies
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements-dev.txt
 
-      - name: Install live-browser dependencies
-        if: matrix.suite == 'live'
+      - name: Install browser dependencies
+        if: matrix.suite == 'browser' || matrix.suite == 'live'
         run: |
           python -m pip install playwright
           python -m playwright install --with-deps chromium
 
       - name: Verify dependencies and record environment
         run: |
-          mkdir -p test-results
-
-          {
-            git rev-parse HEAD
-            python --version
-            python -m pip --version
-            uname -a
-          } > test-results/environment.txt
-
+          python --version >> test-results/environment.txt
+          python -m pip --version >> test-results/environment.txt
           python -m pip check
           python -m pip freeze > test-results/installed-packages.txt
-
           python - <<'PY' | tee test-results/dependency-preflight.txt
           from importlib import import_module
           from importlib.metadata import version
-
           required = {
               "fastapi": "fastapi",
               "starlette": "starlette",
@@ -88,33 +91,46 @@ jobs:
               "httpx": "httpx",
               "pytest": "pytest",
           }
-
           for distribution, module in required.items():
               import_module(module)
               print(f"{distribution}=={version(distribution)}")
           PY
 
+      - name: Record Node.js environment
+        if: matrix.suite == 'javascript'
+        run: |
+          node --version >> test-results/environment.txt
+          npm --version >> test-results/environment.txt
+
+      - name: Verify browser environment
+        if: matrix.suite == 'browser' || matrix.suite == 'live'
+        run: |
+          set -o pipefail
+          python -u python/tests/check_browser_environment.py 2>&1 | tee test-results/browser-preflight.log
+
       - name: Run Python and HTTP tests
         if: matrix.suite == 'python'
         run: |
           set -o pipefail
-          python -m pytest \
-            -v -ra \
-            python/tests \
-            --ignore=python/tests/browser \
-            --ignore=python/tests/live_e2e \
-            --junitxml=test-results/results.xml \
-            2>&1 | tee test-results/pytest.log
+          python -m pytest -v -ra python/tests --ignore=python/tests/browser --ignore=python/tests/live_e2e --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
+
+      - name: Run JavaScript regressions
+        if: matrix.suite == 'javascript'
+        run: |
+          set -o pipefail
+          python tools/run_javascript_tests.py 2>&1 | tee test-results/javascript.log
+
+      - name: Run mocked HTTP browser tests
+        if: matrix.suite == 'browser'
+        run: |
+          set -o pipefail
+          python -m pytest -v -ra python/tests/browser --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
 
       - name: Run live Uvicorn integration tests
         if: matrix.suite == 'live'
         run: |
           set -o pipefail
-          python -m pytest \
-            -v -ra \
-            python/tests/live_e2e \
-            --junitxml=test-results/results.xml \
-            2>&1 | tee test-results/pytest.log
+          python -m pytest -v -ra python/tests/live_e2e --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log
 
       - name: Reject skipped tests or empty results
         if: ${{ !cancelled() }}
@@ -122,44 +138,21 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import xml.etree.ElementTree as ET
-
           report = Path("test-results/results.xml")
           if not report.is_file():
-              raise SystemExit("FAIL: pytest did not produce a JUnit report")
-
+              raise SystemExit("FAIL: no JUnit report was produced")
           root = ET.parse(report).getroot()
           cases = list(root.iter("testcase"))
-
           if not cases:
               raise SystemExit("FAIL: no test cases were reported")
-
-          skipped = [
-              case for case in cases
-              if case.find("skipped") is not None
-          ]
-          failed = [
-              case for case in cases
-              if case.find("failure") is not None
-              or case.find("error") is not None
-          ]
-
-          print(
-              f"Reported: {len(cases)}; "
-              f"failed/error: {len(failed)}; "
-              f"skipped: {len(skipped)}"
-          )
-
+          skipped = [case for case in cases if case.find("skipped") is not None]
+          failed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]
+          print(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")
           for case in skipped:
               reason = case.find("skipped").get("message", "")
-              print(
-                  f"SKIPPED: {case.get('classname', '')}"
-                  f"::{case.get('name', '')}: {reason}"
-              )
-
+              print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")
           if skipped or failed:
-              raise SystemExit(
-                  "FAIL: required integration tests must pass without skips"
-              )
+              raise SystemExit("FAIL: required tests must pass without skips")
           PY
 
       - name: Upload validation evidence
