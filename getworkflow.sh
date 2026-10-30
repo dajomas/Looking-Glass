@@ -22,7 +22,12 @@ Without RUN_ID, collect the latest completed integration workflow run.
 Without --publish, collect locally without committing or pushing.
 With --publish, require a clean, up-to-date features/perplexity checkout,
 then prompt before committing and pushing only the collected evidence.
-Requires Bash, Git, authenticated GitHub CLI and jq.
+Requires Bash, Git, authenticated GitHub CLI, jq and Python 3.
+Creates lossless reader-chunks alongside the unchanged original evidence.
+To chunk existing evidence without downloading again:
+  python3 tools/chunk_ci_evidence.py ci-results-RUN_ID-attempt-ATTEMPT
+To verify the reading copy against the originals:
+  python3 tools/chunk_ci_evidence.py --verify ci-results-RUN_ID-attempt-ATTEMPT
 EOF
 }
 
@@ -40,13 +45,14 @@ for arg in "$@"; do
     esac
 done
 
-for command in gh jq git mktemp; do
+for command in gh jq git mktemp python3; do
     command -v "$command" >/dev/null || die "Required command not found: $command"
 done
 
 gh auth status >/dev/null 2>&1 || die "Authenticate first: gh auth login"
 ROOT="$(git rev-parse --show-toplevel)" || die "Run inside the Looking-Glass checkout."
 cd "$ROOT"
+[[ -f tools/chunk_ci_evidence.py ]] || die "Missing tools/chunk_ci_evidence.py"
 ACTUAL_REPO="$(gh repo view --json nameWithOwner --jq '.nameWithOwner')"
 [[ "${ACTUAL_REPO,,}" == "${REPO,,}" ]] || die "Checkout resolves to $ACTUAL_REPO, expected $REPO."
 
@@ -107,6 +113,8 @@ if [[ ! -s "$OUT/artifact-files.txt" ]]; then
     printf 'WARNING: No artifact files were collected.\n' >> "$OUT/collection.txt"
 fi
 
+python3 tools/chunk_ci_evidence.py "$OUT"
+
 printf '\nCollected evidence in %s\n' "$OUT"
 cat "$OUT/collection.txt"
 printf 'Review the collection report and evidence before publishing.\n'
@@ -121,6 +129,7 @@ read -r ANSWER
 [[ "$ANSWER" == "publish" ]] || die "Publishing cancelled; evidence remains locally."
 [[ "$(git branch --show-current)" == "$BRANCH" ]] || die "Branch changed during collection."
 git diff --quiet && git diff --cached --quiet || die "Tracked files or index changed during collection; review manually."
+python3 tools/chunk_ci_evidence.py --verify "$OUT"
 git add -- "$OUT"
 git commit -m "Add CI evidence for run ${RUN_ID}, attempt ${ATTEMPT} [skip ci]"
 git push origin "HEAD:refs/heads/$BRANCH"

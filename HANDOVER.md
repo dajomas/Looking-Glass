@@ -29,7 +29,7 @@ No application code or test results are changed by this documentation split.
 - [Bug 6 implementation candidate: role-change socket revocation (2026-10-29)](docs/handover/017-bug-6-implementation-candidate-role-change-socket-revocation-2026.md)
 - [Bug 7 implementation candidate: forced-password-change viewer gate (2026-10-29)](docs/handover/018-bug-7-implementation-candidate-forced-password-change-viewer-gate.md)
 - [Bug 8 implementation candidate: atomic account form validation (2026-10-29)](docs/handover/019-bug-8-implementation-candidate-atomic-account-form-validation-202.md)
-- [Bug 9 candidate: bounded login-throttle retention (2026-10-29)](docs/handover/020-bug-9-candidate-bounded-login-throttle-retention-2026-10-29.md)
+- [Bug 9 candidate: bounded login-throttle retention (2026-10-29)](docs/handover/020-bug-9-candidate-bounded-login-throttle-retention-2026-29.md)
 - [Bug 10 implementation candidate: ordered NeDB deletion replay (2026-10-29)](docs/handover/021-bug-10-implementation-candidate-ordered-nedb-deletion-replay-2026.md)
 - [Bug 11 implementation candidate: finite numeric imports and target transforms (2026-10-29)](docs/handover/022-bug-11-implementation-candidate-finite-numeric-imports-and-target.md)
 - [Bug 11 delivery completed; acceptance pending (2026-10-29)](docs/handover/023-bug-11-delivery-completed-acceptance-pending-2026-10-29.md)
@@ -71,3 +71,40 @@ verify contained environment SHAs and provenance after reruns. Existing output
 directories are never overwritten. Runtime, GitHub CLI integration and shell
 syntax validation have not been executed by the assistant for this change.
 README.md was reviewed; its existing CI overview remains accurate and unchanged.
+
+## Bounded CI evidence reading copies (2026-10-30)
+
+The collector now requires Python 3 and invokes `tools/chunk_ci_evidence.py`
+before publishing. Original evidence is unchanged. A separate `reader-chunks/`
+contains copies in parts of at most 4,000 bytes, an ordered paginated index,
+per-source metadata and SHA-256 checksums for originals and parts. UTF-8 code
+points are preserved; long lines and XML elements may span parts. Binary or
+non-UTF-8 inputs use base64, decoded after concatenating their parts. Concatenate
+parts without inserting newlines. Metadata and all reading-copy files are
+bounded; oversized metadata fails explicitly. The exact connector threshold is
+unknown, so this size is conservative rather than a guaranteed connector limit.
+The helper verifies reconstruction against originals before exposing the reading
+copy, and the collector verifies it again before staging. Files are read into
+memory, so this is intended for CI evidence rather than arbitrarily large data.
+Do not modify source evidence after chunking. Existing reading copies are not
+overwritten. No existing published evidence is automatically rewritten.
+
+For the already published run, execute:
+
+```bash
+python3 tools/chunk_ci_evidence.py ci-results-41011195909-attempt-1
+python3 tools/chunk_ci_evidence.py --verify ci-results-41011195909-attempt-1
+```
+
+Review and publish only the generated reading copy on `features/perplexity`:
+
+```bash
+git add -- ci-results-41011195909-attempt-1/reader-chunks
+git commit -m "Add readable chunks for CI run 41011195909 [skip ci]"
+git push origin HEAD:refs/heads/features/perplexity
+```
+
+The existing run collector still refuses to reuse an output directory; use the
+helper directly for already collected runs. No helper tests, shell syntax checks
+or live GitHub integration tests were executed by the assistant for this change.
+README.md was reviewed; its existing workflow overview remains accurate.
