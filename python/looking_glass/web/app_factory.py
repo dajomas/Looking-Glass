@@ -1,6 +1,6 @@
 """Builds the two FastAPI applications (one per entry point)."""
 
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.staticfiles import StaticFiles
 from starlette.middleware.base import BaseHTTPMiddleware
 
@@ -15,6 +15,7 @@ from .admin import session_checkpoints as admin_checkpoints
 from .admin import users as admin_users
 from .admin import wall_editor as admin_wall_editor
 from .admin import viewer_zoom as admin_viewer_zoom
+from .admin.room_note_archives import register_room_note_archives
 from .context import AppContext
 from .templating import build_templates
 from .viewer import api as viewer_api
@@ -54,6 +55,10 @@ def create_admin_app(ctx: AppContext) -> FastAPI:
     app.include_router(admin_campaigns.router)
     app.include_router(admin_users.router)
     app.include_router(admin_api.router)
+    # A fresh router per app avoids mutating the shared admin_api router.
+    archive_router = APIRouter(prefix="/api")
+    register_room_note_archives(archive_router, admin_api._room_at, admin_api._require_current_room)
+    app.include_router(archive_router)
     app.include_router(admin_double_reveal.router)
     app.include_router(admin_scrying_glass.router)
     app.include_router(admin_wall_editor.router)
