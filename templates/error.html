@@ -5,6 +5,10 @@
 <section class="card">
   <h1>{{ status }}</h1>
   <p>{{ message }}</p>
+  {% if return_map_url %}
+  <p><a href="{{ return_map_url }}">Back to map</a></p>
+  {% else %}
   <p><a href="/">Back to start</a></p>
+  {% endif %}
 </section>
 {% endblock %}

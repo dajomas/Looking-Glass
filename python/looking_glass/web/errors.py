@@ -7,6 +7,7 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, RedirectResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from .access import map_for_manage
 from .deps import BadRequest, Forbidden, LoginRequired, MustChangePassword, NotFound
 from .templating import render
 
@@ -15,10 +16,31 @@ def _wants_json(request: Request) -> bool:
     return request.url.path.startswith("/api/") or "application/json" in request.headers.get("accept", "")
 
 
+def _replacement_return_map(request: Request) -> str | None:
+    """Offer a fixed local editor link only for an authorized replacement POST."""
+    map_id = request.path_params.get("map_id")
+    if (request.app.state.entry != "admin" or request.method != "POST"
+            or type(map_id) is not int or map_id <= 0
+            or request.url.path != f"/maps/{map_id}/image"):
+        return None
+    user = getattr(request.state, "user", None)
+    if user is None or user["must_change_password"]:
+        return None
+    ctx = request.app.state.ctx
+    try:
+        with ctx.db.connect() as conn:
+            map_for_manage(conn, user, map_id)
+    except (Forbidden, NotFound):
+        return None
+    return f"/maps/{map_id}"
+
+
 def _error(request: Request, status: int, message: str):
     if _wants_json(request):
         return JSONResponse({"ok": False, "error": message}, status_code=status)
-    return render(request, "error.html", status_code=status, status=status, message=message)
+    return_map_url = _replacement_return_map(request) if status == 400 else None
+    return render(request, "error.html", status_code=status, status=status, message=message,
+                  return_map_url=return_map_url)
 
 
 def install(app: FastAPI) -> None:
