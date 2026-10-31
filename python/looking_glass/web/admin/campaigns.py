@@ -17,7 +17,7 @@ from ...repositories import maps as maps_repo
 from ...repositories import users as users_repo
 from ...repositories import walls as walls_repo
 from ...repositories import wall_sources as sources_repo
-from ...services import images, campaign_backup
+from ...services import images, campaign_backup, image_retirement
 from ...services.map_display import activate
 from ...services.foundry_import import WallImportError, parse_wall_file
 from ..access import campaign_for_manage, map_for_manage
@@ -136,13 +136,14 @@ async def update_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
 async def delete_campaign(ctx: CtxDep, user: CsrfUserDep, campaign_id: int,
                           confirm: Annotated[str, Form()] = ""):
     with ctx.db.connect() as conn:
+        conn.execute("BEGIN IMMEDIATE")
         c = campaign_for_manage(conn, user, campaign_id)
         if confirm.strip() != c["name"]:
             return _back(f"/campaigns/{campaign_id}", err="Type the campaign name to confirm deletion")
         maps = maps_repo.list_for_campaign(conn, campaign_id)
+        image_retirement.retire_maps(conn, (m["id"] for m in maps))
         campaigns_repo.delete(conn, campaign_id)
     for m in maps:
-        images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
         ctx.fog.invalidate(m["id"])
     await notify.campaign_changed(ctx, campaign_id, "deleted")
     return _back("/", ok=f"Campaign '{c['name']}' deleted")
@@ -298,10 +299,11 @@ async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Anno
 @router.post("/maps/{map_id}/delete")
 async def delete_map(ctx: CtxDep, user: CsrfUserDep, map_id: int):
     with ctx.db.connect() as conn:
+        conn.execute("BEGIN IMMEDIATE")
         m, c = map_for_manage(conn, user, map_id)
         was_active = c["active_map_id"] == map_id
+        image_retirement.retire_maps(conn, [map_id])
         maps_repo.delete(conn, map_id)
-    images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
     ctx.fog.invalidate(m["id"])
     if was_active:
         await notify.campaign_changed(ctx, c["id"], "active-map")
@@ -376,6 +378,7 @@ async def restore_campaign(request: Request, ctx: CtxDep, user: CsrfUserDep, cam
             campaign_backup.inspect_campaign(conn, campaign_id, raw, limit)
             recovery = campaign_backup.save_recovery(conn, campaign_id, ctx.settings.maps_dir,
                                                      ctx.settings.data_dir / "recovery", limit)
+            image_retirement.retire_maps(conn, (m["id"] for m in old_maps))
             campaign_backup.restore_campaign(conn, campaign_id, ctx.settings.maps_dir, raw, limit, created_files)
             conn.execute("UPDATE campaigns SET session_version=session_version+1 WHERE id=?", (campaign_id,))
             if conn.execute("PRAGMA foreign_key_check").fetchone():
@@ -389,7 +392,6 @@ async def restore_campaign(request: Request, ctx: CtxDep, user: CsrfUserDep, cam
             images.delete_map_image(ctx.settings.maps_dir, path)
         raise
     for m in old_maps:
-        images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
         ctx.fog.invalidate(m["id"])
     await notify.campaign_changed(ctx, campaign_id, "campaign")
     response = render(request, "admin/backup_restored.html", campaign_id=campaign_id, recovery=recovery)

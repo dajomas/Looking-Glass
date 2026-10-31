@@ -61,3 +61,44 @@ acceptance. README and HANDOVER match the previously reviewed live blobs;
 README remains accurate for this test-only step and needs no cosmetic edit.
 No migrations, dependencies, workflows, historical records/manifests, archives,
 Patch/ material or other branches are changed.
+
+## Step 2: map/campaign removal and restore retirement
+
+Step 1 was delivered in 71b83c049aa1205f3f7516584d5ea1ebb5a28da7,
+verified as the live tip before preparing step 2. This section updates the
+current partial-integration status; the step-1 statements above retain their
+historical context and execution limits.
+
+The proposed step 2 registers original and alternate paths transactionally
+for map deletion, campaign deletion and HTTP campaign restore. Map/campaign
+deletion begins IMMEDIATE before current authorization and path capture.
+Restore uses its existing IMMEDIATE transaction and captures paths after
+preview/inspection/recovery creation, before restore removes the old rows.
+On success, fog invalidation remains but old original files are not unlinked.
+Registration and removals roll back together. Existing cleanup of newly
+created restore files on failure is unchanged.
+
+Original-image replacement, failed-upload cleanup, alternate upload, CLI,
+retirement helper, all existing tests and the five-suite workflow are unchanged.
+Alternate replacement retirement remains step 3; CLI ownership remains step 4.
+Bug 15 is open and this partial delivery is not acceptance. Bugs 2, 13 and 14
+remain closed. New docs/image-retirement.md describes this precise stage and
+the requirement to stop ALL readers before collection. No current normal CLI
+server-lock guarantee is claimed. No arbitrary untracked-file adoption occurs.
+
+Validation: source review against live campaigns.py blob
+ac251388575d9e5c3d3a14c19ad48f222c1c6a94. This campaigns.py candidate
+was compiled during earlier complete-payload assembly; that is historical
+syntax evidence, not a new run. No new compilation, pytest, application/HTTP,
+manual execution or CI review was performed for step-2 preparation. Existing
+regression expectations are preserved, not reported as passing. Execute the
+map/campaign/restore, rollback and paused-reader contracts in a normal checkout
+and record its exact source SHA and actual results. Alternate/CLI cases remain
+expected red until later steps; no failures are hidden or excluded.
+
+README remains the reviewed blob 592cd720793432e2add533717c91e7b41f2930a3
+and its overview needs no cosmetic edit for this partial stage. HANDOVER's
+existing record-073 pointer and runtime-pending label remain accurate; no new
+index edit is needed. Update only the individual Bug 15 backlog, not its split
+manifest. No historical record, dependency, migration, archive or other branch
+is changed.
