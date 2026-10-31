@@ -73,3 +73,46 @@ no cosmetic edit is needed for this packaging-only step. HANDOVER receives one
 short pointer. Preserve records 074 and earlier, historical split manifests,
 application runtime, requirements, workflows and other branches. No delivery
 archive or Patch/ material is added to the repository.
+
+## Podman adapter foundation: integration still pending
+
+Packaging was delivered in 4027ef70fc6193e8f1a56581d0bf0f1c80d20171,
+verified as the live tip before preparing this foundation. This section adds
+test-only adapter contracts; it does NOT wire the two Recovery tests yet.
+Their Docker-only setup assertion remains until a subsequent exact-approved
+integration commit. Do not claim the two checks now run on Podman or passed.
+
+New python/looking_glass_test_container.py resolves LG_CONTAINER_ENGINE as
+auto, podman or docker. Auto prefers an installed Podman binary, then Docker
+only if Podman is absent. Explicit selection never falls back. Preflight runs
+version/info and records selection, executable and native command output. A
+selected but unusable engine fails visibly. Commands are argument arrays with
+stdin closed, not shell strings. Nonzero exits, execution errors and timeouts
+are logged; check=False is reserved for callers' diagnostic/cleanup handling.
+
+Native build-pull flags differ for Podman and Docker. Podman config mounts use
+a private read-only :ro,Z relabel of the disposable file, not label=disable or
+recursive host chown. Symlink config paths are refused. Published URLs require
+one explicit 127.0.0.1 binding for each listener, valid distinct host ports and
+complete inspect data; malformed/nonloopback bindings are not tolerated.
+
+Preparation: new helper/tests compiled under Python 3.12.8; isolated pytest
+reported 35 passed in 0.32s, no skips. Tests execute fake native binaries for
+Podman-only/Docker-only/both-engine selection, preflight, command logging, no
+shell interpretation, nonzero/error handling, mounts, native build flags and
+port validation. These are NOT real-engine, rootless, SELinux-enforcement,
+image-build, listener or named-volume persistence results. Neither Podman nor
+Docker is installed in this sandbox. Full checkout/CI validation is pending.
+
+Next integration must inject the selected engine into test_container.py, keep
+both existing test assertions intact, use local fully qualified image tags and
+the tested mount/port/pull adapters, and explicitly select Docker in Recovery
+CI. The current Containerfile already uses docker.io/library/python:3.14-slim
+and UID 1001; no production-image change is needed for those properties. Add
+Podman usage documentation and execute the real two checks on Podman afterward.
+README's Docker-only container instructions remain accurate for the still-
+unwired Recovery module; update them with integration, not prematurely here.
+HANDOVER's existing follow-up pointer is retitled generically to cover both
+packaging and engine work. Application/runtime, container module, Containerfile,
+CI, requirements, collector and every existing test stay unchanged in this
+foundation commit. Bug 15 remains closed. No archive or Patch/ material.
