@@ -122,3 +122,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Testing/deployment/architecture lossless split: manifests and indexes (2026-10-31)](docs/handover/067-three-guide-lossless-split-2026-10-30.md)
 - [Bug 13: original-image compatibility guard and validation limits (2026-10-31)](docs/handover/068-bug-13-original-image-compatibility-2026-10-31.md)
 - [Deployment documentation test split alignment and validation limits (2026-10-31)](docs/handover/069-deployment-doc-test-split-alignment-2026-10-31.md)
+- [Bug 13: accepted closure and evidence limits (2026-10-31)](docs/handover/070-bug-13-accepted-closure-2026-10-31.md)
