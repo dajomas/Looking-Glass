@@ -36,8 +36,8 @@ else
 fi
 
 HASH=$(git rev-parse --short=7 HEAD 2>/dev/null) || HASH=unversioned
-# Preserve the existing concatenated gzip/base64 result format.
-if ! gzip -c test-results/* | base64 > "test-results.${HASH}.txt"; then
+# Keep legacy flat logs and a recursive lossless diagnostics bundle.
+if ! python tools/package_test_results.py test-results "test-results.${HASH}"; then
   status=1
 fi
 exit "$status"

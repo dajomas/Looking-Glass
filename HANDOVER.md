@@ -127,3 +127,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 15: retirement foundation, corrected test review and pending integration (2026-10-31)](docs/handover/072-bug-15-image-retirement-2026-10-31.md)
 - [Bug 15: route/CLI integration; validation and acceptance pending (2026-10-31)](docs/handover/073-bug-15-route-cli-integration-2026-10-31.md)
 - [Bug 15: accepted closure and validation limits (2026-10-31)](docs/handover/074-bug-15-accepted-closure-2026-10-31.md)
+- [Testing harness follow-up: diagnostic packaging and pending Podman support (2026-10-31)](docs/handover/075-testing-harness-follow-up-2026-10-31.md)
