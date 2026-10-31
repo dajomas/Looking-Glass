@@ -1,0 +1,35 @@
+nt.py 2>&1 | tee test-results/browser-preflight.log^[[0m
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7754117Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7754409Z env:
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7754664Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7754958Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7755144Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7755394Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7755740Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7756070Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7756364Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7756651Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7756951Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.7757249Z ##[endgroup]
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8685991Z Python: 3.14.9 Executable: /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8698289Z Platform: Linux-7.0.0-1017-azure-x86_64-with-glibc2.39
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8698852Z PRETTY_NAME="Ubuntu 24.04.5 LTS"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8699155Z NAME="Ubuntu"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8699388Z VERSION_ID="24.04"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8699665Z VERSION="24.04.5 LTS (Noble Numbat)"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8700081Z VERSION_CODENAME=noble
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8700366Z ID=ubuntu
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8700568Z ID_LIKE=debian
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8700844Z HOME_URL="https://www.ubuntu.com/"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8701175Z SUPPORT_URL="https://help.ubuntu.com/"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8701541Z BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8702115Z PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8702649Z UBUNTU_CODENAME=noble
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8702933Z LOGO=ubuntu-logo
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8703079Z 
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8712827Z Playwright: 1.64.1
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8713083Z FONTCONFIG_FILE='<unset>'
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8713304Z FONTCONFIG_PATH='<unset>'
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:28.8787435Z fc-match sans-serif (exit 0): 'DejaVuSans.ttf: "DejaVu Sans" "Book"'; stderr=''
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:29.2581813Z Chromium executable: /home/runner/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome
+Live Uvicorn	Verify browser environment	2026-10-31T21:35:29.2643535Z 2026-10-31T21:35:29.262Z pw:browser <launching> /home/runner/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disa

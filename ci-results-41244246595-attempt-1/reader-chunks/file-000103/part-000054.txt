@@ -1,0 +1,36 @@
+4.15.1 bleach-6.4.0 click-8.5.0 fastapi-0.162.0 h11-0.16.0 httpcore2-2.16.0 httptools-0.9.0 httpx2-2.16.0 idna-3.20 iniconfig-2.3.1 jinja2-3.1.6 mistune-3.4.0 numpy-2.5.4 opentelemetry-api-1.45.2 packaging-26.3 pillow-13.0.0 pluggy-1.7.0 pydantic-2.14.2 pydantic-core-2.50.2 pygments-2.21.0 pytest-9.2.0 python-dotenv-1.2.4 python-multipart-0.0.33 pyyaml-6.0.3 scipy-1.18.1 starlette-1.10.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.4 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 webencodings-0.6.1 websockets-17.4
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7946759Z ##[group]Run python --version >> test-results/environment.txt
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7947281Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7947697Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7948061Z ^[[36;1mpython -m pip check^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7948412Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7948886Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7949281Z ^[[36;1mfrom importlib import import_module^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7949794Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7950096Z ^[[36;1mrequired = {^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7950331Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7950601Z ^[[36;1m    "starlette": "starlette",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7950886Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7951216Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7951533Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7951786Z ^[[36;1m    "pytest": "pytest",^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7952020Z ^[[36;1m}^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7952272Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7952920Z ^[[36;1m    import_module(module)^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7953254Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7953582Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7973795Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7974136Z env:
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7974450Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7974839Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7975070Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7975353Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7975786Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7976225Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7976607Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7976989Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7977389Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:08.7977722Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:09.2569763Z No broken requirements found.
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:35:09.9604130Z fastapi==0.162.0
+Python / H

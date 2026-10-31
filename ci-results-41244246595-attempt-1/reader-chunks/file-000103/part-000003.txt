@@ -1,0 +1,25 @@
+rn	Check out repository	2026-10-31T21:34:49.4623326Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4628263Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4671864Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4673950Z ##[group]Disabling automatic garbage collection
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4675804Z [command]/usr/bin/git config --local gc.auto 0
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4713667Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4715507Z ##[group]Setting up auth
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4716767Z Removing SSH command configuration
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4718797Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.4760813Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5061363Z Removing HTTP extra header
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5068516Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5108425Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5315293Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5322333Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5362139Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5579599Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-9f6c53a0-81f9-4995-914e-71a02a154dd4.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5624762Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-9f6c53a0-81f9-4995-914e-71a02a154dd4.config
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5663271Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-9f6c53a0-81f9-4995-914e-71a02a154dd4.config
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5700150Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-9f6c53a0-81f9-4995-914e-71a02a154dd4.config
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5737581Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-9f6c53a0-81f9-4995-914e-71a02a154dd4.config
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5771040Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5772500Z ##[group]Fetching the repository
+Live Uvicorn	Check out repository	2026-10-31T21:34:49.5778319Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +12edad0d1213f36ad6ee6d3b0f887c991f91e836:refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-10-31T21:34:50.2681326Z From https://github.com/dajomas/Look

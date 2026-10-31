@@ -1,0 +1,33 @@
+\exports\\maps.db-maps.db] PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:37.2608260Z python/tests/test_wall_sources_repository.py::test_filename_normalization[-walls] PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:37.2833709Z python/tests/test_wall_sources_repository.py::test_filename_normalization[filename3-expected3] PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:37.3074127Z python/tests/test_wall_sources_repository.py::test_campaign_delete_cascades PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:37.3301705Z python/tests/test_wall_sources_repository.py::test_source_delete_keeps_map_walls_and_ids_not_reused PASSED [ 98%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:37.3555553Z python/tests/test_wall_sources_repository.py::test_transaction_rollback PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.1138936Z python/tests/test_wall_sources_web.py::test_saved_source_reused_on_independent_maps PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.1534892Z python/tests/test_wall_types.py::test_upgrade_v2_preserves_map PASSED    [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.1547198Z python/tests/test_wall_types.py::test_filters_non_destructive_all_types PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.1584094Z python/tests/test_wall_types.py::test_disabled_wall_merges_rooms PASSED  [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.1735388Z python/tests/test_wall_types.py::test_admin_base_matches_fully_revealed_viewer PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.1747188Z python/tests/test_wall_types.py::test_each_type_can_be_disabled_independently PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.4806591Z python/tests/test_web.py::test_viewer_cannot_use_admin_port PASSED       [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:38.8211028Z python/tests/test_web.py::test_unauthenticated_redirects PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:39.1262080Z python/tests/test_web.py::test_admin_cookie_not_valid_on_viewer_port PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:39.6095111Z python/tests/test_web.py::test_user_management_is_superadmin_only PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:39.9869654Z python/tests/test_web.py::test_last_superadmin_protected PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:40.8264238Z python/tests/test_web.py::test_full_campaign_flow PASSED                 [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:41.4730652Z python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password PASSED [100%]
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:41.4731466Z 
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:41.4732695Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:41.4735829Z ============= 1378 passed, 29 subtests passed in 150.30s (0:02:30) =============
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3141981Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3142331Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3142897Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3143197Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3143539Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3143858Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3144200Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3144598Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3144914Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-10-31T21:37:42.3145202Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UN

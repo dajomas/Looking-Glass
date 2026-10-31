@@ -1,0 +1,93 @@
+rlay2/wab1elll7nodxa9be31jhz0g6/diff:/var/lib/docker/overlay2/7o78hztsxjk32e9drfw3onovk/diff:/var/lib/docker/overlay2/418c5d3efb938430c868b09380ef01da97b56337ab7fb82f1b6ecd30f3c68b3e/diff:/var/lib/docker/overlay2/085112910cf5671219f72127a0f4f13a08219e89007b50e6f4f8830b15b25c00/diff:/var/lib/docker/overlay2/07938761efdc6e8c0fe72fdacd315ef18020d1e7008b3585add202afc5c5df4e/diff:/var/lib/docker/overlay2/c21fb1901d96cfa4683b28adee8ebf66fadac05ec8bc52a588b3d9d6881069a3/diff",
+                "MergedDir": "/var/lib/docker/overlay2/50bcac0606adb4cfc097b71200ec1f239a36183680c3ff604aa41da37fe0a3a4/merged",
+                "UpperDir": "/var/lib/docker/overlay2/50bcac0606adb4cfc097b71200ec1f239a36183680c3ff604aa41da37fe0a3a4/diff",
+                "WorkDir": "/var/lib/docker/overlay2/50bcac0606adb4cfc097b71200ec1f239a36183680c3ff604aa41da37fe0a3a4/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-11304857ff1640c3ab03b123acd9c281",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-11304857ff1640c3ab03b123acd9c281/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "884924b51793",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:567c954a7a44425cb130b85b96f04993",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "66349c41c29842a8a07b701fdd47ded6fcd5156ff8fe7d79df89205281b4c603",
+            "SandboxKey": "/var/run/docker/netns/66349c41c298",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32772"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32773"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "Lin

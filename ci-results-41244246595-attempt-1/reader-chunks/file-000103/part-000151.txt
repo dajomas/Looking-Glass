@@ -1,0 +1,30 @@
+:49.5615254Z hint: Using 'master' as the name for the initial branch. This default branch name
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5617113Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5618001Z hint: to use in all of your new repositories, which will suppress this warning,
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5618683Z hint: call:
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5619052Z hint:
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5619615Z hint: 	git config --global init.defaultBranch <name>
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5620176Z hint:
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5620713Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5621615Z hint: 'development'. The just-created branch can be renamed via this command:
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5622280Z hint:
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5622660Z hint: 	git branch -m <name>
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5623114Z hint:
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5623703Z hint: Disable this message with "git config set advice.defaultBranchName false"
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5627023Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5639050Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5691576Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5692901Z ##[group]Disabling automatic garbage collection
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5697603Z [command]/usr/bin/git config --local gc.auto 0
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5732141Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5733843Z ##[group]Setting up auth
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5734887Z Removing SSH command configuration
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5738217Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.5778722Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.6205719Z Removing HTTP extra header
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.6212737Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.6247190Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.6424465Z Removing includeIf entries pointing to credentials config files
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.6432478Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.6464721Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+JavaScript regressions	Check out repository	2026-10-31T21:34:49.6652701Z [command]/usr/bin/git config --file /hom

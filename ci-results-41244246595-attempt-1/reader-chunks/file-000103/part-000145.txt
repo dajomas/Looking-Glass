@@ -1,0 +1,28 @@
+ck_edit.py::test_hit_tolerance_is_screen_pixels_after_zoom PASSED [ 93%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:43.2567321Z python/tests/browser/test_wall_right_click_edit.py::test_small_pointer_jitter_opens_dialog_but_cancelled_pointer_does_not PASSED [ 93%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:43.4214989Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[add] PASSED [ 94%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:43.5902344Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[remove] PASSED [ 94%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:43.7561119Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[type] PASSED [ 95%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:43.9227010Z python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[edit] PASSED [ 95%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:50.3586306Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[400] PASSED [ 96%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:57.8389229Z python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[4000] PASSED [ 97%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:58.5254445Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[battle] PASSED [ 97%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:59.0487711Z python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[wall] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:59.5532354Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[battle] PASSED [ 98%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:36:59.9454125Z python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[wall] PASSED [ 99%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.3962678Z python/tests/browser/test_wall_width_followup.py::test_sources_and_legend_are_independent_siblings PASSED [100%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.3963557Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.3964279Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.3965721Z ======================== 172 passed in 72.77s (0:01:12) ========================
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7748872Z ##[group]Run python - <<'PY'
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7749209Z ^[[36;1mpython - <<'PY'^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7749467Z ^[[36;1mfrom pathlib import Path^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7749757Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7750096Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7750409Z ^[[36;1mif not report.is_file():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7750754Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7751144Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7751452Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7751734Z ^[[36;1mif not cases:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7752032Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-10-31T21:37:00.7752484Z ^[[36;1mskipped = [case for case in cases if case.find("skip
