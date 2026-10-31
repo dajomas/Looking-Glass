@@ -9,6 +9,7 @@
 import argparse
 import asyncio
 import getpass
+from contextlib import ExitStack
 import logging
 import sys
 
@@ -17,6 +18,7 @@ from .db import Database
 from .rbac import Role
 from .repositories import sessions as sessions_repo
 from .repositories import users as users_repo
+from .services.image_retirement import storage_use
 
 
 def _db(args) -> Database:
@@ -58,10 +60,17 @@ def main(argv: list[str] | None = None) -> int:
         case None | "serve":
             settings = load_settings(args.config)
             logging.getLogger().setLevel(settings.section("server")["log_level"].upper())
-            try:
-                asyncio.run(_serve(settings))
-            except KeyboardInterrupt:
-                pass
+            with ExitStack() as stack:
+                try:
+                    stack.enter_context(storage_use(settings.maps_dir))
+                except RuntimeError as exc:
+                    print(str(exc), file=sys.stderr)
+                    return 1
+                # Keep ownership through asyncio.run's worker-executor shutdown.
+                try:
+                    asyncio.run(_serve(settings))
+                except KeyboardInterrupt:
+                    pass
             return 0
         case "create-user":
             with _db(args).connect() as conn:

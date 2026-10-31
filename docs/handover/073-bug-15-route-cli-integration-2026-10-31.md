@@ -1,144 +1,99 @@
-# Bug 15: regression-first route and CLI contracts (2026-10-31)
+# Bug 15: route retirement and CLI ownership (2026-10-31)
 
-Split delivery step 1 of 4. Baseline: dajomas/Looking-Glass,
-features/perplexity, 901509e39acd1becec3ecddcd89372bfee63e954,
-verified live before this exact-write proposal.
+Step-4 preparation baseline: dajomas/Looking-Glass, features/perplexity,
+e94304cbc2efb5f0dd5b88455f4826857c97e34c, verified as live tip.
+This active record consolidates the split-delivery history below. Its current
+status supersedes earlier intermediate/pending runtime descriptions, not their
+evidence limits. Record 072 and all historical split manifests stay unchanged.
 
-## Scope and status
+## Status and scope
 
-Add only the corrected HTTP/CLI integration regressions, this evidence record
-and one short HANDOVER pointer. Existing routes, CLI and retirement helper are
-unchanged. Bug 15 remains open; Bugs 2, 13 and 14 remain accepted and closed.
-This is an intentionally regression-first intermediate, not a completed fix.
+The step-4 candidate completes the four-stage implementation once delivered.
+Bug 15 remains OPEN pending application validation, exact-source CI review and
+user acceptance. Bugs 2, 13 and 14 remain accepted and closed with their existing
+evidence limits. Implementation delivery is not a new test result or closure.
 
-The new desired-behavior contracts are expected red until production retirement
-and serving ownership are integrated in steps 2-4. No baseline execution of
-these tests has established a failure inventory yet. They are discovered by
-the existing main workflow; no xfail, skip, weakened assertion or exclusion
-hides intermediate failures. Preserve test_image_database_failures.py and
-the foundation test_image_retirement.py unchanged.
+Map/campaign deletion and HTTP campaign restore capture original and alternate
+paths before removal, inside IMMEDIATE write transactions. Restore registers
+paths after preview/inspection/recovery creation and before replacing rows.
+Post-commit fog invalidation remains; old original files are not unlinked.
+Alternate upload registers its previous path after stamp/dimension validation
+and before the upsert in its existing transaction. First uploads register no
+old alternate. Registration rolls back with database mutations; existing
+exceptional new-file cleanup and after-commit notification contracts remain.
 
-## Review corrections preserved
+Step 4 changes only CLI imports/main plus current documentation. ExitStack holds
+storage_use before normal server setup through asyncio.run and executor shutdown.
+Only lock-acquisition RuntimeError becomes CLI refusal; server exceptions still
+propagate. No startup/context/account-command collection is introduced. Direct
+ASGI/server/service launchers still need explicit ownership or a complete stop.
+Use a single normal serving process on local POSIX storage, not shared-cache
+multi-server or distributed storage. Collection refuses without fcntl.
 
-Reader tests verify exact selected raw bytes, exact backup artwork entries,
-visible alternate/original composite pixels and hidden-area fog pixels. The
-fixture enables true artwork in a revealed room so cold fog rendering must
-read the alternate. Barriers match the exact old path, not any Image.open.
-A separate mutation reaches post-commit invalidation while the reader pauses;
-release/join cleanup uses finally blocks. TestClient/direct service readers
-explicitly model serving ownership; separate tests exercise actual CLI dispatch.
+Original replacement's immediate unlink, failed-new-image cleanup and general
+cancellation/crash/power-loss windows are not redesigned. Collector executable
+code, routes and every existing test/workflow are unchanged by step 4. The
+helper's existing ownership requirement remains valid; no cosmetic helper edit
+is needed. See docs/image-retirement.md for maintenance and unsupported readers.
+Only registered paths are collected; no arbitrary old orphan scan or adoption.
 
-Retry checks require operation-specific success, database changes, exact
-retirement candidates, retained bytes, successful collection and unrelated
-campaign preservation, rather than accepting a generic 303. Coverage includes
-a no-alternate map, repeated distinct replacements, wrong confirmations and
-stale-upload rejection. CLI tests check serving exclusion, startup refusal,
-server exception propagation/release and ownership through executor shutdown.
-The previously committed foundation retains bounded child readiness/cleanup.
+## Delivery and evidence chronology
 
-## Evidence and operational warning
+- Foundation: 901509e39acd1becec3ecddcd89372bfee63e954. Helper and isolated
+  real-SQLite/flock suite; historical Python 3.12.8 result: 14 passed in 0.13s.
+  This is not application migration, HTTP, live-serving or current-source proof.
+- Split step 1: 71b83c049aa1205f3f7516584d5ea1ebb5a28da7. Corrected HTTP/CLI
+  desired-behavior contracts; expected red before corresponding implementation.
+  Modules compiled during preparation, but no baseline runtime failure inventory
+  or HTTP/CLI pytest execution was established. No xfail/skips/exclusions.
+- Step 2: 5e2f64a21062a9f73d5d8a7a38554f1b5024ac6a. Deletion/restore
+  retirement. Source review and earlier candidate compilation only, no new tests
+  or CI review. Failed restore new-file cleanup and original replacement stayed
+  unchanged. Runtime diff was verified after delivery.
+- Step 3: e94304cbc2efb5f0dd5b88455f4826857c97e34c. Alternate retirement.
+  Baseline/candidate compiled under Python 3.12.8; AST changed only upload_image
+  among existing functions/classes. Delivered blob matched candidate
+  c5c2484b7b6eabd1f460506691c641be8f478bd8. No application/pytest/CI result.
+- Step 4 preparation: reconstructed CLI matched live blob
+  ce30da47a2752b5a82f23b57d565ebb3c8c0ec30. Baseline/candidate full modules
+  compiled under Python 3.12.8; AST changed only main among existing functions.
+  Candidate CLI blob: 30217442f0e9a62662c2474beabd0028151c7314. No pytest,
+  application/HTTP, manual/browser/live execution or new CI review was performed.
+  FastAPI is unavailable in this preparation sandbox.
 
-These exact new Python modules were compiled during the earlier full-payload
-assembly under Python 3.12.8. That is syntax evidence, not pytest or application
-execution. No HTTP/CLI/browser/live test or new CI review was executed for this
-proposal. FastAPI was unavailable in that preparation environment. The earlier
-foundation result of 14 passed in 0.13 seconds is historical isolated evidence,
-not a result for these integration tests or this proposed commit.
+## Regression contracts and pending validation
 
-The current CLI still does not acquire storage_use. Stop ALL serving/direct
-ASGI/service/backup readers before offline collection. Do not interpret the
-manual lock in TestClient tests as proof of production CLI coordination.
+Tests preserve exact selected raw bytes, ZIP artwork bytes, alternate/original
+composite pixels and hidden fog pixels. Exact-path barriers pause readers before
+opening; a writer reaches post-commit invalidation while they pause. TestClient
+readers explicitly model shared ownership, while separate actual CLI-dispatch
+tests check serving/startup exclusion, exception release and executor shutdown.
+These controlled dependencies are not live Uvicorn proof. Retry checks require
+operation-specific success, DB changes, exact candidates, file bytes, collection
+and unrelated-state preservation, not a generic redirect. Coverage includes
+no-alternate maps, repeated distinct replacements, wrong confirmations and stale
+uploads. Foundation checks retain bounded child readiness/termination/reaping.
 
-## Remaining approved delivery sequence
+In a normal checkout, execute and record the actual tested SHA and results:
 
-2. Campaign/map deletion and restore retirement, with corresponding docs.
-3. Alternate-artwork replacement retirement, with corresponding docs.
-4. CLI ownership and final maintenance documentation.
+```bash
+PYTHONPATH=python python -m pytest -q \
+  python/tests/test_image_retirement.py \
+  python/tests/test_image_retirement_cli.py \
+  python/tests/test_image_retirement_web.py \
+  python/tests/test_image_database_failures.py \
+  python/tests/test_double_reveal.py \
+  python/tests/test_double_reveal_web.py \
+  python/tests/test_campaign_backup.py \
+  python/tests/test_campaign_backup_inspection_web.py \
+  python/tests/test_fog_response_race.py
+```
 
-Each step requires its own exact-action approval. Update this focused record
-as implementation and actual evidence arrive; keep Bug 15 unchecked pending
-acceptance. README and HANDOVER match the previously reviewed live blobs;
-README remains accurate for this test-only step and needs no cosmetic edit.
-No migrations, dependencies, workflows, historical records/manifests, archives,
-Patch/ material or other branches are changed.
-
-## Step 2: map/campaign removal and restore retirement
-
-Step 1 was delivered in 71b83c049aa1205f3f7516584d5ea1ebb5a28da7,
-verified as the live tip before preparing step 2. This section updates the
-current partial-integration status; the step-1 statements above retain their
-historical context and execution limits.
-
-The proposed step 2 registers original and alternate paths transactionally
-for map deletion, campaign deletion and HTTP campaign restore. Map/campaign
-deletion begins IMMEDIATE before current authorization and path capture.
-Restore uses its existing IMMEDIATE transaction and captures paths after
-preview/inspection/recovery creation, before restore removes the old rows.
-On success, fog invalidation remains but old original files are not unlinked.
-Registration and removals roll back together. Existing cleanup of newly
-created restore files on failure is unchanged.
-
-Original-image replacement, failed-upload cleanup, alternate upload, CLI,
-retirement helper, all existing tests and the five-suite workflow are unchanged.
-Alternate replacement retirement remains step 3; CLI ownership remains step 4.
-Bug 15 is open and this partial delivery is not acceptance. Bugs 2, 13 and 14
-remain closed. New docs/image-retirement.md describes this precise stage and
-the requirement to stop ALL readers before collection. No current normal CLI
-server-lock guarantee is claimed. No arbitrary untracked-file adoption occurs.
-
-Validation: source review against live campaigns.py blob
-ac251388575d9e5c3d3a14c19ad48f222c1c6a94. This campaigns.py candidate
-was compiled during earlier complete-payload assembly; that is historical
-syntax evidence, not a new run. No new compilation, pytest, application/HTTP,
-manual execution or CI review was performed for step-2 preparation. Existing
-regression expectations are preserved, not reported as passing. Execute the
-map/campaign/restore, rollback and paused-reader contracts in a normal checkout
-and record its exact source SHA and actual results. Alternate/CLI cases remain
-expected red until later steps; no failures are hidden or excluded.
-
-README remains the reviewed blob 592cd720793432e2add533717c91e7b41f2930a3
-and its overview needs no cosmetic edit for this partial stage. HANDOVER's
-existing record-073 pointer and runtime-pending label remain accurate; no new
-index edit is needed. Update only the individual Bug 15 backlog, not its split
-manifest. No historical record, dependency, migration, archive or other branch
-is changed.
-
-## Step 3: alternate-artwork replacement retirement
-
-Step 2 was delivered in 5e2f64a21062a9f73d5d8a7a38554f1b5024ac6a,
-verified as the live tip before preparing step 3. Earlier pending descriptions
-retain their dated context; this section describes the new partial stage.
-
-After current-map/stamp validation and successful image storage/dimension
-validation, upload_image reads the previous alternate path and registers it
-before the upsert in its existing BEGIN IMMEDIATE transaction. First uploads
-have no old alternate and add no retirement candidate. Replacement keeps the
-old file available to selected render, artwork-response and backup readers.
-No immediate unlink or runtime collection is added. Registration rolls back
-with the database update; the existing exceptional cleanup of the new file and
-after-commit notification behavior are preserved.
-
-Only the retirement import, this upload block and its retention comment change
-in double_reveal.py. Artwork responses, other route functions/classes, existing
-tests, original replacement, failed-upload cleanup and campaign routes stay
-unchanged. Step 1 already contains repeated-replacement, stale rejection,
-precommit rollback/retry and selected-reader contracts; no assertion is weakened
-or test excluded. Application execution is still pending, not implied passing.
-
-Preparation validation: reconstructed baseline matched live Git blob
-7f903028e5b91213aa94efc758b78755b6f4673e. Baseline and candidate full
-modules compiled under Python 3.12.8. AST comparison showed only upload_image
-changed among existing functions/classes. Candidate Git blob is
-c5c2484b7b6eabd1f460506691c641be8f478bd8. These are compilation/source
-checks, not FastAPI/HTTP execution. FastAPI is unavailable in this sandbox.
-No pytest, application, browser, manual or CI execution/review was performed
-for this step. The foundation's 14-pass result remains historical and isolated.
-
-All four requested mutation paths now have candidate registration once this
-step is delivered. CLI serving ownership remains step 4: STOP ALL serving and
-standalone readers before offline collection. No arbitrary older orphan files
-are scanned or adopted. Bug 15 remains open pending step 4, actual validation
-and acceptance; Bugs 2, 13 and 14 remain closed. README/HANDOVER were reviewed
-against their unchanged live blobs; their existing overview/pointer remains
-accurate, so no cosmetic edit is made. Update the individual backlog and the
-maintenance guide without changing historical split manifests.
+Review the unchanged five-suite CI against the actual delivered SHA and perform
+isolated manual deletion/restore/replacement plus stopped-maintenance checks.
+Do not infer passes from compilation or earlier green runs, or acceptance from
+delivery. Never weaken assertions, skip or exclude failures to obtain green.
+Current README/HANDOVER were reviewed; this commit adds the maintenance overview
+and updates the existing pointer. Preserve filename capitalization, historical
+records/manifests, dependencies, migrations and other bugs. No archive, Patch/
+material, merge or other-branch write.

@@ -1,72 +1,72 @@
 # Retired artwork maintenance
 
-## Current split-delivery stage
+## Artwork retirement
 
 Map deletion, campaign deletion and HTTP campaign restore register old original
-and alternate image paths before their references are removed, in the same write
-transaction. Successful operations retain these files for existing readers.
-Failed mutations roll back retirement registration and database removal together.
+and alternate paths in the transaction removing their references. Alternate
+replacement registers its old alternate before the upsert. First uploads have
+no previous alternate. Files stay readable until explicit offline collection.
+Failed mutations roll back registration and database changes together. Existing
+new-file failure cleanup and original-image replacement keep their contracts.
 
-Alternate-artwork replacement also registers its previous alternate path within
-the upload's existing write transaction. First uploads have no previous path.
-Replaced files remain readable until explicit offline collection. Normal CLI
-ownership remains step 4 and is NOT integrated yet. Original-image replacement
-and cleanup of new files after failed operations retain their existing behavior.
-This is not a claim that every prior artwork race or crash window is solved.
+## Serving ownership and limitations
 
-## Offline ownership requirement
+Use one normal `python python/main.py serve` process per local database/maps/cache
+installation. On POSIX the CLI holds shared storage_use ownership before server
+setup, through both listeners, asyncio.run and worker-executor shutdown. The
+collector requires exclusive nonblocking ownership: it refuses while that server
+is running, and server startup refuses while collection holds the lock. Server
+exceptions are not disguised as lock-acquisition failures.
 
-STOP ALL servers and readers before collection: both listeners, older versions,
-direct ASGI applications and standalone service/backup readers. The current
-normal CLI DOES NOT acquire the shared storage lock. The collector's exclusive
-lock therefore does not detect or exclude that uncoordinated serving process.
---confirm-stopped acknowledges this responsibility; it does not prove a stop.
+Use a local filesystem with reliable POSIX flock semantics. This is not a
+distributed lease or support for shared-cache multi-server operation. Never
+remove/replace maps/.image-retirement.lock or rename/replace storage during use.
+Without fcntl, serving retains its previous behavior but collection refuses;
+do not bypass that refusal.
 
-Use one normal serving process per local database/maps/cache installation.
-Collection requires a local filesystem with reliable POSIX flock semantics and
-refuses on platforms without fcntl. Distributed/network-filesystem locking and
-shared-cache multi-server operation are outside this support model. Never remove
-or replace maps/.image-retirement.lock or rename/replace storage during use.
-Custom cooperating launchers can hold storage_use across their entire reader
-lifetime, including path selection, response/file consumption and worker shutdown;
-all uncoordinated readers must still be stopped.
+Older versions, direct ASGI applications, direct server.build/server.serve calls
+and standalone service/backup readers do not implicitly hold this lock. Stop ALL
+of them before collection. Custom launchers must hold storage_use across path
+selection, response/file consumption and worker shutdown. The confirmation flag
+acknowledges this obligation; it cannot detect arbitrary uncoordinated readers.
+External filesystem mutation is outside this safety model.
 
 ## Procedure
 
-1. Stop all serving and standalone readers.
+1. Stop all servers and standalone readers. Stopping only one listener is not enough.
 2. Back up the stopped installation's complete database and map storage.
-3. Use the installation's Python environment and identical configuration:
+3. Use its Python environment and identical configuration:
 
 ```bash
 PYTHONPATH=python python -m looking_glass.services.image_retirement \
   -c /etc/looking-glass/config.yaml --confirm-stopped
 ```
 
-Omit -c only if default/environment settings select the correct installation.
+Omit -c only when default/environment settings select the correct installation.
 The database must already exist; collection does not migrate it. Review the
-removed/missing/referenced/blocked counts. Busy cooperating storage, unsupported
-locking or operational/database errors fail the command. Blocked paths return
-exit 1; referenced paths remain queued. Resolve causes, rerun and then restart.
-Ordinary requests, startup, context construction and account CLI commands do not
-run collection. Disk use can grow until explicit maintenance.
+removed/missing/referenced/blocked counts. Busy ownership, unsupported locking or
+operational/database errors fail the command; blocked candidates return exit 1.
+Referenced paths remain queued. Resolve failures, rerun, then restart serving.
+Ordinary requests, startup, context construction and account CLI commands never
+run destructive collection. Disk use can grow until maintenance.
 
 ## Candidate selection and retry
 
-Only transactionally registered known paths are considered. No filesystem scan
-adopts arbitrary existing untracked files, including leaks predating this fix.
-There is no historical backfill and recovery ZIPs are not collection candidates.
+Only registered known paths are considered. No filesystem scan adopts arbitrary
+untracked files, including artwork leaked before the fix. There is no historical
+backfill; recovery ZIPs are not collection candidates.
 
-The installation-local image_retirements table is operational bookkeeping,
-created transactionally on first use. It is excluded from portable campaign ZIPs
-and clean duplication; full stopped database backups include it. No applied
-migration or portable schema/version is changed.
+The local image_retirements table is operational bookkeeping, transactionally
+created on first use. Portable campaign ZIPs and clean duplication exclude it;
+full stopped database backups include it. No applied migration or portable
+schema/version changes.
 
-With exclusive cooperating-storage ownership, collection holds BEGIN IMMEDIATE
-across checks of both maps.image_file and double_reveal_maps.image_file, unlink
-and queue removal. Duplicates are deduplicated. Active references, invalid paths,
-symlinks and failed unlinks remain queued. Missing files are acknowledged safely
-on retry, including after unlink followed by a database commit failure. This is
-not an fsync/power-loss guarantee or protection against external filesystem
-mutation. Referenced or blocked candidates can remain indefinitely.
+With exclusive cooperating ownership, collection holds BEGIN IMMEDIATE across
+checks of maps.image_file and double_reveal_maps.image_file, unlink and queue
+removal. Duplicates are deduplicated. Active references, unsafe paths, symlinks
+and failed unlinks remain queued. Missing files make retry idempotent, including
+unlink followed by commit failure. This is not an fsync/power-loss guarantee.
+Blocked/referenced files can remain indefinitely. Original replacement's immediate
+unlink and existing failed-new-file cancellation/crash windows are not redesigned.
 
-See [the stage and evidence record](handover/073-bug-15-route-cli-integration-2026-10-31.md).
+See [validation and current status](handover/073-bug-15-route-cli-integration-2026-10-31.md).

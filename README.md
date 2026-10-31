@@ -63,6 +63,13 @@ python python/main.py -c /etc/looking-glass/config.yaml serve
 `serve` is the default command. Password reset also reactivates the account and
 revokes its sessions.
 
+Map/campaign deletion, campaign restore and alternate-artwork replacement retain
+superseded artwork until explicit offline collection. Stop all readers and use
+the same installation configuration before maintenance. The normal POSIX CLI
+server coordinates with the collector through a storage-use lock; direct ASGI
+or service launchers must coordinate separately. No arbitrary untracked files
+are scanned. See [retired artwork maintenance](docs/image-retirement.md).
+
 ## Tests
 
 Install development requirements and run the Python suite:
