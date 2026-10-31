@@ -125,3 +125,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 13: accepted closure and evidence limits (2026-10-31)](docs/handover/070-bug-13-accepted-closure-2026-10-31.md)
 - [Bug 14: accepted closure and evidence limits (2026-10-31)](docs/handover/071-bug-14-accepted-closure-2026-10-31.md)
 - [Bug 15: retirement foundation, corrected test review and pending integration (2026-10-31)](docs/handover/072-bug-15-image-retirement-2026-10-31.md)
+- [Bug 15: regression-first route and CLI contracts; runtime pending (2026-10-31)](docs/handover/073-bug-15-route-cli-integration-2026-10-31.md)
