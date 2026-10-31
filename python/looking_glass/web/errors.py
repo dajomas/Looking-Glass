@@ -18,10 +18,20 @@ def _wants_json(request: Request) -> bool:
 
 def _replacement_return_map(request: Request) -> str | None:
     """Offer a fixed local editor link only for an authorized replacement POST."""
-    map_id = request.path_params.get("map_id")
+    raw_map_id = request.path_params.get("map_id")
+    if type(raw_map_id) is str:
+        if (not raw_map_id.isascii() or not raw_map_id.isdecimal()
+                or len(raw_map_id) > 19):
+            return None
+    elif type(raw_map_id) is not int:
+        return None
+    try:
+        map_id = int(raw_map_id)
+    except ValueError:
+        return None
     if (request.app.state.entry != "admin" or request.method != "POST"
-            or type(map_id) is not int or map_id <= 0
-            or request.url.path != f"/maps/{map_id}/image"):
+            or not 0 < map_id <= 9223372036854775807
+            or request.url.path != f"/maps/{raw_map_id}/image"):
         return None
     user = getattr(request.state, "user", None)
     if user is None or user["must_change_password"]:

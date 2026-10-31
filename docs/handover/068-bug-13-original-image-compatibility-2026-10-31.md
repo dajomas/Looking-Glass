@@ -168,3 +168,59 @@ README.md and HANDOVER.md were reviewed live; README's overview is unchanged and
 the existing short HANDOVER.md pointer already leads to this focused record.
 No cosmetic documentation/index edit, historical manifest change, schema,
 dependency, workflow, other-branch write or archive-only Patch/ material is needed.
+
+## Raw route-ID correction after HTTP regression failure (2026-10-31)
+
+Navigation delivery 5cf39c788122ed93f7bc629276465a30ee9bd592 is the verified
+live baseline. The user ran the five-module focused suite and reported 2 failed,
+40 passed in 27.52 seconds. Both configured/artwork-only HTTP cases rejected
+the smaller image with 400 but still rendered Back to start. They stopped at
+the link assertion; subsequent state, editor-return and retry checks were not
+reached. The original dimension guard was not shown to fail.
+
+Cause: the unconverted router parameter in request.path_params is a string,
+although FastAPI supplies a separately validated integer to the endpoint. The
+helper's integer-only guard returned None before authorization. Prior isolated
+checks supplied an integer request double and therefore missed this real request
+representation. Those checks are not proof of working HTTP navigation.
+
+Parse an ASCII decimal raw string (at most 19 characters) or an actual integer;
+reject booleans, floats, malformed/empty/Unicode/oversized strings and values
+outside SQLite's positive signed-64-bit row-ID range. Compare the request path
+against the raw ID spelling, so short zero-padded route IDs still work, while
+permissions receive an integer and the return link uses its canonical spelling.
+Do not change route declarations, the image compatibility guard, template, JSON
+responses or authorization policy. Existing HTTP assertions remain unchanged.
+
+Add test_error_return_map_ids.py: 18 intended helper cases, including ordinary
+string IDs, integers, short zero-padded IDs, rejected inputs and permission
+denials using the real string representation. These supplement rather than
+replace the existing HTTP tests and their state-preservation assertions.
+
+Actual correction preparation: the complete baseline errors.py matched live blob
+ea14a425953f8a183aee9b9826be4ea5a8405386. Complete candidate errors.py and new
+test module compiled on Python 3.12. The 18-case module ran in fresh isolated
+pytest subprocesses against the exact AST-extracted helper, replacing only its
+application import with a small module carrying that helper and doubled Request,
+permission function, DB contexts and exception types. Baseline: 4 failed,
+14 passed in 0.12 seconds. Candidate: 18 passed in 0.02 seconds. This verifies
+helper parsing/control flow, not application imports, routing or HTTP behavior.
+An earlier smaller matrix passed 17 candidate cases before the explicit SQLite
+range bound was added; it is not an additional acceptance total. Candidate blobs:
+errors.py d4481177364e02869441e84f04ef890d3d22aa36; new tests
+48da0774af6f08425d27de886fcebc32025f4598.
+
+FastAPI is absent here. No full-application pytest cases or new CI run were
+executed/reviewed for this correction. Rerun all six focused modules, including
+the existing failing HTTP cases, before acceptance:
+
+```bash
+PYTHONPATH=python python -m pytest -q python/tests/test_error_return_map_ids.py python/tests/test_image_replacement_error_navigation_web.py python/tests/test_original_image_compatibility_web.py python/tests/test_double_reveal_web.py python/tests/test_double_reveal.py python/tests/test_image_database_failures.py
+```
+
+Then review the exact corrected-SHA CI evidence and manually follow Back to map.
+Bug 13 remains pending user acceptance. README.md/HANDOVER.md were reviewed in
+this navigation work and remain accurate; the existing index pointer leads here.
+Only errors.py, the new helper test module and this focused record change.
+Historical records above, split manifests, workflows and other backlog items
+are not rewritten. No archive, dependency, migration or other-branch write.
