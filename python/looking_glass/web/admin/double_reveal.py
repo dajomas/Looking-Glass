@@ -6,7 +6,7 @@ from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import FileResponse, Response
 from pydantic import BaseModel, ConfigDict, Field
 from PIL import Image
-from ...services import double_reveal as service, images
+from ...services import double_reveal as service, images, image_retirement
 from ..access import map_for_manage, fog_inputs
 from ..deps import CtxDep, UserDep, CsrfUserDep, BadRequest
 from .campaigns import _read_upload
@@ -112,6 +112,9 @@ async def upload_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, file: Annota
             stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, m["campaign_id"])
             if (stored.width, stored.height) != (m["width"], m["height"]):
                 raise ValueError(f"Alternate image must be exactly {m['width']} × {m['height']} pixels, aligned with the original.")
+            old = conn.execute("SELECT image_file FROM double_reveal_maps WHERE map_id=?", (map_id,)).fetchone()
+            if old is not None:
+                image_retirement.retire_paths(conn, [old[0]])
             conn.execute("""INSERT INTO double_reveal_maps(map_id,image_file) VALUES(?,?)
                 ON CONFLICT(map_id) DO UPDATE SET image_file=excluded.image_file,revision=double_reveal_maps.revision+1""",
                 (map_id, stored.relative_path))
@@ -122,7 +125,7 @@ async def upload_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, file: Annota
     except BaseException:
         if stored: images.delete_map_image(ctx.settings.maps_dir, stored.relative_path)
         raise
-    # Preserve replaced files for in-flight render and backup readers.
+    # Retired files remain readable until explicit offline collection.
     await notify.map_changed(ctx, map_id, "appearance")
     return result
 

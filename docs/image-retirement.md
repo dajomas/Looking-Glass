@@ -7,11 +7,12 @@ and alternate image paths before their references are removed, in the same write
 transaction. Successful operations retain these files for existing readers.
 Failed mutations roll back retirement registration and database removal together.
 
-Alternate replacement retirement and normal CLI ownership are not integrated
-yet; they are steps 3 and 4. Replaced alternates are still deliberately retained
-without new retirement registration. Original-image replacement and cleanup of
-new files after failed operations retain their existing behavior. This is not
-a claim that every prior artwork lifecycle race or crash window is solved.
+Alternate-artwork replacement also registers its previous alternate path within
+the upload's existing write transaction. First uploads have no previous path.
+Replaced files remain readable until explicit offline collection. Normal CLI
+ownership remains step 4 and is NOT integrated yet. Original-image replacement
+and cleanup of new files after failed operations retain their existing behavior.
+This is not a claim that every prior artwork race or crash window is solved.
 
 ## Offline ownership requirement
 

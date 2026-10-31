@@ -102,3 +102,43 @@ existing record-073 pointer and runtime-pending label remain accurate; no new
 index edit is needed. Update only the individual Bug 15 backlog, not its split
 manifest. No historical record, dependency, migration, archive or other branch
 is changed.
+
+## Step 3: alternate-artwork replacement retirement
+
+Step 2 was delivered in 5e2f64a21062a9f73d5d8a7a38554f1b5024ac6a,
+verified as the live tip before preparing step 3. Earlier pending descriptions
+retain their dated context; this section describes the new partial stage.
+
+After current-map/stamp validation and successful image storage/dimension
+validation, upload_image reads the previous alternate path and registers it
+before the upsert in its existing BEGIN IMMEDIATE transaction. First uploads
+have no old alternate and add no retirement candidate. Replacement keeps the
+old file available to selected render, artwork-response and backup readers.
+No immediate unlink or runtime collection is added. Registration rolls back
+with the database update; the existing exceptional cleanup of the new file and
+after-commit notification behavior are preserved.
+
+Only the retirement import, this upload block and its retention comment change
+in double_reveal.py. Artwork responses, other route functions/classes, existing
+tests, original replacement, failed-upload cleanup and campaign routes stay
+unchanged. Step 1 already contains repeated-replacement, stale rejection,
+precommit rollback/retry and selected-reader contracts; no assertion is weakened
+or test excluded. Application execution is still pending, not implied passing.
+
+Preparation validation: reconstructed baseline matched live Git blob
+7f903028e5b91213aa94efc758b78755b6f4673e. Baseline and candidate full
+modules compiled under Python 3.12.8. AST comparison showed only upload_image
+changed among existing functions/classes. Candidate Git blob is
+c5c2484b7b6eabd1f460506691c641be8f478bd8. These are compilation/source
+checks, not FastAPI/HTTP execution. FastAPI is unavailable in this sandbox.
+No pytest, application, browser, manual or CI execution/review was performed
+for this step. The foundation's 14-pass result remains historical and isolated.
+
+All four requested mutation paths now have candidate registration once this
+step is delivered. CLI serving ownership remains step 4: STOP ALL serving and
+standalone readers before offline collection. No arbitrary older orphan files
+are scanned or adopted. Bug 15 remains open pending step 4, actual validation
+and acceptance; Bugs 2, 13 and 14 remain closed. README/HANDOVER were reviewed
+against their unchanged live blobs; their existing overview/pointer remains
+accurate, so no cosmetic edit is made. Update the individual backlog and the
+maintenance guide without changing historical split manifests.
