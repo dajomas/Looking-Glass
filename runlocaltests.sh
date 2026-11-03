@@ -130,7 +130,9 @@ fi
 for group in "${suites[@]}"; do
   if run_suite "$group"; then :; else status=1; fi
 done
+git add -f local-tests-${HASH} && git commit -am "Local test run for ${HASH} [skip ci]" && git push
 printf 'finished_utc=%s\n' "$(date -u +%FT%TZ)" >> "$RUN/environment.txt"
 printf '\nResults: %s\n' "$RUN"
 cat "$RUN/summary.tsv"
+printf '\nLocal test results can be found in local-tests-%s\n\n' "${HASH}"
 exit "$status"
