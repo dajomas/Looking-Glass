@@ -89,3 +89,43 @@ Read [viewer synchronization](testing/028-step-5-viewer-synchronization-status.m
 
 Read [browser preflight and font diagnostics](testing/033-rocky-linux-10-wsl-browser-preflight.md#fontconfig-and-rendered-text-failures).
 
+## Commit-scoped local test output
+
+Run from your checkout after installing its test dependencies:
+
+```bash
+bash runlocaltests.sh
+bash runlocaltests.sh --suite python
+bash runlocaltests.sh --suite javascript
+bash runlocaltests.sh --python "$PWD/.venv-test/bin/python"
+```
+
+Default execution runs Python / HTTP, JavaScript, browser, live and recovery
+(including container) groups. --suite selects just one of those groups. Python
+3.14 is the supported application target; use the development requirements for
+that commit. Browser/live groups require Playwright, Chromium and system libraries;
+JavaScript requires Node.js (CI uses 24); recovery containers require Docker and
+permissions to use it. Bash, Git, tar, tee and mktemp must be available. The runner
+does not install anything, start your configured server, or use your local data.
+
+Output is placed in `local-tests-<full HEAD commit hash>/` in the checkout root,
+with a unique `run-<UTC timestamp>-<suffix>/` directory for every invocation.
+It contains environment.txt, summary.tsv, exit-code.txt, per-suite logs and JUnit
+reports under suites/, pytest temporary data under tmp/, and the extracted
+committed source under worktree/. Diagnostics written by fixtures to their
+hardcoded test-results path are retained under worktree/test-results/.
+
+The runner tests a git archive of HEAD, not uncommitted or untracked changes;
+commit changes first if they need testing. Active virtualenv selection takes
+precedence over .venv-test, .venv and PATH fallbacks; --python overrides it.
+The source snapshot is separate from your checkout and dependencies are reused
+from that existing interpreter. A missing dependency is a failure, not a pass.
+Failures do not normally stop later groups. Missing, empty, malformed, failed or
+skipped JUnit reports cause failure even if the test command returned zero.
+Exit status 0 means all selected groups passed; a single-suite run does not
+validate the other groups. Prior runs are never automatically removed.
+
+Results are ignored by Git; deliberately inspect before sharing because logs,
+traces, source and synthetic test data may be large or sensitive. Nothing is
+uploaded automatically. The archived tree has no independent .git metadata;
+see [runner decisions and validation limits](handover/081-local-test-runner-2026-11-03.md).

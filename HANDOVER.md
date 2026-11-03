@@ -137,3 +137,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 19: accepted closure and evidence limits (2026-11-03)](docs/handover/079-bug-19-accepted-closure-2026-11-03.md)
 - [Release notes (unreleased changes)](docs/release-notes.md)
 - [Bug 16: finite manual calibration; acceptance pending (2026-11-03)](docs/handover/080-bug-16-manual-calibration-2026-11-03.md)
+- [Commit-scoped local test runner (2026-11-03)](docs/handover/081-local-test-runner-2026-11-03.md)
