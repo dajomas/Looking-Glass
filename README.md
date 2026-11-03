@@ -109,6 +109,7 @@ replace the live-browser suite. See the [validation record](docs/handover/025-ci
 - [HTTP API](docs/api.md)
 - [Deployment](docs/deployment.md)
 - [Testing](docs/testing.md)
+- [Release notes](docs/release-notes.md)
 
 ## Accounts and access
 
@@ -121,6 +122,11 @@ cannot subscribe to viewer events. A successful password change clears that
 requirement, revokes other sessions and retains the current session. Profile-only
 saves are supported. Account-form validation finishes before account writes;
 profile, password and session changes share one database transaction.
+
+A superadmin password reset on the admin Users page revokes every session of the
+reset user and disconnects that user's viewer sockets after the transaction
+commits. When a superadmin resets their own password, only the requesting admin
+session is retained; their other admin and viewer sessions are revoked.
 
 Viewer connections are associated with hashed session identities. Logout closes
 connections for that session after session deletion. A changed user role or

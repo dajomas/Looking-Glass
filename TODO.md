@@ -29,19 +29,22 @@ Uncommitted bug-2 candidates are not installed branch changes.
 ## Second bug hunt: bugs 16–29
 
 Audited source: `766780262bf44922bbd7c9fa2b3081e7e28e214f` on
-`features/perplexity`, 2026-10-31. These are open findings, not delivered fixes.
+`features/perplexity`, 2026-10-31. Bug 19 is now closed (see below); the other
+findings remain open and are not delivered fixes.
 The original workflow's counts and suggested order are historical; do not use
 them to reopen accepted bugs 2/13/14/15. Existing individual status records and
 accepted handovers remain authoritative. This audit changes no earlier status.
 
 The focused [audit record](docs/todo/018-bugs-16-29-audit-2026-10-31.md)
 contains evidence, reproduction procedures, proposed solutions and regression
-requirements. Its linked numbered sections extend the existing bug numbering:
+requirements. It describes the audited commit and is not edited as fixes land;
+the status below is authoritative. Its linked numbered sections extend the
+existing bug numbering:
 
 - [16. Manual calibration bypasses finite-number validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#16-manual-calibration-bypasses-finite-number-validation)
 - [17. Original-image replacement deletes files still in use](docs/todo/018-bugs-16-29-audit-2026-10-31.md#17-original-image-replacement-deletes-files-still-in-use)
 - [18. Old-image unlink failure interrupts post-commit notification](docs/todo/018-bugs-16-29-audit-2026-10-31.md#18-old-image-unlink-failure-interrupts-post-commit-notification)
-- [19. Superadmin self-reset leaves other sessions valid](docs/todo/018-bugs-16-29-audit-2026-10-31.md#19-superadmin-self-reset-leaves-other-sessions-valid)
+- [19. Superadmin self-reset leaves other sessions valid](docs/todo/018-bugs-16-29-audit-2026-10-31.md#19-superadmin-self-reset-leaves-other-sessions-valid) — closed 2026-11-03; see [accepted closure](docs/handover/079-bug-19-accepted-closure-2026-11-03.md)
 - [20. Login next accepts a cross-origin backslash redirect](docs/todo/018-bugs-16-29-audit-2026-10-31.md#20-login-next-accepts-a-cross-origin-backslash-redirect)
 - [21. Login lacks cross-site submission protection](docs/todo/018-bugs-16-29-audit-2026-10-31.md#21-login-lacks-cross-site-submission-protection)
 - [22. Multipart CSRF token can cause an unhandled type error](docs/todo/018-bugs-16-29-audit-2026-10-31.md#22-multipart-csrf-token-can-cause-an-unhandled-type-error)
@@ -54,8 +57,9 @@ requirements. Its linked numbered sections extend the existing bug numbering:
 - [29. Async image upload holds a SQLite write lock across await](docs/todo/018-bugs-16-29-audit-2026-10-31.md#29-async-image-upload-holds-a-sqlite-write-lock-across-await)
 
 Suggested implementation order: **16 → 17 → 18 → 19 → 20 → 21 → 23 → 29 →
-25 → 26 → 27 → 28 → 22 → 24**. Severity and dependency rationale are in the
-audit record. Add regressions first and keep each fix separately reviewable.
+25 → 26 → 27 → 28 → 22 → 24** (19 is complete). Severity and dependency
+rationale are in the audit record. Add regressions first and keep each fix
+separately reviewable.
 Items 17/18 can share a coordinated image-retirement design; 25 precedes 26.
 No application, HTTP, browser, live-server or full-suite tests were executed
 for this audit. Three extracted checks are described with their exact limits.

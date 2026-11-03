@@ -133,4 +133,6 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 15: accepted closure and validation limits (2026-10-31)](docs/handover/074-bug-15-accepted-closure-2026-10-31.md)
 - [Testing harness follow-up: diagnostic packaging and container engines (2026-10-31)](docs/handover/075-testing-harness-follow-up-2026-10-31.md)
 - [Second bug hunt: bugs 16–29, proposed order and validation limits (2026-10-31)](docs/handover/076-second-bug-hunt-2026-10-31.md)
-- [Bug 19: password-reset session revocation; acceptance pending (2026-11-03)](docs/handover/078-bug-19-password-reset-session-revocation-2026-11-03.md)
+- [Bug 19: password-reset session revocation implementation and CI follow-ups (2026-11-03)](docs/handover/078-bug-19-password-reset-session-revocation-2026-11-03.md)
+- [Bug 19: accepted closure and evidence limits (2026-11-03)](docs/handover/079-bug-19-accepted-closure-2026-11-03.md)
+- [Release notes (unreleased changes)](docs/release-notes.md)
