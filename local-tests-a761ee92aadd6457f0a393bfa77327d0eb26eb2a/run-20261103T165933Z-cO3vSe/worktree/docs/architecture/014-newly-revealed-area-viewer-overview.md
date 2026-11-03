@@ -1,0 +1,10 @@
+## Newly revealed area -> viewer overview
+
+`services/revealed_regions.py` fingerprints only current revealed components, using a cropped binary footprint plus source/work dimensions and location. Numeric label IDs and hidden components are never included in the response. `AreaMap` stores private component slices and digest caches; they share the geometry cache lifetime and are protected by the map's existing reentrant lock. These are in-memory caches only. Digesting the footprint rather than versions avoids false resets for style/visibility/runtime lock changes and tolerates stable components whose numeric labels are renumbered.
+
+The viewer state handler reads map/fog inputs in one database snapshot and adds the signatures beside existing bounds/version data. On a successful image decode, `LGViewerHasNewAreas` compares set membership against the last displayed map. Any new signature on the same map causes `cancelLookup(true)`, clearing focus and invalidating old asynchronous area lookups before fitting the overview. The comparison occurs after the existing refresh-generation guard and before replacing currentMap, so late frames cannot overwrite/reset a newer one incorrectly.
+
+Without new visible members, existing focus validation continues. This handles hidden-area additions inside unchanged overview bounds, hide/reveal exchanges with equal area counts, repeated reveals, hide-only updates, Reveal all and Undo. Actual topology edits can change component fingerprints and conservatively reset focus. Stable lock/unlock does not alter topology. New explicit remote/local camera commands issued after a reveal can focus again; commands/lookups bound to older map versions cannot restore old focus.
+
+No schema migration, new dependency/configuration, extra camera preference or Center/Fit control is introduced. Admin gestures, remote zoom delivery, arrow behavior and viewer read-only permissions are unchanged. Fingerprints describe displayed snapshots; transient reveal/hide states coalesced before display are not replayed as camera events.
+

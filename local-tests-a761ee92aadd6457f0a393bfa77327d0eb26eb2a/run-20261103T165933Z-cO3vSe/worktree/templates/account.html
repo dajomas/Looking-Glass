@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Account{% endblock %}
+{% block main_class %}container narrow{% endblock %}
+{% block content %}
+<section class="card">
+  <h1>Your account</h1>
+  {% if user.must_change_password %}
+  <div class="flash flash-warn">You must choose a new password before continuing.</div>
+  {% endif %}
+  <form method="post" action="/account" class="stack">
+    {% include "partials/_csrf.html" %}
+    <label>Username <input value="{{ user.username }}" disabled></label>
+    <label>Display name <input name="display_name" value="{{ user.display_name }}" maxlength="120"></label>
+    <fieldset>
+      <legend>Change password</legend>
+      <label>Current password <input name="current_password" type="password" autocomplete="current-password"
+             {{ 'required' if user.must_change_password }}></label>
+      <label>New password <input name="new_password" type="password" autocomplete="new-password"
+             {{ 'required' if user.must_change_password }}></label>
+      <label>Repeat new password <input name="confirm_password" type="password" autocomplete="new-password"
+             {{ 'required' if user.must_change_password }}></label>
+    </fieldset>
+    <button class="primary" type="submit">Save</button>
+  </form>
+</section>
+{% endblock %}

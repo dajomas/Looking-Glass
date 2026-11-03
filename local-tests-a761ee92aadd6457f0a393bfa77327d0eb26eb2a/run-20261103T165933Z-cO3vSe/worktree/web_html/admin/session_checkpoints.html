@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Session checkpoints · {{ campaign.name }}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a> / Session checkpoints</p>
+<h1>Session checkpoints</h1>
+<section class="card"><h2>Save current play state</h2>
+<p>Capture the active map, campaign-wide fog history, last-displayed fog snapshots and runtime door/passage states. Saving does not change the player display. Save editor drafts first; only committed data is captured.</p>
+<form method="post" action="/campaigns/{{ campaign.id }}/checkpoints" class="stack">
+{% include "partials/_csrf.html" %}
+<label>Name<input name="name" required maxlength="120" placeholder="Before session 12"></label>
+<label>Notes<textarea name="notes" maxlength="2000" rows="2"></textarea></label>
+<button type="submit">Save session checkpoint</button></form>
+</section>
+<section class="card"><h2>Saved checkpoints</h2>
+{% if checkpoints %}<ul>{% for c in checkpoints %}<li style="margin-bottom:1rem"><a href="/campaigns/{{ campaign.id }}/checkpoints/{{ c.id }}">{{ c.name }}</a> · #{{ c.id }} · {{ c.created_at }} UTC{% if c.automatic %} <span class="pill">Automatic safety</span>{% endif %}
+{% if c.notes %}<p>{{ c.notes }}</p>{% endif %}</li>{% endfor %}</ul>{% else %}<p>No checkpoints on this page.</p>{% endif %}
+{% if page > 1 %}<a href="?page={{ page-1 }}">Newer checkpoints</a>{% endif %}
+{% if has_more %}<a href="?page={{ page+1 }}">Older checkpoints</a>{% endif %}
+</section>
+<section class="card"><h2>Checkpoints are not backups</h2><p>Restoring rewinds play state, not authored content, notes or permissions. Review compatibility and effects before restoring. Image, wall geometry, boundary settings, fog configuration or authored passage changes can block restore. Map names and room-note edits are preserved.</p>
+<p>Checkpoint history is local to this database, is not included in campaign ZIP backups, and is not pruned automatically. Keep full installation backups. An automatic safety checkpoint is saved transactionally before every successful restore.</p></section>
+{% endblock %}

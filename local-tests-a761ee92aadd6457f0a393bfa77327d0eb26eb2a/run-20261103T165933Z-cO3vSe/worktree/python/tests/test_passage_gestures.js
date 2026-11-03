@@ -1,0 +1,15 @@
+const assert=require("node:assert/strict"),fs=require("node:fs"),vm=require("node:vm");
+const clock={setTimeout(fn){this.fn=fn;return 1;},clearTimeout(){this.fn=null;}};
+const ctx={window:clock};vm.runInNewContext(fs.readFileSync("static/js/door_gestures.js","utf8"),ctx);
+const state={work_scale:1,door_arrows:[{wall_id:7,side:1,kind:"secret",portal:true,polygon:[[10,10],[30,10],[30,30],[10,30]]}]};
+let hit=clock.LGManagedDoorHit(state,{x:20,y:20},20,20,1,true,new Set());
+assert.equal(hit.wall_id,7);assert.equal(hit.side,1);assert.equal(hit.kind,"secret");
+state.door_arrows[0].exit_only=true;
+assert.equal(clock.LGManagedDoorHit(state,{x:20,y:20},20,20,1,true,new Set()).blocked,true);
+state.door_arrows[0].exit_only=false;state.door_arrows[0].kind="door";
+assert.equal(clock.LGManagedDoorHit(state,{x:20,y:20},20,20,1,true,new Set()).side,1);
+let count=0;const queue=new clock.LGDoorTapQueue(400,clock);
+queue.tap("arrow:7:0","v",()=>count++,()=>count+=100);
+queue.tap("arrow:7:1","v",()=>count+=10,()=>count+=1000);
+clock.fn();assert.equal(count,10);
+console.log("Portal Entry identity, secret/normal hits and Exit-only blocking passed");

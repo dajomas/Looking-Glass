@@ -1,0 +1,48 @@
+# Looking Glass configuration - copy to config.yaml and adjust.
+# Every key is optional; defaults are shown.
+
+server:
+  host: 0.0.0.0
+  admin_port: 5000        # DM portal (superadmin + admin)
+  viewer_port: 5100       # player screen 
+  log_level: info
+  access_log_success: false  # true: include successful HTTP requests for debugging
+
+storage:
+  data_dir: data                 # relative to the repo root, or absolute
+  database: looking_glass.db     # relative to data_dir
+  max_upload_mb: 150
+  max_image_pixels: 400000000    # Pillow decompression-bomb guard
+
+security:
+  session_hours: 12
+  secure_cookies: false          # set true when served over HTTPS
+  initial_superadmin: superadmin # created on first start (password printed in the log or LG_SUPERADMIN_PASSWORD)
+  admins_can_create_viewers: true
+  min_password_length: 8
+  login_max_failures: 5
+  login_lockout_seconds: 300
+
+fog:
+  work_max_dim: 2048       # resolution for wall rasterising / area detection
+  wall_thickness: 3        # px at work resolution; closes small gaps between wall ends
+  leak_warn_fraction: 0.6  # warn when one click reveals more than 60% of the map
+  doors_block: true        # default for new maps (per-map toggle in the editor)
+  fog_color: "#000000"
+  feather_px: 2            # soft fog edge on the player image
+  admin_fog_opacity: 0.55
+
+viewer:
+  title: Looking Glass
+  max_image_dim: 4096      # player image is downscaled to fit
+  image_format: webp       # webp | jpeg | png
+  image_quality: 85
+
+# Optional read-only battle-setup existence lookup, using saved room-note names.
+scrying_glass:
+  enabled: false
+  base_url: ""       # e.g. https://scrying.example.net:8443 (admin origin, no path)
+  username: ""       # admin with the matching campaign assigned, or superadmin
+  password: ""       # prefer the environment variable below over a YAML secret
+  password_env: LG_SCRYING_GLASS_PASSWORD
+  timeout_seconds: 5 # 1..30 seconds per upstream request; TLS verification stays on

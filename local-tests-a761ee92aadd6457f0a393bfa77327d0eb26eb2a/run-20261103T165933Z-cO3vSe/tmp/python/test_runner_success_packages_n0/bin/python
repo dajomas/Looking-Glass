@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+if [[ "$1" == tools/package_test_results.py ]]; then
+  [[ "${FAKE_FAIL:-}" == packaging ]] && exit 9
+  exec "$REAL_PYTHON" "$@"
+fi
+if [[ "$1" == -u ]]; then
+  echo preflight
+  [[ "${FAKE_FAIL:-}" == preflight ]] && exit 9
+  exit 0
+fi
+suite=python
+[[ " $* " == *' python/tests/browser '* ]] && suite=browser
+[[ " $* " == *' python/tests/live_e2e '* ]] && suite=live
+mkdir -p test-results/recovery
+printf 'nested diagnostics\n' > 'test-results/recovery/server log.txt'
+echo "suite=$suite"
+[[ "${FAKE_FAIL:-}" == "$suite" ]] && exit 9
+exit 0

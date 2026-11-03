@@ -1,0 +1,57 @@
+Python: 3.14.7 Executable: /mnt/d/git/Looking-Glass/.venv-test/bin/python
+Platform: Linux-6.6.114.1-microsoft-standard-WSL2-x86_64-with-glibc2.39
+NAME="Rocky Linux"
+VERSION="10.2 (Red Quartz)"
+RELEASE_TYPE="stable"
+ID="rocky"
+ID_LIKE="rhel centos fedora"
+VERSION_ID="10.2"
+PLATFORM_ID="platform:el10"
+PRETTY_NAME="Rocky Linux 10.2 (Red Quartz)"
+ANSI_COLOR="0;32"
+LOGO="fedora-logo-icon"
+CPE_NAME="cpe:/o:rocky:rocky:10::baseos"
+HOME_URL="https://rockylinux.org/"
+VENDOR_NAME="RESF"
+VENDOR_URL="https://resf.org/"
+BUG_REPORT_URL="https://bugs.rockylinux.org/"
+SUPPORT_END="2035-05-31"
+ROCKY_SUPPORT_PRODUCT="Rocky-Linux-10"
+ROCKY_SUPPORT_PRODUCT_VERSION="10.2"
+REDHAT_SUPPORT_PRODUCT="Rocky Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="10.2"
+
+Playwright: 1.64.1
+FONTCONFIG_FILE='<unset>'
+FONTCONFIG_PATH='<unset>'
+fc-match sans-serif (exit 0): 'NotoSans[wght].ttf: "Noto Sans" "Regular"'; stderr=''
+Chromium executable: /home/boywonder/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome
+2026-11-03T17:07:56.955Z pw:browser <launching> /home/boywonder/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-KtKE2o --remote-debugging-pipe --no-startup-window
+2026-11-03T17:07:56.963Z pw:browser <launched> pid=14813
+2026-11-03T17:07:57.231Z pw:browser [pid=14813][err] [1103/180757.229739:ERROR:ui/gl/angle_platform_impl.cc:34] vk_renderer.cpp:282 (VerifyExtensionsPresent): Extension not supported: VK_KHR_wayland_surface
+2026-11-03T17:07:57.231Z pw:browser [pid=14813][err] ERR: vk_renderer.cpp:282 (VerifyExtensionsPresent): Extension not supported: VK_KHR_wayland_surface
+2026-11-03T17:07:57.232Z pw:browser [pid=14813][err] [1103/180757.231304:ERROR:ui/gl/angle_platform_impl.cc:34] Display.cpp:1505 (initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ../../third_party/angle/src/libANGLE/renderer/vulkan/vk_renderer.cpp, enableInstanceExtensions:2499.
+2026-11-03T17:07:57.232Z pw:browser [pid=14813][err] ERR: Display.cpp:1505 (initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ../../third_party/angle/src/libANGLE/renderer/vulkan/vk_renderer.cpp, enableInstanceExtensions:2499.
+2026-11-03T17:07:57.233Z pw:browser [pid=14813][err] [1103/180757.233486:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ../../third_party/angle/src/libANGLE/renderer/vulkan/vk_renderer.cpp, enableInstanceExtensions:2499.
+2026-11-03T17:07:57.235Z pw:browser [pid=14813][err] [1103/180757.234607:ERROR:ui/gl/gl_display.cc:613] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+2026-11-03T17:07:57.235Z pw:browser [pid=14813][err] [1103/180757.234878:ERROR:ui/gl/gl_display.cc:648] Initialization of all (1) EGL display types failed.
+2026-11-03T17:07:57.235Z pw:browser [pid=14813][err] [1103/180757.235014:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+Chromium version: 156.0.8078.4
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] [1103/180757.239240:ERROR:ui/gl/angle_platform_impl.cc:34] vk_renderer.cpp:282 (VerifyExtensionsPresent): Extension not supported: VK_KHR_wayland_surface
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] ERR: vk_renderer.cpp:282 (VerifyExtensionsPresent): Extension not supported: VK_KHR_wayland_surface
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] [1103/180757.239371:ERROR:ui/gl/angle_platform_impl.cc:34] Display.cpp:1505 (initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ../../third_party/angle/src/libANGLE/renderer/vulkan/vk_renderer.cpp, enableInstanceExtensions:2499.
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] ERR: Display.cpp:1505 (initialize): ANGLE Display::initialize error 0: Internal Vulkan error (-7): A requested extension is not supported, in ../../third_party/angle/src/libANGLE/renderer/vulkan/vk_renderer.cpp, enableInstanceExtensions:2499.
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] [1103/180757.239467:ERROR:ui/gl/egl_util.cc:92] EGL Driver message (Critical) eglInitialize: Internal Vulkan error (-7): A requested extension is not supported, in ../../third_party/angle/src/libANGLE/renderer/vulkan/vk_renderer.cpp, enableInstanceExtensions:2499.
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] [1103/180757.239550:ERROR:ui/gl/gl_display.cc:613] eglInitialize SwANGLE failed with error EGL_NOT_INITIALIZED
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] [1103/180757.239627:ERROR:ui/gl/gl_display.cc:648] Initialization of all (1) EGL display types failed.
+2026-11-03T17:07:57.239Z pw:browser [pid=14813][err] [1103/180757.239709:ERROR:ui/ozone/common/gl_ozone_egl.cc:26] GLDisplayEGL::Initialize failed.
+2026-11-03T17:07:57.242Z pw:browser [pid=14813][err] [1103/180757.242618:ERROR:components/viz/service/main/viz_main_impl.cc:192] Exiting GPU process due to errors during initialization
+2026-11-03T17:07:57.251Z pw:browser [pid=14813][err] [1103/180757.251705:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1655] drmGetDevices2() has not found any devices
+2026-11-03T17:07:57.451Z pw:browser [pid=14813][err] [1103/180757.450856:INFO:CONSOLE:3] "--playwright--set--content--d10c83e1453af7cdae4bbc6c48beecb9--", source:  (3)
+DOM diagnostic: text_content='Ready', inner_text='Ready'
+PASS: launch, local HTTP navigation and DOM check
+2026-11-03T17:07:57.501Z pw:browser [pid=14813] <gracefully close start>
+2026-11-03T17:07:57.519Z pw:browser [pid=14813] <process did exit: exitCode=0, signal=null>
+2026-11-03T17:07:57.519Z pw:browser [pid=14813] starting temporary directories cleanup
+2026-11-03T17:07:57.525Z pw:browser [pid=14813] finished temporary directories cleanup
+2026-11-03T17:07:57.525Z pw:browser [pid=14813] <gracefully close end>

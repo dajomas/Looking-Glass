@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo javascript
+[[ "${FAKE_FAIL:-}" == node ]] && exit 9
+exit 0

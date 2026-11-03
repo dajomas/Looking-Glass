@@ -1,0 +1,14 @@
+/* Scoped DM-only success panel; no flashing and no color-only success signal. */
+#scrying-room-results[hidden] { display:none !important; }
+.scrying-room-results {
+  border:2px solid #60dc8c; border-left-width:6px; border-radius:.5rem;
+  background:#123323; color:#f1fff6; padding:.8rem; margin:.6rem 0;
+  min-width:0; max-width:100%; overflow-wrap:anywhere;
+}
+.scrying-match-heading { margin:0 0 .6rem; font-weight:700; font-size:1rem; }
+.scrying-match-badge { display:inline-block; padding:.25rem .5rem; border-radius:.3rem; background:#a9f3c0; color:#102619; }
+.scrying-match-list { margin:0; padding-left:1.25rem; max-height:16rem; overflow-y:auto; }
+.scrying-match-list li + li { margin-top:.5rem; }
+.scrying-match-list code { white-space:normal; overflow-wrap:anywhere; color:inherit; }
+.scrying-exact-label { display:inline-block; margin-left:.4rem; font-size:.75rem; border:1px solid currentColor; border-radius:.2rem; padding:0 .25rem; }
+@media (forced-colors:active) { .scrying-room-results { border-color:Highlight; } }

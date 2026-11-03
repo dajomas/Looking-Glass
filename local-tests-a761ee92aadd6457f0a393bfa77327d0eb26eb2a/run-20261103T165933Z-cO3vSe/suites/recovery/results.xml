@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="2" failures="0" skipped="0" tests="6" time="43.626" timestamp="2026-11-03T18:13:21.817133+01:00" hostname="jgodfr-win-01"><testcase classname="python.tests.recovery.test_container" name="test_container_nonroot_listeners_templates_and_static_assets" time="0.030"><error message="failed on setup with &quot;AssertionError: Recovery container checks require Docker; missing Docker is a failure in CI&#10;assert None&#10; +  where None = &lt;function which at 0x7a725152b1c0&gt;('docker')&#10; +    where &lt;function which at 0x7a725152b1c0&gt; = shutil.which&quot;">@pytest.fixture(scope="session")
+    def built_image():
+        evidence = ROOT / "test-results/container-build"
+&gt;       assert shutil.which("docker"), "Recovery container checks require Docker; missing Docker is a failure in CI"
+E       AssertionError: Recovery container checks require Docker; missing Docker is a failure in CI
+E       assert None
+E        +  where None = &lt;function which at 0x7a725152b1c0&gt;('docker')
+E        +    where &lt;function which at 0x7a725152b1c0&gt; = shutil.which
+
+python/tests/recovery/test_container.py:44: AssertionError</error></testcase><testcase classname="python.tests.recovery.test_container" name="test_container_new_instance_preserves_named_volume_and_viewer_session" time="0.000"><error message="failed on setup with &quot;AssertionError: Recovery container checks require Docker; missing Docker is a failure in CI&#10;assert None&#10; +  where None = &lt;function which at 0x7a725152b1c0&gt;('docker')&#10; +    where &lt;function which at 0x7a725152b1c0&gt; = shutil.which&quot;">@pytest.fixture(scope="session")
+    def built_image():
+        evidence = ROOT / "test-results/container-build"
+&gt;       assert shutil.which("docker"), "Recovery container checks require Docker; missing Docker is a failure in CI"
+E       AssertionError: Recovery container checks require Docker; missing Docker is a failure in CI
+E       assert None
+E        +  where None = &lt;function which at 0x7a725152b1c0&gt;('docker')
+E        +    where &lt;function which at 0x7a725152b1c0&gt; = shutil.which
+
+python/tests/recovery/test_container.py:44: AssertionError</error></testcase><testcase classname="python.tests.recovery.test_migration_interruption" name="test_interrupted_migration_rolls_back_and_retries[before-initialization]" time="0.649" /><testcase classname="python.tests.recovery.test_migration_interruption" name="test_interrupted_migration_rolls_back_and_retries[after-initialization]" time="0.654" /><testcase classname="python.tests.recovery.test_restart" name="test_restart_preserves_displayed_fog_and_access[graceful-restart]" time="15.555" /><testcase classname="python.tests.recovery.test_restart" name="test_restart_preserves_displayed_fog_and_access[committed-state-after-kill]" time="14.964" /></testsuite></testsuites>

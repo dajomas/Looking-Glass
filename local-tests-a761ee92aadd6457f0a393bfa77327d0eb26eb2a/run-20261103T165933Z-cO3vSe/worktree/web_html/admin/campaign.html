@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block title %}{{ campaign.name }}{% endblock %}
+{% block styles %}{{ super() }}<style>
+.map-actions { display: flex; flex-wrap: nowrap; align-items: flex-start; justify-content: flex-end; gap: .6rem; }
+.map-actions > a, .map-actions > form { flex: 0 0 auto; }
+.map-actions .map-duplicate { flex: 0 0 11rem; width: 11rem; min-width: 0; white-space: normal; overflow-wrap: anywhere; text-align: left; }
+.map-actions .map-duplicate > summary { margin: 0; padding: .45rem 0; white-space: nowrap; }
+.map-actions .map-duplicate input { width: 100%; min-width: 0; max-width: 100%; }
+.map-actions .map-duplicate .stack, .map-actions .map-duplicate label { min-width: 0; max-width: 100%; }
+.map-actions .map-duplicate button { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
+</style>{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <p class="crumbs"><a href="/">Campaigns</a> /</p>
+    <h1>{{ campaign.name }}</h1>
+    {% if campaign.description %}<p class="muted">{{ campaign.description }}</p>{% endif %}
+  </div>
+  <div class="head-actions">
+    <a class="button" href="/campaigns/{{ campaign.id }}/readiness">Check campaign</a>
+    <span class="pill" title="WebSocket count at page load; see synchronization panel below">{{ live_viewers }} live viewer{{ '' if live_viewers == 1 else 's' }}</span>
+    <a class="button" href="#" data-viewer-link data-port="{{ viewer_port }}" data-path="/c/{{ campaign.id }}" target="_blank" rel="noopener">Viewer screen &#8599;</a>
+  </div>
+</div>
+
+<section class="card">
+{% include "partials/_viewer_sync.html" %}
+</section>
+
+<section class="card">
+  <div class="section-head">
+    <h2>Battle maps</h2>
+    <form method="post" action="/campaigns/{{ campaign.id }}/active" class="inline">
+      {% include "partials/_csrf.html" %}
+      <input type="hidden" name="map_id" value="">
+      <button type="submit" {{ 'disabled' if not campaign.active_map_id }} title="Players see a waiting screen">Blank viewer screen</button>
+    </form>
+  </div>
+  {% if maps %}
+  <table class="table">
+    <thead><tr><th></th><th>Name</th><th>Size</th><th>Walls</th><th>Shown to players</th><th class="right">Actions</th></tr></thead>
+    <tbody>
+    {% for m in maps %}
+      <tr class="{{ 'is-active' if campaign.active_map_id == m.id }}">
+        <td class="order">
+          <form method="post" action="/maps/{{ m.id }}/move" class="inline">{% include "partials/_csrf.html" %}<input type="hidden" name="direction" value="-1"><button class="icon" {{ 'disabled' if loop.first }} aria-label="Move up">&#9650;</button></form>
+          <form method="post" action="/maps/{{ m.id }}/move" class="inline">{% include "partials/_csrf.html" %}<input type="hidden" name="direction" value="1"><button class="icon" {{ 'disabled' if loop.last }} aria-label="Move down">&#9660;</button></form>
+        </td>
+        <td>
+          <form method="post" action="/maps/{{ m.id }}/rename" class="inline rename">
+            {% include "partials/_csrf.html" %}
+            <input name="name" value="{{ m.name }}" maxlength="120" required aria-label="Map name">
+            <button class="icon" type="submit" title="Rename">&#10003;</button>
+          </form>
+        </td>
+        <td class="muted">{{ m.width }}&times;{{ m.height }}</td>
+        <td>{% if m.wall_count %}{{ m.wall_count }}{% else %}<span class="muted">none</span>{% endif %}</td>
+        <td>
+          {% if campaign.active_map_id == m.id %}
+            <span class="pill pill-live">Live</span>
+          {% else %}
+          <form method="post" action="/campaigns/{{ campaign.id }}/active" class="inline" data-map-display data-map-name="{{ m.name }}">
+            {% include "partials/_csrf.html" %}
+            <input type="hidden" name="fog_action" value="">
+            <input type="hidden" name="map_id" value="{{ m.id }}">
+            <button type="submit">Show</button>
+          </form>
+          {% endif %}
+        </td>
+        <td class="right nowrap">
+          <div class="map-actions">
+            <details class="map-duplicate">
+              <summary>Duplicate map</summary>
+              <p>Clean copy in this campaign. External passage destinations are detached; internal links are remapped. Play state resets.</p>
+              <form method="post" action="/maps/{{ m.id }}/duplicate" class="stack">
+                {% include "partials/_csrf.html" %}
+                <label>Copy name <input name="name" value="{{ m.name[:113] ~ ' (copy)' }}" required maxlength="120"></label>
+                <button type="submit">Create clean map copy</button>
+              </form>
+            </details>
+            <a class="button primary" href="/maps/{{ m.id }}">Open fog editor</a>
+            <form method="post" action="/maps/{{ m.id }}/delete" class="inline" data-confirm="Delete map '{{ m.name }}' and its fog state?">
+              {% include "partials/_csrf.html" %}
+              <button class="danger" type="submit">Delete</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="muted">No maps yet.</p>
+  {% endif %}
+
+  <h3>Import battle map</h3>
+  <form method="post" action="/campaigns/{{ campaign.id }}/maps" enctype="multipart/form-data" class="row-form">
+    {% include "partials/_csrf.html" %}
+    <label class="grow">Map image (PNG, JPG, WEBP) <input type="file" name="image" accept="image/*" required></label>
+    <label class="grow">Foundry VTT / UVTT (Universal VTT) walls (optional) <input type="file" name="walls" accept=".json,.db,.dd2vtt,.uvtt,.df2vtt"></label>
+    <label class="grow">Name <input name="name" maxlength="120" placeholder="defaults to file name"></label>
+    <button class="primary" type="submit">Import</button>
+  </form>
+  {% include "admin/_campaign_batch_import.html" %}
+</section>
+
+<div class="grid cols-2">
+<section class="card">
+  <h2>Viewers</h2>
+  <p class="muted">Users listed here can open this campaign on the viewer screen.</p>
+  {% if viewers %}
+  <table class="table compact">
+    <tbody>
+    {% for v in viewers %}
+      <tr>
+        <td>{{ v.display_name or v.username }} <span class="muted">@{{ v.username }}</span>{% if not v.active %} <span class="pill pill-off">disabled</span>{% endif %}</td>
+        <td class="right">
+          <form method="post" action="/campaigns/{{ campaign.id }}/viewers/{{ v.id }}/remove" class="inline">
+            {% include "partials/_csrf.html" %}
+            <button class="danger" type="submit">Remove</button>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}<p class="muted">Nobody assigned yet.</p>{% endif %}
+
+  {% if assignable %}
+  <form method="post" action="/campaigns/{{ campaign.id }}/viewers/add" class="row-form">
+    {% include "partials/_csrf.html" %}
+    <label class="grow">Add existing user
+      <select name="user_id">
+        {% for u in assignable %}<option value="{{ u.id }}">{{ u.username }}{% if u.display_name %} ({{ u.display_name }}){% endif %} - {{ u.role }}</option>{% endfor %}
+      </select>
+    </label>
+    <button type="submit">Add</button>
+  </form>
+  {% endif %}
+
+  {% if can_create_viewers %}
+  <details>
+    <summary>Create a new viewer account</summary>
+    <form method="post" action="/campaigns/{{ campaign.id }}/viewers/create" class="stack">
+      {% include "partials/_csrf.html" %}
+      <label>Username <input name="username" required pattern="[A-Za-z0-9_.@\-]+" minlength="2" maxlength="64"></label>
+      <label>Display name <input name="display_name" maxlength="120"></label>
+      <label>Temporary password <input name="password" type="text" required minlength="8" autocomplete="off"></label>
+      <p class="muted small">The player must change this password at first login.</p>
+      <button type="submit">Create &amp; assign</button>
+    </form>
+  </details>
+  {% endif %}
+</section>
+
+<section class="card" id="map-passages"><h2>Map passage connections</h2>
+<p>Directed connections within this campaign. Open a map to place or edit endpoints. Broken links never permit travel.</p>
+<button type="button" id="transitions-refresh">Refresh connections</button><p id="transitions-overview-status" role="status"></p><div id="transitions-overview"></div></section>
+<section class="card">
+  <h2>Settings</h2>
+  <form method="post" action="/campaigns/{{ campaign.id }}/update" class="stack">
+    {% include "partials/_csrf.html" %}
+    <label>Name <input name="name" value="{{ campaign.name }}" required maxlength="120"></label>
+    <label>Description <textarea name="description" rows="3" maxlength="2000">{{ campaign.description }}</textarea></label>
+    {% if admins %}
+    <label>Owner (DM)
+      <select name="owner_id">
+        {% for a in admins %}<option value="{{ a.id }}" {{ 'selected' if a.id == campaign.owner_id }}>{{ a.username }} ({{ a.role }})</option>{% endfor %}
+      </select>
+    </label>
+    {% endif %}
+    <button class="primary" type="submit">Save</button>
+  </form>
+  <details id="campaign-duplicate">
+    <summary>Duplicate campaign</summary>
+    <p>Copy authored maps, walls, notes, sources and internal connections. New campaign belongs to you, has no viewers or active map, and starts fully fogged. Runtime states, checkpoints and travel history are not copied.</p>
+    <form method="post" action="/campaigns/{{ campaign.id }}/duplicate" class="stack">
+      {% include "partials/_csrf.html" %}
+      <label>Copy name <input name="name" value="{{ campaign.name[:113] ~ ' (copy)' }}" required maxlength="120"></label>
+      <button type="submit">Create clean campaign copy</button>
+    </form>
+  </details>
+  <details id="campaign-backup">
+    <summary>Backup / Restore</summary>
+    <p class="muted">Back up this campaign's maps, images, walls, fog, passages, connections and room notes. Accounts and viewer permissions are not included.</p>
+    <form method="post" action="/campaigns/{{ campaign.id }}/backup" class="stack">
+      {% include "partials/_csrf.html" %}
+      <button type="submit">Download campaign backup</button>
+    </form>
+    <h3>Retained recovery backups</h3>
+    <ul>{% for name in recovery_files %}<li><a href="/campaigns/{{ campaign.id }}/recovery/{{ name }}">{{ name }}</a></li>{% else %}<li>No retained recovery backups</li>{% endfor %}</ul>
+    <h3>Inspect before restoring</h3>
+    <p class="muted">Inspect a ZIP without changing this campaign. Compatible archives can then replace its content, after an automatic recovery backup is saved. Owner and viewer access stay unchanged.</p>
+    <form method="post" action="/campaigns/{{ campaign.id }}/restore/inspect" enctype="multipart/form-data" class="stack">
+      {% include "partials/_csrf.html" %}
+      <label>Campaign backup <input type="file" name="backup" accept=".zip,application/zip" required></label>
+      <button type="submit">Inspect campaign backup</button>
+    </form>
+  </details>
+  <details class="danger-zone">
+    <summary>Delete campaign</summary>
+    <form method="post" action="/campaigns/{{ campaign.id }}/delete" class="stack">
+      {% include "partials/_csrf.html" %}
+      <label>Type <strong>{{ campaign.name }}</strong> to confirm <input name="confirm" required autocomplete="off"></label>
+      <button class="danger" type="submit">Delete campaign and all maps</button>
+    </form>
+  </details>
+</section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="/static/js/admin_viewer_sync.js?v=viewer-sync-1"></script>
+{% include "partials/_map_display_dialog.html" %}
+<script src="/static/js/map_display_prompt.js"></script>
+<script src="/static/js/api.js"></script>
+<script>window.LG_TRANSITIONS_CAMPAIGN={{ campaign.id | tojson }};</script>
+<script src="/static/js/map_transition_overview.js?v=transitions-1"></script>
+<script src="/static/js/keep_select_values.js"></script>
+<script src="/static/js/campaign_batch_import.js?v=imports-7-1"></script>
+{% endblock %}

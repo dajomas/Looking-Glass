@@ -1,0 +1,28 @@
+3T16:47:15.5729078Z hint: 	git config --global init.defaultBranch <name>
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5730600Z hint:
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5732027Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5734336Z hint: 'development'. The just-created branch can be renamed via this command:
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5736294Z hint:
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5737263Z hint: 	git branch -m <name>
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5738373Z hint:
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5739831Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5742405Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5746744Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5789016Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5790778Z ##[group]Disabling automatic garbage collection
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5798311Z [command]/usr/bin/git config --local gc.auto 0
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5830105Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5832244Z ##[group]Setting up auth
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5833578Z Removing SSH command configuration
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5836217Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.5883104Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6225525Z Removing HTTP extra header
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6231894Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6273403Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6487916Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6492377Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6552021Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6772207Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6817255Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6856103Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Check out repository	2026-11-03T16:47:15.6894368Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-697d1a

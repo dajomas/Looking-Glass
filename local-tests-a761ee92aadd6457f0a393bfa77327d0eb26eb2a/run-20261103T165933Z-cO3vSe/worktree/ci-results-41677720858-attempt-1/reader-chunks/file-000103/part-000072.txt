@@ -1,0 +1,41 @@
+:50:18.1442311Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1442662Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1442910Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1443284Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1443610Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1443905Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1444215Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1462746Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1463028Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1463286Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1463591Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1463777Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1464024Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1464361Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1464695Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1464985Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1465280Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1465579Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1465847Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1751440Z Reported: 1437; failed/error: 0; skipped: 0
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1847971Z ##[group]Run actions/upload-artifact@v4
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1848231Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1848507Z   name: integration-python-947ce5711f406a5dbbf7f3afb37b0043eee7b787
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1848817Z   path: test-results/
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1849009Z   if-no-files-found: warn
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1849200Z   retention-days: 14
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1849401Z   compression-level: 6
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1849578Z   overwrite: false
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1849763Z   include-hidden-files: false
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1849955Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1850194Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1850484Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1850666Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1851041Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1851386Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1851716Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1852043Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1852337Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1852628Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:50:18.1852893Z ##[endgroup]
+Python / HTTP	UNKNOWN

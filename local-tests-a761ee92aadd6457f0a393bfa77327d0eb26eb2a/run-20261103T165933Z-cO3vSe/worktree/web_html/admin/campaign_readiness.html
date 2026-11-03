@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Readiness · {{ campaign.name }}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/">Campaigns</a> / <a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a> / Readiness</p>
+<div class="page-head"><h1>Campaign readiness</h1><a class="button" href="/campaigns/{{ campaign.id }}/readiness">Run checks again</a></div>
+<section class="card">
+<p>Read-only preparation report. No repairs, room-note reconciliation, map activation, fog changes or viewer notifications are performed.</p>
+<p>{{ report.map_count }} maps checked · {{ report.counts.error }} errors · {{ report.counts.warning }} warnings · {{ report.counts.info }} informational findings</p>
+<p class="muted small">Generated {{ report.generated_at }} (UTC). Re-run after edits. This is not a guarantee of campaign correctness.</p>
+{% if not report.counts.error and not report.counts.warning %}<p>No errors or warnings found by these checks.</p>{% endif %}
+{% if report.findings %}<ul>
+{% for finding in report.findings %}<li style="margin-bottom:1rem">
+<span class="pill">{{ finding.severity | upper }}</span> {{ finding.map_name }} — {{ finding.message }}
+<a href="{{ finding.url }}">{{ 'Inspect map (DM only)' if finding.map_id else 'Review campaign settings' }}</a>
+<span class="muted small">[{{ finding.code }}]</span>
+</li>{% endfor %}
+</ul>{% endif %}
+</section>
+<section class="card"><h2>Backup restore capacity</h2>
+<p>Expanded content: {% if report.expanded_bytes is not none %}{{ report.expanded_bytes }} bytes{% else %}not calculated{% endif %}{% if not report.size_complete %} (incomplete; image or serialization checks failed){% endif %}.
+Configured restore limit: {{ report.upload_limit }} bytes.</p>
+<p class="muted">Expanded content counts campaign JSON and image bytes using the current export format; no ZIP is created. Compressed upload size, proxy limits and free disk space are not checked. Passing this check does not guarantee a successful restore.</p>
+</section>
+<section class="card"><h2>Scope</h2><p>Checks stored image readability and dimensions, missing wall sets, cross-map endpoint positions and destinations, room-note geometry associations and current backup expanded size. Empty wall sets and arrival-only endpoints are informational, not errors. Area checks use current effective boundaries and runtime door states. A wall-pixel arrival warning is advisory; travel may resolve a nearby open area.</p>
+<p>Inspection links open a separate read-only DM view. Editing, revealing, switching maps for players and travel remain explicit actions in the editor. Files may change during checking; avoid concurrent edits for the most reliable result.</p></section>
+{% endblock %}

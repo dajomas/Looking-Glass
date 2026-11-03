@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Search · {{ campaign.name }}{% endblock %}
+{% block content %}
+<p class="crumbs"><a href="/campaigns/{{ campaign.id }}">{{ campaign.name }}</a> / Search</p>
+<h1>Campaign search</h1>
+<section class="card"><form method="get" class="stack" action="/campaigns/{{ campaign.id }}/search">
+<label>Search<input name="q" type="search" maxlength="200" value="{{ search.query }}" placeholder="Map, room, note text or passage…"></label>
+<label>Result type<select name="kind">{% for value,label in [('all','All'),('map','Maps'),('room','Rooms / notes'),('passage','Passage endpoints'),('library','Imported room library')] %}<option value="{{ value }}" {{ 'selected' if search.kind == value }}>{{ label }}</option>{% endfor %}</select></label>
+<button type="submit">Search campaign</button></form>
+<p>Search and inspection are DM-only and read-only. Map activation, reveal and travel remain explicit editor actions.</p>
+{% if not search.query %}<p>Enter search text. Words match literally, without case sensitivity; all words must occur in a result's name, map name or note text.</p>
+{% elif not search.results %}<p>No matching results in this campaign.</p>{% else %}
+<p>{{ search.results|length }} result{{ '' if search.results|length == 1 else 's' }}{% if search.truncated %} shown; more matches exist. Refine your search{% endif %}.</p>
+<ul>{% for result in search.results %}<li style="margin-bottom:1rem"><span class="pill">{{ result.kind }}</span>
+<a href="{{ result.url }}">{{ result.title }}</a> — {{ result.map_name }}
+{% if result.snippet %}<p style="white-space:pre-wrap;overflow-wrap:anywhere">{{ result.snippet }}</p>{% endif %}</li>{% endfor %}</ul>{% endif %}
+<p class="muted small">Up to {{ search.limit }} ranked results. Room associations are not reconciled during search; run Check campaign to review stale geometry. Imported library entries may not have a map position.</p>
+</section>{% endblock %}
