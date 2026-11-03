@@ -1,0 +1,28 @@
+ short test summary info ============================
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0198621Z FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[False-False] - AssertionError: assert 303 in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0199559Z  +  where 303 = <Response [303 See Other]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0200318Z  +    where <Response [303 See Other]> = get('/viewer/api/c/1/state', headers={'cookie': 'lg_viewer_session=2vGoKpyUZxyMgmzCn1G8qf9naX2uHupgQ4CZtPNLxaA'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0201172Z  +      where get = <starlette.testclient.TestClient object at 0x7fb8d340d480>.get
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0202040Z FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[False-True] - AssertionError: assert 303 in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0202804Z  +  where 303 = <Response [303 See Other]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0203546Z  +    where <Response [303 See Other]> = get('/viewer/api/c/1/state', headers={'cookie': 'lg_viewer_session=5UTKQWYt3u_a6BpDID9L10RYtU38r2hwCViudUoOYFI'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0204812Z  +      where get = <starlette.testclient.TestClient object at 0x7fb8d3233240>.get
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0205673Z FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[True-False] - AssertionError: assert 303 in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0206446Z  +  where 303 = <Response [303 See Other]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0207171Z  +    where <Response [303 See Other]> = get('/viewer/api/c/1/state', headers={'cookie': 'lg_viewer_session=KBjDdVtkPPG15izUc1s1MiTpCCMsZQSZIy5QscCxOHY'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0207992Z  +      where get = <starlette.testclient.TestClient object at 0x7fb8d3984380>.get
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0208854Z FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[True-True] - AssertionError: assert 303 in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0209615Z  +  where 303 = <Response [303 See Other]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0210333Z  +    where <Response [303 See Other]> = get('/viewer/api/c/1/state', headers={'cookie': 'lg_viewer_session=uJn5w0ajbFUt9Ldxe87_lfQ7I7XcJPClh62Ek4aC4tQ'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0211141Z  +      where get = <starlette.testclient.TestClient object at 0x7fb8d3a43020>.get
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0211662Z ======== 4 failed, 1388 passed, 29 subtests passed in 158.34s (0:02:38) ========
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8363364Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8447878Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8448228Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8448491Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8448791Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8449130Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8449458Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8449802Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8450192Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTT

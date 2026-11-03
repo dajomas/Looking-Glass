@@ -1,0 +1,29 @@
+corn	Install browser dependencies	2026-11-03T16:01:27.6875331Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Live Uvicorn	Install browser dependencies	2026-11-03T16:01:29.9199353Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Live Uvicorn	Verify dependencies and record environment	﻿2026-11-03T16:01:29.9467951Z ##[group]Run python --version >> test-results/environment.txt
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9468498Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9469119Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9469481Z ^[[36;1mpython -m pip check^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9469841Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9470301Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9470687Z ^[[36;1mfrom importlib import import_module^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9471010Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9471315Z ^[[36;1mrequired = {^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9471552Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9471827Z ^[[36;1m    "starlette": "starlette",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9472094Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9472399Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9472765Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9473024Z ^[[36;1m    "pytest": "pytest",^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9473276Z ^[[36;1m}^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9473541Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9473867Z ^[[36;1m    import_module(module)^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9474205Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9474544Z ^[[36;1mPY^[[0m
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9495489Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9495999Z env:
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9496301Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9496690Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9496914Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Verify dependencies and record environment	2026-11-03T16:01:29.9497188Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Verify dependencies and record environment	2026-1

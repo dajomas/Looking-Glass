@@ -1,0 +1,30 @@
+browser [pid=2887][err] [1103/160129.305561:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.3075234Z Chromium version: 156.0.8078.4
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.3221161Z 2026-11-03T16:01:29.321Z pw:browser [pid=2887][err] [1103/160129.317899:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1655] drmGetDevices2() has not found any devices
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.3230918Z 2026-11-03T16:01:29.321Z pw:browser [pid=2887][err] [1103/160129.319367:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.3793632Z 2026-11-03T16:01:29.379Z pw:browser [pid=2887][err] [1103/160129.378756:INFO:CONSOLE:3] "--playwright--set--content--d5ea9150ec2e6e45836f02756096f8b9--", source:  (3)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.4066937Z DOM diagnostic: text_content='Ready', inner_text='Ready'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.4070650Z PASS: launch, local HTTP navigation and DOM check
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.4074249Z 2026-11-03T16:01:29.407Z pw:browser [pid=2887] <gracefully close start>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.4275874Z 2026-11-03T16:01:29.427Z pw:browser [pid=2887] <process did exit: exitCode=0, signal=null>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.4276716Z 2026-11-03T16:01:29.427Z pw:browser [pid=2887] starting temporary directories cleanup
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.4308920Z 2026-11-03T16:01:29.430Z pw:browser [pid=2887] finished temporary directories cleanup
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.4309563Z 2026-11-03T16:01:29.430Z pw:browser [pid=2887] <gracefully close end>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9286791Z ##[group]Run set -o pipefail
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9287070Z ^[[36;1mset -o pipefail^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9287513Z ^[[36;1mpython -m pytest -v -ra python/tests/browser --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9305634Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9305913Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9306169Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9306468Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9306661Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9306891Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9307252Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9307601Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9307900Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9308237Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9308546Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:29.9308814Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:30.5261688Z ============================= test session starts ==============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:01:30.5350683Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Browser / mock

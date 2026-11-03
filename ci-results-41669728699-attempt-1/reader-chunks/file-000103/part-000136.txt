@@ -1,0 +1,32 @@
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0115819Z              client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0116224Z                 headers={"cookie": f"lg_viewer_session={other_viewer}"}) as second, \
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0116646Z              client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0117040Z                 headers={"cookie": f"lg_viewer_session={alice}"}) as unaffected:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0117433Z             for ws in (first, second, unaffected):
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0117725Z                 ping(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0118035Z             response = client.post(f"/admin/users/{target}/password",
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0118438Z                 headers={"cookie": f"lg_admin_session={actor}"},
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0118953Z                 data={"csrf_token": csrf, "password": "replacement-pass", "must_change": str(must_change).lower()},
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0119435Z                 follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0119861Z             assert response.status_code == 303 and "ok=" in response.headers["location"]
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0120272Z             for ws in (first, second):
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0120536Z                 frame = receive(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0120886Z                 assert frame["type"] == "websocket.close" and frame["code"] == 4403
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0121252Z             ping(unaffected)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0121502Z             with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0121846Z                 retained = sessions.lookup(conn, admin_token, "admin")
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0122229Z                 assert (retained is not None) == self_reset
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0122608Z                 assert sessions.lookup(conn, other_admin, "admin") is None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0123040Z                 assert sessions.lookup(conn, viewer_token, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0123473Z                 assert sessions.lookup(conn, other_viewer, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0124177Z                 assert sessions.lookup(conn, root_token, "admin") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0124617Z                 assert sessions.lookup(conn, alice, "viewer") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0125092Z                 assert bool(users.get(conn, target)["must_change_password"]) == must_change
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0125527Z             for token in (viewer_token, other_viewer):
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0125873Z >               assert client.get(f"/viewer/api/c/{cid}/state",
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0126561Z                     headers={"cookie": f"lg_viewer_session={token}"}, follow_redirects=False).status_code in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0127099Z E               AssertionError: assert 303 in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0127469Z E                +  where 303 = <Response [303 See Other]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0128249Z E                +    where <Response [303 See Other]> = get('/viewer/api/c/1/state', headers={'cookie': 'lg_viewer_session=5UTKQWYt3u_a6BpDID9L10RYtU38r2hwCViudUoOYFI'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0129113Z E                +      where get = <starlette.testclient.TestClient object at 0x7fb8d3233240>.get
+Python / HTTP

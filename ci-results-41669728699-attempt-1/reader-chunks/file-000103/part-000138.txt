@@ -1,0 +1,32 @@
+         ping(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0150129Z             response = client.post(f"/admin/users/{target}/password",
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0150531Z                 headers={"cookie": f"lg_admin_session={actor}"},
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0151965Z                 data={"csrf_token": csrf, "password": "replacement-pass", "must_change": str(must_change).lower()},
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0152815Z                 follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0153238Z             assert response.status_code == 303 and "ok=" in response.headers["location"]
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0154244Z             for ws in (first, second):
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0154734Z                 frame = receive(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0155348Z                 assert frame["type"] == "websocket.close" and frame["code"] == 4403
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0156001Z             ping(unaffected)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0156426Z             with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0157005Z                 retained = sessions.lookup(conn, admin_token, "admin")
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0157645Z                 assert (retained is not None) == self_reset
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0158297Z                 assert sessions.lookup(conn, other_admin, "admin") is None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0158967Z                 assert sessions.lookup(conn, viewer_token, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0159427Z                 assert sessions.lookup(conn, other_viewer, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0159862Z                 assert sessions.lookup(conn, root_token, "admin") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0160499Z                 assert sessions.lookup(conn, alice, "viewer") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0160976Z                 assert bool(users.get(conn, target)["must_change_password"]) == must_change
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0161444Z             for token in (viewer_token, other_viewer):
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0161799Z >               assert client.get(f"/viewer/api/c/{cid}/state",
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0162338Z                     headers={"cookie": f"lg_viewer_session={token}"}, follow_redirects=False).status_code in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0162877Z E               AssertionError: assert 303 in (401, 403, 404)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0163242Z E                +  where 303 = <Response [303 See Other]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0164440Z E                +    where <Response [303 See Other]> = get('/viewer/api/c/1/state', headers={'cookie': 'lg_viewer_session=KBjDdVtkPPG15izUc1s1MiTpCCMsZQSZIy5QscCxOHY'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0165360Z E                +      where get = <starlette.testclient.TestClient object at 0x7fb8d3984380>.get
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0165695Z 
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0165892Z python/tests/test_password_reset_revocation_web.py:45: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0166363Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0166962Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.0167743Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns/1/viewers/add "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	202

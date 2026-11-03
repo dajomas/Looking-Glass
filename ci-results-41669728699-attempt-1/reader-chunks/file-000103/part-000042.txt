@@ -1,0 +1,31 @@
+PASSED [ 66%]
+Recovery	Run recovery and container tests	2026-11-03T16:01:52.7641840Z python/tests/recovery/test_restart.py::test_restart_preserves_displayed_fog_and_access[graceful-restart] PASSED [ 83%]
+Recovery	Run recovery and container tests	2026-11-03T16:01:55.6153593Z python/tests/recovery/test_restart.py::test_restart_preserves_displayed_fog_and_access[committed-state-after-kill] PASSED [100%]
+Recovery	Run recovery and container tests	2026-11-03T16:01:55.6154523Z 
+Recovery	Run recovery and container tests	2026-11-03T16:01:55.6155033Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Recovery	Run recovery and container tests	2026-11-03T16:01:55.6155891Z ============================== 6 passed in 35.77s ==============================
+Recovery	Reject skipped tests or empty results	﻿2026-11-03T16:01:56.0230753Z ##[group]Run python - <<'PY'
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0231140Z ^[[36;1mpython - <<'PY'^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0231427Z ^[[36;1mfrom pathlib import Path^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0231757Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0232128Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0232488Z ^[[36;1mif not report.is_file():^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0232848Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0233246Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0233583Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0233897Z ^[[36;1mif not cases:^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0234232Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0234715Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0235325Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0236163Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0236629Z ^[[36;1mfor case in skipped:^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0236951Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0237441Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0237887Z ^[[36;1mif skipped or failed:^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0238282Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0238676Z ^[[36;1mPY^[[0m
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0261480Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0261846Z env:
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0262172Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0262565Z   PYTHONUNBUFFERED: 1
+Recovery	Reject skipped tests or empty results	2026-11-03T16:01:56.0262817Z   LG_RUN_LIVE_E

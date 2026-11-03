@@ -1,0 +1,40 @@
+P	UNKNOWN STEP	2026-11-03T16:03:56.8450493Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8450769Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8451074Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8451529Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8452151Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8452806Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8453248Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8453562Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8454320Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8454756Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8455321Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8455704Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8476234Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8476579Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8476889Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8477264Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8477488Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8477777Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8478206Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8478624Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8478999Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8479381Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8479771Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8480103Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8830703Z FAIL: required tests must pass without skips
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8831334Z Reported: 1392; failed/error: 4; skipped: 0
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8892942Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8962201Z ##[group]Run actions/upload-artifact@v4
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8962533Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8962848Z   name: integration-python-7ff396e8223ce172830495a82c3db55c26b74e08
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8963243Z   path: test-results/
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8963487Z   if-no-files-found: warn
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8963723Z   retention-days: 14
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8964162Z   compression-level: 6
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8964380Z   overwrite: false
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8964596Z   include-hidden-files: false
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8964832Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8965120Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:03:56.8965492Z   PYTHONUNBUFFERED: 1
+Python / HTT
