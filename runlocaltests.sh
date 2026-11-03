@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Test committed sources without overwriting checkout data or prior evidence.
+# Test an exact committed checkout on a POSIX-capable scratch filesystem.
 set -Eeuo pipefail
 usage() {
   cat <<'HELP'
 Usage: bash runlocaltests.sh [--suite all|python|javascript|browser|live|recovery] [--python PATH]
 Default: all five CI groups, including live browsers and container recovery.
-Requires an existing Python test environment, Node.js, Chromium and Docker.
-Tests an archived HEAD, not uncommitted edits. No dependencies are installed.
+Needs installed test dependencies and Podman or Docker for recovery.
+Tests committed HEAD, not dirty files. LG_LOCAL_TEST_TMPDIR overrides /tmp.
 Evidence: local-tests-<full HEAD hash>/run-<UTC timestamp>-<unique suffix>/
 HELP
 }
@@ -36,34 +36,43 @@ elif [[ -x "$ROOT/.venv/bin/python" ]]; then
 else
   PY=$(command -v python3.14 || command -v python3)
 fi
-# Resolve before changing directories; keep virtual-environment symlinks intact.
 [[ "$PY" == /* ]] || PY="$(cd -- "$(dirname -- "$PY")" && pwd)/$(basename -- "$PY")"
 OUT=$ROOT/local-tests-$HASH
 mkdir -p -- "$OUT"
 RUN=$(mktemp -d "$OUT/run-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX")
 printf 'Evidence directory: %s\n' "$RUN"
-trap 'rc=$?; printf "%s\n" "$rc" > "$RUN/exit-code.txt"' EXIT
+HELPER=$ROOT/tools/local_test_workspace.py
+finish() {
+  local rc=$?
+  trap - EXIT
+  cd -- "$ROOT" || rc=1
+  if ! "$PY" "$HELPER" finalize "$RUN" > "$RUN/workspace-finalize.log" 2>&1; then
+    rc=1
+    printf 'Diagnostic collection failed; inspect workspace-finalize.log. Scratch was retained.\n' >&2
+  fi
+  printf '%s\n' "$rc" > "$RUN/exit-code.txt"
+  exit "$rc"
+}
+trap finish EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
-WORK=$RUN/worktree
-mkdir -p -- "$WORK" "$RUN/suites" "$RUN/tmp"
+mkdir -p -- "$RUN/suites"
 {
   printf 'commit=%s\nsuite=%s\npython=%s\nstarted_utc=%s\n' "$HASH" "$suite" "$PY" "$(date -u +%FT%TZ)"
-  printf 'source=git archive; uncommitted changes are not tested\n'
+  printf 'source=detached sparse clone; uncommitted changes are not tested\n'
   git -C "$ROOT" status --short
   uname -a
 } > "$RUN/environment.txt"
 "$PY" --version >> "$RUN/environment.txt" 2>&1
 if command -v node >/dev/null; then node --version >> "$RUN/environment.txt" 2>&1; fi
-# Extract only tracked committed files; do not copy config.yaml, data or environments.
-git -C "$ROOT" archive "$HASH" | tar -x -C "$WORK"
+WORK=$("$PY" "$HELPER" prepare "$ROOT" "$HASH" "$RUN" 2> "$RUN/workspace-prepare.stderr")
+TMPBASE=$(dirname -- "$WORK")/tmp
 export PYTHONPATH="$WORK/python"
 export PYTHONUNBUFFERED=1
 export LG_RUN_LIVE_E2E=1
 export LG_RUN_CONTAINER_TESTS=1
 cd -- "$WORK"
 printf 'suite\ttest_exit\treport_exit\n' > "$RUN/summary.tsv"
-
 capture() {
   local logfile=$1
   shift
@@ -75,31 +84,30 @@ capture() {
   if ((codes[1] != 0)); then return "${codes[1]}"; fi
   return "${codes[0]}"
 }
-
 run_suite() {
   local name=$1 dir=$RUN/suites/$1 test_rc=0 report_rc=0
   mkdir -p -- "$dir"
   printf '\n=== %s ===\n' "$name"
   case "$name" in
     python)
-      capture "$dir/pytest.log" "$PY" -m pytest -v -ra python/tests \
+      capture "$dir/pytest.log" "$PY" -m pytest -v -ra --tb=short python/tests \
         --ignore=python/tests/browser --ignore=python/tests/live_e2e --ignore=python/tests/recovery \
-        --basetemp="$RUN/tmp/python" --junitxml="$dir/results.xml" || test_rc=$? ;;
+        --basetemp="$TMPBASE/python" --junitxml="$dir/results.xml" || test_rc=$? ;;
     javascript)
       capture "$dir/javascript.log" "$PY" tools/run_javascript_tests.py --output-dir "$dir" || test_rc=$? ;;
     browser|live)
       if capture "$dir/browser-preflight.log" "$PY" -u python/tests/check_browser_environment.py; then
         local tests=python/tests/browser
         [[ "$name" != live ]] || tests=python/tests/live_e2e
-        capture "$dir/pytest.log" "$PY" -m pytest -v -ra "$tests" \
-          --basetemp="$RUN/tmp/$name" --junitxml="$dir/results.xml" || test_rc=$?
+        capture "$dir/pytest.log" "$PY" -m pytest -v -ra --tb=short "$tests" \
+          --basetemp="$TMPBASE/$name" --junitxml="$dir/results.xml" || test_rc=$?
       else
         test_rc=$?
         printf 'NOT RUN: browser preflight failed.\n' > "$dir/pytest.log"
       fi ;;
     recovery)
-      capture "$dir/pytest.log" "$PY" -m pytest -v -ra python/tests/recovery \
-        --basetemp="$RUN/tmp/recovery" --junitxml="$dir/results.xml" || test_rc=$? ;;
+      capture "$dir/pytest.log" "$PY" -m pytest -v -ra --tb=short python/tests/recovery \
+        --basetemp="$TMPBASE/recovery" --junitxml="$dir/results.xml" || test_rc=$? ;;
   esac
   if "$PY" - "$dir/results.xml" > "$dir/report-validation.log" 2>&1 <<'PY'
 import sys
@@ -112,6 +120,12 @@ cases = list(ET.parse(path).getroot().iter("testcase"))
 failed = [c for c in cases if c.find("failure") is not None or c.find("error") is not None]
 skipped = [c for c in cases if c.find("skipped") is not None]
 print(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")
+with path.with_name("failures.txt").open("w", encoding="utf-8") as stream:
+    for case in failed + skipped:
+        stream.write(f"{case.get('classname', '')}::{case.get('name', '')}\n")
+        for child in case:
+            if child.tag in ("failure", "error", "skipped"):
+                stream.write((child.get("message", "") + "\n" + (child.text or ""))[:2000] + "\n")
 if not cases or failed or skipped:
     raise SystemExit("FAIL: required tests must pass without skips")
 PY
@@ -122,17 +136,11 @@ PY
   ((test_rc == 0 && report_rc == 0))
 }
 status=0
-if [[ "$suite" == all ]]; then
-  suites=(python javascript browser live recovery)
-else
-  suites=("$suite")
-fi
+if [[ "$suite" == all ]]; then suites=(python javascript browser live recovery); else suites=("$suite"); fi
 for group in "${suites[@]}"; do
   if run_suite "$group"; then :; else status=1; fi
 done
-git add -f local-tests-${HASH} && git commit -am "Local test run for ${HASH} [skip ci]" && git push
 printf 'finished_utc=%s\n' "$(date -u +%FT%TZ)" >> "$RUN/environment.txt"
 printf '\nResults: %s\n' "$RUN"
 cat "$RUN/summary.tsv"
-printf '\nLocal test results can be found in local-tests-%s\n\n' "${HASH}"
 exit "$status"

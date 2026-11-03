@@ -1,51 +1,46 @@
 """Built-image checks; explicitly enabled in the Recovery CI job."""
+from functools import lru_cache
 import io
 import json
 import os
 from pathlib import Path
 import re
-import shutil
-import subprocess
 import time
 import uuid
 
 import httpx2 as httpx
 from PIL import Image
 import pytest
+from looking_glass_test_container import published_urls, select_engine
 
 from test_restart import login, assert_pixels
 
 ROOT = Path(__file__).resolve().parents[3]
 pytestmark = pytest.mark.skipif(
     os.environ.get("LG_RUN_CONTAINER_TESTS") != "1",
-    reason="Opt in with LG_RUN_CONTAINER_TESTS=1; requires a disposable Docker environment",
+    reason="Opt in with LG_RUN_CONTAINER_TESTS=1; requires a disposable Podman or Docker environment",
 )
 
 
+@lru_cache(maxsize=1)
+def selected_engine():
+    default = "docker" if os.environ.get("CI", "").lower() == "true" else "auto"
+    return select_engine(os.environ.get("LG_CONTAINER_ENGINE", default))
+
+
 def docker(evidence, *arguments, timeout=60, check=True):
-    evidence.mkdir(parents=True, exist_ok=True)
-    command = ["docker", *arguments]
-    try:
-        result = subprocess.run(command, cwd=ROOT, capture_output=True, text=True, timeout=timeout, check=False)
-    except (OSError, subprocess.TimeoutExpired) as exc:
-        with (evidence / "docker.log").open("a", encoding="utf-8") as log:
-            log.write(f"{command!r}\n{exc!r}\n")
-        raise
-    with (evidence / "docker.log").open("a", encoding="utf-8") as log:
-        log.write(f"{command!r}\nexit={result.returncode}\n{result.stdout}\n{result.stderr}\n")
-    if check:
-        assert result.returncode == 0, f"Docker command failed: {arguments[0]}; see {evidence / 'docker.log'}"
-    return result
+    return selected_engine().run(evidence, *arguments, timeout=timeout, check=check)
 
 
 @pytest.fixture(scope="session")
 def built_image():
     evidence = ROOT / "test-results/container-build"
-    assert shutil.which("docker"), "Recovery container checks require Docker; missing Docker is a failure in CI"
-    docker(evidence, "version")
+    engine = selected_engine()
+    engine.preflight(evidence)
     image = "looking-glass-test:" + uuid.uuid4().hex
     try:
-        docker(evidence, "build", "--pull", "-f", str(ROOT / "Containerfile"), "-t", image, str(ROOT), timeout=600)
+        docker(evidence, "build", *engine.build_pull_args(), "-f", str(ROOT / "Containerfile"),
+               "-t", image, str(ROOT), timeout=600)
         yield image
     finally:
         # Remove only this invocation's image, never prune shared daemon resources.
@@ -78,18 +73,13 @@ class Container:
             "run", "--detach", "--name", self.name,
             "--publish", "127.0.0.1::5000", "--publish", "127.0.0.1::5100",
             "--mount", f"type=volume,source={self.volume},target=/app/data",
-            "--mount", f"type=bind,source={self.config},target=/app/ci-config.json,readonly",
+            *selected_engine().config_mount(self.config),
             "--env", "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
             self.image, "python", "python/main.py", "--config", "/app/ci-config.json", "serve",
         )
         self.started = True
         info = self.inspect()
-        ports = info["NetworkSettings"]["Ports"]
-        self.urls = []
-        for port in ("5000/tcp", "5100/tcp"):
-            binding = ports[port][0]
-            assert binding["HostIp"] == "127.0.0.1"
-            self.urls.append("http://127.0.0.1:" + binding["HostPort"])
+        self.urls = published_urls(info)
         deadline = time.monotonic() + 30
         with httpx.Client(timeout=1, trust_env=False) as client:
             while time.monotonic() < deadline:

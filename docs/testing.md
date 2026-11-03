@@ -96,36 +96,66 @@ Run from your checkout after installing its test dependencies:
 ```bash
 bash runlocaltests.sh
 bash runlocaltests.sh --suite python
-bash runlocaltests.sh --suite javascript
+LG_CONTAINER_ENGINE=podman bash runlocaltests.sh --suite recovery
+LG_CONTAINER_ENGINE=docker bash runlocaltests.sh --suite recovery
 bash runlocaltests.sh --python "$PWD/.venv-test/bin/python"
 ```
 
 Default execution runs Python / HTTP, JavaScript, browser, live and recovery
-(including container) groups. --suite selects just one of those groups. Python
-3.14 is the supported application target; use the development requirements for
-that commit. Browser/live groups require Playwright, Chromium and system libraries;
-JavaScript requires Node.js (CI uses 24); recovery containers require Docker and
-permissions to use it. Bash, Git, tar, tee and mktemp must be available. The runner
-does not install anything, start your configured server, or use your local data.
+(including container) groups. --suite selects one group. Python 3.14 is the
+supported application target; use the development requirements for that commit.
+Browser/live groups require Playwright, Chromium and system libraries; JavaScript
+requires Node.js (CI uses 24). Recovery requires an installed, usable Podman or
+Docker engine. Bash, Git with sparse-checkout support, tee and mktemp are needed.
+No dependencies are installed automatically.
 
-Output is placed in `local-tests-<full HEAD commit hash>/` in the checkout root,
-with a unique `run-<UTC timestamp>-<suffix>/` directory for every invocation.
-It contains environment.txt, summary.tsv, exit-code.txt, per-suite logs and JUnit
-reports under suites/, pytest temporary data under tmp/, and the extracted
-committed source under worktree/. Diagnostics written by fixtures to their
-hardcoded test-results path are retained under worktree/test-results/.
+Output stays in `local-tests-<full HEAD commit hash>/` in the checkout root,
+with a unique `run-<UTC timestamp>-<suffix>/` per invocation. Logs, JUnit reports,
+per-suite exit codes and bounded per-case failure excerpts are under suites/.
+The run also includes environment.txt, summary.tsv, exit-code.txt and workspace
+setup/finalization logs. Complete original JUnit and pytest logs are retained;
+failures.txt excerpts are for quick reading, not lossless replacements.
 
-The runner tests a git archive of HEAD, not uncommitted or untracked changes;
-commit changes first if they need testing. Active virtualenv selection takes
-precedence over .venv-test, .venv and PATH fallbacks; --python overrides it.
-The source snapshot is separate from your checkout and dependencies are reused
-from that existing interpreter. A missing dependency is a failure, not a pass.
-Failures do not normally stop later groups. Missing, empty, malformed, failed or
-skipped JUnit reports cause failure even if the test command returned zero.
-Exit status 0 means all selected groups passed; a single-suite run does not
-validate the other groups. Prior runs are never automatically removed.
+Tests execute against an exact detached Git checkout with its own index and
+Git root, on native scratch storage under `/tmp` by default. This avoids both
+Windows-mounted filesystem permission/FIFO limitations and accidental discovery
+of the enclosing checkout by Git-dependent tests. Set LG_LOCAL_TEST_TMPDIR to
+another existing native-filesystem directory if /tmp is unsuitable. Scratch is
+probed for 0600 permissions, FIFOs and symlinks before tests start. An unsuitable
+filesystem is a setup failure, not a skipped or passing test. Commit changes
+first: dirty/untracked changes are not tested. The clone borrows source Git
+objects; do not delete/prune the source repository while testing.
 
-Results are ignored by Git; deliberately inspect before sharing because logs,
-traces, source and synthetic test data may be large or sensitive. Nothing is
-uploaded automatically. The archived tree has no independent .git metadata;
-see [runner decisions and validation limits](handover/081-local-test-runner-2026-11-03.md).
+Root ci-results-* and local-tests-* trees are excluded from the scratch checkout
+using sparse-checkout; they are delivery evidence, not executable test source.
+Configured application data, untracked files and virtualenvs are not copied.
+The existing selected Python environment is reused: --python overrides active
+virtualenv, .venv-test, .venv and PATH fallback selection, in that order.
+
+On completion or a handled interruption, regular fixture-generated test-results
+files are copied into diagnostics/. Selected browser screenshots, traces and
+page-errors.json files are copied into browser-diagnostics/. Symlinks and special
+files are not followed/read; their paths are listed in omitted-special-files.json.
+Synthetic databases and the full source tree are no longer duplicated into the
+evidence output. Only the invocation's token-identified scratch directory is
+removed after successful collection. Collection failure marks the run failed
+and retains scratch for investigation. Prior evidence and the original checkout
+are never cleaned. SIGKILL or machine failure can leave scratch behind.
+
+The recovery harness now uses the existing native-engine adapter. Locally,
+LG_CONTAINER_ENGINE=auto prefers Podman then Docker; CI=true defaults to Docker.
+Set LG_CONTAINER_ENGINE=podman or docker explicitly to override. Selection is
+recorded along with version/info; a selected but broken engine does not fall back
+to a different daemon. Podman uses its native pull flag and a read-only :Z bind
+of the disposable configuration file; Docker uses its existing bind contract.
+No shared daemon resources are pruned. A missing or unusable engine remains a
+failure and must be installed/configured on the local machine; this script
+cannot manufacture a working container environment. Remote engines must be able
+to access the temporary bind path on the same filesystem namespace.
+
+Missing, empty, malformed, failed or skipped JUnit reports cause failure even
+when the command returns zero. Failures normally do not prevent later groups.
+Exit 0 means all selected groups passed; selecting one group does not validate
+the others. Nothing is uploaded automatically. Output is ignored by Git; inspect
+before sharing since diagnostics may be large or sensitive. See
+[runner decisions and validation limits](handover/081-local-test-runner-2026-11-03.md).
