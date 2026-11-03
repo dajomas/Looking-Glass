@@ -8,7 +8,7 @@ from fastapi import APIRouter, Depends, Form, Request
 from ...rbac import Role
 from ...repositories import sessions as sessions_repo
 from ...repositories import users as users_repo
-from ..deps import BadRequest, CtxDep, SuperadminDep, verify_csrf
+from ..deps import BadRequest, CtxDep, SuperadminDep, cookie_name, verify_csrf
 from ..templating import render
 from .campaigns import _back
 
@@ -80,21 +80,21 @@ async def update_user(ctx: CtxDep, user: SuperadminDep, user_id: int,
 
 
 @router.post("/{user_id}/password", dependencies=[Csrf])
-async def reset_password(ctx: CtxDep, user: SuperadminDep, user_id: int,
+async def reset_password(request: Request, ctx: CtxDep, user: SuperadminDep, user_id: int,
                          password: Annotated[str, Form()],
                          must_change: Annotated[bool, Form()] = False):
     min_len = int(ctx.settings.section("security")["min_password_length"])
     if len(password) < min_len:
         return _back("/users", err=f"Password must be at least {min_len} characters")
+    keep_token = request.cookies.get(cookie_name(request)) if user_id == user["id"] else None
     with ctx.db.connect() as conn:
         target = users_repo.get(conn, user_id)
         if target is None:
             raise BadRequest("Unknown user")
         users_repo.set_password(conn, user_id, password, must_change=must_change)
-        if user_id != user["id"]:
-            sessions_repo.delete_for_user(conn, user_id)
-    if user_id != user["id"]:
-        await ctx.hub.kick_user(user_id)
+        sessions_repo.delete_for_user(conn, user_id, keep_token=keep_token)
+    # Only the requesting admin token can survive; every viewer token is revoked.
+    await ctx.hub.kick_user(user_id)
     return _back("/users", ok=f"Password for '{target['username']}' reset")
 
 
