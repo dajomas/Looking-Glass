@@ -42,8 +42,11 @@ def test_reset_revokes_old_sessions_and_closes_only_target_sockets(campaign, sel
             assert sessions.lookup(conn, alice, "viewer") is not None
             assert bool(users.get(conn, target)["must_change_password"]) == must_change
         for token in (viewer_token, other_viewer):
-            assert client.get(f"/viewer/api/c/{cid}/state",
-                headers={"cookie": f"lg_viewer_session={token}"}, follow_redirects=False).status_code in (401, 403, 404)
+            denied = client.get(f"/viewer/api/c/{cid}/state",
+                headers={"cookie": f"lg_viewer_session={token}", "Accept": "application/json"},
+                follow_redirects=False)
+            assert denied.status_code == 401
+            assert denied.json() == {"ok": False, "error": "Login required"}
         for token in (other_admin,) if self_reset else (admin_token, other_admin):
             denied = client.get("/admin/account", headers={"cookie": f"lg_admin_session={token}"}, follow_redirects=False)
             assert denied.status_code == 303 and denied.headers["location"].startswith("/login")
