@@ -81,3 +81,31 @@ Validation for this correction is source/evidence review only. The corrected
 HTTP/WebSocket tests and full suite have not been executed locally, and no new
 CI result is claimed. The commit does not request CI skipping. Bug 19 remains
 acceptance pending until the corrected checks and later assertions complete.
+
+## CI follow-up: standalone retained-session account check (2026-11-03)
+
+Run 41671623697, attempt 1, tested
+`5774cb0f669352030c7ac8f9c8e32f11b039a2c3`; evidence is under
+`ci-results-41671623697-attempt-1/` at commit
+`648d9558817eb9cd349eecd9abed8137fba74d1a`.
+
+Python / HTTP reports 1 failure, 1,391 passes and 29 passed subtests. The other
+four jobs report success. The corrected 401 JSON assertions passed. Only
+self-reset with must_change=True failed, at the retained-session account check:
+`/admin/account` redirected to `/account`, which returned 404 on the outer app.
+The forced-password-change allowlist expects the real portal path `/account`,
+not the fixture's artificial mounted path `/admin/account`.
+
+The test now requests the existing shared `env` fixture and uses a separate
+TestClient for its existing admin app (`env[1]`) to GET `/account` with the
+retained token. Redirect following is disabled and HTTP 200 remains required.
+No login or session is created for that check: it exercises the exact retained
+session against the same application and database without the mount prefix.
+Reset, socket, revocation, rejected-reset and password-login assertions remain
+unchanged. Production authentication code and the shared fixture are unchanged.
+
+README.md and HANDOVER.md were reviewed; no edits are needed because behavior
+is unchanged and this record is already indexed. Both replacement files remain
+below 25,000 bytes. This correction was source-reviewed but not executed locally;
+no passing corrected suite or new CI result is claimed. No CI-skip marker is
+requested. Bug 19 remains acceptance pending until the new run completes.

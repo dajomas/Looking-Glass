@@ -1,5 +1,6 @@
 """HTTP/WebSocket password-reset regressions; run with normal app dependencies."""
 import pytest
+from fastapi.testclient import TestClient
 
 from looking_glass.repositories import sessions, users
 from test_user_role_socket_web import campaign, env, ping, receive
@@ -7,7 +8,7 @@ from test_user_role_socket_web import campaign, env, ping, receive
 
 @pytest.mark.parametrize("self_reset", [False, True])
 @pytest.mark.parametrize("must_change", [False, True])
-def test_reset_revokes_old_sessions_and_closes_only_target_sockets(campaign, self_reset, must_change):
+def test_reset_revokes_old_sessions_and_closes_only_target_sockets(campaign, env, self_reset, must_change):
     ctx, client, cid, target, viewer_token, admin_token, root_token, root_csrf, alice = campaign
     with ctx.db.connect() as conn:
         other_admin, _ = sessions.create(conn, target, "admin", 3600)
@@ -51,7 +52,11 @@ def test_reset_revokes_old_sessions_and_closes_only_target_sockets(campaign, sel
             denied = client.get("/admin/account", headers={"cookie": f"lg_admin_session={token}"}, follow_redirects=False)
             assert denied.status_code == 303 and denied.headers["location"].startswith("/login")
         if self_reset:
-            assert client.get("/admin/account", headers={"cookie": f"lg_admin_session={actor}"}).status_code == 200
+            # Use the real portal path: the forced-change allowlist is /account.
+            with TestClient(env[1]) as admin_client:
+                account = admin_client.get("/account",
+                    headers={"cookie": f"lg_admin_session={actor}"}, follow_redirects=False)
+                assert account.status_code == 200
         assert client.post("/admin/login", data={"username": "second-root", "password": "secondroot-pass"},
                            follow_redirects=False).status_code == 401
         assert client.post("/admin/login", data={"username": "second-root", "password": "replacement-pass"},
