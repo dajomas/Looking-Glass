@@ -134,12 +134,15 @@ class Settings:
 def load_settings(path: str | os.PathLike | None = None, overrides: dict | None = None) -> Settings:
     raw = copy.deepcopy(DEFAULTS)
     cfg_path: Path | None = None
-    candidate = path or os.environ.get("LG_CONFIG")
-    if candidate:
+    candidate = path if path is not None else os.environ.get("LG_CONFIG")
+    if candidate is not None:
+        if not os.fspath(candidate):
+            raise ValueError("Explicit configuration path must not be empty.")
         cfg_path = Path(candidate)
     elif (REPO_ROOT / "config.yaml").exists():
         cfg_path = REPO_ROOT / "config.yaml"
-    if cfg_path and cfg_path.exists():
+    # Only discovery is optional; explicit paths must open successfully.
+    if cfg_path is not None:
         with cfg_path.open("r", encoding="utf-8") as fh:
             raw = _deep_merge(raw, yaml.safe_load(fh) or {})
 

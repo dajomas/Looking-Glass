@@ -15,6 +15,19 @@ The application does not automatically discover the `/etc` configuration:
 pass `--config /etc/looking-glass/config.yaml` or set `LG_CONFIG` explicitly.
 The developer defaults remain unchanged; set `storage.data_dir` as shown below.
 
+An explicitly selected configuration file must be readable. Missing files,
+broken symlinks, directories and permission failures abort settings loading
+instead of silently falling back to defaults or another configuration path.
+An explicitly empty --config value or LG_CONFIG is rejected as well. The
+--config argument takes precedence over LG_CONFIG. Environment setting overrides
+still apply after a valid file is read; they do not rescue an invalid explicit
+file selection. Without either selector, the repository's config.yaml remains
+optional: a missing default file uses the documented built-in/environment
+settings. Failure occurs before CLI storage-directory creation or DB migration.
+File-open errors retain the failing path and operating-system reason. This is
+not a configuration-shape validation change; malformed YAML structures are a
+separate concern.
+
 Install Python using an appropriate repository or your preferred installation
 method. Where the packages are available:
 

@@ -29,8 +29,8 @@ Uncommitted bug-2 candidates are not installed branch changes.
 ## Second bug hunt: bugs 16–29
 
 Audited source: `766780262bf44922bbd7c9fa2b3081e7e28e214f` on
-`features/perplexity`, 2026-10-31. Bug 19 is now closed (see below); the other
-findings remain open and are not delivered fixes.
+`features/perplexity`, 2026-10-31. Bugs 16 and 19 are closed. Bug 23 has an
+implementation candidate with acceptance pending. Other findings remain open.
 The original workflow's counts and suggested order are historical; do not use
 them to reopen accepted bugs 2/13/14/15. Existing individual status records and
 accepted handovers remain authoritative. This audit changes no earlier status.
@@ -41,14 +41,14 @@ requirements. It describes the audited commit and is not edited as fixes land;
 the status below is authoritative. Its linked numbered sections extend the
 existing bug numbering:
 
-- [16. Manual calibration bypasses finite-number validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#16-manual-calibration-bypasses-finite-number-validation)
+- [16. Manual calibration bypasses finite-number validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#16-manual-calibration-bypasses-finite-number-validation) — closed 2026-11-03; see [accepted closure](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md#bug-16-accepted-and-closed)
 - [17. Original-image replacement deletes files still in use](docs/todo/018-bugs-16-29-audit-2026-10-31.md#17-original-image-replacement-deletes-files-still-in-use)
 - [18. Old-image unlink failure interrupts post-commit notification](docs/todo/018-bugs-16-29-audit-2026-10-31.md#18-old-image-unlink-failure-interrupts-post-commit-notification)
 - [19. Superadmin self-reset leaves other sessions valid](docs/todo/018-bugs-16-29-audit-2026-10-31.md#19-superadmin-self-reset-leaves-other-sessions-valid) — closed 2026-11-03; see [accepted closure](docs/handover/079-bug-19-accepted-closure-2026-11-03.md)
 - [20. Login next accepts a cross-origin backslash redirect](docs/todo/018-bugs-16-29-audit-2026-10-31.md#20-login-next-accepts-a-cross-origin-backslash-redirect)
 - [21. Login lacks cross-site submission protection](docs/todo/018-bugs-16-29-audit-2026-10-31.md#21-login-lacks-cross-site-submission-protection)
 - [22. Multipart CSRF token can cause an unhandled type error](docs/todo/018-bugs-16-29-audit-2026-10-31.md#22-multipart-csrf-token-can-cause-an-unhandled-type-error)
-- [23. Explicit missing configuration silently falls back to defaults](docs/todo/018-bugs-16-29-audit-2026-10-31.md#23-explicit-missing-configuration-silently-falls-back-to-defaults)
+- [23. Explicit missing configuration silently falls back to defaults](docs/todo/018-bugs-16-29-audit-2026-10-31.md#23-explicit-missing-configuration-silently-falls-back-to-defaults) — implementation candidate, acceptance pending; see [status and evidence](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md#bug-23-implementation-acceptance-pending)
 - [24. Malformed configuration structures bypass loader validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#24-malformed-configuration-structures-bypass-loader-validation)
 - [25. Delayed admin polling can roll editor state backwards](docs/todo/018-bugs-16-29-audit-2026-10-31.md#25-delayed-admin-polling-can-roll-editor-state-backwards)
 - [26. Mask early return does not invalidate an in-flight different mask](docs/todo/018-bugs-16-29-audit-2026-10-31.md#26-mask-early-return-does-not-invalidate-an-in-flight-different-mask)
@@ -56,10 +56,10 @@ existing bug numbering:
 - [28. Out-of-map fog points are clamped into real rooms](docs/todo/018-bugs-16-29-audit-2026-10-31.md#28-out-of-map-fog-points-are-clamped-into-real-rooms)
 - [29. Async image upload holds a SQLite write lock across await](docs/todo/018-bugs-16-29-audit-2026-10-31.md#29-async-image-upload-holds-a-sqlite-write-lock-across-await)
 
-Suggested implementation order: **16 → 17 → 18 → 19 → 20 → 21 → 23 → 29 →
-25 → 26 → 27 → 28 → 22 → 24** (19 is complete). Severity and dependency
-rationale are in the audit record. Add regressions first and keep each fix
-separately reviewable.
+Suggested implementation order from the audit: **16 → 17 → 18 → 19 → 20 → 21 →
+23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16 and 19 are closed; 23 awaits
+acceptance). Severity and dependency rationale are in the audit record.
+Add regressions first and keep each fix separately reviewable.
 Items 17/18 can share a coordinated image-retirement design; 25 precedes 26.
 No application, HTTP, browser, live-server or full-suite tests were executed
 for this audit. Three extracted checks are described with their exact limits.

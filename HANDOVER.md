@@ -136,5 +136,6 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 19: password-reset session revocation implementation and CI follow-ups (2026-11-03)](docs/handover/078-bug-19-password-reset-session-revocation-2026-11-03.md)
 - [Bug 19: accepted closure and evidence limits (2026-11-03)](docs/handover/079-bug-19-accepted-closure-2026-11-03.md)
 - [Release notes (unreleased changes)](docs/release-notes.md)
-- [Bug 16: finite manual calibration; acceptance pending (2026-11-03)](docs/handover/080-bug-16-manual-calibration-2026-11-03.md)
+- [Bug 16: finite manual calibration implementation history (2026-11-03)](docs/handover/080-bug-16-manual-calibration-2026-11-03.md)
 - [Commit-scoped local test runner (2026-11-03)](docs/handover/081-local-test-runner-2026-11-03.md)
+- [Bug 16 accepted closure; bug 23 explicit-configuration candidate and evidence (2026-11-03)](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md)
