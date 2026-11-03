@@ -8,6 +8,10 @@ Historical candidate and validation statements retain their original wording;
 they are not new claims about the current implementation or test results.
 No application code or test results are changed by this documentation split.
 
+## Current repository directives
+
+- [File-size rule: behavior-preserving splits (2026-11-03)](docs/handover/077-file-size-rule-2026-11-03.md)
+
 ## Handover contents
 
 - [Introduction](docs/handover/001-introduction.md)
