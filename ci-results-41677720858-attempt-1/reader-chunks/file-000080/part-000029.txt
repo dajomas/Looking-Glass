@@ -1,0 +1,93 @@
+lib/docker/overlay2/o3bc55tjl9rgmdq8hn2pixmar/diff:/var/lib/docker/overlay2/zjowkbs5v13u65vwxh8yha6xh/diff:/var/lib/docker/overlay2/4a2c4fe91b096d0cf94b178948d79c3a47efb4b4565347415c56e4b07bdf766b/diff:/var/lib/docker/overlay2/6e1bd894bdf19d3715e40b335c4416607c661aa10ceabc21dd6cbb86773b7da3/diff:/var/lib/docker/overlay2/5572f6ef6bc0554fcd01e173d35d4b45a9b0a910d0d1431fe1dc1bddf58c0a4b/diff:/var/lib/docker/overlay2/216507f8f50e031010cb3f9a9a1ec3017ad2c29d4594819336ac9039d2d56e12/diff",
+                "MergedDir": "/var/lib/docker/overlay2/60d5f99caa71fa961fd56a504a4957f1f1b9e3a431f5a1b1268e2306a64fe58e/merged",
+                "UpperDir": "/var/lib/docker/overlay2/60d5f99caa71fa961fd56a504a4957f1f1b9e3a431f5a1b1268e2306a64fe58e/diff",
+                "WorkDir": "/var/lib/docker/overlay2/60d5f99caa71fa961fd56a504a4957f1f1b9e3a431f5a1b1268e2306a64fe58e/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-0c723663cfac44e99ad407b076a4f40f",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-0c723663cfac44e99ad407b076a4f40f/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "b55aa2cf79a2",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:487975295fe844fda5d1638523d292bb",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "e5cd9d096eb89c88e86471dafd0eaa6969ac7726204603076e2cdd723600060c",
+            "SandboxKey": "/var/run/docker/netns/e5cd9d096eb8",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32768"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32769"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+  

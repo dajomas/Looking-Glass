@@ -1,0 +1,37 @@
+-local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-98cd5ec6-45a5-4801-b663-a593d190648a.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:14.3514647Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:14.3515962Z ##[group]Fetching the repository
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:14.3522082Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +947ce5711f406a5dbbf7f3afb37b0043eee7b787:refs/remotes/origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5120558Z From https://github.com/dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5122670Z  * [new ref]         947ce5711f406a5dbbf7f3afb37b0043eee7b787 -> origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5127701Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5158072Z   origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5164428Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5191522Z 947ce5711f406a5dbbf7f3afb37b0043eee7b787
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5196499Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5198122Z ##[group]Determining the checkout info
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5199640Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5200695Z [command]/usr/bin/git sparse-checkout disable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5249609Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5284542Z ##[group]Checking out the ref
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5285987Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5937956Z Switched to a new branch 'features/perplexity'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5941741Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5950374Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.5993307Z [command]/usr/bin/git log -1 --format=%H
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6023645Z 947ce5711f406a5dbbf7f3afb37b0043eee7b787
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6250222Z ##[group]Run mkdir -p test-results
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6251352Z ^[[36;1mmkdir -p test-results^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6252554Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6253952Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6277424Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6278681Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6279744Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6281088Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6281952Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6282770Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6544290Z ##[group]Run actions/setup-python@v6
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6545314Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6546071Z   python-version: 3.14
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:47:15.6546984Z   cache: pip
+Browser / mocked HTTP	UNKNOW

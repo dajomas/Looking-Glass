@@ -1,0 +1,23 @@
+-03T16:49:28.0882260Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1160325Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1168307Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1238275Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1239341Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1240113Z includeif.gitdir:/github/workspace/.git.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1240771Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1251812Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1289285Z /home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1301025Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1351758Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1388736Z /home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1398994Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1448739Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1482301Z /github/runner_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1492006Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1543569Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1576144Z /github/runner_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1592431Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1633039Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Live Uvicorn	Post Check out repository	2026-11-03T16:49:28.1842984Z Removing credentials config '/home/runner/work/_temp/git-credentials-697d1ac0-7ba0-4766-a2fd-5ea1bd6207e4.config'
+Live Uvicorn	Complete job	﻿2026-11-03T16:49:28.1984352Z Cleaning up orphan processes
+Live Uvicorn	Complete job	2026-11-03T16:49:28.2286268Z ##[warning]Node.js 20 is deprecated. The following actio

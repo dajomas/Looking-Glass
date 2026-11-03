@@ -1,0 +1,35 @@
+metadata import version^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7623999Z ^[[36;1mrequired = {^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7624230Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7624503Z ^[[36;1m    "starlette": "starlette",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7624809Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7625116Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7625488Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7625741Z ^[[36;1m    "pytest": "pytest",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7625974Z ^[[36;1m}^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7626229Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7626551Z ^[[36;1m    import_module(module)^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7626874Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7627197Z ^[[36;1mPY^[[0m
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7648079Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7648422Z env:
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7648727Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7649120Z   PYTHONUNBUFFERED: 1
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7649347Z   LG_RUN_LIVE_E2E: 1
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7649625Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7650076Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7650501Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7650892Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7651266Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7651647Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:39.7651967Z ##[endgroup]
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:40.1573690Z No broken requirements found.
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:40.8373015Z fastapi==0.162.0
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:40.8377654Z starlette==1.10.0
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:41.3104797Z uvicorn==0.54.0
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:41.3108970Z python-multipart==0.0.33
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:41.3363129Z httpx2==2.16.0
+Recovery	Verify dependencies and record environment	2026-11-03T16:47:41.4401265Z pytest==9.2.0
+Recovery	Run recovery and container tests	﻿2026-11-03T16:47:41.5233087Z ##[group]Run set -o pipefail
+Recovery	Run recovery and container tests	2026-11-03T16:47:41.5233446Z ^[[36;1mset -o pipefail^[[0m
+Recovery	Run recovery and container tests	2026-11-03T16:47:41.5234007Z ^[[36;1mpython -m pytes
