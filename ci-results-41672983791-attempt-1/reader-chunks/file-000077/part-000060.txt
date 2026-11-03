@@ -1,0 +1,115 @@
+5f:df:19:8f:3f",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "297b087f44852a6956d085eff1ce3b97c2b628add2760024342c717cd6ea78ca",
+                    "EndpointID": "da41b8a957b44864989fae85bdeb5e83aa75090bc292889ec57be5fef91af74e",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['docker', 'inspect', 'looking-glass-test-f9a78d42c64b4bca937e5f30e6364384']
+exit=0
+[
+    {
+        "Id": "789b65d0fe2e304a65bc1eab3b55ac8fb653e4d7aa7c7eab7e10a92c6e596a97",
+        "Created": "2026-11-03T16:20:16.060660825Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3241,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-03T16:20:16.076567644Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:ccb74e91260ca21e8b2734874df35356a7a5a1508b6064da400452cf92ee024a",
+        "ResolvConfPath": "/var/lib/docker/containers/789b65d0fe2e304a65bc1eab3b55ac8fb653e4d7aa7c7eab7e10a92c6e596a97/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/789b65d0fe2e304a65bc1eab3b55ac8fb653e4d7aa7c7eab7e10a92c6e596a97/hostname",
+        "HostsPath": "/var/lib/docker/containers/789b65d0fe2e304a65bc1eab3b55ac8fb653e4d7aa7c7eab7e10a92c6e596a97/hosts",
+        "LogPath": "/var/lib/docker/containers/789b65d0fe2e304a65bc1eab3b55ac8fb653e4d7aa7c7eab7e10a92c6e596a97/789b65d0fe2e304a65bc1eab3b55ac8fb653e4d7aa7c7eab7e10a92c6e596a97-json.log",
+        "Name": "/looking-glass-test-f9a78d42c64b4bca937e5f30e6364384",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+ 

@@ -1,0 +1,26 @@
+3725399Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Recovery	Check out repository	2026-11-03T16:19:27.3726991Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Recovery	Check out repository	2026-11-03T16:19:27.3729793Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-03T16:19:27.3766334Z ##[endgroup]
+Recovery	Check out repository	2026-11-03T16:19:27.3767825Z ##[group]Disabling automatic garbage collection
+Recovery	Check out repository	2026-11-03T16:19:27.3768961Z [command]/usr/bin/git config --local gc.auto 0
+Recovery	Check out repository	2026-11-03T16:19:27.3795429Z ##[endgroup]
+Recovery	Check out repository	2026-11-03T16:19:27.3796879Z ##[group]Setting up auth
+Recovery	Check out repository	2026-11-03T16:19:27.3797986Z Removing SSH command configuration
+Recovery	Check out repository	2026-11-03T16:19:27.3800442Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Recovery	Check out repository	2026-11-03T16:19:27.3831856Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Recovery	Check out repository	2026-11-03T16:19:27.4189822Z Removing HTTP extra header
+Recovery	Check out repository	2026-11-03T16:19:27.4195660Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Recovery	Check out repository	2026-11-03T16:19:27.4225618Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Recovery	Check out repository	2026-11-03T16:19:27.4397711Z Removing includeIf entries pointing to credentials config files
+Recovery	Check out repository	2026-11-03T16:19:27.4403735Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Recovery	Check out repository	2026-11-03T16:19:27.4432825Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Recovery	Check out repository	2026-11-03T16:19:27.4609988Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-d77aeb59-0a16-4e96-bd19-6ff45e1260a4.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Recovery	Check out repository	2026-11-03T16:19:27.4641224Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-d77aeb59-0a16-4e96-bd19-6ff45e1260a4.config
+Recovery	Check out repository	2026-11-03T16:19:27.4668759Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d77aeb59-0a16-4e96-bd19-6ff45e1260a4.config
+Recovery	Check out repository	2026-11-03T16:19:27.4696634Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d77aeb59-0a16-4e96-bd19-6ff45e1260a4.config
+Recovery	Check out repository	2026-11-03T16:19:27.4728719Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d77aeb59-0a16-4e96-bd19-6ff45e1260a4.config
+Recovery	Check out repository	2026-11-03T16:19:27.4751866Z ##[endgroup]
+Recovery	Check out repository	2026-11-03T16:19:27.4752691Z ##[group]Fetching the repository
+Recovery	Check out repository	2026-11-03T16:19:27.4758971Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b5317f4c54f48f83dbd252cf71e056bb64bdd51f:refs/remotes/origin/features/perplexity
+Recovery	Check out repository	2026-11-03T16:19:28.7542682Z From https://github.com/dajomas/Looki

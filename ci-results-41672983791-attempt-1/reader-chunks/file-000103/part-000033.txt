@@ -1,0 +1,44 @@
+[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2384842Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2386499Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2413970Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2415474Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2416699Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2418307Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2419268Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2420244Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2766702Z ##[group]Run actions/setup-python@v6
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2768080Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2768993Z   python-version: 3.14
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2769901Z   cache: pip
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2771082Z   cache-dependency-path: requirements.txt
+Python / HTTP	UNKNOWN STEP	requirements-dev.txt
+Python / HTTP	UNKNOWN STEP	
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2772884Z   check-latest: false
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2783841Z   token: ***
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2784720Z   update-environment: true
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2785722Z   allow-prereleases: false
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2786700Z   freethreaded: false
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2787583Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2788719Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2790261Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2791156Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.2792015Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.4384949Z ##[group]Installed versions
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.4477067Z Successfully set up CPython (3.14.9)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.4479205Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:31.4894881Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:32.9973021Z /home/runner/.cache/pip
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:33.3972339Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:34.7145892Z Received 4194304 of 125305856 (3.3%), 4.0 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.6105092Z Received 125305856 of 125305856 (100.0%), 62.8 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.6106183Z Cache Size: ~120 MB (125305856 B)
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.6138992Z [command]/usr/bin/tar -xf /home/runner/work/_temp/cf0eea93-d0ab-4633-a8e1-610626c0cba6/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.8523393Z Cache restored successfully
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.8586624Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.8889479Z ##[group]Run python -m pip install --upgrade pip
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.8889925Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.8890310Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.8915297Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-03T16:19:35.8915675Z env:
+Py

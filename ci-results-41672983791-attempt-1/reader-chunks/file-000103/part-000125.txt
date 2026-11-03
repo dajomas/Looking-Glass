@@ -1,0 +1,34 @@
+ STEP	2026-11-03T16:19:32.2236769Z Successfully set up CPython (3.14.10)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.2238893Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.2547948Z [command]/opt/hostedtoolcache/Python/3.14.10/x64/bin/pip cache dir
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.5582499Z /home/runner/.cache/pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.8168688Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.0619866Z Received 33554432 of 77418312 (43.3%), 32.0 MBs/sec
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.5010384Z Received 77418312 of 77418312 (100.0%), 51.3 MBs/sec
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.5011272Z Cache Size: ~74 MB (77418312 B)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.5040643Z [command]/usr/bin/tar -xf /home/runner/work/_temp/25496a35-adbd-4c87-8bf2-5490ff78ca77/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6053119Z Cache restored successfully
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6092639Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6281585Z ##[group]Run python -m pip install --upgrade pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6282001Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6282377Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6301811Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6302180Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6302510Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6302872Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6303128Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6303452Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6303917Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6304369Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6304940Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6305330Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6305762Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:34.6306101Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.2113332Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages (26.2.2)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.2353765Z Collecting pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.2369797Z   Using cached pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.2415679Z Using cached pip-26.3-py3-none-any.whl (2.0 MB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.2865180Z Installing collected packages: pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.2876764Z   Attempting uninstall: pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.2890009Z     Found existing installation: pip 26.2.2
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:35.3888795Z     Uninstalling pip-26.

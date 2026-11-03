@@ -1,0 +1,82 @@
+2/hy3w9j4gqluesxf2357us3pum/diff:/var/lib/docker/overlay2/499q4p7tqzexgm5tji3c4tylt/diff:/var/lib/docker/overlay2/zj34f3j6ljuetckuyi066wtn1/diff:/var/lib/docker/overlay2/mbj8q4gvz2bf7ljim8vy7quu7/diff:/var/lib/docker/overlay2/l69f5kwiidsaj2elv8jj3zzt9/diff:/var/lib/docker/overlay2/9deqn8u79of2wbmy0025xkp02/diff:/var/lib/docker/overlay2/yppb7v4pv20g6pfz6hcj9z1lu/diff:/var/lib/docker/overlay2/d6la2o5ray8siylxkk2foia9q/diff:/var/lib/docker/overlay2/71881e18895b71299ec171d86c3aef23a3ba1d5854220ad086aeb14f698d9165/diff:/var/lib/docker/overlay2/3bd720e34206fa9b8d705be16c04d17d40b663e5b9328e9f740ddc70366847bc/diff:/var/lib/docker/overlay2/01b2b2986d933492626ad001e8933834bed5a22df07165dc68effef58c19334a/diff:/var/lib/docker/overlay2/8d66040106d24bbe0b138c431ea19755ebb1051a0d4c1edf87ba3b75083152d8/diff",
+                "MergedDir": "/var/lib/docker/overlay2/4acf98a4cd6f3ea41c3b5167eff3aa6203e76ab9eb4338c40ecc17b16fc5bbd9/merged",
+                "UpperDir": "/var/lib/docker/overlay2/4acf98a4cd6f3ea41c3b5167eff3aa6203e76ab9eb4338c40ecc17b16fc5bbd9/diff",
+                "WorkDir": "/var/lib/docker/overlay2/4acf98a4cd6f3ea41c3b5167eff3aa6203e76ab9eb4338c40ecc17b16fc5bbd9/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-f9a78d42c64b4bca937e5f30e6364384",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-f9a78d42c64b4bca937e5f30e6364384/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "789b65d0fe2e",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:292123b05d094d9b89a659b73f50b65e",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "9706fed8e16429ec6ca8d39e02d4e03e331c7fc50c27f04a276c9eec84ca2191",
+            "SandboxKey": "/var/run/docker/netns/9706fed8e164",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+ 

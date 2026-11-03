@@ -1,0 +1,43 @@
+emotes/origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9346602Z b5317f4c54f48f83dbd252cf71e056bb64bdd51f
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9352555Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9355430Z ##[group]Determining the checkout info
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9358553Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9360487Z [command]/usr/bin/git sparse-checkout disable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9409738Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9441640Z ##[group]Checking out the ref
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:31.9444582Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0007363Z Switched to a new branch 'features/perplexity'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0010505Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0018834Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0060095Z [command]/usr/bin/git log -1 --format=%H
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0085714Z b5317f4c54f48f83dbd252cf71e056bb64bdd51f
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0343876Z ##[group]Run mkdir -p test-results
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0345718Z ^[[36;1mmkdir -p test-results^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0347225Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0348962Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0369266Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0370847Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0372151Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0373815Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0375043Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0376057Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0715149Z ##[group]Run actions/setup-python@v6
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0716410Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0717299Z   python-version: 3.14
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0718286Z   cache: pip
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0719530Z   cache-dependency-path: requirements.txt
+Browser / mocked HTTP	UNKNOWN STEP	requirements-dev.txt
+Browser / mocked HTTP	UNKNOWN STEP	
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0721101Z   check-latest: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0730934Z   token: ***
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0731869Z   update-environment: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0732936Z   allow-prereleases: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0733982Z   freethreaded: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0734996Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0736198Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0737718Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0738685Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.0739609Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-03T16:19:32.2141770Z ##[group]Installed versions
+Browser / mocked HTTP	UNKNOWN

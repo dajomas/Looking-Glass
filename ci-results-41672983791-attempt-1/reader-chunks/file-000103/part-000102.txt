@@ -1,0 +1,40 @@
+1439155Z Metadata: read
+JavaScript regressions	Set up job	2026-11-03T16:19:25.1439970Z ##[endgroup]
+JavaScript regressions	Set up job	2026-11-03T16:19:25.1442330Z Secret source: Actions
+JavaScript regressions	Set up job	2026-11-03T16:19:25.1443581Z Cache mode: write
+JavaScript regressions	Set up job	2026-11-03T16:19:25.1444430Z Prepare workflow directory
+JavaScript regressions	Set up job	2026-11-03T16:19:25.1973687Z Prepare all required actions
+JavaScript regressions	Set up job	2026-11-03T16:19:25.2013718Z Getting action download info
+JavaScript regressions	Set up job	2026-11-03T16:19:25.4767045Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+JavaScript regressions	Set up job	2026-11-03T16:19:25.7044558Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+JavaScript regressions	Set up job	2026-11-03T16:19:25.8142271Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+JavaScript regressions	Set up job	2026-11-03T16:19:25.9244846Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+JavaScript regressions	Set up job	2026-11-03T16:19:26.1698256Z Complete job name: JavaScript regressions
+JavaScript regressions	Check out repository	﻿2026-11-03T16:19:26.2442905Z ##[group]Run actions/checkout@v6
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2443764Z with:
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2444186Z   repository: dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2447779Z   token: ***
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2448175Z   ssh-strict: true
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2448571Z   ssh-user: git
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2448978Z   persist-credentials: true
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2449413Z   clean: true
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2449807Z   sparse-checkout-cone-mode: true
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2450266Z   fetch-depth: 1
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2450650Z   fetch-tags: false
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2451035Z   show-progress: true
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2451433Z   lfs: false
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2451823Z   submodules: false
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2452224Z   set-safe-directory: true
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2452671Z   allow-unsafe-pr-checkout: false
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2453326Z env:
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2453826Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2454430Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2454829Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.2455272Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.4597393Z Syncing repository: dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.4679731Z ##[group]Getting Git version info
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.4680894Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.4682257Z [command]/usr/bin/git version
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.4683876Z git version 2.56.0
+JavaScript regressions	Check out repository	2026-11-03T16:19:26.4692450Z ##[endgroup]
+JavaScript regressions	Check out repository	
