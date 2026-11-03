@@ -29,7 +29,7 @@ No application code or test results are changed by this documentation split.
 - [Bug 1 implementation candidate: inward fog feathering (2026-10-28)](docs/handover/013-bug-1-implementation-candidate-inward-fog-feathering-2026-10-28.md)
 - [Bug 3 implementation candidate: same-version viewer recovery (2026-10-29)](docs/handover/014-bug-3-implementation-candidate-same-version-viewer-recovery-2026-.md)
 - [Bug 4 corrected archive candidate (2026-10-29)](docs/handover/015-bug-4-corrected-archive-candidate-2026-10-29.md)
-- [Bug 5 implementation candidate: viewer socket session lifetime (2026-10-29)](docs/handover/016-bug-5-implementation-candidate-viewer-socket-session-lifetime-202.md)
+- [Bug 5 implementation candidate: viewer socket session lifetime (2026-10-29)](docs/handover/016-bug-5-implementation-candidate-viewer-socket-session-lifetime-2026-10-29.md)
 - [Bug 6 implementation candidate: role-change socket revocation (2026-10-29)](docs/handover/017-bug-6-implementation-candidate-role-change-socket-revocation-2026.md)
 - [Bug 7 implementation candidate: forced-password-change viewer gate (2026-10-29)](docs/handover/018-bug-7-implementation-candidate-forced-password-change-viewer-gate.md)
 - [Bug 8 implementation candidate: atomic account form validation (2026-10-29)](docs/handover/019-bug-8-implementation-candidate-atomic-account-form-validation-2026-10-29.md)
@@ -136,3 +136,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bug 19: password-reset session revocation implementation and CI follow-ups (2026-11-03)](docs/handover/078-bug-19-password-reset-session-revocation-2026-11-03.md)
 - [Bug 19: accepted closure and evidence limits (2026-11-03)](docs/handover/079-bug-19-accepted-closure-2026-11-03.md)
 - [Release notes (unreleased changes)](docs/release-notes.md)
+- [Bug 16: finite manual calibration; acceptance pending (2026-11-03)](docs/handover/080-bug-16-manual-calibration-2026-11-03.md)

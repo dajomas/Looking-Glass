@@ -23,3 +23,18 @@ HTML form posts (redirect with `?ok=` / `?err=`) cover campaigns
 maps (`/campaigns/{id}/maps`, `/maps/{id}/rename|move|image|delete`) and users
 (`/users`, `/users/{id}/update|password|delete`, superadmin only).
 
+### Manual calibration numeric validation
+
+`POST /api/maps/{id}/calibration` requires map-management permission and a valid
+CSRF token. Offsets and scales must be finite numbers; scales remain strictly
+positive and no greater than 100. Negative finite offsets remain supported.
+Non-finite or out-of-range fields return 422. Before any update, all stored wall
+endpoints are checked using `(source - offset) * scale`; a non-finite result
+returns 400, including overflow from individually finite inputs. Validation and
+the update share one immediate transaction so a wall replacement cannot race
+between those steps. Rejection does not change calibration, wall/fog versions,
+notes or fog history, invalidate the fog cache, or send an update notification.
+
+The endpoint URL and successful response contract are unchanged. Field checks
+also apply to maps with no walls. This does not repair pre-existing invalid
+stored values or impose additional finite coordinate-magnitude limits.

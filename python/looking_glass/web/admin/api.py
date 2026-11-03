@@ -31,14 +31,6 @@ class Point(BaseModel):
     y: float = Field(ge=-1e7, le=1e7)
 
 
-class CalibrationIn(BaseModel):
-    offset_x: float
-    offset_y: float
-    scale_x: float = Field(gt=0, le=100)
-    scale_y: float = Field(gt=0, le=100)
-    doors_block: bool = True
-
-
 def _map_payload(ctx, conn, map_id: int) -> dict:
     room_notes.reconcile_map(ctx, conn, map_id)
     m = maps_repo.get(conn, map_id)
@@ -175,16 +167,9 @@ async def undo(ctx: CtxDep, user: CsrfUserDep, map_id: int):
     return await _fog_op(ctx, user, map_id, "undo")
 
 
-@router.post("/maps/{map_id}/calibration")
-async def calibration(ctx: CtxDep, user: CsrfUserDep, map_id: int, body: CalibrationIn):
-    with ctx.db.connect() as conn:
-        map_for_manage(conn, user, map_id)
-        maps_repo.set_calibration(conn, map_id, body.offset_x, body.offset_y, body.scale_x, body.scale_y,
-                                  body.doors_block)
-        ctx.fog.invalidate(map_id)
-        payload = _map_payload(ctx, conn, map_id)
-    await notify.map_changed(ctx, map_id, "walls")
-    return payload
+from .calibration import CalibrationIn, register_calibration
+
+calibration = register_calibration(router, _map_payload)
 
 
 @router.post("/maps/{map_id}/walls/inspect")
