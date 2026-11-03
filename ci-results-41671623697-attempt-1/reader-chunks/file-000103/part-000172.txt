@@ -1,0 +1,25 @@
+ntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+JavaScript regressions	Post Check out repository	﻿2026-11-03T16:11:59.8209715Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.8921913Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.8997806Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9031784Z Temporarily overriding HOME='/home/runner/work/_temp/62d114e6-4518-4b91-b036-c3bfaaf5d192' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9033051Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9036501Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9066821Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9072705Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9107040Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9371052Z Removing HTTP extra header
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9373593Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9416489Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9676677Z Removing includeIf entries pointing to credentials config files
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9685279Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9718174Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9718993Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9719429Z includeif.gitdir:/github/workspace/.git.path
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9719787Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9729253Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9759711Z /home/runner/work/_temp/git-credentials-5c0d5248-353f-469d-822d-dfc3e53e314b.config
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9769592Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-5c0d5248-353f-469d-822d-dfc3e53e314b.config
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9812528Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-03T16:11:59.9841359Z /home/runner/work/_temp/git-credentials-5c0d5248-353f-469d-822d-dfc3e53e314b.config
+JavaScript regressions	Post 

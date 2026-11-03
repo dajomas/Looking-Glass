@@ -1,0 +1,25 @@
+94) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Live Uvicorn	Upload validation evidence	2026-11-03T16:13:38.7641552Z Uploaded bytes 11074
+Live Uvicorn	Upload validation evidence	2026-11-03T16:13:38.8356244Z Finished uploading artifact content to blob storage!
+Live Uvicorn	Upload validation evidence	2026-11-03T16:13:38.8356868Z SHA256 digest of uploaded artifact zip is 85ff5178e95ac989722d8d770652cbfca87efdee31edf4cd71cf709ac73beed7
+Live Uvicorn	Upload validation evidence	2026-11-03T16:13:38.8357876Z Finalizing artifact upload
+Live Uvicorn	Upload validation evidence	2026-11-03T16:13:39.3187356Z Artifact integration-live-5774cb0f669352030c7ac8f9c8e32f11b039a2c3.zip successfully finalized. Artifact ID 13247748304
+Live Uvicorn	Upload validation evidence	2026-11-03T16:13:39.3188308Z Artifact integration-live-5774cb0f669352030c7ac8f9c8e32f11b039a2c3 has been successfully uploaded! Final size is 11074 bytes. Artifact ID is 13247748304
+Live Uvicorn	Upload validation evidence	2026-11-03T16:13:39.3192761Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41671623697/artifacts/13247748304
+Live Uvicorn	Post Set up Python	﻿2026-11-03T16:13:39.3366126Z Post job cleanup.
+Live Uvicorn	Post Set up Python	2026-11-03T16:13:39.4395001Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --files-from manifest.txt --use-compress-program zstdmt
+Live Uvicorn	Post Set up Python	2026-11-03T16:13:39.8397386Z Failed to save: Unable to reserve cache with key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, another job may be creating this cache.
+Live Uvicorn	Post Check out repository	﻿2026-11-03T16:13:39.8616908Z Post job cleanup.
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9192883Z [command]/usr/bin/git version
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9231014Z git version 2.56.0
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9260670Z Temporarily overriding HOME='/home/runner/work/_temp/ffcddc7f-fc07-4080-9fc0-789138fd322c' before making global git config changes
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9261363Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9265036Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9298286Z Removing SSH command configuration
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9303513Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9363339Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9615650Z Removing HTTP extra header
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9621776Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9655870Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9881811Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Post Check out repository	2026-11-03T16:13:39.9889065Z [command]/usr/bin/git config --local --name-only --get-regexp

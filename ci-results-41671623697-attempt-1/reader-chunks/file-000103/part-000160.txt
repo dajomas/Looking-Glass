@@ -1,0 +1,26 @@
+s	Install application and test dependencies	2026-11-03T16:11:41.0821360Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.0821600Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.0821937Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.0822276Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.0822583Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.0822879Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.0823177Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.0823474Z ##[endgroup]
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.4744790Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.5613265Z Collecting pip
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.5983377Z   Downloading pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.6054728Z Downloading pip-26.3-py3-none-any.whl (2.0 MB)
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.6460580Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 78.1 MB/s  0:00:00
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.6780634Z Installing collected packages: pip
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.6781179Z   Attempting uninstall: pip
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.6799516Z     Found existing installation: pip 26.2.2
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.7497095Z     Uninstalling pip-26.2.2:
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:41.7543334Z       Successfully uninstalled pip-26.2.2
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.2120522Z Successfully installed pip-26.3
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.5816912Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.5827665Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.6076747Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.6085208Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.6176611Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.6185834Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+JavaScript regressions	Install application and test dependencies	2026-11-03T16:11:43.6271347Z Collecting python-multipart>=0.0.12 (fr
