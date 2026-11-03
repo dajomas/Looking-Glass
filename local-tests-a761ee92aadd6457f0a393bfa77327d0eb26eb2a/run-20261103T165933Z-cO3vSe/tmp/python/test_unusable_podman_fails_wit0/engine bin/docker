@@ -1,8 +1,0 @@
-#!/mnt/d/git/Looking-Glass/.venv-test/bin/python
-import json,os,sys
-from pathlib import Path
-with Path(os.environ['ENGINE_CALLS']).open('a') as stream:
-    stream.write(json.dumps(dict(argv=sys.argv,cwd=os.getcwd(),stdin=sys.stdin.read()))+'\n')
-print('fake engine output')
-print('fake engine stderr',file=sys.stderr)
-raise SystemExit(7 if os.environ.get('ENGINE_FAIL') == sys.argv[1] else 0)
