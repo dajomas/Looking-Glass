@@ -1,0 +1,35 @@
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1162394Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1398597Z ##[group]Run python --version >> test-results/environment.txt
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1398905Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1399137Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1399341Z ^[[36;1mpython -m pip check^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1399538Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1399787Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1400142Z ^[[36;1mfrom importlib import import_module^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1400326Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1400498Z ^[[36;1mrequired = {^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1400634Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1400787Z ^[[36;1m    "starlette": "starlette",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1400938Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1401136Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1401311Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1401454Z ^[[36;1m    "pytest": "pytest",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1401591Z ^[[36;1m}^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1401735Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1401913Z ^[[36;1m    import_module(module)^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1402096Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1402279Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1420438Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1420638Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1420813Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1421015Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1421142Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1421308Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1421545Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1421790Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1422006Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1422220Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1422438Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.1422624Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-04T20:29:07.3923

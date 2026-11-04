@@ -1,0 +1,26 @@
+p.
+JavaScript regressions	Post Set up Node.js	2026-11-04T20:28:58.4788600Z (node:2676) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+JavaScript regressions	Post Set up Node.js	2026-11-04T20:28:58.4789726Z (Use `node --trace-deprecation ...` to show where the warning was created)
+JavaScript regressions	Post Set up Python	﻿2026-11-04T20:28:58.4978251Z Post job cleanup.
+JavaScript regressions	Post Set up Python	2026-11-04T20:28:58.6397276Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+JavaScript regressions	Post Check out repository	﻿2026-11-04T20:28:58.6538664Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7427071Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7511632Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7566103Z Temporarily overriding HOME='/home/runner/work/_temp/0ac959ca-8acb-42a4-a2ac-f7be47046a63' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7567781Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7573409Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7626055Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7635523Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.7694034Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8025575Z Removing HTTP extra header
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8029489Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8072921Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8362349Z Removing includeIf entries pointing to credentials config files
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8372558Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8414659Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8415833Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8416820Z includeif.gitdir:/github/workspace/.git.path
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8417681Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8433153Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8472624Z /home/runner/work/_temp/git-credentials-6232ca22-cb8f-4cc9-9d5d-d1b544dc26ab.config
+JavaScript regressions	Post Check out repository	2026-11-04T20:28:58.8495224Z [command]/usr/bin/git con

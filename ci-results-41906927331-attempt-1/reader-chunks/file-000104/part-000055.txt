@@ -1,0 +1,36 @@
+repository	2026-11-04T20:28:31.9458397Z git version 2.56.0
+Recovery	Check out repository	2026-11-04T20:28:31.9493089Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:28:31.9500815Z Temporarily overriding HOME='/home/runner/work/_temp/176cf329-f814-4233-8fd1-d802553838e3' before making global git config changes
+Recovery	Check out repository	2026-11-04T20:28:31.9509001Z Adding repository directory to the temporary git global config as a safe directory
+Recovery	Check out repository	2026-11-04T20:28:31.9514862Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-11-04T20:28:31.9586380Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-11-04T20:28:31.9598627Z ##[group]Determining repository object format
+Recovery	Check out repository	2026-11-04T20:28:31.9600963Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:28:31.9602188Z ##[group]Initializing the repository
+Recovery	Check out repository	2026-11-04T20:28:31.9606664Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-11-04T20:28:31.9735771Z hint: Using 'master' as the name for the initial branch. This default branch name
+Recovery	Check out repository	2026-11-04T20:28:31.9737506Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Recovery	Check out repository	2026-11-04T20:28:31.9739118Z hint: to use in all of your new repositories, which will suppress this warning,
+Recovery	Check out repository	2026-11-04T20:28:31.9740357Z hint: call:
+Recovery	Check out repository	2026-11-04T20:28:31.9740989Z hint:
+Recovery	Check out repository	2026-11-04T20:28:31.9741779Z hint: 	git config --global init.defaultBranch <name>
+Recovery	Check out repository	2026-11-04T20:28:31.9742793Z hint:
+Recovery	Check out repository	2026-11-04T20:28:31.9743995Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Recovery	Check out repository	2026-11-04T20:28:31.9745652Z hint: 'development'. The just-created branch can be renamed via this command:
+Recovery	Check out repository	2026-11-04T20:28:31.9746873Z hint:
+Recovery	Check out repository	2026-11-04T20:28:31.9747519Z hint: 	git branch -m <name>
+Recovery	Check out repository	2026-11-04T20:28:31.9748288Z hint:
+Recovery	Check out repository	2026-11-04T20:28:31.9749304Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Recovery	Check out repository	2026-11-04T20:28:31.9751176Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Recovery	Check out repository	2026-11-04T20:28:31.9764792Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-04T20:28:31.9831212Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:28:31.9832419Z ##[group]Disabling automatic garbage collection
+Recovery	Check out repository	2026-11-04T20:28:31.9836458Z [command]/usr/bin/git config --local gc.auto 0
+Recovery	Check out repository	2026-11-04T20:28:31.9885942Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:28:31.9887914Z ##[group]Setting up auth
+Recovery	Check out repository	2026-11-04T20:28:31.9889294Z Removing SSH command configuration
+Recovery	Check out repository	2026-11-04T20:28:31.9890795Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Recovery	Check out repository	2026-11-04T20:28:31.9936197Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Recovery	Check out repository	2026-11-04T20:28:32.0394791Z Removing HTTP extra header
+Recovery	Check out repository	2026-11-04T20:28:32.0401847Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Recovery	Check out repository	202

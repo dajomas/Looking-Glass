@@ -1,0 +1,33 @@
+it config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-bf167ed0-56b5-4ae8-9b80-51e23e04d8d1.config
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.1350908Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-bf167ed0-56b5-4ae8-9b80-51e23e04d8d1.config
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.1378229Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-bf167ed0-56b5-4ae8-9b80-51e23e04d8d1.config
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.1397787Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.1398206Z ##[group]Fetching the repository
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.1404864Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +d0375c3cf72058268f79b9fc9fcae28ce8a51818:refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9011153Z From https://github.com/dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9012062Z  * [new ref]         d0375c3cf72058268f79b9fc9fcae28ce8a51818 -> origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9021035Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9043326Z   origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9049499Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9069496Z d0375c3cf72058268f79b9fc9fcae28ce8a51818
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9071816Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9072262Z ##[group]Determining the checkout info
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9077384Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9077859Z [command]/usr/bin/git sparse-checkout disable
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9123300Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9143454Z ##[group]Checking out the ref
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9147423Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9684894Z Switched to a new branch 'features/perplexity'
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9689557Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9696831Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9735027Z [command]/usr/bin/git log -1 --format=%H
+Live Uvicorn	Check out repository	2026-11-04T20:28:36.9754967Z d0375c3cf72058268f79b9fc9fcae28ce8a51818
+Live Uvicorn	Initialize evidence	﻿2026-11-04T20:28:36.9909535Z ##[group]Run mkdir -p test-results
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9909945Z ^[[36;1mmkdir -p test-results^[[0m
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9910296Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9910658Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9937899Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9938267Z env:
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9938622Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9938959Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Initialize evidence	2026-11-04T20:28:36.9

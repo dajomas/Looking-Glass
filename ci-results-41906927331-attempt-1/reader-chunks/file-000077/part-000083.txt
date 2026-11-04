@@ -1,0 +1,104 @@
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "4a7f531eda67f568e3342ba80ad14120f7f7879d2fdec5330ac8d5f3db3f1a31",
+            "SandboxKey": "/var/run/docker/netns/4a7f531eda67",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32772"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32773"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "b8795852fa65970a518f526104748ae35ab000464bf2e5b85f1adbdb46ed581e",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "32:8c:d9:ad:5c:a4",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "32:8c:d9:ad:5c:a4",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "7720a5189f37d033b924d9ebdac8ec7913d3be9a954f50cd2ff3e68b8bf24e91",
+                    "EndpointID": "b8795852fa65970a518f526104748ae35ab000464bf2e5b85f1adbdb46ed581e",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-e5a44e83e36d4df1b322b5a7bcb4466e']
+exit=0
+[
+    {
+        "Id": "868036742be68078466aac330d231754db92862557c7ceec718d8c9b0a960572",
+        "Created": "2026-11-04T20:29:26.067024957Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3798,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-04T20:29:26.086860227Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:474eb7145d2c3db1245f2d6424bbb02ce039796d757dc1409e7919ec83d9cb7a",
+        "ResolvConfPath": "/var/lib/docker/containers/868036742be68078466aac330d231754db92862557c7ceec718d8c9b0a960572/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/868036742be68078466aac330d231754db92862557c7ceec718d8c9b0a960572/hostname",
+        "HostsPath": "/var/lib/docker/containers/868036742be68078466aac330d231754db92862557c7ceec718d8c9b0a960572/hosts",
+        "LogPath": "/var/lib/docker/containers/868036742be68078466aac330d231754db92862557c7ceec718d8c9b0a960572/868036742be68078466aac330d231754db92862557c7ceec718d8c9b0a960572-json.log",
+        "Name": "/looking-glass-test-e5a44e83e36d4df1b322b5a7bcb4466e",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "Proces

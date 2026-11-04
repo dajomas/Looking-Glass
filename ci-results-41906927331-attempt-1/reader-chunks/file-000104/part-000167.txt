@@ -1,0 +1,21 @@
+pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-04o20b --remote-debugging-pipe --no-startup-window
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:33.5854323Z 2026-11-04T20:29:33.585Z pw:browser <launched> pid=2866
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.3982790Z 2026-11-04T20:29:36.397Z pw:browser [pid=2866][err] [1104/202936.396677:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4039503Z 2026-11-04T20:29:36.403Z pw:browser [pid=2866][err] [1104/202936.401977:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4048865Z 2026-11-04T20:29:36.403Z pw:browser [pid=2866][err] [1104/202936.402039:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4055184Z 2026-11-04T20:29:36.405Z pw:browser [pid=2866][err] [1104/202936.405187:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4091406Z Chromium version: 156.0.8078.4
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4181753Z 2026-11-04T20:29:36.416Z pw:browser [pid=2866][err] [1104/202936.413625:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4710371Z 2026-11-04T20:29:36.470Z pw:browser [pid=2866][err] [1104/202936.470506:INFO:CONSOLE:3] "--playwright--set--content--633d1c9227f246b717d1791602d287c9--", source:  (3)
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4947943Z DOM diagnostic: text_content='Ready', inner_text='Ready'
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4948440Z PASS: launch, local HTTP navigation and DOM check
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.4954411Z 2026-11-04T20:29:36.495Z pw:browser [pid=2866] <gracefully close start>
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.5136315Z 2026-11-04T20:29:36.513Z pw:browser [pid=2866] <process did exit: exitCode=0, signal=null>
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.5137040Z 2026-11-04T20:29:36.513Z pw:browser [pid=2866] starting temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.5161827Z 2026-11-04T20:29:36.516Z pw:browser [pid=2866] finished temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-04T20:29:36.5165156Z 2026-11-04T20:29:36.516Z pw:browser [pid=2866] <gracefully close end>
+Live Uvicorn	Run live Uvicorn integration tests	﻿2026-11-04T20:29:37.0358746Z ##[group]Run set -o pipefail
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-04T20:29:37.0359091Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-04T20:29:37.0359775Z ^[[36;1mpython -m pytest -v -ra python/tests/live_e2e --basetemp=ci-live-tmp --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-04T20:29:37.0382819Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Run live 
