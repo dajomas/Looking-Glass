@@ -1,0 +1,29 @@
+|■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 120 MiB
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:04.6597462Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:04.8097434Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:04.9070926Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:04.9992489Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:05.1153805Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7207267Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7518291Z ##[group]Run python --version >> test-results/environment.txt
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7519113Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7520078Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7521230Z ^[[36;1mpython -m pip check^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7521835Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7522628Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7523306Z ^[[36;1mfrom importlib import import_module^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7523870Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7524392Z ^[[36;1mrequired = {^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7524783Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7525243Z ^[[36;1m    "starlette": "starlette",^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7525711Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7526277Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7526824Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7527258Z ^[[36;1m    "pytest": "pytest",^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7527680Z ^[[36;1m}^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7528105Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7528667Z ^[[36;1m    import_module(module)^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7529224Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7529792Z ^[[36;1mPY^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:07.7557650Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:3

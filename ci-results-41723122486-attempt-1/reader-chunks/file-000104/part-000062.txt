@@ -1,0 +1,36 @@
+etree.ElementTree as ET^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0580861Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0581113Z ^[[36;1mif not report.is_file():^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0581403Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0581705Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0581950Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0582186Z ^[[36;1mif not cases:^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0582434Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0582794Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0583288Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0583814Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0584153Z ^[[36;1mfor case in skipped:^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0584396Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0584754Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0585085Z ^[[36;1mif skipped or failed:^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0585372Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0585670Z ^[[36;1mPY^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0603449Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0603720Z env:
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0603968Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0604255Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0604438Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0604676Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0605019Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0605345Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0605639Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0605932Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0606396Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0606659Z ##[endgroup]
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0875469Z Reported: 28; failed/error: 0; skipped: 0
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0957360Z ##[group]Run actions/upload-artifact@v4
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0957610Z with:
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0957872Z   name: integration-javascript-5232cc70fbc6816858f4d1b7eedf78a577976e2b
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0958187Z   path: test-results/
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:39.0958375Z   if-no-files-found: warn
+JavaScri

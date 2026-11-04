@@ -1,0 +1,41 @@
+T21:37:37.8179322Z ^[[36;1mfor case in skipped:^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8179624Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8180095Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8180721Z ^[[36;1mif skipped or failed:^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8181103Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8181486Z ^[[36;1mPY^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8201236Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8201577Z env:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8201880Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8202244Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8202468Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8202750Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8203179Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8203625Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8204015Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8204396Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8204787Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8205112Z ##[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8509616Z Reported: 18; failed/error: 0; skipped: 0
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8639309Z ##[group]Run actions/upload-artifact@v4
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8639643Z with:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8639989Z   name: integration-live-5232cc70fbc6816858f4d1b7eedf78a577976e2b
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8640383Z   path: test-results/
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8641054Z   if-no-files-found: warn
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8641312Z   retention-days: 14
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8641555Z   compression-level: 6
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8641849Z   overwrite: false
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8642108Z   include-hidden-files: false
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8642369Z env:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8642682Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8643061Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8643285Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8643570Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8644004Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8644442Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8644872Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8645259Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8645649Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:37.8645986Z ##[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.0424790Z (node:4280) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21

@@ -1,0 +1,33 @@
+35:11.2257472Z ##[group]Initializing the repository
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2258224Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2358825Z hint: Using 'master' as the name for the initial branch. This default branch name
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2360438Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2361745Z hint: to use in all of your new repositories, which will suppress this warning,
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2362532Z hint: call:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2362947Z hint:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2363473Z hint: 	git config --global init.defaultBranch <name>
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2364116Z hint:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2364854Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2365859Z hint: 'development'. The just-created branch can be renamed via this command:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2366620Z hint:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2367061Z hint: 	git branch -m <name>
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2367554Z hint:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2368302Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2374530Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2388238Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2444437Z ##[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2445670Z ##[group]Disabling automatic garbage collection
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2448260Z [command]/usr/bin/git config --local gc.auto 0
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2484169Z ##[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2485695Z ##[group]Setting up auth
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2487183Z Removing SSH command configuration
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2491272Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2533859Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2974255Z Removing HTTP extra header
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.2981646Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.3027753Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.3276744Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.3285735Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.3338972Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.3593367Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-a08ee5bc-889c-406d-a919-3bc5777b5831.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:11.3644519Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.gi

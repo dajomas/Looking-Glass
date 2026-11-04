@@ -1,0 +1,30 @@
+:37:38.0425684Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.0605496Z With the provided path, there will be 28 files uploaded
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.0611217Z Artifact name is valid!
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.0611899Z Root directory input is valid!
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.4735174Z Beginning upload of artifact content to blob storage
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.5247025Z (node:4280) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.7933714Z Uploaded bytes 11092
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.8704195Z Finished uploading artifact content to blob storage!
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.8705106Z SHA256 digest of uploaded artifact zip is 775a62cbaa65f94be6027f07dff95ee0d00286e693063652f12f50ba9e2b651c
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:38.8706810Z Finalizing artifact upload
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.3330850Z Artifact integration-live-5232cc70fbc6816858f4d1b7eedf78a577976e2b.zip successfully finalized. Artifact ID 13271484156
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.3332337Z Artifact integration-live-5232cc70fbc6816858f4d1b7eedf78a577976e2b has been successfully uploaded! Final size is 11092 bytes. Artifact ID is 13271484156
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.3337714Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/41723122486/artifacts/13271484156
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.3565881Z Post job cleanup.
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.4898474Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.5040160Z Post job cleanup.
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6101583Z [command]/usr/bin/git version
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6183523Z git version 2.56.0
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6247970Z Temporarily overriding HOME='/home/runner/work/_temp/dccc3525-11af-45d1-8b17-7d1fa21248d2' before making global git config changes
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6252297Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6255996Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6318143Z Removing SSH command configuration
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6330877Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6390813Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6762387Z Removing HTTP extra header
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6769548Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.6816637Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.7128142Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:37:39.7141919Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvi

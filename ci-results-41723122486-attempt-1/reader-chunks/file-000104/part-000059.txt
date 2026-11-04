@@ -1,0 +1,38 @@
+files-1.3.0 webencodings-0.6.1 websockets-17.4
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4244438Z ##[group]Run python --version >> test-results/environment.txt
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4244844Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4245169Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4245475Z ^[[36;1mpython -m pip check^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4245751Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4246097Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4246398Z ^[[36;1mfrom importlib import import_module^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4246664Z ^[[36;1mfrom importlib.metadata import version^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4246906Z ^[[36;1mrequired = {^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4247105Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4247322Z ^[[36;1m    "starlette": "starlette",^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4247541Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4247814Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4248065Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4248272Z ^[[36;1m    "pytest": "pytest",^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4248465Z ^[[36;1m}^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4248675Z ^[[36;1mfor distribution, module in required.items():^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4248941Z ^[[36;1m    import_module(module)^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4249427Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4249692Z ^[[36;1mPY^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4267529Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4267809Z env:
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4268052Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4268344Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4268531Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4268760Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4269333Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4269843Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4270299Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4270765Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4271116Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.4271554Z ##[endgroup]
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:36.7167991Z No broken requirements found.
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:37.1913544Z fastapi==0.162.0
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:37.1916290Z starlette==1.10.0
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:37.4215386Z uvicorn==0.54.0
+JavaScript regressions	UNKNOWN S

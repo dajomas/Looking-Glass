@@ -1,0 +1,43 @@
+#[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7793229Z ##[group]Run actions/setup-python@v6
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7793664Z with:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7793960Z   python-version: 3.14
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7794249Z   cache: pip
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7794621Z   cache-dependency-path: requirements.txt
+Live Uvicorn	UNKNOWN STEP	requirements-dev.txt
+Live Uvicorn	UNKNOWN STEP	
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7795060Z   check-latest: false
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7799635Z   token: ***
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7799965Z   update-environment: true
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7800281Z   allow-prereleases: false
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7800901Z   freethreaded: false
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7801198Z env:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7801559Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7802021Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7802303Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.7802562Z ##[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.9203819Z ##[group]Installed versions
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.9306782Z Successfully set up CPython (3.14.9)
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.9307966Z ##[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:20.9787940Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:22.3302174Z /home/runner/.cache/pip
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:22.6238662Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:23.9326538Z Received 8388608 of 125305856 (6.7%), 8.0 MBs/sec
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:24.8885045Z Received 125305856 of 125305856 (100.0%), 61.1 MBs/sec
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:24.8885871Z Cache Size: ~120 MB (125305856 B)
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:24.8918035Z [command]/usr/bin/tar -xf /home/runner/work/_temp/4d28fe21-f56f-47c3-a9ca-3ef8c0b15608/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.0886030Z Cache restored successfully
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.0950122Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1257190Z ##[group]Run python -m pip install --upgrade pip
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1257625Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1257995Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1282738Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1283114Z env:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1283425Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1283828Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1284099Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1284414Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1284898Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1285350Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:35:25.1285731Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21

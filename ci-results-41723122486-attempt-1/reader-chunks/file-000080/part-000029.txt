@@ -1,0 +1,88 @@
+rlay2/8wckssaybgzfmw9q7x8k77jc2/diff:/var/lib/docker/overlay2/mq8wwrj1jeen472nv8tt3gzqe/diff:/var/lib/docker/overlay2/mgrlo949p437as2229iv8ayed/diff:/var/lib/docker/overlay2/fmji479wt6tjy8tpi5ghevgfm/diff:/var/lib/docker/overlay2/c2ed7257a6d3c1a6e886889b540630344c432fdcc5129c5c346fe6d12350ed77/diff:/var/lib/docker/overlay2/802c1a52f346548250a96e1cd42fcde15036f039b9ecf2ad5d0261061ef3ca81/diff:/var/lib/docker/overlay2/5e16d106b844265b8d0f545366bd64b06016a70350a3f0c17762c195e1431b52/diff:/var/lib/docker/overlay2/d4abacc1ed2cbe93279c4ec46b6df85754807598a5f048087e44c4a5582f1e5f/diff",
+                "MergedDir": "/var/lib/docker/overlay2/6f1e4495d9bdc571b79ad51554f10f1c1fd75049eda5246c0e2ae2187bb7362d/merged",
+                "UpperDir": "/var/lib/docker/overlay2/6f1e4495d9bdc571b79ad51554f10f1c1fd75049eda5246c0e2ae2187bb7362d/diff",
+                "WorkDir": "/var/lib/docker/overlay2/6f1e4495d9bdc571b79ad51554f10f1c1fd75049eda5246c0e2ae2187bb7362d/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-b11068036a1c483f8d546eb295886018",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-b11068036a1c483f8d546eb295886018/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "d046e5662390",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:d3f8937c8ebf46e69370c1ba139df184",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "946ad4cbfbed193ad633c0c24435f180fe0f47890a1fd9a4c0852987e3c5ab17",
+            "SandboxKey": "/var/run/docker/netns/946ad4cbfbed",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32768"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "

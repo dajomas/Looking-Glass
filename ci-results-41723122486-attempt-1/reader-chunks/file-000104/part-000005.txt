@@ -1,0 +1,36 @@
+2645442Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2900540Z ##[group]Run python -m pip install --upgrade pip
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2900969Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2901394Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2926141Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2926513Z env:
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2926868Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2927268Z   PYTHONUNBUFFERED: 1
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2927505Z   LG_RUN_LIVE_E2E: 1
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2927802Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2928317Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2928775Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2929192Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2929592Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2930053Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Recovery	UNKNOWN STEP	2026-11-03T21:35:27.2930400Z ##[endgroup]
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.4256933Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages (26.2.2)
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.5593699Z Collecting pip
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.5609346Z   Using cached pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.5761163Z Using cached pip-26.3-py3-none-any.whl (2.0 MB)
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.8538195Z Installing collected packages: pip
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.8539040Z   Attempting uninstall: pip
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.8563072Z     Found existing installation: pip 26.2.2
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.9386345Z     Uninstalling pip-26.2.2:
+Recovery	UNKNOWN STEP	2026-11-03T21:35:29.9447013Z       Successfully uninstalled pip-26.2.2
+Recovery	UNKNOWN STEP	2026-11-03T21:35:31.3677092Z Successfully installed pip-26.3
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.4207761Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.4225290Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.4636601Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.4650279Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.4908965Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.4921916Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.5162178Z Collecting python-multipart>=0.0.12 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 4))
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.5175740Z   Using cached python_multipart-0.0.33-py3-none-any.whl.metadata (6.3 kB)
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.5645353Z Collecting pyyaml>=6.0 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 5))
+Recovery	UNKNOWN STEP	2026-11-03T21:35:32.5660102Z   Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.

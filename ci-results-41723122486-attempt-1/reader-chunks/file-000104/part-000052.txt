@@ -1,0 +1,40 @@
+pt regressions	UNKNOWN STEP	2026-11-03T21:35:19.6839692Z [command]/usr/bin/git log -1 --format=%H
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.6868928Z 5232cc70fbc6816858f4d1b7eedf78a577976e2b
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7063426Z ##[group]Run mkdir -p test-results
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7063811Z ^[[36;1mmkdir -p test-results^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7064146Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7064533Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7085788Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7086140Z env:
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7086439Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7086774Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7087005Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7087222Z ##[endgroup]
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7253696Z ##[group]Run actions/setup-python@v6
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7254004Z with:
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7254252Z   python-version: 3.14
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7254478Z   cache: pip
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7254780Z   cache-dependency-path: requirements.txt
+JavaScript regressions	UNKNOWN STEP	requirements-dev.txt
+JavaScript regressions	UNKNOWN STEP	
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7255124Z   check-latest: false
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7257046Z   token: ***
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7257278Z   update-environment: true
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7257526Z   allow-prereleases: false
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7257761Z   freethreaded: false
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7257985Z env:
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7258276Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7258617Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7258845Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.7259274Z ##[endgroup]
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.8337292Z ##[group]Installed versions
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.8404765Z Successfully set up CPython (3.14.9)
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.8405512Z ##[endgroup]
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:19.8655184Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:20.1398733Z /home/runner/.cache/pip
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:20.2775791Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:20.8748234Z Received 125305856 of 125305856 (100.0%), 225.0 MBs/sec
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:20.8748715Z Cache Size: ~120 MB (125305856 B)
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:20.8767381Z [command]/usr/bin/tar -xf /home/runner/work/_temp/74477af6-8b02-4a42-b179-ea6d4b2be95f/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:21.0488409Z Cache restored successfully
+JavaScript regressions	UNKNOWN STEP	2026-11-03T21:35:21.0539548Z Cache restored from key: set

@@ -1,0 +1,31 @@
+26-11-03T21:36:10.8567765Z 2026-11-03T21:36:10.856Z pw:browser [pid=3358][err] [1103/213610.855381:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:10.8591475Z Chromium version: 156.0.8078.4
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:10.8683936Z 2026-11-03T21:36:10.866Z pw:browser [pid=3358][err] [1103/213610.865564:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1655] drmGetDevices2() has not found any devices
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:10.8717932Z 2026-11-03T21:36:10.870Z pw:browser [pid=3358][err] [1103/213610.868241:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:10.9433316Z 2026-11-03T21:36:10.942Z pw:browser [pid=3358][err] [1103/213610.942691:INFO:CONSOLE:3] "--playwright--set--content--b53569409473d739a4d90dc657bd4f09--", source:  (3)
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:10.9822040Z DOM diagnostic: text_content='Ready', inner_text='Ready'
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:10.9828748Z PASS: launch, local HTTP navigation and DOM check
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:10.9830080Z 2026-11-03T21:36:10.981Z pw:browser [pid=3358] <gracefully close start>
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.0082504Z 2026-11-03T21:36:11.008Z pw:browser [pid=3358] <process did exit: exitCode=0, signal=null>
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.0083907Z 2026-11-03T21:36:11.008Z pw:browser [pid=3358] starting temporary directories cleanup
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.0125932Z 2026-11-03T21:36:11.012Z pw:browser [pid=3358] finished temporary directories cleanup
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.0126515Z 2026-11-03T21:36:11.012Z pw:browser [pid=3358] <gracefully close end>
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4902122Z ##[group]Run set -o pipefail
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4902685Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4903821Z ^[[36;1mpython -m pytest -v -ra python/tests/live_e2e --basetemp=ci-live-tmp --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4935494Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4936125Z env:
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4936686Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4937388Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4937807Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4938343Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4939191Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4939993Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4941022Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4941845Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4942605Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:11.4943243Z ##[endgroup]
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:12.2086236Z ============================= test session starts ==============================
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:12.2102769Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:12.2108758Z cachedir: .pytest_cache
+Live Uvicorn	UNKNOWN STEP	2026-11-03T21:36:12.2109298Z rootdir: /home/runner/work/Looking-Glass/Looking-Glas
