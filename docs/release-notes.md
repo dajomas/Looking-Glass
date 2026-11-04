@@ -9,6 +9,12 @@ are not summarized here.
 
 ### Fixed
 
+- **Original-image replacement retains superseded artwork safely (bugs 17/18, accepted).**
+  The old original is registered for retirement in the replacement transaction
+  instead of being deleted online after commit. Previously selected reader
+  paths remain available until coordinated offline collection, and old-file
+  unlink failures no longer interrupt post-commit fog invalidation and viewer
+  notification. Compatibility checks and failed-new-file cleanup are retained.
 - **Explicit configuration selections fail safely (bug 23, accepted).**
   --config and LG_CONFIG require a readable file and reject empty selectors.
   A missing explicit file no longer silently starts with default settings.
@@ -34,6 +40,9 @@ are not summarized here.
 ### Upgrade notes
 
 - No database migration is required for these changes.
+- Superseded original images now consume disk until explicit offline collection.
+  Stop all readers and use the installation's configuration before maintenance;
+  see [retired artwork maintenance](image-retirement.md).
 - Ensure an explicitly configured file is present and readable; remove empty
   LG_CONFIG assignments instead of using them to request defaults.
 - After a self-reset, sign in again on other browsers and on the viewer portal.
@@ -42,6 +51,17 @@ are not summarized here.
   cannot be recalled.
 
 ### Verification
+
+Bugs 17 and 18 are accepted using GitHub Actions run 41906927331, attempt 1,
+on tested source `d0375c3cf72058268f79b9fc9fcae28ce8a51818`: overall success and
+all five jobs successful, including their report-validation steps. CI evidence
+is stored at `240c557b8e77eeabf37128fcd02f4558c08857f0` under
+`ci-results-41906927331-attempt-1/`. The full local run tested the same source;
+evidence commit `432264823456a9cded97cc633c271765343db1fb` reports Python 1,476
+cases, JavaScript 28 scripts, browser 172, live 18 and recovery 6, with zero
+reported failures/errors/skips in every group. These counts are from the local
+reports, not a separate recount of CI JUnit cases. See
+[accepted closure and evidence limits](handover/085-bugs-17-18-accepted-closure-2026-11-04.md).
 
 Bug 23 is accepted using successful GitHub Actions run 41723122486, attempt 1,
 on fix commit `5232cc70fbc6816858f4d1b7eedf78a577976e2b` (all five jobs report
