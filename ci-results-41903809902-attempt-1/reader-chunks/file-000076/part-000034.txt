@@ -1,0 +1,24 @@
+ated_deletions_are_harmless" time="0.000" /><testcase classname="python.tests.test_nedb_replay.NeDBReplayTests" name="test_update_then_delete" time="0.000" /><testcase classname="python.tests.test_nedb_replay.NeDBReplayTests" name="test_wall_deletion_removes_document" time="0.000" /><testcase classname="python.tests.test_nedb_replay.NeDBReplayTests" name="test_zip_pack_uses_replayed_geometry" time="0.001" /><testcase classname="python.tests.test_nedb_replay.NeDBReplayTests" name="test_zip_with_only_deleted_geometry_reports_no_sets" time="0.001" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_dimension_change_with_alternate_is_lossless_rejection[False-500-200]" time="0.656" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_dimension_change_with_alternate_is_lossless_rejection[False-400-250]" time="0.869" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_dimension_change_with_alternate_is_lossless_rejection[False-500-250]" time="0.667" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_dimension_change_with_alternate_is_lossless_rejection[True-500-200]" time="0.684" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_dimension_change_with_alternate_is_lossless_rejection[True-400-250]" time="0.698" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_dimension_change_with_alternate_is_lossless_rejection[True-500-250]" time="0.699" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_same_size_preserves_configuration_history_notes_and_alternate" time="0.678" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_dimension_change_without_alternate_remains_supported" time="0.548" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_alternate_committed_during_storage_is_rechecked_under_write_lock" time="0.563" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_replacement_authorization_precedes_image_storage[missing-csrf]" time="0.636" /><testcase classname="python.tests.test_original_image_compatibility_web" name="test_replacement_authorization_precedes_image_storage[wrong-owner]" time="0.689" /><testcase classname="python.tests.test_original_image_retirement_unit.OriginalRetirementTests" name="test_precommit_failure_rolls_back_retirement_and_reference" time="0.025"><failure message="KeyError: &quot;'__name__' not in globals&quot;">self = &lt;test_original_image_retirement_unit.OriginalRetirementTests testMethod=test_precommit_failure_rolls_back_retirement_and_reference&gt;
+
+    def test_precommit_failure_rolls_back_retirement_and_reference(self):
+        self.reconcile.side_effect = sqlite3.OperationalError("injected before commit")
+        with self.assertRaises(sqlite3.OperationalError):
+&gt;           self.request()
+
+python/tests/test_original_image_retirement_unit.py:128: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/tests/test_original_image_retirement_unit.py:103: in request
+    return asyncio.run(self.replace(self.ctx, {}, 1, None))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/runners.py:205: in run
+    return runner.run(main)
+           ^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/runners.py:128: in run
+    return self._loop.run_until_complete(task)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/base_events.py:720: in run_until_complete
+    return future.result()
+           ^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Annotated[UploadFile, F

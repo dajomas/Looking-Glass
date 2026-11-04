@@ -1,0 +1,34 @@
+KNOWN STEP	2026-11-04T20:12:17.7091735Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/runners.py:205: in run
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7092168Z     return runner.run(main)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7092397Z            ^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7092760Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/runners.py:128: in run
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7093216Z     return self._loop.run_until_complete(task)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7093517Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7093995Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/base_events.py:720: in run_until_complete
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7094900Z     return future.result()
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7095148Z            ^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7095435Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7095686Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7096441Z ctx = namespace(db=namespace(connect=<function OriginalRetirementTests.setUp.<locals>.connect at 0x7fca4d19b1c0>), settings=namespace(maps_dir=PosixPath('/tmp/tmpbqggtssr')), fog=namespace(invalidate=<Mock id='140506880713664'>))
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7097397Z user = {}, map_id = 1, image = None
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7097574Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7097896Z     async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Annotated[UploadFile, File()]):
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7098553Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7098874Z             m, c = map_for_manage(conn, user, map_id)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7099217Z         raw = await _read_upload(ctx, image)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7099504Z         try:
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7099904Z             stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, c["id"])
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7100402Z         except images.ImageImportError as exc:
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7100739Z             return _back(f"/maps/{map_id}", err=str(exc))
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7101153Z         with _image_write_connection(ctx, stored.relative_path) as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7101652Z             # Serialize the compatibility check with alternate uploads and replacement.
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7102083Z             conn.execute("BEGIN IMMEDIATE")
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7102393Z             m, c = map_for_manage(conn, user, map_id)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7102825Z             if (stored.width, stored.height) != (m["width"], m["height"]) and conn.execute(
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7103378Z                     "SELECT 1 FROM double_reveal_maps WHERE map_id = ?", (map_id,)).fetchone():
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7103790Z                 raise BadRequest(
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7104296Z                     f"Original image must remain {m['width']} × {m['height']} pixels while "
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7105366Z                     "alternate artwork exists. Resize the replacement to match; "
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7106132Z                     "existing artwork and play state were not changed.")
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7106711Z             image_retirement.retire_paths(conn, [m["image_file"]])
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7107507Z            

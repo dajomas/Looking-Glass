@@ -1,0 +1,32 @@
+N STEP	2026-11-04T20:12:17.7143342Z   File "/home/runner/work/Looking-Glass/Looking-Glass/python/looking_glass/web/admin/campaigns.py", line 64, in _image_write_connection
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7144046Z     images.delete_map_image(ctx.settings.maps_dir, relative_path)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7144664Z     ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7145420Z   File "/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/unittest/mock.py", line 1176, in __call__
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7145936Z     return self._mock_call(*args, **kwargs)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7146226Z            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7146742Z   File "/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7147273Z     return self._execute_mock_call(*args, **kwargs)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7147594Z            ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7148158Z   File "/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/unittest/mock.py", line 1241, in _execute_mock_call
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7148678Z     raise effect
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7148915Z PermissionError: injected unlink failure
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7149399Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7149945Z =========================== short test summary info ============================
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7150813Z FAILED python/tests/test_original_image_retirement_unit.py::OriginalRetirementTests::test_precommit_failure_rolls_back_retirement_and_reference - KeyError: "'__name__' not in globals"
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7152055Z FAILED python/tests/test_original_image_retirement_unit.py::OriginalRetirementTests::test_selected_old_path_and_new_reader_both_complete - KeyError: "'__name__' not in globals"
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7153280Z FAILED python/tests/test_original_image_retirement_unit.py::OriginalRetirementTests::test_unlink_failure_cannot_skip_postcommit_notification - KeyError: "'__name__' not in globals"
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7154150Z ======== 3 failed, 1473 passed, 29 subtests passed in 169.75s (0:02:49) ========
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4909433Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4990251Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4990602Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4990884Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4991193Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4991552Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4991878Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4992230Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4992636Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4992957Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4993251Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4993559Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:18.4994039Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python /

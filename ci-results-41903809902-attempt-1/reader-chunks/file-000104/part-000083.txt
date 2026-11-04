@@ -1,0 +1,38 @@
+t repository	2026-11-04T20:09:05.8957943Z   allow-unsafe-pr-checkout: false
+Recovery	Check out repository	2026-11-04T20:09:05.8958789Z env:
+Recovery	Check out repository	2026-11-04T20:09:05.8959690Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Check out repository	2026-11-04T20:09:05.8960422Z   PYTHONUNBUFFERED: 1
+Recovery	Check out repository	2026-11-04T20:09:05.8960885Z   LG_RUN_LIVE_E2E: 1
+Recovery	Check out repository	2026-11-04T20:09:05.8961466Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:09:06.2307256Z Syncing repository: dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-04T20:09:06.2309710Z ##[group]Getting Git version info
+Recovery	Check out repository	2026-11-04T20:09:06.2310772Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-11-04T20:09:06.2311985Z [command]/usr/bin/git version
+Recovery	Check out repository	2026-11-04T20:09:06.2428180Z git version 2.56.0
+Recovery	Check out repository	2026-11-04T20:09:06.2458104Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:09:06.2474893Z Temporarily overriding HOME='/home/runner/work/_temp/4966f559-fa5d-4750-b6bd-a1df962d1bb2' before making global git config changes
+Recovery	Check out repository	2026-11-04T20:09:06.2477686Z Adding repository directory to the temporary git global config as a safe directory
+Recovery	Check out repository	2026-11-04T20:09:06.2480875Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-11-04T20:09:06.2552581Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-11-04T20:09:06.2555122Z ##[group]Determining repository object format
+Recovery	Check out repository	2026-11-04T20:09:06.2558283Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:09:06.2559897Z ##[group]Initializing the repository
+Recovery	Check out repository	2026-11-04T20:09:06.2564705Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-11-04T20:09:06.2694394Z hint: Using 'master' as the name for the initial branch. This default branch name
+Recovery	Check out repository	2026-11-04T20:09:06.2696962Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Recovery	Check out repository	2026-11-04T20:09:06.2698613Z hint: to use in all of your new repositories, which will suppress this warning,
+Recovery	Check out repository	2026-11-04T20:09:06.2700816Z hint: call:
+Recovery	Check out repository	2026-11-04T20:09:06.2701995Z hint:
+Recovery	Check out repository	2026-11-04T20:09:06.2702956Z hint: 	git config --global init.defaultBranch <name>
+Recovery	Check out repository	2026-11-04T20:09:06.2704165Z hint:
+Recovery	Check out repository	2026-11-04T20:09:06.2705406Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Recovery	Check out repository	2026-11-04T20:09:06.2707068Z hint: 'development'. The just-created branch can be renamed via this command:
+Recovery	Check out repository	2026-11-04T20:09:06.2708946Z hint:
+Recovery	Check out repository	2026-11-04T20:09:06.2710140Z hint: 	git branch -m <name>
+Recovery	Check out repository	2026-11-04T20:09:06.2711157Z hint:
+Recovery	Check out repository	2026-11-04T20:09:06.2712432Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Recovery	Check out repository	2026-11-04T20:09:06.2714025Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Recovery	Check out repository	2026-11-04T20:09:06.2730542Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-04T20:09:06.2780033Z ##[endgroup]
+Recovery	Check out repository	2026-11-04T20:09:06.2781292Z ##[group]Disabling automatic garbage collection
+Recovery	Check out repository	2026-11-04T20:09:06.2784297Z [command]/usr/bin/git config 

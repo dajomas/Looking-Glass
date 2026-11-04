@@ -1,0 +1,112 @@
+       "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:f7ad4f769c22475b888c2299773b1e9b",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "38a84feda540624bd2524320c3f50a1c6c1bd5fbb3bb2294df85751c06c7c4b9",
+            "SandboxKey": "/var/run/docker/netns/38a84feda540",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32772"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32773"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "0710867711d8e317a704138c71d0d86725661d2d00a308f084d5b0345e60a4b9",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "da:7f:4a:39:be:3a",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "da:7f:4a:39:be:3a",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "699e412312dde70f81a8a71b5a33b565bea97373757ed152ede61b2ecab44fb9",
+                    "EndpointID": "0710867711d8e317a704138c71d0d86725661d2d00a308f084d5b0345e60a4b9",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-dbd732b0328c4862a9b23b90d7d756d2']
+exit=0
+[
+    {
+        "Id": "086837a569cab5080501420f2d8eb6583e301a98ea244a467b8b3e847e65e437",
+        "Created": "2026-11-04T20:10:01.96766367Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3595,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-04T20:10:01.988231718Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+       

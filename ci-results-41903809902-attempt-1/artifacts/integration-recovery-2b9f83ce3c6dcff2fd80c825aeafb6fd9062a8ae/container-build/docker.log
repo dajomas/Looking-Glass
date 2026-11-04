@@ -1,0 +1,291 @@
+['/usr/bin/docker', 'version']
+exit=0
+Client: Docker Engine - Community
+ Version:           28.0.4
+ API version:       1.48
+ Go version:        go1.23.7
+ Git commit:        b8034c0
+ Built:             Tue Mar 25 15:07:16 2025
+ OS/Arch:           linux/amd64
+ Context:           default
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          28.0.4
+  API version:      1.48 (minimum version 1.24)
+  Go version:       go1.23.7
+  Git commit:       6430e49
+  Built:            Tue Mar 25 15:07:16 2025
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          v2.4.2
+  GitCommit:        b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc:
+  Version:          1.5.2
+  GitCommit:        v1.5.2-0-g29dd3dc2
+ docker-init:
+  Version:          0.19.0
+  GitCommit:        de40ad0
+
+
+['/usr/bin/docker', 'info']
+exit=0
+Client: Docker Engine - Community
+ Version:    28.0.4
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.38.1
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v2.38.2
+    Path:     /usr/libexec/docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 0
+  Running: 0
+  Paused: 0
+  Stopped: 0
+ Images: 6
+ Server Version: 28.0.4
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: false
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: systemd
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: b7a25261e029d68978bbf290df0a62fc819b3c51
+ runc version: v1.5.2-0-g29dd3dc2
+ init version: de40ad0
+ Security Options:
+  apparmor
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 7.0.0-1017-azure
+ Operating System: Ubuntu 24.04.5 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 4
+ Total Memory: 15.61GiB
+ Name: runnervm7aw5e
+ ID: aeba5083-36f4-4ab3-a6cd-5185eccc7a63
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Username: githubactions
+ Experimental: false
+ Insecure Registries:
+  ::1/128
+  127.0.0.0/8
+ Live Restore Enabled: false
+
+
+
+['/usr/bin/docker', 'build', '--pull', '-f', '/home/runner/work/Looking-Glass/Looking-Glass/Containerfile', '-t', 'looking-glass-test:f7ad4f769c22475b888c2299773b1e9b', '/home/runner/work/Looking-Glass/Looking-Glass']
+exit=0
+
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Containerfile
+#1 transferring dockerfile: 833B done
+#1 DONE 0.0s
+
+#2 [auth] library/python:pull token for registry-1.docker.io
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.14-slim
+#3 DONE 0.4s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 2B done
+#4 DONE 0.0s
+
+#5 [ 1/10] FROM docker.io/library/python:3.14-slim@sha256:930e1abba7c4e8f96ed93e8012c35d174d7732752731bbd5e8e757d7ec6f3966
+#5 resolve docker.io/library/python:3.14-slim@sha256:930e1abba7c4e8f96ed93e8012c35d174d7732752731bbd5e8e757d7ec6f3966 done
+#5 ...
+
+#6 [internal] load build context
+#6 transferring context: 2.50MB 0.1s done
+#6 DONE 0.1s
+
+#5 [ 1/10] FROM docker.io/library/python:3.14-slim@sha256:930e1abba7c4e8f96ed93e8012c35d174d7732752731bbd5e8e757d7ec6f3966
+#5 sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 29.86MB / 29.86MB 0.1s done
+#5 sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282 1.29MB / 1.29MB 0.0s done
+#5 sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403 12.41MB / 12.41MB 0.1s done
+#5 sha256:40a79f5805ed632260bcefb9f20f1db1f62ba605ded5fe5b350795e17d6f9704 250B / 250B 0.1s done
+#5 sha256:930e1abba7c4e8f96ed93e8012c35d174d7732752731bbd5e8e757d7ec6f3966 10.37kB / 10.37kB done
+#5 sha256:ec6a14df5b63e3fbb3498e3240f7f640c230f9dca67683d23265db3866697f2d 1.75kB / 1.75kB done
+#5 sha256:b37832cc2a1f91289afeccd6d96cfb9d480024615956dc078069ea82ffce1338 5.09kB / 5.09kB done
+#5 extracting sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5
+#5 extracting sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5 0.9s done
+#5 extracting sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282
+#5 extracting sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282 0.1s done
+#5 extracting sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403
+#5 extracting sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403 0.6s done
+#5 extracting sha256:40a79f5805ed632260bcefb9f20f1db1f62ba605ded5fe5b350795e17d6f9704
+#5 extracting sha256:40a79f5805ed632260bcefb9f20f1db1f62ba605ded5fe5b350795e17d6f9704 done
+#5 DONE 2.7s
+
+#7 [ 2/10] WORKDIR /app
+#7 DONE 0.0s
+
+#8 [ 3/10] COPY requirements.txt .
+#8 DONE 0.0s
+
+#9 [ 4/10] RUN pip install --no-cache-dir -r requirements.txt
+#9 1.930 Collecting fastapi>=0.115 (from -r requirements.txt (line 1))
+#9 2.002   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+#9 2.050 Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 2.069   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#9 2.101 Collecting jinja2>=3.1 (from -r requirements.txt (line 3))
+#9 2.120   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#9 2.145 Collecting python-multipart>=0.0.12 (from -r requirements.txt (line 4))
+#9 2.164   Downloading python_multipart-0.0.33-py3-none-any.whl.metadata (6.3 kB)
+#9 2.213 Collecting pyyaml>=6.0 (from -r requirements.txt (line 5))
+#9 2.232   Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+#9 2.438 Collecting pillow>=11.3 (from -r requirements.txt (line 6))
+#9 2.457   Downloading pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+#9 2.681 Collecting numpy>=2.3 (from -r requirements.txt (line 7))
+#9 2.701   Downloading numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+#9 2.839 Collecting scipy>=1.16 (from -r requirements.txt (line 8))
+#9 2.859   Downloading scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+#9 2.910 Collecting mistune<4,>=3.1 (from -r requirements.txt (line 9))
+#9 2.930   Downloading mistune-3.4.0-py3-none-any.whl.metadata (2.1 kB)
+#9 2.962 Collecting bleach<7,>=6.2 (from -r requirements.txt (line 10))
+#9 2.981   Downloading bleach-6.4.0-py3-none-any.whl.metadata (32 kB)
+#9 3.008 Collecting httpx2>=2.16.0 (from -r requirements.txt (line 11))
+#9 3.027   Downloading httpx2-2.16.0-py3-none-any.whl.metadata (10 kB)
+#9 3.054 Collecting webencodings (from bleach<7,>=6.2->-r requirements.txt (line 10))
+#9 3.074   Downloading webencodings-0.6.1-py3-none-any.whl.metadata (3.4 kB)
+#9 3.110 Collecting starlette>=0.46.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 3.129   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#9 3.248 Collecting pydantic>=2.9.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 3.267   Downloading pydantic-2.14.2-py3-none-any.whl.metadata (137 kB)
+#9 3.314 Collecting typing-extensions>=4.8.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 3.333   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#9 3.357 Collecting typing-inspection>=0.4.2 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 3.375   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#9 3.398 Collecting annotated-doc>=0.0.2 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 3.417   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+#9 3.452 Collecting opentelemetry-api>=1.44.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 3.472   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#9 3.501 Collecting click>=7.0 (from uvicorn>=0.32->uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 3.519   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#9 3.543 Collecting h11>=0.8 (from uvicorn>=0.32->uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 3.562   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#9 3.636 Collecting MarkupSafe>=2.0 (from jinja2>=3.1->-r requirements.txt (line 3))
+#9 3.655   Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#9 3.688 Collecting anyio>=4.10 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+#9 3.706   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#9 3.732 Collecting httpcore2==2.16.0 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+#9 3.751   Downloading httpcore2-2.16.0-py3-none-any.whl.metadata (27 kB)
+#9 3.781 Collecting idna>=3.18 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+#9 3.801   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#9 3.826 Collecting truststore>=0.10 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+#9 3.845   Downloading truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
+#9 3.875 Collecting annotated-types>=0.6.0 (from pydantic>=2.9.0->fastapi>=0.115->-r requirements.txt (line 1))
+#9 3.894   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#9 4.676 Collecting pydantic-core==2.50.2 (from pydantic>=2.9.0->fastapi>=0.115->-r requirements.txt (line 1))
+#9 4.696   Downloading pydantic_core-2.50.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.5 kB)
+#9 4.751 Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 4.770   Downloading httptools-0.9.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+#9 4.798 Collecting python-dotenv>=0.13 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 4.825   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+#9 4.880 Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 4.900   Downloading uvloop-0.23.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+#9 4.989 Collecting watchfiles>=0.20 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 5.008   Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+#9 5.153 Collecting websockets>=13.0 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 5.172   Downloading websockets-17.4-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+#9 5.198 Downloading mistune-3.4.0-py3-none-any.whl (70 kB)
+#9 5.217 Downloading bleach-6.4.0-py3-none-any.whl (165 kB)
+#9 5.239 Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+#9 5.259 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#9 5.279 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#9 5.300 Downloading python_multipart-0.0.33-py3-none-any.whl (32 kB)
+#9 5.319 Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+#9 5.344    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 794.2/794.2 kB 28.2 MB/s  0:00:00
+#9 5.364 Downloading pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+#9 5.407    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 173.4 MB/s  0:00:00
+#9 5.426 Downloading numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+#9 5.456    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 591.7 MB/s  0:00:00
+#9 5.476 Downloading scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+#9 5.539    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 581.1 MB/s  0:00:00
+#9 5.559 Downloading httpx2-2.16.0-py3-none-any.whl (97 kB)
+#9 5.579 Downloading httpcore2-2.16.0-py3-none-any.whl (85 kB)
+#9 5.598 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+#9 5.617 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#9 5.636 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#9 5.656 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#9 5.675 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#9 5.695 Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+#9 5.714 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#9 5.733 Downloading pydantic-2.14.2-py3-none-any.whl (490 kB)
+#9 5.753 Downloading pydantic_core-2.50.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.2 MB)
+#9 5.759    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 646.7 MB/s  0:00:00
+#9 5.778 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#9 5.797 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#9 5.824 Downloading truststore-0.10.5-py3-none-any.whl (19 kB)
+#9 5.843 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#9 5.862 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#9 5.884 Downloading httptools-0.9.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (514 kB)
+#9 5.903 Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+#9 5.923 Downloading uvloop-0.23.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.4 MB)
+#9 5.937    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 364.7 MB/s  0:00:00
+#9 5.956 Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+#9 5.976 Downloading websockets-17.4-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (226 kB)
+#9 5.995 Downloading webencodings-0.6.1-py3-none-any.whl (8.7 kB)
+#9 6.311 Installing collected packages: websockets, webencodings, uvloop, typing-extensions, truststore, pyyaml, python-multipart, python-dotenv, pillow, numpy, mistune, MarkupSafe, idna, httptools, h11, click, annotated-types, annotated-doc, uvicorn, typing-inspection, scipy, pydantic-core, opentelemetry-api, jinja2, httpcore2, bleach, anyio, watchfiles, starlette, pydantic, httpx2, fastapi
+#9 16.29 
+#9 16.30 Successfully installed MarkupSafe-3.0.4 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 bleach-6.4.0 click-8.5.0 fastapi-0.162.0 h11-0.16.0 httpcore2-2.16.0 httptools-0.9.0 httpx2-2.16.0 idna-3.20 jinja2-3.1.6 mistune-3.4.0 numpy-2.5.4 opentelemetry-api-1.45.2 pillow-13.0.0 pydantic-2.14.2 pydantic-core-2.50.2 python-dotenv-1.2.4 python-multipart-0.0.33 pyyaml-6.0.3 scipy-1.18.1 starlette-1.10.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 webencodings-0.6.1 websockets-17.4
+#9 16.30 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 16.30 
+#9 16.30 [notice] A new release of pip is available: 26.2.2 -> 26.3
+#9 16.30 [notice] To update, run: pip install --upgrade pip
+#9 DONE 16.7s
+
+#10 [ 5/10] COPY python ./python
+#10 DONE 0.1s
+
+#11 [ 6/10] COPY static ./static
+#11 DONE 0.0s
+
+#12 [ 7/10] COPY templates ./templates
+#12 DONE 0.0s
+
+#13 [ 8/10] COPY web_html ./web_html
+#13 DONE 0.0s
+
+#14 [ 9/10] COPY config.example.yaml ./config.example.yaml
+#14 DONE 0.0s
+
+#15 [10/10] RUN useradd --system --uid 1001 --home /app lg && mkdir -p /app/data && chown -R lg /app/data
+#15 0.133 useradd warning: lg's uid 1001 is greater than SYS_UID_MAX 999
+#15 DONE 0.2s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 2.3s done
+#16 writing image sha256:35486948fd5fda8e1051d2e60ec55807dd9836c526c0cb6b36406d4d9498d848 done
+#16 naming to docker.io/library/looking-glass-test:f7ad4f769c22475b888c2299773b1e9b done
+#16 DONE 2.3s
+
+['/usr/bin/docker', 'image', 'rm', 'looking-glass-test:f7ad4f769c22475b888c2299773b1e9b']
+exit=0
+Untagged: looking-glass-test:f7ad4f769c22475b888c2299773b1e9b
+Deleted: sha256:35486948fd5fda8e1051d2e60ec55807dd9836c526c0cb6b36406d4d9498d848
+
+

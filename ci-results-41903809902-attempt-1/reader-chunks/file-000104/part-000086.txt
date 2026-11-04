@@ -1,0 +1,32 @@
+48052
+Recovery	Set up Python	2026-11-04T20:09:08.2085623Z Received 77418312 of 77418312 (100.0%), 159.5 MBs/sec
+Recovery	Set up Python	2026-11-04T20:09:08.2086773Z Cache Size: ~74 MB (77418312 B)
+Recovery	Set up Python	2026-11-04T20:09:08.2117517Z [command]/usr/bin/tar -xf /home/runner/work/_temp/24f93ced-0901-4ac6-b192-dce8fed4037b/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Recovery	Set up Python	2026-11-04T20:09:08.3517656Z Cache restored successfully
+Recovery	Set up Python	2026-11-04T20:09:08.3559782Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Recovery	Install application and test dependencies	﻿2026-11-04T20:09:08.3823364Z ##[group]Run python -m pip install --upgrade pip
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3823899Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3824380Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3850348Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3850805Z env:
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3851175Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3851643Z   PYTHONUNBUFFERED: 1
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3851924Z   LG_RUN_LIVE_E2E: 1
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3852304Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3852904Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3853472Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3853985Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3854472Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3854974Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Recovery	Install application and test dependencies	2026-11-04T20:09:08.3855424Z ##[endgroup]
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.0517364Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages (26.2.2)
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.1742028Z Collecting pip
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.1756488Z   Using cached pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.1800981Z Using cached pip-26.3-py3-none-any.whl (2.0 MB)
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.2295198Z Installing collected packages: pip
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.2296515Z   Attempting uninstall: pip
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.2330362Z     Found existing installation: pip 26.2.2
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.3024058Z     Uninstalling pip-26.2.2:
+Recovery	Install application and test dependencies	2026-11-04T20:09:09.3091363Z       Successfully uninstalled pip-26.2.2
+Recovery	Install application and test dependencies	2026-11-04T20:09:10.6624807Z Successfully installed pip-26.3
+Recovery	Install application and test dependencies	2026-11-04T20:09:11.1674580Z Collecting fastapi>=0.115 (from -r /home/runner

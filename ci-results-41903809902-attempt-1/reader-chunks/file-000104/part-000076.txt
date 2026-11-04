@@ -1,0 +1,36 @@
+ maps_repo.replace_image(conn, map_id, stored.relative_path, stored.width, stored.height)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7108031Z >           from ...services.room_notes import reconcile_map
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7108378Z E           KeyError: "'__name__' not in globals"
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7108587Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7108746Z python/looking_glass/web/admin/campaigns.py:292: KeyError
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7109255Z _ OriginalRetirementTests.test_unlink_failure_cannot_skip_postcommit_notification _
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7109608Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7110039Z self = <test_original_image_retirement_unit.OriginalRetirementTests testMethod=test_unlink_failure_cannot_skip_postcommit_notification>
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7110569Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7110753Z     def test_unlink_failure_cannot_skip_postcommit_notification(self):
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7111301Z         self.images.delete_map_image.side_effect = PermissionError("injected unlink failure")
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7111922Z >       response = self.request()
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7112187Z                    ^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7112344Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7112503Z python/tests/test_original_image_retirement_unit.py:117: 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7112902Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7113331Z python/tests/test_original_image_retirement_unit.py:103: in request
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7113769Z     return asyncio.run(self.replace(self.ctx, {}, 1, None))
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7114112Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7114883Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/runners.py:205: in run
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7115334Z     return runner.run(main)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7115562Z            ^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7115933Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/runners.py:128: in run
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7116391Z     return self._loop.run_until_complete(task)
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7116697Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7117186Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/asyncio/base_events.py:720: in run_until_complete
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7117686Z     return future.result()
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7117925Z            ^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7118225Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7118619Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7119356Z ctx = namespace(db=namespace(connect=<function OriginalRetirementTests.setUp.<locals>.connect at 0x7fca4d19b530>), settings=namespace(maps_dir=PosixPath('/tmp/tmpk_ok5r42')), fog=namespace(invalidate=<Mock id='140506880718704'>))
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7120294Z user = {}, map_id = 1, image = None
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7120470Z 
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7120790Z     async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Annotated[UploadFile, File()]):
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7121304Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-04T20:12:17.7121618Z             m, c

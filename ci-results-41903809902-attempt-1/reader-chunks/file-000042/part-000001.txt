@@ -1,0 +1,15 @@
+✔ loading is not ready until decode and swap (4.499109ms)
+✔ older decode never acknowledges the newer image (1.20569ms)
+✔ blank invalidates in-flight image and is acknowledged (0.972498ms)
+✔ failed decode reports failure and periodic refresh recovers (1.835981ms)
+✔ fetch failure is visible, image timeout fails, close shows reconnecting (4.392549ms)
+✔ a stale failed decode cannot overwrite latest success status (0.989923ms)
+✔ admin diagnostics render untrusted names only as text and clear on error (1.137707ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19.67337

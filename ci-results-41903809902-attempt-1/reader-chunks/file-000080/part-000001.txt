@@ -1,0 +1,99 @@
+['/usr/bin/docker', 'volume', 'create', 'looking-glass-test-data-9bbf6eb044af4979862810fb04b94c69']
+exit=0
+looking-glass-test-data-9bbf6eb044af4979862810fb04b94c69
+
+
+['/usr/bin/docker', 'run', '--detach', '--name', 'looking-glass-test-9bbf6eb044af4979862810fb04b94c69', '--publish', '127.0.0.1::5000', '--publish', '127.0.0.1::5100', '--mount', 'type=volume,source=looking-glass-test-data-9bbf6eb044af4979862810fb04b94c69,target=/app/data', '--mount', 'type=bind,source=/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json,target=/app/ci-config.json,readonly', '--env', 'LG_SUPERADMIN_PASSWORD=container-bootstrap-password', 'looking-glass-test:f7ad4f769c22475b888c2299773b1e9b', 'python', 'python/main.py', '--config', '/app/ci-config.json', 'serve']
+exit=0
+9cdc3a96839442b4552095357fb1d1c3b264a223658b8742b82069de4a5f4a6e
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-9bbf6eb044af4979862810fb04b94c69']
+exit=0
+[
+    {
+        "Id": "9cdc3a96839442b4552095357fb1d1c3b264a223658b8742b82069de4a5f4a6e",
+        "Created": "2026-11-04T20:09:54.930958892Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2849,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-04T20:09:54.958642218Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:35486948fd5fda8e1051d2e60ec55807dd9836c526c0cb6b36406d4d9498d848",
+        "ResolvConfPath": "/var/lib/docker/containers/9cdc3a96839442b4552095357fb1d1c3b264a223658b8742b82069de4a5f4a6e/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/9cdc3a96839442b4552095357fb1d1c3b264a223658b8742b82069de4a5f4a6e/hostname",
+        "HostsPath": "/var/lib/docker/containers/9cdc3a96839442b4552095357fb1d1c3b264a223658b8742b82069de4a5f4a6e/hosts",
+        "LogPath": "/var/lib/docker/containers/9cdc3a96839442b4552095357fb1d1c3b264a223658b8742b82069de4a5f4a6e/9cdc3a96839442b4552095357fb1d1c3b264a223658b8742b82069de4a5f4a6e-json.log",
+        "Name": "/looking-glass-test-9bbf6eb044af4979862810fb04b94c69",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+      

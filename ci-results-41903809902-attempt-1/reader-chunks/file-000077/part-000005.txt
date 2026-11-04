@@ -1,0 +1,80 @@
+"",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "looking-glass-test-data-dbd732b0328c4862a9b23b90d7d756d2",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "2ff23b519569c1237d7b213ebd608ab74472f8c57ab6ff4a1f5ee80ee1420802",
+                "LowerDir": "/var/lib/docker/overlay2/f7fc06f77319c730a5fef0c042a6ed6b3b8ba670421d1339bbd513cacdaf7f68-init/diff:/var/lib/docker/overlay2/03thmn5zvp8gko6g4nqgoda8r/diff:/var/lib/docker/overlay2/zp4zqqfy8w0fugxzo6rxtmxi2/diff:/var/lib/docker/overlay2/28vz64n8d5murwdbv39zjz3ml/diff:/var/lib/docker/overlay2/vq5p32wc614plnc613xp7li16/diff:/var/lib/docker/overlay2/hwjq9fr33i8ud113f2bcmu1je/diff:/var/lib/docker/overlay2/bn4u5mxjwf5we9judobotjm01/diff:/var/lib/docker/overlay2/wyqex55pdc0825405bhni0ww1/diff:/var/lib/docker/overlay2/xinzj8rwi2cz3d3jse6yg7jga/diff:/var/lib/docker/overlay2/7637aqmmu12ltaigyrm9o1yrm/diff:/var/lib/docker/overlay2/1b5031999385d62d5146819d05230bcc405b6f9a08f5867404e72f86522af15c/diff:/var/lib/docker/overlay2/2bcdc7756b5f61ef6659f76a2bd61659c37531c27bd10f9f493bb5de84386872/diff:/var/lib/docker/overlay2/0674c4706a8a1adb68af63745bf107962ce463bd25746790fc4c48f7c5e2c037/diff:/var/lib/docker/overlay2/52c888604a2353f376f84464acc0547945068c22c3304a28f6db9044569563db/diff",
+                "MergedDir": "/var/lib/docker/overlay2/f7fc06f77319c730a5fef0c042a6ed6b3b8ba670421d1339bbd513cacdaf7f68/merged",
+                "UpperDir": "/var/lib/docker/overlay2/f7fc06f77319c730a5fef0c042a6ed6b3b8ba670421d1339bbd513cacdaf7f68/diff",
+                "WorkDir": "/var/lib/docker/overlay2/f7fc06f77319c730a5fef0c042a6ed6b3b8ba670421d1339bbd513cacdaf7f68/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-dbd732b0328c4862a9b23b90d7d756d2",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-dbd732b0328c4862a9b23b90d7d756d2/_da

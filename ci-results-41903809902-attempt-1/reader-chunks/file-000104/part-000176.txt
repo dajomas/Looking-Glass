@@ -1,0 +1,31 @@
+09:27.0823083Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0823617Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0823967Z ^[[36;1mfor case in skipped:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0824212Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0824582Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0824915Z ^[[36;1mif skipped or failed:^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0825204Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0825502Z ^[[36;1mPY^[[0m
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0843954Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0844232Z env:
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0844482Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0844772Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0844959Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0845186Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0845534Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0845859Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0846152Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0846450Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0846909Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.0847168Z ##[endgroup]
+JavaScript regressions	Reject skipped tests or empty results	2026-11-04T20:09:27.1102913Z Reported: 28; failed/error: 0; skipped: 0
+JavaScript regressions	Upload validation evidence	﻿2026-11-04T20:09:27.1176829Z ##[group]Run actions/upload-artifact@v4
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1177067Z with:
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1177328Z   name: integration-javascript-2b9f83ce3c6dcff2fd80c825aeafb6fd9062a8ae
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1177645Z   path: test-results/
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1177848Z   if-no-files-found: warn
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1178043Z   retention-days: 14
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1178225Z   compression-level: 6
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1178407Z   overwrite: false
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:27.1178594Z   include-hidden-files: false
+JavaScript regressions	Upload validation evidence	2026-11-04T20:09:2

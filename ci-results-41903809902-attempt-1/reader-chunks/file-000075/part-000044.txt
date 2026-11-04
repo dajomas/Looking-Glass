@@ -1,0 +1,36 @@
+ths(conn, [m["image_file"]])
+            maps_repo.replace_image(conn, map_id, stored.relative_path, stored.width, stored.height)
+>           from ...services.room_notes import reconcile_map
+E           KeyError: "'__name__' not in globals"
+
+python/looking_glass/web/admin/campaigns.py:292: KeyError
+------------------------------ Captured log call -------------------------------
+WARNING  test_original_image_retirement_unit:campaigns.py:66 Could not verify or remove map image new.png after a database write failure; retaining any remaining file
+Traceback (most recent call last):
+  File "/home/runner/work/Looking-Glass/Looking-Glass/python/looking_glass/web/admin/campaigns.py", line 50, in _image_write_connection
+    yield conn
+  File "/home/runner/work/Looking-Glass/Looking-Glass/python/looking_glass/web/admin/campaigns.py", line 292, in replace_image
+    from ...services.room_notes import reconcile_map
+KeyError: "'__name__' not in globals"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/runner/work/Looking-Glass/Looking-Glass/python/looking_glass/web/admin/campaigns.py", line 64, in _image_write_connection
+    images.delete_map_image(ctx.settings.maps_dir, relative_path)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/unittest/mock.py", line 1241, in _execute_mock_call
+    raise effect
+PermissionError: injected unlink failure
+- generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+=========================== short test summary info ============================
+FAILED python/tests/test_original_image_retirement_unit.py::OriginalRetirementTests::test_precommit_failure_rolls_back_retirement_and_reference - KeyError: "'__name__' not in globals"
+FAILED python/tests/test_original_image_retirement_unit.py::OriginalRetirementTests::test_selected_old_path_and_new_reader_both_complete - KeyError: "'__name__' not in globals"
+FAILED python/tests/test_original_image_retirement_unit.py::OriginalRetirementTests::test_unlink_failure_cannot_skip_postcommit_notification - KeyError: "'__name__' not in globals"
+======== 3 failed, 1473 passed, 29 subtests passed in 169.75s (0:02:49) ========

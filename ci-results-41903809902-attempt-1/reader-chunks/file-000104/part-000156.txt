@@ -1,0 +1,32 @@
+Collect live failure diagnostics	2026-11-04T20:11:21.9872435Z ^[[36;1msource = Path("ci-live-tmp")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9872801Z ^[[36;1mdestination = Path("test-results/live-diagnostics")^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9873303Z ^[[36;1mfor pattern in ("*-trace.zip", "dm-*.png", "player-*.png", "page-errors.json"):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9873790Z ^[[36;1m    for path in source.rglob(pattern):^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9874147Z ^[[36;1m        if path.is_file() and not path.is_symlink():^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9874537Z ^[[36;1m            target = destination / path.relative_to(source)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9874956Z ^[[36;1m            target.parent.mkdir(parents=True, exist_ok=True)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9875330Z ^[[36;1m            shutil.copy2(path, target)^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9875616Z ^[[36;1mPY^[[0m
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9896280Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9896675Z env:
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9897287Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9897685Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9897921Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9898201Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9898630Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9899055Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9899451Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9899837Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9900215Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Collect live failure diagnostics	2026-11-04T20:11:21.9900547Z ##[endgroup]
+Live Uvicorn	Reject skipped tests or empty results	﻿2026-11-04T20:11:22.0429498Z ##[group]Run python - <<'PY'
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0429862Z ^[[36;1mpython - <<'PY'^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0430306Z ^[[36;1mfrom pathlib import Path^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0430605Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0430953Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0431266Z ^[[36;1mif not report.is_file():^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0431608Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0431987Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0432307Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0432599Z ^[[36;1mif not cases:^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-04T20:11:22.0432907Z ^[[36;1m    raise SystemExit("FAIL: 

@@ -1,0 +1,29 @@
+mmand]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.7874066Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8130782Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-278fde9e-b61c-4bdb-b32a-3b1625b08376.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8184054Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-278fde9e-b61c-4bdb-b32a-3b1625b08376.config
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8228587Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-278fde9e-b61c-4bdb-b32a-3b1625b08376.config
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8272397Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-278fde9e-b61c-4bdb-b32a-3b1625b08376.config
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8319038Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-278fde9e-b61c-4bdb-b32a-3b1625b08376.config
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8357976Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8358754Z ##[group]Fetching the repository
+Live Uvicorn	Check out repository	2026-11-04T20:09:06.8366931Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2b9f83ce3c6dcff2fd80c825aeafb6fd9062a8ae:refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4169273Z From https://github.com/dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4171861Z  * [new ref]         2b9f83ce3c6dcff2fd80c825aeafb6fd9062a8ae -> origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4188750Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4228413Z   origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4240652Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4278617Z 2b9f83ce3c6dcff2fd80c825aeafb6fd9062a8ae
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4285907Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4287890Z ##[group]Determining the checkout info
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4289507Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4292600Z [command]/usr/bin/git sparse-checkout disable
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4375808Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4423578Z ##[group]Checking out the ref
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.4428969Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.5345720Z Switched to a new branch 'features/perplexity'
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.5351370Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.5361575Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.5419453Z [command]/usr/bin/git log -1 --format=%H
+Live Uvicorn	Check out repository	2026-11-04T20:09:07.5456921Z 2b9f83ce3c6dcff2fd80c825aeafb6fd9062a8ae
+Live Uvicorn	Initialize evidence	﻿202

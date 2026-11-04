@@ -1,0 +1,77 @@
+00ef7d44145331fd1a34ca3ee9d2087e39db7b-init/diff:/var/lib/docker/overlay2/03thmn5zvp8gko6g4nqgoda8r/diff:/var/lib/docker/overlay2/zp4zqqfy8w0fugxzo6rxtmxi2/diff:/var/lib/docker/overlay2/28vz64n8d5murwdbv39zjz3ml/diff:/var/lib/docker/overlay2/vq5p32wc614plnc613xp7li16/diff:/var/lib/docker/overlay2/hwjq9fr33i8ud113f2bcmu1je/diff:/var/lib/docker/overlay2/bn4u5mxjwf5we9judobotjm01/diff:/var/lib/docker/overlay2/wyqex55pdc0825405bhni0ww1/diff:/var/lib/docker/overlay2/xinzj8rwi2cz3d3jse6yg7jga/diff:/var/lib/docker/overlay2/7637aqmmu12ltaigyrm9o1yrm/diff:/var/lib/docker/overlay2/1b5031999385d62d5146819d05230bcc405b6f9a08f5867404e72f86522af15c/diff:/var/lib/docker/overlay2/2bcdc7756b5f61ef6659f76a2bd61659c37531c27bd10f9f493bb5de84386872/diff:/var/lib/docker/overlay2/0674c4706a8a1adb68af63745bf107962ce463bd25746790fc4c48f7c5e2c037/diff:/var/lib/docker/overlay2/52c888604a2353f376f84464acc0547945068c22c3304a28f6db9044569563db/diff",
+                "MergedDir": "/var/lib/docker/overlay2/877e61b95472dca0da8f6b769700ef7d44145331fd1a34ca3ee9d2087e39db7b/merged",
+                "UpperDir": "/var/lib/docker/overlay2/877e61b95472dca0da8f6b769700ef7d44145331fd1a34ca3ee9d2087e39db7b/diff",
+                "WorkDir": "/var/lib/docker/overlay2/877e61b95472dca0da8f6b769700ef7d44145331fd1a34ca3ee9d2087e39db7b/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-9bbf6eb044af4979862810fb04b94c69",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-9bbf6eb044af4979862810fb04b94c69/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "9cdc3a968394",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:f7ad4f769c22475b888c2299773b1e9b",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "ac53e78925dd72355aa65e7e9942a91277988826c9e3d5fdc0f5c9b70280ff18",
+            "SandboxKey": "/var/run/docker/netns/ac53e78925
