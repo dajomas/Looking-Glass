@@ -29,8 +29,8 @@ Uncommitted bug-2 candidates are not installed branch changes.
 ## Second bug hunt: bugs 16–29
 
 Audited source: `766780262bf44922bbd7c9fa2b3081e7e28e214f` on
-`features/perplexity`, 2026-10-31. Bugs 16 and 19 are closed. Bug 23 has an
-implementation candidate with acceptance pending. Other findings remain open.
+`features/perplexity`, 2026-10-31. Bugs 16, 19 and 23 are accepted and closed.
+Other findings remain open.
 The original workflow's counts and suggested order are historical; do not use
 them to reopen accepted bugs 2/13/14/15. Existing individual status records and
 accepted handovers remain authoritative. This audit changes no earlier status.
@@ -48,7 +48,7 @@ existing bug numbering:
 - [20. Login next accepts a cross-origin backslash redirect](docs/todo/018-bugs-16-29-audit-2026-10-31.md#20-login-next-accepts-a-cross-origin-backslash-redirect)
 - [21. Login lacks cross-site submission protection](docs/todo/018-bugs-16-29-audit-2026-10-31.md#21-login-lacks-cross-site-submission-protection)
 - [22. Multipart CSRF token can cause an unhandled type error](docs/todo/018-bugs-16-29-audit-2026-10-31.md#22-multipart-csrf-token-can-cause-an-unhandled-type-error)
-- [23. Explicit missing configuration silently falls back to defaults](docs/todo/018-bugs-16-29-audit-2026-10-31.md#23-explicit-missing-configuration-silently-falls-back-to-defaults) — implementation candidate, acceptance pending; see [status and evidence](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md#bug-23-implementation-acceptance-pending)
+- [23. Explicit missing configuration silently falls back to defaults](docs/todo/018-bugs-16-29-audit-2026-10-31.md#23-explicit-missing-configuration-silently-falls-back-to-defaults) — closed 2026-11-04; see [accepted closure](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md#bug-23-accepted-closure-2026-11-04)
 - [24. Malformed configuration structures bypass loader validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#24-malformed-configuration-structures-bypass-loader-validation)
 - [25. Delayed admin polling can roll editor state backwards](docs/todo/018-bugs-16-29-audit-2026-10-31.md#25-delayed-admin-polling-can-roll-editor-state-backwards)
 - [26. Mask early return does not invalidate an in-flight different mask](docs/todo/018-bugs-16-29-audit-2026-10-31.md#26-mask-early-return-does-not-invalidate-an-in-flight-different-mask)
@@ -57,8 +57,8 @@ existing bug numbering:
 - [29. Async image upload holds a SQLite write lock across await](docs/todo/018-bugs-16-29-audit-2026-10-31.md#29-async-image-upload-holds-a-sqlite-write-lock-across-await)
 
 Suggested implementation order from the audit: **16 → 17 → 18 → 19 → 20 → 21 →
-23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16 and 19 are closed; 23 awaits
-acceptance). Severity and dependency rationale are in the audit record.
+23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16, 19 and 23 are closed).
+Severity and dependency rationale are in the audit record.
 Add regressions first and keep each fix separately reviewable.
 Items 17/18 can share a coordinated image-retirement design; 25 precedes 26.
 No application, HTTP, browser, live-server or full-suite tests were executed

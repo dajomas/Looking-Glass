@@ -1,4 +1,11 @@
-# Bug 16 closure and bug 23 configuration candidate (2026-11-03)
+# Bug 16 and bug 23: accepted closures
+
+## Current status (2026-11-04)
+
+Bugs 16 and 23 are accepted and closed. The initial implementation and validation
+sections below retain their 2026-11-03 context, including historical pending
+statements. The dated bug 23 acceptance section at the end supersedes those
+pending statements; it does not rewrite the original evidence limits.
 
 ## Bug 16: accepted and closed
 
@@ -64,3 +71,45 @@ was reviewed; its optional quick-start config and deployment link remain valid,
 so it needs no edit. HANDOVER.md indexes this record. All proposed files are below
 25,000 bytes. Existing historical records/manifests and prior evidence are not
 modified. No CI-skip marker is requested.
+
+## Bug 23: accepted closure (2026-11-04)
+
+The user accepted closure following successful CI and local evidence. Bug 23,
+"Explicit missing configuration silently falls back to defaults", is closed on
+features/perplexity. The accepted fix was delivered in
+`5232cc70fbc6816858f4d1b7eedf78a577976e2b`. Acceptance covers explicit argument /
+LG_CONFIG selection, missing/unreadable/directory/broken-link failures, empty
+selector rejection, retained optional default discovery and retained setting
+precedence. It does not close bug 24 or broaden configuration-shape validation.
+No migration or further implementation change accompanies this closure.
+
+CI: GitHub Actions run 41723122486, attempt 1, tested
+`5232cc70fbc6816858f4d1b7eedf78a577976e2b`. run.json at evidence commit
+`63c47bacb747af8d47b168fd95e3dd9661c167cc`, directory
+`ci-results-41723122486-attempt-1/`, reports overall success and all five jobs
+successful: Python / HTTP, JavaScript regressions, Browser / mocked HTTP,
+Live Uvicorn and Recovery. CI job metadata was reviewed, not each JUnit case.
+
+Local confirmation: tested source `dad8972c40aecfc38147f027c8ff454b7ef31e8c`,
+evidence commit `4b06c21ece6644dc46d4043fa72f5358857a79cc`, directory
+`local-tests-dad8972/run-20261104T192351Z-LncxLZ/`. Summary and per-suite validation
+reports show Python / HTTP 1,473 cases, JavaScript 28 script cases, browser 172,
+live 18 and recovery 6, with zero reported failures/errors/skips in every group.
+The workspace identity record confirms requested, expected and actual source IDs
+all match the full tested commit. The finalized evidence includes finish time
+and scratch-cleanup confirmation. Environment: Python 3.14.7, Node 22.23.2, WSL2;
+19:23:51 to 19:31:36 UTC on 2026-11-04. This local run is distinct from the CI run.
+
+Evidence was reviewed, not re-executed for this documentation commit. No new
+production deployment, other-platform, every-filesystem permission semantics,
+serve-path fault injection or exhaustive configuration validation is claimed.
+The original permission-denial regression uses an injected Path.open failure.
+The accepted no-fallback behavior and supplied loader/CLI regressions remain
+bounded by those evidence limits.
+
+TODO.md now closes 23; release notes classify it as an accepted fix; HANDOVER.md
+labels this entry as accepted closures. README.md and the deployment guide were
+reviewed and already describe compatible configuration usage, so need no edit.
+Only these four documentation files change. Other bugs, historical audit text,
+original split manifests and test evidence are unchanged. All changed files are
+below 25,000 bytes. No tests were run for this documentation-only closure.
