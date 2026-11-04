@@ -105,3 +105,46 @@ README.md and HANDOVER.md were reviewed and remain accurate at their level;
 this existing record is already indexed. docs/testing.md documents current
 behavior. All six changed files are below 25,000 bytes. This follow-up does not
 request CI skipping and does not alter prior evidence or historical manifests.
+
+## Full identity and finalized publication repair (2026-11-04)
+
+The user changed the folder label to a seven-character SHA and added automatic
+result commits/pushes. Passing that label into prepare caused its exact full-SHA
+comparison to reject a successful checkout. The publication block also executed
+inside the scratch clone before finished_utc, exit-code.txt and diagnostic
+collection, so it could target the wrong repository and omit final evidence.
+
+runlocaltests.sh now captures the full HEAD commit once for prepare, verification
+and provenance, with a separately derived short label for local-tests-SHORT.
+The helper's full-SHA contract is unchanged; no prefix-only verification is used.
+User-added automatic publication is preserved and documented as the default;
+--no-publish disables all Git writes. It occurs in the EXIT handler, from the
+original checkout, only after selected suites finish and collection succeeds.
+Only that invocation's finalized run directory is path-scoped committed with
+[skip ci]. Publishing requires features/perplexity, unchanged HEAD and an empty
+index, and explicitly pushes origin HEAD:refs/heads/features/perplexity without
+force. Existing unrelated staged changes are refused rather than included.
+Setup failures/interruption are not published; completed failed suites may be
+published but retain failure. Publication status/logs stay outside the run,
+which is not modified after its evidence commit. A failed push can leave a
+local evidence commit; no destructive reset or automatic retry is performed.
+exit-code.txt represents test/collection status, while publication failure also
+makes the process exit nonzero. All diagnostics should be inspected before sharing.
+
+Validation: bash -n passed. Seven regressions in a temporary checkout passed,
+using real local Git repositories/bare remotes and stub helper/application test
+commands. They verify full identity, short folders, no-publish, finalized contents
+at remote, successful and failed-suite publication status, refusal of staged
+changes/other branches, rejected push handling and setup-failure retention.
+These are runner regressions, not real application/WSL/container or hosted GitHub
+publication tests. The real suites need rerunning for this repair.
+
+Separately, run 41723122486 attempt 1 reports success for all five CI jobs on
+5232cc70fbc6816858f4d1b7eedf78a577976e2b; run.json was read from evidence commit
+63c47bacb747af8d47b168fd95e3dd9661c167cc. Job metadata was checked, not individual
+JUnit cases. That earlier run predates and does not validate this runner repair.
+No unrelated bug status or application behavior is changed.
+
+README.md/HANDOVER.md were reviewed; this existing record remains indexed and
+current usage is in docs/testing.md. All four changed files are below 25,000 bytes.
+The repair commit does not skip CI; only generated evidence commits do.

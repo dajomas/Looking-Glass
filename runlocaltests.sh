@@ -1,20 +1,24 @@
 #!/usr/bin/env bash
-# Test an exact committed checkout on a POSIX-capable scratch filesystem.
+# Test committed sources; publish completed evidence from the original checkout.
 set -Eeuo pipefail
 usage() {
   cat <<'HELP'
-Usage: bash runlocaltests.sh [--suite all|python|javascript|browser|live|recovery] [--python PATH]
-Default: all five CI groups, including live browsers and container recovery.
-Needs installed test dependencies and Podman or Docker for recovery.
-Tests committed HEAD, not dirty files. LG_LOCAL_TEST_TMPDIR overrides /tmp.
-Evidence: local-tests-<full HEAD hash>/run-<UTC timestamp>-<unique suffix>/
+Usage: bash runlocaltests.sh [--suite all|python|javascript|browser|live|recovery] [--python PATH] [--no-publish]
+Default: all five groups, then publish completed evidence on features/perplexity.
+--no-publish keeps evidence local and does not stage, commit or push anything.
+Needs installed dependencies and Podman or Docker for recovery.
+Tests full committed HEAD; short hashes label local-tests-<short-hash>/ only.
+LG_LOCAL_TEST_TMPDIR overrides the native scratch default /tmp.
 HELP
 }
 suite=all
 python_arg=""
+publish=1
+completed=0
 while (($#)); do
   case "$1" in
     --help|-h) usage; exit 0 ;;
+    --no-publish) publish=0; shift ;;
     --suite|--python)
       (($# >= 2)) || { usage >&2; exit 2; }
       if [[ "$1" == --suite ]]; then suite=$2; else python_arg=$2; fi
@@ -24,7 +28,8 @@ while (($#)); do
 done
 case "$suite" in all|python|javascript|browser|live|recovery) ;; *) usage >&2; exit 2 ;; esac
 ROOT=$(git -C "$(dirname -- "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)
-HASH=$(git -C "$ROOT" rev-parse --short=7 --verify HEAD)
+HASH=$(git -C "$ROOT" rev-parse --verify 'HEAD^{commit}')
+SHORT_HASH=$(git -C "$ROOT" rev-parse --short=7 "$HASH")
 if [[ -n "$python_arg" ]]; then
   PY=$(command -v -- "$python_arg")
 elif [[ -n "${VIRTUAL_ENV:-}" && -x "$VIRTUAL_ENV/bin/python" ]]; then
@@ -37,21 +42,49 @@ else
   PY=$(command -v python3.14 || command -v python3)
 fi
 [[ "$PY" == /* ]] || PY="$(cd -- "$(dirname -- "$PY")" && pwd)/$(basename -- "$PY")"
-BASEDIR=local-tests-$HASH
+BASEDIR=local-tests-$SHORT_HASH
 OUT=$ROOT/$BASEDIR
 mkdir -p -- "$OUT"
 RUN=$(mktemp -d "$OUT/run-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX")
 printf 'Evidence directory: %s\n' "$RUN"
 HELPER=$ROOT/tools/local_test_workspace.py
+publish_results() {
+  local relative=${RUN#"$ROOT/"} branch head
+  branch=$(git -C "$ROOT" symbolic-ref --quiet --short HEAD) || return 1
+  [[ "$branch" == features/perplexity ]] || { echo 'Refusing publication outside features/perplexity'; return 1; }
+  head=$(git -C "$ROOT" rev-parse --verify HEAD) || return 1
+  [[ "$head" == "$HASH" ]] || { echo 'HEAD changed during tests; refusing publication'; return 1; }
+  git -C "$ROOT" diff --cached --quiet || { echo 'Index has staged changes; refusing publication'; return 1; }
+  git -C "$ROOT" add -f -- "$relative" || return 1
+  git -C "$ROOT" commit --only -m "Local test results for commit hash $HASH [skip ci]" -- "$relative" || return 1
+  git -C "$ROOT" push origin HEAD:refs/heads/features/perplexity || return 1
+}
 finish() {
-  local rc=$?
+  local rc=$? collected=1 publication_log
   trap - EXIT
-  cd -- "$ROOT" || rc=1
+  if ! cd -- "$ROOT"; then exit 1; fi
   if ! "$PY" "$HELPER" finalize "$RUN" > "$RUN/workspace-finalize.log" 2>&1; then
     rc=1
+    collected=0
     printf 'Diagnostic collection failed; inspect workspace-finalize.log. Scratch was retained.\n' >&2
   fi
+  printf 'finished_utc=%s\n' "$(date -u +%FT%TZ)" >> "$RUN/environment.txt"
+  # This is the test/collection result; publication has separate status outside the committed run.
   printf '%s\n' "$rc" > "$RUN/exit-code.txt"
+  if ((publish && completed && collected)); then
+    publication_log=$OUT/publication-$(basename -- "$RUN").log
+    if publish_results > "$publication_log" 2>&1; then
+      printf 'publication_exit=0\n' >> "$publication_log"
+      printf 'Published completed local evidence for %s in %s at commit %s\n' \
+        "$HASH" "${RUN#"$ROOT/"}" "$(git -C "$ROOT" rev-parse HEAD)"
+    else
+      rc=1
+      printf 'publication_exit=1\n' >> "$publication_log"
+      printf 'Evidence publication failed; inspect %s. Local evidence is retained.\n' "$publication_log" >&2
+    fi
+  elif ((publish)); then
+    printf 'Evidence was not published because setup or collection did not complete.\n' >&2
+  fi
   exit "$rc"
 }
 trap finish EXIT
@@ -59,7 +92,8 @@ trap 'exit 130' INT
 trap 'exit 143' TERM
 mkdir -p -- "$RUN/suites"
 {
-  printf 'commit=%s\nsuite=%s\npython=%s\nstarted_utc=%s\n' "$HASH" "$suite" "$PY" "$(date -u +%FT%TZ)"
+  printf 'commit=%s\nshort_commit=%s\nsuite=%s\npython=%s\nstarted_utc=%s\n' \
+    "$HASH" "$SHORT_HASH" "$suite" "$PY" "$(date -u +%FT%TZ)"
   printf 'source=detached sparse clone; uncommitted changes are not tested\n'
   git -C "$ROOT" status --short
   uname -a
@@ -141,9 +175,7 @@ if [[ "$suite" == all ]]; then suites=(python javascript browser live recovery);
 for group in "${suites[@]}"; do
   if run_suite "$group"; then :; else status=1; fi
 done
-git add -f ${BASEDIR} && git commit -m "Local test results for commit hash ${HASH} [skip ci]" && git push
-printf 'finished_utc=%s\n' "$(date -u +%FT%TZ)" >> "$RUN/environment.txt"
+completed=1
 printf '\nResults: %s\n' "$RUN"
 cat "$RUN/summary.tsv"
-printf '\nLocal test results for hash %s are directory %s of commit hash %s\n\n' "${HASH}" "${BASEDIR}" "$(git -C "$ROOT" rev-parse --short=7 --verify HEAD)"
 exit "$status"

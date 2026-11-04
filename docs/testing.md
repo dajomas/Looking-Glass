@@ -95,7 +95,7 @@ Run from your checkout after installing its test dependencies:
 
 ```bash
 bash runlocaltests.sh
-bash runlocaltests.sh --suite python
+bash runlocaltests.sh --suite python --no-publish
 LG_CONTAINER_ENGINE=podman bash runlocaltests.sh --suite recovery
 LG_CONTAINER_ENGINE=docker bash runlocaltests.sh --suite recovery
 bash runlocaltests.sh --python "$PWD/.venv-test/bin/python"
@@ -109,12 +109,13 @@ requires Node.js (CI uses 24). Recovery requires an installed, usable Podman or
 Docker engine. Bash, Git with sparse-checkout support, tee and mktemp are needed.
 No dependencies are installed automatically.
 
-Output stays in `local-tests-<full HEAD commit hash>/` in the checkout root,
-with a unique `run-<UTC timestamp>-<suffix>/` per invocation. Logs, JUnit reports,
-per-suite exit codes and bounded per-case failure excerpts are under suites/.
-The run also includes environment.txt, summary.tsv, exit-code.txt and workspace
-setup/finalization logs. Complete original JUnit and pytest logs are retained;
-failures.txt excerpts are for quick reading, not lossless replacements.
+Output stays in `local-tests-<short HEAD commit hash>/` in the checkout root,
+with a unique `run-<UTC timestamp>-<suffix>/` per invocation. Short hashes are
+labels only: checkout, exact helper verification and environment.txt use the
+full captured commit hash. Logs, JUnit reports, per-suite exit codes and bounded
+per-case failure excerpts are under suites/. The run also includes environment.txt,
+summary.tsv, exit-code.txt and workspace setup/finalization logs. Complete original
+JUnit and pytest logs are retained; failures.txt excerpts are not lossless replacements.
 
 Tests execute against an exact detached Git checkout with its own index and
 Git root, on native scratch storage under `/tmp` by default. This avoids both
@@ -142,20 +143,44 @@ removed after successful collection. Collection failure marks the run failed
 and retains scratch for investigation. Prior evidence and the original checkout
 are never cleaned. SIGKILL or machine failure can leave scratch behind.
 
-The recovery harness now uses the existing native-engine adapter. Locally,
+The recovery harness uses the native-engine adapter. Locally,
 LG_CONTAINER_ENGINE=auto prefers Podman then Docker; CI=true defaults to Docker.
 Set LG_CONTAINER_ENGINE=podman or docker explicitly to override. Selection is
 recorded along with version/info; a selected but broken engine does not fall back
 to a different daemon. Podman uses its native pull flag and a read-only :Z bind
 of the disposable configuration file; Docker uses its existing bind contract.
 No shared daemon resources are pruned. A missing or unusable engine remains a
-failure and must be installed/configured on the local machine; this script
-cannot manufacture a working container environment. Remote engines must be able
-to access the temporary bind path on the same filesystem namespace.
+failure and must be installed/configured on the local machine. Remote engines
+must be able to access the temporary bind path in the same filesystem namespace.
+
+### Publishing local results
+
+Automatic publication is enabled by default, preserving the locally added
+commit/push behavior. Use --no-publish to disable all staging, commits and pushes.
+Inspect diagnostics before sharing: reports, traces and source snippets may be
+sensitive. This is opt-out publication; do not run the default command if you
+want results to remain local.
+
+Only after every selected suite has finished and diagnostic collection succeeds,
+the EXIT handler writes finished_utc and the test/collection exit-code.txt,
+then publishes that invocation's run directory from the original checkout.
+It refuses a detached HEAD, any branch other than features/perplexity, a HEAD
+changed since the run began, or existing staged changes. Only the new run is
+force-added (to override the evidence ignore rule) and path-scoped committed;
+other runs and unrelated files are not included. The evidence commit message
+contains the full tested SHA and [skip ci]. Push is explicitly to origin's
+features/perplexity, without force. Setup failures and interruptions are not
+published. Completed failed test runs can be published but retain a nonzero exit.
+
+Publication logs live beside the run directory, not inside the committed run,
+so reports are not modified after their commit. exit-code.txt records tests plus
+collection; publication failure separately makes the script return nonzero and
+is recorded in publication-<run-name>.log. A failed push may leave a local evidence
+commit; there is no automatic reset or retry. Git credentials/identity and a
+writable origin/features/perplexity are prerequisites for publication.
 
 Missing, empty, malformed, failed or skipped JUnit reports cause failure even
 when the command returns zero. Failures normally do not prevent later groups.
-Exit 0 means all selected groups passed; selecting one group does not validate
-the others. Nothing is uploaded automatically. Output is ignored by Git; inspect
-before sharing since diagnostics may be large or sensitive. See
+Exit 0 means all selected groups, collection and requested publication succeeded;
+a single-suite run does not validate other groups. See
 [runner decisions and validation limits](handover/081-local-test-runner-2026-11-03.md).
