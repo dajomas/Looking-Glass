@@ -51,3 +51,33 @@ Stop all readers and use the same installation configuration as documented.
 Uncoordinated readers, external unlinks, process termination/new-file orphan
 windows and power-loss durability are not redesigned. No archive or Patch/
 folder is delivered, and no other branches are modified.
+
+## Post-commit execution and harness correction
+
+Production delivery succeeded as commit
+2b9f83ce3c6dcff2fd80c825aeafb6fd9062a8ae on features/perplexity.
+The preceding preparation text is historical; delivery is no longer pending.
+
+A post-commit subprocess run on Python 3.12.8 used complete copies of campaigns.py,
+image_retirement.py and the standalone test, each verified against its Git blob
+SHA at that commit. All three tests errored: the harness removed only top-level
+ImportFrom statements, leaving the reconciliation import nested in the with
+block. This is a test-harness defect. Earlier excerpt-based validation did not
+exercise that nested import and was insufficient to validate the harness.
+
+The correction uses an AST NodeTransformer to remove the specific relative
+services.room_notes reconciliation import at any nesting depth, checking its
+imported symbol and retaining all other imports. Application code is unchanged.
+With the corrected test, subprocess execution against the hash-verified committed
+production files passed all three cases (exit 0). Against the complete original
+route, reconstructed and verified against its pre-fix Git blob SHA, one case
+passed and two errored as expected (missing old file; injected PermissionError).
+This corrected test is 6,918 bytes. Its delivery awaits separate exact approval.
+These remain isolated lifecycle tests, not full application or HTTP-suite runs.
+
+No open pull request was found for dajomas:features/perplexity. The connector does
+expose PR-scoped check-run/status readers, correcting the earlier blanket claim
+that it has no result reader, but no branch/commit-scoped workflow runner/result
+tool was discovered. CI scheduling and all five results remain unverified.
+README.md and HANDOVER.md were reviewed; the existing link to this focused record
+already covers this test-only follow-up, so neither requires a cosmetic edit.

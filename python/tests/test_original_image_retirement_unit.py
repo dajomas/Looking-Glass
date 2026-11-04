@@ -22,6 +22,14 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def load_functions(path, names, namespace):
+    class InjectReconciliation(ast.NodeTransformer):
+        def visit_ImportFrom(self, node):
+            if node.level == 3 and node.module == "services.room_notes":
+                if [alias.name for alias in node.names] != ["reconcile_map"]:
+                    raise AssertionError("Unexpected room-note dependency")
+                return None
+            return node
+
     tree = ast.parse(path.read_text(encoding="utf-8"))
     nodes = [node for node in tree.body
              if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef))
@@ -36,7 +44,7 @@ def load_functions(path, names, namespace):
             arg.annotation = None
         # Only room-note reconciliation is imported inside the selected route.
         # Inject its double rather than importing the application package.
-        node.body = [child for child in node.body if not isinstance(child, ast.ImportFrom)]
+        InjectReconciliation().visit(node)
     module = ast.fix_missing_locations(ast.Module(body=nodes, type_ignores=[]))
     exec(compile(module, str(path), "exec"), namespace)
 
