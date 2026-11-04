@@ -36,6 +36,11 @@ def prepare(source, commit, evidence, scratch_root=None):
     record = evidence / "workspace.json"
     if record.exists():
         raise ValueError("Workspace record already exists")
+    requested = str(commit)
+    commit = subprocess.check_output([
+        "git", "-C", str(source), "rev-parse", "--verify", "--end-of-options",
+        f"{requested}^{{commit}}",
+    ], text=True).strip()
     scratch = Path(tempfile.mkdtemp(prefix="looking-glass-local-",
         dir=scratch_root or os.environ.get("LG_LOCAL_TEST_TMPDIR", "/tmp"))).resolve()
     token = uuid.uuid4().hex
@@ -53,8 +58,13 @@ def prepare(source, commit, evidence, scratch_root=None):
                 input="/*\n!/ci-results-*/\n!/local-tests-*/\n")
             git("-C", work, "checkout", "--detach", commit)
         actual = subprocess.check_output(["git", "-C", str(work), "rev-parse", "HEAD"], text=True).strip()
+        identity = evidence / "workspace-identity.json"
+        identity.write_text(json.dumps(dict(requested=requested, expected=commit, actual=actual,
+            source=str(source), worktree=str(work)), indent=2) + "\n")
         if actual != commit:
-            raise RuntimeError("Workspace commit does not match requested commit")
+            raise RuntimeError(
+                f"Workspace commit mismatch: requested={requested!r}, expected={commit!r}, "
+                f"actual={actual!r}; see {identity}")
         (scratch / "tmp").mkdir()
         record.write_text(json.dumps(dict(scratch=str(scratch), worktree=str(work),
             token=token, commit=commit), indent=2) + "\n")

@@ -148,3 +148,41 @@ No unrelated bug status or application behavior is changed.
 README.md/HANDOVER.md were reviewed; this existing record remains indexed and
 current usage is in docs/testing.md. All four changed files are below 25,000 bytes.
 The repair commit does not skip CI; only generated evidence commits do.
+
+## Real-helper commit canonicalization and diagnostics (2026-11-04)
+
+The user reported another generic mismatch traceback after the caller repair.
+The traceback alone does not reveal the requested/actual IDs, so it does not
+establish whether this latest run used a stale short-hash caller or had a genuine
+identity mismatch. The earlier runner publication tests doubled the workspace
+helper and did not cover real helper checkout behavior; that coverage gap is
+explicitly addressed here.
+
+prepare now resolves its requested revision through source Git using
+rev-parse --verify --end-of-options REV^{commit} before allocating scratch.
+Invalid, ambiguous or non-commit revisions fail resolution. Checkout and
+workspace.json use the resolved full commit, and exact full-ID comparison is
+retained. No prefix-only acceptance or removal of the safety check is introduced.
+The runner continues passing its full captured SHA; valid abbreviated invocations
+of the helper are now supported too.
+
+After checkout, workspace-identity.json records requested, expected and actual
+IDs, source and workspace paths before comparison. On a genuine mismatch the
+exception includes all IDs and the diagnostic path. This file survives cleanup
+of failed scratch, so a further mismatch can be diagnosed without guessing.
+No changes to publication, shell caller, application code or bug statuses are
+included in this follow-up.
+
+Validation: five real-helper tests passed in an isolated Python 3.12 sandbox,
+using real Git repositories/clones and filesystem operations, including the real
+CLI prepare/finalize invocation with an abbreviated SHA. Cases cover full/short
+identity, invalid revision before scratch allocation, and exact rejection plus
+persistent diagnostics for an injected wrong actual commit. The genuine-mismatch
+case doubles only the final rev-parse result to simulate a bad identity after a
+real checkout. This is not a full application/WSL/container acceptance run and
+does not claim the cause of the user's latest traceback has been observed.
+
+README.md and HANDOVER.md were reviewed; this existing record remains indexed.
+Their general usage needs no edit for this helper-boundary correction. All three
+changed files are below 25,000 bytes. CI is not skipped; the new real-helper cases
+must also run in the normal environment.
