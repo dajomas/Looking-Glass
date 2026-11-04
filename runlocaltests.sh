@@ -24,7 +24,7 @@ while (($#)); do
 done
 case "$suite" in all|python|javascript|browser|live|recovery) ;; *) usage >&2; exit 2 ;; esac
 ROOT=$(git -C "$(dirname -- "${BASH_SOURCE[0]}")" rev-parse --show-toplevel)
-HASH=$(git -C "$ROOT" rev-parse --verify HEAD)
+HASH=$(git -C "$ROOT" rev-parse --short=7 --verify HEAD)
 if [[ -n "$python_arg" ]]; then
   PY=$(command -v -- "$python_arg")
 elif [[ -n "${VIRTUAL_ENV:-}" && -x "$VIRTUAL_ENV/bin/python" ]]; then
@@ -37,7 +37,8 @@ else
   PY=$(command -v python3.14 || command -v python3)
 fi
 [[ "$PY" == /* ]] || PY="$(cd -- "$(dirname -- "$PY")" && pwd)/$(basename -- "$PY")"
-OUT=$ROOT/local-tests-$HASH
+BASEDIR=local-tests-$HASH
+OUT=$ROOT/$BASEDIR
 mkdir -p -- "$OUT"
 RUN=$(mktemp -d "$OUT/run-$(date -u +%Y%m%dT%H%M%SZ)-XXXXXX")
 printf 'Evidence directory: %s\n' "$RUN"
@@ -140,7 +141,9 @@ if [[ "$suite" == all ]]; then suites=(python javascript browser live recovery);
 for group in "${suites[@]}"; do
   if run_suite "$group"; then :; else status=1; fi
 done
+git add -f ${BASEDIR} && git commit -m "Local test results for commit hash ${HASH} [skip ci]" && git push
 printf 'finished_utc=%s\n' "$(date -u +%FT%TZ)" >> "$RUN/environment.txt"
 printf '\nResults: %s\n' "$RUN"
 cat "$RUN/summary.tsv"
+printf '\nLocal test results for hash %s are directory %s of commit hash %s\n\n' "${HASH}" "${BASEDIR}" "$(git -C "$ROOT" rev-parse --short=7 --verify HEAD)"
 exit "$status"
