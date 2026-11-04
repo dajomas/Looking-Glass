@@ -218,13 +218,13 @@ def test_image_database_failure_preserves_prior_state_and_removes_new_file(image
     with ctx.db.connect() as conn:
         stored = dict(maps_repo.get(conn, mid))
         count = conn.execute("SELECT COUNT(*) FROM maps WHERE campaign_id=?", (case.cid,)).fetchone()[0]
+        if operation == "replace":
+            assert conn.execute("SELECT image_file FROM image_retirements").fetchall()[0][0] == case.original["image_file"]
     assert count == (2 if operation == "upload" else 1)
     new_path = stored["image_file"]
     assert new_path not in case.before_files and new_path != failed_path
     after_files = files(ctx.settings.maps_dir)
     expected_keys = set(case.before_files)
-    if operation == "replace":
-        expected_keys.remove(case.original["image_file"])
     assert set(after_files) == expected_keys | {new_path}
     assert all(after_files[key] == case.before_files[key] for key in expected_keys)
     with Image.open(io.BytesIO(after_files[new_path])) as image:

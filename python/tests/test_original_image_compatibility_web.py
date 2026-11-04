@@ -115,9 +115,11 @@ def test_same_size_preserves_configuration_history_notes_and_alternate(image_cas
     assert after["fog_version"] == before["fog_version"] + 1
     assert rows() == before_rows
     after_files = files(case.ctx.settings.maps_dir)
-    kept = set(before_files) - {before["image_file"]}
+    kept = set(before_files)
     assert set(after_files) == kept | {after["image_file"]}
     assert all(after_files[path] == before_files[path] for path in kept)
+    with case.ctx.db.connect() as conn:
+        assert conn.execute("SELECT image_file FROM image_retirements").fetchall()[0][0] == before["image_file"]
     with Image.open(io.BytesIO(after_files[after["image_file"]])) as image:
         assert image.size == (400, 200) and image.convert("RGB").getpixel((100, 100)) == GREEN
     state = case.dm.get(base).json()
@@ -133,7 +135,9 @@ def test_dimension_change_without_alternate_remains_supported(image_case):
     after = map_row(case)
     assert (after["width"], after["height"]) == (500, 250)
     assert after["image_file"] != before["image_file"]
-    assert not (case.ctx.settings.maps_dir / before["image_file"]).exists()
+    assert (case.ctx.settings.maps_dir / before["image_file"]).read_bytes() == case.before_files[before["image_file"]]
+    with case.ctx.db.connect() as conn:
+        assert conn.execute("SELECT image_file FROM image_retirements").fetchall()[0][0] == before["image_file"]
     with Image.open(case.ctx.settings.maps_dir / after["image_file"]) as image:
         assert image.size == (500, 250)
 

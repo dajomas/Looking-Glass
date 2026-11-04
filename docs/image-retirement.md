@@ -4,10 +4,17 @@
 
 Map deletion, campaign deletion and HTTP campaign restore register old original
 and alternate paths in the transaction removing their references. Alternate
-replacement registers its old alternate before the upsert. First uploads have
-no previous alternate. Files stay readable until explicit offline collection.
-Failed mutations roll back registration and database changes together. Existing
-new-file failure cleanup and original-image replacement keep their contracts.
+replacement registers its old alternate before the upsert. Original-image
+replacement registers its old original in the replacement write transaction.
+First uploads have no previous image to retire. Files stay readable until
+explicit offline collection. Failed mutations roll back registration and
+database changes together. Existing new-file failure cleanup is unchanged.
+
+Original-image replacement does not unlink the superseded original online.
+After commit, fog invalidation and viewer notification do not depend on old-file
+cleanup succeeding. The old path remains available to previously selected image
+responses and render inputs until coordinated offline maintenance. This does not
+protect against external deletion or collection with uncoordinated readers.
 
 ## Serving ownership and limitations
 
@@ -66,7 +73,8 @@ checks of maps.image_file and double_reveal_maps.image_file, unlink and queue
 removal. Duplicates are deduplicated. Active references, unsafe paths, symlinks
 and failed unlinks remain queued. Missing files make retry idempotent, including
 unlink followed by commit failure. This is not an fsync/power-loss guarantee.
-Blocked/referenced files can remain indefinitely. Original replacement's immediate
-unlink and existing failed-new-file cancellation/crash windows are not redesigned.
+Blocked/referenced files can remain indefinitely. Existing failed-new-file
+cancellation/crash windows are not redesigned.
 
-See [validation and current status](handover/073-bug-15-route-cli-integration-2026-10-31.md).
+See [bug 15 validation](handover/073-bug-15-route-cli-integration-2026-10-31.md)
+and [original-image replacement status](handover/084-bugs-17-18-original-retirement-2026-11-04.md).

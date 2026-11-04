@@ -287,10 +287,10 @@ async def replace_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, image: Anno
                 f"Original image must remain {m['width']} × {m['height']} pixels while "
                 "alternate artwork exists. Resize the replacement to match; "
                 "existing artwork and play state were not changed.")
+        image_retirement.retire_paths(conn, [m["image_file"]])
         maps_repo.replace_image(conn, map_id, stored.relative_path, stored.width, stored.height)
         from ...services.room_notes import reconcile_map
         reconcile_map(ctx, conn, map_id)
-    images.delete_map_image(ctx.settings.maps_dir, m["image_file"])
     ctx.fog.invalidate(map_id)
     await notify.map_changed(ctx, map_id, "image")
     return _back(f"/maps/{map_id}", ok="Image replaced - check the wall calibration")
