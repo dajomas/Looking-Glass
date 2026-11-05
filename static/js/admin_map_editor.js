@@ -14,6 +14,7 @@
   let maskImg = null;
   let maskKey = "";
   let busy = false;
+  let stateGeneration = 0;
   let portalCycle = null;
   let mapTransitions = null;
   let doubleReveal = null;
@@ -53,7 +54,7 @@
   mapTransitions = LGMapTransitions.mount({mapId:MAP_ID,campaignId:CAMPAIGN_ID,scale:()=>pz.scale,
     dimensions:()=>state?{width:state.width,height:state.height}:null,
     cancelGestures:()=>{areaTaps.cancel();doorTapQueue.cancel();},
-    onSaved:async()=>applyState(await LGApi.get(`/api/maps/${MAP_ID}`))});
+    onSaved:()=>readState()});
 
   // ------------------------------------------------------------------ UI helpers
   let toastTimer = null;
@@ -68,6 +69,7 @@
 
   async function run(fn) {
     if (busy) return;
+    ++stateGeneration; // Fence reads started before this action, including failed actions.
     setBusy(true);
     try { return await fn(); }
     catch (err) { toast(err.message, "error", 4000); }
@@ -161,6 +163,7 @@
   }
 
   function applyState(s) {
+    ++stateGeneration;
     const first = state === null;
     doorTapQueue.cancel(); areaTaps.cancel();
     state = s;
@@ -249,7 +252,7 @@
       run(async () => {
         let result;
         try {result = await LGApi.post(`/api/maps/${MAP_ID}/viewer-zoom`,body);}
-        catch(error) {try {applyState(await LGApi.get(`/api/maps/${MAP_ID}`));} catch(_) {} throw error;}
+        catch(error) {try {await readState();} catch(_) {} throw error;}
         if (result.reason === "not-revealed") toast("Only revealed areas can control viewer zoom.","warn");
         else if (!result.viewers) toast("No viewer screens are connected.","warn");
         else toast(`Zoom command sent to ${result.viewers} viewer screen${result.viewers===1 ? "" : "s"}.`);
@@ -272,7 +275,7 @@
         run(async () => {
           let result;
           try { result = await LGApi.post(`/api/maps/${MAP_ID}/door-action`, {...body, gesture}); }
-          catch (error) { try { applyState(await LGApi.get(`/api/maps/${MAP_ID}`)); } catch (_) {} throw error; }
+          catch (error) { try { await readState(); } catch (_) {} throw error; }
           applyState(result);
           if (result.door_action === "reveal" || result.door_action === "hide") {
             toast(result.is_active ? (result.door_action === "reveal" ? "Area revealed" : "Area hidden") : "Warning: this map is NOT shown to players. Fog action saved on this map only.", result.is_active ? "info" : "warn");
@@ -296,7 +299,7 @@
       catch (error) {
         if (arrow) {
           // Never fall through into a normal hide/reveal on a stale arrow click.
-          try { applyState(await LGApi.get(`/api/maps/${MAP_ID}`)); } catch (_) {}
+          try { await readState(); } catch (_) {}
         }
         throw error;
       }
@@ -334,7 +337,7 @@
       const fogAction = mapId === null ? null : await window.LGChooseFog(name, mapId);
       if (mapId !== null && !fogAction) return false;
       await LGApi.post(`/api/campaigns/${CAMPAIGN_ID}/active`, {map_id: mapId, fog_action: fogAction});
-      if (mapId === MAP_ID || mapId === null) applyState(await LGApi.get(`/api/maps/${MAP_ID}`));
+      if (mapId === MAP_ID || mapId === null) await readState();
       toast(mapId ? "Now showing this map to players" : "Viewer screen blanked");
       return true;
     });
@@ -446,8 +449,17 @@
   img.onerror = () => loadError("Map artwork could not load. Check the image file/server log and use Retry loading map.");
   // Load artwork independently: a failed metadata request must not leave an empty viewport.
   img.src = `/api/maps/${MAP_ID}/image?boot=${Date.now()}`;
+  async function readState(poll = false) {
+    const generation = ++stateGeneration;
+    const s = await LGApi.get(`/api/maps/${MAP_ID}`);
+    if (generation !== stateGeneration) return;
+    if (!poll || !state || ["cache_token", "fog_version", "walls_version", "door_arrows_enabled",
+      "viewer_door_arrows_enabled", "viewer_portal_arrows_enabled", "viewer_secret_arrows_enabled"]
+      .some(key => s[key] !== state[key])) applyState(s);
+    else updateLive(s);
+  }
   async function reloadMap() {
-    try {applyState(await LGApi.get(`/api/maps/${MAP_ID}`));}
+    try {await readState();}
     catch (error) {loadError("Map state/walls could not load: " + error.message + ". Use Retry loading map."); throw error;}
   }
   if ($("retry-map-load")) $("retry-map-load").onclick = () => run(async () => {
@@ -468,14 +480,5 @@
     toast("Wall types applied; areas recalculated");
   });
   run(reloadMap);
-  setInterval(async () => {
-    try {
-      const s = await LGApi.get(`/api/maps/${MAP_ID}`);
-      if (!state || s.fog_version !== state.fog_version || s.walls_version !== state.walls_version ||
-          s.door_arrows_enabled !== state.door_arrows_enabled || s.viewer_door_arrows_enabled !== state.viewer_door_arrows_enabled ||
-          s.viewer_portal_arrows_enabled !== state.viewer_portal_arrows_enabled ||
-          s.viewer_secret_arrows_enabled !== state.viewer_secret_arrows_enabled) applyState(s);
-      else updateLive(s);
-    } catch (_) { /* ignore */ }
-  }, 15000);
+  setInterval(() => busy ? undefined : readState(true).catch(() => {}), 15000);
 })();
