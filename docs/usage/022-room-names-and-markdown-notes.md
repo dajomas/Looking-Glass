@@ -68,3 +68,29 @@ HTML-to-Markdown conversion, image pasting and file import are not implemented.
 The 100,000-character limit also applies to toolbar insertion and pasting.
 
 
+### Notes-only updates from another editor
+
+Admin map polling tracks room_notes_version independently of fog and wall
+revisions. An idle editor polls every 15 seconds; background polling waits while
+map actions are busy, and network/server delays can extend convergence time.
+A saved notes change, clear or unassign can refresh clean selected-room content
+and imported-name assignment availability without a fog edit or page reload.
+Pristine edit mode is retained. An enabled named/unnamed-room overlay refreshes
+its coverage/counts, and accepted library entries also refresh an open imported
+notes manager while preserving its list scroll and busy controls.
+
+A dirty room draft is not automatically merged, replaced or restamped. A notes
+change warning preserves the original text and save context. Copy any draft
+you want to keep, then select the room again to obtain current content before
+saving. Server context checks still reject stale saves; background refresh does
+not silently grant an old draft a newer revision. Cancel restores the locally
+loaded saved content first; a later successful refresh can load newer content.
+
+Failed or deferred notes/overlay refreshes can retry on an unchanged-state poll.
+Dialog and picker reads share a client request-generation guard, suppressing
+superseded results and errors; a superseded dialog load still releases controls
+and may ask for an explicit retry. This policy orders client requests, not all
+concurrent server snapshots. Do not assume every mutation/import/close ordering
+or browser topology has been tested. Bug 27 is accepted and closed with a
+documented dedicated two-editor acceptance gap; see
+[closure and evidence limits](../handover/093-bug-27-accepted-closure-2026-11-05.md).
