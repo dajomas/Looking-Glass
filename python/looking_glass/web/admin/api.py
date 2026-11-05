@@ -57,6 +57,7 @@ def _map_payload(ctx, conn, map_id: int) -> dict:
         "work_scale": scale,
         "work_width": max(1, math.ceil(m["width"] * scale)), "work_height": max(1, math.ceil(m["height"] * scale)),
         "fog_version": m["fog_version"], "walls_version": m["walls_version"],
+        "room_notes_version": m["room_notes_version"],
         "walls_source": m["walls_source"],
         "door_arrow_color": m["door_arrow_color"],
         "locked_door_arrow_color": m["locked_door_arrow_color"],

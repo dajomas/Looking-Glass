@@ -91,3 +91,40 @@ below 25,000 bytes; no split is required. No migrations, other branches, archive
 Patch/ material, or [skip ci] marker are included in the implementation increment.
 The earlier skip request was scoped to the regression-only commit. Delivery is
 pending exact approval and successful write; report its SHA only after success.
+
+## Increment 1 local evidence and admin payload increment
+
+Increment 1 was delivered as dfcc91b31653491c03410ee311e90b997269ff85.
+The user subsequently reported test_room_notes_sync.js: 3 passes, 0 failures,
+0 skips; test_room_note_save_context.js: all 6 cases passed; test_room_notes.js:
+its UI, confirmation, auto-edit and assigned-name filtering checks passed. The
+unassign case now reached its assignment/picker assertions. These are user-run
+local Node results, not assistant-run tests, CI, HTTP or two-browser evidence.
+
+The next narrowly scoped increment adds room_notes_version to _map_payload,
+reading the existing maps row after reconcile_map. This adds no notes content to
+viewer responses, no migration, fog bump or notification. Existing authorization
+and server stale-save validation are unchanged. Polling, unchanged-state retries,
+overlay and open-library invalidation remain pending; bug 27 stays open.
+
+Added test_room_notes_version_payload_web.py using the existing real-app flow
+fixture. It requires an integer nonnegative revision matching room-at, verifies
+advancement after a notes-only save and unassign, checks unchanged cache/fog/wall
+versions, and verifies repeated reads do not advance the notes revision. This
+test would fail on the prior payload's missing field; it has not been executed
+during preparation. No candidate Python, HTTP, browser, live, recovery, full-suite
+or CI execution is claimed.
+
+Run in the normal development environment:
+
+```bash
+cd python
+../.venv/bin/python -m pytest -q tests/test_room_notes_version_payload_web.py
+```
+
+README.md and HANDOVER.md were read again. README needs no new sync guarantee
+for this payload-only increment, and HANDOVER already links this updated record.
+The existing API file is 24,708 bytes; the single added ASCII line is 54 bytes,
+leaving 24,762 bytes, below the 25,000-byte split threshold. Existing records and
+all tests are retained, with no exclusions or [skip ci]. Delivery of this payload
+increment is pending exact approval and successful GitHub write.
