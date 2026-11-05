@@ -38,3 +38,19 @@ notes or fog history, invalidate the fog cache, or send an update notification.
 The endpoint URL and successful response contract are unchanged. Field checks
 also apply to maps with no walls. This does not repair pre-existing invalid
 stored values or impose additional finite coordinate-magnitude limits.
+
+### Reveal/hide point bounds
+
+`POST /api/maps/{id}/reveal` and `/hide` require map-management permission and
+CSRF protection as before. Point coordinates are in original image pixels, not
+work-mask pixels, and must satisfy `0 <= x < width` and `0 <= y < height` for
+the current map. Zero is included; exact width/height and negative fractions
+are outside. A model-valid out-of-map point returns 400 with
+`Point is outside the map.` before area lookup, wall snapping or fog mutation.
+Existing request-model validation can reject malformed/out-of-range fields first.
+
+Rejected points do not add fog history, bump versions, update the active-map
+fog checkpoint or emit a map-change notification. Valid in-map wall snapping
+and no-op behavior are retained. Reveal-all, reset and undo have no point and
+are unchanged. This is not server-side stale-context validation for otherwise
+valid coordinates and does not repair/reinterpret historical stored operations.

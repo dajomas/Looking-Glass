@@ -122,6 +122,8 @@ async def _fog_op(ctx, user, map_id: int, op: str, point: Point | None = None) -
         map_for_manage(conn, user, map_id)
         if point is not None:
             spec, segs, ops = fog_inputs(ctx, conn, map_id)
+            if not (0 <= point.x < spec.width and 0 <= point.y < spec.height):
+                raise BadRequest("Point is outside the map.")
             area = await asyncio.to_thread(ctx.fog.area_map, spec, segs)
             res = ctx.fog.describe_click(area, point.x, point.y)
             if not res.label:
