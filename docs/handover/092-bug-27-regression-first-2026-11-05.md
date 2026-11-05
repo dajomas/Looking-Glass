@@ -235,3 +235,59 @@ the new test and this record also stay below the limit. All existing tests and
 historical records are retained without exclusions. No migration, [skip ci],
 archive or Patch/ material is included. Bug 27 remains open. GitHub delivery is
 pending exact approval and successful write.
+
+## Passing polling evidence and overlay candidate (2026-11-05)
+
+Polling integration was delivered as 548b99187df8d21c9163d709bc1412c749858e41.
+The user subsequently reported all five listed scripts passing: admin notes
+polling 5 cases, editor ordering 10, mask identity 4, room-notes sync 3 and
+room-note save context 6, totaling 28 cases. The four node --test reports show
+zero failures and zero skips; the save-context script reports all six cases
+passed. These are user-run local client results, not independently rerun tests,
+CI, browser or live-server evidence. No checkout SHA accompanied the output.
+The code was already committed; this record adds that passing evidence.
+
+The overlay increment adds room_notes_version to LGRoomNameOverlay.mapChanged's
+identity using JSON.stringify and clears the stamp only on a current request's
+failure, permitting retry on an unchanged-state poll. Existing generation guards
+retain late-success/error fencing and disabling behavior. Old coverage is hidden
+while fetching replacement coverage; successful unchanged revisions do not
+refetch and an identical poll does not duplicate the pending request. No change
+to fog masks, room drafts, server routes, schema, permissions or script loading.
+
+Added test_room_name_overlay_sync.js with five cases: notes-only coverage/count
+refresh, superseded success, superseded failure, same-revision failure retry
+without duplicate in-flight work, and disable-during-notes-refresh.
+
+Assistant validation actually executed under sandbox Node v20.20.1: the new
+five-case suite failed all five cases against the unchanged overlay and passed
+all five against the candidate, with zero skips. Most baseline cases stop at the
+missing notes-invalidation assertion before their later ordering assertions;
+this is not evidence of five independent baseline defects. The existing
+test_room_name_overlay.js also executed successfully against the candidate.
+The reconstructed baseline matched live Git blob
+c9fb142710ca335d58ddef12944f8334ec2227f0 and the existing test matched blob
+0fd4d4145978e5ebefbab43d0910cac595d71f71 before execution.
+
+These were isolated actual-class/DOM/API-double checks in a temporary sandbox
+layout, not a repository checkout, Chromium run, real API/image-decode test,
+full-suite run or CI execution. Candidate coverage validates response installation
+and count text, not the server-generated PNG's pixel correctness.
+Overlay bytes: baseline 2,123, candidate 2,233; new test 4,239 bytes.
+
+Run from the repository root in the normal environment:
+
+```bash
+node --test python/tests/test_room_name_overlay_sync.js
+node python/tests/test_room_name_overlay.js
+```
+
+README.md and HANDOVER.md were read again. Existing overlay usage remains
+accurate; no full-sync guarantee is added before acceptance. HANDOVER already
+links this updated record. All proposed files remain under 25,000 bytes, so no
+size split is needed. The open imported-notes manager still needs coordinated
+revision invalidation and request ordering with the picker. Further delayed
+notes/library response coverage and two-editor browser acceptance remain pending.
+Bug 27 is not closed. No unrelated changes, migrations, [skip ci], archives or
+Patch/ material are included. Delivery of this overlay increment remains pending
+exact approval and a successful GitHub write.

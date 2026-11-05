@@ -25,7 +25,7 @@ window.LGRoomNameOverlay = class {
     this.refresh();
   }
   mapChanged(state) {
-    const stamp=`${state.cache_token}:${state.walls_version}:${state.width}:${state.height}`;
+    const stamp=JSON.stringify([state.cache_token,state.walls_version,state.room_notes_version,state.width,state.height]);
     if(stamp===this.stamp)return;
     this.stamp=stamp;
     if(this.enabled)this.refresh();
@@ -41,6 +41,7 @@ window.LGRoomNameOverlay = class {
       this.legend.hidden=false;
     } catch(error){
       if(generation!==this.generation)return;
+      this.stamp=null; // Let an unchanged-state poll retry this failed request.
       this.clear();this.toast("Room name overlay: "+error.message,"warn");
     } finally {if(generation===this.generation)this.loading=false;}
   }
