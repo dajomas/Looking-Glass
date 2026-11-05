@@ -9,6 +9,17 @@ are not summarized here.
 
 ### Fixed
 
+- **Login return URLs stay local (bug 20, accepted).** Both successful login
+  and already-authenticated login-page visits reject unsafe return targets,
+  including slash/backslash and encoded path variants. Accepted local URLs keep
+  their original query/fragment representation; excessive or invalid path
+  encoding falls back conservatively to /.
+- **Login submissions require a same-origin source (bug 21, accepted).** Origin
+  must match the receiving portal's scheme, hostname and effective port; Referer
+  is a fallback only when Origin is absent. Missing, opaque/null, malformed,
+  duplicate and cross-origin source headers are rejected. Existing authenticated
+  mutation CSRF protection is unchanged. Test clients were aligned without
+  weakening password/session/socket or security rejection assertions.
 - **Original-image replacement retains superseded artwork safely (bugs 17/18, accepted).**
   The old original is registered for retirement in the replacement transaction
   instead of being deleted online after commit. Previously selected reader
@@ -40,6 +51,10 @@ are not summarized here.
 ### Upgrade notes
 
 - No database migration is required for these changes.
+- Login automation must supply the exact receiving portal Origin. Reverse
+  proxies must preserve the external Host/port and trusted external scheme and
+  must not strip or manufacture browser source headers. Both source headers
+  absent means login is rejected. See [networking and login-origin deployment](deployment/004-3-networking.md#login-origin-protection-and-proxy-trust).
 - Superseded original images now consume disk until explicit offline collection.
   Stop all readers and use the installation's configuration before maintenance;
   see [retired artwork maintenance](image-retirement.md).
@@ -51,6 +66,15 @@ are not summarized here.
   cannot be recalled.
 
 ### Verification
+
+Bugs 20/21 are accepted after CI run 42003087572 attempt 1 passed all five jobs
+and their report-validation steps on c734226657ee556ff86f42883decc15c8499f389.
+The clean local run tested e17fbae2696eda27bed26daebc29a8a8f06747ce; evidence
+commit ca93d96f6ecfda0683fc816631def211d2929d13 reports Python 1,593 cases,
+JavaScript 28 scripts, browser 172, live 18 and recovery 6, all with zero
+reported failures/errors/skips. CI/local tested revisions are distinct. These
+results do not assert real nginx/TLS deployment or every browser/proxy topology
+was tested. See [accepted closure and historical evidence links](handover/086-bugs-20-21-accepted-closure-2026-11-05.md).
 
 Bugs 17 and 18 are accepted using GitHub Actions run 41906927331, attempt 1,
 on tested source `d0375c3cf72058268f79b9fc9fcae28ce8a51818`: overall success and
