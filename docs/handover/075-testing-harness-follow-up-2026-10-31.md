@@ -149,3 +149,35 @@ acceptance pending. README.md and HANDOVER.md were reviewed; the README test
 summary and existing indexed link to this focused harness record remain accurate,
 so no cosmetic edits are needed. Earlier historical records and CI artifacts are
 preserved. No other branch, archive, Patch/ material or application change.
+
+## Remaining Python login callers (2026-11-05)
+
+Baseline: f6e69269c3d0b71250ff6c80a9b9fded0f4232b7 on features/perplexity.
+Run 41994735806 attempt 1 tested dd882a5cbdf228b61aca443b731155d07ec8a0fb.
+The reviewed run reports Browser, Recovery, Live and JavaScript success, but
+Python still has ten failures: four reset-login combinations and six viewer
+session cases blocked by headerless login. This is prior-run evidence, not a
+result for the proposed changes.
+
+The two password-reset /admin/login assertions now share request-local headers
+derived from the client URL, excluding its path. Old-password rejection stays
+401 and replacement-password acceptance stays 303. test_viewer_session_web.sign_in
+uses the same origin derivation for /login and retains its 303 assertion and
+viewer-cookie return value. No other requests gain headers. Session/socket,
+CSRF, anonymous admission and missing/cross-origin guard assertions are unchanged.
+Production code, prior helper fixes, workflows and existing skip behavior are
+untouched; no skips, global monkeypatches or guard bypasses are added.
+
+Nine isolated regressions ran under Python 3.12.8 with copied source call sites
+and recording client doubles: original 6 failed/3 passed; candidate 9 passed.
+They exercise HTTP, HTTPS/nondefault port/path stripping, IPv6, login payloads,
+request-local headers, redirect flags, cookie return and preserved status checks.
+They do not execute the reset transaction or WebSocket lifecycle. FastAPI is
+unavailable; no real HTTP/WebSocket, full-suite, browser, recovery or CI rerun
+was performed. Real integration validation is required before acceptance.
+
+README.md and HANDOVER.md were reviewed. Their test overview and existing link
+to this focused record need no cosmetic edits; current decisions and validation
+limits are recorded here. Proxy-guide completion remains separate unfinished
+work. Bugs 20/21 remain acceptance pending. Earlier handover text/manifests and
+CI evidence are preserved; no other branch, archive or Patch/ material changes.

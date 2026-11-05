@@ -1,4 +1,6 @@
 """HTTP/WebSocket password-reset regressions; run with normal app dependencies."""
+from urllib.parse import urlsplit
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -57,10 +59,12 @@ def test_reset_revokes_old_sessions_and_closes_only_target_sockets(campaign, env
                 account = admin_client.get("/account",
                     headers={"cookie": f"lg_admin_session={actor}"}, follow_redirects=False)
                 assert account.status_code == 200
+        origin = urlsplit(str(client.base_url))
+        login_headers = {"Origin": f"{origin.scheme}://{origin.netloc}"}
         assert client.post("/admin/login", data={"username": "second-root", "password": "secondroot-pass"},
-                           follow_redirects=False).status_code == 401
+                           headers=login_headers, follow_redirects=False).status_code == 401
         assert client.post("/admin/login", data={"username": "second-root", "password": "replacement-pass"},
-                           follow_redirects=False).status_code == 303
+                           headers=login_headers, follow_redirects=False).status_code == 303
 
 
 @pytest.mark.parametrize("invalid", ["csrf", "short", "unknown"])

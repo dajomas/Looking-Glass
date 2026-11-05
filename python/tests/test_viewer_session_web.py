@@ -1,6 +1,7 @@
 """ASGI WebSocket regressions; requires the normal application dependencies."""
 import queue
 import threading
+from urllib.parse import urlsplit
 
 import pytest
 
@@ -33,8 +34,9 @@ def campaign(env):
 
 
 def sign_in(client):
+    origin = urlsplit(str(client.base_url))
     result = client.post("/login", data={"username": "alice", "password": "alicepass"},
-                         follow_redirects=False)
+                         headers={"Origin": f"{origin.scheme}://{origin.netloc}"}, follow_redirects=False)
     assert result.status_code == 303
     return client.cookies.get("lg_viewer_session")
 
