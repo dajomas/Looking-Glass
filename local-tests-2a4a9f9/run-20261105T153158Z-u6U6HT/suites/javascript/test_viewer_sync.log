@@ -1,0 +1,52 @@
+TAP version 13
+# Subtest: loading is not ready until decode and swap
+ok 1 - loading is not ready until decode and swap
+  ---
+  duration_ms: 4.673645
+  type: 'test'
+  ...
+# Subtest: older decode never acknowledges the newer image
+ok 2 - older decode never acknowledges the newer image
+  ---
+  duration_ms: 2.683208
+  type: 'test'
+  ...
+# Subtest: blank invalidates in-flight image and is acknowledged
+ok 3 - blank invalidates in-flight image and is acknowledged
+  ---
+  duration_ms: 1.604874
+  type: 'test'
+  ...
+# Subtest: failed decode reports failure and periodic refresh recovers
+ok 4 - failed decode reports failure and periodic refresh recovers
+  ---
+  duration_ms: 1.950781
+  type: 'test'
+  ...
+# Subtest: fetch failure is visible, image timeout fails, close shows reconnecting
+ok 5 - fetch failure is visible, image timeout fails, close shows reconnecting
+  ---
+  duration_ms: 2.697796
+  type: 'test'
+  ...
+# Subtest: a stale failed decode cannot overwrite latest success status
+ok 6 - a stale failed decode cannot overwrite latest success status
+  ---
+  duration_ms: 1.886279
+  type: 'test'
+  ...
+# Subtest: admin diagnostics render untrusted names only as text and clear on error
+ok 7 - admin diagnostics render untrusted names only as text and clear on error
+  ---
+  duration_ms: 2.146897
+  type: 'test'
+  ...
+1..7
+# tests 7
+# suites 0
+# pass 7
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 23.032604
