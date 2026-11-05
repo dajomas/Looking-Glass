@@ -415,10 +415,14 @@
     const generation = ++stateGeneration;
     const s = await LGApi.get(`/api/maps/${MAP_ID}`);
     if (generation !== stateGeneration) return;
-    if (!poll || !state || ["cache_token", "fog_version", "walls_version", "door_arrows_enabled",
+    if (!poll || !state || ["cache_token", "fog_version", "walls_version", "room_notes_version", "door_arrows_enabled",
       "viewer_door_arrows_enabled", "viewer_portal_arrows_enabled", "viewer_secret_arrows_enabled"]
       .some(key => s[key] !== state[key])) applyState(s);
-    else updateLive(s);
+    else {
+      updateLive(s);
+      // The component's stamp suppresses completed work but permits failed/deferred retries.
+      roomNotes.refresh(s);
+    }
   }
   async function reloadMap() {
     try {await readState();}

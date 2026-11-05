@@ -193,3 +193,45 @@ below 25,000 bytes. No tests were run during evidence-record preparation, no
 assertions or workflow exclusions changed, and no migrations, archives or Patch/
 material are included. This documentation commit's delivery is pending exact
 approval and a successful GitHub write.
+
+## Polling and unchanged-state retry candidate (2026-11-05)
+
+The next increment changes readState in static/js/admin_map_editor.js: its
+comparison includes room_notes_version and its accepted unchanged-state path
+also calls roomNotes.refresh. The component's existing stamp suppresses completed
+work while its null stamp after a failed/deferred refresh permits a later poll
+to retry. No pending flag is duplicated in the editor. The request-generation
+guard runs before both paths; stateKey, mask identities, poll interval, action
+responses and server stale-save checks are unchanged. No new script asset or
+template dependency is introduced.
+
+Added python/tests/test_admin_notes_polling.js with five cases using the complete
+production editor IIFE, actual room-notes class and wall renderer under isolated
+DOM/image/API doubles. A test-only IIFE observation seam exposes the notes object
+and state. Cases require notes-only convergence without new masks, same-revision
+retry after library failure, same-revision retry after room-at failure, retry
+after a simulated saving flag clears, and rejection of a pre-action stale poll.
+The library-retry case also checks completed work is not fetched repeatedly.
+These are client integration contracts, not live HTTP or browser tests.
+
+Validation performed during preparation: source review only. No new Node tests,
+existing ordering/mask tests, Python, HTTP, browser, live, recovery, full-suite or
+CI tests were executed. The five cases are prepared contracts, not passing results.
+Run from the repository root:
+
+```bash
+node --test python/tests/test_admin_notes_polling.js
+node --test python/tests/test_admin_editor_ordering.js
+node --test python/tests/test_admin_mask_identity.js
+node --test python/tests/test_room_notes_sync.js
+node python/tests/test_room_note_save_context.js
+```
+
+README.md and HANDOVER.md were reviewed on the live branch. The existing handover
+index already links this record; README gains no full-convergence guarantee while
+overlay/open-library invalidation and end-to-end acceptance remain pending.
+The editor starts at 23,522 bytes and this small addition remains below 25,000;
+the new test and this record also stay below the limit. All existing tests and
+historical records are retained without exclusions. No migration, [skip ci],
+archive or Patch/ material is included. Bug 27 remains open. GitHub delivery is
+pending exact approval and successful write.
