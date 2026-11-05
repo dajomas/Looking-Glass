@@ -128,3 +128,26 @@ The existing API file is 24,708 bytes; the single added ASCII line is 54 bytes,
 leaving 24,762 bytes, below the 25,000-byte split threshold. Existing records and
 all tests are retained, with no exclusions or [skip ci]. Delivery of this payload
 increment is pending exact approval and successful GitHub write.
+
+## Payload test fixture registration correction
+
+Payload delivery succeeded as 1688aacb49a51be76cae65b2df1f99fee56ec12a.
+The user ran the individual HTTP regression using .venv-test and reported one
+setup error: fixture 'env' not found. No payload assertion ran, so this result
+provides no passing or failing evidence for the payload behavior itself.
+
+The new test module imported flow but not its env dependency. env is declared
+in test_web.py, not conftest.py. Explicitly importing env into the consuming test
+module makes it discoverable alongside flow. This correction adds only that
+import, retaining all assertions and production code without skips or exclusions.
+The reported sys.prefix/sys.exec_prefix warnings are not the missing-fixture
+exception; no environment or warning-suppression changes are included.
+
+README.md and HANDOVER.md were reread from the target branch. Neither needs a
+cosmetic edit for this test-only correction; HANDOVER already indexes this record.
+Both edited files remain below 25,000 bytes. No tests were executed during
+preparation of the correction. Rerun the single HTTP regression in the normal
+dependency environment; fixture setup and payload validation remain unverified
+until that run completes. Polling and overlay/library integration remain pending
+and bug 27 stays open. This correction's GitHub delivery is pending exact
+approval and successful write.
