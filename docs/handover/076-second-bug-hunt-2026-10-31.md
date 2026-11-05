@@ -37,3 +37,46 @@ those apparent issues were excluded. Future fixes must inspect current branch
 code, agree scope, reproduce, add regressions, implement and validate, then
 obtain approval for the exact GitHub write. This record documents the proposed
 review content, not an assertion that the pending commit already succeeded.
+
+## Bugs 20/21: coordinated regression-first work (2026-11-05)
+
+The user requested work on 20/21 together. Treat them as one narrow login-security
+work package with independent acceptance criteria, not a general authentication
+refactor. Earlier text above remains the historical audit record; current bug
+status is in TODO.md. Neither bug is closed by this test-only step.
+
+Reviewed live source at `c9c701ad530c7745277f39c7d05e8adf5a9f57c7`: shared
+auth_routes.py, app_factory.py, login template, real-app test fixture and existing
+login/reset tests. _safe_next still accepts slash/backslash and controls;
+login_submit has no pre-authentication challenge or request-origin check.
+
+Added python/tests/test_login_security_web.py: 12 parameterized HTTP cases using
+the existing real-app/SQLite env fixture, across both portals. Contracts cover
+unsafe next values after login and authenticated login-page visits, a valid local
+query-string return path, and cross-site/opaque-Origin submissions without a
+challenge establishing no session. Normal login first reads hidden form fields
+so the tests do not preclude a future pre-login challenge. These are HTTP
+contracts, not browser exploitability or supported-proxy validation.
+
+Validation actually performed: Python 3.12.8 compiled the prepared test file.
+An isolated execution of the current _safe_next excerpt accepted slash/backslash
+and a literal tab (contrary to the proposed rejection contracts), preserved a
+normal local query and rejected a literal double-slash target. This was not an
+application HTTP run. FastAPI is absent from this sandbox; no HTTP regression,
+browser, live, recovery, full-suite or CI execution was performed.
+
+This is intentionally regression-first: production code is unchanged and some
+new cases are expected to fail until the subsequent fix. Do not describe the
+branch as fixed or these prepared cases as passing. Run the normal dependency
+environment baseline, implement redirect validation and choose login-specific
+CSRF protection after checking both portals and supported proxy behavior, then
+expand coverage for normalization, expired sessions, retries and session identity.
+Existing direct-POST login helpers must be reviewed if a challenge or required
+origin policy changes their contract; do not weaken protection to satisfy tests.
+
+README.md and HANDOVER.md were reviewed. Neither needs a cosmetic edit for this
+test-only step: README advertises no new protection and HANDOVER already links
+this focused record. TODO statuses and historical split manifests are unchanged.
+No migrations, production changes, other branches, archives or Patch/ material
+are included. GitHub delivery and subsequent CI results must be reported only
+after they actually occur.
