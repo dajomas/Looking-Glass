@@ -335,3 +335,34 @@ new behavior and needs no cosmetic update; HANDOVER already links this record.
 Both proposed files remain below 25,000 bytes. No migrations, other branches,
 archives or Patch/ material are included. Delivery is pending exact approval
 and successful GitHub write; report the actual commit only after success.
+
+## Manager/picker implementation awaiting delivery
+
+The user reported the committed manager/picker suite at 4 failures, 1 pass and
+zero skips, with the existing manager script passing. No candidate tests have
+been executed. Earlier write attempts were rejected by the approval gate and
+did not modify the repository. The live JavaScript files were reread before
+preparing this fresh exact-content confirmation.
+
+The candidate adds syncEntries to refresh an open manager from accepted picker
+GET/import results while preserving scroll and busy controls. Manager accept
+uses the same rendering helper with an explicit force flag for its own results.
+Manager refresh takes a shared owner.libraryGeneration ticket plus its dialog
+generation; both must match before accepting data or displaying errors. Its
+finally cleanup uses the dialog generation alone, releasing controls even when
+a newer picker request supersedes the result. If Loading was not replaced by
+new data/error status, it displays an explicit retry message. Existing mutation
+handlers, close behavior, room drafts and save-context validation are unchanged.
+
+Validation remains source review only: no candidate Node, Python, HTTP, browser,
+live, recovery, full-suite or CI run is claimed. Existing tests are unchanged.
+Rerun the library sync, manager, notes UI, save-context and admin polling scripts.
+Additional mutation/close/import/retry ordering coverage and two-editor browser
+acceptance remain unfinished. Shared generations order client requests, not
+server snapshots by a returned library revision. Bug 27 remains open.
+
+README.md and HANDOVER.md were reread. No full-sync guarantee is advertised, and
+the existing handover index already links this record. All three proposed files
+remain below 25,000 bytes; no split is required. No schema, API, permission, asset
+loading, test exclusion, [skip ci], archive or Patch/ changes. This exact write
+requires fresh approval; report a delivery SHA only after successful write.

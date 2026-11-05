@@ -45,22 +45,36 @@ window.LGRoomLibraryManager = class {
     }
     this.status(entries.length?`${entries.length} imported entries · ${entries.filter(e=>e.assigned).length} assigned`:"No imported room notes.");
   }
-  accept(entries) {
-    ++this.owner.libraryGeneration;
-    this.owner.libraryEntries=entries;this.owner.renderLibrary();
+  syncEntries(entries, force=false) {
+    if(!force&&!this.dialog.open)return;
     const list=this.$("room-library-list"),scroll=list.scrollTop;
     this.render(entries);list.scrollTop=scroll;
     if(this.busy)this.setBusy(true);
   }
+  accept(entries) {
+    ++this.owner.libraryGeneration;
+    this.owner.libraryEntries=entries;this.owner.renderLibrary();
+    this.syncEntries(entries,true);
+  }
   async refresh() {
     if(this.busy)return;
-    this.setBusy(true);const generation=++this.generation;this.status("Loading imported room notes…");
+    this.setBusy(true);
+    const generation=++this.generation,libraryGeneration=++this.owner.libraryGeneration;
+    const current=()=>generation===this.generation&&libraryGeneration===this.owner.libraryGeneration;
+    this.status("Loading imported room notes…");
     this.$("room-library-refresh").disabled=true;
     try {
       const result=await LGApi.get(`/api/maps/${this.mapId}/room-note-library`);
-      if(generation===this.generation)this.accept(result.entries||[]);
-    } catch(error){if(generation===this.generation)this.status(error.message);}
-    finally {if(generation===this.generation){this.setBusy(false);}}
+      if(current())this.accept(result.entries||[]);
+    } catch(error){if(current())this.status(error.message);}
+    finally {
+      // A newer picker request supersedes data/errors, not this operation's cleanup.
+      if(generation===this.generation){
+        if(this.$("room-library-status").textContent==="Loading imported room notes…")
+          this.status("Library refresh superseded. Refresh to retry.");
+        this.setBusy(false);
+      }
+    }
   }
   async unassign(id) {
     const entry=this.entries?.find(e=>e.id===id);

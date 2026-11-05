@@ -60,6 +60,7 @@ window.LGRoomNotes = class {
         const result=await LGApi.post(`/api/maps/${this.mapId}/room-note-library/import`,body);
         if(generation!==this.libraryGeneration)return;
         this.libraryEntries=result.entries||[];this.renderLibrary();
+        this.libraryManager?.syncEntries?.(this.libraryEntries);
         this.$("room-import-status").textContent=`${result.sections} sections at H${result.heading_level}; ${result.added} new entries.`+
           (result.ignored_preamble?" Text before the first room heading was ignored.":"");
         this.$("room-import-file").value="";
@@ -151,6 +152,7 @@ window.LGRoomNotes = class {
       const result=await LGApi.get(`/api/maps/${this.mapId}/room-note-library`);
       if(generation!==this.libraryGeneration)return false;
       this.libraryEntries=result.entries||[];this.renderLibrary();
+      this.libraryManager?.syncEntries?.(this.libraryEntries);
       return true;
     } catch(error){if(generation===this.libraryGeneration)this.toast("Room note library: "+error.message,"error");return false;}
   }
