@@ -118,3 +118,45 @@ return-URL rules and needs no cosmetic edit; HANDOVER already indexes this focus
 record, which now records the implementation decision and evidence limits. The
 historical sections above and split manifests are preserved. Delivery is pending
 the exact GitHub approval/write; report its SHA only after success.
+
+## Bug 21: strict login-origin implementation candidate (2026-11-05)
+
+The user requested committing the candidate now, with follow-up work still open.
+Baseline: 29e19a121c503bdd0e3e9a54a382f32ccc0320de. Bug 20 is preserved.
+login_origin.py requires a matching Origin, or a matching Referer only when
+Origin is absent. Scheme, case-normalized hostname and effective port must match
+the ASGI request. Missing, opaque, malformed, duplicate and cross-origin source
+headers are denied. POST /login also requires one Host header and rejects with
+403 before the handler accesses throttle, credentials or sessions. No passwords
+or submitted source headers are logged. No migration or new configuration.
+
+Validation performed during candidate preparation: 42 pure policy cases and
+three extracted-route denial-order cases passed under Python 3.12.8. Against
+the unchanged route, the three denial-order cases failed; the 42 candidate-policy
+cases passed. These are isolated policy/AST checks, not a baseline application
+exploit reproduction. The reconstructed baseline route matched Git blob
+417ed64ec43083037c10ce3cb187dd632d04d033; the full candidate syntax-compiled.
+FastAPI was unavailable. No HTTP/browser/live/recovery/full-suite/CI execution
+or deployment success is claimed. No tests were rerun merely to request delivery.
+
+Known unfinished work: direct-POST login clients and existing tests that omit
+both source headers now receive 403. Their migration, including test_web.login,
+is NOT included in this commit. Expect existing test failures until that work
+lands. Do not weaken the guard or globally inject source headers into security
+tests. Existing regression tests and assertions are retained without skips.
+Bug 21 remains open/acceptance pending; this is not a deployment-ready claim.
+
+Operational requirement: automation must send the exact receiving portal Origin,
+including a nondefault port. Reverse proxies must preserve the external Host
+and port (for example nginx $http_host where appropriate) and communicate the
+external scheme through server-trusted proxy handling. The policy does not read
+Forwarded or X-Forwarded-* itself. Restrict backend access and trust only actual
+proxies; never configure blanket trust to make the check pass. Proxies/privacy
+settings that remove both source headers will prevent login. Networking guide
+updates and real direct-LAN/proxy/browser validation remain unfinished.
+
+README.md and HANDOVER.md were reviewed; this existing indexed handover section
+records the implementation, changed client contract and outstanding work. Their
+indexes and the historical records/manifests are unchanged. No other branch,
+archive, Patch/ material, bug closure or helper migration is included. Delivery
+is pending exact approval/write; report the actual commit only after success.

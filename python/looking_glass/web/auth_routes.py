@@ -4,7 +4,7 @@ from posixpath import normpath
 from typing import Annotated
 from urllib.parse import unquote
 
-from fastapi import APIRouter, Form, Request
+from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse
 
 from .. import rbac
@@ -12,6 +12,7 @@ from ..repositories import sessions as sessions_repo
 from ..repositories import users as users_repo
 from ..security import token_hash, verify_password
 from .deps import CsrfUserDep, CtxDep, UserDep, cookie_name, optional_user
+from .login_origin import login_request_allowed
 from .templating import render
 
 router = APIRouter()
@@ -51,6 +52,10 @@ def login_page(request: Request, next: str = "/"):
 def login_submit(request: Request, ctx: CtxDep,
                  username: Annotated[str, Form()], password: Annotated[str, Form()],
                  next: Annotated[str, Form()] = "/"):
+    if (len(request.headers.getlist("host")) != 1
+            or not login_request_allowed(str(request.base_url), request.headers.getlist("origin"),
+                                         request.headers.getlist("referer"))):
+        raise HTTPException(status_code=403, detail="Login requires a same-origin request.")
     entry = request.app.state.entry
     ip = request.client.host if request.client else "?"
     username = username.strip()
