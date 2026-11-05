@@ -1,0 +1,38 @@
+n	Check out repository	2026-11-05T21:34:08.1077506Z   fetch-tags: false
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1077764Z   show-progress: true
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1078021Z   lfs: false
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1078257Z   submodules: false
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1078545Z   set-safe-directory: true
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1078836Z   allow-unsafe-pr-checkout: false
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1079234Z env:
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1079553Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1079948Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1080207Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.1080495Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3455418Z Syncing repository: dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3457280Z ##[group]Getting Git version info
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3457939Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3458802Z [command]/usr/bin/git version
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3560774Z git version 2.56.0
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3562442Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3577844Z Temporarily overriding HOME='/home/runner/work/_temp/fd31a7f5-3eb2-4cfe-b393-d965145fa778' before making global git config changes
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3579492Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3585123Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3649614Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3651203Z ##[group]Determining repository object format
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3652053Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3652665Z ##[group]Initializing the repository
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3653323Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3745684Z hint: Using 'master' as the name for the initial branch. This default branch name
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3747235Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3748303Z hint: to use in all of your new repositories, which will suppress this warning,
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3749146Z hint: call:
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3749637Z hint:
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3750290Z hint: 	git config --global init.defaultBranch <name>
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3751025Z hint:
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3751668Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3752712Z hint: 'development'. The just-created branch can be renamed via this command:
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3753550Z hint:
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3754075Z hint: 	git branch -m <name>
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3754665Z hint:
+Live Uvicorn	Check out repository	2026-11-05T21:34:08.3755349Z hint: Disable this message with "git config set advice.defaultBranchName false"

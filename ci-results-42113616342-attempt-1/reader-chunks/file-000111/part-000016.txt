@@ -1,0 +1,23 @@
+nly --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Recovery	Post Check out repository	2026-11-05T21:35:11.1911283Z Removing includeIf entries pointing to credentials config files
+Recovery	Post Check out repository	2026-11-05T21:35:11.1918801Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Recovery	Post Check out repository	2026-11-05T21:35:11.1954073Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.1954898Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.1955573Z includeif.gitdir:/github/workspace/.git.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.1956055Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.1964149Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.1993903Z /home/runner/work/_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.2003772Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.3338881Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.3373328Z /home/runner/work/_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.3382852Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.5778405Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.5812479Z /github/runner_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.5820354Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.6382620Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Recovery	Post Check out repository	2026-11-05T21:35:11.6415782Z /github/runner_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.6423498Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config
+Recovery	Post Check out repository	2026-11-05T21:35:11.7594149Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Recovery	Post Check out repository	2026-11-05T21:35:11.7811780Z Removing credentials config '/home/runner/work/_temp/git-credentials-fbeaf3ed-ae4f-42c6-9f4b-3aa98c4f5a42.config'
+Recovery	Complete job	﻿2026-11-05T21:35:11.8329254Z Cleaning up orphan processes
+Recovery	Complete job	2026-11-05T21:35:11.8631591Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-acti

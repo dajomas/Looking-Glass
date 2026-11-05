@@ -1,0 +1,18 @@
+: Application shutdown complete.
+2026-11-05 21:35:03,138 INFO    uvicorn.error: Finished server process [1]
+
+['/usr/bin/docker', 'rm', 'looking-glass-test-87ec24e025a448d39310f0a888c08368']
+exit=0
+looking-glass-test-87ec24e025a448d39310f0a888c08368
+
+
+['/usr/bin/docker', 'rm', '--force', 'looking-glass-test-87ec24e025a448d39310f0a888c08368']
+exit=0
+
+Error response from daemon: No such container: looking-glass-test-87ec24e025a448d39310f0a888c08368
+
+['/usr/bin/docker', 'volume', 'rm', 'looking-glass-test-data-87ec24e025a448d39310f0a888c08368']
+exit=0
+looking-glass-test-data-87ec24e025a448d39310f0a888c08368
+
+

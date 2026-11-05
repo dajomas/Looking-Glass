@@ -1,0 +1,113 @@
+er-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:1329bc9d86a84ebbb8e9b14c62c8a895",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "0bd9c5cde8e4ad75fbaad9774aaafb3790861c617a92e47896e32a2f2640763e",
+            "SandboxKey": "/var/run/docker/netns/0bd9c5cde8e4",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32770"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32771"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "29d0cb37d39b0d00d3f6781a25d787766c64630425d6dc2fe61bac8525e299aa",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "ae:24:37:f4:a6:11",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "ae:24:37:f4:a6:11",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "8683e08d9bfa1515b61f4c9f8e1efedaa0ad3a3d887c5ee0a6f69ca04c4d7a05",
+                    "EndpointID": "29d0cb37d39b0d00d3f6781a25d787766c64630425d6dc2fe61bac8525e299aa",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-87ec24e025a448d39310f0a888c08368']
+exit=0
+[
+    {
+        "Id": "5263198d9e82ecd0763298c0632cfc455db86fe60808ac8321a5c42ee570d7e8",
+        "Created": "2026-11-05T21:34:58.463997976Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2921,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-05T21:34:58.513527195Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Sta

@@ -1,0 +1,44 @@
+ITHUB_TOKEN Permissions
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.0775679Z Contents: read
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.0776143Z Metadata: read
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.0776637Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.0778136Z Secret source: Actions
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.0778883Z Cache mode: write
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.0779424Z Prepare workflow directory
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.1180866Z Prepare all required actions
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.1221456Z Getting action download info
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.3952345Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.5073156Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.6148605Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.7463405Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:07.9551533Z Complete job name: Python / HTTP
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0163097Z ##[group]Run actions/checkout@v6
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0163860Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0164526Z   repository: dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0168228Z   token: ***
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0168639Z   ssh-strict: true
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0169072Z   ssh-user: git
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0169513Z   persist-credentials: true
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0169974Z   clean: true
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0170374Z   sparse-checkout-cone-mode: true
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0170877Z   fetch-depth: 1
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0171296Z   fetch-tags: false
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0171708Z   show-progress: true
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0172156Z   lfs: false
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0172586Z   submodules: false
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0173034Z   set-safe-directory: true
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0173517Z   allow-unsafe-pr-checkout: false
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0174345Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0174909Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0175563Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0176103Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.0176533Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2540558Z Syncing repository: dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2542299Z ##[group]Getting Git version info
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2543634Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2544954Z [command]/usr/bin/git version
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2608418Z git version 2.56.0
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2627573Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2646681Z Temporarily overriding HOME='/home/runner/work/_temp/00d0c8bb-7564-49a7-8ad9-5a3113290b4b' before making global git config changes
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2648881Z Adding repository directory to the temporary git global config as a safe directory
+Python / HTTP	UNKNOWN STEP	2026-11-05T21:34:08.2650514Z [command]/usr/bin/git config --global --add safe.directory /home/run
