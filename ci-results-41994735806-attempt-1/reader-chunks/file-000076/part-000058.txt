@@ -1,0 +1,21 @@
+me="test_real_hub_blocks_event_when_password_gate_becomes_required" time="0.004" /><testcase classname="python.tests.test_viewer_password_gate_web" name="test_required_change_cannot_subscribe_for_any_role[superadmin]" time="0.391" /><testcase classname="python.tests.test_viewer_password_gate_web" name="test_required_change_cannot_subscribe_for_any_role[admin]" time="0.380" /><testcase classname="python.tests.test_viewer_password_gate_web" name="test_required_change_cannot_subscribe_for_any_role[viewer]" time="0.390" /><testcase classname="python.tests.test_viewer_password_gate_web" name="test_new_flag_blocks_broadcast_without_disrupting_other_user" time="0.684" /><testcase classname="python.tests.test_viewer_password_gate_web" name="test_idle_connection_observes_new_flag" time="0.419" /><testcase classname="python.tests.test_viewer_password_gate_web" name="test_account_change_clears_requirement_and_allows_reconnect" time="0.529" /><testcase classname="python.tests.test_viewer_password_gate_web" name="test_required_change_user_can_still_logout" time="0.380" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_lookup_hash_matches_raw_lookup_and_portal" time="0.001" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_session_kick_isolates_sessions_and_covers_campaigns" time="0.001" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_publish_rechecks_access_before_every_event" time="0.001" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_idle_access_check_closes_without_an_event" time="0.000" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_pong_uses_same_guard" time="0.000" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_access_check_exception_fails_closed" time="0.001" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_close_failure_still_detaches_socket" time="0.000" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_send_failure_does_not_break_other_viewers" time="0.000" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_kick_user_preserves_existing_scope" time="0.001" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_unsubscribe_and_unknown_kicks_are_idempotent" time="0.000" /><testcase classname="python.tests.test_viewer_session_lifetime" name="test_kick_waits_for_inflight_send_and_prevents_later_sends" time="0.001" /><testcase classname="python.tests.test_viewer_session_web" name="test_logout_closes_only_matching_session_and_all_its_tabs" time="0.415"><failure message="assert 403 == 303&#10; +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code">campaign = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...ng_glass.security.LoginThrottle object at 0x7f0cdebb8d00&gt;), &lt;fastapi.applications.FastAPI object at 0x7f0cbe76c1a0&gt;, 1)
+
+    def test_logout_closes_only_matching_session_and_all_its_tabs(campaign):
+        ctx, viewer, cid = campaign
+        with TestClient(viewer) as client:
+&gt;           a = sign_in(client)
+                ^^^^^^^^^^^^^^^
+
+python/tests/test_viewer_session_web.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = &lt;starlette.testclient.TestClient object at 0x7f0cbca12250&gt;
+
+    def sign_in(client):
+        result = client.post("/login", data={"username": "alice", "password": "alicepass"},
+                             follow_redirects=False)
+&gt;       assert result.status_code == 303
+E       assert 403 == 303
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+python/tests/test_viewer_session_web.py:38: AssertionError</failure></testcase><testcase classname="python.tests.test_viewer_session_web" name="test_expired_session_gets_no_broadcast" time="0.422"><failure message="assert 403 == 303&#10; +

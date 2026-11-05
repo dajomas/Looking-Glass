@@ -1,0 +1,30 @@
+ONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2715684Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2715954Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2716369Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2716773Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2717190Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2717549Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2717918Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.2718410Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:01.9896832Z ============================= test session starts ==============================
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:02.0002909Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:02.0008262Z cachedir: .pytest_cache
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:02.0008716Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:02.0009183Z plugins: anyio-4.16.0
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.4924412Z collecting ... collected 1584 items
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.4961479Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5024215Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_idempotent PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5033499Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_rejects_string PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5041501Z python/tests/test_access_logging.py::AccessLoggingTests::test_debug_opt_in PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5050113Z python/tests/test_access_logging.py::AccessLoggingTests::test_failed_requests_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5075255Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5077971Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5086771Z python/tests/test_access_logging.py::AccessLoggingTests::test_unknown_formats_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.5095655Z python/tests/test_access_logging.py::AccessLoggingTests::test_warnings_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.6534947Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values0-Current password is incorrect.-False] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.7834555Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values0-Current password is incorrect.-True] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:05.9127173Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values1-New password must be at least 8 characters.-False] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:06.0444763Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values1-New password must be at least 8 characters.-True] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:06.1751604Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values2-Passwords do not match.-False] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:29:06.3063213Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values2-Passwords do not m

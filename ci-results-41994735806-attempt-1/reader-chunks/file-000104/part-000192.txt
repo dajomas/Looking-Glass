@@ -1,0 +1,34 @@
+hon/tests/test_viewer_session_web.py::test_expired_session_gets_no_broadcast - assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9613439Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9614208Z FAILED python/tests/test_viewer_session_web.py::test_idle_revoked_socket_closes_without_ping_or_broadcast - assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9614874Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9615407Z FAILED python/tests/test_viewer_session_web.py::test_removed_campaign_assignment_prevents_event - assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9615947Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9616439Z FAILED python/tests/test_viewer_session_web.py::test_revoked_socket_cannot_report_ready - assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9616958Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9617503Z FAILED python/tests/test_viewer_session_web.py::test_logout_during_accept_is_caught_after_subscription - assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9618051Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9618439Z ======= 10 failed, 1574 passed, 29 subtests passed in 172.95s (0:02:52) ========
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7242856Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7322173Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7322511Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7322761Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7323059Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7323406Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7323932Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7324325Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7324694Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7324996Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7415080Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7415605Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7416119Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7416748Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7417390Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7417822Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7418117Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7418561Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7418956Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7419310Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7419657Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:55.7433607Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31

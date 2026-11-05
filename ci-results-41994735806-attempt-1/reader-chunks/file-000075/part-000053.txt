@@ -1,0 +1,53 @@
+ HTTP Request: POST http://testserver/campaigns/1/viewers/add "HTTP/1.1 303 See Other"
+INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/campaigns/1?ok=alice+can+now+view+this+campaign "HTTP/1.1 200 OK"
+------------------------------ Captured log call -------------------------------
+INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+____________ test_logout_during_accept_is_caught_after_subscription ____________
+
+campaign = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...ng_glass.security.LoginThrottle object at 0x7f0cbc2410f0>), <fastapi.applications.FastAPI object at 0x7f0cbcae9940>, 1)
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f0cbec60ad0>
+
+    def test_logout_during_accept_is_caught_after_subscription(campaign, monkeypatch):
+        ctx, viewer, cid = campaign
+        original = ctx.hub.subscribe
+        async def subscribe_after_revoke(campaign_id, ws):
+            with ctx.db.connect() as conn:
+                conn.execute("DELETE FROM sessions WHERE token_hash=?", (ws.state.session_hash,))
+            await original(campaign_id, ws)
+        monkeypatch.setattr(ctx.hub, "subscribe", subscribe_after_revoke)
+        with TestClient(viewer) as client:
+>           sign_in(client)
+
+python/tests/test_viewer_session_web.py:153: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <starlette.testclient.TestClient object at 0x7f0cbc146250>
+
+    def sign_in(client):
+        result = client.post("/login", data={"username": "alice", "password": "alicepass"},
+                             follow_redirects=False)
+>       assert result.status_code == 303
+E       assert 403 == 303
+E        +  where 403 = <Response [403 Forbidden]>.status_code
+
+python/tests/test_viewer_session_web.py:38: AssertionError
+------------------------------ Captured log setup ------------------------------
+INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 303 See Other"
+INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/campaigns "HTTP/1.1 303 See Other"
+INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/campaigns/1/viewers/add "HTTP/1.1 303 See Other"
+INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/campaigns/1?ok=alice+can+now+view+this+campaign "HTTP/1.1 200 OK"
+------------------------------ Captured log call -------------------------------
+INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+- generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+=========================== short test summary info ============================
+FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[False-False] - AssertionError: assert 403 == 401
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+ +      where post = <starlette.testclient.TestClient object at 0x7f0cbca10050>.post
+FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[False-True] - AssertionError: assert 403 == 401
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+ +      where post = <starlette.testclient.TestClient object at 0x7f0cbc7c1bf0>.post
+FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[True-False] - AssertionError: assert 403 == 401
+ +  where

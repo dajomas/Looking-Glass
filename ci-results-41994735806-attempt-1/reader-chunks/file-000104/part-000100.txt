@@ -1,0 +1,35 @@
+:28:36.4827496Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.4919745Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.4925271Z ##[group]Determining repository object format
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.4929278Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.4932325Z ##[group]Initializing the repository
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.4935860Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5027523Z hint: Using 'master' as the name for the initial branch. This default branch name
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5030017Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5032301Z hint: to use in all of your new repositories, which will suppress this warning,
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5034540Z hint: call:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5037820Z hint:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5043010Z hint: 	git config --global init.defaultBranch <name>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5045015Z hint:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5046585Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5049154Z hint: 'development'. The just-created branch can be renamed via this command:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5051166Z hint:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5052311Z hint: 	git branch -m <name>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5053594Z hint:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5056170Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5068622Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5091301Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5157182Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5160450Z ##[group]Disabling automatic garbage collection
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5163220Z [command]/usr/bin/git config --local gc.auto 0
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5198544Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5200751Z ##[group]Setting up auth
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5202248Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5207858Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5254447Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5630101Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5639804Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5679109Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5877939Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5884255Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.5924367Z [command]/usr/bin/git submodule

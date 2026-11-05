@@ -1,0 +1,78 @@
+,
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "692bfffdfeff2f5376c7cad2ea69ef672aa8c5634bb241b75d77aa39571caadc",
+                "LowerDir": "/var/lib/docker/overlay2/84c84154f9cdcfc1029a5f1146d4456f201a78546ef9c4bd027b8ffbb31d35b4-init/diff:/var/lib/docker/overlay2/to5cenykwyh48hipbt1rkb8l0/diff:/var/lib/docker/overlay2/ibtg5hl0a3mtxbat2tuutva6k/diff:/var/lib/docker/overlay2/2ho8e7zqsukhk9q3gi6scdzem/diff:/var/lib/docker/overlay2/hg3g3rwairznfxkocf0avlu9c/diff:/var/lib/docker/overlay2/uwbfwk30pioe0frl9dfshg7pm/diff:/var/lib/docker/overlay2/pcqy3q3i8sqiwrktyd1f3abox/diff:/var/lib/docker/overlay2/mwjnhxf36inzg4gjr6guqmvko/diff:/var/lib/docker/overlay2/8opfy2sk1kaa7nz7r6dwd3lly/diff:/var/lib/docker/overlay2/ljszxeh7kev0tjo4jfegnhvi6/diff:/var/lib/docker/overlay2/95269b344e97426ae7df721ef95e86b844b92d0060e646ec4da60425d0bed798/diff:/var/lib/docker/overlay2/ef89a46910fb370b7fd2f469fe17ac004981f4bb1600e91d200a051fbfefc3ab/diff:/var/lib/docker/overlay2/cd26a55806885a6b4b641d67467941db6f2ec4984cc20f17409cfb61e0ea88fb/diff:/var/lib/docker/overlay2/c988d92a0cc22ed29ed5df00dea9ff28c6cf5972591d9446836fa733dd1cf62f/diff",
+                "MergedDir": "/var/lib/docker/overlay2/84c84154f9cdcfc1029a5f1146d4456f201a78546ef9c4bd027b8ffbb31d35b4/merged",
+                "UpperDir": "/var/lib/docker/overlay2/84c84154f9cdcfc1029a5f1146d4456f201a78546ef9c4bd027b8ffbb31d35b4/diff",
+                "WorkDir": "/var/lib/docker/overlay2/84c84154f9cdcfc1029a5f1146d4456f201a78546ef9c4bd027b8ffbb31d35b4/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-ddcdd97624e2417099b4a7d6d5b0ce5c",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-ddcdd97624e2417099b4a7d6d5b0ce5c/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "692bfffdfeff",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1

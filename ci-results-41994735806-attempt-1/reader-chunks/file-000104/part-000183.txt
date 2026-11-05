@@ -1,0 +1,31 @@
+08:31:54.9348307Z campaign = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...7f0cbc250270>, 1, 6, 'cmMcvQyNzS2fOIq3GMOjQvnIuWjsxoTl-DFyVq3JYZM', 't7WIqs78VlrMsvqGYhtG_M29H-M7787oHXECiEP0dQs', ...)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9350980Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...60>), <fastapi.applications.FastAPI object at 0x7f0cbe21d550>, <fastapi.applications.FastAPI object at 0x7f0cbe21e270>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9352576Z self_reset = True, must_change = True
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9352868Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9353264Z     @pytest.mark.parametrize("self_reset", [False, True])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9354135Z     @pytest.mark.parametrize("must_change", [False, True])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9355187Z     def test_reset_revokes_old_sessions_and_closes_only_target_sockets(campaign, env, self_reset, must_change):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9356461Z         ctx, client, cid, target, viewer_token, admin_token, root_token, root_csrf, alice = campaign
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9357279Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9357898Z             other_admin, _ = sessions.create(conn, target, "admin", 3600)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9358587Z             other_viewer, _ = sessions.create(conn, target, "viewer", 3600)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9359366Z             target_csrf = sessions.lookup(conn, admin_token, "admin")["csrf_token"]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9360094Z         actor = admin_token if self_reset else root_token
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9360682Z         csrf = target_csrf if self_reset else root_csrf
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9361276Z         with client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9361970Z                 headers={"cookie": f"lg_viewer_session={viewer_token}"}) as first, \
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9362673Z              client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9363350Z                 headers={"cookie": f"lg_viewer_session={other_viewer}"}) as second, \
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9364199Z              client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9364803Z                 headers={"cookie": f"lg_viewer_session={alice}"}) as unaffected:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9365390Z             for ws in (first, second, unaffected):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9365817Z                 ping(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9366590Z             response = client.post(f"/admin/users/{target}/password",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9367769Z                 headers={"cookie": f"lg_admin_session={actor}"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9369358Z                 data={"csrf_token": csrf, "password": "replacement-pass", "must_change": str(must_change).lower()},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9371175Z                 follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9372407Z             assert response.status_code == 303 and "ok=" in response.headers["location"]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9373865Z             for ws in (first, second):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9374649Z                 frame = receive(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9375703Z                 assert frame["type"] == "websocket.close" and frame["code"] == 4403
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.937685

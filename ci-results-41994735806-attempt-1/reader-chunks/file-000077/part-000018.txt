@@ -1,0 +1,115 @@
+",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:561e1000a6154a8eb7ad7041cde94eda",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "8f198b6778e06f35880c4ef56786a8ccd3bb3e2d0b9e627efc9725285abec387",
+            "SandboxKey": "/var/run/docker/netns/8f198b6778e0",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32770"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32771"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "d8cc033d6cf300b6f75e5340e642758509e5bb6fd3c6b00a4a44b329be4dd9c0",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "0e:2d:af:cd:56:ff",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "0e:2d:af:cd:56:ff",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "4b8ce43f8c785869ab974e7e43fe6b00f9ba5d59d2a01a81d198d75dd91a8224",
+                    "EndpointID": "d8cc033d6cf300b6f75e5340e642758509e5bb6fd3c6b00a4a44b329be4dd9c0",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-ddcdd97624e2417099b4a7d6d5b0ce5c']
+exit=0
+[
+    {
+        "Id": "692bfffdfeff2f5376c7cad2ea69ef672aa8c5634bb241b75d77aa39571caadc",
+        "Created": "2026-11-05T08:29:37.801619236Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2942,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-05T08:29:37.818002185Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:20f3ea27bf99e5ab9f3c1df864b3f2463b4b78dc7b04cbe65b356588dcd99b8c",
+        "ResolvConfPath": "/var/lib/docker/containers/692bfffdfeff2f5376c7cad2ea69ef672aa8c5634bb241b75d77aa39571caadc/resolv.conf",
+        

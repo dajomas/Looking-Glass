@@ -1,0 +1,32 @@
+UNKNOWN STEP	2026-11-05T08:28:41.3363536Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:41.3363956Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:41.3364394Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:41.3364828Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:41.3365210Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:41.3365577Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:41.3366010Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:41.3366340Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.4868643Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.9/x64/lib/python3.14/site-packages (26.2.2)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.5834117Z Collecting pip
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.6585091Z   Downloading pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.6738681Z Downloading pip-26.3-py3-none-any.whl (2.0 MB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.8386381Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 13.6 MB/s  0:00:00
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.9918442Z Installing collected packages: pip
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.9919741Z   Attempting uninstall: pip
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:42.9944652Z     Found existing installation: pip 26.2.2
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:43.0595411Z     Uninstalling pip-26.2.2:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:43.0645325Z       Successfully uninstalled pip-26.2.2
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.2607510Z Successfully installed pip-26.3
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.7832137Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.7846714Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.8182080Z Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 2))
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.8197800Z   Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.8388842Z Collecting jinja2>=3.1 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 3))
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.8401026Z   Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.8614776Z Collecting python-multipart>=0.0.12 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 4))
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.9278009Z   Downloading python_multipart-0.0.33-py3-none-any.whl.metadata (6.3 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.9668774Z Collecting pyyaml>=6.0 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 5))
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:44.9681284Z   Using cached pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:45.1148809Z Collecting pillow>=11.3 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 6))
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:45.1162898Z   Using cached pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:45.2887364Z Collecting numpy>=2.3 (from -r /home/runner/work

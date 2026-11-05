@@ -1,0 +1,36 @@
+-------------- Captured log call -------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9584321Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9584858Z ____________ test_logout_during_accept_is_caught_after_subscription ____________
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9585155Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9585851Z campaign = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...ng_glass.security.LoginThrottle object at 0x7f0cbc2410f0>), <fastapi.applications.FastAPI object at 0x7f0cbcae9940>, 1)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9586850Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f0cbec60ad0>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9587131Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9587364Z     def test_logout_during_accept_is_caught_after_subscription(campaign, monkeypatch):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9587777Z         ctx, viewer, cid = campaign
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9588049Z         original = ctx.hub.subscribe
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9588349Z         async def subscribe_after_revoke(campaign_id, ws):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9588659Z             with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9589063Z                 conn.execute("DELETE FROM sessions WHERE token_hash=?", (ws.state.session_hash,))
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9589577Z             await original(campaign_id, ws)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9589950Z         monkeypatch.setattr(ctx.hub, "subscribe", subscribe_after_revoke)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9590315Z         with TestClient(viewer) as client:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9590591Z >           sign_in(client)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9590742Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9590869Z python/tests/test_viewer_session_web.py:153: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9591202Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9591433Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9591611Z client = <starlette.testclient.TestClient object at 0x7f0cbc146250>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9591876Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9591975Z     def sign_in(client):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9592346Z         result = client.post("/login", data={"username": "alice", "password": "alicepass"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9592770Z                              follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9593061Z >       assert result.status_code == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9593329Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9593606Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9593905Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9594062Z python/tests/test_viewer_session_web.py:38: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9594555Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9595077Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9595630Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/ "HTTP/1.1 200 OK"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9596217Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/campaigns "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:

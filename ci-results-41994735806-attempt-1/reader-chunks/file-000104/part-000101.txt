@@ -1,0 +1,31 @@
+ foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6145276Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-d6349db6-2c70-45d3-ac44-dfedd9d770dc.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6191168Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-d6349db6-2c70-45d3-ac44-dfedd9d770dc.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6228303Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-d6349db6-2c70-45d3-ac44-dfedd9d770dc.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6267588Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-d6349db6-2c70-45d3-ac44-dfedd9d770dc.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6315543Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-d6349db6-2c70-45d3-ac44-dfedd9d770dc.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6347053Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6348800Z ##[group]Fetching the repository
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:36.6356731Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dd882a5cbdf228b61aca443b731155d07ec8a0fb:refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5130577Z From https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5131344Z  * [new ref]         dd882a5cbdf228b61aca443b731155d07ec8a0fb -> origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5141939Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5171840Z   origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5181357Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5207483Z dd882a5cbdf228b61aca443b731155d07ec8a0fb
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5211620Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5212410Z ##[group]Determining the checkout info
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5213382Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5219911Z [command]/usr/bin/git sparse-checkout disable
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5272747Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5305125Z ##[group]Checking out the ref
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.5310373Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6317179Z Switched to a new branch 'features/perplexity'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6320916Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6330216Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6377499Z [command]/usr/bin/git log -1 --format=%H
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6404785Z dd882a5cbdf228b61aca443b731155d07ec8a0fb
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6612222Z ##[group]Run mkdir -p test-results
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6612753Z ^[[36;1mmkdir -p test-results^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6613212Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:28:37.6613937Z ^[[36;1muname -a >> test-results/envi

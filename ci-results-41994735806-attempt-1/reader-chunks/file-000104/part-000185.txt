@@ -1,0 +1,34 @@
+>.post
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9419018Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9419616Z python/tests/test_password_reset_revocation_web.py:60: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9421026Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9422840Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9425871Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns/1/viewers/add "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9427875Z ------------------------------ Captured log call -------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9429776Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/users/6/password "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9432135Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/viewer/api/c/1/state "HTTP/1.1 401 Unauthorized"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9434519Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/viewer/api/c/1/state "HTTP/1.1 401 Unauthorized"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9436757Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/admin/account "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9438627Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/account "HTTP/1.1 200 OK"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9440423Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9442257Z __________ test_logout_closes_only_matching_session_and_all_its_tabs ___________
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9443253Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9446227Z campaign = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...ng_glass.security.LoginThrottle object at 0x7f0cdebb8d00>), <fastapi.applications.FastAPI object at 0x7f0cbe76c1a0>, 1)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9449028Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9449657Z     def test_logout_closes_only_matching_session_and_all_its_tabs(campaign):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9450854Z         ctx, viewer, cid = campaign
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9451653Z         with TestClient(viewer) as client:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9452478Z >           a = sign_in(client)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9453191Z                 ^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9453642Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9454180Z python/tests/test_viewer_session_web.py:72: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9455242Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9455996Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9456568Z client = <starlette.testclient.TestClient object at 0x7f0cbca12250>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9457450Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9457732Z     def sign_in(client):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9458846Z         result = client.post("/login", data={"username": "alice", "password": "alicepass"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9460192Z                              follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9461014Z >       assert result.status_code == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9461842Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:31:54.9462651Z E        +  where 403 = <Respon

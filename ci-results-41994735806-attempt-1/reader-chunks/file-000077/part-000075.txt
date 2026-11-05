@@ -1,0 +1,22 @@
+6 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-05 08:29:42,556 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-05 08:29:42,557 INFO    uvicorn.error: Application shutdown complete.
+2026-11-05 08:29:42,557 INFO    uvicorn.error: Finished server process [1]
+2026-11-05 08:29:42,557 INFO    uvicorn.error: Application shutdown complete.
+2026-11-05 08:29:42,557 INFO    uvicorn.error: Finished server process [1]
+
+['/usr/bin/docker', 'rm', 'looking-glass-test-ddcdd97624e2417099b4a7d6d5b0ce5c']
+exit=0
+looking-glass-test-ddcdd97624e2417099b4a7d6d5b0ce5c
+
+
+['/usr/bin/docker', 'rm', '--force', 'looking-glass-test-ddcdd97624e2417099b4a7d6d5b0ce5c']
+exit=0
+
+Error response from daemon: No such container: looking-glass-test-ddcdd97624e2417099b4a7d6d5b0ce5c
+
+['/usr/bin/docker', 'volume', 'rm', 'looking-glass-test-data-ddcdd97624e2417099b4a7d6d5b0ce5c']
+exit=0
+looking-glass-test-data-ddcdd97624e2417099b4a7d6d5b0ce5c
+
+
