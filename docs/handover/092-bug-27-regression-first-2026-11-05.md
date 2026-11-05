@@ -151,3 +151,45 @@ dependency environment; fixture setup and payload validation remain unverified
 until that run completes. Polling and overlay/library integration remain pending
 and bug 27 stays open. This correction's GitHub delivery is pending exact
 approval and successful write.
+
+## Passing local payload regression (2026-11-05)
+
+The fixture correction was delivered as
+079ddc67718e634eaddbff28ef48f9243e1ff98c on features/perplexity.
+The production payload addition and its HTTP regression were already delivered
+as 1688aacb49a51be76cae65b2df1f99fee56ec12a; this evidence update does not
+reapply or modify those code changes.
+
+The user reported running the following command from the repository root:
+
+```bash
+.venv-test/bin/python -m pytest -q python/tests/test_room_notes_version_payload_web.py
+```
+
+Reported output: 1 passed in 7.62s. This replaces the earlier setup-only result
+for purposes of this specific local regression: fixture setup completed and all
+assertions in the single test passed. Those assertions cover integer/nonnegative
+admin payload revision exposure, equality with room-at, advancement after a
+notes-only save and unassign, unchanged cache token/wall/fog versions, cleared
+room content after unassign, and revision stability on repeated reads.
+
+Evidence is user-provided local output. The assistant did not execute or
+independently reproduce this run, and the user did not supply a checkout SHA
+with the output. Do not present it as CI, full-suite, browser, live-listener,
+recovery or two-editor end-to-end validation. Earlier preparation statements and
+the setup failure above remain historical records, not the latest test result.
+
+Current delivered scope: the client handles explicit notes revisions and the
+admin map payload exposes the existing revision. Remaining work: editor polling
+detection and unchanged-state retries, coordinated named-room overlay/open
+library-manager invalidation, and additional integration/response-order
+coverage. Bug 27 remains open; these results do not establish automatic
+cross-editor convergence in the running application.
+
+README.md and HANDOVER.md were reread from the live working branch. No README
+behavior claim or index change is needed for this evidence-only update because
+HANDOVER already links this focused record. Only this record changes; it remains
+below 25,000 bytes. No tests were run during evidence-record preparation, no
+assertions or workflow exclusions changed, and no migrations, archives or Patch/
+material are included. This documentation commit's delivery is pending exact
+approval and a successful GitHub write.
