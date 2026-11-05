@@ -29,8 +29,8 @@ Uncommitted bug-2 candidates are not installed branch changes.
 ## Second bug hunt: bugs 16–29
 
 Audited source: `766780262bf44922bbd7c9fa2b3081e7e28e214f` on
-`features/perplexity`, 2026-10-31. Bugs 16, 17, 18, 19, 20, 21, 23 and 29 are accepted and closed.
-Other findings remain open.
+`features/perplexity`, 2026-10-31. Bugs 16, 17, 18, 19, 20, 21, 23, 25, 26 and 29 are accepted and closed.
+Four findings remain open: 22, 24, 27 and 28.
 The original workflow's counts and suggested order are historical; do not use
 them to reopen accepted bugs 2/13/14/15. Existing individual status records and
 accepted handovers remain authoritative. This audit changes no earlier status.
@@ -50,14 +50,15 @@ existing bug numbering:
 - [22. Multipart CSRF token can cause an unhandled type error](docs/todo/018-bugs-16-29-audit-2026-10-31.md#22-multipart-csrf-token-can-cause-an-unhandled-type-error)
 - [23. Explicit missing configuration silently falls back to defaults](docs/todo/018-bugs-16-29-audit-2026-10-31.md#23-explicit-missing-configuration-silently-falls-back-to-defaults) — closed 2026-11-04; see [accepted closure](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md#bug-23-accepted-closure-2026-11-04)
 - [24. Malformed configuration structures bypass loader validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#24-malformed-configuration-structures-bypass-loader-validation)
-- [25. Delayed admin polling can roll editor state backwards](docs/todo/018-bugs-16-29-audit-2026-10-31.md#25-delayed-admin-polling-can-roll-editor-state-backwards)
-- [26. Mask early return does not invalidate an in-flight different mask](docs/todo/018-bugs-16-29-audit-2026-10-31.md#26-mask-early-return-does-not-invalidate-an-in-flight-different-mask)
+- [25. Delayed admin polling can roll editor state backwards](docs/todo/018-bugs-16-29-audit-2026-10-31.md#25-delayed-admin-polling-can-roll-editor-state-backwards) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/091-bugs-25-26-accepted-closure-2026-11-05.md)
+- [26. Mask early return does not invalidate an in-flight different mask](docs/todo/018-bugs-16-29-audit-2026-10-31.md#26-mask-early-return-does-not-invalidate-an-in-flight-different-mask) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/091-bugs-25-26-accepted-closure-2026-11-05.md)
 - [27. Notes-only changes do not refresh other editors](docs/todo/018-bugs-16-29-audit-2026-10-31.md#27-notes-only-changes-do-not-refresh-other-editors)
 - [28. Out-of-map fog points are clamped into real rooms](docs/todo/018-bugs-16-29-audit-2026-10-31.md#28-out-of-map-fog-points-are-clamped-into-real-rooms)
 - [29. Async image upload holds a SQLite write lock across await](docs/todo/018-bugs-16-29-audit-2026-10-31.md#29-async-image-upload-holds-a-sqlite-write-lock-across-await) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/088-bug-29-accepted-closure-2026-11-05.md)
 
 Suggested implementation order from the audit: **16 → 17 → 18 → 19 → 20 → 21 →
-23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16, 17, 18, 19, 20, 21, 23 and 29 are closed).
+23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16, 17, 18, 19, 20, 21, 23, 25, 26 and 29 are closed).
+Remaining order: **27 → 28 → 22 → 24**.
 Severity and dependency rationale are in the audit record.
 Add regressions first and keep each fix separately reviewable.
 Items 17/18 can share a coordinated image-retirement design; 25 precedes 26.
@@ -68,7 +69,7 @@ for this audit. Three extracted checks are described with their exact limits.
 
 [The manifest](docs/todo/manifest.json) records source commit/blob, byte counts,
 SHA-256 hashes and file order. Concatenate its `files` entries in order to
-reconstruct the exact original UTF-8 TODO.md, including its final newline.
+reconstruct the exact original UTF-8 file, including its final newline.
 This index is not part of that reconstruction. Paths in preserved prose retain
 their repository-root context. Update external old TODO.md fragment links to
 the corresponding section files.

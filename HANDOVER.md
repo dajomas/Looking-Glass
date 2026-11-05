@@ -110,8 +110,9 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 
 ## Current work
 
+- [Bugs 25/26: accepted closure and evidence limits (2026-11-05)](docs/handover/091-bugs-25-26-accepted-closure-2026-11-05.md)
 - [Door-arrow fixture alignment and validation limits (2026-11-05)](docs/handover/090-door-arrow-fixture-alignment-2026-11-05.md)
-- [Bugs 25/26: regression-first editor ordering checks; fixes pending (2026-11-05)](docs/handover/089-bugs-25-26-regression-first-2026-11-05.md)
+- [Bugs 25/26: regression-first, editor split and implementation history (2026-11-05)](docs/handover/089-bugs-25-26-regression-first-2026-11-05.md)
 - [Bug 29: accepted closure and evidence limits (2026-11-05)](docs/handover/088-bug-29-accepted-closure-2026-11-05.md)
 - [Bug 29: regression-first and implementation history (2026-11-05)](docs/handover/087-bug-29-regression-first-2026-11-05.md)
 - [Bugs 20/21: accepted closure, evidence and cleanup limits (2026-11-05)](docs/handover/086-bugs-20-21-accepted-closure-2026-11-05.md)

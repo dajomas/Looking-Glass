@@ -9,6 +9,17 @@ are not summarized here.
 
 ### Fixed
 
+- **Admin editor state refreshes reject obsolete responses (bug 25, accepted).**
+  Map-state reads share request-generation guards with action/state installation.
+  Starting an editor action invalidates earlier reads, polling waits while busy,
+  and a changed map cache-token identity triggers refresh even with equal fog
+  and wall revisions. Tokens identify map incarnations and are not sorted.
+- **Admin fog and arrow masks reject obsolete decodes and errors (bug 26, accepted).**
+  Returning to an already installed mask invalidates pending loads of another
+  mask. Both images must decode and still match the current generation and
+  state identity before installation. Superseded errors cannot replace current
+  feedback; current failures retain Retry loading map guidance. Wall rendering
+  was extracted into a focused module without changing its controls.
 - **Login return URLs stay local (bug 20, accepted).** Both successful login
   and already-authenticated login-page visits reject unsafe return targets,
   including slash/backslash and encoded path variants. Accepted local URLs keep
@@ -66,6 +77,18 @@ are not summarized here.
   cannot be recalled.
 
 ### Verification
+
+Bugs 25/26 are accepted and closed after CI run 42055860962 attempt 1 passed
+all five jobs and their report-validation steps on
+`2a4a9f9175936b3a01002c84732ba31716a0c2df`. Reviewed report totals: Python/HTTP
+1,635 tests, JavaScript 31 scripts, browser 172 tests, live 18 tests and recovery
+6 tests, each with zero failures/errors/skipped tests. Evidence is stored at
+`8b0a747dc79af96c04f103246817bd5bd35433ae` under
+`ci-results-42055860962-attempt-1/`. The JavaScript-only local rerun also passed
+31 scripts on that tested source; it is not an all-suite local run of that SHA.
+Passing integration coverage does not establish every admin response interleaving
+or add server-side stale-context protection to ordinary coordinate actions. See
+[accepted closure and evidence limits](handover/091-bugs-25-26-accepted-closure-2026-11-05.md).
 
 Bugs 20/21 are accepted after CI run 42003087572 attempt 1 passed all five jobs
 and their report-validation steps on c734226657ee556ff86f42883decc15c8499f389.
