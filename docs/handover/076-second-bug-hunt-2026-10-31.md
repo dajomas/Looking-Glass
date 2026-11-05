@@ -80,3 +80,41 @@ this focused record. TODO statuses and historical split manifests are unchanged.
 No migrations, production changes, other branches, archives or Patch/ material
 are included. GitHub delivery and subsequent CI results must be reported only
 after they actually occur.
+
+## Bug 20: redirect-validation candidate (2026-11-05)
+
+The user requested bug 20 first, leaving bug 21 unchanged. Baseline branch head:
+`7278d69a1e7982322af94d733ddafde2ccaa15fc`. The reconstructed auth_routes.py
+matched live Git blob `f1e36a51bf3ac5ff01e210a81e1e962eba844005` before editing.
+
+_safe_next now rejects raw backslashes, C0/DEL controls and non-root-relative
+values. It inspects the path separately from query/fragment, repeatedly checks
+percent-decoded paths for network-path references, backslashes, controls and
+normalized /login prefixes, and returns accepted input byte-for-byte unchanged
+as a Python string. Invalid UTF-8 escapes or encoding that does not stabilize
+within eight checks fall back to /. This is conservative validation, not a new
+canonical URL emitted to the browser. Ordinary local paths, encoded spaces,
+UTF-8 path segments, query strings and fragments remain supported. Percent
+escapes in queries are not recursively decoded; literal backslashes/controls
+anywhere in the raw target are rejected. Authentication, roles, sessions,
+password-change destination, response codes and both route call sites are unchanged.
+
+Validation: 44 isolated pytest cases in test_login_redirects.py, executed against
+the actual helper extracted from the reconstructed full candidate. Original
+helper: 24 failures, 20 passes. Candidate: 44 passes. The complete candidate was
+syntax-compiled under sandbox Python 3.12.8. No FastAPI app or HTTP/browser/live/
+recovery/full-suite/CI execution occurred; FastAPI is unavailable here. These
+checks do not establish application/browser acceptance or deployed security.
+
+The existing 12 HTTP cases are retained without skips or weakened assertions.
+The four bug-21 cross-site-submission cases are still expected to fail until its
+separate fix; no clean full-suite result is claimed. Bug 20 remains acceptance
+pending, not closed. Follow with real login/Location/browser validation on both
+portals and review normal-runtime CI/local evidence. No bug-21 protection,
+migration, unrelated change, archive or Patch/ material is included.
+
+README.md and HANDOVER.md were reviewed again. README does not specify detailed
+return-URL rules and needs no cosmetic edit; HANDOVER already indexes this focused
+record, which now records the implementation decision and evidence limits. The
+historical sections above and split manifests are preserved. Delivery is pending
+the exact GitHub approval/write; report its SHA only after success.

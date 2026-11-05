@@ -1,6 +1,8 @@
 """Login / logout / account routes, mounted on both entry points."""
 
+from posixpath import normpath
 from typing import Annotated
+from urllib.parse import unquote
 
 from fastapi import APIRouter, Form, Request
 from fastapi.responses import RedirectResponse
@@ -16,8 +18,25 @@ router = APIRouter()
 
 
 def _safe_next(target: str | None) -> str:
-    if target and target.startswith("/") and not target.startswith("//") and not target.startswith("/login"):
-        return target
+    """Keep return URLs local; inspect decoded paths but return accepted input unchanged."""
+    if not target or not target.startswith("/"):
+        return "/"
+    if "\\" in target or any(ord(char) < 32 or ord(char) == 127 for char in target):
+        return "/"
+    path = target.split("?", 1)[0].split("#", 1)[0]
+    # Fail closed on excessive encoding rather than emitting a partly checked path.
+    for _ in range(8):
+        if (path.startswith("//") or "\\" in path
+                or any(ord(char) < 32 or ord(char) == 127 for char in path)
+                or normpath(path).startswith("/login")):
+            return "/"
+        try:
+            decoded = unquote(path, errors="strict")
+        except UnicodeError:
+            return "/"
+        if decoded == path:
+            return target
+        path = decoded
     return "/"
 
 
