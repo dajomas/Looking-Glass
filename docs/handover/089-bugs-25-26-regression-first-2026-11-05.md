@@ -183,3 +183,71 @@ Approve and deliver this extraction, then run the renderer and ordering scripts
 and appropriate browser editor/wall-width coverage in the checkout. Address the
 pre-existing extracted-handler fixture separately. Implement bug 26 as a separate
 reviewable change only after confirming the split baseline. Neither bug is closed.
+
+## Bug 26 implementation candidate (2026-11-05)
+
+This section supersedes earlier pending-split/pending-mask-implementation steps.
+The split was delivered as `dbfa42fceaa0b6f9b56dc00112858578b76d0701`.
+The user supplied checkout results of 4/4 renderer tests passing and 8/10 ordering
+tests passing with precisely the two known bug 26 failures. This established the
+focused post-split baseline, not browser/CI acceptance or closure.
+
+The candidate increments maskGeneration before the installed-key cache check.
+Every loadMask call, including a cached-A return, now invalidates earlier decodes.
+A request-local isCurrent check requires a non-null state, the captured generation
+and the captured stateKey identity to remain current. After both fog and arrow
+images decode, this check runs before any mask, hit-test or arrow image install.
+There is no await between the check and the synchronous installation sequence.
+
+Failure reporting is moved inside the same request-local try/catch. Obsolete
+errors are ignored; current errors retain the existing Fog mask could not load
+message and Retry loading map guidance. applyState calls loadMask without a
+separate unguarded catch. A failure of either decode prevents both installations.
+Old requests are invalidated logically, not aborted at the network/decoder level.
+The renderer, template and existing ten regression assertions are unchanged.
+
+`python/tests/test_admin_mask_identity.js` adds four targeted cases executing the
+actual extracted production loadMask function in a controlled VM: successful and
+failed decodes after an identity change without a new generation; late B failure
+following a newer C failure; and current arrow decode failure with no partial fog
+installation. The direct identity manipulation is deliberately isolated to prove
+the identity check independently of the generation guard; it is not a browser
+scenario or a replacement for the full-editor controlled regressions.
+
+### Executed candidate validation
+
+Sandbox Node.js v20.20.1, minimal temporary repository layout, not a full checkout.
+The live editor, renderer and existing ordering-test contents were reconstructed
+from tool results and verified against their Git blob SHAs before use:
+
+- editor: 2e1ea74061f72fb53f99af30bf9ad0d843ca3483;
+- renderer: 6de88cd627daaaa6009a60d63508f62a197a1774;
+- ordering tests: 055f34f439ea8d1555c37c672a37fae69f063d7e.
+
+Unchanged split baseline: the complete ordering script reproduced 8 pass / 2 fail.
+The four new extracted checks against that unchanged baseline produced 0 pass /
+4 fail. Candidate: existing ordering script 10/10 pass; combined existing ordering
+and new identity scripts 14/14 pass, zero failures, skips or cancellations.
+The complete candidate editor passed node --check via standard input.
+Measured editor UTF-8 bytes: 23,358 -> 23,523; new test file: 3,048 bytes. The
+updated focused handover remains below 25,000 bytes. No additional split is needed.
+
+The renderer's separate four-test script was not rerun in this candidate session;
+its latest 4/4 evidence is the user-supplied post-split result and its implementation
+is unchanged. No HTTP, real-image/browser, live-server, full JavaScript/Python
+suite or CI run is claimed. The previously noted extracted tap-handler fixture
+follow-up remains unresolved and outside this mask fix. Request ordering does
+not add server-side stale-context protection for ordinary coordinate actions.
+
+README.md and HANDOVER.md were reviewed and left unchanged: user setup, controls
+and documented commands are unchanged, and the existing index link remains
+accurate while both fixes await acceptance. The implementation, additional tests
+and this updated existing handover record form the proposed commit. No migration,
+archive-only material, template change or unrelated cleanup is included.
+
+### Remaining work
+
+Approve and deliver this bug 26 candidate, then execute the focused scripts in
+the checkout and review appropriate browser/full-suite/CI evidence. Resolve the
+separate extracted-handler fixture follow-up. Record delivery and acceptance
+without rewriting historical evidence; neither bug 25 nor 26 is closed here.

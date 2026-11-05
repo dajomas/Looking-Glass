@@ -102,21 +102,26 @@
   }
 
   async function loadMask() {
-    const key = stateKey(state);
-    if (key === maskKey) {portalCycle?.setState(state,true);return;}
     const generation = ++maskGeneration;
-    const im = new Image();
-    im.src = `/api/maps/${MAP_ID}/fog.png?v=${key}`;
-    const arrows = new Image();
-    arrows.src = `/api/maps/${MAP_ID}/door-arrows.png?v=${key}`;
-    await Promise.all([im.decode(), arrows.decode()]);
-    if (generation !== maskGeneration) return;
-    arrowHit.set(arrows, key);
-    maskImg = im; maskKey = key;
-    $("door-arrows").src = arrows.src;
-    portalCycle?.setMask(arrows.src);
-    portalCycle?.setState(state,true);
-    drawFog();
+    const key = stateKey(state);
+    const isCurrent = () => state !== null && generation === maskGeneration && key === stateKey(state);
+    try {
+      if (key === maskKey) {portalCycle?.setState(state,true);return;}
+      const im = new Image();
+      im.src = `/api/maps/${MAP_ID}/fog.png?v=${key}`;
+      const arrows = new Image();
+      arrows.src = `/api/maps/${MAP_ID}/door-arrows.png?v=${key}`;
+      await Promise.all([im.decode(), arrows.decode()]);
+      if (!isCurrent()) return;
+      arrowHit.set(arrows, key);
+      maskImg = im; maskKey = key;
+      $("door-arrows").src = arrows.src;
+      portalCycle?.setMask(arrows.src);
+      portalCycle?.setState(state,true);
+      drawFog();
+    } catch (error) {
+      if (isCurrent()) loadError("Fog mask could not load: " + error.message + ". Use Retry loading map.");
+    }
   }
 
   function applyState(s) {
@@ -154,7 +159,7 @@
     $("op-count").textContent = s.op_count;
     updateLive(s);
     drawFog();
-    loadMask().catch((e) => loadError("Fog mask could not load: " + e.message + ". Use Retry loading map."));
+    loadMask();
   }
 
   function updateLive(s) {
@@ -221,7 +226,7 @@
     if (!state || x < 0 || y < 0 || x > state.width || y > state.height) return;
     if (busy || maskKey !== stateKey(state)) return; // Never act on an old overlay.
     const alphaPoint = arrowHit.at(x, y, state, stateKey(state));
-    const managed = LGManagedDoorHit(state, alphaPoint, x, y, pz.scale, $("show-walls").checked, hiddenTypes);
+    const managed = LGManagedDoorHit(state, alphaPoint, x, y, pz.scale, $("show-walls").checked,hiddenTypes);
     if (managed?.blocked) return;
     if (managed && event?.button !== 2) {
       const stamp = stateKey(state);
