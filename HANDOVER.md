@@ -110,6 +110,7 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 
 ## Current work
 
+- [Bug 29: regression-first upload write-lock checks; production fix pending (2026-11-05)](docs/handover/087-bug-29-regression-first-2026-11-05.md)
 - [Bugs 20/21: accepted closure, evidence and cleanup limits (2026-11-05)](docs/handover/086-bugs-20-21-accepted-closure-2026-11-05.md)
 - [Bugs 17/18: accepted closure and evidence limits (2026-11-04)](docs/handover/085-bugs-17-18-accepted-closure-2026-11-04.md)
 - [Bug 2: accepted closure and evidence limits (2026-10-30)](docs/handover/066-bug-2-accepted-closure-2026-10-30.md)
