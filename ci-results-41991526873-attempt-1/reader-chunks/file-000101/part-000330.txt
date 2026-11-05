@@ -1,0 +1,38 @@
+hon / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9345376Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9345460Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9345548Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9345693Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9345699Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9345825Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9346009Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9346299Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9346620Z _ ERROR at setup of test_malformed_archive_backup_is_rejected_without_changes[legacy_with_note_generation] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9346625Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9347356Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...60>), <fastapi.applications.FastAPI object at 0x7f433c2c6cf0>, <fastapi.applications.FastAPI object at 0x7f433c2c7770>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9347569Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f433c232c10>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9347574Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9347666Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9347769Z     def flow(env, monkeypatch):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9347874Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9347980Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9348464Z             assert conn.execute("SELECT 1 FROM sqlite_master WHERE name='room_note_archives'").fetchone(), 'Install bug-2 implementation; do not skip this contract'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9348570Z         with ExitStack() as stack:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9348686Z             def client(app, user, password):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9348805Z                 result = login(app, user, password)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9348923Z                 stack.callback(result.close)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349021Z                 return result
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349133Z >           dm = client(admin, 'dm', 'dmpass123')
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349235Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349241Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349374Z python/tests/test_room_note_archive_web.py:117: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349518Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349805Z python/tests/test_room_note_archive_web.py:114: in client
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9349916Z     result = login(app, user, password)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9350008Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9350158Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9350164Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9350393Z app = <fastapi.applications.FastAPI object at 0x7f433c2c6cf0>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9350492Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9350498Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9350644Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:0

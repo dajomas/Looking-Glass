@@ -1,0 +1,41 @@
+142597Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8142750Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8142928Z     def image_case(env, tmp_path):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8143087Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8143475Z         assert ctx.settings.data_dir.resolve().is_relative_to(tmp_path.resolve())
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8143653Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8143820Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8143828Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8144059Z python/tests/test_image_database_failures.py:85: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8144309Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8144317Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8144886Z app = <fastapi.applications.FastAPI object at 0x7f4339fb41a0>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8145056Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8145065Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8145296Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8145539Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8146010Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8146186Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8146376Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8146531Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8146670Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8146838Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8147186Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8147381Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8147695Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8148033Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8148288Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8148433Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8148605Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8148774Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8148946Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8149253Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8149433Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8149829Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8149974Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8150181Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8150361Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8150503Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8150736Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8150923Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8151071Z E      

@@ -1,0 +1,38 @@
+="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318002Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318089Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318178Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318321Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318326Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318446Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318622Z ------------------------------ Captured log call -------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0318911Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0319152Z _ test_restore_recovery_failure_blocks_live_mutation_and_notification[disk-full] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0319161Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0319891Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...80>), <fastapi.applications.FastAPI object at 0x7f433c9fcad0>, <fastapi.applications.FastAPI object at 0x7f433cc8f770>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0320105Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f433c951c50>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0320192Z error = 28
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0320198Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0320559Z     @pytest.mark.parametrize("error", [errno.EACCES, errno.ENOSPC, errno.EIO], ids=["permission", "disk-full", "io-error"])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0320850Z     def test_restore_recovery_failure_blocks_live_mutation_and_notification(env, monkeypatch, error):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0320954Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321178Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321282Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321288Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321419Z python/tests/test_storage_failure_web.py:24: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321560Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321565Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321793Z app = <fastapi.applications.FastAPI object at 0x7f433c9fcad0>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321892Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0321897Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322033Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322179Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322450Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322553Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322665Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322764Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322847Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0322951Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0323145Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0323347Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0323527Z E           <title>

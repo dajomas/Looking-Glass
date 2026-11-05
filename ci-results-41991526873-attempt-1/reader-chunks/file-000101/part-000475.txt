@@ -1,0 +1,29 @@
+21Z                 with TestClient(env[1]) as admin_client:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0251960Z                     account = admin_client.get("/account",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0252171Z                         headers={"cookie": f"lg_admin_session={actor}"}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0252308Z                     assert account.status_code == 200
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0252622Z >           assert client.post("/admin/login", data={"username": "second-root", "password": "secondroot-pass"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0252764Z                                follow_redirects=False).status_code == 401
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0253050Z E           AssertionError: assert 403 == 401
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0253266Z E            +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0253723Z E            +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0253967Z E            +      where post = <starlette.testclient.TestClient object at 0x7f433c601260>.post
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0253972Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0254174Z python/tests/test_password_reset_revocation_web.py:60: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0254356Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0254806Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0255175Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns/1/viewers/add "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0255355Z ------------------------------ Captured log call -------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0255687Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/users/6/password "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0256138Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/viewer/api/c/1/state "HTTP/1.1 401 Unauthorized"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0256463Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/viewer/api/c/1/state "HTTP/1.1 401 Unauthorized"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0256781Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/admin/account "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0257046Z INFO     httpx2:_client.py:1084 HTTP Request: GET http://testserver/account "HTTP/1.1 200 OK"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0257336Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0257546Z _______________ test_visible_routes_are_admin_only_and_read_only _______________
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0257552Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0258298Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...50>), <fastapi.applications.FastAPI object at 0x7f433c492270>, <fastapi.applications.FastAPI object at 0x7f433c492f90>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0258307Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0258468Z     def test_visible_routes_are_admin_only_and_read_only(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0258612Z >       ctx,admin,viewer,dm,headers,mid=prepare(env)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0258717Z                                

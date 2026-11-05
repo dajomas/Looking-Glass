@@ -1,0 +1,40 @@
+/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7488442Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7489012Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7489388Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7489859Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7490324Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7490947Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7491606Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7492139Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7492648Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7493056Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7493585Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7494016Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7494476Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7495248Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7495745Z E         </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7496288Z E         </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7496715Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7497394Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7498010Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7498346Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7498692Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7499175Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7499594Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7499800Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7500649Z _ ERROR at setup of test_failed_account_form_preserves_all_database_state[admin-overrides2-False] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7501343Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7502665Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...a0>), <fastapi.applications.FastAPI object at 0x7f433ce03cb0>, <fastapi.applications.FastAPI object at 0x7f433ce01a90>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7505004Z request = <SubRequest 'account' for <Function test_failed_account_form_preserves_all_database_state[admin-overrides2-False]>>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7505880Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7506093Z     @pytest.fixture(params=["admin", "viewer"])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7506810Z     def account(env, request):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7507264Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7507795Z         app = admin if request.param == "admin" else viewer
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7508392Z >       client = login(app, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7508894Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7509219Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7509443Z python/tests/test_account_atomicity_web.py:14: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7510072Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNO

@@ -1,0 +1,38 @@
+TTP	UNKNOWN STEP	2026-11-05T08:05:08.7376935Z _ ERROR at setup of test_failed_account_form_preserves_all_database_state[admin-overrides0-False] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7377728Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7379083Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...c0>), <fastapi.applications.FastAPI object at 0x7f433ce01010>, <fastapi.applications.FastAPI object at 0x7f433ce03b60>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7381329Z request = <SubRequest 'account' for <Function test_failed_account_form_preserves_all_database_state[admin-overrides0-False]>>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7382023Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7382198Z     @pytest.fixture(params=["admin", "viewer"])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7382619Z     def account(env, request):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7383196Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7383609Z         app = admin if request.param == "admin" else viewer
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7384085Z >       client = login(app, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7384476Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7385065Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7385331Z python/tests/test_account_atomicity_web.py:14: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7386068Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7386579Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7387010Z app = <fastapi.applications.FastAPI object at 0x7f433ce01010>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7387753Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7387922Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7388084Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7388575Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7389149Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7389687Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7390028Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7390339Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7390595Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7390833Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7391251Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7391717Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7392325Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7392797Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7393303Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7393670Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7393925Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7394234Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7394537Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7395419Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7396193Z E             <span>Looking Glass</span>
+Pyt

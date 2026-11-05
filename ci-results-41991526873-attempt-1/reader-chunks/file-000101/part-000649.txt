@@ -1,0 +1,44 @@
+n class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1259266Z   <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1259352Z     <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1259475Z     <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1259593Z     <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1259684Z   </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1259764Z   </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1259887Z   <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1260178Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1260258Z   </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1260343Z   </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1260435Z assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1260605Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261012Z FAILED python/tests/test_fog_response_web.py::test_response_survives_composite_cleanup[viewer] - AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261100Z   <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261185Z   <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261281Z     <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261465Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261572Z     <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261737Z     <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1261914Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262067Z     <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262155Z   </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262249Z   <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262347Z   <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262441Z     <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262615Z       <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262719Z       <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262834Z       <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1262918Z     </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263029Z   </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263120Z   <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263204Z     <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263333Z     <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263440Z     <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263528Z   </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263606Z   </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263729Z   <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263902Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1263980Z   </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1264062Z   </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1264150Z assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1264277Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1264821Z FAILED python/tests/test_fog_response_web.py::test_response_survi

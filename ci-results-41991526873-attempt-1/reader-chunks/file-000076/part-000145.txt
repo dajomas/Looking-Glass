@@ -1,0 +1,27 @@
+hon.tests.test_map_transitions" name="test_stale_travel[active]" time="0.030" /><testcase classname="python.tests.test_map_transitions" name="test_approval_and_reset[secret-usable]" time="0.029" /><testcase classname="python.tests.test_map_transitions" name="test_approval_and_reset[discovered-blocked]" time="0.030" /><testcase classname="python.tests.test_map_transitions" name="test_approval_and_reset[discovered-approval]" time="0.028" /><testcase classname="python.tests.test_map_transitions" name="test_preserve_and_one_way" time="0.028" /><testcase classname="python.tests.test_map_transitions" name="test_large_reveal_gate" time="0.028" /><testcase classname="python.tests.test_map_transitions" name="test_deleted_destination" time="0.029" /><testcase classname="python.tests.test_map_transitions" name="test_resize_and_wall_arrival" time="0.027" /><testcase classname="python.tests.test_map_transitions" name="test_private_and_secret_markers" time="0.026" /><testcase classname="python.tests.test_map_transitions" name="test_reset_authored_secret" time="0.026" /><testcase classname="python.tests.test_map_transitions" name="test_marker_clipping_and_cache" time="0.046" /><testcase classname="python.tests.test_map_transitions" name="test_transaction_rollback" time="0.030" /><testcase classname="python.tests.test_map_transitions" name="test_concurrent_duplicate" time="0.030" /><testcase classname="python.tests.test_map_transitions" name="test_migration_preserves_rows" time="0.044" /><testcase classname="python.tests.test_map_transitions_web" name="test_transition_auth_csrf" time="0.251"><failure message="AssertionError: &lt;!doctype html&gt;&#10;  &lt;html lang=&quot;en&quot;&gt;&#10;  &lt;head&gt;&#10;    &lt;meta charset=&quot;utf-8&quot;&gt;&#10;    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#10;    &lt;meta name=&quot;csrf-token&quot; content=&quot;&quot;&gt;&#10;    &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;&#10;    &lt;link rel=&quot;icon&quot; href=&quot;/static/img/favicon.svg&quot; type=&quot;image/svg+xml&quot;&gt;&#10;    &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/common.css&quot;&gt;&#10;  &lt;/head&gt;&#10;  &lt;body class=&quot;entry-admin &quot;&gt;&#10;  &lt;header class=&quot;topbar&quot;&gt;&#10;    &lt;a class=&quot;brand&quot; href=&quot;/&quot;&gt;&#10;[+17 more lines; full report in element text]">env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...80&gt;), &lt;fastapi.applications.FastAPI object at 0x7f433c9fda90&gt;, &lt;fastapi.applications.FastAPI object at 0x7f433c9fe660&gt;)
+
+    def test_transition_auth_csrf(env):
+&gt;       ctx,admin,viewer,dm,h,cid,mids=prepare(env);base=f"/api/campaigns/{cid}"
+                                       ^^^^^^^^^^^^
+
+python/tests/test_map_transitions_web.py:20: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/tests/test_map_transitions_web.py:10: in prepare
+    ctx,admin,viewer=env;dm=login(admin,"dm","dmpass123");token=csrf_of(dm);h={"X-CSRF-Token":token}
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+app = &lt;fastapi.applications.FastAPI object at 0x7f433c9fda90&gt;, username = 'dm'
+password = 'dmpass123'
+
+    def login(app, username, password) -&gt; TestClient:
+        c = TestClient(app, base_url="http://testserver")
+        r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+&gt;       assert r.status_code == 303, r.text
+E       AssertionError: &lt;!doctype html&gt;
+E         &lt;html lang="en"&gt;
+E         &lt;head&gt;
+E           &lt;meta charset="utf-8"&gt;
+E           &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+E           &lt;meta name="csrf-token" content=""&gt;
+E           &lt;title&gt;Error 403 · Looking Gl

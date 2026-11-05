@@ -1,0 +1,40 @@
+OWN STEP	2026-11-05T08:05:08.9124390Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9124581Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9124915Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9125099Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9125427Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9125602Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9125824Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9125969Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9126172Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9126341Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9126492Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9126747Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9126939Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9127080Z E         </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9127232Z E         </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9127450Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9127753Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9127899Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9128040Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9128187Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9128434Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9128443Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9128646Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9128965Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9129459Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9129949Z _ ERROR at setup of test_nonfinite_rejected_without_state_or_render_changes[True-NaN-scale_y] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9129958Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9131316Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...e0>), <fastapi.applications.FastAPI object at 0x7f433cc9b230>, <fastapi.applications.FastAPI object at 0x7f433cc9be00>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9131330Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9131486Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9131637Z     def setup(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9131795Z         ctx, admin, _ = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9131987Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9132151Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9132159Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9132381Z python/tests/test_manual_calibration_web.py:15: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9132637Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9132647Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9133218Z app = <fastapi.applications.FastAPI object at 0x7f433cc9b230>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9133384Z passwor

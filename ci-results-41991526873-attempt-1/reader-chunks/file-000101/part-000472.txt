@@ -1,0 +1,31 @@
+ons.lookup(conn, other_viewer, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0233297Z                 assert sessions.lookup(conn, root_token, "admin") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0233471Z                 assert sessions.lookup(conn, alice, "viewer") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0233690Z                 assert bool(users.get(conn, target)["must_change_password"]) == must_change
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0233819Z             for token in (viewer_token, other_viewer):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0233968Z                 denied = client.get(f"/viewer/api/c/{cid}/state",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0234206Z                     headers={"cookie": f"lg_viewer_session={token}", "Accept": "application/json"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0234316Z                     follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0234437Z                 assert denied.status_code == 401
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0234738Z                 assert denied.json() == {"ok": False, "error": "Login required"}
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0234957Z             for token in (other_admin,) if self_reset else (admin_token, other_admin):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0235293Z                 denied = client.get("/admin/account", headers={"cookie": f"lg_admin_session={token}"}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0235548Z                 assert denied.status_code == 303 and denied.headers["location"].startswith("/login")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0235648Z             if self_reset:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0235845Z                 # Use the real portal path: the forced-change allowlist is /account.
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0235969Z                 with TestClient(env[1]) as admin_client:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0236099Z                     account = admin_client.get("/account",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0236313Z                         headers={"cookie": f"lg_admin_session={actor}"}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0236435Z                     assert account.status_code == 200
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0236858Z >           assert client.post("/admin/login", data={"username": "second-root", "password": "secondroot-pass"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0237012Z                                follow_redirects=False).status_code == 401
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0237133Z E           AssertionError: assert 403 == 401
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0237284Z E            +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0237734Z E            +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0237976Z E            +      where post = <starlette.testclient.TestClient object at 0x7f433cbc7df0>.post
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0237981Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0238187Z python/tests/test_password_reset_revocation_web.py:60: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0238372Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0238688Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0239060Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/admin/campaigns/1/viewers/add "HTTP/1.1 303 See Other"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.02

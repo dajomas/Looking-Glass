@@ -1,0 +1,34 @@
+"self_reset", [False, True])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0195951Z     @pytest.mark.parametrize("must_change", [False, True])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0196277Z     def test_reset_revokes_old_sessions_and_closes_only_target_sockets(campaign, env, self_reset, must_change):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0196545Z         ctx, client, cid, target, viewer_token, admin_token, root_token, root_csrf, alice = campaign
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0196651Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0196836Z             other_admin, _ = sessions.create(conn, target, "admin", 3600)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0197154Z             other_viewer, _ = sessions.create(conn, target, "viewer", 3600)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0197370Z             target_csrf = sessions.lookup(conn, admin_token, "admin")["csrf_token"]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0197515Z         actor = admin_token if self_reset else root_token
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0197651Z         csrf = target_csrf if self_reset else root_csrf
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0197802Z         with client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0198003Z                 headers={"cookie": f"lg_viewer_session={viewer_token}"}) as first, \
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0198143Z              client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0198340Z                 headers={"cookie": f"lg_viewer_session={other_viewer}"}) as second, \
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0198482Z              client.websocket_connect(f"/viewer/ws/c/{cid}",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0198663Z                 headers={"cookie": f"lg_viewer_session={alice}"}) as unaffected:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0198792Z             for ws in (first, second, unaffected):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0198887Z                 ping(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0199057Z             response = client.post(f"/admin/users/{target}/password",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0199309Z                 headers={"cookie": f"lg_admin_session={actor}"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0199623Z                 data={"csrf_token": csrf, "password": "replacement-pass", "must_change": str(must_change).lower()},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0199727Z                 follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0199963Z             assert response.status_code == 303 and "ok=" in response.headers["location"]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0200072Z             for ws in (first, second):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0200169Z                 frame = receive(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0200364Z                 assert frame["type"] == "websocket.close" and frame["code"] == 4403
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0200470Z             ping(unaffected)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0200576Z             with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0200744Z                 retained = sessions.lookup(conn, admin_token, "admin")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0200876Z                 assert (retained is not None) == self_reset
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0201056Z                 assert sessions.lookup(conn, other_admin, "admin") is None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0201238Z                 assert sessions.lookup(conn, viewer_token, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0201411Z                 assert sessions.lookup(conn, other_viewer, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-05T

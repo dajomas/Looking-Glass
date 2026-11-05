@@ -1,0 +1,39 @@
+n / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0163764Z ______________ test_wall_type_validation_preserves_saved_settings ______________
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0163770Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0164505Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...70>), <fastapi.applications.FastAPI object at 0x7f433c9fc050>, <fastapi.applications.FastAPI object at 0x7f433c9fecf0>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0164514Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0164933Z     def test_wall_type_validation_preserves_saved_settings(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165045Z         ctx, admin, _ = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165159Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165263Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165268Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165382Z python/tests/test_pack_images_web.py:53: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165532Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165537Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165768Z app = <fastapi.applications.FastAPI object at 0x7f433c9fc050>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165866Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0165878Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166021Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166167Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166449Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166555Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166672Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166771Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166854Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0166960Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0167186Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0167302Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0167629Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0167834Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0167994Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168087Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168190Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168294Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168405Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168587Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168699Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168831Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0168911Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0169035Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0169137Z E         <section class="card">
+Python / HTTP	UNKNO

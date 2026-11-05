@@ -1,0 +1,39 @@
+hon / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7396796Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7397335Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7397791Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7398396Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7398812Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7399148Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7399621Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7400068Z E         </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7400456Z E         </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7401029Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7401673Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7402361Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7402746Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7403136Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7403628Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7404076Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7404308Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7405687Z _ ERROR at setup of test_failed_account_form_preserves_all_database_state[admin-overrides0-True] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7406324Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7407379Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...d0>), <fastapi.applications.FastAPI object at 0x7f433cdc1160>, <fastapi.applications.FastAPI object at 0x7f433cdc2660>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7409463Z request = <SubRequest 'account' for <Function test_failed_account_form_preserves_all_database_state[admin-overrides0-True]>>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7410393Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7410663Z     @pytest.fixture(params=["admin", "viewer"])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7411211Z     def account(env, request):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7411905Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7412325Z         app = admin if request.param == "admin" else viewer
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7412982Z >       client = login(app, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7413440Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7413667Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7413890Z python/tests/test_account_atomicity_web.py:14: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7414474Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7415178Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7415632Z app = <fastapi.applications.FastAPI object at 0x7f433cdc1160>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7416476Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7416756Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7417027Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7417729Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7418369Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.7419168Z >   

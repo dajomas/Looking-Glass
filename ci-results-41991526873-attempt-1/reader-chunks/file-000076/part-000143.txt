@@ -1,0 +1,24 @@
+lt;script src="/static/js/upload_busy.js?v=imports-7-1"&gt;&lt;/script&gt;
+E         &lt;/body&gt;
+E         &lt;/html&gt;
+E       assert 403 == 303
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+python/tests/test_web.py:33: AssertionError</error></testcase><testcase classname="python.tests.test_map_controls" name="test_settings_persist_and_cascade" time="0.026" /><testcase classname="python.tests.test_map_controls" name="test_legacy_column_is_retained_and_used_until_saved" time="0.025" /><testcase classname="python.tests.test_map_controls" name="test_disabling_changes_boundaries_without_deleting_segments" time="0.001" /><testcase classname="python.tests.test_map_controls" name="test_invalid_type_is_rejected" time="0.022" /><testcase classname="python.tests.test_map_controls" name="test_migration3_to4_preserves_tokens_and_history" time="0.037" /><testcase classname="python.tests.test_map_controls" name="test_reveal_bounds_empty_and_scaled_union" time="0.000" /><testcase classname="python.tests.test_map_display" name="test_explicit_choice_required_and_cancel_has_no_write" time="0.021" /><testcase classname="python.tests.test_map_display" name="test_first_display_can_keep_prepared_reveals" time="0.023" /><testcase classname="python.tests.test_map_display" name="test_restore_uses_last_display_not_later_offline_edits" time="0.022" /><testcase classname="python.tests.test_map_display" name="test_reset_erases_undo_history_and_does_not_touch_other_map" time="0.024" /><testcase classname="python.tests.test_map_display" name="test_blank_checkpoints_without_reset" time="0.021" /><testcase classname="python.tests.test_map_display" name="test_checkpoint_survives_reopen" time="0.023" /><testcase classname="python.tests.test_map_display" name="test_reused_numeric_id_has_new_identity_and_no_history" time="0.023" /><testcase classname="python.tests.test_map_display" name="test_cross_campaign_target_rejected_without_side_effects" time="0.022" /><testcase classname="python.tests.test_map_display" name="test_upgrade_preserves_existing_history_and_is_idempotent" time="0.034" /><testcase classname="python.tests.test_map_display_web" name="test_display_policy_http" time="0.247"><failure message="AssertionError: &lt;!doctype html&gt;&#10;  &lt;html lang=&quot;en&quot;&gt;&#10;  &lt;head&gt;&#10;    &lt;meta charset=&quot;utf-8&quot;&gt;&#10;    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#10;    &lt;meta name=&quot;csrf-token&quot; content=&quot;&quot;&gt;&#10;    &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;&#10;    &lt;link rel=&quot;icon&quot; href=&quot;/static/img/favicon.svg&quot; type=&quot;image/svg+xml&quot;&gt;&#10;    &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/common.css&quot;&gt;&#10;  &lt;/head&gt;&#10;  &lt;body class=&quot;entry-admin &quot;&gt;&#10;  &lt;header class=&quot;topbar&quot;&gt;&#10;    &lt;a class=&quot;brand&quot; href=&quot;/&quot;&gt;&#10;[+17 more lines; full report in element text]">env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...20&gt;), &lt;fastapi.applications.FastAPI object at 0x7f433c9fc6e0&gt;, &lt;fastapi.applications.FastAPI object at 0x7f433c9fd2b0&gt;)
+
+    def test_display_policy_http(env):
+        ctx, admin, viewer = env
+&gt;       dm = login(admin, "dm", "dmpass123")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/test_map_display_web.py:8: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+app = &lt;fastapi.applications.FastAPI object at 0x7f433c9fc6e0&gt;, username = 'dm'
+password = 'dmpass123'
+
+    def login(app, username, password) -&gt; TestClient:
+        c = TestClient(app, base_url="http://testserver")
+        r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+&gt;       assert r.status_code == 303, r.text
+E       AssertionError: &lt;!

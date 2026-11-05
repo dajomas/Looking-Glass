@@ -1,0 +1,97 @@
+min">DM</span>
+E           </a>
+E         </header><main class="container narrow">
+E         <section class="card">
+E           <h1>403</h1>
+E           <p>Login requires a same-origin request.</p>
+E           <p><a href="/">Back to start</a></p>
+E         </section>
+E         </main>
+E         <script src="/static/js/common.js"></script>
+E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+E         </body>
+E         </html>
+E       assert 403 == 303
+E        +  where 403 = <Response [403 Forbidden]>.status_code
+
+python/tests/test_web.py:33: AssertionError
+------------------------------ Captured log call -------------------------------
+INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+- generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+=========================== short test summary info ============================
+ERROR python/tests/test_account_atomicity_web.py::test_failed_account_form_preserves_all_database_state[admin-overrides0-False] - AssertionError: <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    <title>Error 403 · Looking Glass</title>
+    <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/css/common.css">
+  </head>
+  <body class="entry-admin ">
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+      <span>Looking Glass</span>
+      <span class="badge badge-admin">DM</span>
+    </a>
+  </header><main class="container narrow">
+  <section class="card">
+    <h1>403</h1>
+    <p>Login requires a same-origin request.</p>
+    <p><a href="/">Back to start</a></p>
+  </section>
+  </main>
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+  </body>
+  </html>
+assert 403 == 303
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ERROR python/tests/test_account_atomicity_web.py::test_failed_account_form_preserves_all_database_state[admin-overrides0-True] - AssertionError: <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    <title>Error 403 · Looking Glass</title>
+    <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/css/common.css">
+  </head>
+  <body class="entry-admin ">
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+      <span>Looking Glass</span>
+      <span class="badge badge-admin">DM</span>
+    </a>
+  </header><main class="container narrow">
+  <section class="card">
+    <h1>403</h1>
+    <p>Login requires a same-origin request.</p>
+    <p><a href="/">Back to start</a></p>
+  </section>
+  </main>
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+  </body>
+  </html>
+assert 403 == 303
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ERROR python/tests/test_account_atomicity_web.py::test_failed_account_form_preserves_all_database_state[admin-overrides1-False] - AssertionError: <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    <title>Error 403 · Looking Glass</title>
+    <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/css/common.css">
+  </head>
+  <body class="entry-admin ">
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+      <span>Looking Glass</span>
+      <

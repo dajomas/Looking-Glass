@@ -1,0 +1,40 @@
+r><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1409288Z   <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1409372Z     <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1409493Z     <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1409600Z     <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1409678Z   </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1409763Z   </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1409883Z   <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1410047Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1410130Z   </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1410214Z   </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1410301Z assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1410432Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1410643Z = 47 failed, 1337 passed, 193 errors, 29 subtests passed in 100.97s (0:01:40) ==
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4799147Z ##[error]Process completed with exit code 1.
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4876771Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4877120Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4877382Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4877688Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4878045Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4878380Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4878739Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4879126Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4879437Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4879730Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4880039Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4880511Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4881151Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4881809Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4882255Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4882564Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4883038Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4883467Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4883842Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4884231Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4903900Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4904254Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4904567Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4905139Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.4905371Z   LG_RU

@@ -1,0 +1,37 @@
+test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0029221Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0029514Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0029662Z =================================== FAILURES ===================================
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0029849Z ______________________ test_inspect_restore_recovery_http ______________________
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0029854Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0030607Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...a0>), <fastapi.applications.FastAPI object at 0x7f433ab62a50>, <fastapi.applications.FastAPI object at 0x7f433ab61fd0>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0030719Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0030850Z     def test_inspect_restore_recovery_http(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0030957Z         ctx,admin,viewer=env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0031273Z >       dm=login(admin,"dm","dmpass123");other=login(admin,"dm2","dmpass123");alice=login(viewer,"alice","alicepass")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0031370Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0031375Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0031538Z python/tests/test_campaign_backup_inspection_web.py:12: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0031680Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0031689Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0031916Z app = <fastapi.applications.FastAPI object at 0x7f433ab62a50>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032017Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032029Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032167Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032313Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032588Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032694Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032806Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032896Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0032983Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0033085Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0033279Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0033402Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0033579Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0033769Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0033931Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0034017Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0034117Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0034221Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0034325Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0034508Z E             <img src="/static/img/favico

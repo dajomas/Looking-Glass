@@ -1,0 +1,39 @@
+est_double_reveal" name="test_duplicate_campaign_resets_runtime_remaps_links" time="0.026" /><testcase classname="python.tests.test_double_reveal" name="test_single_map_copy_detaches_external_link" time="0.025" /><testcase classname="python.tests.test_double_reveal" name="test_checkpoint_restores_appearance_and_history" time="0.033" /><testcase classname="python.tests.test_double_reveal" name="test_checkpoint_rejects_changed_config_or_artwork" time="0.026" /><testcase classname="python.tests.test_double_reveal" name="test_noop_and_disable_configuration" time="0.024" /><testcase classname="python.tests.test_double_reveal_fog_templates" name="test_admin_assets_and_viewer_exclusion" time="0.001" /><testcase classname="python.tests.test_double_reveal_fog_templates" name="test_checkbox_wrapping_and_removed_description" time="0.000" /><testcase classname="python.tests.test_double_reveal_web" name="test_auth_csrf_upload_and_previews" time="0.247"><failure message="AssertionError: &lt;!doctype html&gt;&#10;  &lt;html lang=&quot;en&quot;&gt;&#10;  &lt;head&gt;&#10;    &lt;meta charset=&quot;utf-8&quot;&gt;&#10;    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#10;    &lt;meta name=&quot;csrf-token&quot; content=&quot;&quot;&gt;&#10;    &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;&#10;    &lt;link rel=&quot;icon&quot; href=&quot;/static/img/favicon.svg&quot; type=&quot;image/svg+xml&quot;&gt;&#10;    &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/common.css&quot;&gt;&#10;  &lt;/head&gt;&#10;  &lt;body class=&quot;entry-admin &quot;&gt;&#10;  &lt;header class=&quot;topbar&quot;&gt;&#10;    &lt;a class=&quot;brand&quot; href=&quot;/&quot;&gt;&#10;[+17 more lines; full report in element text]">env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...d0&gt;), &lt;fastapi.applications.FastAPI object at 0x7f433a358830&gt;, &lt;fastapi.applications.FastAPI object at 0x7f433a359010&gt;)
+
+    def test_auth_csrf_upload_and_previews(env):
+&gt;       ctx,admin,viewer,dm,h,cid,mids=prepare(env);base=f'/api/maps/{mids[0]}/double-reveal'
+                                       ^^^^^^^^^^^^
+
+python/tests/test_double_reveal_web.py:16: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/tests/test_map_transitions_web.py:10: in prepare
+    ctx,admin,viewer=env;dm=login(admin,"dm","dmpass123");token=csrf_of(dm);h={"X-CSRF-Token":token}
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+app = &lt;fastapi.applications.FastAPI object at 0x7f433a358830&gt;, username = 'dm'
+password = 'dmpass123'
+
+    def login(app, username, password) -&gt; TestClient:
+        c = TestClient(app, base_url="http://testserver")
+        r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+&gt;       assert r.status_code == 303, r.text
+E       AssertionError: &lt;!doctype html&gt;
+E         &lt;html lang="en"&gt;
+E         &lt;head&gt;
+E           &lt;meta charset="utf-8"&gt;
+E           &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+E           &lt;meta name="csrf-token" content=""&gt;
+E           &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;
+E           &lt;link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml"&gt;
+E           &lt;link rel="stylesheet" href="/static/css/common.css"&gt;
+E         &lt;/head&gt;
+E         &lt;body class="entry-admin "&gt;
+E         &lt;header class="topbar"&gt;
+E           &lt;a class="brand" href="/"&gt;
+E             &lt;img src="/static/img/favicon.svg" alt="" width="26" height="26"&gt;
+E             &lt;span&gt;Looking Glass&lt;/span&gt;
+E             &lt;span class="badge badge-admin"&gt;DM&lt;/span&gt;
+E           &lt;/a&gt;
+E         &lt;/header&gt;&lt;main class="container narrow"&gt;
+E    

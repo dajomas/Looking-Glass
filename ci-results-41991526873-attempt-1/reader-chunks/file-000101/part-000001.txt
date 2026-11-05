@@ -1,0 +1,48 @@
+Recovery	Set up job	﻿2026-11-05T08:03:02.0550863Z Current runner version: '2.338.2'
+Recovery	Set up job	2026-11-05T08:03:02.0589132Z ##[group]Runner Image Provisioner
+Recovery	Set up job	2026-11-05T08:03:02.0590440Z Hosted Compute Agent
+Recovery	Set up job	2026-11-05T08:03:02.0591380Z Version: 20261028.624
+Recovery	Set up job	2026-11-05T08:03:02.0592434Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+Recovery	Set up job	2026-11-05T08:03:02.0593576Z Build Date: 2026-10-28T21:51:42Z
+Recovery	Set up job	2026-11-05T08:03:02.0594755Z Worker ID: {699925df-8a23-414c-b009-9a62a5ab9d5c}
+Recovery	Set up job	2026-11-05T08:03:02.0596098Z Region: eastus2
+Recovery	Set up job	2026-11-05T08:03:02.0596983Z Cloud: Azure
+Recovery	Set up job	2026-11-05T08:03:02.0597955Z ##[endgroup]
+Recovery	Set up job	2026-11-05T08:03:02.0600361Z ##[group]Operating System
+Recovery	Set up job	2026-11-05T08:03:02.0601353Z Ubuntu
+Recovery	Set up job	2026-11-05T08:03:02.0602316Z 24.04.5
+Recovery	Set up job	2026-11-05T08:03:02.0603143Z LTS
+Recovery	Set up job	2026-11-05T08:03:02.0604025Z ##[endgroup]
+Recovery	Set up job	2026-11-05T08:03:02.0604980Z ##[group]Runner Image
+Recovery	Set up job	2026-11-05T08:03:02.0606210Z Image: ubuntu-24.04
+Recovery	Set up job	2026-11-05T08:03:02.0607260Z Version: 20261101.360.1
+Recovery	Set up job	2026-11-05T08:03:02.0608999Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+Recovery	Set up job	2026-11-05T08:03:02.0612022Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+Recovery	Set up job	2026-11-05T08:03:02.0613782Z ##[endgroup]
+Recovery	Set up job	2026-11-05T08:03:02.0615846Z ##[group]GITHUB_TOKEN Permissions
+Recovery	Set up job	2026-11-05T08:03:02.0618699Z Contents: read
+Recovery	Set up job	2026-11-05T08:03:02.0619841Z Metadata: read
+Recovery	Set up job	2026-11-05T08:03:02.0620722Z ##[endgroup]
+Recovery	Set up job	2026-11-05T08:03:02.0623449Z Secret source: Actions
+Recovery	Set up job	2026-11-05T08:03:02.0624953Z Cache mode: write
+Recovery	Set up job	2026-11-05T08:03:02.0626813Z Prepare workflow directory
+Recovery	Set up job	2026-11-05T08:03:02.1411484Z Prepare all required actions
+Recovery	Set up job	2026-11-05T08:03:02.1483460Z Getting action download info
+Recovery	Set up job	2026-11-05T08:03:02.4049741Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Recovery	Set up job	2026-11-05T08:03:02.5523511Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Recovery	Set up job	2026-11-05T08:03:02.6644168Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Recovery	Set up job	2026-11-05T08:03:02.8196567Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Recovery	Set up job	2026-11-05T08:03:03.1044604Z Complete job name: Recovery
+Recovery	Check out repository	﻿2026-11-05T08:03:03.1910662Z ##[group]Run actions/checkout@v6
+Recovery	Check out repository	2026-11-05T08:03:03.1911551Z with:
+Recovery	Check out repository	2026-11-05T08:03:03.1912017Z   repository: dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-05T08:03:03.1916669Z   token: ***
+Recovery	Check out repository	2026-11-05T08:03:03.1917136Z   ssh-strict: true
+Recovery	Check out repository	2026-11-05T08:03:03.1917600Z   ssh-user: git
+Recovery	Check out repository	2026-11-05T08:03:03.1918075Z   persist-credentials: true
+Recovery	Check out repository	2026-11-05T08:03:03.1918588Z   clean: true
+Recovery	Check out repository	2026-11-05T08:03:03.1919055Z   sparse-checkout-cone-mode: true
+Recovery	Check out repository	2026-11-05T08:03:03.1919619Z   fetch-depth: 1
+Recovery	Check out repository	2026-11-05T08:03:03.1920072Z   fetch-tags: false
+Recovery	Check out repository	2026-11-05T08:03:03.1920534Z   show-progress: true
+Recovery	Check out repository	2026-11-05T08:03:0

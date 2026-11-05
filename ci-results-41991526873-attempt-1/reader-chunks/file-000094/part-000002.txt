@@ -1,0 +1,84 @@
+sert 403 == 303
+E        +  where 403 = <Response [403 Forbidden]>.status_code
+
+python/tests/recovery/test_restart.py:117: AssertionError
+______ test_restart_preserves_displayed_fog_and_access[graceful-restart] _______
+
+application = <test_restart.Application object at 0x7fc6a986f8c0>, force = False
+
+    @pytest.mark.parametrize("force", [False, True], ids=["graceful-restart", "committed-state-after-kill"])
+    def test_restart_preserves_displayed_fog_and_access(application, force):
+        app = application
+        with httpx.Client(base_url=app.urls[0], timeout=10, trust_env=False) as dm, httpx.Client(base_url=app.urls[1], timeout=10, trust_env=False) as player:
+>           csrf = login(dm, "restart-dm", "restart-dm-password")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/recovery/test_restart.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <httpx2.Client object at 0x7fc6a9634160>, username = 'restart-dm'
+password = 'restart-dm-password'
+
+    def login(client, username, password):
+        response = client.post("/login", data={"username": username, "password": password})
+>       assert response.status_code == 303, response.text
+E       AssertionError: <!doctype html>
+E         <html lang="en">
+E         <head>
+E           <meta charset="utf-8">
+E           <meta name="viewport" content="width=device-width, initial-scale=1">
+E           <meta name="csrf-token" content="">
+E           <title>Error 403 · Looking Glass</title>
+E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+E           <link rel="stylesheet" href="/static/css/common.css">
+E         </head>
+E         <body class="entry-admin ">
+E         <header class="topbar">
+E           <a class="brand" href="/">
+E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+E             <span>Looking Glass</span>
+E             <span class="badge badge-admin">DM</span>
+E           </a>
+E         </header><main class="container narrow">
+E         <section class="card">
+E           <h1>403</h1>
+E           <p>Login requires a same-origin request.</p>
+E           <p><a href="/">Back to start</a></p>
+E         </section>
+E         </main>
+E         <script src="/static/js/common.js"></script>
+E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+E         </body>
+E         </html>
+E       assert 403 == 303
+E        +  where 403 = <Response [403 Forbidden]>.status_code
+
+python/tests/recovery/test_restart.py:117: AssertionError
+_ test_restart_preserves_displayed_fog_and_access[committed-state-after-kill] __
+
+application = <test_restart.Application object at 0x7fc6a96096d0>, force = True
+
+    @pytest.mark.parametrize("force", [False, True], ids=["graceful-restart", "committed-state-after-kill"])
+    def test_restart_preserves_displayed_fog_and_access(application, force):
+        app = application
+        with httpx.Client(base_url=app.urls[0], timeout=10, trust_env=False) as dm, httpx.Client(base_url=app.urls[1], timeout=10, trust_env=False) as player:
+>           csrf = login(dm, "restart-dm", "restart-dm-password")
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/recovery/test_restart.py:141: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+client = <httpx2.Client object at 0x7fc6a962ee40>, username = 'restart-dm'
+password = 'restart-dm-password'
+
+    def login(client, username, password):
+        response = client.post("/login", data={"username": username, "password": password})
+>       assert response.status_code == 303, response.text
+E       AssertionError: <!doctype html>
+E         <html lang="en">
+E         <head>
+E           <meta charset="utf-8">
+E           <meta name="viewport" content="width=device-width, initial-scale=1">
+E           <meta name="csrf-token" content="">
+E           <title>Error 403 · Looking Glass</title>
+E           <link rel="icon" 

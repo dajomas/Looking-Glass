@@ -1,0 +1,35 @@
+ = TestClient(app, base_url="http://testserver")
+        r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+&gt;       assert r.status_code == 303, r.text
+E       AssertionError: &lt;!doctype html&gt;
+E         &lt;html lang="en"&gt;
+E         &lt;head&gt;
+E           &lt;meta charset="utf-8"&gt;
+E           &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+E           &lt;meta name="csrf-token" content=""&gt;
+E           &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;
+E           &lt;link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml"&gt;
+E           &lt;link rel="stylesheet" href="/static/css/common.css"&gt;
+E         &lt;/head&gt;
+E         &lt;body class="entry-admin "&gt;
+E         &lt;header class="topbar"&gt;
+E           &lt;a class="brand" href="/"&gt;
+E             &lt;img src="/static/img/favicon.svg" alt="" width="26" height="26"&gt;
+E             &lt;span&gt;Looking Glass&lt;/span&gt;
+E             &lt;span class="badge badge-admin"&gt;DM&lt;/span&gt;
+E           &lt;/a&gt;
+E         &lt;/header&gt;&lt;main class="container narrow"&gt;
+E         &lt;section class="card"&gt;
+E           &lt;h1&gt;403&lt;/h1&gt;
+E           &lt;p&gt;Login requires a same-origin request.&lt;/p&gt;
+E           &lt;p&gt;&lt;a href="/"&gt;Back to start&lt;/a&gt;&lt;/p&gt;
+E         &lt;/section&gt;
+E         &lt;/main&gt;
+E         &lt;script src="/static/js/common.js"&gt;&lt;/script&gt;
+E         &lt;script src="/static/js/upload_busy.js?v=imports-7-1"&gt;&lt;/script&gt;
+E         &lt;/body&gt;
+E         &lt;/html&gt;
+E       assert 403 == 303
+E        +  where 403 = &lt;Response [403 Forbidden]&gt;.status_code
+
+python/tests/test_web.py:33: AssertionError</failure></testcase><testcase classname="python.tests.test_storage_failures" name="test_map_image_write_failure_preserves_existing_files_and_allows_retry[permission]" time="0.003" /><testcase classname="python.tests.test_storage_failures" name="test_map_image_write_failure_preserves_existing_files_and_allows_retry[partial-disk-full]" time="0.002" /><testcase classname="python.tests.test_storage_failures" name="test_image_name_collision_does_not_overwrite_or_delete_existing_file" time="0.001" /><testcase classname="python.tests.test_storage_failures" name="test_failed_recovery_zip_is_removed_and_prior_state_is_preserved[create-permission]" time="0.047" /><testcase classname="python.tests.test_storage_failures" name="test_failed_recovery_zip_is_removed_and_prior_state_is_preserved[partial-disk-full]" time="0.043" /><testcase classname="python.tests.test_storage_failures" name="test_failed_recovery_zip_is_removed_and_prior_state_is_preserved[file-fsync]" time="0.044" /><testcase classname="python.tests.test_storage_failures" name="test_failed_recovery_zip_is_removed_and_prior_state_is_preserved[directory-fsync]" time="0.044" /><testcase classname="python.tests.test_storage_failures" name="test_sqlite_write_contention_preserves_state_then_allows_retry" time="0.082" /><testcase classname="python.tests.test_test_results_packaging" name="test_nested_binary_spaces_hidden_files_and_empty_directories_roundtrip" time="0.007" /><testcase classname="python.tests.test_test_results_packaging" name="test_existing_legacy_decoding_contract_is_preserved" time="0.007" /><testcase classname="python.tests.test_test_results_packaging" name="test_empty_tree_is_valid" time="0.002" /><testcase classname="python.tests.test_test_results_packaging" name="test_unsupported_entries_fail_without_reading_external_data[file-link]" time="0.002" /><testcase classname="python.tests.test_test_results_packaging" name="test_unsupported_entries_fail_without_reading_external_data[directory-link]" time="0.002" /><testcase classname="python.tests.test_test_results_packaging" name="test_unsupported_entries_fail_without_reading_external_data[dangling-link]" time="0.002" /><testcase classname="python.tests.test_test_results_packaging" name="t

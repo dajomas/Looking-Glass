@@ -1,0 +1,38 @@
+ngs=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...00>), <fastapi.applications.FastAPI object at 0x7f433a2041a0>, <fastapi.applications.FastAPI object at 0x7f433a205010>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0088480Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f433a25d2b0>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0088570Z endpoint = 'preview'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0088583Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0088748Z     @pytest.mark.parametrize("endpoint",["viewer","preview"])
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0088967Z     def test_response_survives_composite_cleanup(env, monkeypatch, endpoint):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0089081Z >       ctx, dm, alice, cid, mid = prepare(env)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0089186Z                                    ^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0089191Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0089310Z python/tests/test_fog_response_web.py:26: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0089557Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0089703Z python/tests/test_fog_response_web.py:21: in prepare
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0089948Z     return ctx, login(admin,"dm","dmpass123"), login(viewer,"alice","alicepass"), cid, mid
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090045Z                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090191Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090196Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090422Z app = <fastapi.applications.FastAPI object at 0x7f433a2041a0>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090519Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090524Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090669Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0090822Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091087Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091200Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091309Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091400Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091485Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091588Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091785Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0091901Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0092089Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0092281Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0092439Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0092521Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0092635Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0092736Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0092838Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0093034Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / H
