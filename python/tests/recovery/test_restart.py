@@ -9,6 +9,7 @@ import socket
 import subprocess
 import sys
 import time
+from urllib.parse import urlsplit
 
 import httpx2 as httpx
 from PIL import Image
@@ -113,7 +114,9 @@ def application(tmp_path, request):
 
 
 def login(client, username, password):
-    response = client.post("/login", data={"username": username, "password": password})
+    origin = urlsplit(str(client.base_url))
+    response = client.post("/login", data={"username": username, "password": password},
+                           headers={"Origin": f"{origin.scheme}://{origin.netloc}"}, follow_redirects=False)
     assert response.status_code == 303, response.text
     response = client.get("/", follow_redirects=True)
     assert response.status_code == 200

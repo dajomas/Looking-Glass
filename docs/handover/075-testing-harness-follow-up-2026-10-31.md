@@ -21,7 +21,7 @@ New tools/package_test_results.py creates two sibling outputs for a prefix:
 
 The runner uses prefix test-results.SHORTSHA, with unversioned fallback as before.
 Existing base64/gzip decoding remains valid for the .txt; full diagnostics must
-use the additional bundle. No consumer is silently switched to tar. The GitHub
+use the additional bundle. The GitHub
 collector getworkflow.sh and CI artifact workflow are unchanged.
 
 Outputs must be outside the source tree. Symlinks, dangling links and special
@@ -116,3 +116,36 @@ HANDOVER's existing follow-up pointer is retitled generically to cover both
 packaging and engine work. Application/runtime, container module, Containerfile,
 CI, requirements, collector and every existing test stay unchanged in this
 foundation commit. Bug 15 remains closed. No archive or Patch/ material.
+
+## Login-guard helper alignment (2026-11-05)
+
+Baseline: a19c52c71650c91594f91eaa3e1d256fce59608a on features/perplexity.
+Run 41991526873 attempt 1 tested 1f31285bafb73b6dad7ee009ea4dab52de8342a7,
+not the evidence commit. Reviewed evidence showed three Recovery failures at
+headerless login and three mocked-browser setup errors through test_web.login.
+
+Recovery login now sends Origin derived from its own client's base URL, preserving
+scheme/authority/port and excluding any path. Redirect following is explicitly
+false for the login POST. test_container imports this helper, so it needs no edit.
+The shared test_web.login uses the same request-local policy; its two direct
+login tests now supply same-origin headers too. The viewer-role denial also
+checks its expected message so a guard rejection cannot masquerade as RBAC success.
+The room-note recovery browser flow imports the shared helper; interception and
+all browser/recovery assertions stay unchanged. No client-wide headers, request
+monkeypatches, production-guard changes, skip markers or weakened tests are added.
+
+Seven isolated helper contracts ran under Python 3.12.8 using extracted helper
+functions and recording client doubles: original helpers 5 failed/2 passed;
+candidate 7 passed. Cases cover two dynamic HTTP ports, HTTPS/path stripping,
+IPv6, request-local headers and retained failure assertions. FastAPI is absent;
+no real HTTP, browser, restart, container, full-suite or CI rerun was performed.
+The doubled tests do not prove application integration success.
+
+This is the requested helper/browser-setup scope, not migration of every direct
+login caller behind the broader Python failures. Review and fix remaining direct
+callers separately, retain missing/cross-origin rejection tests, finish proxy
+usage documentation and rerun all five suites before acceptance. Bugs 20/21 stay
+acceptance pending. README.md and HANDOVER.md were reviewed; the README test
+summary and existing indexed link to this focused harness record remain accurate,
+so no cosmetic edits are needed. Earlier historical records and CI artifacts are
+preserved. No other branch, archive, Patch/ material or application change.

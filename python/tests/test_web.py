@@ -2,6 +2,7 @@
 
 import json
 import re
+from urllib.parse import urlsplit
 
 import pytest
 from fastapi.testclient import TestClient
@@ -29,7 +30,9 @@ def env(settings):
 
 def login(app, username, password) -> TestClient:
     c = TestClient(app, base_url="http://testserver")
-    r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+    origin = urlsplit(str(c.base_url))
+    r = c.post("/login", data={"username": username, "password": password},
+               headers={"Origin": f"{origin.scheme}://{origin.netloc}"}, follow_redirects=False)
     assert r.status_code == 303, r.text
     return c
 
@@ -42,8 +45,10 @@ def csrf_of(client: TestClient, path="/") -> str:
 def test_viewer_cannot_use_admin_port(env):
     _, admin, _ = env
     c = TestClient(admin)
-    r = c.post("/login", data={"username": "alice", "password": "alicepass"}, follow_redirects=False)
+    r = c.post("/login", data={"username": "alice", "password": "alicepass"},
+               headers={"Origin": "http://testserver"}, follow_redirects=False)
     assert r.status_code == 403
+    assert "This account can only use the viewer screen." in r.text
 
 
 def test_unauthenticated_redirects(env):
@@ -157,7 +162,8 @@ def test_admin_creates_viewer_who_must_change_password(env):
                 data={"csrf_token": token, "username": "newbie", "password": "temp-pass-1"}, follow_redirects=False)
     assert "ok=" in r.headers["location"]
     v = TestClient(viewer)
-    r = v.post("/login", data={"username": "newbie", "password": "temp-pass-1"}, follow_redirects=False)
+    r = v.post("/login", data={"username": "newbie", "password": "temp-pass-1"},
+               headers={"Origin": "http://testserver"}, follow_redirects=False)
     assert r.headers["location"] == "/account"
     assert v.get(f"/c/{cid}", follow_redirects=False).headers["location"] == "/account"
     t = csrf_of(v, "/account")
