@@ -1,0 +1,80 @@
+          "Aliases": null,
+                    "MacAddress": "",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "fde244b2eecd13e016c1d50cf90cab57b8db48f92d6313642b31ccd1585e8f61",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'logs', 'looking-glass-test-d6775960714946d6aa17f945c5b4a6c5']
+exit=0
+
+2026-11-05 14:16:17,423 WARNING looking_glass: ================================================================
+Created superadmin 'superadmin' from LG_SUPERADMIN_PASSWORD
+================================================================
+2026-11-05 14:16:17,432 INFO    looking_glass: Admin  portal: http://0.0.0.0:5000
+2026-11-05 14:16:17,432 INFO    looking_glass: Viewer portal: http://0.0.0.0:5100
+2026-11-05 14:16:17,444 INFO    uvicorn.error: Started server process [1]
+2026-11-05 14:16:17,444 INFO    uvicorn.error: Waiting for application startup.
+2026-11-05 14:16:17,444 INFO    uvicorn.error: Started server process [1]
+2026-11-05 14:16:17,444 INFO    uvicorn.error: Waiting for application startup.
+2026-11-05 14:16:17,445 INFO    uvicorn.error: Application startup complete.
+2026-11-05 14:16:17,445 INFO    uvicorn.error: Application startup complete.
+2026-11-05 14:16:17,445 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+2026-11-05 14:16:17,445 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5100 (Press CTRL+C to quit)
+2026-11-05 14:16:18,255 INFO    looking_glass: Shutting down...
+2026-11-05 14:16:18,354 INFO    uvicorn.error: Shutting down
+2026-11-05 14:16:18,354 INFO    uvicorn.error: Shutting down
+2026-11-05 14:16:18,454 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-05 14:16:18,454 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-05 14:16:18,454 INFO    uvicorn.error: Application shutdown complete.
+2026-11-05 14:16:18,454 INFO    uvicorn.error: Finished server process [1]
+2026-11-05 14:16:18,454 INFO    uvicorn.error: Application shutdown complete.
+2026-11-05 14:16:18,455 INFO    uvicorn.error: Finished server process [1]
+
+['/usr/bin/docker', 'rm', 'looking-glass-test-d6775960714946d6aa17f945c5b4a6c5']
+exit=0
+looking-glass-test-d6775960714946d6aa17f945c5b4a6c5
+
+
+['/usr/bin/docker', 'run', '--detach', '--name', 'looking-glass-test-d6775960714946d6aa17f945c5b4a6c5', '--publish', '127.0.0.1::5000', '--publish', '127.0.0.1::5100', '--mount', 'type=volume,source=looking-glass-test-data-d6775960714946d6aa17f945c5b4a6c5,target=/app/data', '--mount', 'type=bind,source=/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json,target=/app/ci-config.json,readonly', '--env', 'LG_SUPERADMIN_PASSWORD=container-bootstrap-password', 'looking-glass-test:7eaf60016bf4408094acea1270e8e4b1', 'python', 'python/main.py', '--config', '/app/ci-config.json', 'serve']
+exit=0
+790cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-d6775960714946d6aa17f945c5b4a6c5']
+exit=0
+[
+    {
+        "Id": "790cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec",
+        "Created": "2026-11-05T14:16:18.807590115Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3233,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-05T14:16:18.8414

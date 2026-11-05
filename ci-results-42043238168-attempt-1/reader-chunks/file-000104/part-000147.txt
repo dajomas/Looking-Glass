@@ -1,0 +1,30 @@
+ includeIf entries pointing to credentials config files
+Recovery	Check out repository	2026-11-05T14:15:31.3808259Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Recovery	Check out repository	2026-11-05T14:15:31.3848241Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Recovery	Check out repository	2026-11-05T14:15:31.4062883Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-f7f612ac-c6e6-4084-8075-b032e52a8116.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Recovery	Check out repository	2026-11-05T14:15:31.4114438Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-f7f612ac-c6e6-4084-8075-b032e52a8116.config
+Recovery	Check out repository	2026-11-05T14:15:31.4155658Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-f7f612ac-c6e6-4084-8075-b032e52a8116.config
+Recovery	Check out repository	2026-11-05T14:15:31.4194541Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-f7f612ac-c6e6-4084-8075-b032e52a8116.config
+Recovery	Check out repository	2026-11-05T14:15:31.4238743Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-f7f612ac-c6e6-4084-8075-b032e52a8116.config
+Recovery	Check out repository	2026-11-05T14:15:31.4271882Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T14:15:31.4272530Z ##[group]Fetching the repository
+Recovery	Check out repository	2026-11-05T14:15:31.4278931Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2b121306e6a1edd7545d2fdcd08eae87880dbaac:refs/remotes/origin/features/perplexity
+Recovery	Check out repository	2026-11-05T14:15:32.2693330Z From https://github.com/dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-05T14:15:32.2695438Z  * [new ref]         2b121306e6a1edd7545d2fdcd08eae87880dbaac -> origin/features/perplexity
+Recovery	Check out repository	2026-11-05T14:15:32.2701195Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Recovery	Check out repository	2026-11-05T14:15:32.2734322Z   origin/features/perplexity
+Recovery	Check out repository	2026-11-05T14:15:32.2744086Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Recovery	Check out repository	2026-11-05T14:15:32.2773567Z 2b121306e6a1edd7545d2fdcd08eae87880dbaac
+Recovery	Check out repository	2026-11-05T14:15:32.2778934Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T14:15:32.2780253Z ##[group]Determining the checkout info
+Recovery	Check out repository	2026-11-05T14:15:32.2781891Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T14:15:32.2783319Z [command]/usr/bin/git sparse-checkout disable
+Recovery	Check out repository	2026-11-05T14:15:32.2835020Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Recovery	Check out repository	2026-11-05T14:15:32.2870281Z ##[group]Checking out the ref
+Recovery	Check out repository	2026-11-05T14:15:32.2872425Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+Recovery	Check out repository	2026-11-05T14:15:32.3230616Z Switched to a new branch 'features/perplexity'
+Recovery	Check out repository	2026-11-05T14:15:32.3233488Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+Recovery	Check out repository	2026-11-05T14:15:32.3241691Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T14:15:32.3288740Z [command]/usr/bin/git log -1 --format=%H
+Recovery	Check out repository	2026-11-05T14:15:32.3321249Z 2b121306e6a1edd7545d2fdcd08eae87880dbaac
+Recovery	Initialize evidence	

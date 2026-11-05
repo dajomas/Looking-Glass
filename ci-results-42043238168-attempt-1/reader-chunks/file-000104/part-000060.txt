@@ -1,0 +1,32 @@
+ipped tests or empty results	2026-11-05T14:17:25.8997293Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8997547Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8997863Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8998238Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8998475Z ^[[36;1mfor case in skipped:^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8998647Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8999066Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8999296Z ^[[36;1mif skipped or failed:^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8999499Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.8999702Z ^[[36;1mPY^[[0m
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9015719Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9015911Z env:
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9016079Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9016277Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9016400Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9016557Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9016804Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9017037Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9017248Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9017465Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9017679Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9017859Z ##[endgroup]
+Live Uvicorn	Reject skipped tests or empty results	2026-11-05T14:17:25.9224578Z Reported: 18; failed/error: 0; skipped: 0
+Live Uvicorn	Upload validation evidence	﻿2026-11-05T14:17:25.9306787Z ##[group]Run actions/upload-artifact@v4
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9306973Z with:
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9307162Z   name: integration-live-2b121306e6a1edd7545d2fdcd08eae87880dbaac
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9307368Z   path: test-results/
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9307498Z   if-no-files-found: warn
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9307626Z   retention-days: 14
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9307752Z   compression-level: 6
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9307942Z   overwrite: false
+Live Uvicorn	Upload validation evidence	2026-11-05T14:17:25.9308091Z   include-hidden-files: false

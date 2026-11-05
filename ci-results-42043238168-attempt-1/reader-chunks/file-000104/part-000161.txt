@@ -1,0 +1,40 @@
+ob	2026-11-05T14:15:29.8447239Z ##[endgroup]
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8448181Z ##[group]Runner Image
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8449185Z Image: ubuntu-24.04
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8450139Z Version: 20261101.360.1
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8451908Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8454661Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8456570Z ##[endgroup]
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8458471Z ##[group]GITHUB_TOKEN Permissions
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8461089Z Contents: read
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8462033Z Metadata: read
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8462982Z ##[endgroup]
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8466235Z Secret source: Actions
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8467716Z Cache mode: write
+JavaScript regressions	Set up job	2026-11-05T14:15:29.8468887Z Prepare workflow directory
+JavaScript regressions	Set up job	2026-11-05T14:15:29.9243324Z Prepare all required actions
+JavaScript regressions	Set up job	2026-11-05T14:15:29.9315156Z Getting action download info
+JavaScript regressions	Set up job	2026-11-05T14:15:30.1515524Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+JavaScript regressions	Set up job	2026-11-05T14:15:30.2620874Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+JavaScript regressions	Set up job	2026-11-05T14:15:30.4635202Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+JavaScript regressions	Set up job	2026-11-05T14:15:30.6081387Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+JavaScript regressions	Set up job	2026-11-05T14:15:30.8917803Z Complete job name: JavaScript regressions
+JavaScript regressions	Check out repository	﻿2026-11-05T14:15:30.9882663Z ##[group]Run actions/checkout@v6
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9883585Z with:
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9884066Z   repository: dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9888165Z   token: ***
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9888633Z   ssh-strict: true
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9889099Z   ssh-user: git
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9889573Z   persist-credentials: true
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9890083Z   clean: true
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9890554Z   sparse-checkout-cone-mode: true
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9891092Z   fetch-depth: 1
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9891542Z   fetch-tags: false
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9892010Z   show-progress: true
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9892482Z   lfs: false
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9892932Z   submodules: false
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9893398Z   set-safe-directory: true
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9893922Z   allow-unsafe-pr-checkout: false
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9894829Z env:
+JavaScript regressions	Check out repository	2026-11-05T14:15:30.9895423Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regress

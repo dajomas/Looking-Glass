@@ -1,0 +1,115 @@
+cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec",
+        "Created": "2026-11-05T14:16:18.807590115Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 3233,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-05T14:16:18.84140069Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:44fcb63c7e0ea3a525da1b1314fd4fccee4a2d1503918e96fe561735b27c3077",
+        "ResolvConfPath": "/var/lib/docker/containers/790cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/790cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec/hostname",
+        "HostsPath": "/var/lib/docker/containers/790cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec/hosts",
+        "LogPath": "/var/lib/docker/containers/790cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec/790cf3b915e71ef9be39ccd5408138a2f5f0cbebb9f3e8087c80e9ff7e675cec-json.log",
+        "Name": "/looking-glass-test-d6775960714946d6aa17f945c5b4a6c5",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+           
