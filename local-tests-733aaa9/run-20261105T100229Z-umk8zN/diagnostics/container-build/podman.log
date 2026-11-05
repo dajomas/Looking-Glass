@@ -1,0 +1,346 @@
+['/usr/bin/podman', 'version']
+exit=0
+Client:        Podman Engine
+Version:       5.8.2
+API Version:   5.8.2
+Go Version:    go1.26.10 (Red Hat 1.26.10-1.el10_2)
+Git Commit:    aae8b83946c89bf993dc8c5e8b88590ae1fcc503
+Built:         Tue Oct 27 01:00:00 2026
+Build Origin:  Rocky Linux Build System <releng@rockylinux.org>
+OS/Arch:       linux/amd64
+
+
+['/usr/bin/podman', 'info']
+exit=0
+host:
+  arch: amd64
+  buildahVersion: 1.43.1
+  cgroupControllers:
+  - cpu
+  - memory
+  - pids
+  cgroupManager: systemd
+  cgroupVersion: v2
+  conmon:
+    package: conmon-2.2.1-2.el10.x86_64
+    path: /usr/bin/conmon
+    version: 'conmon version 2.2.1, commit: '
+  cpuUtilization:
+    idlePercent: 95.56
+    systemPercent: 0.85
+    userPercent: 3.59
+  cpus: 4
+  databaseBackend: sqlite
+  distribution:
+    distribution: rocky
+    version: "10.2"
+  eventLogger: journald
+  freeLocks: 2048
+  hostname: vps002
+  idMappings:
+    gidmap:
+    - container_id: 0
+      host_id: 1000
+      size: 1
+    - container_id: 1
+      host_id: 524288
+      size: 65536
+    uidmap:
+    - container_id: 0
+      host_id: 1000
+      size: 1
+    - container_id: 1
+      host_id: 524288
+      size: 65536
+  kernel: 6.12.0-211.73.1.el10_2.x86_64
+  linkmode: dynamic
+  logDriver: journald
+  memFree: 533483520
+  memTotal: 8018612224
+  networkBackend: netavark
+  networkBackendInfo:
+    backend: netavark
+    defaultNetwork: podman
+    dns:
+      package: aardvark-dns-1.17.1-1.el10_2.x86_64
+      path: /usr/libexec/podman/aardvark-dns
+      version: aardvark-dns 1.17.1
+    package: netavark-1.17.2-1.el10.x86_64
+    path: /usr/libexec/podman/netavark
+    version: netavark 1.17.2
+  ociRuntime:
+    name: crun
+    package: crun-1.30.1-2.el10_2.x86_64
+    path: /usr/bin/crun
+    version: |-
+      crun version 1.30.1
+      commit: 079ff6a7a16d029460af882f9ea44674e6a510b6
+      rundir: /run/user/1000/crun
+      spec: 1.0.0
+      +SYSTEMD +SELINUX +APPARMOR +CAP +SECCOMP +EBPF +CRIU +LIBKRUN +JSON_C
+  os: linux
+  pasta:
+    executable: /usr/bin/pasta
+    package: passt-0^20251210.gd04c480-7.el10_2.x86_64
+    version: |
+      pasta 0^20251210.gd04c480-7.el10_2.x86_64
+      Copyright Red Hat
+      GNU General Public License, version 2 or later
+        <https://www.gnu.org/licenses/old-licenses/gpl-2.0.html>
+      This is free software: you are free to change and redistribute it.
+      There is NO WARRANTY, to the extent permitted by law.
+  remoteSocket:
+    exists: true
+    path: /run/user/1000/podman/podman.sock
+  rootlessNetworkCmd: pasta
+  security:
+    apparmorEnabled: false
+    capabilities: CAP_CHOWN,CAP_DAC_OVERRIDE,CAP_FOWNER,CAP_FSETID,CAP_KILL,CAP_NET_BIND_SERVICE,CAP_SETFCAP,CAP_SETGID,CAP_SETPCAP,CAP_SETUID,CAP_SYS_CHROOT
+    rootless: true
+    seccompEnabled: true
+    seccompProfilePath: /usr/share/containers/seccomp.json
+    selinuxEnabled: false
+  serviceIsRemote: false
+  slirp4netns:
+    executable: ""
+    package: ""
+    version: ""
+  swapFree: 8422158336
+  swapTotal: 8422158336
+  uptime: 18h 54m 4.00s (Approximately 0.75 days)
+  variant: ""
+plugins:
+  authorization: null
+  log:
+  - k8s-file
+  - none
+  - passthrough
+  - journald
+  network:
+  - bridge
+  - macvlan
+  - ipvlan
+  volume:
+  - local
+registries:
+  search:
+  - registry.access.redhat.com
+  - registry.redhat.io
+  - docker.io
+store:
+  configFile: /home/boywonder/.config/containers/storage.conf
+  containerStore:
+    number: 0
+    paused: 0
+    running: 0
+    stopped: 0
+  graphDriverName: overlay
+  graphOptions: {}
+  graphRoot: /home/boywonder/.local/share/containers/storage
+  graphRootAllocated: 10670309376
+  graphRootUsed: 1845633024
+  graphStatus:
+    Backing Filesystem: xfs
+    Native Overlay Diff: "true"
+    Supports d_type: "true"
+    Supports shifting: "false"
+    Supports volatile: "true"
+    Using metacopy: "false"
+  imageCopyTmpDir: /var/tmp
+  imageStore:
+    number: 4
+  runRoot: /run/user/1000/containers
+  transientStore: false
+  volumePath: /home/boywonder/.local/share/containers/storage/volumes
+version:
+  APIVersion: 5.8.2
+  BuildOrigin: Rocky Linux Build System <releng@rockylinux.org>
+  Built: 1793059200
+  BuiltTime: Tue Oct 27 01:00:00 2026
+  GitCommit: aae8b83946c89bf993dc8c5e8b88590ae1fcc503
+  GoVersion: go1.26.10 (Red Hat 1.26.10-1.el10_2)
+  Os: linux
+  OsArch: linux/amd64
+  Version: 5.8.2
+
+
+
+['/usr/bin/podman', 'build', '--pull=always', '-f', '/tmp/looking-glass-local-4beueiw3/worktree/Containerfile', '-t', 'looking-glass-test:ceda3006c46d458bb7b9f441e143dbf7', '/tmp/looking-glass-local-4beueiw3/worktree']
+exit=0
+STEP 1/16: FROM docker.io/library/python:3.14-slim
+STEP 2/16: ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 LG_DATA_DIR=/app/data
+--> Using cache 0b18659f9c80633989f585a7efaa8757e046fea136ac4cf88302959380ba3afb
+--> 0b18659f9c80
+STEP 3/16: WORKDIR /app
+--> Using cache d4b15177ed62e5d0dae61ed9af69c3a3be117421f4ff6c248624875c1b908dc3
+--> d4b15177ed62
+STEP 4/16: COPY requirements.txt .
+--> Using cache 0c76bdb290ba277fc3f403b236a2c14bc8e3660ce9a31fbe61484eb8755c800f
+--> 0c76bdb290ba
+STEP 5/16: RUN pip install --no-cache-dir -r requirements.txt
+Collecting fastapi>=0.115 (from -r requirements.txt (line 1))
+  Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting jinja2>=3.1 (from -r requirements.txt (line 3))
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting python-multipart>=0.0.12 (from -r requirements.txt (line 4))
+  Downloading python_multipart-0.0.33-py3-none-any.whl.metadata (6.3 kB)
+Collecting pyyaml>=6.0 (from -r requirements.txt (line 5))
+  Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting pillow>=11.3 (from -r requirements.txt (line 6))
+  Downloading pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Collecting numpy>=2.3 (from -r requirements.txt (line 7))
+  Downloading numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+Collecting scipy>=1.16 (from -r requirements.txt (line 8))
+  Downloading scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting mistune<4,>=3.1 (from -r requirements.txt (line 9))
+  Downloading mistune-3.4.0-py3-none-any.whl.metadata (2.1 kB)
+Collecting bleach<7,>=6.2 (from -r requirements.txt (line 10))
+  Downloading bleach-6.4.0-py3-none-any.whl.metadata (32 kB)
+Collecting httpx2>=2.16.0 (from -r requirements.txt (line 11))
+  Downloading httpx2-2.16.0-py3-none-any.whl.metadata (10 kB)
+Collecting webencodings (from bleach<7,>=6.2->-r requirements.txt (line 10))
+  Downloading webencodings-0.6.1-py3-none-any.whl.metadata (3.4 kB)
+Collecting starlette>=0.46.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting pydantic>=2.9.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+Collecting typing-extensions>=4.8.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting typing-inspection>=0.4.2 (from fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+Collecting annotated-doc>=0.0.2 (from fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting opentelemetry-api>=1.44.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+Collecting click>=7.0 (from uvicorn>=0.32->uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting h11>=0.8 (from uvicorn>=0.32->uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting MarkupSafe>=2.0 (from jinja2>=3.1->-r requirements.txt (line 3))
+  Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Collecting anyio>=4.10 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+  Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting httpcore2==2.16.0 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+  Downloading httpcore2-2.16.0-py3-none-any.whl.metadata (27 kB)
+Collecting idna>=3.18 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting truststore>=0.10 (from httpx2>=2.16.0->-r requirements.txt (line 11))
+  Downloading truststore-0.10.5-py3-none-any.whl.metadata (4.5 kB)
+Collecting annotated-types>=0.6.0 (from pydantic>=2.9.0->fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.50.4 (from pydantic>=2.9.0->fastapi>=0.115->-r requirements.txt (line 1))
+  Downloading pydantic_core-2.50.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading httptools-0.9.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (3.5 kB)
+Collecting python-dotenv>=0.13 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading uvloop-0.23.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.1 kB)
+Collecting watchfiles>=0.20 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.9 kB)
+Collecting websockets>=13.0 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+  Downloading websockets-17.4-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (6.3 kB)
+Downloading mistune-3.4.0-py3-none-any.whl (70 kB)
+Downloading bleach-6.4.0-py3-none-any.whl (165 kB)
+Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading python_multipart-0.0.33-py3-none-any.whl (32 kB)
+Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (794 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 794.2/794.2 kB 53.9 MB/s  0:00:00
+Downloading pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.1/7.1 MB 236.6 MB/s  0:00:00
+Downloading numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.7 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.7/16.7 MB 245.9 MB/s  0:00:00
+Downloading scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 234.5 MB/s  0:00:00
+Downloading httpx2-2.16.0-py3-none-any.whl (97 kB)
+Downloading httpcore2-2.16.0-py3-none-any.whl (85 kB)
+Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+Downloading pydantic_core-2.50.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 402.3 MB/s  0:00:00
+Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+Downloading truststore-0.10.5-py3-none-any.whl (19 kB)
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+Downloading httptools-0.9.0-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (514 kB)
+Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+Downloading uvloop-0.23.0-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (4.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.4/4.4 MB 234.9 MB/s  0:00:00
+Downloading watchfiles-1.3.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (458 kB)
+Downloading websockets-17.4-cp314-cp314-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (226 kB)
+Downloading webencodings-0.6.1-py3-none-any.whl (8.7 kB)
+Installing collected packages: websockets, webencodings, uvloop, typing-extensions, truststore, pyyaml, python-multipart, python-dotenv, pillow, numpy, mistune, MarkupSafe, idna, httptools, h11, click, annotated-types, annotated-doc, uvicorn, typing-inspection, scipy, pydantic-core, opentelemetry-api, jinja2, httpcore2, bleach, anyio, watchfiles, starlette, pydantic, httpx2, fastapi
+
+Successfully installed MarkupSafe-3.0.4 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 bleach-6.4.0 click-8.5.0 fastapi-0.162.0 h11-0.16.0 httpcore2-2.16.0 httptools-0.9.0 httpx2-2.16.0 idna-3.20 jinja2-3.1.6 mistune-3.4.0 numpy-2.5.4 opentelemetry-api-1.45.2 pillow-13.0.0 pydantic-2.14.3 pydantic-core-2.50.4 python-dotenv-1.2.4 python-multipart-0.0.33 pyyaml-6.0.3 scipy-1.18.1 starlette-1.10.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 webencodings-0.6.1 websockets-17.4
+--> 5b91dd4843b5
+STEP 6/16: COPY python ./python
+--> 3d4b5d837f3a
+STEP 7/16: COPY static ./static
+--> 537828c4c54b
+STEP 8/16: COPY templates ./templates
+--> 27d37dbe432d
+STEP 9/16: COPY web_html ./web_html
+--> d7c203a96bf3
+STEP 10/16: COPY config.example.yaml ./config.example.yaml
+--> 3af5e0337340
+STEP 11/16: RUN useradd --system --uid 1001 --home /app lg && mkdir -p /app/data && chown -R lg /app/data
+--> a2dc51656b3d
+STEP 12/16: USER lg
+--> 09a427376d84
+STEP 13/16: VOLUME ["/app/data"]
+--> ea5f5da7d6ee
+STEP 14/16: EXPOSE 5000 5100
+--> 647a2340c688
+STEP 15/16: HEALTHCHECK CMD python -c "import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')" || exit 1
+--> f00adf6d1a1d
+STEP 16/16: CMD ["python", "python/main.py", "serve"]
+COMMIT looking-glass-test:ceda3006c46d458bb7b9f441e143dbf7
+--> 226baf475e45
+Successfully tagged localhost/looking-glass-test:ceda3006c46d458bb7b9f441e143dbf7
+226baf475e450426053e884c1641fe3ff409fd93914ae6263fe228279ba57748
+
+Trying to pull docker.io/library/python:3.14-slim...
+Getting image source signatures
+Copying blob sha256:646d37df0c533921d82512bef9ce6a5d2948e4e98c8c61689e9961e269c30282
+Copying blob sha256:6fc242d221a673263eabd14a9ad9584d3177c96e5cb504c891497338e2f912f5
+Copying blob sha256:40a79f5805ed632260bcefb9f20f1db1f62ba605ded5fe5b350795e17d6f9704
+Copying blob sha256:57257d6d8137dab325b25390b3711f8dd1a2a3a45fef1686d0177e058fc68403
+Copying config sha256:b37832cc2a1f91289afeccd6d96cfb9d480024615956dc078069ea82ffce1338
+Writing manifest to image destination
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+
+[notice] A new release of pip is available: 26.2.2 -> 26.3
+[notice] To update, run: pip install --upgrade pip
+useradd warning: lg's uid 1001 is greater than SYS_UID_MAX 999
+time="2026-11-05T11:09:24+01:00" level=warning msg="HEALTHCHECK is not supported for OCI image format and will be ignored. Must use `docker` format"
+time="2026-11-05T11:09:25+01:00" level=warning msg="HEALTHCHECK is not supported for OCI image format and will be ignored. Must use `docker` format"
+
+['/usr/bin/podman', 'image', 'rm', 'looking-glass-test:ceda3006c46d458bb7b9f441e143dbf7']
+exit=2
+Untagged: localhost/looking-glass-test:ceda3006c46d458bb7b9f441e143dbf7
+Deleted: 226baf475e450426053e884c1641fe3ff409fd93914ae6263fe228279ba57748
+Deleted: f00adf6d1a1d3d23059c5610c753e12868b8d3c02bd7b35def7801cd616ee6c5
+Deleted: 647a2340c68864ef5912461717d74ede3f1734979a384ad5ba4a3599749475a9
+Deleted: ea5f5da7d6ee1d5a05a7de75f17f5a6f434f8b41ba6d45323f14b5bd4efc8de0
+Deleted: 09a427376d848d416fb8cede7a9d068b461c865d5c91f74bd46b047afee259ff
+Deleted: a2dc51656b3df6ea58363a5ab7cecfe48bc98ea93146f73b9c3e95404de1596f
+Deleted: 3af5e03373402abd36c37cfaba5c4c4f080bd0e73c5572d9af42388c8b15da32
+Deleted: d7c203a96bf319cc807b9389d327c0dd838c0b1ce27febd0760118e697dc916f
+Deleted: 27d37dbe432d9ec966a30e6e87a318daa548a1efea877d373b66dd81b86a301c
+Deleted: 537828c4c54b4ca0abc84d9cc4ee90e1f8de2b6c8ffa7814121597144d044627
+Deleted: 3d4b5d837f3acdcd9ca283ac36c5a5d7bf8ed72c7aae19bfc4ea0ea57682d48a
+Deleted: 5b91dd4843b569b5bc4278c75c90196744d00168604c7caeb8a7ace8b0c68616
+
+Error: image used by dfc229769dbdb074c8d5da9eef24d8a85fb4fe42c25ae982c4f35c16f58f8f81: image is in use by a container: consider listing external containers and force-removing image
+
