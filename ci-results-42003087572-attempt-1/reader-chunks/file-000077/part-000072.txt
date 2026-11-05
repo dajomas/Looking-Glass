@@ -1,0 +1,27 @@
+ CTRL+C to quit)
+2026-11-05 09:32:31,549 INFO    uvicorn.access: 172.17.0.1:45978 - "GET /api/c/1/state HTTP/1.1" 401
+2026-11-05 09:32:31,567 INFO    looking_glass: Shutting down...
+2026-11-05 09:32:31,607 INFO    uvicorn.error: Shutting down
+2026-11-05 09:32:31,607 INFO    uvicorn.error: Shutting down
+2026-11-05 09:32:31,707 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-05 09:32:31,707 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-05 09:32:31,708 INFO    uvicorn.error: Application shutdown complete.
+2026-11-05 09:32:31,708 INFO    uvicorn.error: Finished server process [1]
+2026-11-05 09:32:31,708 INFO    uvicorn.error: Application shutdown complete.
+2026-11-05 09:32:31,708 INFO    uvicorn.error: Finished server process [1]
+
+['/usr/bin/docker', 'rm', 'looking-glass-test-46ba2138756541199accd1f25250ff97']
+exit=0
+looking-glass-test-46ba2138756541199accd1f25250ff97
+
+
+['/usr/bin/docker', 'rm', '--force', 'looking-glass-test-46ba2138756541199accd1f25250ff97']
+exit=0
+
+Error response from daemon: No such container: looking-glass-test-46ba2138756541199accd1f25250ff97
+
+['/usr/bin/docker', 'volume', 'rm', 'looking-glass-test-data-46ba2138756541199accd1f25250ff97']
+exit=0
+looking-glass-test-data-46ba2138756541199accd1f25250ff97
+
+

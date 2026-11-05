@@ -1,0 +1,116 @@
+ been deprecated, use --timeout instead
+looking-glass-test-46ba2138756541199accd1f25250ff97
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-46ba2138756541199accd1f25250ff97']
+exit=0
+[
+    {
+        "Id": "edf0fcd6d3c3f329ec781e1f84a65fdfd5cf0c85e4bdb41ddfd0dc08cb5fdc1b",
+        "Created": "2026-11-05T09:32:30.207218868Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-05T09:32:30.219087919Z",
+            "FinishedAt": "2026-11-05T09:32:31.845855523Z",
+            "Health": {
+                "Status": "unhealthy",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:111bc78cffb512307d305d7d622ac62f8655fa14166415296d111085573a162a",
+        "ResolvConfPath": "/var/lib/docker/containers/edf0fcd6d3c3f329ec781e1f84a65fdfd5cf0c85e4bdb41ddfd0dc08cb5fdc1b/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/edf0fcd6d3c3f329ec781e1f84a65fdfd5cf0c85e4bdb41ddfd0dc08cb5fdc1b/hostname",
+        "HostsPath": "/var/lib/docker/containers/edf0fcd6d3c3f329ec781e1f84a65fdfd5cf0c85e4bdb41ddfd0dc08cb5fdc1b/hosts",
+        "LogPath": "/var/lib/docker/containers/edf0fcd6d3c3f329ec781e1f84a65fdfd5cf0c85e4bdb41ddfd0dc08cb5fdc1b/edf0fcd6d3c3f329ec781e1f84a65fdfd5cf0c85e4bdb41ddfd0dc08cb5fdc1b-json.log",
+        "Name": "/looking-glass-test-46ba2138756541199accd1f25250ff97",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": null,
+            "IpcMode": "private",
+            "Cgroup": "",
+            "Links": null,
+            "OomScoreAdj": 0,
+            "PidMode": "",
+            "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtime

@@ -1,0 +1,34 @@
+P	UNKNOWN STEP	2026-11-05T09:34:04.0513481Z Reported: 172; failed/error: 0; skipped: 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0646518Z ##[group]Run actions/upload-artifact@v4
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0646908Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0647237Z   name: integration-browser-c734226657ee556ff86f42883decc15c8499f389
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0648024Z   path: test-results/
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0648263Z   if-no-files-found: warn
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0648517Z   retention-days: 14
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0648736Z   compression-level: 6
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0648959Z   overwrite: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0649180Z   include-hidden-files: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0649418Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0649710Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0650076Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0650299Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0650570Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0651004Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0651476Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0651863Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0652251Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0652650Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.0652975Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.2419654Z (node:6382) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.2420547Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.2501824Z With the provided path, there will be 6 files uploaded
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.2509028Z Artifact name is valid!
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.2509924Z Root directory input is valid!
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.6234387Z Beginning upload of artifact content to blob storage
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.6543333Z (node:6382) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.9136354Z Uploaded bytes 11603
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.9958651Z Finished uploading artifact content to blob storage!
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.9959924Z SHA256 digest of uploaded artifact zip is a38c91f80617e160cf05e3480dc8c16c5771639d65f12135f315040bcddac852
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:04.9961477Z Finalizing artifact upload
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:05.5254182Z Artifact integration-browser-c734226657ee556ff86f42883decc15c8499f389.zip successfully finalized. Artifact ID 13403666484
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:34:05.5256361Z Artifact integration-browser-c734226657ee556ff86f42883decc15c8499f389 has been successfully uploaded! Final size is 11603 bytes. 

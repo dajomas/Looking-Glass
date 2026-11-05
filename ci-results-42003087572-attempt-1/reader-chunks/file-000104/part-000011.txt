@@ -1,0 +1,32 @@
+ STEP	2026-11-05T09:32:07.6406053Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6406412Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6406718Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6407119Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6407611Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6407922Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6408366Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6408798Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6409186Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6409577Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6409990Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:07.6410320Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.0912029Z Collecting playwright
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.1435740Z   Downloading playwright-1.64.1-py3-none-manylinux1_x86_64.whl.metadata (3.3 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.1661133Z Collecting pyee<15,>=13 (from playwright)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.1690689Z   Downloading pyee-14.0.0-py3-none-any.whl.metadata (1.8 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.3468249Z Collecting greenlet<4.0.0,>=3.1.1 (from playwright)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.3512178Z   Downloading greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.3558544Z Requirement already satisfied: typing-extensions in /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages (from pyee<15,>=13->playwright) (4.16.0)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.3600825Z Downloading playwright-1.64.1-py3-none-manylinux1_x86_64.whl (48.5 MB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.5650742Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.5/48.5 MB 262.6 MB/s  0:00:00
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.5706146Z Downloading greenlet-3.5.6-cp314-cp314-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (670 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.5759646Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 670.8/670.8 kB 134.9 MB/s  0:00:00
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.5793631Z Downloading pyee-14.0.0-py3-none-any.whl (15 kB)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:08.6745699Z Installing collected packages: pyee, greenlet, playwright
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:09.6640316Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:09.6677298Z Successfully installed greenlet-3.5.6 playwright-1.64.1 pyee-14.0.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:10.1070686Z Installing dependencies...
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:10.1141983Z Switching to root user to install dependencies...
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:10.2633915Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:10.2835773Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T09:32:10.3914722Z Hit:2 http://azure.arch

@@ -1,0 +1,25 @@
+tion tests	2026-11-05T09:32:27.1264084Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.1264467Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.9/x64
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.1264891Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.9/x64/lib
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.1265216Z ##[endgroup]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.7381069Z ============================= test session starts ==============================
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.7396444Z platform linux -- Python 3.14.9, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.9/x64/bin/python
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.7401575Z cachedir: .pytest_cache
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.7402086Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.7402608Z plugins: anyio-4.16.0
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.9109350Z collecting ... collected 18 items
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:27.9112869Z 
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:35.8134190Z python/tests/live_e2e/test_live_checkpoints.py::test_live_checkpoint_restore_reinstalls_same_map_fog PASSED [  5%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:40.4868584Z python/tests/live_e2e/test_live_checkpoints.py::test_live_checkpoint_restore_switches_active_map_and_saved_fog PASSED [ 11%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:46.4644881Z python/tests/live_e2e/test_live_checkpoints.py::test_live_rejected_checkpoint_restore_preserves_connected_viewer PASSED [ 16%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:48.9898208Z python/tests/live_e2e/test_live_display.py::test_live_reveal_keeps_adjacent_room_hidden PASSED [ 22%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:52.8254311Z python/tests/live_e2e/test_live_display.py::test_live_hide_and_undo_reach_player PASSED [ 27%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:56.2790563Z python/tests/live_e2e/test_live_display.py::test_live_map_switch_uses_destination_artwork_and_fog PASSED [ 33%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:32:59.7304137Z python/tests/live_e2e/test_live_display.py::test_live_offline_preparation_does_not_publish PASSED [ 38%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:33:02.9893640Z python/tests/live_e2e/test_live_resilience.py::test_live_reconnect_fetches_changes_missed_while_offline PASSED [ 44%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:33:06.5233476Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[shared-session-tabs] PASSED [ 50%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:33:10.4622746Z python/tests/live_e2e/test_live_resilience.py::test_live_other_viewer_survives_one_tab_closing[independent-sessions] PASSED [ 55%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:33:15.1003890Z python/tests/live_e2e/test_live_revocation.py::test_live_logout_revokes_shared_tabs_but_preserves_independent_session PASSED [ 61%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:33:20.1635749Z python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[remove-assignment] PASSED [ 66%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:33:25.5140632Z python/tests/live_e2e/test_live_revocation.py::test_live_user_revocation_preserves_another_authorized_account[deactivate] PASSED [ 72%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T09:33:30.8827525Z python/tests/live_

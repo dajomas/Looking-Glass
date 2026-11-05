@@ -1,0 +1,39 @@
+ry	2026-11-05T09:31:43.3669558Z   PYTHONUNBUFFERED: 1
+Recovery	Check out repository	2026-11-05T09:31:43.3669815Z   LG_RUN_LIVE_E2E: 1
+Recovery	Check out repository	2026-11-05T09:31:43.3670184Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T09:31:43.4421083Z Syncing repository: dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-05T09:31:43.4422372Z ##[group]Getting Git version info
+Recovery	Check out repository	2026-11-05T09:31:43.4422793Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-11-05T09:31:43.4423389Z [command]/usr/bin/git version
+Recovery	Check out repository	2026-11-05T09:31:43.8189659Z git version 2.55.0
+Recovery	Check out repository	2026-11-05T09:31:43.8206392Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T09:31:43.8219446Z Temporarily overriding HOME='/home/runner/work/_temp/c73a5672-2dad-4970-98c2-c3799d83d441' before making global git config changes
+Recovery	Check out repository	2026-11-05T09:31:43.8220911Z Adding repository directory to the temporary git global config as a safe directory
+Recovery	Check out repository	2026-11-05T09:31:43.8223839Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-11-05T09:31:43.8277414Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-11-05T09:31:43.8280328Z ##[group]Determining repository object format
+Recovery	Check out repository	2026-11-05T09:31:43.8281112Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T09:31:43.8281612Z ##[group]Initializing the repository
+Recovery	Check out repository	2026-11-05T09:31:43.8284471Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Check out repository	2026-11-05T09:31:43.9192017Z hint: Using 'master' as the name for the initial branch. This default branch name
+Recovery	Check out repository	2026-11-05T09:31:43.9192813Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Recovery	Check out repository	2026-11-05T09:31:43.9193284Z hint: to use in all of your new repositories, which will suppress this warning,
+Recovery	Check out repository	2026-11-05T09:31:43.9193622Z hint: call:
+Recovery	Check out repository	2026-11-05T09:31:43.9193901Z hint:
+Recovery	Check out repository	2026-11-05T09:31:43.9194298Z hint: 	git config --global init.defaultBranch <name>
+Recovery	Check out repository	2026-11-05T09:31:43.9194697Z hint:
+Recovery	Check out repository	2026-11-05T09:31:43.9195077Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Recovery	Check out repository	2026-11-05T09:31:43.9195637Z hint: 'development'. The just-created branch can be renamed via this command:
+Recovery	Check out repository	2026-11-05T09:31:43.9196453Z hint:
+Recovery	Check out repository	2026-11-05T09:31:43.9196751Z hint: 	git branch -m <name>
+Recovery	Check out repository	2026-11-05T09:31:43.9197086Z hint:
+Recovery	Check out repository	2026-11-05T09:31:43.9197573Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Recovery	Check out repository	2026-11-05T09:31:43.9198268Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Recovery	Check out repository	2026-11-05T09:31:43.9206789Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-05T09:31:43.9249205Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T09:31:43.9249886Z ##[group]Disabling automatic garbage collection
+Recovery	Check out repository	2026-11-05T09:31:43.9252926Z [command]/usr/bin/git config --local gc.auto 0
+Recovery	Check out repository	2026-11-05T09:31:43.9276431Z ##[endgroup]
+Recovery	Check out repository	2026-11-05T09:31:43.9277030Z ##[group]Setting up auth
+Recovery	Check out repository	2026-11-05T09:31:43.9277442Z Removing SSH command configuration
+Recovery	Check out reposi

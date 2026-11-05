@@ -1,0 +1,40 @@
+aScript regressions	Check out repository	2026-11-05T09:31:44.3746064Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.3746493Z ##[group]Determining the checkout info
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.3747160Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.3750109Z [command]/usr/bin/git sparse-checkout disable
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.3863515Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.3894312Z ##[group]Checking out the ref
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.3897050Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.4564960Z Switched to a new branch 'features/perplexity'
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.4607811Z branch 'features/perplexity' set up to track 'origin/features/perplexity'.
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.4613554Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.4657509Z [command]/usr/bin/git log -1 --format=%H
+JavaScript regressions	Check out repository	2026-11-05T09:31:44.4687276Z c734226657ee556ff86f42883decc15c8499f389
+JavaScript regressions	Initialize evidence	﻿2026-11-05T09:31:44.4894273Z ##[group]Run mkdir -p test-results
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4894498Z ^[[36;1mmkdir -p test-results^[[0m
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4894697Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4894923Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4913758Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4913954Z env:
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4914122Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4914320Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4914441Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Initialize evidence	2026-11-05T09:31:44.4914560Z ##[endgroup]
+JavaScript regressions	Set up Python	﻿2026-11-05T09:31:44.5047228Z ##[group]Run actions/setup-python@v6
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5047407Z with:
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5047545Z   python-version: 3.14
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5047666Z   cache: pip
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5047832Z   cache-dependency-path: requirements.txt
+JavaScript regressions	Set up Python	requirements-dev.txt
+JavaScript regressions	Set up Python	
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5048035Z   check-latest: false
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5049341Z   token: ***
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5049460Z   update-environment: true
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5049597Z   allow-prereleases: false
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5049727Z   freethreaded: false
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5049841Z env:
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5050015Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5050211Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5050327Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Set up Python	2026-11-05T09:31:44.5050449Z ##[endgroup]
+JavaScript regressions	Set up Pytho
