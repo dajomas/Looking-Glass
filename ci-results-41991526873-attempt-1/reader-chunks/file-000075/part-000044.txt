@@ -1,0 +1,60 @@
+/test_wall_sources_repository.py::test_round_trip_and_restart PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_dedup_retains_first_filename PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_changed_content_is_new_source PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_campaign_isolation PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_filename_normalization[../../maps.db-maps.db] PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_filename_normalization[C:\\exports\\maps.db-maps.db] PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_filename_normalization[-walls] PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_filename_normalization[filename3-expected3] PASSED [ 98%]
+python/tests/test_wall_sources_repository.py::test_campaign_delete_cascades PASSED [ 99%]
+python/tests/test_wall_sources_repository.py::test_source_delete_keeps_map_walls_and_ids_not_reused PASSED [ 99%]
+python/tests/test_wall_sources_repository.py::test_transaction_rollback PASSED [ 99%]
+python/tests/test_wall_sources_web.py::test_saved_source_reused_on_independent_maps FAILED [ 99%]
+python/tests/test_wall_types.py::test_upgrade_v2_preserves_map PASSED    [ 99%]
+python/tests/test_wall_types.py::test_filters_non_destructive_all_types PASSED [ 99%]
+python/tests/test_wall_types.py::test_disabled_wall_merges_rooms PASSED  [ 99%]
+python/tests/test_wall_types.py::test_admin_base_matches_fully_revealed_viewer PASSED [ 99%]
+python/tests/test_wall_types.py::test_each_type_can_be_disabled_independently PASSED [ 99%]
+python/tests/test_web.py::test_viewer_cannot_use_admin_port PASSED       [ 99%]
+python/tests/test_web.py::test_unauthenticated_redirects PASSED          [ 99%]
+python/tests/test_web.py::test_admin_cookie_not_valid_on_viewer_port FAILED [ 99%]
+python/tests/test_web.py::test_user_management_is_superadmin_only FAILED [ 99%]
+python/tests/test_web.py::test_last_superadmin_protected FAILED          [ 99%]
+python/tests/test_web.py::test_full_campaign_flow FAILED                 [ 99%]
+python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password FAILED [100%]
+
+==================================== ERRORS ====================================
+_ ERROR at setup of test_failed_account_form_preserves_all_database_state[admin-overrides0-False] _
+
+env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...c0>), <fastapi.applications.FastAPI object at 0x7f433ce01010>, <fastapi.applications.FastAPI object at 0x7f433ce03b60>)
+request = <SubRequest 'account' for <Function test_failed_account_form_preserves_all_database_state[admin-overrides0-False]>>
+
+    @pytest.fixture(params=["admin", "viewer"])
+    def account(env, request):
+        ctx, admin, viewer = env
+        app = admin if request.param == "admin" else viewer
+>       client = login(app, "dm", "dmpass123")
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/test_account_atomicity_web.py:14: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+app = <fastapi.applications.FastAPI object at 0x7f433ce01010>, username = 'dm'
+password = 'dmpass123'
+
+    def login(app, username, password) -> TestClient:
+        c = TestClient(app, base_url="http://testserver")
+        r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+>       assert r.status_code == 303, r.text
+E       AssertionError: <!doctype html>
+E         <html lang="en">
+E         <head>
+E           <meta charset="utf-8">
+E           <meta name="viewport" content="width=device-width, initial-scale=1">
+E           <meta name="csrf-token" content="">
+E           <title>Error 403 · Looking Glass</title>
+E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+E           <link rel="stylesheet" href="/static/css/common.css">
+E         </head>
+E         <body class="entry-admin ">
+E

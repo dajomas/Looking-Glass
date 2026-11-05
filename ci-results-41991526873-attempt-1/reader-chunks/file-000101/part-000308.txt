@@ -1,0 +1,39 @@
+           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189221Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189320Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189415Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189547Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189663Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189748Z E         </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189832Z E         </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9189960Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190138Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190225Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190309Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190396Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190543Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190548Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190667Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9190847Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9191135Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9191411Z _ ERROR at setup of test_dimension_change_with_alternate_is_lossless_rejection[False-500-250] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9191417Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9192146Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...10>), <fastapi.applications.FastAPI object at 0x7f4339f238c0>, <fastapi.applications.FastAPI object at 0x7f4339fb6120>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9192394Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_dimension_change_with_alt2')
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9192399Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9192491Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9192593Z     def image_case(env, tmp_path):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9192694Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193004Z         assert ctx.settings.data_dir.resolve().is_relative_to(tmp_path.resolve())
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193113Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193213Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193218Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193355Z python/tests/test_image_database_failures.py:85: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193493Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193498Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193719Z app = <fastapi.applications.FastAPI object at 0x7f4339f238c0>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193818Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193823Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9193956Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9194109Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9194388Z         r = c.post("/login", data={"username": username, "password": password}, fo

@@ -1,0 +1,38 @@
+026-11-05T08:05:08.9887317Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9887420Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9887596Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9887705Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9887839Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9887921Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888045Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888260Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888352Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888489Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888605Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888701Z E         </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888786Z E         </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9888913Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889093Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889179Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889260Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889363Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889507Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889513Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889634Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9889820Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9890111Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9890319Z ___ ERROR at setup of test_recovery_overwrite_requires_a_json_boolean[None] ____
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9890325Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9891070Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...60>), <fastapi.applications.FastAPI object at 0x7f433cb8acf0>, <fastapi.applications.FastAPI object at 0x7f433ca37b60>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9891283Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f433a25d160>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9891288Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9891373Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9891479Z     def flow(env, monkeypatch):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9891579Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9891682Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9892164Z             assert conn.execute("SELECT 1 FROM sqlite_master WHERE name='room_note_archives'").fetchone(), 'Install bug-2 implementation; do not skip this contract'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9892271Z         with ExitStack() as stack:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9892381Z             def client(app, user, password):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9892501Z                 result = login(app, user, password)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9892613Z                 stack.callback(result.close)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9892704Z                 return result

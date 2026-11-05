@@ -1,0 +1,36 @@
+ontainer tests	2026-11-05T08:04:08.3272543Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3273028Z E         </body>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3273293Z E         </html>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3273591Z E       assert 403 == 303
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3273974Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3274339Z 
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3274568Z python/tests/recovery/test_restart.py:117: AssertionError
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3275468Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3276255Z =========================== short test summary info ============================
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3277575Z FAILED python/tests/recovery/test_container.py::test_container_new_instance_preserves_named_volume_and_viewer_session - AssertionError: <!doctype html>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3278553Z   <html lang="en">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3278838Z   <head>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3279109Z     <meta charset="utf-8">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3279583Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3280129Z     <meta name="csrf-token" content="">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3280632Z     <title>Error 403 · Looking Glass</title>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3281152Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3281939Z     <link rel="stylesheet" href="/static/css/common.css">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3282369Z   </head>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3282657Z   <body class="entry-admin ">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3283023Z   <header class="topbar">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3283382Z     <a class="brand" href="/">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3283858Z       <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3284404Z       <span>Looking Glass</span>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3284798Z       <span class="badge badge-admin">DM</span>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3285186Z     </a>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3285679Z   </header><main class="container narrow">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3286063Z   <section class="card">
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3286377Z     <h1>403</h1>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3286696Z     <p>Login requires a same-origin request.</p>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3287121Z     <p><a href="/">Back to start</a></p>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3287486Z   </section>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3287782Z   </main>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3288099Z   <script src="/static/js/common.js"></script>
+Recovery	Run recovery and container tests	2026-11-05T08:04:08.3288644Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Recovery	Run recovery and container test

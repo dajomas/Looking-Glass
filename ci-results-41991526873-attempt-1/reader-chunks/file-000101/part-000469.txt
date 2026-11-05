@@ -1,0 +1,34 @@
+ unaffected:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0214789Z             for ws in (first, second, unaffected):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0214881Z                 ping(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0215061Z             response = client.post(f"/admin/users/{target}/password",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0215204Z                 headers={"cookie": f"lg_admin_session={actor}"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0215501Z                 data={"csrf_token": csrf, "password": "replacement-pass", "must_change": str(must_change).lower()},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0215731Z                 follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0215968Z             assert response.status_code == 303 and "ok=" in response.headers["location"]
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0216070Z             for ws in (first, second):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0216170Z                 frame = receive(ws)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0216360Z                 assert frame["type"] == "websocket.close" and frame["code"] == 4403
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0216465Z             ping(unaffected)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0216576Z             with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0216738Z                 retained = sessions.lookup(conn, admin_token, "admin")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0216909Z                 assert (retained is not None) == self_reset
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0217091Z                 assert sessions.lookup(conn, other_admin, "admin") is None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0217272Z                 assert sessions.lookup(conn, viewer_token, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0217454Z                 assert sessions.lookup(conn, other_viewer, "viewer") is None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0217641Z                 assert sessions.lookup(conn, root_token, "admin") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0217805Z                 assert sessions.lookup(conn, alice, "viewer") is not None
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0218030Z                 assert bool(users.get(conn, target)["must_change_password"]) == must_change
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0218160Z             for token in (viewer_token, other_viewer):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0218304Z                 denied = client.get(f"/viewer/api/c/{cid}/state",
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0218545Z                     headers={"cookie": f"lg_viewer_session={token}", "Accept": "application/json"},
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0218655Z                     follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0218773Z                 assert denied.status_code == 401
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0218959Z                 assert denied.json() == {"ok": False, "error": "Login required"}
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0219169Z             for token in (other_admin,) if self_reset else (admin_token, other_admin):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0219500Z                 denied = client.get("/admin/account", headers={"cookie": f"lg_admin_session={token}"}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0219755Z                 assert denied.status_code == 303 and denied.headers["location"].startswith("/login")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0219853Z             if self_reset:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0220059Z                 # Use the real portal path: the forced-change allowlist is /account.
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0220192Z                 with TestClient(env[1]) as admin_client:
+Python / HTTP	UNKNOWN STE

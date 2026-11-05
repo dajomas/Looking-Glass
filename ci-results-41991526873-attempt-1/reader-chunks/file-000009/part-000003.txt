@@ -1,0 +1,21 @@
+background_padding_and_screen_size[0.5]" time="0.224" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_label_background_padding_and_screen_size[1]" time="0.210" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_label_background_padding_and_screen_size[2.5]" time="0.216" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_background_paint_probe_rejects_missing_or_white_fill[none-0.5]" time="0.201" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_background_paint_probe_rejects_missing_or_white_fill[none-1]" time="0.199" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_background_paint_probe_rejects_missing_or_white_fill[none-2.5]" time="0.202" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_background_paint_probe_rejects_missing_or_white_fill[#fff-0.5]" time="0.215" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_background_paint_probe_rejects_missing_or_white_fill[#fff-1]" time="0.216" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_background_paint_probe_rejects_missing_or_white_fill[#fff-2.5]" time="0.218" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_label_layer_on_top_and_clicks_still_edit" time="0.130" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_long_section_labels_fit_their_backgrounds" time="0.171" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_admin_highlight_phases_have_distinct_color_and_outline" time="0.352" /><testcase classname="python.tests.browser.test_portal_visibility" name="test_admin_reduced_motion_is_bright_and_steady" time="0.189" /><testcase classname="python.tests.browser.test_room_note_recovery_ui" name="test_explicit_cancel_and_recovery_preserve_archive_and_viewer" time="0.416"><error message="failed on setup with &quot;AssertionError: &lt;!doctype html&gt;&#10;  &lt;html lang=&quot;en&quot;&gt;&#10;  &lt;head&gt;&#10;    &lt;meta charset=&quot;utf-8&quot;&gt;&#10;    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#10;    &lt;meta name=&quot;csrf-token&quot; content=&quot;&quot;&gt;&#10;    &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;&#10;    &lt;link rel=&quot;icon&quot; href=&quot;/static/img/favicon.svg&quot; type=&quot;image/svg+xml&quot;&gt;&#10;    &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/common.css&quot;&gt;&#10;  &lt;/head&gt;&#10;  &lt;body class=&quot;entry-admin &quot;&gt;&#10;  &lt;header class=&quot;topbar&quot;&gt;&#10;    &lt;a class=&quot;brand&quot; href=&quot;/&quot;&gt;&#10;[+17 more lines; full report in element text]">env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...60&gt;), &lt;fastapi.applications.FastAPI object at 0x7f12040842f0&gt;, &lt;fastapi.applications.FastAPI object at 0x7f1223764590&gt;)
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x7f1223686c40&gt;
+
+    @pytest.fixture
+    def flow(env, monkeypatch):
+        ctx, admin, viewer = env
+        with ctx.db.connect() as conn:
+            assert conn.execute("SELECT 1 FROM sqlite_master WHERE name='room_note_archives'").fetchone(), 'Install bug-2 implementation; do not skip this contract'
+        with ExitStack() as stack:
+            def client(app, user, password):
+                result = login(app, user, password)
+                stack.callback(result.close)
+                return result
+&gt;           dm = client(admin, 'dm', 'dmpass123')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/test_room_note_archive_web.py:117: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/tests/test_room_note_archive_web.py:114: in client
+    result = login(app, user, password)
+           

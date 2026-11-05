@@ -1,0 +1,41 @@
+fastapi.applications.FastAPI object at 0x7f433a2067b0>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8262405Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8262413Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8262664Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8262913Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8263382Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8263575Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8263761Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8263914Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8264060Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8264229Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8264571Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8264941Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8265263Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8265596Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8265868Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8266012Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8266184Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8266364Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8266528Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8266848Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8267030Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8267243Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8267394Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8267600Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8267765Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8267914Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8268148Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8268338Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8268485Z E         </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8268784Z E         </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8269014Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8269322Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8269465Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8269607Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8269763Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8270001Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8270010Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8270214Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8270537Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.827102

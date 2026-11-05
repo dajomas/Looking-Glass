@@ -1,0 +1,39 @@
+8455Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8728658Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8728993Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8729347Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8729616Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8729763Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8729940Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8730107Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8730283Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8730605Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8730789Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8731006Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8731153Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8731360Z E         </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8731523Z E         <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8731675Z E           <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8731901Z E           <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8732103Z E           <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8732244Z E         </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8732391Z E         </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8732619Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8732923Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8733075Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8733211Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8733370Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8733614Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8733623Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8733820Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8734152Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8734828Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8735288Z _ ERROR at setup of test_map_upload_malformed_walls_retains_map_not_source[walls_number] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8735297Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8736844Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...90>), <fastapi.applications.FastAPI object at 0x7f4339f22270>, <fastapi.applications.FastAPI object at 0x7f4339f206e0>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8736861Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8737023Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8737185Z     def imports(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8737354Z         ctx, admin, _ = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8737543Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8737699Z              ^^^^^^^^^^

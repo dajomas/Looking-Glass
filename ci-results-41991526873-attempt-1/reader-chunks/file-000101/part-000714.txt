@@ -1,0 +1,39 @@
+============= short test summary info ============================
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7456595Z ERROR python/tests/browser/test_room_note_recovery_ui.py::test_explicit_cancel_and_recovery_preserve_archive_and_viewer - AssertionError: <!doctype html>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7457085Z   <html lang="en">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7457250Z   <head>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7457410Z     <meta charset="utf-8">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7457675Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7457984Z     <meta name="csrf-token" content="">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7458275Z     <title>Error 403 · Looking Glass</title>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7458565Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7458895Z     <link rel="stylesheet" href="/static/css/common.css">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7459132Z   </head>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7459298Z   <body class="entry-admin ">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7459499Z   <header class="topbar">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7459690Z     <a class="brand" href="/">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7459958Z       <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7460253Z       <span>Looking Glass</span>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7460485Z       <span class="badge badge-admin">DM</span>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7460713Z     </a>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7460881Z   </header><main class="container narrow">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7461097Z   <section class="card">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7461283Z     <h1>403</h1>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7461599Z     <p>Login requires a same-origin request.</p>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7461867Z     <p><a href="/">Back to start</a></p>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7462075Z   </section>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7462236Z   </main>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7462432Z   <script src="/static/js/common.js"></script>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7462723Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7463189Z   </body>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7463343Z   </html>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7463493Z assert 403 == 303
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7463700Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7464273Z ERROR python/tests/browser/test_room_note_recovery_ui.py::test_stale_recovery_preserves_preview_and_requires_explicit_reinspection - AssertionError: <!doctype html>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7464806Z   <html lang="en">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7464972Z   <head>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7465132Z     <meta charset="utf-8">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7465398Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7465713Z     <meta name="csrf-token" content="">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7466116Z     <title>Error 403 · Looking Glass</title>
+Browser / mocked HTTP	U

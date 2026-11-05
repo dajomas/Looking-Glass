@@ -1,0 +1,42 @@
+ail {0}
+Live Uvicorn	Initialize evidence	2026-11-05T08:03:06.8169773Z env:
+Live Uvicorn	Initialize evidence	2026-11-05T08:03:06.8170078Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Initialize evidence	2026-11-05T08:03:06.8170462Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Initialize evidence	2026-11-05T08:03:06.8170687Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Initialize evidence	2026-11-05T08:03:06.8170892Z ##[endgroup]
+Live Uvicorn	Set up Python	﻿2026-11-05T08:03:06.8373286Z ##[group]Run actions/setup-python@v6
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8373637Z with:
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8373869Z   python-version: 3.14
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8374093Z   cache: pip
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8374402Z   cache-dependency-path: requirements.txt
+Live Uvicorn	Set up Python	requirements-dev.txt
+Live Uvicorn	Set up Python	
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8374776Z   check-latest: false
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8377598Z   token: ***
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8377819Z   update-environment: true
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8378065Z   allow-prereleases: false
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8378296Z   freethreaded: false
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8378510Z env:
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8378819Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8379182Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8379394Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.8379597Z ##[endgroup]
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.9756815Z ##[group]Installed versions
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.9849095Z Successfully set up CPython (3.14.9)
+Live Uvicorn	Set up Python	2026-11-05T08:03:06.9849922Z ##[endgroup]
+Live Uvicorn	Set up Python	2026-11-05T08:03:07.0187005Z [command]/opt/hostedtoolcache/Python/3.14.9/x64/bin/pip cache dir
+Live Uvicorn	Set up Python	2026-11-05T08:03:07.3090758Z /home/runner/.cache/pip
+Live Uvicorn	Set up Python	2026-11-05T08:03:07.7719135Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Live Uvicorn	Set up Python	2026-11-05T08:03:09.2513438Z Received 0 of 125305856 (0.0%), 0.0 MBs/sec
+Live Uvicorn	Set up Python	2026-11-05T08:03:10.2522611Z Received 29360128 of 125305856 (23.4%), 14.0 MBs/sec
+Live Uvicorn	Set up Python	2026-11-05T08:03:11.2523474Z Received 109051904 of 125305856 (87.0%), 34.7 MBs/sec
+Live Uvicorn	Set up Python	2026-11-05T08:03:11.4888537Z Received 125305856 of 125305856 (100.0%), 36.9 MBs/sec
+Live Uvicorn	Set up Python	2026-11-05T08:03:11.4890246Z Cache Size: ~120 MB (125305856 B)
+Live Uvicorn	Set up Python	2026-11-05T08:03:11.5003055Z [command]/usr/bin/tar -xf /home/runner/work/_temp/0bece501-1291-4fc0-9168-50e0471df311/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Live Uvicorn	Set up Python	2026-11-05T08:03:11.6935387Z Cache restored successfully
+Live Uvicorn	Set up Python	2026-11-05T08:03:11.6994651Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.9-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Live Uvicorn	Install application and test dependencies	﻿2026-11-05T08:03:11.7189710Z ##[group]Run python -m pip install --upgrade pip
+Live Uvicorn	Install application and test dependencies	2026-11-05T08:03:11.7190158Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Live Uvicorn	Install application and test dependencies	2026-11-05T08:03:11.7190551Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Live Uvicorn	Install application and test dependencies	2026-11-05T08:03:11.7214884Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Install application and test 

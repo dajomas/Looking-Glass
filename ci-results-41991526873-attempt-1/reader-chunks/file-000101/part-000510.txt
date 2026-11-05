@@ -1,0 +1,42 @@
+icity_web.py::test_failed_account_form_preserves_all_database_state[admin-overrides2-False] - AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0449417Z   <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0449503Z   <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0449596Z     <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0449791Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0449893Z     <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0450053Z     <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0450354Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0450494Z     <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0450579Z   </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0450681Z   <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0450775Z   <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0450875Z     <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451047Z       <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451146Z       <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451269Z       <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451352Z     </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451466Z   </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451564Z   <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451650Z     <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451780Z     <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451887Z     <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0451974Z   </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0452057Z   </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0452179Z   <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0452343Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0452428Z   </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0452507Z   </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0452597Z assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0452730Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0453237Z ERROR python/tests/test_account_atomicity_web.py::test_failed_account_form_preserves_all_database_state[admin-overrides2-True] - AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0453328Z   <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0453415Z   <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0453508Z     <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0453701Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0453809Z     <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0453964Z     <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0454153Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0454302Z     <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0454385Z   </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0454490Z   <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0454583Z   <header class="topba

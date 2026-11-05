@@ -1,0 +1,73 @@
+ <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+  </body>
+  </html>
+assert 403 == 303
+ +  where 403 = <Response [403 Forbidden]>.status_code
+FAILED python/tests/test_passages_web.py::test_portal_wall_type_is_accepted - AssertionError: <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    <title>Error 403 · Looking Glass</title>
+    <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/css/common.css">
+  </head>
+  <body class="entry-admin ">
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+      <span>Looking Glass</span>
+      <span class="badge badge-admin">DM</span>
+    </a>
+  </header><main class="container narrow">
+  <section class="card">
+    <h1>403</h1>
+    <p>Login requires a same-origin request.</p>
+    <p><a href="/">Back to start</a></p>
+  </section>
+  </main>
+  <script src="/static/js/common.js"></script>
+  <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+  </body>
+  </html>
+assert 403 == 303
+ +  where 403 = <Response [403 Forbidden]>.status_code
+FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[False-False] - AssertionError: assert 403 == 401
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+ +      where post = <starlette.testclient.TestClient object at 0x7f433c8ea7a0>.post
+FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[False-True] - AssertionError: assert 403 == 401
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+ +      where post = <starlette.testclient.TestClient object at 0x7f433caedd00>.post
+FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[True-False] - AssertionError: assert 403 == 401
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+ +      where post = <starlette.testclient.TestClient object at 0x7f433cbc7df0>.post
+FAILED python/tests/test_password_reset_revocation_web.py::test_reset_revokes_old_sessions_and_closes_only_target_sockets[True-True] - AssertionError: assert 403 == 401
+ +  where 403 = <Response [403 Forbidden]>.status_code
+ +    where <Response [403 Forbidden]> = post('/admin/login', data={'username': 'second-root', 'password': 'secondroot-pass'}, follow_redirects=False)
+ +      where post = <starlette.testclient.TestClient object at 0x7f433c601260>.post
+FAILED python/tests/test_portal_tools_web.py::test_visible_routes_are_admin_only_and_read_only - AssertionError: <!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="">
+    <title>Error 403 · Looking Glass</title>
+    <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/css/common.css">
+  </head>
+  <body class="entry-admin ">
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+      <span>Looking Glass</span>
+      <span class="badge badge-admin">DM</span>
+    </a>
+  </header><main class="container narrow">
+  <section class="card">
+    <h1>403</h1>
+    <p>Login requires a same-origin request.</p>
+    <p><a h

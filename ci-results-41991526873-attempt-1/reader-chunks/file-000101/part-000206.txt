@@ -1,0 +1,39 @@
+5Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8271411Z _ ERROR at setup of test_mutation_retirement_and_offline_collection[alternate] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8271420Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8272756Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...10>), <fastapi.applications.FastAPI object at 0x7f433a204050>, <fastapi.applications.FastAPI object at 0x7f433aa07380>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8272922Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8273073Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8273224Z     def case(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8273384Z         ctx, admin, _ = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8273562Z >       dm = login(admin, 'dm', 'dmpass123')
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8273725Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8273733Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8273948Z python/tests/test_image_retirement_web.py:57: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8274190Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8274198Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8274771Z app = <fastapi.applications.FastAPI object at 0x7f433a204050>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8274953Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8274962Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8275204Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8275453Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8275928Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8276108Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8276298Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8276456Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8276594Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8276760Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8277099Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8277292Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8277603Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8277933Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8278196Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8278348Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8278521Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8278692Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8278873Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8279183Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8279365Z E             <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8279585Z E             <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8279720Z E           </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.8279928Z E         </head

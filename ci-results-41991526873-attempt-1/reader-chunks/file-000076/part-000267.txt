@@ -1,0 +1,38 @@
+<testcase classname="python.tests.test_wall_sources_repository" name="test_campaign_isolation" time="0.024" /><testcase classname="python.tests.test_wall_sources_repository" name="test_filename_normalization[../../maps.db-maps.db]" time="0.022" /><testcase classname="python.tests.test_wall_sources_repository" name="test_filename_normalization[C:\\exports\\maps.db-maps.db]" time="0.021" /><testcase classname="python.tests.test_wall_sources_repository" name="test_filename_normalization[-walls]" time="0.021" /><testcase classname="python.tests.test_wall_sources_repository" name="test_filename_normalization[filename3-expected3]" time="0.021" /><testcase classname="python.tests.test_wall_sources_repository" name="test_campaign_delete_cascades" time="0.024" /><testcase classname="python.tests.test_wall_sources_repository" name="test_source_delete_keeps_map_walls_and_ids_not_reused" time="0.021" /><testcase classname="python.tests.test_wall_sources_repository" name="test_transaction_rollback" time="0.020" /><testcase classname="python.tests.test_wall_sources_web" name="test_saved_source_reused_on_independent_maps" time="0.248"><failure message="AssertionError: &lt;!doctype html&gt;&#10;  &lt;html lang=&quot;en&quot;&gt;&#10;  &lt;head&gt;&#10;    &lt;meta charset=&quot;utf-8&quot;&gt;&#10;    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&#10;    &lt;meta name=&quot;csrf-token&quot; content=&quot;&quot;&gt;&#10;    &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;&#10;    &lt;link rel=&quot;icon&quot; href=&quot;/static/img/favicon.svg&quot; type=&quot;image/svg+xml&quot;&gt;&#10;    &lt;link rel=&quot;stylesheet&quot; href=&quot;/static/css/common.css&quot;&gt;&#10;  &lt;/head&gt;&#10;  &lt;body class=&quot;entry-admin &quot;&gt;&#10;  &lt;header class=&quot;topbar&quot;&gt;&#10;    &lt;a class=&quot;brand&quot; href=&quot;/&quot;&gt;&#10;[+17 more lines; full report in element text]">env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...e0&gt;), &lt;fastapi.applications.FastAPI object at 0x7f433c626ba0&gt;, &lt;fastapi.applications.FastAPI object at 0x7f433c627770&gt;)
+
+    def test_saved_source_reused_on_independent_maps(env):
+        ctx, admin, viewer = env
+&gt;       dm = login(admin, "dm", "dmpass123")
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+python/tests/test_wall_sources_web.py:33: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+app = &lt;fastapi.applications.FastAPI object at 0x7f433c626ba0&gt;, username = 'dm'
+password = 'dmpass123'
+
+    def login(app, username, password) -&gt; TestClient:
+        c = TestClient(app, base_url="http://testserver")
+        r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+&gt;       assert r.status_code == 303, r.text
+E       AssertionError: &lt;!doctype html&gt;
+E         &lt;html lang="en"&gt;
+E         &lt;head&gt;
+E           &lt;meta charset="utf-8"&gt;
+E           &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+E           &lt;meta name="csrf-token" content=""&gt;
+E           &lt;title&gt;Error 403 · Looking Glass&lt;/title&gt;
+E           &lt;link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml"&gt;
+E           &lt;link rel="stylesheet" href="/static/css/common.css"&gt;
+E         &lt;/head&gt;
+E         &lt;body class="entry-admin "&gt;
+E         &lt;header class="topbar"&gt;
+E           &lt;a class="brand" href="/"&gt;
+E             &lt;img src="/static/img/favicon.svg" alt="" width="26" height="26"&gt;
+E             &lt;span&gt;Looking Glass&lt;/span&gt;
+E             &lt;span class="badge badge-admin"&gt;DM&lt;/span&gt;
+E           &lt;/a&gt;
+E         &lt;/header&gt;&lt;main class="container narrow"&gt;
+E         &lt;section class="card"&gt;
+E           &lt;h1&gt;403&lt;/h1&gt;
+E           &lt;p&gt;Login requires a same-origin reque

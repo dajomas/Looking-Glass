@@ -1,0 +1,43 @@
+n / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1019603Z     <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1019726Z     <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1019837Z     <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1019923Z   </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1020003Z   </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1020125Z   <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1020291Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1020375Z   </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1020461Z   </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1020545Z assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1020677Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021095Z ERROR python/tests/test_room_note_archive_web.py::test_recovery_access_denial_is_nonmutating[viewer] - AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021182Z   <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021267Z   <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021367Z     <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021553Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021663Z     <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021816Z     <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1021999Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1022141Z     <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1022220Z   </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1022322Z   <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1022543Z   <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1022642Z     <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1022815Z       <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1022926Z       <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023044Z       <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023133Z     </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023241Z   </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023339Z   <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023428Z     <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023548Z     <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023657Z     <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023749Z   </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023829Z   </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1023950Z   <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1024119Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1024199Z   </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1024281Z   </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1024369Z assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1024505Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1025078Z ERROR python/tests/test_room_note_archive_web.py::test_recovery_access_denial_is_nonmutating[missing_csrf] - AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-

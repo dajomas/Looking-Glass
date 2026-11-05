@@ -1,0 +1,38 @@
+py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9286081Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9286360Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9286619Z _ ERROR at setup of test_replacement_authorization_precedes_image_storage[wrong-owner] _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9286625Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9287357Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...10>), <fastapi.applications.FastAPI object at 0x7f433cc8f770>, <fastapi.applications.FastAPI object at 0x7f4339fb7620>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9287794Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_replacement_authorization1')
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9287810Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9287913Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288021Z     def image_case(env, tmp_path):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288116Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288341Z         assert ctx.settings.data_dir.resolve().is_relative_to(tmp_path.resolve())
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288456Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288548Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288553Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288695Z python/tests/test_image_database_failures.py:85: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288845Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9288851Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289073Z app = <fastapi.applications.FastAPI object at 0x7f433cc8f770>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289174Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289179Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289320Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289464Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289736Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289844Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9289951Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9290043Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9290124Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9290227Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9290427Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9290542Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9290730Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9290928Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9291076Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9291164Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9291271Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9291368Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9291471Z E   

@@ -1,0 +1,26 @@
+ls config files
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.5934984Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.5977852Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6200368Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-365d3127-f8a9-465a-bbca-1edca32efbca.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6248298Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-365d3127-f8a9-465a-bbca-1edca32efbca.config
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6287140Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-365d3127-f8a9-465a-bbca-1edca32efbca.config
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6325727Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-365d3127-f8a9-465a-bbca-1edca32efbca.config
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6369694Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-365d3127-f8a9-465a-bbca-1edca32efbca.config
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6402520Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6403939Z ##[group]Fetching the repository
+JavaScript regressions	Check out repository	2026-11-05T08:03:03.6410178Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +1f31285bafb73b6dad7ee009ea4dab52de8342a7:refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1871394Z From https://github.com/dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1874433Z  * [new ref]         1f31285bafb73b6dad7ee009ea4dab52de8342a7 -> origin/features/perplexity
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1880591Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1914501Z   origin/features/perplexity
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1924433Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1955110Z 1f31285bafb73b6dad7ee009ea4dab52de8342a7
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1966985Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1968815Z ##[group]Determining the checkout info
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1970897Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.1972235Z [command]/usr/bin/git sparse-checkout disable
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.2024476Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.2063405Z ##[group]Checking out the ref
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.2067405Z [command]/usr/bin/git checkout --progress --force -B features/perplexity refs/remotes/origin/features/perplexity
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.2430977Z Switched to a new branch 'features/perplexity'
+JavaScript regressions	Check out repository	2026-11-05T08:03:04.2434385Z branch 'features/perplexity' set up to track 'origin/features/perp

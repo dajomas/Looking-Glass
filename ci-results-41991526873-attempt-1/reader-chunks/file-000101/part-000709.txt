@@ -1,0 +1,37 @@
+ked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7401805Z                 stack.callback(result.close)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7402323Z                 return result
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7402652Z >           dm = client(admin, 'dm', 'dmpass123')
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7403151Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7403373Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7403536Z python/tests/test_room_note_archive_web.py:117: 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7403970Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7404456Z python/tests/test_room_note_archive_web.py:114: in client
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7404872Z     result = login(app, user, password)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7405246Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7405574Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7405878Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7406146Z app = <fastapi.applications.FastAPI object at 0x7f12040842f0>, username = 'dm'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7406637Z password = 'dmpass123'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7406810Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7407013Z     def login(app, username, password) -> TestClient:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7407462Z         c = TestClient(app, base_url="http://testserver")
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7408063Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7408627Z >       assert r.status_code == 303, r.text
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7408977Z E       AssertionError: <!doctype html>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7409308Z E         <html lang="en">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7409580Z E         <head>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7409839Z E           <meta charset="utf-8">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7410295Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7410782Z E           <meta name="csrf-token" content="">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7411456Z E           <title>Error 403 · Looking Glass</title>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7411947Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7412477Z E           <link rel="stylesheet" href="/static/css/common.css">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7412997Z E         </head>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7413256Z E         <body class="entry-admin ">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7413596Z E         <header class="topbar">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7413911Z E           <a class="brand" href="/">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7414352Z E             <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7414652Z E             <span>Looking Glass</span>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7414904Z E             <span class="badge badge-admin">DM</span>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:04:45.7415140Z E           </a>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T0

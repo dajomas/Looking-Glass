@@ -1,0 +1,38 @@
+NOWN STEP	2026-11-05T08:05:08.9247496Z E         <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9247676Z E         <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9247760Z E         </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9247846Z E         </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9247937Z E       assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9248085Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9248091Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9248217Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9248402Z ------------------------------ Captured log setup ------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9248821Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9249082Z _ ERROR at setup of test_same_size_preserves_configuration_history_notes_and_alternate _
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9249091Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9249826Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...50>), <fastapi.applications.FastAPI object at 0x7f433cc35a90>, <fastapi.applications.FastAPI object at 0x7f433a1a06e0>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250076Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_same_size_preserves_confi0')
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250082Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250178Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250280Z     def image_case(env, tmp_path):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250383Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250613Z         assert ctx.settings.data_dir.resolve().is_relative_to(tmp_path.resolve())
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250724Z >       dm = login(admin, "dm", "dmpass123")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250825Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250830Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9250969Z python/tests/test_image_database_failures.py:85: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9251221Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9251226Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9251452Z app = <fastapi.applications.FastAPI object at 0x7f433cc35a90>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9251553Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9251557Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9251697Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9251849Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252127Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252233Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252346Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252438Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252531Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252634Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252830Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9252957Z E           <meta name="csrf

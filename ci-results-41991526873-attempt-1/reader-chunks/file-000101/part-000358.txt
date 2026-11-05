@@ -1,0 +1,38 @@
+r': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...40>), <fastapi.applications.FastAPI object at 0x7f433c5b0d70>, <fastapi.applications.FastAPI object at 0x7f433c5b17f0>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9570758Z monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7f433c6ea9e0>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9570768Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9570853Z     @pytest.fixture
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9570959Z     def flow(env, monkeypatch):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9571062Z         ctx, admin, viewer = env
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9571162Z         with ctx.db.connect() as conn:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9571640Z             assert conn.execute("SELECT 1 FROM sqlite_master WHERE name='room_note_archives'").fetchone(), 'Install bug-2 implementation; do not skip this contract'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9571742Z         with ExitStack() as stack:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9571851Z             def client(app, user, password):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9571971Z                 result = login(app, user, password)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572076Z                 stack.callback(result.close)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572290Z                 return result
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572410Z >           dm = client(admin, 'dm', 'dmpass123')
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572505Z                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572514Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572645Z python/tests/test_room_note_archive_web.py:117: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572792Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9572944Z python/tests/test_room_note_archive_web.py:114: in client
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573053Z     result = login(app, user, password)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573144Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573280Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573285Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573510Z app = <fastapi.applications.FastAPI object at 0x7f433c5b0d70>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573609Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573614Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573753Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9573898Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9574171Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9574398Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9574507Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9574775Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9574859Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9574959Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9575151Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9575268Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9575448Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:08.9575637Z E           <link rel="icon" href="/static

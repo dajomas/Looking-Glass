@@ -1,0 +1,38 @@
+-05T08:05:09.0071498Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0071615Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0071807Z _______________________ test_http_state_and_stale_writes _______________________
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0071813Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0072640Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...10>), <fastapi.applications.FastAPI object at 0x7f433a359940>, <fastapi.applications.FastAPI object at 0x7f433a35a510>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0072650Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0072772Z     def test_http_state_and_stale_writes(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073061Z >       ctx,admin,viewer,dm,h,cid,mids=prepare(env);mid=mids[0];base=f'/api/maps/{mid}/double-reveal'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073169Z                                        ^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073174Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073291Z python/tests/test_double_reveal_web.py:34: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073438Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073594Z python/tests/test_map_transitions_web.py:10: in prepare
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073867Z     ctx,admin,viewer=env;dm=login(admin,"dm","dmpass123");token=csrf_of(dm);h={"X-CSRF-Token":token}
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0073979Z                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0074128Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0074133Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0074354Z app = <fastapi.applications.FastAPI object at 0x7f433a359940>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0074534Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0074539Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0074815Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0074958Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0075233Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0075340Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0075448Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0075545Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0075632Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0075728Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0075930Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076055Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076231Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076436Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076588Z E           <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076679Z E         </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076788Z E         <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076887Z E         <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0076994Z E           <a class="brand" href="/">
+Python / HTTP	UNKNOWN

@@ -1,0 +1,43 @@
+11-05T08:05:09.1226163Z   <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1226249Z   <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1226348Z     <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1226544Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1226648Z     <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1226821Z     <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227007Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227151Z     <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227236Z   </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227339Z   <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227432Z   <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227536Z     <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227713Z       <img src="/static/img/favicon.svg" alt="" width="26" height="26">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227818Z       <span>Looking Glass</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1227946Z       <span class="badge badge-admin">DM</span>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228024Z     </a>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228139Z   </header><main class="container narrow">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228356Z   <section class="card">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228438Z     <h1>403</h1>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228568Z     <p>Login requires a same-origin request.</p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228680Z     <p><a href="/">Back to start</a></p>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228763Z   </section>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228849Z   </main>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1228977Z   <script src="/static/js/common.js"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1229147Z   <script src="/static/js/upload_busy.js?v=imports-7-1"></script>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1229236Z   </body>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1229317Z   </html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1229410Z assert 403 == 303
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1229544Z  +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1229929Z ERROR python/tests/test_viewer_session_web.py::test_missing_session_still_fails_admission - AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230026Z   <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230113Z   <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230207Z     <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230400Z     <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230509Z     <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230663Z     <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230849Z     <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1230990Z     <link rel="stylesheet" href="/static/css/common.css">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1231078Z   </head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1231180Z   <body class="entry-admin ">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1231273Z   <header class="topbar">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1231375Z     <a class="brand" href="/">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.1231549Z       <img src="/static/img/favicon.svg" alt="" 

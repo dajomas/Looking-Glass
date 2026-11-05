@@ -1,0 +1,36 @@
+thon / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0146725Z E        +  where 403 = <Response [403 Forbidden]>.status_code
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0146731Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0146856Z python/tests/test_web.py:33: AssertionError
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0147041Z ------------------------------ Captured log call -------------------------------
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0147321Z INFO     httpx2:_client.py:1084 HTTP Request: POST http://testserver/login "HTTP/1.1 403 Forbidden"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0147519Z __________________ test_configuration_and_session_save_scopes __________________
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0147524Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0148260Z env = (AppContext(settings=Settings(raw={'server': {'host': '0.0.0.0', 'admin_port': 5000, 'viewer_port': 5100, 'log_level':...00>), <fastapi.applications.FastAPI object at 0x7f433a2078c0>, <fastapi.applications.FastAPI object at 0x7f433cc8f380>)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0148266Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0148411Z     def test_configuration_and_session_save_scopes(env):
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0148666Z >       ctx,admin,viewer,dm,h,cid,mids=prepare(env);base=f"/api/campaigns/{cid}/transitions"
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0148772Z                                        ^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0148778Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0148904Z python/tests/test_map_transitions_web.py:56: 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0149050Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0149201Z python/tests/test_map_transitions_web.py:10: in prepare
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0149465Z     ctx,admin,viewer=env;dm=login(admin,"dm","dmpass123");token=csrf_of(dm);h={"X-CSRF-Token":token}
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0149577Z                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0149781Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0149791Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0150191Z app = <fastapi.applications.FastAPI object at 0x7f433a2078c0>, username = 'dm'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0150382Z password = 'dmpass123'
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0150391Z 
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0150551Z     def login(app, username, password) -> TestClient:
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0150820Z         c = TestClient(app, base_url="http://testserver")
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0151295Z         r = c.post("/login", data={"username": username, "password": password}, follow_redirects=False)
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0151474Z >       assert r.status_code == 303, r.text
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0151650Z E       AssertionError: <!doctype html>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0151786Z E         <html lang="en">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0151876Z E         <head>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0151976Z E           <meta charset="utf-8">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0152177Z E           <meta name="viewport" content="width=device-width, initial-scale=1">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0152448Z E           <meta name="csrf-token" content="">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0152660Z E           <title>Error 403 · Looking Glass</title>
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.0152864Z E           <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+Python / HTTP	UNKNOWN STEP	2026-11-05T08:05:09.01

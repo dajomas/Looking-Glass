@@ -1,0 +1,27 @@
+l --unset-all 'core.sshCommand' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.4741520Z Removing HTTP extra header
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.4748609Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.4790487Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.4994429Z Removing includeIf entries pointing to credentials config files
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5000115Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5037387Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5241956Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-db3b87dd-6776-4b55-a666-f418de29a6a3.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5283114Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-db3b87dd-6776-4b55-a666-f418de29a6a3.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5319928Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-db3b87dd-6776-4b55-a666-f418de29a6a3.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5455853Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-db3b87dd-6776-4b55-a666-f418de29a6a3.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5497321Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-db3b87dd-6776-4b55-a666-f418de29a6a3.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5530553Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5531542Z ##[group]Fetching the repository
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.5537280Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +1f31285bafb73b6dad7ee009ea4dab52de8342a7:refs/remotes/origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9709986Z From https://github.com/dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9711653Z  * [new ref]         1f31285bafb73b6dad7ee009ea4dab52de8342a7 -> origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9719131Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9748937Z   origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9755720Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9781898Z 1f31285bafb73b6dad7ee009ea4dab52de8342a7
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9786590Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9787603Z ##[group]Determining the checkout info
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9788787Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9791366Z [command]/usr/bin/git sparse-checkout disable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T08:03:03.9841769Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Browser / mocked HTTP	UNKNOWN STEP
