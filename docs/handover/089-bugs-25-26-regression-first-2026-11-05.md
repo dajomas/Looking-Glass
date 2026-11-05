@@ -116,3 +116,70 @@ before installing either overlay, and suppression of obsolete decode errors whil
 keeping current failures actionable. Re-run focused and existing JavaScript
 regressions, review appropriate browser coverage, and record actual evidence
 before acceptance. Both bugs remain open.
+
+## Behavior-preserving editor split before bug 26 (2026-11-05)
+
+This later section supersedes the historical delivery-pending wording above.
+Bug 25 was delivered as `69ac6f81da23ef3c999657cbbef7c9254bec3317`.
+The user then supplied a checkout run with 8 passed / 2 failed: all six bug 25
+cases passed and only the two known bug 26 cases failed. This is focused user-run
+evidence, not CI/browser acceptance or closure.
+
+The user requested splitting admin_map_editor.js before implementing bug 26.
+The proposed split extracts cal, fillCalibration and renderWalls into
+`static/js/admin_wall_renderer.js`, exported as window.LGAdminWallRenderer.
+The existing function bodies are retained; renderWalls obtains current state and
+raw wall arrays through getters so reassignment by applyState remains visible.
+The editor retains ownership of state, source-coordinate conversion, alignment
+controls, gestures, wall-width updates, fog drawing and mask loading. No mask
+race fix, request policy change, UI redesign or unrelated cleanup is included.
+
+`web_html/admin/map_editor.html` loads the new classic script immediately before
+the editor with matching wall-render-split-1 cache versions. Existing dependency
+order is retained; no module/defer/dynamic loading is introduced. The factory has
+no initialization side effects and is constructed at the former rendering helper
+location, before boot or event dispatch can use those helpers.
+The ordering VM harness loads the real renderer first; its ten assertions are
+unchanged. `python/tests/test_admin_wall_renderer.js` adds four isolated tests.
+The browser editor fixture reviewed renders the real template and serves static
+paths from the repository, so it follows the new script tag without a hardcoded
+script-list update. Existing source-extracted tap handlers remain in the editor.
+No packaging/static route configuration changes are needed for another file in
+the existing static/js directory.
+
+### Split validation actually performed
+
+Sandbox Node.js v20.20.1: the four new renderer tests passed, with no skips or
+failures. They cover calibration fallbacks/rounding, transformed wall grouping,
+hidden types, current state/wall getters, passive/locked-door styles, portal-side
+roles and scale offsets, and the wall-width callback. Helper and new-test syntax
+checks via node --check returned exit 0. An initial helper syntax draft was
+corrected before the passing checks; no invalid draft is proposed for delivery.
+
+Calculated UTF-8 sizes from the live original sizes and exact extraction/tag
+replacements: admin_map_editor.js 25,290 -> 23,358; admin_wall_renderer.js 2,435;
+map_editor.html 20,025 -> 20,112; new renderer tests 3,498 bytes. The ordering test
+and this focused record remain below 25,000 bytes. This creates room for the
+subsequent mask fix without adding unrelated formatting changes.
+
+The complete ordering script, complete editor syntax, browser/HTTP suites,
+Python suite, CI and a full checkout were not executed for this split. The
+expected ordering outcome remains 8 passed / 2 known bug 26 failures, but that
+post-split result still needs execution. The isolated tests do not establish
+pixel-level or complete functional equivalence.
+Source review also found that test_door_arrow_click.js extracts handlers which
+now call readState (from bug 25), while its mock context lacks that helper. This
+is a pre-existing fixture follow-up, not introduced or silently repaired by the
+renderer split; the full JavaScript suite must be reviewed before acceptance.
+
+README.md and HANDOVER.md were read again and left unchanged: no user-facing
+setup/control/command changed, and the existing index link already points to this
+updated focused record. Preserve filename capitalization. No deletions, renames,
+migrations or Patch material are part of this commit.
+
+### Next steps
+
+Approve and deliver this extraction, then run the renderer and ordering scripts
+and appropriate browser editor/wall-width coverage in the checkout. Address the
+pre-existing extracted-handler fixture separately. Implement bug 26 as a separate
+reviewable change only after confirming the split baseline. Neither bug is closed.

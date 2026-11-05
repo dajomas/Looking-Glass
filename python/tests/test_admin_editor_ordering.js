@@ -48,6 +48,7 @@ function editor() {
       post(url,body){const d=deferred();posts.push({url,body,...d});return d.promise;}},
     setInterval(fn,ms){intervals.push({fn,ms});},setTimeout(){},clearTimeout(){},confirm(){return true;}
   };
+  vm.runInNewContext(fs.readFileSync(path.join(__dirname,"../../static/js/admin_wall_renderer.js"),"utf8"),context);
   // Test-only observation/control seam; the complete production IIFE still runs.
   const source=fs.readFileSync(path.join(__dirname,"../../static/js/admin_map_editor.js"),"utf8");
   assert.match(source,/\}\)\(\);\s*$/);
