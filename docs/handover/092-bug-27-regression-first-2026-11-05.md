@@ -291,3 +291,47 @@ notes/library response coverage and two-editor browser acceptance remain pending
 Bug 27 is not closed. No unrelated changes, migrations, [skip ci], archives or
 Patch/ material are included. Delivery of this overlay increment remains pending
 exact approval and a successful GitHub write.
+
+## Overlay local evidence and manager/picker regression-first increment
+
+Overlay delivery succeeded as 00937cac896e7c43f20685716e4f086caef5f205.
+The user subsequently reported test_room_name_overlay_sync.js: 5 passes, zero
+failures/skips, and successful execution of test_room_name_overlay.js. This is
+additional user-run local evidence, not CI or browser acceptance.
+
+Added python/tests/test_room_library_sync.js before changing production library
+synchronization. It loads the real room-notes and manager classes; the owner is
+created from the production prototype with explicitly seeded constructor state,
+and the manager is constructed normally. Real refresh/loadLibrary/render methods
+run with DOM/API doubles and controlled library promises. Cases cover an open
+manager following notes-only unassign, older dialog/newer picker ordering, the
+reverse ordering safety contract, suppression of obsolete dialog errors, and
+assignment convergence while a dirty room draft and its save context survive.
+No alternate production implementation is embedded in the test.
+
+Preparation validation: source review only; this new suite was not executed.
+Current source suggests four missing synchronization/error-order contracts fail
+and the existing older-picker/newer-manager protection passes. These are
+expectations, not measured results. Do not label this suite passing or the
+manager fixed. Production code and existing tests are unchanged; no skips,
+exclusions or [skip ci] are introduced. Normal JavaScript CI is therefore
+expected to expose intentional regression-first failures until the fix lands.
+
+Run from the repository root:
+
+```bash
+node --test python/tests/test_room_library_sync.js
+node python/tests/test_room_library_manager.js
+```
+
+Follow with one coordinated library acceptance/read-generation policy shared by
+the dialog and picker, preserving dirty drafts, mutation safety, loading/error
+recovery and closed-dialog behavior. Extend mutation/close/retry cases as needed,
+then perform two-editor browser acceptance before closing bug 27. This test-only
+increment does not implement that policy or prove full application convergence.
+
+README.md and HANDOVER.md were reread on the live branch. README advertises no
+new behavior and needs no cosmetic update; HANDOVER already links this record.
+Both proposed files remain below 25,000 bytes. No migrations, other branches,
+archives or Patch/ material are included. Delivery is pending exact approval
+and successful GitHub write; report the actual commit only after success.
