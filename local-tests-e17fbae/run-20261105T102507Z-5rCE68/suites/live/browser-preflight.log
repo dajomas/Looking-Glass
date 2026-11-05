@@ -1,0 +1,41 @@
+Python: 3.14.8 Executable: /home/boywonder/Looking-Glass/.venv-test/bin/python
+Platform: Linux-6.12.0-211.73.1.el10_2.x86_64-x86_64-with-glibc2.39
+NAME="Rocky Linux"
+VERSION="10.2 (Red Quartz)"
+RELEASE_TYPE="stable"
+ID="rocky"
+ID_LIKE="rhel centos fedora"
+VERSION_ID="10.2"
+PLATFORM_ID="platform:el10"
+PRETTY_NAME="Rocky Linux 10.2 (Red Quartz)"
+ANSI_COLOR="0;32"
+LOGO="fedora-logo-icon"
+CPE_NAME="cpe:/o:rocky:rocky:10::baseos"
+HOME_URL="https://rockylinux.org/"
+VENDOR_NAME="RESF"
+VENDOR_URL="https://resf.org/"
+BUG_REPORT_URL="https://bugs.rockylinux.org/"
+SUPPORT_END="2035-05-31"
+ROCKY_SUPPORT_PRODUCT="Rocky-Linux-10"
+ROCKY_SUPPORT_PRODUCT_VERSION="10.2"
+REDHAT_SUPPORT_PRODUCT="Rocky Linux"
+REDHAT_SUPPORT_PRODUCT_VERSION="10.2"
+
+Playwright: 1.64.1
+FONTCONFIG_FILE='<unset>'
+FONTCONFIG_PATH='<unset>'
+fc-match sans-serif (exit 0): 'NotoSans-Regular.ttf: "Noto Sans" "Regular"'; stderr=''
+Chromium executable: /home/boywonder/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome
+2026-11-05T10:33:19.136Z pw:browser <launching> /home/boywonder/.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-PZzhA8 --remote-debugging-pipe --no-startup-window
+2026-11-05T10:33:19.147Z pw:browser <launched> pid=72310
+Chromium version: 156.0.8078.4
+2026-11-05T10:33:19.249Z pw:browser [pid=72310][err] [1105/113319.244386:WARNING:components/dbus/xdg/portal.cc:126] Failed to register with org.freedesktop.host.portal.Registry
+2026-11-05T10:33:19.259Z pw:browser [pid=72310][err] [1105/113319.254997:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+2026-11-05T10:33:19.359Z pw:browser [pid=72310][err] [1105/113319.358998:INFO:CONSOLE:3] "--playwright--set--content--8f31e74dd29bb175b53428dc501f5938--", source:  (3)
+DOM diagnostic: text_content='Ready', inner_text='Ready'
+PASS: launch, local HTTP navigation and DOM check
+2026-11-05T10:33:19.430Z pw:browser [pid=72310] <gracefully close start>
+2026-11-05T10:33:19.464Z pw:browser [pid=72310] <process did exit: exitCode=0, signal=null>
+2026-11-05T10:33:19.465Z pw:browser [pid=72310] starting temporary directories cleanup
+2026-11-05T10:33:19.470Z pw:browser [pid=72310] finished temporary directories cleanup
+2026-11-05T10:33:19.470Z pw:browser [pid=72310] <gracefully close end>
