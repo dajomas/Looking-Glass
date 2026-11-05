@@ -4,6 +4,7 @@ window.LGRoomNotes = class {
     this.importSelecting=false;
     this.libraryEntries=[];this.libraryGeneration=0;
     this.editMode=false;this.saving=false;this.draftVersion=0;
+    this.notesStamp=null;this.fogStamp=null;this.staleNoticeStamp=null;
     this.mapId=mapId;this.toast=toast;this.point=null;this.room=null;this.dirty=false;this.generation=0;this.revealed=null;this.stateStamp=null;this.refreshGeneration=0;
     this.$=id=>document.getElementById(id);
     this.scrying=window.LGScryingGlassRoom ? new window.LGScryingGlassRoom(mapId) : null;
@@ -15,7 +16,7 @@ window.LGRoomNotes = class {
     try {this.collapse(localStorage.getItem("lg:room-panel-collapsed")==="true");} catch(_) {}
     for(const id of ["room-name","room-markdown"]) this.$(id).oninput=()=>{this.updateDirty();this.draftVersion++;};
     this.$("room-edit").onclick=()=>{if(this.room&&!this.saving){this.setEditMode(true);this.$("room-name").focus();}};
-    this.$("room-cancel").onclick=()=>{if(!this.saving){this.dirty=false;if(this.room)this.show(this.room);}};
+    this.$("room-cancel").onclick=()=>{if(!this.saving){this.dirty=false;if(this.room)this.show(this.room);this.stateStamp=null;}};
     this.$("room-clear").onclick=()=>{
       if(!this.room||!this.editMode||this.saving)return;
       this.$("room-name").value="";this.$("room-markdown").value="";
@@ -96,6 +97,7 @@ window.LGRoomNotes = class {
       // Invalidate selection and refresh results already in flight.
       const generation=++this.generation;
       ++this.refreshGeneration;
+      this.stateStamp=null;
       this.saving=true;
       const controls=this.$("room-form").querySelectorAll("input,textarea,select,button");
       controls.forEach(el=>el.disabled=true);
@@ -147,30 +149,69 @@ window.LGRoomNotes = class {
     const generation=++this.libraryGeneration;
     try {
       const result=await LGApi.get(`/api/maps/${this.mapId}/room-note-library`);
-      if(generation!==this.libraryGeneration)return;
+      if(generation!==this.libraryGeneration)return false;
       this.libraryEntries=result.entries||[];this.renderLibrary();
-    } catch(error){this.toast("Room note library: "+error.message,"error");}
+      return true;
+    } catch(error){if(generation===this.libraryGeneration)this.toast("Room note library: "+error.message,"error");return false;}
   }
   async refresh(state) {
     this.marker?.mapChanged(state);
     this.nameOverlay?.mapChanged(state);
-    const stamp=`${state.cache_token}:${state.walls_version}:${state.fog_version}`;
+    const fogStamp=JSON.stringify([state.cache_token,state.walls_version,state.fog_version]);
+    const notesStamp=Number.isSafeInteger(state.room_notes_version)?
+      JSON.stringify([state.cache_token,state.walls_version,state.room_notes_version]):null;
+    const stamp=JSON.stringify([fogStamp,notesStamp]);
     if(stamp===this.stateStamp)return;
-    this.stateStamp=stamp;
     const generation=++this.refreshGeneration;
+    if(this.saving){this.stateStamp=null;return;}
+    this.stateStamp=stamp;
+    const fogChanged=fogStamp!==this.fogStamp;
+    const notesChanged=notesStamp!==null&&(notesStamp!==this.notesStamp||
+      (this.room&&this.room.room_notes_version!==state.room_notes_version));
+    const selected=this.room,point=this.point?{...this.point}:null;
+    const selectionGeneration=this.generation,draftVersion=this.draftVersion;
+    const current=()=>generation===this.refreshGeneration;
+    const unchanged=()=>current()&&!this.saving&&this.room===selected&&
+      this.generation===selectionGeneration&&this.draftVersion===draftVersion;
     try {
-      const result=await LGApi.get(`/api/maps/${this.mapId}/room-notes`);
-      if(generation!==this.refreshGeneration)return;
+      let result=null,updated=null;
+      if(fogChanged)result=await LGApi.get(`/api/maps/${this.mapId}/room-notes`);
+      if(!current())return;
+      if(notesChanged){
+        if(!await this.loadLibrary()){if(current())this.stateStamp=null;return;}
+        if(!current())return;
+        if(!unchanged()){this.stateStamp=null;return;}
+        if(selected&&point&&!this.hasUnsavedChanges()){
+          updated=await LGApi.post(`/api/maps/${this.mapId}/room-at`,point);
+          if(!current())return;
+          if(!unchanged()||this.hasUnsavedChanges()){this.stateStamp=null;return;}
+        }
+      }
+      if(!unchanged()){this.stateStamp=null;return;}
+      if(notesChanged&&this.hasUnsavedChanges()){
+        if(this.staleNoticeStamp!==notesStamp){
+          this.toast("Room notes changed elsewhere. Your draft is preserved. Copy any text you want to keep, then select the room again before saving.","warn",7000);
+          this.staleNoticeStamp=notesStamp;
+        }
+      } else if(updated){
+        const wasEditing=this.editMode;
+        this.show(updated);
+        if(wasEditing)this.setEditMode(true);
+        this.staleNoticeStamp=null;
+      }
+      this.notesStamp=notesStamp;
+      if(!fogChanged)return;
       const revealed=new Set(result.rooms.filter(r=>r.revealed).map(r=>r.area_key));
-      const next=this.revealed && result.rooms.find(r=>r.revealed&&!this.revealed.has(r.area_key));
-      this.revealed=revealed;
-      if(next&&!this.hasUnsavedChanges()&&!this.editMode&&!this.editing()) await this.select(next.x,next.y);
-      else if(this.room&&!this.hasUnsavedChanges()&&!this.editMode&&!this.editing()&&!revealed.has(this.room.area_key)) {
+      const next=this.revealed&&result.rooms.find(r=>r.revealed&&!this.revealed.has(r.area_key));
+      this.revealed=revealed;this.fogStamp=fogStamp;
+      if(next&&!this.hasUnsavedChanges()&&!this.editMode&&!this.editing())await this.select(next.x,next.y);
+      else if(this.room&&!this.hasUnsavedChanges()&&!this.editMode&&!this.editing()&&
+        !(updated?updated.revealed:revealed.has(this.room.area_key))){
         this.$("room-preview").textContent="";this.$("room-title").textContent="";
         this.$("room-form").hidden=true;this.$("room-status").textContent="Room hidden or geometry changed.";
         this.room=null;this.point=null;this.setEditMode(false);
       }
-    } catch(error) {this.stateStamp=null;this.toast(error.message,"error");}
+    } catch(error){if(current()){this.stateStamp=null;this.toast(error.message,"error");}}
   }
   setEditMode(value) {
     const opening=Boolean(value&&this.room&&!this.editMode);

@@ -51,3 +51,43 @@ HANDOVER.md receives only a navigation link to this focused record. Existing
 historical records and split manifests are unchanged. New files and the updated
 handover index remain below the 25,000-byte limit; no size-driven split is needed.
 Delivery remains pending exact approval and a successful GitHub write.
+
+## User-reported red baseline and implementation increment 1
+
+The user ran node --test python/tests/test_room_notes_sync.js on 2026-11-05:
+3 tests, 1 pass, 2 failures, no skips. Remote-save failed because Crypt remained
+instead of Renamed crypt. Remote-unassign failed because Crypt remained instead
+of an empty name. Dirty-draft preservation passed. The unassign test stopped at
+the name assertion, before library/picker assertions. This is user-reported
+isolated Node evidence, not an assistant execution or browser/HTTP validation.
+
+Increment 1 changes only static/js/room_notes.js and this already-indexed record.
+The client accepts an explicit room_notes_version and separately tracks fog and
+notes stamps. Notes-only revisions fetch assignment availability and clean
+selected content, retaining pristine edit mode. Dirty drafts retain their text
+and original room/save context and receive a warning. Selection, draft, save and
+refresh generations fence asynchronous installation. Save and Cancel invalidate
+the cached refresh stamp; errors and superseded work remain retryable. The old
+fog/reveal path remains available for payloads without a notes revision. Notes-only
+unassignment does not run the hidden-room cleanup path. Server stale-save checks
+and all existing regression assertions are unchanged.
+
+This is deliberately an incomplete integration increment: _map_payload still
+needs to expose room_notes_version, readState must detect it and retry failed
+notes refreshes on unchanged polls, and the named-room overlay/open library
+manager require coordinated invalidation. Real cross-editor application polling
+is NOT fixed by this increment alone. Do not close bug 27 or advertise full
+convergence based on isolated tests. Follow with API/polling integration, overlay
+and manager ordering work, and API/polling/delayed-response regression coverage.
+
+Validation during candidate preparation: source review only. No candidate Node,
+Python, HTTP, browser, live, recovery, full-suite or CI tests were executed; no
+passing candidate result is claimed. The three existing sync cases are expected
+to exercise this client change, but must be rerun. README.md and HANDOVER.md were
+reviewed again; README advertises no new sync guarantee and needs no change for
+this incomplete increment. HANDOVER already links this focused record. No new
+script asset or template integration is introduced. The edited JavaScript remains
+below 25,000 bytes; no split is required. No migrations, other branches, archives,
+Patch/ material, or [skip ci] marker are included in the implementation increment.
+The earlier skip request was scoped to the regression-only commit. Delivery is
+pending exact approval and successful write; report its SHA only after success.
