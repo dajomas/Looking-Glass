@@ -69,3 +69,70 @@ The earlier confirmation accidentally bound a placeholder, not these files. No
 write was performed with that payload; this exact three-file approval replaces
 it. Delivery must be reported only after the approved GitHub write succeeds.
 No other branch, archive, Patch/ material or generated-evidence cleanup included.
+
+## Implementation candidate (2026-11-05)
+
+The preceding sections record the regression-first step delivered as
+5606e6660728615f318befe2b7c682ceb9062896, also the live implementation baseline.
+This section supersedes its production-fix-pending instructions only for the
+candidate described here. Bug 29 stays open pending runtime validation and
+acceptance. HANDOVER.md already indexes this focused record; its link label
+describes the original regression-first step, not an acceptance decision.
+
+Image validation/encoding/storage now runs before BEGIN IMMEDIATE. The initial
+permission read captures the storage campaign without retaining a connection
+across either upload read or staging. Inside the final transaction checked()
+reauthorizes campaign management and validates the full original stamp. A
+campaign-id guard and dimension check use the current map row. Retirement,
+alternate-reference update and response snapshot remain in the transaction;
+no await occurs there. Notifications remain after commit, outside cleanup, so
+a notification exception cannot delete committed artwork. No migration or
+other route behavior is changed. Already-stale uploads may now stage an image
+before rejection; their completed new file is then discarded.
+
+_stage_image coordinates worker/result ownership with a threading lock. A
+cancelled await marks the result abandoned; either the caller removes an
+already-completed result or the still-running worker removes its late result.
+The worker owns no database connection. Cleanup OSError is logged with the path
+without masking the original error/cancellation. Such filesystem failures and
+process termination can still leave orphan files; this is not crash-atomic
+filesystem/database storage or an orphan-collection feature.
+
+Added test_double_reveal_upload_rechecks_web.py: six HTTP recheck cases (fog
+version, dimensions, incarnation, ownership, deletion and alternate revision),
+HTTP snapshot rollback and post-commit notification fault cases, and a
+controlled worker-cancellation case. Existing regression-first tests are
+unchanged. These prepared repository tests have not executed in this sandbox.
+
+### Candidate validation and remaining limits
+
+Python 3.12.8 syntax-compiled the replacement upload definition, staging helper
+definitions and new test source. An isolated upload-function excerpt harness
+used real SQLite and temporary files, with stubbed authorization, snapshots,
+notifications and image encoding. Baseline: an independent writer was blocked
+and the stale-change attempt did not run. Candidate: nine asserted cases passed
+(normal install, stale stamp, dimensions, permission loss, deletion, alternate
+revision, campaign change, snapshot rollback and notification failure after
+commit). A separate threaded cancellation check passed: cancellation propagated
+and the late file was removed. These are extracted-function checks, not the
+actual app/schema/HTTP regression suite or deployed latency measurements.
+The first cancellation-harness invocation used asyncio.run inside the notebook
+loop and failed before running; retrying with the notebook's await completed
+the check. No result from that failed invocation is counted as passing.
+
+FastAPI is unavailable here. No application HTTP, browser, live Uvicorn, recovery,
+full-suite or CI execution occurred. Real same-admin-loop overlapping requests,
+original-image replacement via its real route, repeated cancellation races,
+filesystem cleanup failures and storage/commit fault matrices still require
+normal-runtime validation. Existing SQLite contention from other synchronous
+transactions or external writers is not eliminated by this scoped change.
+
+Run the existing focused command with
+python/tests/test_double_reveal_upload_rechecks_web.py added, then the normal
+five-suite workflow/local runner. This implementation commit does not use
+[skip ci]; the earlier skip request applied to the regression-only commit. No
+workflow outcome or GitHub delivery is claimed before it actually occurs.
+README.md and HANDOVER.md were reviewed again; the README's user-facing
+behavior is unchanged and this already-indexed focused record contains the
+implementation decision and limits. No cosmetic index edit or historical
+manifest change is needed. No TODO closure, other branch, archive or Patch/.

@@ -1,6 +1,8 @@
 """DM-only double reveal API. Raw alternate artwork is never mounted on viewer app."""
 import asyncio
 import io
+import logging
+import threading
 from typing import Annotated, Literal
 from fastapi import APIRouter, File, Form, UploadFile
 from fastapi.responses import FileResponse, Response
@@ -96,20 +98,57 @@ def room_mask(ctx: CtxDep, user: UserDep, map_id: int, x: float, y: float):
     return Response(png, media_type="image/png", headers={"Cache-Control": "no-store"})
 
 
+def _discard_staged_image(ctx, stored):
+    try:
+        images.delete_map_image(ctx.settings.maps_dir, stored.relative_path)
+    except OSError:
+        logging.getLogger(__name__).warning("Could not remove staged alternate image %s", stored.relative_path, exc_info=True)
+
+
+async def _stage_image(ctx, raw, campaign_id):
+    # The worker owns cleanup if cancellation wins before result handoff.
+    lock = threading.Lock()
+    abandoned = False
+    staged = None
+
+    def store():
+        nonlocal staged
+        result = images.store_map_image(raw, ctx.settings.maps_dir, campaign_id)
+        with lock:
+            if abandoned:
+                _discard_staged_image(ctx, result)
+            else:
+                staged = result
+        return result
+
+    try:
+        return await asyncio.to_thread(store)
+    except BaseException:
+        with lock:
+            abandoned = True
+            if staged is not None:
+                _discard_staged_image(ctx, staged)
+                staged = None
+        raise
+
+
 @router.post("/image")
 async def upload_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, file: Annotated[UploadFile, File()],
         cache_token: Annotated[str, Form()], walls_version: Annotated[int, Form(ge=0)],
         fog_version: Annotated[int, Form(ge=0)], image_revision: Annotated[int, Form(ge=0)]):
     with ctx.db.connect() as conn:
-        map_for_manage(conn, user, map_id)
+        initial, _ = map_for_manage(conn, user, map_id)
+        campaign_id = initial["campaign_id"]
     raw = await _read_upload(ctx, file)
+    stamp = Stamp(cache_token=cache_token, walls_version=walls_version, fog_version=fog_version, image_revision=image_revision)
     stored = None
     try:
+        stored = await _stage_image(ctx, raw, campaign_id)
         with ctx.db.connect() as conn:
             conn.execute("BEGIN IMMEDIATE")
-            stamp = Stamp(cache_token=cache_token, walls_version=walls_version, fog_version=fog_version, image_revision=image_revision)
             m, _, _, _ = checked(ctx, conn, user, map_id, stamp)
-            stored = await asyncio.to_thread(images.store_map_image, raw, ctx.settings.maps_dir, m["campaign_id"])
+            if m["campaign_id"] != campaign_id:
+                raise ValueError("Map campaign changed. Refresh and upload again.")
             if (stored.width, stored.height) != (m["width"], m["height"]):
                 raise ValueError(f"Alternate image must be exactly {m['width']} × {m['height']} pixels, aligned with the original.")
             old = conn.execute("SELECT image_file FROM double_reveal_maps WHERE map_id=?", (map_id,)).fetchone()
@@ -120,10 +159,10 @@ async def upload_image(ctx: CtxDep, user: CsrfUserDep, map_id: int, file: Annota
                 (map_id, stored.relative_path))
             result = snapshot(ctx, conn, map_id)
     except (ValueError, OSError) as exc:
-        if stored: images.delete_map_image(ctx.settings.maps_dir, stored.relative_path)
+        if stored: _discard_staged_image(ctx, stored)
         raise BadRequest(str(exc))
     except BaseException:
-        if stored: images.delete_map_image(ctx.settings.maps_dir, stored.relative_path)
+        if stored: _discard_staged_image(ctx, stored)
         raise
     # Retired files remain readable until explicit offline collection.
     await notify.map_changed(ctx, map_id, "appearance")
