@@ -1,0 +1,38 @@
+r can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#9 11.90 
+#9 11.90 [notice] A new release of pip is available: 26.2.2 -> 26.3
+#9 11.90 [notice] To update, run: pip install --upgrade pip
+#9 DONE 13.5s
+
+#10 [ 5/10] COPY python ./python
+#10 DONE 0.1s
+
+#11 [ 6/10] COPY static ./static
+#11 DONE 0.0s
+
+#12 [ 7/10] COPY templates ./templates
+#12 DONE 0.0s
+
+#13 [ 8/10] COPY web_html ./web_html
+#13 DONE 0.0s
+
+#14 [ 9/10] COPY config.example.yaml ./config.example.yaml
+#14 DONE 0.0s
+
+#15 [10/10] RUN useradd --system --uid 1001 --home /app lg && mkdir -p /app/data && chown -R lg /app/data
+#15 0.155 useradd warning: lg's uid 1001 is greater than SYS_UID_MAX 999
+#15 DONE 0.2s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 2.4s done
+#16 writing image sha256:0b2f96c76704819dbda799ae366c5713d7109ad4f63e4642dcc6b03c7c13ae85 done
+#16 naming to docker.io/library/looking-glass-test:10fa471de2e14d02b0349d94ce917988 done
+#16 DONE 2.4s
+
+['/usr/bin/docker', 'image', 'rm', 'looking-glass-test:10fa471de2e14d02b0349d94ce917988']
+exit=0
+Untagged: looking-glass-test:10fa471de2e14d02b0349d94ce917988
+Deleted: sha256:0b2f96c76704819dbda799ae366c5713d7109ad4f63e4642dcc6b03c7c13ae85
+
+

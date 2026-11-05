@@ -1,0 +1,111 @@
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:10fa471de2e14d02b0349d94ce917988",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "38095a962c7f75999d5362b0ae78cceee34ce18393e422d94f58e155604cc22a",
+            "SandboxKey": "/var/run/docker/netns/38095a962c7f",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32772"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32773"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "abc1c886e08d76658e58bb3b63985ac2bbf5fc377a6f3da949c8c99fc53ed263",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "3e:67:44:12:e6:b7",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "3e:67:44:12:e6:b7",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "8fe9dcdff6d1a113f862fae42188a539ff016ce98906281ea449642660aad6b1",
+                    "EndpointID": "abc1c886e08d76658e58bb3b63985ac2bbf5fc377a6f3da949c8c99fc53ed263",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'stop', '--time', '10', 'looking-glass-test-cb48560dd2174f589dcad3a5f90f727f']
+exit=0
+Flag --time has been deprecated, use --timeout instead
+looking-glass-test-cb48560dd2174f589dcad3a5f90f727f
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-cb48560dd2174f589dcad3a5f90f727f']
+exit=0
+[
+    {
+        "Id": "3ed54300c67b367450572bea55de482813425e6ed21d1e92e7d538a48819a8d2",
+        "Created": "2026-11-05T15:32:45.426455537Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": fa

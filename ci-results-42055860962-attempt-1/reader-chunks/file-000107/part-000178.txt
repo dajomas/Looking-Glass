@@ -1,0 +1,28 @@
+ /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.0976387Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.0976724Z ##[endgroup]
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.2806987Z (node:4032) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.2808302Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.3098135Z With the provided path, there will be 28 files uploaded
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.3099184Z Artifact name is valid!
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.3099804Z Root directory input is valid!
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.5245721Z Beginning upload of artifact content to blob storage
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.5756312Z (node:4032) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.6085906Z Uploaded bytes 11193
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.6260106Z Finished uploading artifact content to blob storage!
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.6261697Z SHA256 digest of uploaded artifact zip is c7c15d1b3784c281bcc298153011e5b4cd52cb55000d7465b20def56a46b6318
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:09.6263877Z Finalizing artifact upload
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:10.0828284Z Artifact integration-live-2a4a9f9175936b3a01002c84732ba31716a0c2df.zip successfully finalized. Artifact ID 13428727772
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:10.0831106Z Artifact integration-live-2a4a9f9175936b3a01002c84732ba31716a0c2df has been successfully uploaded! Final size is 11193 bytes. Artifact ID is 13428727772
+Live Uvicorn	Upload validation evidence	2026-11-05T15:34:10.0835917Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/42055860962/artifacts/13428727772
+Live Uvicorn	Post Set up Python	﻿2026-11-05T15:34:10.1063348Z Post job cleanup.
+Live Uvicorn	Post Set up Python	2026-11-05T15:34:10.2396083Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+Live Uvicorn	Post Check out repository	﻿2026-11-05T15:34:10.2536341Z Post job cleanup.
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3484695Z [command]/usr/bin/git version
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3540059Z git version 2.56.0
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3588803Z Temporarily overriding HOME='/home/runner/work/_temp/78236d18-7f02-4641-8ca4-c4cc506514b0' before making global git config changes
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3590802Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3610824Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3645438Z Removing SSH command configuration
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3654501Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Post Check out repository	2026-11-05T15:34:10.3704974Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCo

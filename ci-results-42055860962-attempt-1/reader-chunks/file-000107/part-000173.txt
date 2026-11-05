@@ -1,0 +1,20 @@
+hoice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --no-sandbox --user-data-dir=/tmp/playwright_chromiumdev_profile-sUzUfM --remote-debugging-pipe --no-startup-window
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:39.8958672Z 2026-11-05T15:32:39.895Z pw:browser <launched> pid=3119
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.7006485Z 2026-11-05T15:32:40.699Z pw:browser [pid=3119][err] [1105/153240.699407:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.7071732Z 2026-11-05T15:32:40.706Z pw:browser [pid=3119][err] [1105/153240.705564:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.7074269Z 2026-11-05T15:32:40.706Z pw:browser [pid=3119][err] [1105/153240.705752:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.7101521Z 2026-11-05T15:32:40.708Z pw:browser [pid=3119][err] [1105/153240.708168:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.7166868Z Chromium version: 156.0.8078.4
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.7415579Z 2026-11-05T15:32:40.741Z pw:browser [pid=3119][err] [1105/153240.740691:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1655] drmGetDevices2() has not found any devices
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.7479193Z 2026-11-05T15:32:40.744Z pw:browser [pid=3119][err] [1105/153240.743198:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.8106647Z 2026-11-05T15:32:40.810Z pw:browser [pid=3119][err] [1105/153240.810146:INFO:CONSOLE:3] "--playwright--set--content--18138c9c7ae1f744d4b49030c0b84257--", source:  (3)
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.8510507Z DOM diagnostic: text_content='Ready', inner_text='Ready'
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.8518753Z PASS: launch, local HTTP navigation and DOM check
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.8520740Z 2026-11-05T15:32:40.851Z pw:browser [pid=3119] <gracefully close start>
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.9599372Z 2026-11-05T15:32:40.959Z pw:browser [pid=3119][err] [1105/153240.959270:WARNING:net/extras/sqlite/sqlite_persistent_store_backend_base.cc:182] Failed to post task from operator()@net/extras/sqlite/sqlite_persistent_shared_dictionary_store.cc:260 to client_task_runner_.
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.9766414Z 2026-11-05T15:32:40.976Z pw:browser [pid=3119] <process did exit: exitCode=0, signal=null>
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.9767791Z 2026-11-05T15:32:40.976Z pw:browser [pid=3119] starting temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.9811457Z 2026-11-05T15:32:40.980Z pw:browser [pid=3119] finished temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-05T15:32:40.9812411Z 2026-11-05T15:32:40.980Z pw:browser [pid=3119] <gracefully close end>
+Live Uvicorn	Run live Uvicorn integration tests	﻿2026-11-05T15:32:41.3430848Z ##[group]Run set -o pipefail
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-05T15:32:41.3431202Z ^[[36;1mset -

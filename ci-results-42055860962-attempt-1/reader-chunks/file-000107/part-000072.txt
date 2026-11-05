@@ -1,0 +1,27 @@
+on / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3197423Z [command]/usr/bin/git config --local gc.auto 0
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3230686Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3232294Z ##[group]Setting up auth
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3233197Z Removing SSH command configuration
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3238005Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3274060Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3662815Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3670347Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3702972Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3879848Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3887198Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.3920962Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4112978Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-dca33463-129d-4f5e-a52c-ba6d5ebb903d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4150401Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-dca33463-129d-4f5e-a52c-ba6d5ebb903d.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4182064Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-dca33463-129d-4f5e-a52c-ba6d5ebb903d.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4213294Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-dca33463-129d-4f5e-a52c-ba6d5ebb903d.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4251016Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-dca33463-129d-4f5e-a52c-ba6d5ebb903d.config
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4279388Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4280075Z ##[group]Fetching the repository
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:44.4288358Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +2a4a9f9175936b3a01002c84732ba31716a0c2df:refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:45.5671876Z From https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:45.5674751Z  * [new ref]         2a4a9f9175936b3a01002c84732ba31716a0c2df -> origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:45.5684069Z [command]/usr/bin/git branch --list --remote origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:45.5708422Z   origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:45.5719694Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/perplexity
+Python / HTTP	UNKNOWN STEP	2026-11-05T15:31:45.5740745Z 2a4a9f9175936b3a01002c84732ba31716a0c2df
+Python / HTTP	UNKNOWN STEP	
