@@ -29,7 +29,7 @@ Uncommitted bug-2 candidates are not installed branch changes.
 ## Second bug hunt: bugs 16–29
 
 Audited source: `766780262bf44922bbd7c9fa2b3081e7e28e214f` on
-`features/perplexity`, 2026-10-31. Bugs 16, 17, 18, 19, 20, 21 and 23 are accepted and closed.
+`features/perplexity`, 2026-10-31. Bugs 16, 17, 18, 19, 20, 21, 23 and 29 are accepted and closed.
 Other findings remain open.
 The original workflow's counts and suggested order are historical; do not use
 them to reopen accepted bugs 2/13/14/15. Existing individual status records and
@@ -54,10 +54,10 @@ existing bug numbering:
 - [26. Mask early return does not invalidate an in-flight different mask](docs/todo/018-bugs-16-29-audit-2026-10-31.md#26-mask-early-return-does-not-invalidate-an-in-flight-different-mask)
 - [27. Notes-only changes do not refresh other editors](docs/todo/018-bugs-16-29-audit-2026-10-31.md#27-notes-only-changes-do-not-refresh-other-editors)
 - [28. Out-of-map fog points are clamped into real rooms](docs/todo/018-bugs-16-29-audit-2026-10-31.md#28-out-of-map-fog-points-are-clamped-into-real-rooms)
-- [29. Async image upload holds a SQLite write lock across await](docs/todo/018-bugs-16-29-audit-2026-10-31.md#29-async-image-upload-holds-a-sqlite-write-lock-across-await)
+- [29. Async image upload holds a SQLite write lock across await](docs/todo/018-bugs-16-29-audit-2026-10-31.md#29-async-image-upload-holds-a-sqlite-write-lock-across-await) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/088-bug-29-accepted-closure-2026-11-05.md)
 
 Suggested implementation order from the audit: **16 → 17 → 18 → 19 → 20 → 21 →
-23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16, 17, 18, 19, 20, 21 and 23 are closed).
+23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16, 17, 18, 19, 20, 21, 23 and 29 are closed).
 Severity and dependency rationale are in the audit record.
 Add regressions first and keep each fix separately reviewable.
 Items 17/18 can share a coordinated image-retirement design; 25 precedes 26.
