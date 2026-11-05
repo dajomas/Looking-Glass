@@ -1,0 +1,25 @@
+4c066f52d5a65687f57482e419e48052, not saving cache.
+JavaScript regressions	Post Check out repository	﻿2026-11-05T20:56:46.8623468Z Post job cleanup.
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9369830Z [command]/usr/bin/git version
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9413661Z git version 2.56.0
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9469449Z Temporarily overriding HOME='/home/runner/work/_temp/b79d2650-95e4-4d3a-9053-36ab0f95c4bc' before making global git config changes
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9474387Z Adding repository directory to the temporary git global config as a safe directory
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9481614Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9532611Z Removing SSH command configuration
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9554313Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9624358Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9942076Z Removing HTTP extra header
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9943087Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:46.9990123Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0221031Z Removing includeIf entries pointing to credentials config files
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0227003Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0292299Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0292915Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0293369Z includeif.gitdir:/github/workspace/.git.path
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0293750Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0300025Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0328168Z /home/runner/work/_temp/git-credentials-1917acc7-ba29-4805-b35b-663cd5583133.config
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0337613Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-1917acc7-ba29-4805-b35b-663cd5583133.config
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0378226Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0406462Z /home/runner/work/_temp/git-credentials-1917acc7-ba29-4805-b35b-663cd5583133.config
+JavaScript regressions	Post Check out repository	2026-11-05T20:56:47.0415189Z [com

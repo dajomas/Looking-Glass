@@ -1,0 +1,18 @@
+✔ bug 25: a pre-action poll cannot roll back the action result (5.865959ms)
+✔ bug 25: a poll completing during a mutation cannot replace state (2.109962ms)
+✔ bug 25: overlapping polls cannot install the older response last (1.237421ms)
+✔ bug 25: equal revisions with a replacement incarnation still refresh (1.232523ms)
+✔ bug 25: late previous-incarnation poll cannot undo replacement (1.144401ms)
+✔ bug 25: ordinary external-DM fog and wall changes still converge (1.03711ms)
+✔ bug 26: A to pending B to cached A cannot install decoded B (1.156168ms)
+✔ bug 26: failure of superseded B after cached A does not show an error (1.068316ms)
+✔ bug 26: newer C mask wins when B finishes decoding later (1.903972ms)
+✔ bug 26: a current mask decode failure remains visible (1.027945ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22.635913

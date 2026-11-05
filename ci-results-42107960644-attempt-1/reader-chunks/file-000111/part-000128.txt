@@ -1,0 +1,39 @@
+uired actions
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:15.7333418Z Getting action download info
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:15.9913402Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.0929842Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.2024437Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.3105076Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.5295972Z Complete job name: Browser / mocked HTTP
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6259846Z ##[group]Run actions/checkout@v6
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6260633Z with:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6261055Z   repository: dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6264572Z   token: ***
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6264981Z   ssh-strict: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6265401Z   ssh-user: git
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6265832Z   persist-credentials: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6266281Z   clean: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6267311Z   sparse-checkout-cone-mode: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6268079Z   fetch-depth: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6268760Z   fetch-tags: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6269514Z   show-progress: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6270265Z   lfs: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6270929Z   submodules: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6271384Z   set-safe-directory: true
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6271843Z   allow-unsafe-pr-checkout: false
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6272758Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6273291Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6273930Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6274382Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.6274782Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.8977673Z Syncing repository: dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.8979336Z ##[group]Getting Git version info
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.8980013Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.8980944Z [command]/usr/bin/git version
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9208487Z git version 2.56.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9236994Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9253637Z Temporarily overriding HOME='/home/runner/work/_temp/970f6580-f8d6-4b97-bc2b-b9272b4420e4' before making global git config changes
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9262241Z Adding repository directory to the temporary git global config as a safe directory
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9263326Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9314606Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9319283Z ##[group

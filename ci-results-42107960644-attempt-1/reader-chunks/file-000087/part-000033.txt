@@ -1,0 +1,111 @@
+cd30ca3c2c4d39b665d6639d11",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "e6:30:f3:6f:ab:7c",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "e6:30:f3:6f:ab:7c",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "5e1610fda530bdaffcf497b8a5ef05b7bf2c0e3027a6d4d6aa59cccc2b1d27f6",
+                    "EndpointID": "e59dd179615a4a7eee018756eb99596a4590a0cd30ca3c2c4d39b665d6639d11",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-9c0080c84f52471f9368a4ed9273d2f9']
+exit=0
+[
+    {
+        "Id": "8d0e01fa6d1e165fc5e82f7e76f6c56e3bdd3a66a2cf2fef4c3d290ba0c2e44c",
+        "Created": "2026-11-05T20:57:00.207245093Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2780,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-05T20:57:00.227308883Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:57fac6380f5323c1c6b76721f45dc02f1b7451a4e044a02d751cdb0ca2d84e13",
+        "ResolvConfPath": "/var/lib/docker/containers/8d0e01fa6d1e165fc5e82f7e76f6c56e3bdd3a66a2cf2fef4c3d290ba0c2e44c/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/8d0e01fa6d1e165fc5e82f7e76f6c56e3bdd3a66a2cf2fef4c3d290ba0c2e44c/hostname",
+        "HostsPath": "/var/lib/docker/containers/8d0e01fa6d1e165fc5e82f7e76f6c56e3bdd3a66a2cf2fef4c3d290ba0c2e44c/hosts",
+        "LogPath": "/var/lib/docker/containers/8d0e01fa6d1e165fc5e82f7e76f6c56e3bdd3a66a2cf2fef4c3d290ba0c2e44c/8d0e01fa6d1e165fc5e82f7e76f6c56e3bdd3a66a2cf2fef4c3d290ba0c2e44c-json.log",
+        "Name": "/looking-glass-test-9c0080c84f52471f9368a4ed9273d2f9",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": 

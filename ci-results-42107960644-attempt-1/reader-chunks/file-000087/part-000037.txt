@@ -1,0 +1,82 @@
+       "Privileged": false,
+            "PublishAllPorts": false,
+            "ReadonlyRootfs": false,
+            "SecurityOpt": null,
+            "UTSMode": "",
+            "UsernsMode": "",
+            "ShmSize": 67108864,
+            "Runtime": "runc",
+            "Isolation": "",
+            "CpuShares": 0,
+            "Memory": 0,
+            "NanoCpus": 0,
+            "CgroupParent": "",
+            "BlkioWeight": 0,
+            "BlkioWeightDevice": [],
+            "BlkioDeviceReadBps": [],
+            "BlkioDeviceWriteBps": [],
+            "BlkioDeviceReadIOps": [],
+            "BlkioDeviceWriteIOps": [],
+            "CpuPeriod": 0,
+            "CpuQuota": 0,
+            "CpuRealtimePeriod": 0,
+            "CpuRealtimeRuntime": 0,
+            "CpusetCpus": "",
+            "CpusetMems": "",
+            "Devices": [],
+            "DeviceCgroupRules": null,
+            "DeviceRequests": null,
+            "MemoryReservation": 0,
+            "MemorySwap": 0,
+            "MemorySwappiness": null,
+            "OomKillDisable": null,
+            "PidsLimit": null,
+            "Ulimits": [],
+            "CpuCount": 0,
+            "CpuPercent": 0,
+            "IOMaximumIOps": 0,
+            "IOMaximumBandwidth": 0,
+            "Mounts": [
+                {
+                    "Type": "volume",
+                    "Source": "looking-glass-test-data-9c0080c84f52471f9368a4ed9273d2f9",
+                    "Target": "/app/data"
+                },
+                {
+                    "Type": "bind",
+                    "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                    "Target": "/app/ci-config.json",
+                    "ReadOnly": true
+                }
+            ],
+            "MaskedPaths": [
+                "/proc/asound",
+                "/proc/acpi",
+                "/proc/interrupts",
+                "/proc/kcore",
+                "/proc/keys",
+                "/proc/latency_stats",
+                "/proc/timer_list",
+                "/proc/timer_stats",
+                "/proc/sched_debug",
+                "/proc/scsi",
+                "/sys/firmware",
+                "/sys/devices/virtual/powercap"
+            ],
+            "ReadonlyPaths": [
+                "/proc/bus",
+                "/proc/fs",
+                "/proc/irq",
+                "/proc/sys",
+                "/proc/sysrq-trigger"
+            ]
+        },
+        "GraphDriver": {
+            "Data": {
+                "ID": "8d0e01fa6d1e165fc5e82f7e76f6c56e3bdd3a66a2cf2fef4c3d290ba0c2e44c",
+                "LowerDir": "/var/lib/docker/overlay2/b84b67718c106834f897cf0bd83c687323ec9d4980b2c9a4d6164e6b38254771-init/diff:/var/lib/docker/overlay2/v9zndk31dhm8emheqdjeqxeh9/diff:/var/lib/docker/overlay2/smwbnjg5owuuf2qebvvot6dnx/diff:/var/lib/docker/overlay2/nemrla7n51832jll62mj1rh0l/diff:/var/lib/docker/overlay2/xgkhtlu9adcrrv7qux3ah3xww/diff:/var/lib/docker/overlay2/3wqnua6p63obpucwp7572aaoc/diff:/var/lib/docker/overlay2/qlk8fm1y95wyotaks1pkytdy0/diff:/var/lib/docker/overlay2/qbkt5drf5ol3jfrjf58zhl3k8/diff:/var/lib/docker/overlay2/azfjrehpy7r5tebkgjp4zelgq/diff:/var/lib/docker/overlay2/s2kbee0wjbfaegsnhu0nxy15c/diff:/var/lib/docker/overlay2/68266199057ffb18a14538872eb2ea9e0240e4f71c3ec6d2fa8423c35143601a/diff:/var/lib/docker/overlay2/c095c61de0a236aebcef4db0e52c27f88759b2c907ba55b7c6674e54f0041d0e/diff:/var/lib/docker/overlay2/4aeeebaae64e60b303e62d693d444191acc34d862b3e412accec649d0b744f6b/diff:/var/lib/docker/overlay2/b71fc8440cd6e4efc0748938c66e735d5ac81865d0c7ddcbf9efc611146658b3/diff",
+                "MergedDir": "/var/lib/docker/overlay2/b84b67718c106834f897cf0bd83c687323ec9d4980b2c9a4d6164e6b38254771/merged",
+                "UpperDir": "/var/lib/docker/overlay2/b84b67718c106834f897cf0bd83c687323ec9d4980b2c9a4d6164e6b38254771/diff",
+                "WorkDir": "/var/lib/docker/overlay2/b84b67718c106834f897cf0bd83c687323ec9d4980b2c9a4d6164e6b38254771/work"
+            },
+            "Name": "ov

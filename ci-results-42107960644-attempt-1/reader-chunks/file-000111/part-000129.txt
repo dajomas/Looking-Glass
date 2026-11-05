@@ -1,0 +1,33 @@
+]Determining repository object format
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9322269Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9323428Z ##[group]Initializing the repository
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9328085Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9415250Z hint: Using 'master' as the name for the initial branch. This default branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9416864Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9418569Z hint: to use in all of your new repositories, which will suppress this warning,
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9419563Z hint: call:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9420396Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9421374Z hint: 	git config --global init.defaultBranch <name>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9422330Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9423903Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9425244Z hint: 'development'. The just-created branch can be renamed via this command:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9429753Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9430546Z hint: 	git branch -m <name>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9431325Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9432128Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9433054Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9443689Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9488669Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9489546Z ##[group]Disabling automatic garbage collection
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9494208Z [command]/usr/bin/git config --local gc.auto 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9526331Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9527756Z ##[group]Setting up auth
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9528552Z Removing SSH command configuration
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9536001Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9573255Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9907907Z Removing HTTP extra header
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9917427Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:16.9954006Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:17.0160989Z Removing includeIf entries pointing to credentials config files
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:17.0168627Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-05T20:56:17.0203579Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --na
