@@ -110,6 +110,7 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 
 ## Current work
 
+- [Bug 28: regression-first bounds checks; production fix pending (2026-11-05)](docs/handover/094-bug-28-regression-first-2026-11-05.md)
 - [Bug 27: accepted closure with acceptance gap and evidence limits (2026-11-05)](docs/handover/093-bug-27-accepted-closure-2026-11-05.md)
 - [Bug 27: regression-first notes-only editor refresh (2026-11-05)](docs/handover/092-bug-27-regression-first-2026-11-05.md)
 - [Bugs 25/26: accepted closure and evidence limits (2026-11-05)](docs/handover/091-bugs-25-26-accepted-closure-2026-11-05.md)
