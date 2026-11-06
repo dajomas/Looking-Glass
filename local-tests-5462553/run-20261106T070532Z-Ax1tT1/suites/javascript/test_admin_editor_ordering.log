@@ -1,0 +1,70 @@
+TAP version 13
+# Subtest: bug 25: a pre-action poll cannot roll back the action result
+ok 1 - bug 25: a pre-action poll cannot roll back the action result
+  ---
+  duration_ms: 6.480586
+  type: 'test'
+  ...
+# Subtest: bug 25: a poll completing during a mutation cannot replace state
+ok 2 - bug 25: a poll completing during a mutation cannot replace state
+  ---
+  duration_ms: 2.675628
+  type: 'test'
+  ...
+# Subtest: bug 25: overlapping polls cannot install the older response last
+ok 3 - bug 25: overlapping polls cannot install the older response last
+  ---
+  duration_ms: 2.538081
+  type: 'test'
+  ...
+# Subtest: bug 25: equal revisions with a replacement incarnation still refresh
+ok 4 - bug 25: equal revisions with a replacement incarnation still refresh
+  ---
+  duration_ms: 2.351011
+  type: 'test'
+  ...
+# Subtest: bug 25: late previous-incarnation poll cannot undo replacement
+ok 5 - bug 25: late previous-incarnation poll cannot undo replacement
+  ---
+  duration_ms: 3.261997
+  type: 'test'
+  ...
+# Subtest: bug 25: ordinary external-DM fog and wall changes still converge
+ok 6 - bug 25: ordinary external-DM fog and wall changes still converge
+  ---
+  duration_ms: 1.792289
+  type: 'test'
+  ...
+# Subtest: bug 26: A to pending B to cached A cannot install decoded B
+ok 7 - bug 26: A to pending B to cached A cannot install decoded B
+  ---
+  duration_ms: 12.669072
+  type: 'test'
+  ...
+# Subtest: bug 26: failure of superseded B after cached A does not show an error
+ok 8 - bug 26: failure of superseded B after cached A does not show an error
+  ---
+  duration_ms: 1.827794
+  type: 'test'
+  ...
+# Subtest: bug 26: newer C mask wins when B finishes decoding later
+ok 9 - bug 26: newer C mask wins when B finishes decoding later
+  ---
+  duration_ms: 1.949807
+  type: 'test'
+  ...
+# Subtest: bug 26: a current mask decode failure remains visible
+ok 10 - bug 26: a current mask decode failure remains visible
+  ---
+  duration_ms: 1.949623
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 51.742079
