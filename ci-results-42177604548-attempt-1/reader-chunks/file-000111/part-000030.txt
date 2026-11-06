@@ -1,0 +1,43 @@
+ is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Python / HTTP	UNKNOWN STEP	﻿2026-11-06T06:56:27.9254778Z Current runner version: '2.338.2'
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9276238Z ##[group]Runner Image Provisioner
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9276949Z Hosted Compute Agent
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9277551Z Version: 20261028.624
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9278091Z Commit: 54898b74c23fde5556c9b3c3a2290865feef0dfe
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9278682Z Build Date: 2026-10-28T21:51:42Z
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9279312Z Worker ID: {e7b41fd5-3534-4058-80b9-ad58a4c159c6}
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9279977Z Region: westus2
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9280516Z Cloud: Azure
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9280984Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9282050Z ##[group]Operating System
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9282647Z Ubuntu
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9283100Z 24.04.5
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9283566Z LTS
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9284054Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9284529Z ##[group]Runner Image
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9285071Z Image: ubuntu-24.04
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9285885Z Version: 20261101.360.1
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9286977Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261101.360/images/ubuntu/Ubuntu2404-Readme.md
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9288246Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9289057Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9290009Z ##[group]GITHUB_TOKEN Permissions
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9291625Z Contents: read
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9292128Z Metadata: read
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9292660Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9294333Z Secret source: Actions
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9295180Z Cache mode: write
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9296082Z Prepare workflow directory
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9735746Z Prepare all required actions
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:27.9775108Z Getting action download info
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:28.2922574Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:28.4185477Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:28.7316837Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:28.8403830Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.0743149Z Complete job name: Python / HTTP
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.1394540Z ##[group]Run actions/checkout@v6
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.1395190Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.1395698Z   repository: dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.1398735Z   token: ***
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.1399083Z   ssh-strict: true
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.1399438Z   ssh-user: git
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:29.1399802Z   persis

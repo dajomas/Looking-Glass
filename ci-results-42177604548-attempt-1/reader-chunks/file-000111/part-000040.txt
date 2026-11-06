@@ -1,0 +1,39 @@
+2212Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:57.0752559Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:57.0752895Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:57.0753207Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:57.0753506Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:57.0753809Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:57.0754065Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:57.3884811Z No broken requirements found.
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:58.2114860Z fastapi==0.162.0
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:58.2117851Z starlette==1.10.0
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.6071553Z uvicorn==0.54.0
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.6073662Z python-multipart==0.0.33
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.6278187Z httpx2==2.16.0
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.7641246Z pytest==9.2.0
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8413887Z ##[group]Run set -o pipefail
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8414166Z ^[[36;1mset -o pipefail^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8414827Z ^[[36;1mpython -m pytest -v -ra python/tests --ignore=python/tests/browser --ignore=python/tests/live_e2e --ignore=python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8433604Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8433880Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8434131Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8434425Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8434607Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8434833Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8435184Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8435722Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8436075Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8436376Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8436683Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:56:59.8437116Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:01.3429199Z ============================= test session starts ==============================
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:01.3516522Z platform linux -- Python 3.14.10, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.10/x64/bin/python
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:01.3519714Z cachedir: .pytest_cache
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:01.3520117Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:01.3520540Z plugins: anyio-4.16.0
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:05.1625763Z collecting ... collected 1717 items
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:05.1657755Z 
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:05.1719396Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_idempotent PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:57:05.1727621Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_rejects_string PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	202

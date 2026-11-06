@@ -1,0 +1,39 @@
+^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8677630Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8677886Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8678181Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8678499Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8678776Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8679009Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8679255Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8679614Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8680116Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8680620Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8680975Z ^[[36;1mfor case in skipped:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8681236Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8681601Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8681943Z ^[[36;1mif skipped or failed:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8682239Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8682555Z ^[[36;1mPY^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8700960Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8701325Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8701597Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8701896Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8702090Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8702448Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8702847Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8703218Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8703530Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8703905Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8704268Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.8704553Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9006339Z Reported: 1717; failed/error: 0; skipped: 0
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9111409Z ##[group]Run actions/upload-artifact@v4
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9111676Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9111964Z   name: integration-python-2e9894386d49310d994cb1ce0b40632e12d5e2f1
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9112277Z   path: test-results/
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9112478Z   if-no-files-found: warn
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9112674Z   retention-days: 14
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9112865Z   compression-level: 6
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9113059Z   overwrite: false
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:00:45.9113245Z   in

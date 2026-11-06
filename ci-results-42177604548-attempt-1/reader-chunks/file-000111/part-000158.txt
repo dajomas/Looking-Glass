@@ -1,0 +1,25 @@
+OWN STEP	2026-11-06T06:57:12.7760246Z platform linux -- Python 3.14.10, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.10/x64/bin/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:12.7763605Z cachedir: .pytest_cache
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:12.7764009Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:12.7764432Z plugins: anyio-4.16.0
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:14.3055390Z collecting ... collected 172 items
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:14.3061669Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:15.3508803Z python/tests/browser/test_campaign_batch_import.py::test_import_multiple_maps_and_separate_wall_files PASSED [  0%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:15.9877704Z python/tests/browser/test_campaign_batch_import.py::test_same_source_supplies_different_sets_to_existing_maps PASSED [  1%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:16.5201978Z python/tests/browser/test_campaign_batch_import.py::test_import_sources_only_and_assign_newly_uploaded_source PASSED [  1%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:17.1703043Z python/tests/browser/test_campaign_batch_import.py::test_partial_upload_failures_keep_successes PASSED [  2%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:17.7010694Z python/tests/browser/test_campaign_batch_import.py::test_sorted_sets_keep_original_import_indices PASSED [  2%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:18.2328280Z python/tests/browser/test_campaign_batch_import.py::test_source_change_clears_selection_and_inspect_failure_is_retryable PASSED [  3%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:18.7631003Z python/tests/browser/test_campaign_batch_import.py::test_failed_assignment_retains_selection_for_retry PASSED [  4%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:19.4042573Z python/tests/browser/test_campaign_batch_import.py::test_map_created_before_editor_failure_is_not_reported_as_failed_upload PASSED [  4%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:19.9318327Z python/tests/browser/test_campaign_batch_import.py::test_empty_upload_is_noop_and_apply_does_not_confirm PASSED [  5%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:19.9329573Z python/tests/browser/test_campaign_batch_import.py::test_labels_expose_uvtt_and_original_single_import_remains PASSED [  5%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:20.1060249Z python/tests/browser/test_editor_controls.py::test_editor_displays_map_and_walls_on_open PASSED [  6%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:20.3276421Z python/tests/browser/test_editor_controls.py::test_image_loads_even_if_metadata_fails_and_retry_recovers PASSED [  6%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:20.6060618Z python/tests/browser/test_editor_controls.py::test_show_hide_and_enable_disable_are_independent PASSED [  7%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:21.5798395Z python/tests/browser/test_editor_controls.py::test_reveal_offline_displays_warning_without_publishing PASSED [  8%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:21.6835391Z python/tests/browser/test_editor_controls.py::test_selection_restored_after_option_reload_and_page_reload PASSED [  8%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:21.7692125Z python/tests/browser/test_editor_controls.py::test_viewer_centers_revealed_bounds PASSED [  9%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:22.3109631Z python/tests/browser/test_editor_controls.py::test_collapsible_battle_sidebar_panels PASSED [  9%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:22.6056925Z python/tests/browser/test_editor_controls.py::test_wall_width_is_screen_constant_and_survives_reload PASSED [ 10%]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:57:22.9265943Z python/tests/browser/test_map_transitions.py::test_place_and_reposition_keep

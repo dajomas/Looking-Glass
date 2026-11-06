@@ -1,0 +1,105 @@
+           "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'exec', '--env', 'PYTHONPATH=/app/python', 'looking-glass-test-3e20e3f57d104d068b217f4dab63c4a2', 'python', '-c', "from looking_glass.config import load_settings\nfrom looking_glass.db import Database\nfrom looking_glass.repositories import users\nfrom looking_glass.rbac import Role\nsettings = load_settings('/app/ci-config.json')\nwith Database(settings.database_path).connect() as conn:\n    users.create(conn, 'restart-dm', 'restart-dm-password', Role.ADMIN)\n    viewer = users.create(conn, 'restart-player', 'restart-player-password', Role.VIEWER)\nprint(viewer)\n"]
+exit=0
+3
+
+
+['/usr/bin/docker', 'stop', '--time', '10', 'looking-glass-test-3e20e3f57d104d068b217f4dab63c4a2']
+exit=0
+Flag --time has been deprecated, use --timeout instead
+looking-glass-test-3e20e3f57d104d068b217f4dab63c4a2
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-3e20e3f57d104d068b217f4dab63c4a2']
+exit=0
+[
+    {
+        "Id": "c8b44ee972b1fc51c8f653de8a75eea9eb023c4b6576442166ea13877c263207",
+        "Created": "2026-11-06T06:57:19.322956119Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "exited",
+            "Running": false,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 0,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-06T06:57:19.342205389Z",
+            "FinishedAt": "2026-11-06T06:57:22.298762838Z",
+            "Health": {
+                "Status": "unhealthy",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:898cf6abd8b4adf4cb0de90cbb2fc52226d9f2a259e08c14bba31a19d688064c",
+        "ResolvConfPath": "/var/lib/docker/containers/c8b44ee972b1fc51c8f653de8a75eea9eb023c4b6576442166ea13877c263207/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/c8b44ee972b1fc51c8f653de8a75eea9eb023c4b6576442166ea13877c263207/hostname",
+        "HostsPath": "/var/lib/docker/containers/c8b44ee972b1fc51c8f653de8a75eea9eb023c4b6576442166ea13877c263207/hosts",
+        "LogPath": "/var/lib/docker/containers/c8b44ee972b1fc51c8f653de8a75eea9eb023c4b6576442166ea13877c263207/c8b44ee972b1fc51c8f653de8a75eea9eb023c4b6576442166ea13877c263207-json.log",
+        "Name": "/looking-glass-test-3e20e3f57d104d068b217f4dab63c4a2",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": null,
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {}
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": ""
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+            "DnsSearch": [],
+            "ExtraHosts": null,
+            "GroupAdd": nul

@@ -1,0 +1,28 @@
+hon-dotenv-1.2.4 python-multipart-0.0.33 pyyaml-6.0.3 scipy-1.18.1 starlette-1.10.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 webencodings-0.6.1 websockets-17.4
+JavaScript regressions	Verify dependencies and record environment	﻿2026-11-06T06:56:43.9695685Z ##[group]Run python --version >> test-results/environment.txt
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9695986Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9696218Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9696410Z ^[[36;1mpython -m pip check^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9696597Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9696832Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9697033Z ^[[36;1mfrom importlib import import_module^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9697202Z ^[[36;1mfrom importlib.metadata import version^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9697363Z ^[[36;1mrequired = {^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9697492Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9697638Z ^[[36;1m    "starlette": "starlette",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9697782Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9697941Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9698124Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9698262Z ^[[36;1m    "pytest": "pytest",^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9698393Z ^[[36;1m}^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9698531Z ^[[36;1mfor distribution, module in required.items():^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9698705Z ^[[36;1m    import_module(module)^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9698878Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9699048Z ^[[36;1mPY^[[0m
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9715567Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9715757Z env:
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9715920Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9716114Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9716238Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9716394Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+JavaScript regressions	Verify dependencies and record environment	2026-11-06T06:56:43.9716619Z   PKG_CONFIG_PATH: /op

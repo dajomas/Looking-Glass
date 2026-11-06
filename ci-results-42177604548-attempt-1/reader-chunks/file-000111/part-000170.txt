@@ -1,0 +1,45 @@
+	Set up job	2026-11-06T06:56:27.8205859Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261101.360
+Recovery	Set up job	2026-11-06T06:56:27.8206906Z ##[endgroup]
+Recovery	Set up job	2026-11-06T06:56:27.8208063Z ##[group]GITHUB_TOKEN Permissions
+Recovery	Set up job	2026-11-06T06:56:27.8211208Z Contents: read
+Recovery	Set up job	2026-11-06T06:56:27.8211944Z Metadata: read
+Recovery	Set up job	2026-11-06T06:56:27.8212583Z ##[endgroup]
+Recovery	Set up job	2026-11-06T06:56:27.8214690Z Secret source: Actions
+Recovery	Set up job	2026-11-06T06:56:27.8215671Z Cache mode: write
+Recovery	Set up job	2026-11-06T06:56:27.8216719Z Prepare workflow directory
+Recovery	Set up job	2026-11-06T06:56:27.8756686Z Prepare all required actions
+Recovery	Set up job	2026-11-06T06:56:27.8808193Z Getting action download info
+Recovery	Set up job	2026-11-06T06:56:28.1286082Z Download action repository 'actions/checkout@v6' (SHA:d23441a48e516b6c34aea4fa41551a30e30af803)
+Recovery	Set up job	2026-11-06T06:56:28.2390363Z Download action repository 'actions/setup-python@v6' (SHA:ece7cb06caefa5fff74198d8649806c4678c61a1)
+Recovery	Set up job	2026-11-06T06:56:28.5947226Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Recovery	Set up job	2026-11-06T06:56:28.7158626Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Recovery	Set up job	2026-11-06T06:56:28.9627996Z Complete job name: Recovery
+Recovery	Check out repository	﻿2026-11-06T06:56:29.0498385Z ##[group]Run actions/checkout@v6
+Recovery	Check out repository	2026-11-06T06:56:29.0500028Z with:
+Recovery	Check out repository	2026-11-06T06:56:29.0500655Z   repository: dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-06T06:56:29.0508533Z   token: ***
+Recovery	Check out repository	2026-11-06T06:56:29.0509277Z   ssh-strict: true
+Recovery	Check out repository	2026-11-06T06:56:29.0509904Z   ssh-user: git
+Recovery	Check out repository	2026-11-06T06:56:29.0510543Z   persist-credentials: true
+Recovery	Check out repository	2026-11-06T06:56:29.0511238Z   clean: true
+Recovery	Check out repository	2026-11-06T06:56:29.0511834Z   sparse-checkout-cone-mode: true
+Recovery	Check out repository	2026-11-06T06:56:29.0512657Z   fetch-depth: 1
+Recovery	Check out repository	2026-11-06T06:56:29.0513245Z   fetch-tags: false
+Recovery	Check out repository	2026-11-06T06:56:29.0513923Z   show-progress: true
+Recovery	Check out repository	2026-11-06T06:56:29.0514558Z   lfs: false
+Recovery	Check out repository	2026-11-06T06:56:29.0515102Z   submodules: false
+Recovery	Check out repository	2026-11-06T06:56:29.0515772Z   set-safe-directory: true
+Recovery	Check out repository	2026-11-06T06:56:29.0516498Z   allow-unsafe-pr-checkout: false
+Recovery	Check out repository	2026-11-06T06:56:29.0517469Z env:
+Recovery	Check out repository	2026-11-06T06:56:29.0518292Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Check out repository	2026-11-06T06:56:29.0519514Z   PYTHONUNBUFFERED: 1
+Recovery	Check out repository	2026-11-06T06:56:29.0520215Z   LG_RUN_LIVE_E2E: 1
+Recovery	Check out repository	2026-11-06T06:56:29.0520924Z ##[endgroup]
+Recovery	Check out repository	2026-11-06T06:56:29.3441687Z Syncing repository: dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-06T06:56:29.3445087Z ##[group]Getting Git version info
+Recovery	Check out repository	2026-11-06T06:56:29.3446999Z Working directory is '/home/runner/work/Looking-Glass/Looking-Glass'
+Recovery	Check out repository	2026-11-06T06:56:29.3449608Z [command]/usr/bin/git version
+Recovery	Check out repository	2026-11-06T06:56:29.3521677Z git version 2.56.0
+Recovery	Check out repository	2026-11-06T06:56:29.3547609Z ##[endgroup]
+Recovery	Check out repository	2026-11-06T06:56:29.3563767Z Temporarily overriding HOME='/home/runner/work/_temp/7f5176f5-5792-4abe-b9cc-81b4fe861021' before making global git config changes
+Recovery	Check ou
