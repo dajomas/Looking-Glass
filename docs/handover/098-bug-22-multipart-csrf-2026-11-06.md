@@ -1,5 +1,9 @@
 # Bug 22: multipart CSRF type guard and HTTP regressions
 
+Current status: accepted and closed by user request on 2026-11-06. See
+[accepted closure](#accepted-closure-2026-11-06). The preparation record below
+is historical; its pending statements describe the implementation commit.
+
 Date: 2026-11-06. Repository: dajomas/Looking-Glass.
 Working branch: features/perplexity.
 Reviewed baseline head: 492572c9bb09d1e9fb30c7daa7841859d4ab7553.
@@ -65,3 +69,66 @@ this narrow rejection fix. HANDOVER.md adds a link to this focused record;
 existing history and split manifests remain unchanged. No other branch,
 archive or newly generated Patch/ material is included. GitHub delivery is
 subject to exact approval; report its commit SHA only after a successful write.
+
+## Accepted closure (2026-11-06)
+
+The user explicitly requested finishing and closing bug 22 after reviewing the
+implementation and published validation. Implementation commit:
+`2e9894386d49310d994cb1ce0b40632e12d5e2f1`. This section supersedes the historical
+acceptance-pending statements above. TODO.md marks bug 22 accepted and closed;
+bug 24 is the only remaining open finding in the second audit. This is the
+internal backlog item, not GitHub issue number 22.
+
+### Reviewed CI evidence
+
+GitHub Actions run `42177604548`, attempt 1, tested
+`2e9894386d49310d994cb1ce0b40632e12d5e2f1` on features/perplexity. Evidence was
+reviewed at `54625531e5f469d7c871f80f5ed06333cbdc31ee` under
+`ci-results-42177604548-attempt-1/`. run.json reports overall success, all five
+jobs successful and all report-validation steps successful. Reviewed JUnit
+headers report zero failures/errors/skips: Python 1,746 entries, browser 172,
+JavaScript 35 script-level cases, live 18 and recovery 6. The Python log explains
+its count as 1,717 passed plus 29 passed subtests. Its reader-chunks/file-000082/
+part-000008.txt explicitly lists all 20 test_csrf_multipart_web.py cases as PASSED
+on both portals; part-000048.txt contains the Python final summary. This was a
+review of stored metadata, report headers and selected log chunks, not an
+independent rerun or an inspection of every diagnostic artifact.
+
+### Local evidence
+
+The user separately reported `.venv-test/bin/python -m pytest -q
+python/tests/test_csrf_multipart_web.py`: 20 passed in 12.69 seconds. Treat this
+as user-provided terminal evidence, separate from the published all-suite run.
+
+Published all-suite local evidence is at commit
+`47e912ca64818f860911b5cfb3e6ae9ad86f8d08` under
+`local-tests-5462553/run-20261106T070532Z-Ax1tT1/`. workspace-identity.json records
+requested, expected and actual source as
+`54625531e5f469d7c871f80f5ed06333cbdc31ee`. environment.txt records a detached
+sparse clone excluding uncommitted changes, Python 3.14.7 and WSL2/Linux; start
+07:05:32Z and finish 07:13:35Z on 2026-11-06. summary.tsv reports test_exit=0 and
+report_exit=0 for python, javascript, browser, live and recovery; exit-code.txt
+is 0. The reviewed Python report-validation.log records 1,717 reported tests,
+zero failed/error and zero skipped. No per-suite local counts beyond Python
+are asserted: other local test entries and diagnostics were not individually
+reviewed. CI and local tested revisions are distinct, as are their evidence
+publication commits; do not present either publication commit as tested source.
+
+### Acceptance limits and closure delivery
+
+Accepted scope: non-string multipart CSRF token rejection before comparison,
+controlled Forbidden response and unchanged rejection state, with valid token
+and header-precedence behavior preserved. No CSRF bypass was established by the
+original bug. Parser-level malformed bodies, duplicate token policy, generic
+constant_eq input hardening and every browser/proxy topology remain outside
+this acceptance. Broader green suites do not make those untested claims.
+
+Closure changes documentation only; no application code, tests, migrations,
+permissions or evidence artifacts are changed and no tests were rerun for this
+closure. README.md, HANDOVER.md and release notes were reviewed. README.md and
+the existing HANDOVER.md link remain accurate without cosmetic edits; release
+notes and TODO.md are updated with this record. Historical audit and split
+manifests remain unchanged. Delivery targets features/perplexity with commit
+message `Close bug 22 and record accepted validation [skip ci]`; [skip ci] is
+intentional for this documentation-only closure. No other branch, merge,
+archive or Patch/ material is included. Report delivery only after write success.

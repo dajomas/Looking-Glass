@@ -9,6 +9,11 @@ are not summarized here.
 
 ### Fixed
 
+- **Malformed multipart CSRF tokens are rejected safely (bug 22, accepted).**
+  File-valued csrf_token fields are rejected through the existing Forbidden
+  response before token comparison, rather than causing a server error. Valid
+  string tokens, header precedence and empty-header form fallback are retained.
+  No migration is required.
 - **Admin editor state refreshes reject obsolete responses (bug 25, accepted).**
   Map-state reads share request-generation guards with action/state installation.
   Starting an editor action invalidates earlier reads, polling waits while busy,
@@ -77,6 +82,16 @@ are not summarized here.
   cannot be recalled.
 
 ### Verification
+
+Bug 22 is accepted and closed by user request on 2026-11-06. CI run
+42177604548 attempt 1 passed all five jobs on
+`2e9894386d49310d994cb1ce0b40632e12d5e2f1`, with all 20 multipart CSRF HTTP
+cases explicitly passing. The published local all-suite summary for
+`54625531e5f469d7c871f80f5ed06333cbdc31ee` records zero test/report exit codes
+for all five groups; the user also reported a targeted 20-case local pass.
+These are distinct tested revisions. See [accepted closure, evidence locations
+and review limits](handover/098-bug-22-multipart-csrf-2026-11-06.md#accepted-closure-2026-11-06).
+Parser-level malformed bodies and duplicate-token policy are outside this fix.
 
 Bugs 25/26 are accepted and closed after CI run 42055860962 attempt 1 passed
 all five jobs and their report-validation steps on
