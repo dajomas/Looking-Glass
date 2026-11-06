@@ -1,0 +1,1097 @@
+['/usr/bin/podman', 'volume', 'create', 'looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a
+
+
+['/usr/bin/podman', 'run', '--detach', '--name', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a', '--publish', '127.0.0.1::5000', '--publish', '127.0.0.1::5100', '--mount', 'type=volume,source=looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a,target=/app/data', '--volume', '/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json:/app/ci-config.json:ro,Z', '--env', 'LG_SUPERADMIN_PASSWORD=container-bootstrap-password', 'looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05', 'python', 'python/main.py', '--config', '/app/ci-config.json', 'serve']
+exit=0
+5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f
+
+
+['/usr/bin/podman', 'inspect', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+[
+     {
+          "Id": "5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f",
+          "Created": "2026-11-06T07:37:18.385276216+01:00",
+          "Path": "python",
+          "Args": [
+               "python/main.py",
+               "--config",
+               "/app/ci-config.json",
+               "serve"
+          ],
+          "State": {
+               "OciVersion": "1.2.1",
+               "Status": "running",
+               "Running": true,
+               "Paused": false,
+               "Restarting": false,
+               "OOMKilled": false,
+               "Dead": false,
+               "Pid": 180195,
+               "ConmonPid": 180193,
+               "ExitCode": 0,
+               "Error": "",
+               "StartedAt": "2026-11-06T07:37:18.527597065+01:00",
+               "FinishedAt": "0001-01-01T00:00:00Z",
+               "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f.scope",
+               "CheckpointedAt": "0001-01-01T00:00:00Z",
+               "RestoredAt": "0001-01-01T00:00:00Z"
+          },
+          "Image": "2f6ab6f33dc9553d7550fd9aba835bdef6ae502064a2457c185312a15557a75d",
+          "ImageDigest": "sha256:acb3aebcfa06f02946a6980dac7916fb5dc575855911bcd011545404e72bb325",
+          "ImageName": "localhost/looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+          "Rootfs": "",
+          "Pod": "",
+          "ResolvConfPath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/resolv.conf",
+          "HostnamePath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/hostname",
+          "HostsPath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/hosts",
+          "StaticDir": "/home/boywonder/.local/share/containers/storage/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata",
+          "OCIConfigPath": "/home/boywonder/.local/share/containers/storage/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/config.json",
+          "OCIRuntime": "crun",
+          "ConmonPidFile": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/conmon.pid",
+          "PidFile": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/pidfile",
+          "Name": "looking-glass-test-119fcafe769a4c0c8c664f5605af168a",
+          "RestartCount": 0,
+          "Driver": "overlay",
+          "MountLabel": "",
+          "ProcessLabel": "",
+          "AppArmorProfile": "",
+          "EffectiveCaps": null,
+          "BoundingCaps": [
+               "CAP_CHOWN",
+               "CAP_DAC_OVERRIDE",
+               "CAP_FOWNER",
+               "CAP_FSETID",
+               "CAP_KILL",
+               "CAP_NET_BIND_SERVICE",
+               "CAP_SETFCAP",
+               "CAP_SETGID",
+               "CAP_SETPCAP",
+               "CAP_SETUID",
+               "CAP_SYS_CHROOT"
+          ],
+          "ExecIDs": [],
+          "GraphDriver": {
+               "Name": "overlay",
+               "Data": {
+                    "LowerDir": "/home/boywonder/.local/share/containers/storage/overlay/3bae4bcf1a3a08aede81598d9d2094c05481c56a3bdc2c03fb6996c797a6e805/diff:/home/boywonder/.local/share/containers/storage/overlay/dc86ac872c39df2563ddc7d31d8c5ac1b93b7b06ca36e74fc4e64e2d70d07c85/diff:/home/boywonder/.local/share/containers/storage/overlay/1843c3d26ad5e471c9160b6e8540ae8c51eec7c1f524e60672969a02f9a193e0/diff:/home/boywonder/.local/share/containers/storage/overlay/70f4a3545be72b2fc0e9498701fedf8554da389d8a2383d987283a8dd4738058/diff:/home/boywonder/.local/share/containers/storage/overlay/f54e880879bd526c58b626ff7d478427c83823e6939e9ab0c5ff6e4f12bdb078/diff:/home/boywonder/.local/share/containers/storage/overlay/bbd5312f18b33f8a40736678a9669abdd151fcd7478e226f1db5cd3195d75a73/diff:/home/boywonder/.local/share/containers/storage/overlay/cd637cdee38b0e0b87d1c42f9c578e4aa484f3f4c6cd4518042625dc503bb6cd/diff:/home/boywonder/.local/share/containers/storage/overlay/690a27fbd0db082f8a27e829df8138ec8c7b975b5bf294c17a0aebbd6dd1ff19/diff:/home/boywonder/.local/share/containers/storage/overlay/edba961ebdce8ed97037e89cd1fc3495ca203094448b22b4803918ec9b66d02a/diff:/home/boywonder/.local/share/containers/storage/overlay/72cdad72f09b8bac3cbbf3f357e44e93359cd2dd014f8eab08b2924f2b97317b/diff:/home/boywonder/.local/share/containers/storage/overlay/f22e6d311162baf72bf73a019c3b9a7da2a86fb66749fe491e058911f021e478/diff:/home/boywonder/.local/share/containers/storage/overlay/dd57f90311a2567b55ff22eeacff1602fd04ad7566e315957731359eab173b90/diff",
+                    "MergedDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/merged",
+                    "UpperDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/diff",
+                    "WorkDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/work"
+               }
+          },
+          "Mounts": [
+               {
+                    "Type": "volume",
+                    "Name": "looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a",
+                    "Source": "/home/boywonder/.local/share/containers/storage/volumes/looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a/_data",
+                    "Destination": "/app/data",
+                    "Driver": "local",
+                    "Mode": "",
+                    "Options": [
+                         "nosuid",
+                         "nodev",
+                         "rbind"
+                    ],
+                    "RW": true,
+                    "Propagation": "rprivate"
+               },
+               {
+                    "Type": "bind",
+                    "Source": "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json",
+                    "Destination": "/app/ci-config.json",
+                    "Driver": "",
+                    "Mode": "",
+                    "Options": [
+                         "rbind"
+                    ],
+                    "RW": false,
+                    "Propagation": "rprivate"
+               }
+          ],
+          "Dependencies": [],
+          "NetworkSettings": {
+               "EndpointID": "",
+               "Gateway": "",
+               "IPAddress": "",
+               "IPPrefixLen": 0,
+               "IPv6Gateway": "",
+               "GlobalIPv6Address": "",
+               "GlobalIPv6PrefixLen": 0,
+               "MacAddress": "",
+               "Bridge": "",
+               "SandboxID": "",
+               "HairpinMode": false,
+               "LinkLocalIPv6Address": "",
+               "LinkLocalIPv6PrefixLen": 0,
+               "Ports": {
+                    "5000/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45889"
+                         }
+                    ],
+                    "5100/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45825"
+                         }
+                    ]
+               },
+               "SandboxKey": "/run/user/1000/netns/netns-8270ef7a-bc55-e702-88da-f6fe94208ac9"
+          },
+          "Namespace": "",
+          "IsInfra": false,
+          "IsService": false,
+          "KubeExitCodePropagation": "invalid",
+          "lockNumber": 3,
+          "Config": {
+               "Hostname": "5de8f89c81af",
+               "Domainname": "",
+               "User": "lg",
+               "AttachStdin": false,
+               "AttachStdout": false,
+               "AttachStderr": false,
+               "Tty": false,
+               "OpenStdin": false,
+               "StdinOnce": false,
+               "Env": [
+                    "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "container=podman",
+                    "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                    "PYTHONDONTWRITEBYTECODE=1",
+                    "PYTHONUNBUFFERED=1",
+                    "LANG=C.UTF-8",
+                    "PYTHON_VERSION=3.14.10",
+                    "LG_DATA_DIR=/app/data",
+                    "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                    "HOME=/app",
+                    "HOSTNAME=5de8f89c81af"
+               ],
+               "Cmd": [
+                    "python",
+                    "python/main.py",
+                    "--config",
+                    "/app/ci-config.json",
+                    "serve"
+               ],
+               "Image": "localhost/looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+               "Volumes": null,
+               "WorkingDir": "/app",
+               "Entrypoint": null,
+               "OnBuild": null,
+               "Labels": {
+                    "io.buildah.version": "1.43.1"
+               },
+               "Annotations": {
+                    "io.container.manager": "libpod",
+                    "org.opencontainers.image.stopSignal": "15",
+                    "org.systemd.property.KillSignal": "15",
+                    "org.systemd.property.TimeoutStopUSec": "uint64 10000000"
+               },
+               "StopSignal": "SIGTERM",
+               "HealthcheckOnFailureAction": "none",
+               "HealthLogDestination": "local",
+               "HealthcheckMaxLogCount": 5,
+               "HealthcheckMaxLogSize": 500,
+               "CreateCommand": [
+                    "/usr/bin/podman",
+                    "run",
+                    "--detach",
+                    "--name",
+                    "looking-glass-test-119fcafe769a4c0c8c664f5605af168a",
+                    "--publish",
+                    "127.0.0.1::5000",
+                    "--publish",
+                    "127.0.0.1::5100",
+                    "--mount",
+                    "type=volume,source=looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a,target=/app/data",
+                    "--volume",
+                    "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json:/app/ci-config.json:ro,Z",
+                    "--env",
+                    "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                    "looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+                    "python",
+                    "python/main.py",
+                    "--config",
+                    "/app/ci-config.json",
+                    "serve"
+               ],
+               "Umask": "0022",
+               "Timeout": 0,
+               "StopTimeout": 10,
+               "Passwd": true,
+               "sdNotifyMode": "container",
+               "ExposedPorts": {
+                    "5000/tcp": {},
+                    "5100/tcp": {}
+               }
+          },
+          "HostConfig": {
+               "Binds": [
+                    "looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a:/app/data:rprivate,nosuid,nodev,rbind",
+                    "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json:/app/ci-config.json:ro,rprivate,rbind"
+               ],
+               "CgroupManager": "systemd",
+               "CgroupMode": "private",
+               "ContainerIDFile": "",
+               "LogConfig": {
+                    "Type": "journald",
+                    "Config": null,
+                    "Path": "",
+                    "Tag": "",
+                    "Size": "-1B"
+               },
+               "NetworkMode": "pasta",
+               "PortBindings": {
+                    "5000/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45889"
+                         }
+                    ],
+                    "5100/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45825"
+                         }
+                    ]
+               },
+               "RestartPolicy": {
+                    "Name": "no",
+                    "MaximumRetryCount": 0
+               },
+               "AutoRemove": false,
+               "AutoRemoveImage": false,
+               "Annotations": {
+                    "io.container.manager": "libpod",
+                    "org.opencontainers.image.stopSignal": "15",
+                    "org.systemd.property.KillSignal": "15",
+                    "org.systemd.property.TimeoutStopUSec": "uint64 10000000"
+               },
+               "VolumeDriver": "",
+               "VolumesFrom": null,
+               "CapAdd": [],
+               "CapDrop": [],
+               "Dns": [],
+               "DnsOptions": [],
+               "DnsSearch": [],
+               "ExtraHosts": [],
+               "HostsFile": "",
+               "GroupAdd": [],
+               "IpcMode": "shareable",
+               "Cgroup": "",
+               "Cgroups": "default",
+               "Links": null,
+               "OomScoreAdj": 0,
+               "PidMode": "private",
+               "Privileged": false,
+               "PublishAllPorts": false,
+               "ReadonlyRootfs": false,
+               "SecurityOpt": [],
+               "Tmpfs": {},
+               "UTSMode": "private",
+               "UsernsMode": "",
+               "ShmSize": 65536000,
+               "Runtime": "oci",
+               "ConsoleSize": [
+                    0,
+                    0
+               ],
+               "Isolation": "",
+               "CpuShares": 0,
+               "Memory": 0,
+               "NanoCpus": 0,
+               "CgroupParent": "user.slice",
+               "BlkioWeight": 0,
+               "BlkioWeightDevice": null,
+               "BlkioDeviceReadBps": null,
+               "BlkioDeviceWriteBps": null,
+               "BlkioDeviceReadIOps": null,
+               "BlkioDeviceWriteIOps": null,
+               "CpuPeriod": 0,
+               "CpuQuota": 0,
+               "CpuRealtimePeriod": 0,
+               "CpuRealtimeRuntime": 0,
+               "CpusetCpus": "",
+               "CpusetMems": "",
+               "Devices": [],
+               "DiskQuota": 0,
+               "KernelMemory": 0,
+               "MemoryReservation": 0,
+               "MemorySwap": 0,
+               "MemorySwappiness": 0,
+               "OomKillDisable": false,
+               "PidsLimit": 2048,
+               "Ulimits": [
+                    {
+                         "Name": "RLIMIT_NOFILE",
+                         "Soft": 1048576,
+                         "Hard": 1048576
+                    },
+                    {
+                         "Name": "RLIMIT_NPROC",
+                         "Soft": 62248,
+                         "Hard": 62248
+                    }
+               ],
+               "CpuCount": 0,
+               "CpuPercent": 0,
+               "IOMaximumIOps": 0,
+               "IOMaximumBandwidth": 0,
+               "CgroupConf": null
+          },
+          "UseImageHosts": false,
+          "UseImageHostname": false
+     }
+]
+
+
+['/usr/bin/podman', 'inspect', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+[
+     {
+          "Id": "5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f",
+          "Created": "2026-11-06T07:37:18.385276216+01:00",
+          "Path": "python",
+          "Args": [
+               "python/main.py",
+               "--config",
+               "/app/ci-config.json",
+               "serve"
+          ],
+          "State": {
+               "OciVersion": "1.2.1",
+               "Status": "running",
+               "Running": true,
+               "Paused": false,
+               "Restarting": false,
+               "OOMKilled": false,
+               "Dead": false,
+               "Pid": 180195,
+               "ConmonPid": 180193,
+               "ExitCode": 0,
+               "Error": "",
+               "StartedAt": "2026-11-06T07:37:18.527597065+01:00",
+               "FinishedAt": "0001-01-01T00:00:00Z",
+               "CgroupPath": "/user.slice/user-1000.slice/user@1000.service/user.slice/libpod-5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f.scope",
+               "CheckpointedAt": "0001-01-01T00:00:00Z",
+               "RestoredAt": "0001-01-01T00:00:00Z"
+          },
+          "Image": "2f6ab6f33dc9553d7550fd9aba835bdef6ae502064a2457c185312a15557a75d",
+          "ImageDigest": "sha256:acb3aebcfa06f02946a6980dac7916fb5dc575855911bcd011545404e72bb325",
+          "ImageName": "localhost/looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+          "Rootfs": "",
+          "Pod": "",
+          "ResolvConfPath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/resolv.conf",
+          "HostnamePath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/hostname",
+          "HostsPath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/hosts",
+          "StaticDir": "/home/boywonder/.local/share/containers/storage/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata",
+          "OCIConfigPath": "/home/boywonder/.local/share/containers/storage/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/config.json",
+          "OCIRuntime": "crun",
+          "ConmonPidFile": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/conmon.pid",
+          "PidFile": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/pidfile",
+          "Name": "looking-glass-test-119fcafe769a4c0c8c664f5605af168a",
+          "RestartCount": 0,
+          "Driver": "overlay",
+          "MountLabel": "",
+          "ProcessLabel": "",
+          "AppArmorProfile": "",
+          "EffectiveCaps": null,
+          "BoundingCaps": [
+               "CAP_CHOWN",
+               "CAP_DAC_OVERRIDE",
+               "CAP_FOWNER",
+               "CAP_FSETID",
+               "CAP_KILL",
+               "CAP_NET_BIND_SERVICE",
+               "CAP_SETFCAP",
+               "CAP_SETGID",
+               "CAP_SETPCAP",
+               "CAP_SETUID",
+               "CAP_SYS_CHROOT"
+          ],
+          "ExecIDs": [],
+          "GraphDriver": {
+               "Name": "overlay",
+               "Data": {
+                    "LowerDir": "/home/boywonder/.local/share/containers/storage/overlay/3bae4bcf1a3a08aede81598d9d2094c05481c56a3bdc2c03fb6996c797a6e805/diff:/home/boywonder/.local/share/containers/storage/overlay/dc86ac872c39df2563ddc7d31d8c5ac1b93b7b06ca36e74fc4e64e2d70d07c85/diff:/home/boywonder/.local/share/containers/storage/overlay/1843c3d26ad5e471c9160b6e8540ae8c51eec7c1f524e60672969a02f9a193e0/diff:/home/boywonder/.local/share/containers/storage/overlay/70f4a3545be72b2fc0e9498701fedf8554da389d8a2383d987283a8dd4738058/diff:/home/boywonder/.local/share/containers/storage/overlay/f54e880879bd526c58b626ff7d478427c83823e6939e9ab0c5ff6e4f12bdb078/diff:/home/boywonder/.local/share/containers/storage/overlay/bbd5312f18b33f8a40736678a9669abdd151fcd7478e226f1db5cd3195d75a73/diff:/home/boywonder/.local/share/containers/storage/overlay/cd637cdee38b0e0b87d1c42f9c578e4aa484f3f4c6cd4518042625dc503bb6cd/diff:/home/boywonder/.local/share/containers/storage/overlay/690a27fbd0db082f8a27e829df8138ec8c7b975b5bf294c17a0aebbd6dd1ff19/diff:/home/boywonder/.local/share/containers/storage/overlay/edba961ebdce8ed97037e89cd1fc3495ca203094448b22b4803918ec9b66d02a/diff:/home/boywonder/.local/share/containers/storage/overlay/72cdad72f09b8bac3cbbf3f357e44e93359cd2dd014f8eab08b2924f2b97317b/diff:/home/boywonder/.local/share/containers/storage/overlay/f22e6d311162baf72bf73a019c3b9a7da2a86fb66749fe491e058911f021e478/diff:/home/boywonder/.local/share/containers/storage/overlay/dd57f90311a2567b55ff22eeacff1602fd04ad7566e315957731359eab173b90/diff",
+                    "MergedDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/merged",
+                    "UpperDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/diff",
+                    "WorkDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/work"
+               }
+          },
+          "Mounts": [
+               {
+                    "Type": "volume",
+                    "Name": "looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a",
+                    "Source": "/home/boywonder/.local/share/containers/storage/volumes/looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a/_data",
+                    "Destination": "/app/data",
+                    "Driver": "local",
+                    "Mode": "",
+                    "Options": [
+                         "nosuid",
+                         "nodev",
+                         "rbind"
+                    ],
+                    "RW": true,
+                    "Propagation": "rprivate"
+               },
+               {
+                    "Type": "bind",
+                    "Source": "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json",
+                    "Destination": "/app/ci-config.json",
+                    "Driver": "",
+                    "Mode": "",
+                    "Options": [
+                         "rbind"
+                    ],
+                    "RW": false,
+                    "Propagation": "rprivate"
+               }
+          ],
+          "Dependencies": [],
+          "NetworkSettings": {
+               "EndpointID": "",
+               "Gateway": "",
+               "IPAddress": "",
+               "IPPrefixLen": 0,
+               "IPv6Gateway": "",
+               "GlobalIPv6Address": "",
+               "GlobalIPv6PrefixLen": 0,
+               "MacAddress": "",
+               "Bridge": "",
+               "SandboxID": "",
+               "HairpinMode": false,
+               "LinkLocalIPv6Address": "",
+               "LinkLocalIPv6PrefixLen": 0,
+               "Ports": {
+                    "5000/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45889"
+                         }
+                    ],
+                    "5100/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45825"
+                         }
+                    ]
+               },
+               "SandboxKey": "/run/user/1000/netns/netns-8270ef7a-bc55-e702-88da-f6fe94208ac9"
+          },
+          "Namespace": "",
+          "IsInfra": false,
+          "IsService": false,
+          "KubeExitCodePropagation": "invalid",
+          "lockNumber": 3,
+          "Config": {
+               "Hostname": "5de8f89c81af",
+               "Domainname": "",
+               "User": "lg",
+               "AttachStdin": false,
+               "AttachStdout": false,
+               "AttachStderr": false,
+               "Tty": false,
+               "OpenStdin": false,
+               "StdinOnce": false,
+               "Env": [
+                    "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "container=podman",
+                    "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                    "PYTHONDONTWRITEBYTECODE=1",
+                    "PYTHONUNBUFFERED=1",
+                    "LANG=C.UTF-8",
+                    "PYTHON_VERSION=3.14.10",
+                    "LG_DATA_DIR=/app/data",
+                    "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                    "HOME=/app",
+                    "HOSTNAME=5de8f89c81af"
+               ],
+               "Cmd": [
+                    "python",
+                    "python/main.py",
+                    "--config",
+                    "/app/ci-config.json",
+                    "serve"
+               ],
+               "Image": "localhost/looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+               "Volumes": null,
+               "WorkingDir": "/app",
+               "Entrypoint": null,
+               "OnBuild": null,
+               "Labels": {
+                    "io.buildah.version": "1.43.1"
+               },
+               "Annotations": {
+                    "io.container.manager": "libpod",
+                    "org.opencontainers.image.stopSignal": "15",
+                    "org.systemd.property.KillSignal": "15",
+                    "org.systemd.property.TimeoutStopUSec": "uint64 10000000"
+               },
+               "StopSignal": "SIGTERM",
+               "HealthcheckOnFailureAction": "none",
+               "HealthLogDestination": "local",
+               "HealthcheckMaxLogCount": 5,
+               "HealthcheckMaxLogSize": 500,
+               "CreateCommand": [
+                    "/usr/bin/podman",
+                    "run",
+                    "--detach",
+                    "--name",
+                    "looking-glass-test-119fcafe769a4c0c8c664f5605af168a",
+                    "--publish",
+                    "127.0.0.1::5000",
+                    "--publish",
+                    "127.0.0.1::5100",
+                    "--mount",
+                    "type=volume,source=looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a,target=/app/data",
+                    "--volume",
+                    "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json:/app/ci-config.json:ro,Z",
+                    "--env",
+                    "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                    "looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+                    "python",
+                    "python/main.py",
+                    "--config",
+                    "/app/ci-config.json",
+                    "serve"
+               ],
+               "Umask": "0022",
+               "Timeout": 0,
+               "StopTimeout": 10,
+               "Passwd": true,
+               "sdNotifyMode": "container",
+               "ExposedPorts": {
+                    "5000/tcp": {},
+                    "5100/tcp": {}
+               }
+          },
+          "HostConfig": {
+               "Binds": [
+                    "looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a:/app/data:rprivate,nosuid,nodev,rbind",
+                    "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json:/app/ci-config.json:ro,rprivate,rbind"
+               ],
+               "CgroupManager": "systemd",
+               "CgroupMode": "private",
+               "ContainerIDFile": "",
+               "LogConfig": {
+                    "Type": "journald",
+                    "Config": null,
+                    "Path": "",
+                    "Tag": "",
+                    "Size": "-1B"
+               },
+               "NetworkMode": "pasta",
+               "PortBindings": {
+                    "5000/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45889"
+                         }
+                    ],
+                    "5100/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45825"
+                         }
+                    ]
+               },
+               "RestartPolicy": {
+                    "Name": "no",
+                    "MaximumRetryCount": 0
+               },
+               "AutoRemove": false,
+               "AutoRemoveImage": false,
+               "Annotations": {
+                    "io.container.manager": "libpod",
+                    "org.opencontainers.image.stopSignal": "15",
+                    "org.systemd.property.KillSignal": "15",
+                    "org.systemd.property.TimeoutStopUSec": "uint64 10000000"
+               },
+               "VolumeDriver": "",
+               "VolumesFrom": null,
+               "CapAdd": [],
+               "CapDrop": [],
+               "Dns": [],
+               "DnsOptions": [],
+               "DnsSearch": [],
+               "ExtraHosts": [],
+               "HostsFile": "",
+               "GroupAdd": [],
+               "IpcMode": "shareable",
+               "Cgroup": "",
+               "Cgroups": "default",
+               "Links": null,
+               "OomScoreAdj": 0,
+               "PidMode": "private",
+               "Privileged": false,
+               "PublishAllPorts": false,
+               "ReadonlyRootfs": false,
+               "SecurityOpt": [],
+               "Tmpfs": {},
+               "UTSMode": "private",
+               "UsernsMode": "",
+               "ShmSize": 65536000,
+               "Runtime": "oci",
+               "ConsoleSize": [
+                    0,
+                    0
+               ],
+               "Isolation": "",
+               "CpuShares": 0,
+               "Memory": 0,
+               "NanoCpus": 0,
+               "CgroupParent": "user.slice",
+               "BlkioWeight": 0,
+               "BlkioWeightDevice": null,
+               "BlkioDeviceReadBps": null,
+               "BlkioDeviceWriteBps": null,
+               "BlkioDeviceReadIOps": null,
+               "BlkioDeviceWriteIOps": null,
+               "CpuPeriod": 0,
+               "CpuQuota": 0,
+               "CpuRealtimePeriod": 0,
+               "CpuRealtimeRuntime": 0,
+               "CpusetCpus": "",
+               "CpusetMems": "",
+               "Devices": [],
+               "DiskQuota": 0,
+               "KernelMemory": 0,
+               "MemoryReservation": 0,
+               "MemorySwap": 0,
+               "MemorySwappiness": 0,
+               "OomKillDisable": false,
+               "PidsLimit": 2048,
+               "Ulimits": [
+                    {
+                         "Name": "RLIMIT_NOFILE",
+                         "Soft": 1048576,
+                         "Hard": 1048576
+                    },
+                    {
+                         "Name": "RLIMIT_NPROC",
+                         "Soft": 62248,
+                         "Hard": 62248
+                    }
+               ],
+               "CpuCount": 0,
+               "CpuPercent": 0,
+               "IOMaximumIOps": 0,
+               "IOMaximumBandwidth": 0,
+               "CgroupConf": null
+          },
+          "UseImageHosts": false,
+          "UseImageHostname": false
+     }
+]
+
+
+['/usr/bin/podman', 'exec', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a', 'python', '-c', "import os; print(os.stat('/proc/1').st_uid)"]
+exit=0
+1001
+
+
+['/usr/bin/podman', 'stop', '--time', '10', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+looking-glass-test-119fcafe769a4c0c8c664f5605af168a
+
+
+['/usr/bin/podman', 'inspect', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+[
+     {
+          "Id": "5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f",
+          "Created": "2026-11-06T07:37:18.385276216+01:00",
+          "Path": "python",
+          "Args": [
+               "python/main.py",
+               "--config",
+               "/app/ci-config.json",
+               "serve"
+          ],
+          "State": {
+               "OciVersion": "1.2.1",
+               "Status": "exited",
+               "Running": false,
+               "Paused": false,
+               "Restarting": false,
+               "OOMKilled": false,
+               "Dead": false,
+               "Pid": 0,
+               "ExitCode": 0,
+               "Error": "",
+               "StartedAt": "2026-11-06T07:37:18.527597065+01:00",
+               "FinishedAt": "2026-11-06T07:37:20.704431479+01:00",
+               "CheckpointedAt": "0001-01-01T00:00:00Z",
+               "RestoredAt": "0001-01-01T00:00:00Z",
+               "StoppedByUser": true
+          },
+          "Image": "2f6ab6f33dc9553d7550fd9aba835bdef6ae502064a2457c185312a15557a75d",
+          "ImageDigest": "sha256:acb3aebcfa06f02946a6980dac7916fb5dc575855911bcd011545404e72bb325",
+          "ImageName": "localhost/looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+          "Rootfs": "",
+          "Pod": "",
+          "ResolvConfPath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/resolv.conf",
+          "HostnamePath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/hostname",
+          "HostsPath": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/hosts",
+          "StaticDir": "/home/boywonder/.local/share/containers/storage/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata",
+          "OCIConfigPath": "/home/boywonder/.local/share/containers/storage/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/config.json",
+          "OCIRuntime": "crun",
+          "ConmonPidFile": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/conmon.pid",
+          "PidFile": "/run/user/1000/containers/overlay-containers/5de8f89c81af6c13d51106a0b04082edaf843792435f95d8858c1148e6b84c5f/userdata/pidfile",
+          "Name": "looking-glass-test-119fcafe769a4c0c8c664f5605af168a",
+          "RestartCount": 0,
+          "Driver": "overlay",
+          "MountLabel": "",
+          "ProcessLabel": "",
+          "AppArmorProfile": "",
+          "EffectiveCaps": null,
+          "BoundingCaps": [
+               "CAP_CHOWN",
+               "CAP_DAC_OVERRIDE",
+               "CAP_FOWNER",
+               "CAP_FSETID",
+               "CAP_KILL",
+               "CAP_NET_BIND_SERVICE",
+               "CAP_SETFCAP",
+               "CAP_SETGID",
+               "CAP_SETPCAP",
+               "CAP_SETUID",
+               "CAP_SYS_CHROOT"
+          ],
+          "ExecIDs": [],
+          "GraphDriver": {
+               "Name": "overlay",
+               "Data": {
+                    "LowerDir": "/home/boywonder/.local/share/containers/storage/overlay/3bae4bcf1a3a08aede81598d9d2094c05481c56a3bdc2c03fb6996c797a6e805/diff:/home/boywonder/.local/share/containers/storage/overlay/dc86ac872c39df2563ddc7d31d8c5ac1b93b7b06ca36e74fc4e64e2d70d07c85/diff:/home/boywonder/.local/share/containers/storage/overlay/1843c3d26ad5e471c9160b6e8540ae8c51eec7c1f524e60672969a02f9a193e0/diff:/home/boywonder/.local/share/containers/storage/overlay/70f4a3545be72b2fc0e9498701fedf8554da389d8a2383d987283a8dd4738058/diff:/home/boywonder/.local/share/containers/storage/overlay/f54e880879bd526c58b626ff7d478427c83823e6939e9ab0c5ff6e4f12bdb078/diff:/home/boywonder/.local/share/containers/storage/overlay/bbd5312f18b33f8a40736678a9669abdd151fcd7478e226f1db5cd3195d75a73/diff:/home/boywonder/.local/share/containers/storage/overlay/cd637cdee38b0e0b87d1c42f9c578e4aa484f3f4c6cd4518042625dc503bb6cd/diff:/home/boywonder/.local/share/containers/storage/overlay/690a27fbd0db082f8a27e829df8138ec8c7b975b5bf294c17a0aebbd6dd1ff19/diff:/home/boywonder/.local/share/containers/storage/overlay/edba961ebdce8ed97037e89cd1fc3495ca203094448b22b4803918ec9b66d02a/diff:/home/boywonder/.local/share/containers/storage/overlay/72cdad72f09b8bac3cbbf3f357e44e93359cd2dd014f8eab08b2924f2b97317b/diff:/home/boywonder/.local/share/containers/storage/overlay/f22e6d311162baf72bf73a019c3b9a7da2a86fb66749fe491e058911f021e478/diff:/home/boywonder/.local/share/containers/storage/overlay/dd57f90311a2567b55ff22eeacff1602fd04ad7566e315957731359eab173b90/diff",
+                    "UpperDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/diff",
+                    "WorkDir": "/home/boywonder/.local/share/containers/storage/overlay/863ddb513ffc16fe1b2ffbf1e2d11bd1d0bf5b5e480040832e881ae41a535842/work"
+               }
+          },
+          "Mounts": [
+               {
+                    "Type": "volume",
+                    "Name": "looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a",
+                    "Source": "/home/boywonder/.local/share/containers/storage/volumes/looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a/_data",
+                    "Destination": "/app/data",
+                    "Driver": "local",
+                    "Mode": "",
+                    "Options": [
+                         "nosuid",
+                         "nodev",
+                         "rbind"
+                    ],
+                    "RW": true,
+                    "Propagation": "rprivate"
+               },
+               {
+                    "Type": "bind",
+                    "Source": "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json",
+                    "Destination": "/app/ci-config.json",
+                    "Driver": "",
+                    "Mode": "",
+                    "Options": [
+                         "rbind"
+                    ],
+                    "RW": false,
+                    "Propagation": "rprivate"
+               }
+          ],
+          "Dependencies": [],
+          "NetworkSettings": {
+               "EndpointID": "",
+               "Gateway": "",
+               "IPAddress": "",
+               "IPPrefixLen": 0,
+               "IPv6Gateway": "",
+               "GlobalIPv6Address": "",
+               "GlobalIPv6PrefixLen": 0,
+               "MacAddress": "",
+               "Bridge": "",
+               "SandboxID": "",
+               "HairpinMode": false,
+               "LinkLocalIPv6Address": "",
+               "LinkLocalIPv6PrefixLen": 0,
+               "Ports": {
+                    "5000/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45889"
+                         }
+                    ],
+                    "5100/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45825"
+                         }
+                    ]
+               },
+               "SandboxKey": "",
+               "Networks": {
+                    "pasta": {
+                         "EndpointID": "",
+                         "Gateway": "",
+                         "IPAddress": "",
+                         "IPPrefixLen": 0,
+                         "IPv6Gateway": "",
+                         "GlobalIPv6Address": "",
+                         "GlobalIPv6PrefixLen": 0,
+                         "MacAddress": "",
+                         "NetworkID": "pasta",
+                         "DriverOpts": null,
+                         "IPAMConfig": null,
+                         "Links": null
+                    }
+               }
+          },
+          "Namespace": "",
+          "IsInfra": false,
+          "IsService": false,
+          "KubeExitCodePropagation": "invalid",
+          "lockNumber": 3,
+          "Config": {
+               "Hostname": "5de8f89c81af",
+               "Domainname": "",
+               "User": "lg",
+               "AttachStdin": false,
+               "AttachStdout": false,
+               "AttachStderr": false,
+               "Tty": false,
+               "OpenStdin": false,
+               "StdinOnce": false,
+               "Env": [
+                    "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "container=podman",
+                    "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                    "PYTHONDONTWRITEBYTECODE=1",
+                    "PYTHONUNBUFFERED=1",
+                    "LANG=C.UTF-8",
+                    "PYTHON_VERSION=3.14.10",
+                    "LG_DATA_DIR=/app/data",
+                    "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                    "HOME=/app",
+                    "HOSTNAME=5de8f89c81af"
+               ],
+               "Cmd": [
+                    "python",
+                    "python/main.py",
+                    "--config",
+                    "/app/ci-config.json",
+                    "serve"
+               ],
+               "Image": "localhost/looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+               "Volumes": null,
+               "WorkingDir": "/app",
+               "Entrypoint": null,
+               "OnBuild": null,
+               "Labels": {
+                    "io.buildah.version": "1.43.1"
+               },
+               "Annotations": {
+                    "io.container.manager": "libpod",
+                    "org.opencontainers.image.stopSignal": "15",
+                    "org.systemd.property.KillSignal": "15",
+                    "org.systemd.property.TimeoutStopUSec": "uint64 10000000"
+               },
+               "StopSignal": "SIGTERM",
+               "HealthcheckOnFailureAction": "none",
+               "HealthLogDestination": "local",
+               "HealthcheckMaxLogCount": 5,
+               "HealthcheckMaxLogSize": 500,
+               "CreateCommand": [
+                    "/usr/bin/podman",
+                    "run",
+                    "--detach",
+                    "--name",
+                    "looking-glass-test-119fcafe769a4c0c8c664f5605af168a",
+                    "--publish",
+                    "127.0.0.1::5000",
+                    "--publish",
+                    "127.0.0.1::5100",
+                    "--mount",
+                    "type=volume,source=looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a,target=/app/data",
+                    "--volume",
+                    "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json:/app/ci-config.json:ro,Z",
+                    "--env",
+                    "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                    "looking-glass-test:37ae8577cfa94ca896f3898e2e66cc05",
+                    "python",
+                    "python/main.py",
+                    "--config",
+                    "/app/ci-config.json",
+                    "serve"
+               ],
+               "Umask": "0022",
+               "Timeout": 0,
+               "StopTimeout": 10,
+               "Passwd": true,
+               "sdNotifyMode": "container",
+               "ExposedPorts": {
+                    "5000/tcp": {},
+                    "5100/tcp": {}
+               }
+          },
+          "HostConfig": {
+               "Binds": [
+                    "looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a:/app/data:rprivate,nosuid,nodev,rbind",
+                    "/tmp/looking-glass-local-4kjqloh5/tmp/recovery/test_container_nonroot_listene0/container-config.json:/app/ci-config.json:ro,rprivate,rbind"
+               ],
+               "CgroupManager": "systemd",
+               "CgroupMode": "private",
+               "ContainerIDFile": "",
+               "LogConfig": {
+                    "Type": "journald",
+                    "Config": null,
+                    "Path": "",
+                    "Tag": "",
+                    "Size": "-1B"
+               },
+               "NetworkMode": "pasta",
+               "PortBindings": {
+                    "5000/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45889"
+                         }
+                    ],
+                    "5100/tcp": [
+                         {
+                              "HostIp": "127.0.0.1",
+                              "HostPort": "45825"
+                         }
+                    ]
+               },
+               "RestartPolicy": {
+                    "Name": "no",
+                    "MaximumRetryCount": 0
+               },
+               "AutoRemove": false,
+               "AutoRemoveImage": false,
+               "Annotations": {
+                    "io.container.manager": "libpod",
+                    "org.opencontainers.image.stopSignal": "15",
+                    "org.systemd.property.KillSignal": "15",
+                    "org.systemd.property.TimeoutStopUSec": "uint64 10000000"
+               },
+               "VolumeDriver": "",
+               "VolumesFrom": null,
+               "CapAdd": [],
+               "CapDrop": [],
+               "Dns": [],
+               "DnsOptions": [],
+               "DnsSearch": [],
+               "ExtraHosts": [],
+               "HostsFile": "",
+               "GroupAdd": [],
+               "IpcMode": "shareable",
+               "Cgroup": "",
+               "Cgroups": "default",
+               "Links": null,
+               "OomScoreAdj": 0,
+               "PidMode": "private",
+               "Privileged": false,
+               "PublishAllPorts": false,
+               "ReadonlyRootfs": false,
+               "SecurityOpt": [],
+               "Tmpfs": {},
+               "UTSMode": "private",
+               "UsernsMode": "",
+               "ShmSize": 65536000,
+               "Runtime": "oci",
+               "ConsoleSize": [
+                    0,
+                    0
+               ],
+               "Isolation": "",
+               "CpuShares": 0,
+               "Memory": 0,
+               "NanoCpus": 0,
+               "CgroupParent": "user.slice",
+               "BlkioWeight": 0,
+               "BlkioWeightDevice": null,
+               "BlkioDeviceReadBps": null,
+               "BlkioDeviceWriteBps": null,
+               "BlkioDeviceReadIOps": null,
+               "BlkioDeviceWriteIOps": null,
+               "CpuPeriod": 0,
+               "CpuQuota": 0,
+               "CpuRealtimePeriod": 0,
+               "CpuRealtimeRuntime": 0,
+               "CpusetCpus": "",
+               "CpusetMems": "",
+               "Devices": [],
+               "DiskQuota": 0,
+               "KernelMemory": 0,
+               "MemoryReservation": 0,
+               "MemorySwap": 0,
+               "MemorySwappiness": 0,
+               "OomKillDisable": false,
+               "PidsLimit": 2048,
+               "Ulimits": [
+                    {
+                         "Name": "RLIMIT_NOFILE",
+                         "Soft": 1048576,
+                         "Hard": 1048576
+                    },
+                    {
+                         "Name": "RLIMIT_NPROC",
+                         "Soft": 62248,
+                         "Hard": 62248
+                    }
+               ],
+               "CpuCount": 0,
+               "CpuPercent": 0,
+               "IOMaximumIOps": 0,
+               "IOMaximumBandwidth": 0,
+               "CgroupConf": null
+          },
+          "UseImageHosts": false,
+          "UseImageHostname": false
+     }
+]
+
+
+['/usr/bin/podman', 'logs', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+
+2026-11-06 06:37:19,562 WARNING looking_glass: ================================================================
+Created superadmin 'superadmin' from LG_SUPERADMIN_PASSWORD
+================================================================
+2026-11-06 06:37:19,569 INFO    looking_glass: Admin  portal: http://0.0.0.0:5000
+2026-11-06 06:37:19,569 INFO    looking_glass: Viewer portal: http://0.0.0.0:5100
+2026-11-06 06:37:19,577 INFO    uvicorn.error: Started server process [1]
+2026-11-06 06:37:19,577 INFO    uvicorn.error: Waiting for application startup.
+2026-11-06 06:37:19,577 INFO    uvicorn.error: Started server process [1]
+2026-11-06 06:37:19,577 INFO    uvicorn.error: Waiting for application startup.
+2026-11-06 06:37:19,577 INFO    uvicorn.error: Application startup complete.
+2026-11-06 06:37:19,578 INFO    uvicorn.error: Application startup complete.
+2026-11-06 06:37:19,589 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+2026-11-06 06:37:19,589 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5100 (Press CTRL+C to quit)
+2026-11-06 06:37:20,465 INFO    looking_glass: Shutting down...
+2026-11-06 06:37:20,493 INFO    uvicorn.error: Shutting down
+2026-11-06 06:37:20,493 INFO    uvicorn.error: Shutting down
+2026-11-06 06:37:20,593 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-06 06:37:20,593 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-06 06:37:20,594 INFO    uvicorn.error: Application shutdown complete.
+2026-11-06 06:37:20,594 INFO    uvicorn.error: Finished server process [1]
+2026-11-06 06:37:20,594 INFO    uvicorn.error: Application shutdown complete.
+2026-11-06 06:37:20,594 INFO    uvicorn.error: Finished server process [1]
+
+['/usr/bin/podman', 'rm', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+looking-glass-test-119fcafe769a4c0c8c664f5605af168a
+
+
+['/usr/bin/podman', 'rm', '--force', 'looking-glass-test-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+
+
+['/usr/bin/podman', 'volume', 'rm', 'looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a']
+exit=0
+looking-glass-test-data-119fcafe769a4c0c8c664f5605af168a
+
+
