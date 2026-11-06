@@ -1,5 +1,9 @@
 # Bug 24: configuration shape validation candidate
 
+Current status: accepted and closed by user request on 2026-11-06. See
+[accepted closure](#accepted-closure-2026-11-06). The preparation record below
+is historical; pending statements describe the implementation preparation.
+
 Date: 2026-11-06. Repository: dajomas/Looking-Glass.
 Working branch: features/perplexity. Bug 24 remains open/acceptance pending.
 
@@ -68,3 +72,72 @@ This proposed implementation/test/documentation commit intentionally has no
 [skip ci]. Delivery requires exact content approval and a successful GitHub
 write; report the actual SHA only afterward. No other branch, merge, archive
 or Patch/ material is included. TODO.md status stays open.
+
+## Accepted closure (2026-11-06)
+
+The user requested finishing and closing bug 24 after focused, full local and
+CI validation. Implementation commit:
+`b165a44ca915b04f0a5196373ddece904b558a8c`. This acceptance supersedes the pending
+statements in the preserved preparation record above. TODO.md marks bug 24
+accepted and closed; all 14 findings 16–29 from the second audit are now closed.
+This closes the internal backlog item, not GitHub issue number 24, and does not
+claim that no undiscovered defects or documented acceptance gaps remain.
+
+### Focused and full local evidence
+
+The user reported the four-file configuration command above completed with
+206 passed in 8.37 seconds: 182 new loader cases, eight new CLI no-bootstrap
+cases and 16 existing bug 23 selection/CLI cases. The terminal excerpt alone
+did not include a checkout SHA; keep this separate from the published run.
+
+Full local evidence was reviewed at publication commit
+`82fa18d62c35912793c04a9d20b294b73f17317e` under
+`local-tests-b165a44/run-20261106T080205Z-WGRA5c/`. workspace-identity.json records
+requested, expected and actual source as the implementation SHA above.
+environment.txt records a detached sparse clone excluding uncommitted changes,
+Python 3.14.7 and WSL2/Linux, start 08:02:05Z and finish 08:10:38Z on 2026-11-06.
+summary.tsv reports test_exit=0 and report_exit=0 for all five groups and overall
+exit-code.txt is 0. All five report-validation.log files were read: Python 1,907,
+JavaScript 35 scripts, browser 172, live 18 and recovery 6, each with zero reported
+failures/errors/skips. These are validator-reported totals, not an independent
+recount of every local test entry. Local diagnostics were not exhaustively read.
+
+### Reviewed CI evidence
+
+GitHub Actions run `42184320542`, attempt 1, tested the same implementation SHA
+on features/perplexity. Evidence was reviewed at publication commit
+`713cac8e24edce8e16ff843ec0f4af9d58fc8edb` under
+`ci-results-42184320542-attempt-1/`. run.json records overall success, all five
+jobs successful and their report-validation steps successful. JUnit headers
+report zero failures/errors/skips: Python 1,936 entries, JavaScript 35 script
+cases, browser 172, live 18 and recovery 6. Python pytest's final summary in
+reader-chunks/file-000082/part-000054.txt explains its count: 1,907 passed plus
+29 passed subtests in 204.81 seconds. Selected chunks 10–12 explicitly show
+passing loader rejection/compatibility cases and all eight CLI no-bootstrap
+cases. This was metadata, header and selected-log review, not a rerun or an
+inspection of every artifact. Publication commits are not tested source.
+
+### Accepted scope, limitations and delivery
+
+Acceptance covers the supplied top-level and known-section mapping boundary,
+actionable source/section diagnostics, CLI rejection before bootstrap writes,
+valid partial merge/precedence/extensions, preserved empty/null documents and
+bug 23 regressions. It does not add numeric-range or arbitrary leaf-type checks,
+a strict unknown-key schema, cyclic-YAML handling, direct Settings validation,
+every platform/proxy topology or a guarantee against undiscovered defects.
+
+This closure changes documentation/status only. No code, tests, migrations,
+evidence artifacts or historical audit/manifests are changed. No tests were
+rerun for closure and no new test success is claimed for the closure commit.
+README.md and HANDOVER.md were read: README needs no cosmetic change; its
+existing handover index still links this preparation/evidence record, now with
+an explicit current-status notice and closure section. Release notes now record
+the accepted behavior and remove the obsolete implication that bug 24 is still
+outstanding. TODO.md records the completed second audit. No other bug's status
+or acceptance limits are changed.
+
+Delivery targets features/perplexity with message
+`Close bug 24 and record accepted validation [skip ci]`. The skip marker is
+intentional for documentation only, not proof of actual workflow skip status.
+No other branch, merge, deletion, archive or Patch/ material is included.
+Report the actual closure SHA only after the approved write succeeds.

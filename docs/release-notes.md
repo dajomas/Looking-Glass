@@ -9,6 +9,13 @@ are not summarized here.
 
 ### Fixed
 
+- **Configuration structure is validated before merging (bug 24, accepted).**
+  YAML and programmatic overrides must be mappings, and supplied known sections
+  must be mappings. Invalid roots/sections produce source-specific errors before
+  CLI storage/bootstrap writes. Empty/comment-only and YAML-null documents keep
+  defaults; false, 0, empty-string and list roots are rejected. Valid partial
+  merges, extension keys, precedence and explicit-file selection are preserved.
+  Numeric-range and arbitrary leaf-type validation are outside this change.
 - **Malformed multipart CSRF tokens are rejected safely (bug 22, accepted).**
   File-valued csrf_token fields are rejected through the existing Forbidden
   response before token comparison, rather than causing a server error. Valid
@@ -47,8 +54,8 @@ are not summarized here.
   A missing explicit file no longer silently starts with default settings.
   Missing paths, broken links, directories and permission failures stop settings
   loading before CLI storage creation or database migration. Optional default
-  discovery and normal setting precedence are retained. Broader configuration
-  structure validation (bug 24) remains separate and is not included.
+  discovery and normal setting precedence are retained. Configuration structure
+  validation is delivered separately under bug 24 above.
 - **Manual map calibration rejects non-finite geometry (bug 16, accepted).**
   NaN/infinite offsets or scales are rejected. Individually finite inputs whose
   wall-coordinate transform overflows are rejected before mutation, cache
@@ -67,6 +74,9 @@ are not summarized here.
 ### Upgrade notes
 
 - No database migration is required for these changes.
+- Known configuration sections must use mapping syntax such as `server: {}`;
+  remove an unwanted section instead of assigning null, false or a list.
+  Empty/comment-only and YAML-null whole documents still request defaults.
 - Login automation must supply the exact receiving portal Origin. Reverse
   proxies must preserve the external Host/port and trusted external scheme and
   must not strip or manufacture browser source headers. Both source headers
@@ -82,6 +92,18 @@ are not summarized here.
   cannot be recalled.
 
 ### Verification
+
+Bug 24 is accepted and closed by user request on 2026-11-06. The user reported
+206 focused configuration tests passing. CI run 42184320542 attempt 1 and the
+published full local run both tested `b165a44ca915b04f0a5196373ddece904b558a8c`
+and passed all five groups. CI reports Python 1,907 passed plus 29 passed
+subtests, JavaScript 35 scripts, browser 172, live 18 and recovery 6, with zero
+failures/errors/skips in the reviewed report summaries. Local validators report
+1,907 Python cases and the same other-group counts, with zero reported
+failures/errors/skips. Evidence publication SHAs and review limits are recorded
+in [accepted closure](handover/099-bug-24-config-shapes-2026-11-06.md#accepted-closure-2026-11-06).
+All findings 16–29 from the second audit are closed; this is not a claim that
+all possible defects or previously documented acceptance gaps are resolved.
 
 Bug 22 is accepted and closed by user request on 2026-11-06. CI run
 42177604548 attempt 1 passed all five jobs on

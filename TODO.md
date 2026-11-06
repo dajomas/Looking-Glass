@@ -29,8 +29,8 @@ Uncommitted bug-2 candidates are not installed branch changes.
 ## Second bug hunt: bugs 16–29
 
 Audited source: `766780262bf44922bbd7c9fa2b3081e7e28e214f` on
-`features/perplexity`, 2026-10-31. Bugs 16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28 and 29 are accepted and closed.
-One finding remains open: 24.
+`features/perplexity`, 2026-10-31. All findings 16–29 are accepted and closed.
+No findings remain open from this second audit.
 The original workflow's counts and suggested order are historical; do not use
 them to reopen accepted bugs 2/13/14/15. Existing individual status records and
 accepted handovers remain authoritative. This audit changes no earlier status.
@@ -49,7 +49,7 @@ existing bug numbering:
 - [21. Login lacks cross-site submission protection](docs/todo/018-bugs-16-29-audit-2026-10-31.md#21-login-lacks-cross-site-submission-protection) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/086-bugs-20-21-accepted-closure-2026-11-05.md)
 - [22. Multipart CSRF token can cause an unhandled type error](docs/todo/018-bugs-16-29-audit-2026-10-31.md#22-multipart-csrf-token-can-cause-an-unhandled-type-error) — closed 2026-11-06 by user acceptance; see [accepted closure and evidence limits](docs/handover/098-bug-22-multipart-csrf-2026-11-06.md#accepted-closure-2026-11-06)
 - [23. Explicit missing configuration silently falls back to defaults](docs/todo/018-bugs-16-29-audit-2026-10-31.md#23-explicit-missing-configuration-silently-falls-back-to-defaults) — closed 2026-11-04; see [accepted closure](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md#bug-23-accepted-closure-2026-11-04)
-- [24. Malformed configuration structures bypass loader validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#24-malformed-configuration-structures-bypass-loader-validation)
+- [24. Malformed configuration structures bypass loader validation](docs/todo/018-bugs-16-29-audit-2026-10-31.md#24-malformed-configuration-structures-bypass-loader-validation) — closed 2026-11-06 by user acceptance; see [accepted closure and evidence limits](docs/handover/099-bug-24-config-shapes-2026-11-06.md#accepted-closure-2026-11-06)
 - [25. Delayed admin polling can roll editor state backwards](docs/todo/018-bugs-16-29-audit-2026-10-31.md#25-delayed-admin-polling-can-roll-editor-state-backwards) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/091-bugs-25-26-accepted-closure-2026-11-05.md)
 - [26. Mask early return does not invalidate an in-flight different mask](docs/todo/018-bugs-16-29-audit-2026-10-31.md#26-mask-early-return-does-not-invalidate-an-in-flight-different-mask) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/091-bugs-25-26-accepted-closure-2026-11-05.md)
 - [27. Notes-only changes do not refresh other editors](docs/todo/018-bugs-16-29-audit-2026-10-31.md#27-notes-only-changes-do-not-refresh-other-editors) — closed 2026-11-05 by user acceptance with a dedicated two-editor acceptance gap; see [closure and evidence limits](docs/handover/093-bug-27-accepted-closure-2026-11-05.md)
@@ -57,8 +57,8 @@ existing bug numbering:
 - [29. Async image upload holds a SQLite write lock across await](docs/todo/018-bugs-16-29-audit-2026-10-31.md#29-async-image-upload-holds-a-sqlite-write-lock-across-await) — closed 2026-11-05; see [accepted closure and evidence limits](docs/handover/088-bug-29-accepted-closure-2026-11-05.md)
 
 Suggested implementation order from the audit: **16 → 17 → 18 → 19 → 20 → 21 →
-23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (16, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28 and 29 are closed).
-Remaining order: **24**.
+23 → 29 → 25 → 26 → 27 → 28 → 22 → 24** (all findings 16–29 are closed).
+Remaining order: **none**.
 Severity and dependency rationale are in the audit record.
 Add regressions first and keep each fix separately reviewable.
 Items 17/18 can share a coordinated image-retirement design; 25 precedes 26.
