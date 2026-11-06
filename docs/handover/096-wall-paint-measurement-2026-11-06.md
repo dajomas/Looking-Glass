@@ -69,3 +69,48 @@ Run normal CI too. Inspect PNG/JSON diagnostics if convergence still fails; do
 not increase the +/-1 tolerance or suppress genuine rendering failures. Stable
 before/after probes cannot make screenshots and DOM sampling literally atomic
 or establish correctness for every transient compositor/browser condition.
+
+## Diagnostic-retention follow-up (2026-11-06)
+
+The user's run pinned 25a09e65f2ce3019df24ea1e85092b8edb79838d: 13 helper
+tests passed in 1.44s, but browser follow-up reported 1 failed/4 passed in
+16.15s. The battle native-drag baseline timed out before dragging. Its final
+DOM sample was ready with screenWidth 2.0000055 and an in-bounds strip; its
+last screenshot attempt had a 1ms timeout while waiting for fonts. This does
+not establish fonts as the preceding five seconds' cause. The original helper
+reset last diagnostics per iteration and could save an earlier PNG beside later
+metadata, losing earlier pixel counts/reasons. The original browser failure is
+still unresolved; this follow-up fixes diagnostic bookkeeping, not rendering.
+
+The helper now keeps separate last completed measurement/PNG, last successful
+capture, latest attempt/error and an eight-attempt history with total count,
+phases and elapsed times. A retained completed measurement is preferred for
+PNG output, with explicit saved_sample and capture_source metadata. A later
+capture/probe failure cannot overwrite its pixel count or substitute a newer
+incomplete image. If no measurement completed, any saved image is identified
+as a last_capture, not a completed measurement.
+
+Remaining capture budget is checked after the pre-probe; zero/negative rounded
+budget stops capture instead of being forced to 1ms. A genuinely positive
+remaining budget may still be small. There is no fresh fallback screenshot
+after the deadline. With no successful capture the helper writes JSON with
+null screenshot/sample fields. PNG-write failure does not prevent a separate
+JSON-write attempt; all diagnostic failures remain in the final assertion.
+DOM probe, five-second default, paint predicates, +/-1 zoom tolerance, native
+growth, browser call sites and production files remain unchanged.
+
+Five added parametrized cases cover completed rejection followed by screenshot
+timeout or after-probe failure, budget exhaustion during the pre-probe, bounded
+history and PNG-write failure. All 18 helper cases passed in an isolated
+sandbox copy in 0.28s using real PNG encoding/decoding, page doubles and fake
+clocks for the added cases. No real browser, application or CI suite was run
+for this follow-up. The browser rerun above is user evidence, not an assistant
+execution. Tests still need a normal-checkout and Chromium rerun.
+
+The updated helper/test files measure 7,537/7,088 UTF-8 bytes; this record stays
+below 25,000 bytes. README.md and HANDOVER.md were re-read and remain accurate;
+the existing HANDOVER link already targets this updated record, so neither
+index nor README needs a cosmetic change. Earlier sections describe the first
+increment and retain historical sizes/results; this follow-up supersedes their
+diagnostic implementation details. No [skip ci], archive, Patch/ material,
+workflow change, branch change or bug closure is included.

@@ -1,9 +1,11 @@
 """Screenshot-based wall assertions; no application rendering changes."""
+import copy
 import io
 import json
 import math
 import time
 import uuid
+from collections import deque
 from pathlib import Path
 
 from PIL import Image
@@ -58,52 +60,84 @@ SAMPLE = r"""selector => {
 
 def painted_width(page, overlay, *, expected, reference=None, minimum=1,
                   timeout=5000, diagnostic_dir=None):
-    """Poll coherent, visible screenshots, never accepting a zero-width baseline."""
-    deadline = time.monotonic() + timeout / 1000
-    last, screenshot = {}, None
+    """Preserve completed measurements independently of later capture failures."""
+    started = time.monotonic()
+    deadline = started + timeout / 1000
+    history = deque(maxlen=8)
+    last_completed = last_capture = latest_error = None
+    attempts = 0
     while time.monotonic() < deadline:
+        attempts += 1
+        attempt = {"attempt": attempts, "phase": "probe-before"}
+        capture = None
         try:
             before = page.evaluate(SAMPLE, overlay)
-            last = {"before": before}
-            if not before.get("ready"):
-                # Screenshots provide a browser paint opportunity without a fixed sleep.
-                screenshot = page.screenshot(scale="css", timeout=max(1, int((deadline - time.monotonic()) * 1000)))
-                continue
-            screenshot = page.screenshot(scale="css", timeout=max(1, int((deadline - time.monotonic()) * 1000)))
+            attempt["before"] = before
+            remaining_ms = int((deadline - time.monotonic()) * 1000)
+            if remaining_ms <= 0:
+                attempt["reason"] = "budget exhausted before capture"
+                break
+            attempt.update(phase="screenshot", capture_timeout_ms=remaining_ms)
+            capture = page.screenshot(scale="css", timeout=remaining_ms)
+            attempt["phase"] = "probe-after"
             after = page.evaluate(SAMPLE, overlay)
-            last["after"] = after
+            attempt["after"] = after
             if before != after:
-                last["reason"] = "path/geometry/DOM changed across screenshot"
+                attempt["reason"] = "path/geometry/DOM changed across screenshot"
                 continue
-            with Image.open(io.BytesIO(screenshot)) as source:
+            if not before.get("ready"):
+                attempt["reason"] = before.get("reason", "sample not ready")
+                continue
+            attempt["phase"] = "pixels"
+            with Image.open(io.BytesIO(capture)) as source:
                 image = source.convert("RGB")
             if list(image.size) != before["viewport"]:
-                last["reason"] = "screenshot and CSS viewport dimensions differ"
+                attempt["reason"] = "screenshot and CSS viewport dimensions differ"
                 continue
             left, right, row = before["strip"]
             count = sum(1 for col in range(left, right + 1)
                         if (lambda c: c[0] > 235 and 65 < c[1] < 130 and c[2] > 180)(image.getpixel((col, row))))
-            last["painted_width"] = count
-            # Strong-colour pixels can exclude antialiased edge pixels. This
-            # absolute credibility check supplements, not replaces, zoom +/-1.
             credible = max(1, math.floor(expected) - 2, minimum) <= count <= math.ceil(expected) + 1
             correct_css = abs(before["screenWidth"] - expected) <= .01
             stable_zoom = reference is None or abs(count - reference) <= 1
+            attempt.update(phase="completed", painted_width=count, credible=credible,
+                           correct_css=correct_css, stable_zoom=stable_zoom,
+                           reason="accepted" if credible and correct_css and stable_zoom else
+                           "paint/CSS width or zoom invariant not satisfied")
+            last_completed = {"sample": copy.deepcopy(attempt), "png": capture}
             if credible and correct_css and stable_zoom:
                 return count
-            last["reason"] = "paint/CSS width or zoom invariant not satisfied"
         except Exception as error:
-            last["error"] = f"{type(error).__name__}: {error}"
+            attempt["error"] = f"{type(error).__name__}: {error}"
+            latest_error = copy.deepcopy(attempt)
+        finally:
+            attempt["elapsed_ms"] = round((time.monotonic() - started) * 1000, 3)
+            if capture is not None:
+                last_capture = {"sample": copy.deepcopy(attempt), "png": capture}
+            history.append(copy.deepcopy(attempt))
+    selected = last_completed if last_completed is not None else last_capture
+    diagnostic = dict(expected=expected, reference=reference, minimum=minimum,
+        timeout_ms=timeout, overlay=overlay, attempts=attempts, history=list(history),
+        latest_error=latest_error,
+        last_completed=last_completed["sample"] if last_completed else None,
+        latest_attempt=history[-1] if history else None,
+        saved_sample=selected["sample"] if selected else None,
+        capture_source="last_completed" if last_completed else "last_capture" if last_capture else None,
+        screenshot=None, diagnostic_errors=[])
     folder = Path(diagnostic_dir) if diagnostic_dir is not None else Path("test-results/wall-paint")
     stem = folder / ("wall-paint-" + uuid.uuid4().hex)
-    last.update(expected=expected, reference=reference, minimum=minimum, timeout_ms=timeout, overlay=overlay)
     try:
         folder.mkdir(parents=True, exist_ok=True)
-        if screenshot is None:
-            screenshot = page.screenshot(scale="css", timeout=1000)
-        stem.with_suffix(".png").write_bytes(screenshot)
-        last["screenshot"] = str(stem.with_suffix(".png"))
-        stem.with_suffix(".json").write_text(json.dumps(last, indent=2), encoding="utf-8")
     except Exception as error:
-        last["diagnostic_error"] = f"{type(error).__name__}: {error}"
-    raise AssertionError("Wall paint did not converge: " + json.dumps(last, sort_keys=True))
+        diagnostic["diagnostic_errors"].append(f"mkdir: {type(error).__name__}: {error}")
+    if selected is not None:
+        try:
+            stem.with_suffix(".png").write_bytes(selected["png"])
+            diagnostic["screenshot"] = str(stem.with_suffix(".png"))
+        except Exception as error:
+            diagnostic["diagnostic_errors"].append(f"PNG: {type(error).__name__}: {error}")
+    try:
+        stem.with_suffix(".json").write_text(json.dumps(diagnostic, indent=2), encoding="utf-8")
+    except Exception as error:
+        diagnostic["diagnostic_errors"].append(f"JSON: {type(error).__name__}: {error}")
+    raise AssertionError("Wall paint did not converge: " + json.dumps(diagnostic, sort_keys=True))

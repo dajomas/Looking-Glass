@@ -2,7 +2,9 @@
 import copy
 import importlib.util
 import io
+import json
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 from PIL import Image, ImageDraw
@@ -80,3 +82,96 @@ def test_native_growth_minimum_is_required(tmp_path):
     with pytest.raises(AssertionError):
         painted_width(Page(width=8, screen_width=8), "#walls", expected=8, minimum=9,
                       timeout=20, diagnostic_dir=tmp_path)
+
+
+@pytest.fixture
+def clock(monkeypatch):
+    value = SimpleNamespace(now=0.0)
+    monkeypatch.setattr(module, "time", SimpleNamespace(monotonic=lambda: value.now))
+    return value
+
+
+def diagnostic(tmp_path):
+    return json.loads(next(tmp_path.glob("*.json")).read_text())
+
+
+@pytest.mark.parametrize("failure", ["screenshot", "after-probe"])
+def test_completed_rejection_survives_later_failure(tmp_path, clock, failure):
+    class FailingPage(Page):
+        shots = 0
+        def evaluate(self, script, overlay):
+            self.calls += 1
+            if failure == "after-probe" and self.calls == 4:
+                clock.now = 2
+                raise RuntimeError("probe failed after newer screenshot")
+            return dict(self.base, node=1 if self.calls <= 2 else 2)
+        def screenshot(self, **kwargs):
+            self.shots += 1
+            assert kwargs["timeout"] > 0
+            if self.shots == 2:
+                if failure == "screenshot":
+                    clock.now = 2
+                    raise TimeoutError("waiting for fonts")
+                return bitmap(4)
+            return self.body
+    page = FailingPage(width=0)
+    with pytest.raises(AssertionError):
+        painted_width(page, "#walls", expected=10, timeout=1000, diagnostic_dir=tmp_path)
+    result = diagnostic(tmp_path)
+    assert result["last_completed"]["painted_width"] == 0
+    assert result["saved_sample"]["before"]["node"] == 1
+    assert result["saved_sample"]["after"]["node"] == 1
+    assert result["capture_source"] == "last_completed"
+    assert result["latest_error"]["before"]["node"] == 2
+    assert result["latest_error"]["phase"] == ("screenshot" if failure == "screenshot" else "probe-after")
+    assert next(tmp_path.glob("*.png")).read_bytes() == bitmap(0)
+    assert len(result["history"]) == 2
+    assert page.shots == 2
+
+
+def test_budget_exhausted_during_probe_starts_no_capture(tmp_path, clock):
+    class SlowProbe(Page):
+        shots = 0
+        def evaluate(self, *args):
+            clock.now = 2
+            return self.base
+        def screenshot(self, **kwargs):
+            self.shots += 1
+            raise AssertionError("capture must not start")
+    page = SlowProbe()
+    with pytest.raises(AssertionError):
+        painted_width(page, "#walls", expected=10, timeout=1000, diagnostic_dir=tmp_path)
+    result = diagnostic(tmp_path)
+    assert page.shots == 0
+    assert result["latest_attempt"]["reason"] == "budget exhausted before capture"
+    assert result["screenshot"] is None and result["saved_sample"] is None
+    assert not list(tmp_path.glob("*.png"))
+
+
+def test_attempt_history_is_bounded(tmp_path, clock):
+    class ManyCaptures(Page):
+        def screenshot(self, **kwargs):
+            clock.now += .01
+            return self.body
+    with pytest.raises(AssertionError):
+        painted_width(ManyCaptures(width=0), "#walls", expected=10, timeout=1000, diagnostic_dir=tmp_path)
+    result = diagnostic(tmp_path)
+    assert result["attempts"] > 8
+    assert len(result["history"]) == 8
+    assert result["last_completed"]["painted_width"] == 0
+
+
+def test_png_write_failure_still_writes_json(tmp_path, clock, monkeypatch):
+    def cannot_write_png(path, data):
+        raise OSError("PNG storage failure")
+    monkeypatch.setattr(Path, "write_bytes", cannot_write_png)
+    class OneCapture(Page):
+        def screenshot(self, **kwargs):
+            clock.now = 2
+            return self.body
+    with pytest.raises(AssertionError):
+        painted_width(OneCapture(width=0), "#walls", expected=10, timeout=1000, diagnostic_dir=tmp_path)
+    result = diagnostic(tmp_path)
+    assert result["last_completed"]["painted_width"] == 0
+    assert result["screenshot"] is None
+    assert "PNG storage failure" in result["diagnostic_errors"][0]
