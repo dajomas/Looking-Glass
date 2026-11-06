@@ -1,15 +1,14 @@
 from browser_support import template_environment, fulfill_auxiliary
 """Follow-up regressions: native slider input, immediate paint, independent panels."""
-import io
 from pathlib import Path
 from urllib.parse import urlparse
 
 import pytest
-from PIL import Image
 from jinja2 import DictLoader, Environment
 
 pw = pytest.importorskip("playwright.sync_api")
 from test_editor_controls import png
+from wall_paint_support import painted_width
 
 
 @pytest.fixture
@@ -71,23 +70,12 @@ def load_editor(page, kind):
     return state, overlay
 
 
-def painted_width(page, overlay):
-    x, y = page.locator(overlay + " .w-wall").evaluate("""el => {
-      const point = new DOMPoint(100, 100).matrixTransform(el.getScreenCTM());
-      return [point.x, point.y];
-    }""")
-    image = Image.open(io.BytesIO(page.screenshot())).convert("RGB")
-    row = int(round(y))
-    return sum(1 for col in range(int(x) - 15, int(x) + 16)
-               if (lambda c: c[0] > 235 and 65 < c[1] < 130 and c[2] > 180)(image.getpixel((col, row))))
-
-
 @pytest.mark.parametrize("kind", ["battle", "wall"])
 def test_native_drag_changes_label_and_painted_stroke_before_any_edit(page, kind):
     state, overlay = load_editor(page, kind)
     if kind == "battle":
         page.locator("#walls-panel > summary").click()
-    before = painted_width(page, overlay)
+    before = painted_width(page, overlay, expected=2)
     slider = page.locator("#wall-width")
     slider.scroll_into_view_if_needed()
     box = slider.bounding_box()
@@ -99,7 +87,7 @@ def test_native_drag_changes_label_and_painted_stroke_before_any_edit(page, kind
     width = float(slider.input_value())
     assert width >= 8
     pw.expect(page.locator("#wall-width-value")).to_have_text(f"{width:g} px")
-    assert painted_width(page, overlay) >= before + 4
+    assert painted_width(page, overlay, expected=width, minimum=before + 4) >= before + 4
     page.mouse.up()
     assert not state["posts"] and not state["errors"]
 
@@ -116,12 +104,13 @@ def test_keyboard_width_zoom_and_reload(page, kind):
     pw.expect(page.locator("#wall-width-value")).to_have_text("1 px")
     slider.press("End")
     pw.expect(page.locator("#wall-width-value")).to_have_text("10 px")
-    before = painted_width(page, overlay)
+    before = painted_width(page, overlay, expected=10)
     page.click("#wall-zoom-in" if kind == "wall" else "#zoom-in")
-    assert abs(painted_width(page, overlay) - before) <= 1
+    assert abs(painted_width(page, overlay, expected=10, reference=before) - before) <= 1
     page.reload()
     pw.expect(page.locator(overlay + " path")).to_have_count(2)
     pw.expect(page.locator("#wall-width-value")).to_have_text("10 px")
+    assert abs(painted_width(page, overlay, expected=10, reference=before) - before) <= 1
     assert not state["posts"] and not state["errors"]
 
 
