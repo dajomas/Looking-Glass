@@ -1,0 +1,28 @@
+■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:46.2191126Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:46.2618556Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:46.3010898Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:46.3544188Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 120 MiB
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6608734Z Chrome Headless Shell 156.0.8078.4 (playwright chromium-headless-shell v1248) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1248
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6900168Z ##[group]Run python --version >> test-results/environment.txt
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6900714Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6901177Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6901573Z ^[[36;1mpython -m pip check^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6901954Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6902448Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6903097Z ^[[36;1mfrom importlib import import_module^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6903461Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6903822Z ^[[36;1mrequired = {^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6904077Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6904370Z ^[[36;1m    "starlette": "starlette",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6904660Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6905021Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6905360Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6905630Z ^[[36;1m    "pytest": "pytest",^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6905893Z ^[[36;1m}^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6906166Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6906512Z ^[[36;1m    import_module(module)^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6906869Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6907234Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.6929957Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T07:58:48.69

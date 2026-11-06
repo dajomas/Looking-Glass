@@ -1,0 +1,29 @@
+corn	Verify browser environment	2026-11-06T08:07:11.9512152Z 2026-11-06T08:07:11.951Z pw:browser [pid=3311] finished temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-06T08:07:11.9512475Z 2026-11-06T08:07:11.951Z pw:browser [pid=3311] <gracefully close end>
+Live Uvicorn	Run live Uvicorn integration tests	﻿2026-11-06T08:07:12.4559143Z ##[group]Run set -o pipefail
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4559342Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4559670Z ^[[36;1mpython -m pytest -v -ra python/tests/live_e2e --basetemp=ci-live-tmp --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4576723Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4576912Z env:
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4577079Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4577285Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4577410Z   LG_RUN_LIVE_E2E: 1
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4577567Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4577803Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4578038Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4578249Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4578460Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4578697Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:12.4578876Z ##[endgroup]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:14.1217104Z ============================= test session starts ==============================
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:14.1227591Z platform linux -- Python 3.14.10, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.10/x64/bin/python
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:14.1230666Z cachedir: .pytest_cache
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:14.1230916Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:14.1231191Z plugins: anyio-4.16.0
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:14.2944421Z collecting ... collected 18 items
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:14.2946631Z 
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:21.0882252Z python/tests/live_e2e/test_live_checkpoints.py::test_live_checkpoint_restore_reinstalls_same_map_fog PASSED [  5%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:24.9420576Z python/tests/live_e2e/test_live_checkpoints.py::test_live_checkpoint_restore_switches_active_map_and_saved_fog PASSED [ 11%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:29.8903513Z python/tests/live_e2e/test_live_checkpoints.py::test_live_rejected_checkpoint_restore_preserves_connected_viewer PASSED [ 16%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:31.9191983Z python/tests/live_e2e/test_live_display.py::test_live_reveal_keeps_adjacent_room_hidden PASSED [ 22%]
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T08:07:34.7738253Z python/tests/live_e2e/test_live_display.py::test_live_hide_a

@@ -1,0 +1,32 @@
+837238Z ^[[36;1mset -o pipefail^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5838067Z ^[[36;1mpython -m pytest -v -ra python/tests --ignore=python/tests/browser --ignore=python/tests/live_e2e --ignore=python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5859726Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5860071Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5860365Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5860737Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5860969Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5861251Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5861698Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5862119Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5862735Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5863250Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5863641Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:22.5863971Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:23.5943643Z ============================= test session starts ==============================
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:23.6045067Z platform linux -- Python 3.14.10, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.10/x64/bin/python
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:23.6050438Z cachedir: .pytest_cache
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:23.6051069Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:23.6051555Z plugins: anyio-4.16.0
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.6883293Z collecting ... collected 1907 items
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.6928526Z 
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.6997975Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_idempotent PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.7010085Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_rejects_string PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.7018871Z python/tests/test_access_logging.py::AccessLoggingTests::test_debug_opt_in PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.7028542Z python/tests/test_access_logging.py::AccessLoggingTests::test_failed_requests_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.7058636Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed 
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.7063081Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.7071852Z python/tests/test_access_logging.py::AccessLoggingTests::test_unknown_formats_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.7082220Z python/tests/test_access_logging.py::AccessLoggingTests::test_warnings_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.8603479Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values0-Current password is incorrect.-False] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:27.9967335Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values0-Current password is incorrect.-True] PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-06T07:58:28.1324486Z python/tests/test_account_atomicity.py::test_invalid_password

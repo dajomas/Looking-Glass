@@ -1,0 +1,103 @@
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "47a96328e63c6355eb52a15a90af6b9ebe1577c6c32b9b76dac67cac5aab55e6",
+            "SandboxKey": "/var/run/docker/netns/47a96328e63c",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32768"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32769"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "d71489dd4d36b69756e3994a1003ff7eb69e30b156cc4327606bf35c31429db4",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "d2:72:49:cd:c2:17",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "d2:72:49:cd:c2:17",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "9a334649185e8c7af3a01d17c295a16d1a8bed2f2296291c9bfc8d171118ddd0",
+                    "EndpointID": "d71489dd4d36b69756e3994a1003ff7eb69e30b156cc4327606bf35c31429db4",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-cc89a1ebe7044eb5bd53a91a9cb486a6']
+exit=0
+[
+    {
+        "Id": "25c3e5d89692841c1b5f53820cba7bd8e7bcc274a00ded85b355b6bd141ff013",
+        "Created": "2026-11-06T07:58:40.435741217Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2800,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-06T07:58:40.457017965Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:7a678a499d03c3cf00ecaf44b74395663af589bdb8807356df19e39ccac40e81",
+        "ResolvConfPath": "/var/lib/docker/containers/25c3e5d89692841c1b5f53820cba7bd8e7bcc274a00ded85b355b6bd141ff013/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/25c3e5d89692841c1b5f53820cba7bd8e7bcc274a00ded85b355b6bd141ff013/hostname",
+        "HostsPath": "/var/lib/docker/containers/25c3e5d89692841c1b5f53820cba7bd8e7bcc274a00ded85b355b6bd141ff013/hosts",
+        "LogPath": "/var/lib/docker/containers/25c3e5d89692841c1b5f53820cba7bd8e7bcc274a00ded85b355b6bd141ff013/25c3e5d89692841c1b5f53820cba7bd8e7bcc274a00ded85b355b6bd141ff013-json.log",
+        "Name": "/looking-glass-test-cc89a1ebe7044eb5bd53a91a9cb486a6",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker
