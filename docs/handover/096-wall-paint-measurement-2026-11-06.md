@@ -114,3 +114,64 @@ index nor README needs a cosmetic change. Earlier sections describe the first
 increment and retain historical sizes/results; this follow-up supersedes their
 diagnostic implementation details. No [skip ci], archive, Patch/ material,
 workflow change, branch change or bug closure is included.
+
+## Background-aware coverage follow-up (2026-11-06)
+
+The user's next run pinned 6a17cfe7e9f1e85791ada5d0fc69cff20087c674: 18
+helper cases passed in 1.42s; browser follow-up remained 1 failed/4 passed in
+15.11s. Retained completed attempts 53-59 had stable before/after geometry,
+node 1/revision 0, correct computed 2.0000055 px width and zero strict-colour
+pixels. Attempt 60's later screenshot timeout no longer erased this evidence.
+The supplied screenshot visibly showed the thin wall at the sample location.
+Its uploaded copy was JPEG, not the original PNG, so exact JPEG RGB values are
+not calibration data for the PNG oracle. This new evidence weakens the earlier
+race explanation for this local failure; the immediate failure was strict
+near-solid colour classification, not proof the wall was absent.
+
+wall_coverage now estimates the uniform fixture background from three pixels
+at each end of each scan row. For known foreground F=(255,91,209), background B
+and observed pixel P, it estimates alpha by projection onto F-B, rejects
+large colour residuals/out-of-range alpha, and sums accepted coverage. The
+result is equivalent fully covered CSS pixels, not the count of near-solid
+pixels. No CSS-reported width is substituted for screenshot evidence.
+
+Three rows at y-2/y/y+2 must have a contiguous stroke near the geometry sample,
+credible peak coverage, consistent widths/centres and uncontaminated uniform
+background flanks. Wrong hues, absent walls, low noise, isolated specks, split
+or displaced strokes, background contamination and row inconsistencies fail.
+The DOM clipping check now includes both adjacent rows. Expected paint width
+must be within +/-0.5 px (and meet the existing minimum-growth requirement);
+computed CSS width still uses +/-0.01, zoom/reload comparisons still use +/-1.
+This supersedes the old count-based absolute credibility band. Browser call
+sites, native drag while held, label/persistence assertions, diagnostic pairing,
+history/deadline handling and all production files remain unchanged. Coverage
+backgrounds, raw row pixels, alpha profiles and reasons join retained diagnostics.
+
+Added test_wall_pixel_coverage.py with 47 cases: 36 combinations of widths
+2/4/10, three fractional positions, black/red backgrounds and sharp/blurred
+profiles; one integrated example with zero old-threshold pixels but approx
+2.001 px estimated coverage; nine negative paint cases; and image-edge row
+rejection. All 47 new cases and all 18 unchanged helper cases passed together
+in an isolated sandbox copy: 65 passed in 0.37s. The old helper and unchanged
+helper-test source copies were verified against live Git blobs before editing/
+execution, Python parsed and the modified JS probe parsed under Node. These
+are synthetic PNG/page-double tests, not Chromium/editor or full CI results.
+No new browser run or reproduction of the exact original PNG is claimed.
+
+This estimator deliberately targets the controlled uniform-background, vertical
+magenta-wall fixture. It is not a general image/map detector or a guarantee
+for arbitrary colour spaces, compressed images, browser rasterizers or textured
+backgrounds. A real Chromium run is still required before acceptance. Do not
+silently tune residual tolerances to make unknown failures pass.
+
+The helper and new test measure 10,123/4,424 UTF-8 bytes; this handover remains
+below 25,000. README and HANDOVER index were reviewed and remain accurate;
+the existing index link already points here. No cosmetic changes, new
+dependencies, workflow changes, archive/Patch material, other branch or bug
+closure are included. CI is not skipped. Historical sections retain original
+counts/sizes and failures; this section describes the current candidate.
+
+```bash
+python -m pytest -q python/tests/test_wall_paint_support.py python/tests/test_wall_pixel_coverage.py
+python -m pytest -q python/tests/browser/test_wall_width_followup.py
+```

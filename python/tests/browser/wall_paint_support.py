@@ -3,12 +3,57 @@ import copy
 import io
 import json
 import math
+import statistics
 import time
 import uuid
 from collections import deque
 from pathlib import Path
 
 from PIL import Image
+
+
+def wall_coverage(image, strip):
+    """Equivalent fully covered pixels for the fixture's vertical magenta wall."""
+    left, right, row = strip
+    result = {"valid": False, "width": 0.0, "rows": []}
+    if left < 0 or right >= image.width or row - 2 < 0 or row + 2 >= image.height or right - left < 12:
+        return dict(result, reason="coverage sample outside image")
+    foreground = (255, 91, 209)
+    for y in (row - 2, row, row + 2):
+        pixels = [image.getpixel((x, y)) for x in range(left, right + 1)]
+        flanks = pixels[:3] + pixels[-3:]
+        background = [statistics.median(p[c] for p in flanks) for c in range(3)]
+        sample = {"y": y, "background": background, "pixels": pixels}
+        result["rows"].append(sample)
+        if max(abs(p[c] - background[c]) for p in flanks for c in range(3)) > 3:
+            return dict(result, reason="nonuniform fixture background")
+        direction = [foreground[c] - background[c] for c in range(3)]
+        norm = sum(d*d for d in direction)
+        if norm < 2500:
+            return dict(result, reason="insufficient stroke/background contrast")
+        weights = []
+        for p in pixels:
+            alpha = sum((p[c] - background[c]) * direction[c] for c in range(3)) / norm
+            residual = max(abs(p[c] - background[c] - alpha * direction[c]) for c in range(3))
+            if residual > 6 or not -.03 <= alpha <= 1.03:
+                return dict(result, reason="pixel is not a stroke/background blend")
+            weights.append(max(0.0, min(1.0, alpha)))
+        sample["coverage"] = weights
+        support = [i for i, alpha in enumerate(weights) if alpha >= .02]
+        if not support or max(weights) < .2:
+            return dict(result, reason="no credible stroke coverage")
+        if support != list(range(support[0], support[-1] + 1)) or support[0] < 3 or support[-1] >= len(pixels) - 3:
+            return dict(result, reason="split or edge-contaminated stroke")
+        width = sum(weights[i] for i in support)
+        center = sum((left + i + .5) * weights[i] for i in support) / width
+        sample.update(width=width, center=center)
+        if abs(center - ((left + right) / 2 + .5)) > 1.5:
+            return dict(result, reason="stroke is displaced from the geometry sample")
+    widths = [sample["width"] for sample in result["rows"]]
+    centers = [sample["center"] for sample in result["rows"]]
+    if max(widths) - min(widths) > .25 or max(centers) - min(centers) > .5:
+        return dict(result, reason="stroke is inconsistent across adjacent rows")
+    return dict(result, valid=True, width=statistics.median(widths), reason="coverage measured")
 
 
 SAMPLE = r"""selector => {
@@ -51,8 +96,8 @@ SAMPLE = r"""selector => {
   result.ready = visible && el.isConnected &&
     [...result.matrix, result.screenWidth, point.x, point.y, ...result.clip].every(Number.isFinite) &&
     result.screenWidth > 0 && left >= Math.max(0, result.clip[0]) &&
-    right < Math.min(innerWidth, result.clip[2]) && row >= Math.max(0, result.clip[1]) &&
-    row < Math.min(innerHeight, result.clip[3]);
+    right < Math.min(innerWidth, result.clip[2]) && row - 2 >= Math.max(0, result.clip[1]) &&
+    row + 2 < Math.min(innerHeight, result.clip[3]);
   result.reason = result.ready ? 'ready' : 'invisible/nonfinite/clipped sample';
   return result;
 }"""
@@ -94,13 +139,12 @@ def painted_width(page, overlay, *, expected, reference=None, minimum=1,
             if list(image.size) != before["viewport"]:
                 attempt["reason"] = "screenshot and CSS viewport dimensions differ"
                 continue
-            left, right, row = before["strip"]
-            count = sum(1 for col in range(left, right + 1)
-                        if (lambda c: c[0] > 235 and 65 < c[1] < 130 and c[2] > 180)(image.getpixel((col, row))))
-            credible = max(1, math.floor(expected) - 2, minimum) <= count <= math.ceil(expected) + 1
+            coverage = wall_coverage(image, before["strip"])
+            count = coverage["width"]
+            credible = coverage["valid"] and max(1, expected - .5, minimum) <= count <= expected + .5
             correct_css = abs(before["screenWidth"] - expected) <= .01
             stable_zoom = reference is None or abs(count - reference) <= 1
-            attempt.update(phase="completed", painted_width=count, credible=credible,
+            attempt.update(phase="completed", painted_width=count, coverage=coverage, credible=credible,
                            correct_css=correct_css, stable_zoom=stable_zoom,
                            reason="accepted" if credible and correct_css and stable_zoom else
                            "paint/CSS width or zoom invariant not satisfied")
