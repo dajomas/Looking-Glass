@@ -1,0 +1,40 @@
+TAP version 13
+# Subtest: bug 27: notes-only remote unassign updates an open manager and picker together
+ok 1 - bug 27: notes-only remote unassign updates an open manager and picker together
+  ---
+  duration_ms: 3.125801
+  type: 'test'
+  ...
+# Subtest: bug 27: an older manager read cannot roll back a newer picker result
+ok 2 - bug 27: an older manager read cannot roll back a newer picker result
+  ---
+  duration_ms: 0.964005
+  type: 'test'
+  ...
+# Subtest: bug 27 safety: an older picker read cannot roll back a newer manager result
+ok 3 - bug 27 safety: an older picker read cannot roll back a newer manager result
+  ---
+  duration_ms: 0.838595
+  type: 'test'
+  ...
+# Subtest: bug 27: a superseded manager failure cannot replace newer library status
+ok 4 - bug 27: a superseded manager failure cannot replace newer library status
+  ---
+  duration_ms: 0.725728
+  type: 'test'
+  ...
+# Subtest: bug 27: remote assignments converge without rebasing a dirty room draft
+ok 5 - bug 27: remote assignments converge without rebasing a dirty room draft
+  ---
+  duration_ms: 1.086599
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 20.21313
