@@ -90,13 +90,13 @@ async def verify_csrf(request: Request, user: Annotated[User, Depends(require_us
     """Double-check state-changing requests: header (JS) or hidden form field."""
     if request.method in ("GET", "HEAD", "OPTIONS"):
         return user
-    supplied = request.headers.get("x-csrf-token")
+    supplied: object = request.headers.get("x-csrf-token")
     if not supplied:
         ctype = request.headers.get("content-type", "")
         if "form" in ctype:
             form = await request.form()
-            supplied = form.get("csrf_token")  # type: ignore[assignment]
-    if not constant_eq(supplied, user["csrf_token"]):
+            supplied = form.get("csrf_token")
+    if not isinstance(supplied, str) or not constant_eq(supplied, user["csrf_token"]):
         raise Forbidden("Invalid or missing CSRF token. Reload the page and try again.")
     return user
 
