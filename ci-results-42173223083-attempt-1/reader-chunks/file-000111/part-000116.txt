@@ -1,0 +1,31 @@
+l-6.0.3 scipy-1.18.1 starlette-1.10.0 truststore-0.10.5 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0 uvloop-0.23.0 watchfiles-1.3.0 webencodings-0.6.1 websockets-17.4
+Recovery	Verify dependencies and record environment	﻿2026-11-06T06:15:21.9425043Z ##[group]Run python --version >> test-results/environment.txt
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9425538Z ^[[36;1mpython --version >> test-results/environment.txt^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9425950Z ^[[36;1mpython -m pip --version >> test-results/environment.txt^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9426294Z ^[[36;1mpython -m pip check^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9426637Z ^[[36;1mpython -m pip freeze > test-results/installed-packages.txt^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9427076Z ^[[36;1mpython - <<'PY' | tee test-results/dependency-preflight.txt^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9427462Z ^[[36;1mfrom importlib import import_module^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9427786Z ^[[36;1mfrom importlib.metadata import version^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9428077Z ^[[36;1mrequired = {^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9428314Z ^[[36;1m    "fastapi": "fastapi",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9428578Z ^[[36;1m    "starlette": "starlette",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9428855Z ^[[36;1m    "uvicorn": "uvicorn",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9429146Z ^[[36;1m    "python-multipart": "python_multipart",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9429487Z ^[[36;1m    "httpx2": "httpx2",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9429742Z ^[[36;1m    "pytest": "pytest",^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9429976Z ^[[36;1m}^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9430223Z ^[[36;1mfor distribution, module in required.items():^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9430543Z ^[[36;1m    import_module(module)^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9430861Z ^[[36;1m    print(f"{distribution}=={version(distribution)}")^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9431175Z ^[[36;1mPY^[[0m
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9444373Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9444967Z env:
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9445262Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9445618Z   PYTHONUNBUFFERED: 1
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9445848Z   LG_RUN_LIVE_E2E: 1
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9446138Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9446574Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9446987Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9447375Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Verify dependencies and record environment	2026-11-06T06:15:21.9447743Z   Python3_R

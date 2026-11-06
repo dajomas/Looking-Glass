@@ -1,0 +1,22 @@
+-data-dir=/tmp/playwright_chromiumdev_profile-TYaker --remote-debugging-pipe --no-startup-window
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:04.4627684Z 2026-11-06T06:16:04.462Z pw:browser <launched> pid=3165
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:06.9530988Z 2026-11-06T06:16:06.952Z pw:browser [pid=3165][err] [1106/061606.952038:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:06.9601991Z 2026-11-06T06:16:06.958Z pw:browser [pid=3165][err] [1106/061606.958576:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:06.9730590Z 2026-11-06T06:16:06.959Z pw:browser [pid=3165][err] [1106/061606.958652:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:06.9741448Z 2026-11-06T06:16:06.961Z pw:browser [pid=3165][err] [1106/061606.961622:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:06.9746026Z Chromium version: 156.0.8078.4
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0175043Z 2026-11-06T06:16:07.017Z pw:browser [pid=3165][err] [1106/061607.016277:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1655] drmGetDevices2() has not found any devices
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0198462Z 2026-11-06T06:16:07.019Z pw:browser [pid=3165][err] [1106/061607.018698:WARNING:sandbox/policy/linux/sandbox_linux.cc:405] InitializeSandbox() called with multiple threads in process gpu-process.
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0346598Z 2026-11-06T06:16:07.031Z pw:browser [pid=3165][err] [1106/061607.030695:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:652] Message 6 rejected by interface blink.mojom.WidgetHost
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0349065Z 2026-11-06T06:16:07.031Z pw:browser [pid=3165][err] [1106/061607.030738:ERROR:mojo/public/cpp/bindings/lib/interface_endpoint_client.cc:652] Message 7 rejected by interface blink.mojom.WidgetHost
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0474414Z 2026-11-06T06:16:07.047Z pw:browser [pid=3165][err] [1106/061607.047044:INFO:CONSOLE:3] "--playwright--set--content--30d0687272bd1dc03b5c744f7c77b166--", source:  (3)
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0773103Z DOM diagnostic: text_content='Ready', inner_text='Ready'
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0774783Z PASS: launch, local HTTP navigation and DOM check
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.0777851Z 2026-11-06T06:16:07.077Z pw:browser [pid=3165] <gracefully close start>
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.1004255Z 2026-11-06T06:16:07.100Z pw:browser [pid=3165] <process did exit: exitCode=0, signal=null>
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.1005449Z 2026-11-06T06:16:07.100Z pw:browser [pid=3165] starting temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.1040111Z 2026-11-06T06:16:07.103Z pw:browser [pid=3165] finished temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-06T06:16:07.1041139Z 2026-11-06T06:16:07.103Z pw:browser [pid=3165] <gracefully close end>
+Live Uvicorn	Run live Uvicorn integration tests	﻿2026-11-06T06:16:07.6240735Z ##[group]Run set -o pipefail
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-06T06:16:07.6241222Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	Run live Uvic

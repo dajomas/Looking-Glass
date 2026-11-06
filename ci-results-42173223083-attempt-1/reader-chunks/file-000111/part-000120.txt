@@ -1,0 +1,28 @@
+06:16:01.8266827Z With the provided path, there will be 24 files uploaded
+Recovery	Upload validation evidence	2026-11-06T06:16:01.8267922Z Artifact name is valid!
+Recovery	Upload validation evidence	2026-11-06T06:16:01.8268432Z Root directory input is valid!
+Recovery	Upload validation evidence	2026-11-06T06:16:02.1557264Z Beginning upload of artifact content to blob storage
+Recovery	Upload validation evidence	2026-11-06T06:16:02.2034073Z (node:3856) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Recovery	Upload validation evidence	2026-11-06T06:16:02.4474621Z Uploaded bytes 28323
+Recovery	Upload validation evidence	2026-11-06T06:16:02.5048493Z Finished uploading artifact content to blob storage!
+Recovery	Upload validation evidence	2026-11-06T06:16:02.5049683Z SHA256 digest of uploaded artifact zip is e8987d52d83fc38150e7b60c8ec2bcb1241c2d1ec90061b459388c09f20a154c
+Recovery	Upload validation evidence	2026-11-06T06:16:02.5050711Z Finalizing artifact upload
+Recovery	Upload validation evidence	2026-11-06T06:16:02.9888255Z Artifact integration-recovery-27b2eebf21954dbef3338e667824acfd9e897c7a.zip successfully finalized. Artifact ID 13480884679
+Recovery	Upload validation evidence	2026-11-06T06:16:02.9890363Z Artifact integration-recovery-27b2eebf21954dbef3338e667824acfd9e897c7a has been successfully uploaded! Final size is 28323 bytes. Artifact ID is 13480884679
+Recovery	Upload validation evidence	2026-11-06T06:16:02.9897397Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/42173223083/artifacts/13480884679
+Recovery	Post Set up Python	﻿2026-11-06T06:16:03.0065300Z Post job cleanup.
+Recovery	Post Set up Python	2026-11-06T06:16:03.1274683Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+Recovery	Post Check out repository	﻿2026-11-06T06:16:03.1389387Z Post job cleanup.
+Recovery	Post Check out repository	2026-11-06T06:16:03.2373084Z [command]/usr/bin/git version
+Recovery	Post Check out repository	2026-11-06T06:16:03.2399054Z git version 2.56.0
+Recovery	Post Check out repository	2026-11-06T06:16:03.2440826Z Temporarily overriding HOME='/home/runner/work/_temp/a85a37ae-3e75-4669-b14e-54ec56f387cf' before making global git config changes
+Recovery	Post Check out repository	2026-11-06T06:16:03.2442291Z Adding repository directory to the temporary git global config as a safe directory
+Recovery	Post Check out repository	2026-11-06T06:16:03.2448060Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Post Check out repository	2026-11-06T06:16:03.2510881Z Removing SSH command configuration
+Recovery	Post Check out repository	2026-11-06T06:16:03.2519670Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Recovery	Post Check out repository	2026-11-06T06:16:03.2557439Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Recovery	Post Check out repository	2026-11-06T06:16:03.2791954Z Removing HTTP extra header
+Recovery	Post Check out repository	2026-11-06T06:16:03.2799292Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Recovery	Post Check out repository	2026-11-06T06:16:03.2840884Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Recovery	Post Check out repository	2026-11-06T06:16:03.3062225Z Removing includeIf entries pointing to credentials config files
+Recovery	Post Check out rep

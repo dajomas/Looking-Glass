@@ -1,0 +1,55 @@
+49d42640588be3a3f67acffe 1.29MB / 1.29MB 0.2s done
+#6 sha256:0e665593ff40197b851364fab0389fc6f5fa35bc74814ddfad07f96f417fc574 3.15MB / 12.41MB 0.2s
+#6 sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 29.86MB / 29.86MB 0.2s done
+#6 extracting sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 0.1s
+#6 sha256:ce3c2a9291f81f0f8349de8621c9878a424552bfc64d0e4f20a4ac6006489fe1 0B / 249B 0.2s
+#6 sha256:0e665593ff40197b851364fab0389fc6f5fa35bc74814ddfad07f96f417fc574 12.41MB / 12.41MB 0.2s done
+#6 sha256:ce3c2a9291f81f0f8349de8621c9878a424552bfc64d0e4f20a4ac6006489fe1 249B / 249B 0.2s done
+#6 extracting sha256:37fb86c2a767b88d500c6872195f88078f64765fe0d2f9cc375cc2efbd4c0a41 0.7s done
+#6 extracting sha256:d6d089a6c0a2543e3dd748a4ffcbfe409ab93f2049d42640588be3a3f67acffe 0.1s done
+#6 extracting sha256:0e665593ff40197b851364fab0389fc6f5fa35bc74814ddfad07f96f417fc574
+#6 extracting sha256:0e665593ff40197b851364fab0389fc6f5fa35bc74814ddfad07f96f417fc574 0.4s done
+#6 extracting sha256:ce3c2a9291f81f0f8349de8621c9878a424552bfc64d0e4f20a4ac6006489fe1 done
+#6 DONE 2.6s
+
+#7 [ 2/10] WORKDIR /app
+#7 DONE 0.0s
+
+#8 [ 3/10] COPY requirements.txt .
+#8 DONE 0.0s
+
+#9 [ 4/10] RUN pip install --no-cache-dir -r requirements.txt
+#9 1.590 Collecting fastapi>=0.115 (from -r requirements.txt (line 1))
+#9 1.637   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+#9 1.670 Collecting uvicorn>=0.32 (from uvicorn[standard]>=0.32->-r requirements.txt (line 2))
+#9 1.681   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#9 1.701 Collecting jinja2>=3.1 (from -r requirements.txt (line 3))
+#9 1.712   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#9 1.729 Collecting python-multipart>=0.0.12 (from -r requirements.txt (line 4))
+#9 1.739   Downloading python_multipart-0.0.33-py3-none-any.whl.metadata (6.3 kB)
+#9 1.773 Collecting pyyaml>=6.0 (from -r requirements.txt (line 5))
+#9 1.784   Downloading pyyaml-6.0.3-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+#9 1.934 Collecting pillow>=11.3 (from -r requirements.txt (line 6))
+#9 1.944   Downloading pillow-13.0.0-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+#9 2.109 Collecting numpy>=2.3 (from -r requirements.txt (line 7))
+#9 2.120   Downloading numpy-2.5.4-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+#9 2.222 Collecting scipy>=1.16 (from -r requirements.txt (line 8))
+#9 2.233   Downloading scipy-1.18.1-cp314-cp314-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+#9 2.267 Collecting mistune<4,>=3.1 (from -r requirements.txt (line 9))
+#9 2.278   Downloading mistune-3.4.0-py3-none-any.whl.metadata (2.1 kB)
+#9 2.295 Collecting bleach<7,>=6.2 (from -r requirements.txt (line 10))
+#9 2.306   Downloading bleach-6.4.0-py3-none-any.whl.metadata (32 kB)
+#9 2.325 Collecting httpx2>=2.16.0 (from -r requirements.txt (line 11))
+#9 2.336   Downloading httpx2-2.16.0-py3-none-any.whl.metadata (10 kB)
+#9 2.353 Collecting webencodings (from bleach<7,>=6.2->-r requirements.txt (line 10))
+#9 2.364   Downloading webencodings-0.6.1-py3-none-any.whl.metadata (3.4 kB)
+#9 2.390 Collecting starlette>=0.46.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 2.401   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#9 2.495 Collecting pydantic>=2.9.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 2.506   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+#9 2.537 Collecting typing-extensions>=4.8.0 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 2.547   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#9 2.563 Collecting typing-inspection>=0.4.2 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 2.573   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#9 2.588 Collecting annotated-doc>=0.0.2 (from fastapi>=0.115->-r requirements.txt (line 1))
+#9 2.59

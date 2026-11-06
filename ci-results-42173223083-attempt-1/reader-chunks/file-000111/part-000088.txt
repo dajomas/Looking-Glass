@@ -1,0 +1,32 @@
+t config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6206143Z Deleting the contents of '/home/runner/work/Looking-Glass/Looking-Glass'
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6216873Z ##[group]Determining repository object format
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6218561Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6220850Z ##[group]Initializing the repository
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6222846Z [command]/usr/bin/git init /home/runner/work/Looking-Glass/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6339203Z hint: Using 'master' as the name for the initial branch. This default branch name
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6341655Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6343644Z hint: to use in all of your new repositories, which will suppress this warning,
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6345181Z hint: call:
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6346010Z hint:
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6347086Z hint: 	git config --global init.defaultBranch <name>
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6348415Z hint:
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6349577Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6351813Z hint: 'development'. The just-created branch can be renamed via this command:
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6353524Z hint:
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6355762Z hint: 	git branch -m <name>
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6356859Z hint:
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6358142Z hint: Disable this message with "git config set advice.defaultBranchName false"
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6360550Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6365133Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6415856Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6417363Z ##[group]Disabling automatic garbage collection
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6422272Z [command]/usr/bin/git config --local gc.auto 0
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6467843Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6470039Z ##[group]Setting up auth
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6471493Z Removing SSH command configuration
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6477344Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6536811Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6978983Z Removing HTTP extra header
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.6985194Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+JavaScript regressions	Check out repository	2026-11-06T06:14:58.7034821Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --na

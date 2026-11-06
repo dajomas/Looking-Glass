@@ -1,0 +1,73 @@
+null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "",
+            "Gateway": "",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "",
+            "IPPrefixLen": 0,
+            "IPv6Gateway": "",
+            "MacAddress": "",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "0bbfa32219c4057a35de310bfcb3f264b5c63e1f797810e929fa5da351044495",
+                    "EndpointID": "",
+                    "Gateway": "",
+                    "IPAddress": "",
+                    "IPPrefixLen": 0,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'logs', 'looking-glass-test-529168541c064678af1cf024cf460727']
+exit=0
+
+2026-11-06 06:15:54,836 INFO    looking_glass: Admin  portal: http://0.0.0.0:5000
+2026-11-06 06:15:54,836 INFO    looking_glass: Viewer portal: http://0.0.0.0:5100
+2026-11-06 06:15:54,849 INFO    uvicorn.error: Started server process [1]
+2026-11-06 06:15:54,850 INFO    uvicorn.error: Waiting for application startup.
+2026-11-06 06:15:54,850 INFO    uvicorn.error: Started server process [1]
+2026-11-06 06:15:54,850 INFO    uvicorn.error: Waiting for application startup.
+2026-11-06 06:15:54,851 INFO    uvicorn.error: Application startup complete.
+2026-11-06 06:15:54,851 INFO    uvicorn.error: Application startup complete.
+2026-11-06 06:15:54,851 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5000 (Press CTRL+C to quit)
+2026-11-06 06:15:54,851 INFO    uvicorn.error: Uvicorn running on http://0.0.0.0:5100 (Press CTRL+C to quit)
+2026-11-06 06:15:55,017 INFO    uvicorn.access: 172.17.0.1:48104 - "GET /api/c/1/state HTTP/1.1" 401
+2026-11-06 06:15:55,041 INFO    looking_glass: Shutting down...
+2026-11-06 06:15:55,056 INFO    uvicorn.error: Shutting down
+2026-11-06 06:15:55,056 INFO    uvicorn.error: Shutting down
+2026-11-06 06:15:55,157 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-06 06:15:55,157 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-06 06:15:55,157 INFO    uvicorn.error: Application shutdown complete.
+2026-11-06 06:15:55,157 INFO    uvicorn.error: Finished server process [1]
+2026-11-06 06:15:55,157 INFO    uvicorn.error: Application shutdown complete.
+2026-11-06 06:15:55,157 INFO    uvicorn.error: Finished server process [1]
+
+['/usr/bin/docker', 'rm', 'looking-glass-test-529168541c064678af1cf024cf460727']
+exit=0
+looking-glass-test-529168541c064678af1cf024cf460727
+
+
+['/usr/bin/docker', 'rm', '--force', 'looking-glass-test-529168541c064678af1cf024cf460727']
+exit=0
+
+Error response from daemon: No such container: looking-glass-test-529168541c064678af1cf024cf460727
+
+['/usr/bin/docker', 'volume', 'rm', 'looking-glass-test-data-529168541c064678af1cf024cf460727']
+exit=0
+looking-glass-test-data-529168541c064678af1cf024cf460727
+
+

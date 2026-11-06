@@ -1,0 +1,36 @@
+KNOWN STEP	2026-11-06T06:15:01.3400043Z /home/runner/.cache/pip
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:01.6077013Z Cache hit for: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:02.8922239Z Received 20971520 of 77418312 (27.1%), 19.9 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.3869008Z Received 77418312 of 77418312 (100.0%), 49.3 MBs/sec
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.3869501Z Cache Size: ~74 MB (77418312 B)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.3891258Z [command]/usr/bin/tar -xf /home/runner/work/_temp/387e79eb-c7ad-4e2a-8b9f-72ba4eb0e575/cache.tzst -P -C /home/runner/work/Looking-Glass/Looking-Glass --use-compress-program unzstd
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.5107455Z Cache restored successfully
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.5146137Z Cache restored from key: setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6197649Z ##[group]Run python -m pip install --upgrade pip
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6198181Z ^[[36;1mpython -m pip install --upgrade pip^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6198628Z ^[[36;1mpython -m pip install -r requirements-dev.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6221171Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6221485Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6221750Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6222074Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6222282Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6222544Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6222913Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6223274Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6223586Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6223886Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6224243Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:03.6224516Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:04.7665991Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages (26.2.2)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:04.8693103Z Collecting pip
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:04.8706416Z   Using cached pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:04.8791238Z Using cached pip-26.3-py3-none-any.whl (2.0 MB)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:04.9911791Z Installing collected packages: pip
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:04.9912242Z   Attempting uninstall: pip
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:04.9931548Z     Found existing installation: pip 26.2.2
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:05.0692951Z     Uninstalling pip-26.2.2:
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:05.0739650Z       Successfully uninstalled pip-26.2.2
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:06.3147010Z Successfully installed pip-26.3
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:06.7897243Z Collecting fastapi>=0.115 (from -r /home/runner/work/Looking-Glass/Looking-Glass/requirements.txt (line 1))
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:06.7911226Z   Using cached fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+Python / HTTP	UNKNOWN STEP	2026-11-06T06:15:06.8169106Z Collecting uv

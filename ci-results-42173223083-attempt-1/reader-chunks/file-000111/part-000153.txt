@@ -1,0 +1,30 @@
+202Z hint: call:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7809918Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7810792Z hint: 	git config --global init.defaultBranch <name>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7811872Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7812882Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7814546Z hint: 'development'. The just-created branch can be renamed via this command:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7816179Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7816922Z hint: 	git branch -m <name>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7817751Z hint:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7818900Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7820765Z Initialized empty Git repository in /home/runner/work/Looking-Glass/Looking-Glass/.git/
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7826902Z [command]/usr/bin/git remote add origin https://github.com/dajomas/Looking-Glass
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7874586Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7876246Z ##[group]Disabling automatic garbage collection
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7878883Z [command]/usr/bin/git config --local gc.auto 0
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7920505Z ##[endgroup]
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7922421Z ##[group]Setting up auth
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7923450Z Removing SSH command configuration
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7927501Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.7971177Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.8350606Z Removing HTTP extra header
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.8360431Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.8411667Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.8681663Z Removing includeIf entries pointing to credentials config files
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.8689373Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.8739772Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.9016216Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-4a0d36f5-42be-4a2f-ab2b-041527aa6b97.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.9073320Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-4a0d36f5-42be-4a2f-ab2b-041527aa6b97.config
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-06T06:14:59.9120195Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-4a0d36f5-42be-4a2f-ab2b-041527aa6b97.config
+Browser / mocked HTTP	UNKNOWN 

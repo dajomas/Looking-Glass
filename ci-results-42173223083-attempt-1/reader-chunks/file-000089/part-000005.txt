@@ -1,0 +1,34 @@
+ 14.0s
+
+#10 [ 5/10] COPY python ./python
+#10 DONE 0.0s
+
+#11 [ 6/10] COPY static ./static
+#11 DONE 0.0s
+
+#12 [ 7/10] COPY templates ./templates
+#12 DONE 0.0s
+
+#13 [ 8/10] COPY web_html ./web_html
+#13 DONE 0.0s
+
+#14 [ 9/10] COPY config.example.yaml ./config.example.yaml
+#14 DONE 0.0s
+
+#15 [10/10] RUN useradd --system --uid 1001 --home /app lg && mkdir -p /app/data && chown -R lg /app/data
+#15 0.099 useradd warning: lg's uid 1001 is greater than SYS_UID_MAX 999
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 1.7s done
+#16 writing image sha256:0703eb1d0b479f509c74842305c45821a0a8921a0ae2c34246099d249b44d61b done
+#16 naming to docker.io/library/looking-glass-test:ce5f68605a474680984e0a0f08eceb5c done
+#16 DONE 1.7s
+
+['/usr/bin/docker', 'image', 'rm', 'looking-glass-test:ce5f68605a474680984e0a0f08eceb5c']
+exit=0
+Untagged: looking-glass-test:ce5f68605a474680984e0a0f08eceb5c
+Deleted: sha256:0703eb1d0b479f509c74842305c45821a0a8921a0ae2c34246099d249b44d61b
+
+
