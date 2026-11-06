@@ -26,6 +26,15 @@ Uncommitted bug-2 candidates are not installed branch changes.
 - [15. Deletion/restore leaks alternate-image files](docs/todo/016-bug-15-deletion-restore-leaks-alternate-image-files.md)
 - [Validation caveats](docs/todo/017-validation-caveats.md)
 
+## Deferred release-readiness follow-up
+
+The [release-readiness checklist](docs/todo/019-release-readiness.md) records
+future work, separate from the accepted bug backlog. All steps are deferred
+and unchecked: acceptance-gap inventory, a realistic DM/player acceptance
+session, integration handoff/cleanup planning and validation of the actual
+cleaned integration candidate. Resume with the read-only inventory first.
+No cleanup, branch transfer, merge or release is authorized by this plan.
+
 ## Second bug hunt: bugs 16–29
 
 Audited source: `766780262bf44922bbd7c9fa2b3081e7e28e214f` on
