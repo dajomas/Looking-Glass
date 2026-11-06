@@ -7,6 +7,7 @@ Configuration comes from (in increasing priority):
 """
 
 import copy
+from collections.abc import Mapping
 import os
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -65,10 +66,19 @@ DEFAULTS: dict[str, Any] = {
 }
 
 
-def _deep_merge(base: dict, override: dict) -> dict:
+def _validate_shape(value: object, source: str) -> None:
+    """Validate supplied structure without restricting extension keys or leaf values."""
+    if not isinstance(value, Mapping):
+        raise ValueError(f"{source}: configuration must be a mapping.")
+    for name, default in DEFAULTS.items():
+        if isinstance(default, dict) and name in value and not isinstance(value[name], Mapping):
+            raise ValueError(f"{source}: section '{name}' must be a mapping.")
+
+
+def _deep_merge(base: dict, override: Mapping) -> dict:
     out = copy.deepcopy(base)
-    for key, value in (override or {}).items():
-        if isinstance(value, dict) and isinstance(out.get(key), dict):
+    for key, value in override.items():
+        if isinstance(value, Mapping) and isinstance(out.get(key), Mapping):
             out[key] = _deep_merge(out[key], value)
         else:
             out[key] = value
@@ -131,7 +141,7 @@ class Settings:
             d.mkdir(parents=True, exist_ok=True)
 
 
-def load_settings(path: str | os.PathLike | None = None, overrides: dict | None = None) -> Settings:
+def load_settings(path: str | os.PathLike | None = None, overrides: Mapping | None = None) -> Settings:
     raw = copy.deepcopy(DEFAULTS)
     cfg_path: Path | None = None
     candidate = path if path is not None else os.environ.get("LG_CONFIG")
@@ -144,7 +154,13 @@ def load_settings(path: str | os.PathLike | None = None, overrides: dict | None 
     # Only discovery is optional; explicit paths must open successfully.
     if cfg_path is not None:
         with cfg_path.open("r", encoding="utf-8") as fh:
-            raw = _deep_merge(raw, yaml.safe_load(fh) or {})
+            loaded = yaml.safe_load(fh)
+        # Preserve empty/null YAML documents, but do not discard other false-like values.
+        loaded = {} if loaded is None else loaded
+        _validate_shape(loaded, f"Configuration file {cfg_path}")
+        raw = _deep_merge(raw, loaded)
+    if overrides is not None:
+        _validate_shape(overrides, "Configuration overrides")
 
     env_map = {
         "LG_HOST": ("server", "host", str),
@@ -155,7 +171,7 @@ def load_settings(path: str | os.PathLike | None = None, overrides: dict | None 
     for env, (sec, key, cast) in env_map.items():
         if env in os.environ:
             raw[sec][key] = cast(os.environ[env])
-    if overrides:
+    if overrides is not None:
         raw = _deep_merge(raw, overrides)
     from .services.scrying_glass import options
     options(raw["scrying_glass"])

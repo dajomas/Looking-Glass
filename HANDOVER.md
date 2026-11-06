@@ -110,6 +110,7 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 
 ## Current work
 
+- [Bug 24: configuration shape validation candidate and evidence limits (2026-11-06)](docs/handover/099-bug-24-config-shapes-2026-11-06.md)
 - [Bug 22: multipart CSRF type guard, HTTP regressions and validation limits (2026-11-06)](docs/handover/098-bug-22-multipart-csrf-2026-11-06.md)
 - [Bug 28: accepted closure, reviewed validation and limits (2026-11-06)](docs/handover/097-bug-28-accepted-closure-2026-11-06.md)
 - [Wall-paint measurement implementation and diagnostic history (2026-11-06)](docs/handover/096-wall-paint-measurement-2026-11-06.md)
