@@ -1,0 +1,52 @@
+name: Publish CI results
+
+on:
+  workflow_run:
+    workflows: ['Branch tests']
+    types: [completed]
+    branches: [features/perplexity, features/perplexity-statblock, features/claude, features/claude-statblock]
+
+permissions:
+  actions: read
+  contents: write
+
+concurrency:
+  group: publish-ci-results-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_repository.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout trusted collector from default branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: collector
+          persist-credentials: false
+      - name: Checkout publication branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_branch }}
+          path: publication
+          fetch-depth: 1
+      - name: Collect and publish completed evidence
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+          BRANCH: ${{ github.event.workflow_run.head_branch }}
+          EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: bash collector/tools/publish_ci_results.sh "$GITHUB_WORKSPACE/publication"
+      - name: Preserve evidence if publication fails
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unpublished-ci-evidence-${{ github.event.workflow_run.id }}-${{ github.event.workflow_run.run_attempt }}
+          path: ${{ runner.temp }}/ci-publication/ci-results-*
+          if-no-files-found: warn
