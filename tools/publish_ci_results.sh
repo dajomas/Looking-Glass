@@ -4,7 +4,7 @@ set -Eeuo pipefail
 umask 077
 : "${GH_TOKEN:?}" "${GH_REPO:?}" "${RUN_ID:?}" "${RUN_ATTEMPT:?}" "${BRANCH:?}" "${EXPECTED_SHA:?}" "${RUNNER_TEMP:?}"
 [[ "$RUN_ID" =~ ^[0-9]+$ && "$RUN_ATTEMPT" =~ ^[0-9]+$ ]]
-case "$BRANCH" in features/perplexity|features/perplexity-statblock|features/claude|features/claude-statblock) ;; *) exit 1 ;; esac
+case "$BRANCH" in features/claude) ;; *) exit 1 ;; esac
 PUBLICATION="$(cd "${1:?publication checkout required}" && pwd)"
 WORK="$RUNNER_TEMP/ci-publication"
 mkdir -p "$WORK"
@@ -16,7 +16,7 @@ gh api "repos/$GH_REPO/actions/runs/$RUN_ID/attempts/$RUN_ATTEMPT" > "$WORK/api-
 jq -e --arg branch "$BRANCH" --arg sha "$EXPECTED_SHA" --argjson attempt "$RUN_ATTEMPT" '
   .status == "completed" and .head_branch == $branch and .head_sha == $sha
   and .run_attempt == $attempt and .event == "push"
-  and .path == ".github/workflows/tests.yml"
+  and .path == ".github/workflows/integration-tests.yml"
 ' "$WORK/api-run.json" >/dev/null
 jq '{databaseId: .id, workflowDatabaseId: .workflow_id, workflowName: .name,
   headBranch: .head_branch, headSha: .head_sha, status, conclusion,
@@ -42,8 +42,13 @@ else
 fi
 (cd "$OUT" && find artifacts -type f -print | LC_ALL=C sort) > "$OUT/artifact-files.txt"
 [[ -s "$OUT/artifact-files.txt" ]] || echo 'WARNING: No artifact files collected.' >> "$OUT/collection.txt"
-# Downloaded evidence is never executed. Reject links before copying.
+# Downloaded evidence is never executed. Reject links before chunking/copying.
 [[ -z "$(find "$OUT" -type l -print -quit)" ]]
+# Lossless bounded reading copies, as getworkflow.sh creates; use the trusted
+# collector's chunker, never one from the publication branch.
+CHUNKER="$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/chunk_ci_evidence.py"
+python3 "$CHUNKER" "$OUT"
+python3 "$CHUNKER" --verify "$OUT"
 cd "$PUBLICATION"
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

@@ -2,9 +2,9 @@ name: Publish CI results
 
 on:
   workflow_run:
-    workflows: ['Branch tests']
+    workflows: ['Looking Glass integration tests']
     types: [completed]
-    branches: [features/perplexity, features/perplexity-statblock, features/claude, features/claude-statblock]
+    branches: [features/claude]
 
 permissions:
   actions: read
