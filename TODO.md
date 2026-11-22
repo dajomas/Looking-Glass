@@ -74,6 +74,11 @@ Details, evidence and regressions: [acceptance findings](docs/todo/019-acceptanc
 - [31. Invalid fog colour crashes startup with a raw traceback](docs/todo/019-acceptance-findings-2026-11-22.md#31-invalid-fog-colour-crashes-startup-with-a-raw-traceback) — open
 - [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — open improvement
 
+## Improvements
+
+- [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — open (listed above with the acceptance findings)
+- [I2. Wall editor: move endpoints by left-button drag](docs/todo/020-wall-editor-endpoint-drag-2026-11-22.md) — open; three design questions to settle first
+
 ## Preservation
 
 [The manifest](docs/todo/manifest.json) records source commit/blob, byte counts,
