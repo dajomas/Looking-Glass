@@ -1,4 +1,5 @@
 ### 5. Viewer sockets outlive session expiry/logout
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; ASGI/deployment acceptance pending.
 - Fix commit: `88c705eb98d42bbd39fef536b0515666ee298696`.
 - Documentation commit: `cbcf2b5bd2a8af87ec303b66388df338357ab0ea`.

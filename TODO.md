@@ -9,18 +9,18 @@ Uncommitted bug-2 candidates are not installed branch changes.
 ## Contents
 
 - [Workflow and scope](docs/todo/001-workflow-and-scope.md)
-- [1. Feathered fog exposes hidden artwork](docs/todo/002-bug-01-feathered-fog-exposes-hidden-artwork.md)
+- [1. Feathered fog exposes hidden artwork](docs/todo/002-bug-01-feathered-fog-exposes-hidden-artwork.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [2. Geometry reconciliation discards custom room notes](docs/todo/003-bug-02-geometry-reconciliation-discards-custom-room-notes.md)
-- [3. Viewer stays blank after a transient state error](docs/todo/004-bug-03-viewer-stays-blank-after-a-transient-state-error.md)
-- [4. Cache cleanup races with image responses](docs/todo/005-bug-04-cache-cleanup-races-with-image-responses.md)
-- [5. Viewer sockets outlive session expiry/logout](docs/todo/006-bug-05-viewer-sockets-outlive-session-expiry-logout.md)
-- [6. Role changes leave viewer sockets connected](docs/todo/007-bug-06-role-changes-leave-viewer-sockets-connected.md)
-- [7. Forced password change is bypassed by WebSockets](docs/todo/008-bug-07-forced-password-change-is-bypassed-by-websockets.md)
-- [8. Failed account forms partially save display names](docs/todo/009-bug-08-failed-account-forms-partially-save-display-names.md)
-- [9. Login throttle retains unlimited keys](docs/todo/010-bug-09-login-throttle-retains-unlimited-keys.md)
-- [10. NeDB imports resurrect deleted walls/scenes](docs/todo/011-bug-10-nedb-imports-resurrect-deleted-walls-scenes.md)
-- [11. Wall imports accept non-finite coordinates](docs/todo/012-bug-11-wall-imports-accept-non-finite-coordinates.md)
-- [12. Malformed imports escape as unexpected exceptions](docs/todo/013-bug-12-malformed-imports-escape-as-unexpected-exceptions.md)
+- [3. Viewer stays blank after a transient state error](docs/todo/004-bug-03-viewer-stays-blank-after-a-transient-state-error.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [4. Cache cleanup races with image responses](docs/todo/005-bug-04-cache-cleanup-races-with-image-responses.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [5. Viewer sockets outlive session expiry/logout](docs/todo/006-bug-05-viewer-sockets-outlive-session-expiry-logout.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [6. Role changes leave viewer sockets connected](docs/todo/007-bug-06-role-changes-leave-viewer-sockets-connected.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [7. Forced password change is bypassed by WebSockets](docs/todo/008-bug-07-forced-password-change-is-bypassed-by-websockets.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [8. Failed account forms partially save display names](docs/todo/009-bug-08-failed-account-forms-partially-save-display-names.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [9. Login throttle retains unlimited keys](docs/todo/010-bug-09-login-throttle-retains-unlimited-keys.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [10. NeDB imports resurrect deleted walls/scenes](docs/todo/011-bug-10-nedb-imports-resurrect-deleted-walls-scenes.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [11. Wall imports accept non-finite coordinates](docs/todo/012-bug-11-wall-imports-accept-non-finite-coordinates.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
+- [12. Malformed imports escape as unexpected exceptions](docs/todo/013-bug-12-malformed-imports-escape-as-unexpected-exceptions.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [13. Replacement leaves incompatible alternate artwork](docs/todo/014-bug-13-replacement-leaves-incompatible-alternate-artwork.md)
 - [14. Failed map uploads leave orphan artwork](docs/todo/015-bug-14-failed-map-uploads-leave-orphan-artwork.md)
 - [15. Deletion/restore leaks alternate-image files](docs/todo/016-bug-15-deletion-restore-leaks-alternate-image-files.md)
@@ -64,6 +64,15 @@ Add regressions first and keep each fix separately reviewable.
 Items 17/18 can share a coordinated image-retirement design; 25 precedes 26.
 No application, HTTP, browser, live-server or full-suite tests were executed
 for this audit. Three extracted checks are described with their exact limits.
+
+## Acceptance findings: bugs 30–31 and improvement I1
+
+Found during manual acceptance on 2026-11-22. Open; suggested order **31 → 30 → I1**.
+Details, evidence and regressions: [acceptance findings](docs/todo/019-acceptance-findings-2026-11-22.md).
+
+- [30. Doorway sliver of hidden-side artwork on the player image](docs/todo/019-acceptance-findings-2026-11-22.md#30-doorway-sliver-of-hidden-side-artwork-on-the-player-image) — open
+- [31. Invalid fog colour crashes startup with a raw traceback](docs/todo/019-acceptance-findings-2026-11-22.md#31-invalid-fog-colour-crashes-startup-with-a-raw-traceback) — open
+- [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — open improvement
 
 ## Preservation
 

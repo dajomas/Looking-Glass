@@ -1,4 +1,5 @@
 ### 8. Failed account forms partially save display names
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; HTTP/deployment acceptance pending.
 - Fix commit: `35f749192272bdc3028b08a5f9493ba90160438f`.
 - Documentation commit: `704419d7a669fc55ae407090b4b7b79105b7a7d0`.

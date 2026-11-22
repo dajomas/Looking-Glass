@@ -1,4 +1,5 @@
 ### 6. Role changes leave viewer sockets connected
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; ASGI/deployment acceptance pending.
 - Fix commit: `90fa8ba8b2a895d0a193b4aebfbe8f776f26a83e`.
 - Documentation commit: `d1c6ee1ab9665611884d2d2028f724daf6e805c0`.

@@ -1,4 +1,5 @@
 ### 3. Viewer stays blank after a transient state error
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Complete; delivered on `features/perplexity`.
 - Fix commit: `b162dfca0e502f07a2d20ef7b654b7f9e19f3ee4`.
 - Location: `static/js/viewer_display.js`, refresh().
