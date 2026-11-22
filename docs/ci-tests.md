@@ -29,6 +29,30 @@ The mocked-browser suite includes the standalone upload-busy check through a
 separate-process pytest adapter, isolating async and synchronous Playwright loops.
 The original standalone command and local runtests.sh discovery remain available.
 
+## Automatic evidence publication
+
+`.github/workflows/publish-ci-results.yml` runs on `workflow_run` completion of
+"Looking Glass integration tests" for pushes to `features/claude` from this
+repository (pull requests and manual dispatches are not published). It checks
+out the trusted collector from `main` and runs `tools/publish_ci_results.sh`
+against a separate checkout of the tested branch. The collector:
+
+- queries the exact run attempt and requires status completed, the expected
+  branch and SHA, event push and path `.github/workflows/integration-tests.yml`;
+- writes `run.json`, `jobs.json`, `collection.txt`, the full log and all run
+  artifacts to `ci-results-<run>-attempt-<n>/`, rejecting symbolic links;
+- creates and verifies lossless `reader-chunks/` with the collector's
+  `tools/chunk_ci_evidence.py`, matching `getworkflow.sh`;
+- replaces older root `ci-results-*` directories in one non-force
+  `[skip ci]` commit (three fetch/reset/push attempts), leaves newer evidence
+  untouched, and uploads the evidence as an artifact if publication fails.
+
+Prerequisites: both the workflow and the two tools must be on `main`, because
+GitHub runs `workflow_run` workflows from the default branch and the job uses
+main's collector. `features/claude` must accept pushes from `GITHUB_TOKEN`.
+Publication is automatic, with no manual sensitive-data review; `getworkflow.sh`
+remains the manual alternative.
+
 ## Reliability batch 1
 
 Recovery process tests launch `python/main.py --config <temporary-config> serve`

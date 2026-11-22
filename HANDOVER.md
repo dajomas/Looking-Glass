@@ -158,3 +158,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bugs 17/18: regression-first lifecycle checks; production fix pending (2026-11-04)](docs/handover/083-bugs-17-18-regression-first-2026-11-04.md)
 - [Bugs 17/18: original-image retirement implementation; CI validation pending (2026-11-04)](docs/handover/084-bugs-17-18-original-retirement-2026-11-04.md)
 - [Claude working rules: branch and file-size rule (2026-11-22)](docs/handover/100-claude-working-rules-2026-11-22.md)
+- [Automatic CI evidence publication (2026-11-22)](docs/handover/101-automatic-ci-evidence-publication-2026-11-22.md)
