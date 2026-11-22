@@ -4,7 +4,7 @@ set -Eeuo pipefail
 usage() {
   cat <<'HELP'
 Usage: bash runlocaltests.sh [--suite all|python|javascript|browser|live|recovery] [--python PATH] [--no-publish]
-Default: all five groups, then publish completed evidence on features/perplexity.
+Default: all five groups, then publish completed evidence on features/claude.
 --no-publish keeps evidence local and does not stage, commit or push anything.
 Needs installed dependencies and Podman or Docker for recovery.
 Tests full committed HEAD; short hashes label local-tests-<short-hash>/ only.
@@ -51,13 +51,13 @@ HELPER=$ROOT/tools/local_test_workspace.py
 publish_results() {
   local relative=${RUN#"$ROOT/"} branch head
   branch=$(git -C "$ROOT" symbolic-ref --quiet --short HEAD) || return 1
-  [[ "$branch" == features/perplexity ]] || { echo 'Refusing publication outside features/perplexity'; return 1; }
+  [[ "$branch" == features/claude ]] || { echo 'Refusing publication outside features/claude'; return 1; }
   head=$(git -C "$ROOT" rev-parse --verify HEAD) || return 1
   [[ "$head" == "$HASH" ]] || { echo 'HEAD changed during tests; refusing publication'; return 1; }
   git -C "$ROOT" diff --cached --quiet || { echo 'Index has staged changes; refusing publication'; return 1; }
   git -C "$ROOT" add -f -- "$relative" || return 1
   git -C "$ROOT" commit --only -m "Local test results for commit hash $HASH [skip ci]" -- "$relative" || return 1
-  git -C "$ROOT" push origin HEAD:refs/heads/features/perplexity || return 1
+  git -C "$ROOT" push origin HEAD:refs/heads/features/claude || return 1
 }
 finish() {
   local rc=$? collected=1 publication_log

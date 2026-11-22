@@ -164,12 +164,12 @@ want results to remain local.
 Only after every selected suite has finished and diagnostic collection succeeds,
 the EXIT handler writes finished_utc and the test/collection exit-code.txt,
 then publishes that invocation's run directory from the original checkout.
-It refuses a detached HEAD, any branch other than features/perplexity, a HEAD
+It refuses a detached HEAD, any branch other than features/claude, a HEAD
 changed since the run began, or existing staged changes. Only the new run is
 force-added (to override the evidence ignore rule) and path-scoped committed;
 other runs and unrelated files are not included. The evidence commit message
 contains the full tested SHA and [skip ci]. Push is explicitly to origin's
-features/perplexity, without force. Setup failures and interruptions are not
+features/claude, without force. Setup failures and interruptions are not
 published. Completed failed test runs can be published but retain a nonzero exit.
 
 Publication logs live beside the run directory, not inside the committed run,
@@ -177,7 +177,7 @@ so reports are not modified after their commit. exit-code.txt records tests plus
 collection; publication failure separately makes the script return nonzero and
 is recorded in publication-<run-name>.log. A failed push may leave a local evidence
 commit; there is no automatic reset or retry. Git credentials/identity and a
-writable origin/features/perplexity are prerequisites for publication.
+writable origin/features/claude are prerequisites for publication.
 
 Missing, empty, malformed, failed or skipped JUnit reports cause failure even
 when the command returns zero. Failures normally do not prevent later groups.

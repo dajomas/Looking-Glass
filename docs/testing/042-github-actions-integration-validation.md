@@ -1,7 +1,7 @@
 ## GitHub Actions integration validation
 
 The workflow is `.github/workflows/integration-tests.yml`. It is configured for
-pushes to `features/perplexity`, pull requests and manual dispatch. Manual dispatch
+pushes to `features/claude`, pull requests and manual dispatch. Manual dispatch
 visibility/availability depends on GitHub's workflow/default-branch rules; a push
 is sufficient to trigger the configured branch workflow. The actual YAML remains
 authoritative if its configuration is changed later.
@@ -105,7 +105,7 @@ require pull requests and restrict bypasses as appropriate. Availability depends
 on repository settings, permissions and plan. Defining YAML alone does not
 configure branch protection.
 
-A push directly to `features/perplexity` starts validation after the commit is
+A push directly to `features/claude` starts validation after the commit is
 already on that branch; it is not a pre-push gate. Do not change other branches
 or repository rules without the owner's explicit approval.
 

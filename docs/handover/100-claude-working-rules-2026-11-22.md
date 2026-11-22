@@ -27,6 +27,32 @@ bound by the existing records unless the user says otherwise.
   25,000 bytes. Ordinary judgment about coherent file structure still applies.
 - Record 077 is left unchanged as a historical record.
 
+## Branch reference update (2026-11-22, follow-up commit)
+
+At the user's request, current branch references were changed from
+`features/perplexity` to `features/claude`:
+
+- CI: `.github/workflows/integration-tests.yml` push trigger.
+- Scripts: `runlocaltests.sh` (publication branch check and push target) and
+  `getworkflow.sh` (required checkout branch).
+- Test: `python/tests/test_local_runner_publication.py` fixture branch.
+- Current guidance: records 003 (working branch line), 007, 009 and 011,
+  `docs/todo/001-workflow-and-scope.md` target, `docs/release-notes.md`,
+  `docs/ci-tests.md`, `docs/testing.md` and
+  `docs/testing/042-github-actions-integration-validation.md`.
+
+Historical records that state where earlier work was audited, delivered or
+tested (for example "delivered on `features/perplexity`" with a commit SHA)
+are intentionally unchanged, because those statements remain true. Record 003
+also keeps its historical notes about how features/perplexity was created.
+Split manifests are unchanged, so edited split files no longer match their
+split-time hashes; Git history retains the snapshots.
+
+Validation: `bash -n` on both scripts, a YAML parse of the workflow, and
+`test_local_runner_publication.py` (7 passed, Python 3.13 in a workspace
+without FastAPI/bleach). No other suites, CI runs or real publication were
+executed for this change.
+
 ## Documentation change and evidence limits
 
 This documentation-only change adds this record and updates the Current

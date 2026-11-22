@@ -1,6 +1,6 @@
 # Release notes
 
-This file records user-visible changes on `features/perplexity` for a future
+This file records user-visible changes on `features/claude` for a future
 release. Detailed decisions and evidence limits live in
 [the handover records](../HANDOVER.md); earlier changes are recorded there and
 are not summarized here.

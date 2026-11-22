@@ -7,7 +7,7 @@ Configuration and test definitions are not evidence of a passing run.
 
 ## Checks
 
-Configured pushes to `features/perplexity`, pull requests and manual dispatches
+Configured pushes to `features/claude`, pull requests and manual dispatches
 run five independent matrix jobs on Ubuntu 24.04, with fail-fast disabled and a
 30-minute timeout per job:
 

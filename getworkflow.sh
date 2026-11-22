@@ -3,7 +3,7 @@ set -Eeuo pipefail
 umask 077
 
 REPO="dajomas/Looking-Glass"
-BRANCH="features/perplexity"
+BRANCH="features/claude"
 WORKFLOW="integration-tests.yml"
 RUN_ID=""
 PUBLISH=0
@@ -19,7 +19,7 @@ usage() {
     cat <<'EOF'
 Usage: bash getworkflow.sh [RUN_ID] [--publish]
 
-Require a clean features/perplexity checkout, even for local-only collection.
+Require a clean features/claude checkout, even for local-only collection.
 Without RUN_ID, select the latest completed integration workflow run.
 Before downloading, list prior root ci-results-RUN[-attempt-N] directories
 and prompt before removing them locally. Dirty/ignored data is not removed.

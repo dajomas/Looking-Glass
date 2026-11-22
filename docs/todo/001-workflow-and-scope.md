@@ -1,7 +1,7 @@
 # Bug-fix TODO
 
 Created: 2026-10-28. Audited baseline: `3d34a4f8d2c5f184d5e667aa4e47de2a22ee3c10`.
-Target: `dajomas/Looking-Glass`, branch `features/perplexity`.
+Target: `dajomas/Looking-Glass`, branch `features/claude`.
 
 ## Workflow
 
