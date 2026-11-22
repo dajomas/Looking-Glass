@@ -2,7 +2,7 @@
 
 - Owner/repository: dajomas/Looking-Glass
 - Clone URL: https://github.com/dajomas/Looking-Glass.git
-- Assistant working branch: features/perplexity
+- Assistant working branch: features/claude (changed from features/perplexity by user directive on 2026-11-22; see record 100).
 - Other branches observed: main and features/development.
 - The user created features/perplexity locally and pushed it. Do not recreate or overwrite it.
 - A remote check on 2026-10-28 showed all three branches at 1206a4bd7b223041f44d8aa59ebb6df59558d932. This is a historical observation, not a permanent baseline.

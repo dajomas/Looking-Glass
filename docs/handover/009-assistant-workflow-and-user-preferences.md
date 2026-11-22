@@ -1,6 +1,6 @@
 ## Assistant workflow and user preferences
 
-The user prefers direct technical explanations, complete working changes, reproducible commands, incremental validation and candid limitations. Use the live features/perplexity branch as the target unless the user changes that instruction.
+The user prefers direct technical explanations, complete working changes, reproducible commands, incremental validation and candid limitations. Use the live features/claude branch as the target unless the user changes that instruction.
 
 In this Perplexity environment the GitHub connector exposed file reads, single-file create/update and multi-file commits. Tool availability and authentication can change in a new session; rediscover them rather than assuming access.
 

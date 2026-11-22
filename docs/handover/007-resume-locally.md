@@ -3,7 +3,7 @@
 ```bash
 git clone https://github.com/dajomas/Looking-Glass.git
 cd Looking-Glass
-git switch features/perplexity
+git switch features/claude
 git status --short --branch
 git log -5 --oneline
 ```

@@ -10,7 +10,8 @@ No application code or test results are changed by this documentation split.
 
 ## Current repository directives
 
-- [File-size rule: behavior-preserving splits (2026-11-03)](docs/handover/077-file-size-rule-2026-11-03.md)
+- [Claude working rules: branch features/claude, file-size rule withdrawn (2026-11-22)](docs/handover/100-claude-working-rules-2026-11-22.md) — applies to Claude sessions and supersedes the entries below for them
+- [File-size rule: behavior-preserving splits (2026-11-03)](docs/handover/077-file-size-rule-2026-11-03.md) — not applicable to Claude sessions (see record 100)
 
 ## Handover contents
 
@@ -156,3 +157,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bugs 16 and 23: accepted closures and evidence limits](docs/handover/082-bug-16-closure-and-bug-23-config-2026-11-03.md)
 - [Bugs 17/18: regression-first lifecycle checks; production fix pending (2026-11-04)](docs/handover/083-bugs-17-18-regression-first-2026-11-04.md)
 - [Bugs 17/18: original-image retirement implementation; CI validation pending (2026-11-04)](docs/handover/084-bugs-17-18-original-retirement-2026-11-04.md)
+- [Claude working rules: branch and file-size rule (2026-11-22)](docs/handover/100-claude-working-rules-2026-11-22.md)

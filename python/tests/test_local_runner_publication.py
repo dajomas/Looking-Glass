@@ -20,7 +20,7 @@ def fixture(tmp_path):
     root.mkdir()
     remote = tmp_path / "remote.git"
     subprocess.run(["git", "init", "-q", "--bare", str(remote)], check=True)
-    git(root, "init", "-q", "-b", "features/perplexity")
+    git(root, "init", "-q", "-b", "features/claude")
     git(root, "config", "user.name", "Runner harness")
     git(root, "config", "user.email", "runner@example.invalid")
     git(root, "config", "commit.gpgsign", "false")
@@ -78,7 +78,7 @@ def run(fixture, *args, **changes):
 
 
 def remote_head(remote):
-    return git(remote, "rev-parse", "refs/heads/features/perplexity")
+    return git(remote, "rev-parse", "refs/heads/features/claude")
 
 
 def test_full_commit_identity_short_folder_and_no_publish(fixture):
