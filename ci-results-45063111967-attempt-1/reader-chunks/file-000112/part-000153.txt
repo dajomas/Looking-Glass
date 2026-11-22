@@ -1,0 +1,29 @@
+vaScript regressions	Run JavaScript regressions	﻿2026-11-22T19:52:01.8811426Z ##[group]Run set -o pipefail
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8811723Z ^[[36;1mset -o pipefail^[[0m
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8812060Z ^[[36;1mpython tools/run_javascript_tests.py 2>&1 | tee test-results/javascript.log^[[0m
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8836654Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8837038Z env:
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8837346Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8837702Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8837933Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8838195Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8838582Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8838987Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8839335Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8839665Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8840005Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:01.8840409Z ##[endgroup]
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.0818541Z test_admin_area_taps.js: exit=0, seconds=0.064, log=test_admin_area_taps.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.1456192Z test_admin_editor_ordering.js: exit=0, seconds=0.064, log=test_admin_editor_ordering.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.2095499Z test_admin_mask_identity.js: exit=0, seconds=0.064, log=test_admin_mask_identity.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.2735973Z test_admin_notes_polling.js: exit=0, seconds=0.064, log=test_admin_notes_polling.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.3377047Z test_admin_wall_renderer.js: exit=0, seconds=0.064, log=test_admin_wall_renderer.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.3694972Z test_arrow_visibility.js: exit=0, seconds=0.032, log=test_arrow_visibility.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.4012827Z test_campaign_quick_nav.js: exit=0, seconds=0.032, log=test_campaign_quick_nav.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.4331042Z test_door_arrow_click.js: exit=0, seconds=0.032, log=test_door_arrow_click.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.4648182Z test_door_arrow_hit.js: exit=0, seconds=0.032, log=test_door_arrow_hit.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.4966523Z test_door_gestures.js: exit=0, seconds=0.032, log=test_door_gestures.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.5284180Z test_double_reveal.js: exit=0, seconds=0.032, log=test_double_reveal.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.5601882Z test_double_reveal_fog.js: exit=0, seconds=0.032, log=test_double_reveal_fog.log
+JavaScript regressions	Run JavaScript regressions	2026-11-22T19:52:02.5920181Z test_floating_dialog_reflow.js: exit=0, seconds=0.032, log=test_floating_dialog_reflow.log
+JavaScript regressions	Ru

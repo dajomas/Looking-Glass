@@ -1,0 +1,39 @@
+19:51:38.4524232Z [command]/usr/bin/git branch --list --remote origin/features/claude
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4562514Z   origin/features/claude
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4568440Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/claude
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4585901Z fdcd1af9e33aa74b2f50e003e74c877f78cc98df
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4593514Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4594062Z ##[group]Determining the checkout info
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4594739Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4595105Z [command]/usr/bin/git sparse-checkout disable
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4652841Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4673906Z ##[group]Checking out the ref
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4677353Z [command]/usr/bin/git checkout --progress --force -B features/claude refs/remotes/origin/features/claude
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4957102Z Switched to a new branch 'features/claude'
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4965774Z branch 'features/claude' set up to track 'origin/features/claude'.
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.4969135Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.5004782Z [command]/usr/bin/git log -1 --format=%H
+JavaScript regressions	Check out repository	2026-11-22T19:51:38.5023128Z fdcd1af9e33aa74b2f50e003e74c877f78cc98df
+JavaScript regressions	Initialize evidence	﻿2026-11-22T19:51:38.5185181Z ##[group]Run mkdir -p test-results
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.5185607Z ^[[36;1mmkdir -p test-results^[[0m
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.5185956Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.5186338Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.7477321Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.7477877Z env:
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.7478208Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.7478526Z   PYTHONUNBUFFERED: 1
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.7478786Z   LG_RUN_LIVE_E2E: 1
+JavaScript regressions	Initialize evidence	2026-11-22T19:51:38.7479002Z ##[endgroup]
+JavaScript regressions	Set up Python	﻿2026-11-22T19:51:38.7657230Z ##[group]Run actions/setup-python@v6
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7657526Z with:
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7657756Z   python-version: 3.14
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7658010Z   cache: pip
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7658328Z   cache-dependency-path: requirements.txt
+JavaScript regressions	Set up Python	requirements-dev.txt
+JavaScript regressions	Set up Python	
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7658658Z   check-latest: false
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7660423Z   token: ***
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7660639Z   update-environment: true
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7660914Z   allow-prereleases: false
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7661152Z   freethreaded: false
+JavaScript regressions	Set up Python	2026-11-22T19:51:38.7661366Z env:

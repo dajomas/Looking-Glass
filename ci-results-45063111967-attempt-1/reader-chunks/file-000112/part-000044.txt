@@ -1,0 +1,29 @@
+64/lib
+Recovery	Upload validation evidence	2026-11-22T19:52:28.2962526Z ##[endgroup]
+Recovery	Upload validation evidence	2026-11-22T19:52:28.4247644Z (node:3594) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Recovery	Upload validation evidence	2026-11-22T19:52:28.4248406Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Recovery	Upload validation evidence	2026-11-22T19:52:28.4337949Z With the provided path, there will be 24 files uploaded
+Recovery	Upload validation evidence	2026-11-22T19:52:28.4344674Z Artifact name is valid!
+Recovery	Upload validation evidence	2026-11-22T19:52:28.4345391Z Root directory input is valid!
+Recovery	Upload validation evidence	2026-11-22T19:52:28.9533075Z Beginning upload of artifact content to blob storage
+Recovery	Upload validation evidence	2026-11-22T19:52:28.9858021Z (node:3594) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Recovery	Upload validation evidence	2026-11-22T19:52:29.4031422Z Uploaded bytes 27277
+Recovery	Upload validation evidence	2026-11-22T19:52:29.4962936Z Finished uploading artifact content to blob storage!
+Recovery	Upload validation evidence	2026-11-22T19:52:29.4964146Z SHA256 digest of uploaded artifact zip is ff5477f8d3a94fb0fa0d4935169699c2b35e40bdb7d740bd8ce3dd413069a2c2
+Recovery	Upload validation evidence	2026-11-22T19:52:29.4964715Z Finalizing artifact upload
+Recovery	Upload validation evidence	2026-11-22T19:52:29.8839565Z Artifact integration-recovery-fdcd1af9e33aa74b2f50e003e74c877f78cc98df.zip successfully finalized. Artifact ID 14770730883
+Recovery	Upload validation evidence	2026-11-22T19:52:29.8840958Z Artifact integration-recovery-fdcd1af9e33aa74b2f50e003e74c877f78cc98df has been successfully uploaded! Final size is 27277 bytes. Artifact ID is 14770730883
+Recovery	Upload validation evidence	2026-11-22T19:52:29.8845260Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/45063111967/artifacts/14770730883
+Recovery	Post Set up Python	﻿2026-11-22T19:52:29.8988034Z Post job cleanup.
+Recovery	Post Set up Python	2026-11-22T19:52:29.9958645Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+Recovery	Post Check out repository	﻿2026-11-22T19:52:30.0060672Z Post job cleanup.
+Recovery	Post Check out repository	2026-11-22T19:52:30.0771252Z [command]/usr/bin/git version
+Recovery	Post Check out repository	2026-11-22T19:52:30.0803148Z git version 2.56.1
+Recovery	Post Check out repository	2026-11-22T19:52:30.0829982Z Temporarily overriding HOME='/home/runner/work/_temp/eb658680-6386-4e74-b2c0-a5307169a4a8' before making global git config changes
+Recovery	Post Check out repository	2026-11-22T19:52:30.0831221Z Adding repository directory to the temporary git global config as a safe directory
+Recovery	Post Check out repository	2026-11-22T19:52:30.0833050Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Recovery	Post Check out repository	2026-11-22T19:52:30.0859460Z Removing SSH command configuration
+Recovery	Post Check out repository	2026-11-22T19:52:30.0865442Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Recovery	Post Check out repository	2026-11-22T19:52:30.0915908Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Recovery	Post Check out repository	2026-11-22T19:52:30.1147763Z Removing HTTP extra header
+Recovery	Post Check out repository	2026-11-22T19:52:30.1149137Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.

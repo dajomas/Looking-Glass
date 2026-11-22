@@ -1,0 +1,34 @@
+NOWN STEP	2026-11-22T19:51:58.9040830Z python-multipart==0.0.34
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:58.9194868Z httpx2==2.16.2
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.0635054Z pytest==9.2.0
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1352835Z ##[group]Run set -o pipefail
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1353383Z ^[[36;1mset -o pipefail^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1354054Z ^[[36;1mpython -m pytest -v -ra python/tests --ignore=python/tests/browser --ignore=python/tests/live_e2e --ignore=python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1380837Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1381154Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1381472Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1381793Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1382045Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1382328Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1382698Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1383403Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1383811Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1384159Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1384497Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.1384804Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.7733652Z ============================= test session starts ==============================
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.7807107Z platform linux -- Python 3.14.10, pytest-9.2.0, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.14.10/x64/bin/python
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.7809039Z cachedir: .pytest_cache
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.7809483Z rootdir: /home/runner/work/Looking-Glass/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:51:59.7809855Z plugins: anyio-4.16.0
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3058200Z collecting ... collected 1907 items
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3087108Z 
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3132546Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_idempotent PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3139635Z python/tests/test_access_logging.py::AccessLoggingTests::test_configuration_rejects_string PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3142686Z python/tests/test_access_logging.py::AccessLoggingTests::test_debug_opt_in PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3147777Z python/tests/test_access_logging.py::AccessLoggingTests::test_failed_requests_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3164692Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed 
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3167292Z python/tests/test_access_logging.py::AccessLoggingTests::test_success_suppressed PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3172247Z python/tests/test_access_logging.py::AccessLoggingTests::test_unknown_formats_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.3177883Z python/tests/test_access_logging.py::AccessLoggingTests::test_warnings_retained PASSED [  0%]
+Python / HTTP	UNKNOWN STEP	2026-11-22T19:52:02.4226601Z python/tests/test_account_atomicity.py::test_invalid_password_form_is_read_only[admin-values0-Current password is incorrect.-F
