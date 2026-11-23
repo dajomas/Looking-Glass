@@ -41,3 +41,15 @@ tool, and paired portals can be dragged and keep their pairing. Delivered on
   clamp on release, zero-length refusal, hover cursor, paired portal keeps its
   pair. Not runnable in this workspace (no Playwright browsers); CI is the
   evidence.
+
+## CI evidence
+
+- Run 45135322868 (`9b2c2b6`) failed only in the new browser module: the 8 tests
+  that turned snapping off timed out on `page.uncheck("#snap-ends")`, because the
+  checkbox sits in a collapsed sidebar panel. The 4 tests that kept snapping on
+  passed, as did every other suite. Fixed in `7049495` by setting the option
+  directly; no product code changed.
+- Run 45137161559 (`7049495`) succeeded with no failures, errors or skips;
+  evidence published in `6ed80da`: Python/HTTP 1,993, browser 184 (previously
+  172; all 12 endpoint-drag tests passed), JavaScript 36 (including
+  `test_pan_zoom_drag.js`), live 18, recovery 6. Manual acceptance is pending.
