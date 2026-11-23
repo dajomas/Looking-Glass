@@ -40,6 +40,8 @@ Run 45182485974 (`b9a64e2`): Python, JavaScript and Recovery passed on the
 runner; both container jobs failed in Set up Python with `spawn
 /__t/Python/3.14.10/x64/bin/pip ENOENT`. setup-python reused the runner's tool
 cache, mounted at `/__t` in the container, whose scripts carry host shebangs.
-The step now sets `RUNNER_TOOL_CACHE` and `AGENT_TOOLSDIRECTORY` to
-`/opt/hostedtoolcache` (the runner's default, so unchanged on the runner), which
-makes setup-python install a fresh Python inside the container.
+A first fix overriding `RUNNER_TOOL_CACHE`/`AGENT_TOOLSDIRECTORY` for the step
+had no effect (run 45183128048, same error). Only setup-python's pip-cache
+lookup runs the `pip` script; the workflow's own steps use `python -m pip`. The
+container jobs now set `cache: ''` (expression
+`matrix.container && '' || 'pip'`); runner jobs keep the pip cache.

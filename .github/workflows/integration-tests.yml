@@ -65,16 +65,13 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v6
-        env:
-          # In a job container the runner's tool cache is mounted at /__t, but its
-          # Python scripts keep host shebangs and fail to start. Point the cache at
-          # /opt/hostedtoolcache (the runner's own default, so a no-op there) to get
-          # a fresh install inside the container.
-          RUNNER_TOOL_CACHE: /opt/hostedtoolcache
-          AGENT_TOOLSDIRECTORY: /opt/hostedtoolcache
         with:
           python-version: "3.14"
-          cache: pip
+          # In a job container the runner's tool cache is mounted at /__t and its
+          # pip script keeps the host shebang, so setup-python's pip-cache lookup
+          # cannot start. Container jobs skip that cache; every step runs
+          # `python -m pip`, which does not use the script.
+          cache: ${{ matrix.container && '' || 'pip' }}
           cache-dependency-path: |
             requirements.txt
             requirements-dev.txt
