@@ -131,7 +131,8 @@ junit = out / "junit.xml"
 if junit.exists():
     for case in ET.parse(junit).iter("testcase"):
         name = case.get("name", "")
-        browser = name[name.rfind("[") + 1:-1] if name.endswith("]") else "server-only"
+        ids = name[name.rfind("[") + 1:-1].split("-") if name.endswith("]") else []
+        browser = next((part for part in ids if part in ("chromium", "firefox", "webkit")), "server-only")
         result = "passed"
         for tag in ("failure", "error", "skipped"):
             if case.find(tag) is not None:
@@ -150,7 +151,7 @@ if dirty:
 lines += [f"- pytest exit status: {status}",
           f"- Total: {counts['tests']}; passed {passed}, failed {counts['failures']}, errors {counts['errors']}, skipped {counts['skipped']}"]
 lines += [f"- {browser}: " + ", ".join(f"{k} {v}" for k, v in sorted(r.items())) for browser, r in sorted(per_browser.items())]
-lines += ["", "Files: `junit.xml`, `report.html`, `pytest.log`, `server.log` (and `webp-server.log`); screenshots, "
+lines += ["", "Files: `junit.xml`, `report.html`, `pytest.log`, `server.log` (and `<format>-server.log`); screenshots, "
           "traces, console and server-log extracts for failed tests under `failures/`."]
 (out / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 (out / "subject.txt").write_text(f"{passed} passed, {counts['failures'] + counts['errors']} failed", encoding="utf-8")

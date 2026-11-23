@@ -16,7 +16,9 @@ results and environment variables.
 
 | File | Contents |
 | --- | --- |
-| `conftest.py` | Restartable server subprocesses (PNG and WebP), Chromium sandbox flag, failure artifacts |
+| `conftest.py` | Restartable server subprocesses (exact PNG, plus one per image format), Chromium sandbox flag, failure artifacts |
 | `support.py` | UI helpers (DM, player, pixel checks) and the `Table` scenario |
 | `test_journeys.py` | Journeys: login, first-login password change, fog, wall drag, account, revocation |
-| `test_campaign_features.py` | Passage travel, server restart, backup/restore, room notes, admin role, WebP |
+| `test_campaign_features.py` | Passage travel, server restart, backup/restore, room notes, admin role, image formats (WebP, JPEG, PNG) |
+| `test_table_play.py` | Locked and plain doors, map switching with Restore/Reset, checkpoints, two players, DM-controlled zoom |
+| `test_prep_tools.py` | Wall tools and UVTT round trip, Markdown notes import, campaign copy, sync panel, login lockout, readiness check, search, secret passage override |

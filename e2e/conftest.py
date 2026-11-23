@@ -70,7 +70,7 @@ class Server:
         self.config.write_text(f"""\
 server: {{host: 127.0.0.1, admin_port: {admin_port}, viewer_port: {viewer_port}, log_level: info, access_log_success: true}}
 storage: {{data_dir: "{(base / 'data').as_posix()}"}}
-security: {{secure_cookies: false, initial_superadmin: {SUPERADMIN}}}
+security: {{secure_cookies: false, initial_superadmin: {SUPERADMIN}, login_max_failures: 5, login_lockout_seconds: 5}}
 fog: {fog}
 viewer: {viewer}
 """, encoding="utf-8")
@@ -132,10 +132,11 @@ def server(tmp_path_factory):
     yield from _serve(tmp_path_factory, "server", "{work_max_dim: 400, feather_px: 0}", "{image_format: png}")
 
 
-@pytest.fixture(scope="session")
-def webp_server(tmp_path_factory):
-    # The usual player format with default feathering and quality; started only when used.
-    yield from _serve(tmp_path_factory, "webp-server", "{work_max_dim: 400}", "{image_format: webp}")
+@pytest.fixture(scope="session", params=["webp", "jpeg", "png"])
+def format_server(tmp_path_factory, request):
+    # Each player image format with default feathering and quality; started only when used.
+    yield from _serve(tmp_path_factory, f"{request.param}-server", "{work_max_dim: 400}",
+                      f"{{image_format: {request.param}}}")
 
 
 def _slug(nodeid):
@@ -148,7 +149,7 @@ def actors(new_context, request, pytestconfig):
     """Factory for logged-out pages in separate browser contexts (one per person)."""
     from support import Watch
     watch = Watch()
-    servers = [request.getfixturevalue(name) for name in ("server", "webp_server") if name in request.fixturenames]
+    servers = [request.getfixturevalue(name) for name in ("server", "format_server") if name in request.fixturenames]
     log_starts = [(server, server.log.stat().st_size) for server in servers]
     pages = []
 

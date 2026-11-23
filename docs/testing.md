@@ -104,7 +104,19 @@ switching the player to the destination map; the player reconnecting after a
 server restart with sessions and fog intact; a campaign backup download,
 inspect and restore reaching the connected player; room notes saved for the DM
 and absent from the player's page and state; an admin account limited to its
-own campaigns; and a second server serving WebP with default feathering.
+own campaigns; WebP, JPEG and PNG player images with default feathering (one
+extra server per format); locked doors (single click ignored, double click
+unlocks, then reveals) and plain door arrows; switching maps with the Restore
+and Reset choices; session checkpoint save and restore; two players at once,
+with one deactivated and the other unaffected; DM double-click zooming the
+player's view and F fitting it back; wall-editor add, retype and remove with a
+UVTT export re-imported unchanged; Markdown room-note import and assignment;
+a clean campaign copy keeping maps, walls and notes but no players or display;
+the sync panel reporting a player up to date and then gone; login lockout
+after five failures and its expiry (the e2e server uses a 5 s lockout); the
+readiness check and its DM inspection link; campaign search for notes and
+maps; and a secret passage needing approval that travels only with the DM
+override.
 
 ```bash
 tools/run_e2e.sh              # run, store, commit and push results ([skip ci])
@@ -121,7 +133,7 @@ tools/run_e2e.sh -k wall      # extra arguments are passed to pytest
 - **Results:** `e2e-results/<UTC timestamp>/` holds `summary.md` (tested
   commit, any uncommitted changes to tracked files, totals per browser),
   `junit.xml`, `report.html`, `pytest.log`, `server.log` and, when used,
-  `webp-server.log`. Failed tests add
+  `webp-server.log`, `jpeg-server.log` and `png-server.log`. Failed tests add
   `failures/<test>/` with screenshots, a Playwright trace (`trace.zip`; open it
   with `playwright show-trace`), browser console output and the server log
   lines written during that test.

@@ -142,10 +142,12 @@ def test_admin_role_manages_only_its_own_campaigns(server, actors):
     expect(root.page.get_by_text(own)).to_be_visible()
 
 
-def test_webp_player_image_with_default_feathering(webp_server, actors):
-    table = Table(webp_server, actors, tolerance=16)
+def test_player_image_formats_with_default_feathering(format_server, actors):
+    """WebP, JPEG and PNG each reach the player with the right type and colours."""
+    image_format = format_server.name.removesuffix("-server")
+    table = Table(format_server, actors, tolerance=16)
     table.dm.fog("reveal", 100)
-    # Lossy WebP: compare colours within a tolerance at room centres, away from edges.
+    # Lossy formats: compare within a tolerance at room centres, away from edges.
     table.player.expect_pixels(table.map_name, [((100, 100), RED), ((300, 100), BLACK)], tolerance=16)
     kind = table.player.page.evaluate("fetch(document.querySelector('#map').src).then(r => r.headers.get('content-type'))")
-    assert kind.startswith("image/webp"), kind
+    assert kind.startswith(f"image/{image_format}"), kind
