@@ -3,7 +3,7 @@
 Requested 2026-11-22; the user answered the design questions on 2026-11-23:
 joined corners move together (Alt detaches one wall), dragging works in every
 tool, and paired portals can be dragged and keep their pairing. Delivered on
-`features/claude`; acceptance pending.
+`features/claude`; accepted and closed on 2026-11-23 (see the end of this record).
 
 ## Implementation
 
@@ -66,3 +66,9 @@ covers both walls of a corner. Help text, usage doc and the script's cache tag
 CI run 45142306112 tested `1b6012d` and succeeded with no failures, errors or
 skips (published in `b8da3a1`, without reader chunks): Python/HTTP 1,993,
 browser 185 (both Alt cases passed), JavaScript 36, live 18, recovery 6.
+
+## Accepted closure (2026-11-23)
+
+The user re-checked E3 after `1b6012d` and changed it to PASS, so all ten
+Runbook E checks passed, and explicitly closed I2. Limits: one map and one
+desktop browser in the user's environment; touch dragging is not provided.

@@ -9,9 +9,9 @@ are not summarized here.
 
 ### Added
 
-- **Drag wall endpoints in the wall editor (I2).** In any tool, press the left
+- **Drag wall endpoints in the wall editor (I2, accepted).** In any tool, press the left
   mouse button on an endpoint and drag to move it. Walls meeting at that corner
-  move together; hold Alt to move one wall only. Snapping and the image edge
+  move together; hold Alt and press slightly along a wall to move only that wall. Snapping and the image edge
   apply, Escape cancels, each drag is one Undo step, and paired portals keep
   their pairing. Clicks on endpoints and drags elsewhere behave as before.
 
