@@ -1,0 +1,13 @@
+..........................                                               [100%]
+=============================== warnings summary ===============================
+test_campaign_features.py::test_passage_travel_switches_the_player_to_the_destination_map[chromium]
+  /mnt/d/git/Looking-Glass/.venv-e2e/lib64/python3.14/site-packages/_pytest/fixtures.py:1392: PytestRemovedIn10Warning: Session-scoped fixtures defined as instance methods are deprecated.
+  Instance attributes set in the 'base_url' fixture will NOT be visible to test methods,
+  as each test gets a new instance while the fixture runs only once per class.
+  Use a @classmethod decorator below @pytest.fixture and set attributes on cls instead.
+  See https://docs.pytest.org/en/stable/deprecations.html#class-scoped-fixture-as-instance-method
+    fixturefunc = resolve_fixture_function(fixturedef, request)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- Generated html report: file:///mnt/d/git/Looking-Glass/e2e-results/20261123T120124Z/report.html -
+26 passed, 1 warning in 136.88s (0:02:16)
