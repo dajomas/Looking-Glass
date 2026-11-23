@@ -1,0 +1,271 @@
+2026-11-23 13:20:24,338 WARNING looking_glass: ================================================================
+Created superadmin 'superadmin' from LG_SUPERADMIN_PASSWORD
+================================================================
+2026-11-23 13:20:24,346 INFO    looking_glass: Admin  portal: http://127.0.0.1:47841
+2026-11-23 13:20:24,346 INFO    looking_glass: Viewer portal: http://127.0.0.1:46611
+2026-11-23 13:20:24,649 INFO    uvicorn.error: Started server process [9114]
+2026-11-23 13:20:24,650 INFO    uvicorn.error: Waiting for application startup.
+2026-11-23 13:20:24,650 INFO    uvicorn.error: Started server process [9114]
+2026-11-23 13:20:24,650 INFO    uvicorn.error: Waiting for application startup.
+2026-11-23 13:20:24,658 INFO    uvicorn.error: Application startup complete.
+2026-11-23 13:20:24,658 INFO    uvicorn.error: Application startup complete.
+2026-11-23 13:20:24,674 INFO    uvicorn.error: Uvicorn running on http://127.0.0.1:47841 (Press CTRL+C to quit)
+2026-11-23 13:20:24,674 INFO    uvicorn.error: Uvicorn running on http://127.0.0.1:46611 (Press CTRL+C to quit)
+2026-11-23 13:20:24,989 INFO    uvicorn.access: 127.0.0.1:46924 - "GET /healthz HTTP/1.1" 200
+2026-11-23 13:20:24,995 INFO    uvicorn.access: 127.0.0.1:47660 - "GET /healthz HTTP/1.1" 200
+2026-11-23 13:20:25,821 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /login HTTP/1.1" 200
+2026-11-23 13:20:25,913 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /static/js/common.js HTTP/1.1" 200
+2026-11-23 13:20:25,914 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /static/js/upload_busy.js?v=imports-7-1 HTTP/1.1" 200
+2026-11-23 13:20:25,914 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/css/common.css HTTP/1.1" 200
+2026-11-23 13:20:25,927 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/img/favicon.svg HTTP/1.1" 200
+2026-11-23 13:20:26,276 INFO    uvicorn.access: 127.0.0.1:46936 - "POST /login HTTP/1.1" 303
+2026-11-23 13:20:26,318 INFO    uvicorn.access: 127.0.0.1:46936 - "GET / HTTP/1.1" 200
+2026-11-23 13:20:26,386 INFO    uvicorn.access: 127.0.0.1:46936 - "GET / HTTP/1.1" 200
+2026-11-23 13:20:26,522 INFO    uvicorn.access: 127.0.0.1:46936 - "POST /campaigns HTTP/1.1" 303
+2026-11-23 13:20:26,573 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /campaigns/1?ok=Campaign+created HTTP/1.1" 200
+2026-11-23 13:20:26,599 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/js/campaign_quick_nav.js?v=1 HTTP/1.1" 200
+2026-11-23 13:20:26,600 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /static/js/admin_viewer_sync.js?v=viewer-sync-1 HTTP/1.1" 200
+2026-11-23 13:20:26,600 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /static/js/api.js HTTP/1.1" 200
+2026-11-23 13:20:26,600 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /static/js/map_display_prompt.js HTTP/1.1" 200
+2026-11-23 13:20:26,601 INFO    uvicorn.access: 127.0.0.1:46958 - "GET /static/js/map_transition_overview.js?v=transitions-1 HTTP/1.1" 200
+2026-11-23 13:20:26,601 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /static/js/keep_select_values.js HTTP/1.1" 200
+2026-11-23 13:20:26,615 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /static/js/campaign_batch_import.js?v=imports-7-1 HTTP/1.1" 200
+2026-11-23 13:20:26,618 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:26,668 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:26,669 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:26,709 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /campaigns/1 HTTP/1.1" 200
+2026-11-23 13:20:26,744 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:26,746 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:26,747 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:26,934 INFO    uvicorn.access: 127.0.0.1:46936 - "POST /campaigns/1/maps HTTP/1.1" 303
+2026-11-23 13:20:26,978 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /maps/1?ok=Map+%27Map-5ffa76a5%27+imported+%28400x200%29%2C+5+walls+from+%27Two+rooms%27 HTTP/1.1" 200
+2026-11-23 13:20:26,999 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /static/css/scrying_glass.css?v=scrying-prefix-3 HTTP/1.1" 200
+2026-11-23 13:20:27,000 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/css/admin.css?v=double-fog-1 HTTP/1.1" 200
+2026-11-23 13:20:27,015 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/js/map_display_prompt.js?v=passage-display-2 HTTP/1.1" 200
+2026-11-23 13:20:27,019 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /static/js/pan_zoom.js HTTP/1.1" 200
+2026-11-23 13:20:27,020 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /static/js/wall_appearance.js?v=wall-width-2 HTTP/1.1" 200
+2026-11-23 13:20:27,020 INFO    uvicorn.access: 127.0.0.1:46958 - "GET /static/js/door_gestures.js?v=passages-1 HTTP/1.1" 200
+2026-11-23 13:20:27,020 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /static/js/admin_area_taps.js?v=admin-viewer-zoom-1 HTTP/1.1" 200
+2026-11-23 13:20:27,024 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /static/js/keep_select_values.js?v=room-confirm-5 HTTP/1.1" 200
+2026-11-23 13:20:27,037 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/js/door_arrow_hit.js?v=door-arrow-click-1 HTTP/1.1" 200
+2026-11-23 13:20:27,040 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /static/js/room_library_manager.js?v=room-library-unassign-11 HTTP/1.1" 200
+2026-11-23 13:20:27,042 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /static/js/room_edit_marker.js?v=room-tools-9 HTTP/1.1" 200
+2026-11-23 13:20:27,042 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /static/js/room_name_overlay.js?v=room-names-10 HTTP/1.1" 200
+2026-11-23 13:20:27,042 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /static/js/portal_cycle.js?v=portal-tools-4 HTTP/1.1" 200
+2026-11-23 13:20:27,042 INFO    uvicorn.access: 127.0.0.1:46958 - "GET /static/js/map_transitions.js?v=travel-approval-6 HTTP/1.1" 200
+2026-11-23 13:20:27,054 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/js/scrying_glass_room.js?v=scrying-prefix-3 HTTP/1.1" 200
+2026-11-23 13:20:27,056 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /static/js/room_notes.js?v=scrying-room-1 HTTP/1.1" 200
+2026-11-23 13:20:27,057 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /static/js/double_reveal_markers.js?v=double-fog-1 HTTP/1.1" 200
+2026-11-23 13:20:27,060 INFO    uvicorn.access: 127.0.0.1:46958 - "GET /static/js/admin_map_editor.js?v=wall-render-split-1 HTTP/1.1" 200
+2026-11-23 13:20:27,061 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /static/js/admin_wall_renderer.js?v=wall-render-split-1 HTTP/1.1" 200
+2026-11-23 13:20:27,062 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /static/js/double_reveal.js?v=double-fog-1 HTTP/1.1" 200
+2026-11-23 13:20:27,071 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /static/js/sidebar_sections.js?v=sidebar-accordion-1 HTTP/1.1" 200
+2026-11-23 13:20:27,072 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /static/js/wall_source_library.js?v=empty-source-8 HTTP/1.1" 200
+2026-11-23 13:20:27,073 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:27,078 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:27,107 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:27,108 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/maps/1/image?boot=1795436427075 HTTP/1.1" 200
+2026-11-23 13:20:27,115 INFO    uvicorn.access: 127.0.0.1:46936 - "GET /api/maps/1 HTTP/1.1" 200
+2026-11-23 13:20:27,116 INFO    uvicorn.access: 127.0.0.1:46958 - "GET /api/maps/1/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:27,169 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1 HTTP/1.1" 200
+2026-11-23 13:20:27,186 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1/room-notes HTTP/1.1" 200
+2026-11-23 13:20:27,193 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /api/maps/1/fog.png?v=1afec36e20495eaedf4f9cff1fe60661-2-2-1 HTTP/1.1" 200
+2026-11-23 13:20:27,194 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/maps/1/double-reveal HTTP/1.1" 200
+2026-11-23 13:20:27,197 INFO    uvicorn.access: 127.0.0.1:46976 - "GET /api/maps/1/door-arrows.png?v=1afec36e20495eaedf4f9cff1fe60661-2-2-1 HTTP/1.1" 200
+2026-11-23 13:20:27,198 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:27,201 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /campaigns/1 HTTP/1.1" 200
+2026-11-23 13:20:27,206 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1/door-arrows.png?v=1afec36e20495eaedf4f9cff1fe60661-2-2-1 HTTP/1.1" 200
+2026-11-23 13:20:27,233 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:27,237 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:27,238 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:27,440 INFO    uvicorn.access: 127.0.0.1:46960 - "POST /campaigns/1/viewers/create HTTP/1.1" 303
+2026-11-23 13:20:27,477 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /campaigns/1?ok=Viewer+%27player-ba89f9c2%27+created+and+assigned HTTP/1.1" 200
+2026-11-23 13:20:27,511 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:27,515 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:27,516 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:27,571 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /campaigns/1 HTTP/1.1" 200
+2026-11-23 13:20:27,603 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:27,610 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:27,611 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:27,699 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/maps/1/display-options HTTP/1.1" 200
+2026-11-23 13:20:27,737 INFO    uvicorn.access: 127.0.0.1:46960 - "POST /campaigns/1/active HTTP/1.1" 303
+2026-11-23 13:20:27,771 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /campaigns/1?ok=Viewer+screen+updated HTTP/1.1" 200
+2026-11-23 13:20:27,816 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:27,819 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:27,819 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:27,997 INFO    uvicorn.access: 127.0.0.1:47662 - "GET /login?next=/c/1 HTTP/1.1" 200
+2026-11-23 13:20:28,026 INFO    uvicorn.access: 127.0.0.1:47674 - "GET /static/js/common.js HTTP/1.1" 200
+2026-11-23 13:20:28,027 INFO    uvicorn.access: 127.0.0.1:47676 - "GET /static/js/upload_busy.js?v=imports-7-1 HTTP/1.1" 200
+2026-11-23 13:20:28,028 INFO    uvicorn.access: 127.0.0.1:47662 - "GET /static/css/common.css HTTP/1.1" 200
+2026-11-23 13:20:28,040 INFO    uvicorn.access: 127.0.0.1:47676 - "GET /static/img/favicon.svg HTTP/1.1" 200
+2026-11-23 13:20:28,191 INFO    uvicorn.access: 127.0.0.1:47662 - "POST /login HTTP/1.1" 303
+2026-11-23 13:20:28,215 INFO    uvicorn.access: 127.0.0.1:47662 - "GET /account?next=%2Fc%2F1 HTTP/1.1" 200
+2026-11-23 13:20:28,408 INFO    uvicorn.access: 127.0.0.1:47662 - "POST /account HTTP/1.1" 303
+2026-11-23 13:20:28,434 INFO    uvicorn.access: 127.0.0.1:47662 - "GET /c/1 HTTP/1.1" 200
+2026-11-23 13:20:28,458 INFO    uvicorn.access: 127.0.0.1:47674 - "GET /static/js/viewer_area_zoom.js?v=reveal-overview-1 HTTP/1.1" 200
+2026-11-23 13:20:28,459 INFO    uvicorn.access: 127.0.0.1:47680 - "GET /static/js/viewer_display.js?v=viewer-state-recovery-1 HTTP/1.1" 200
+2026-11-23 13:20:28,459 INFO    uvicorn.access: 127.0.0.1:47676 - "GET /static/js/pan_zoom.js HTTP/1.1" 200
+2026-11-23 13:20:28,460 INFO    uvicorn.access: 127.0.0.1:47662 - "GET /static/css/viewer.css HTTP/1.1" 200
+2026-11-23 13:20:28,490 INFO    uvicorn.error: 127.0.0.1:47682 - "WebSocket /ws/c/1" [accepted]
+2026-11-23 13:20:28,491 INFO    uvicorn.error: connection open
+2026-11-23 13:20:28,496 INFO    uvicorn.access: 127.0.0.1:47680 - "GET /api/c/1/state HTTP/1.1" 200
+2026-11-23 13:20:28,498 INFO    uvicorn.access: 127.0.0.1:47662 - "GET /api/c/1/state HTTP/1.1" 200
+2026-11-23 13:20:28,512 INFO    uvicorn.access: 127.0.0.1:47680 - "GET /api/c/1/image?v=1:1afec36e20495eaedf4f9cff1fe60661-2-3 HTTP/1.1" 200
+2026-11-23 13:20:28,567 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /maps/1 HTTP/1.1" 200
+2026-11-23 13:20:28,637 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/campaigns/1/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:28,638 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/campaigns/1/transitions HTTP/1.1" 200
+2026-11-23 13:20:28,640 INFO    uvicorn.access: 127.0.0.1:46988 - "GET /api/maps/1/image?boot=1795436428613 HTTP/1.1" 200
+2026-11-23 13:20:28,640 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /api/maps/1 HTTP/1.1" 200
+2026-11-23 13:20:28,643 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/maps/1/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:28,644 INFO    uvicorn.access: 127.0.0.1:46976 - "GET /api/campaigns/1/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:28,649 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/maps/1/room-notes HTTP/1.1" 200
+2026-11-23 13:20:28,653 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1/double-reveal HTTP/1.1" 200
+2026-11-23 13:20:28,663 INFO    uvicorn.access: 127.0.0.1:46944 - "GET /api/maps/1/fog.png?v=1afec36e20495eaedf4f9cff1fe60661-2-3-1 HTTP/1.1" 200
+2026-11-23 13:20:28,665 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/maps/1/image?v=1%2F9651ad8182544b53910bbe2752a43d97.png-original HTTP/1.1" 200
+2026-11-23 13:20:28,667 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /api/maps/1/door-arrows.png?v=1afec36e20495eaedf4f9cff1fe60661-2-3-1 HTTP/1.1" 200
+2026-11-23 13:20:28,668 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:28,680 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/maps/1 HTTP/1.1" 200
+2026-11-23 13:20:28,682 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1/door-arrows.png?v=1afec36e20495eaedf4f9cff1fe60661-2-3-1 HTTP/1.1" 200
+2026-11-23 13:20:29,239 INFO    uvicorn.access: 127.0.0.1:46960 - "POST /api/maps/1/reveal HTTP/1.1" 200
+2026-11-23 13:20:29,273 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/maps/1/room-notes HTTP/1.1" 200
+2026-11-23 13:20:29,273 INFO    uvicorn.access: 127.0.0.1:46952 - "GET /api/maps/1/double-reveal HTTP/1.1" 200
+2026-11-23 13:20:29,274 INFO    uvicorn.access: 127.0.0.1:47680 - "GET /api/c/1/state HTTP/1.1" 200
+2026-11-23 13:20:29,274 INFO    uvicorn.access: 127.0.0.1:46942 - "GET /api/maps/1/fog.png?v=1afec36e20495eaedf4f9cff1fe60661-2-4-1 HTTP/1.1" 200
+2026-11-23 13:20:29,276 INFO    uvicorn.access: 127.0.0.1:46988 - "GET /api/maps/1/door-arrows.png?v=1afec36e20495eaedf4f9cff1fe60661-2-4-1 HTTP/1.1" 200
+2026-11-23 13:20:29,277 INFO    uvicorn.access: 127.0.0.1:46944 - "POST /api/maps/1/room-at HTTP/1.1" 200
+2026-11-23 13:20:29,288 INFO    uvicorn.access: 127.0.0.1:46960 - "GET /api/maps/1/door-arrows.png?v=1afec36e20495eaedf4f9cff1fe60661-2-4-1 HTTP/1.1" 200
+2026-11-23 13:20:29,293 INFO    uvicorn.access: 127.0.0.1:47680 - "GET /api/c/1/image?v=1:1afec36e20495eaedf4f9cff1fe60661-2-4 HTTP/1.1" 200
+2026-11-23 13:20:29,362 INFO    uvicorn.access: 127.0.0.1:47680 - "GET /api/c/1/image?v=1:1afec36e20495eaedf4f9cff1fe60661-2-4 HTTP/1.1" 200
+2026-11-23 13:20:29,946 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /login HTTP/1.1" 200
+2026-11-23 13:20:29,961 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /static/js/common.js HTTP/1.1" 200
+2026-11-23 13:20:29,962 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /static/js/upload_busy.js?v=imports-7-1 HTTP/1.1" 200
+2026-11-23 13:20:29,962 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /static/css/common.css HTTP/1.1" 200
+2026-11-23 13:20:29,963 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /static/img/favicon.svg HTTP/1.1" 200
+2026-11-23 13:20:30,090 INFO    uvicorn.access: 127.0.0.1:47022 - "POST /login HTTP/1.1" 303
+2026-11-23 13:20:30,102 INFO    uvicorn.access: 127.0.0.1:47022 - "GET / HTTP/1.1" 200
+2026-11-23 13:20:30,144 INFO    uvicorn.access: 127.0.0.1:47022 - "GET / HTTP/1.1" 200
+2026-11-23 13:20:30,235 INFO    uvicorn.access: 127.0.0.1:47022 - "POST /campaigns HTTP/1.1" 303
+2026-11-23 13:20:30,262 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /campaigns/2?ok=Campaign+created HTTP/1.1" 200
+2026-11-23 13:20:30,276 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /static/js/map_display_prompt.js HTTP/1.1" 200
+2026-11-23 13:20:30,277 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /static/js/campaign_quick_nav.js?v=1 HTTP/1.1" 200
+2026-11-23 13:20:30,277 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /static/js/admin_viewer_sync.js?v=viewer-sync-1 HTTP/1.1" 200
+2026-11-23 13:20:30,277 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /static/js/api.js HTTP/1.1" 200
+2026-11-23 13:20:30,279 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /static/js/keep_select_values.js HTTP/1.1" 200
+2026-11-23 13:20:30,280 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /static/js/map_transition_overview.js?v=transitions-1 HTTP/1.1" 200
+2026-11-23 13:20:30,291 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:30,294 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /static/js/campaign_batch_import.js?v=imports-7-1 HTTP/1.1" 200
+2026-11-23 13:20:30,308 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:30,309 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:30,339 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /campaigns/2 HTTP/1.1" 200
+2026-11-23 13:20:30,354 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:30,358 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:30,359 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:30,474 INFO    uvicorn.access: 127.0.0.1:46990 - "POST /campaigns/2/maps HTTP/1.1" 303
+2026-11-23 13:20:30,489 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /maps/2?ok=Map+%27Map-dd887f8d%27+imported+%28400x200%29%2C+5+walls+from+%27Two+rooms%27 HTTP/1.1" 200
+2026-11-23 13:20:30,503 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /static/js/map_display_prompt.js?v=passage-display-2 HTTP/1.1" 200
+2026-11-23 13:20:30,504 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /static/css/scrying_glass.css?v=scrying-prefix-3 HTTP/1.1" 200
+2026-11-23 13:20:30,505 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /static/css/admin.css?v=double-fog-1 HTTP/1.1" 200
+2026-11-23 13:20:30,505 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /static/js/pan_zoom.js HTTP/1.1" 200
+2026-11-23 13:20:30,506 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /static/js/keep_select_values.js?v=room-confirm-5 HTTP/1.1" 200
+2026-11-23 13:20:30,509 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /static/js/wall_appearance.js?v=wall-width-2 HTTP/1.1" 200
+2026-11-23 13:20:30,518 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /static/js/admin_area_taps.js?v=admin-viewer-zoom-1 HTTP/1.1" 200
+2026-11-23 13:20:30,520 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:30,522 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /static/js/map_transitions.js?v=travel-approval-6 HTTP/1.1" 200
+2026-11-23 13:20:30,522 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /static/js/door_gestures.js?v=passages-1 HTTP/1.1" 200
+2026-11-23 13:20:30,523 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /static/js/door_arrow_hit.js?v=door-arrow-click-1 HTTP/1.1" 200
+2026-11-23 13:20:30,523 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /static/js/portal_cycle.js?v=portal-tools-4 HTTP/1.1" 200
+2026-11-23 13:20:30,531 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /static/js/room_name_overlay.js?v=room-names-10 HTTP/1.1" 200
+2026-11-23 13:20:30,536 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /static/js/room_edit_marker.js?v=room-tools-9 HTTP/1.1" 200
+2026-11-23 13:20:30,538 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /static/js/room_notes.js?v=scrying-room-1 HTTP/1.1" 200
+2026-11-23 13:20:30,539 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /static/js/room_library_manager.js?v=room-library-unassign-11 HTTP/1.1" 200
+2026-11-23 13:20:30,540 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /static/js/scrying_glass_room.js?v=scrying-prefix-3 HTTP/1.1" 200
+2026-11-23 13:20:30,541 INFO    uvicorn.access: 127.0.0.1:46990 - "GET /static/js/double_reveal_markers.js?v=double-fog-1 HTTP/1.1" 200
+2026-11-23 13:20:30,550 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /static/js/double_reveal.js?v=double-fog-1 HTTP/1.1" 200
+2026-11-23 13:20:30,551 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /static/js/admin_wall_renderer.js?v=wall-render-split-1 HTTP/1.1" 200
+2026-11-23 13:20:30,552 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /static/js/sidebar_sections.js?v=sidebar-accordion-1 HTTP/1.1" 200
+2026-11-23 13:20:30,554 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /static/js/admin_map_editor.js?v=wall-render-split-1 HTTP/1.1" 200
+2026-11-23 13:20:30,556 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /static/js/wall_source_library.js?v=empty-source-8 HTTP/1.1" 200
+2026-11-23 13:20:30,575 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:30,577 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:30,579 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/maps/2/image?boot=1795436430562 HTTP/1.1" 200
+2026-11-23 13:20:30,583 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/maps/2 HTTP/1.1" 200
+2026-11-23 13:20:30,584 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /api/maps/2/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:30,601 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /api/maps/2/room-notes HTTP/1.1" 200
+2026-11-23 13:20:30,601 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/maps/2/double-reveal HTTP/1.1" 200
+2026-11-23 13:20:30,602 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/maps/2/fog.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-2-1 HTTP/1.1" 200
+2026-11-23 13:20:30,603 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/maps/2/door-arrows.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-2-1 HTTP/1.1" 200
+2026-11-23 13:20:30,605 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/maps/2/image?v=2%2F88dd90c66f6342a9b30c1797b44e9124.png-original HTTP/1.1" 200
+2026-11-23 13:20:30,614 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/maps/2/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:30,616 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/maps/2/door-arrows.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-2-1 HTTP/1.1" 200
+2026-11-23 13:20:30,638 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/maps/2 HTTP/1.1" 200
+2026-11-23 13:20:30,651 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /campaigns/2 HTTP/1.1" 200
+2026-11-23 13:20:30,672 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:30,675 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:30,676 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:30,845 INFO    uvicorn.access: 127.0.0.1:47036 - "POST /campaigns/2/viewers/create HTTP/1.1" 303
+2026-11-23 13:20:30,883 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /campaigns/2?ok=Viewer+%27player-2e41d99a%27+created+and+assigned HTTP/1.1" 200
+2026-11-23 13:20:30,901 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:30,904 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:30,905 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:30,962 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /campaigns/2 HTTP/1.1" 200
+2026-11-23 13:20:30,980 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:30,984 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:30,984 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:31,035 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/maps/2/display-options HTTP/1.1" 200
+2026-11-23 13:20:31,062 INFO    uvicorn.access: 127.0.0.1:47036 - "POST /campaigns/2/active HTTP/1.1" 303
+2026-11-23 13:20:31,099 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /campaigns/2?ok=Viewer+screen+updated HTTP/1.1" 200
+2026-11-23 13:20:31,114 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:31,117 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:31,119 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:31,184 INFO    uvicorn.access: 127.0.0.1:47684 - "GET /login?next=/c/2 HTTP/1.1" 200
+2026-11-23 13:20:31,198 INFO    uvicorn.access: 127.0.0.1:47690 - "GET /static/js/common.js HTTP/1.1" 200
+2026-11-23 13:20:31,199 INFO    uvicorn.access: 127.0.0.1:47704 - "GET /static/js/upload_busy.js?v=imports-7-1 HTTP/1.1" 200
+2026-11-23 13:20:31,200 INFO    uvicorn.access: 127.0.0.1:47684 - "GET /static/css/common.css HTTP/1.1" 200
+2026-11-23 13:20:31,201 INFO    uvicorn.access: 127.0.0.1:47716 - "GET /static/img/favicon.svg HTTP/1.1" 200
+2026-11-23 13:20:31,331 INFO    uvicorn.access: 127.0.0.1:47684 - "POST /login HTTP/1.1" 303
+2026-11-23 13:20:31,342 INFO    uvicorn.access: 127.0.0.1:47684 - "GET /account?next=%2Fc%2F2 HTTP/1.1" 200
+2026-11-23 13:20:31,492 INFO    uvicorn.access: 127.0.0.1:47684 - "POST /account HTTP/1.1" 303
+2026-11-23 13:20:31,500 INFO    uvicorn.access: 127.0.0.1:47684 - "GET /c/2 HTTP/1.1" 200
+2026-11-23 13:20:31,512 INFO    uvicorn.access: 127.0.0.1:47716 - "GET /static/js/pan_zoom.js HTTP/1.1" 200
+2026-11-23 13:20:31,513 INFO    uvicorn.access: 127.0.0.1:47704 - "GET /static/js/viewer_area_zoom.js?v=reveal-overview-1 HTTP/1.1" 200
+2026-11-23 13:20:31,513 INFO    uvicorn.access: 127.0.0.1:47690 - "GET /static/js/viewer_display.js?v=viewer-state-recovery-1 HTTP/1.1" 200
+2026-11-23 13:20:31,514 INFO    uvicorn.access: 127.0.0.1:47684 - "GET /static/css/viewer.css HTTP/1.1" 200
+2026-11-23 13:20:31,532 INFO    uvicorn.error: 127.0.0.1:47726 - "WebSocket /ws/c/2" [accepted]
+2026-11-23 13:20:31,532 INFO    uvicorn.error: connection open
+2026-11-23 13:20:31,536 INFO    uvicorn.access: 127.0.0.1:47684 - "GET /api/c/2/state HTTP/1.1" 200
+2026-11-23 13:20:31,540 INFO    uvicorn.access: 127.0.0.1:47704 - "GET /api/c/2/state HTTP/1.1" 200
+2026-11-23 13:20:31,550 INFO    uvicorn.access: 127.0.0.1:47704 - "GET /api/c/2/image?v=2:af5af2d2a4fe8e58e3d2b254276c10e5-2-3 HTTP/1.1" 200
+2026-11-23 13:20:31,598 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /maps/2 HTTP/1.1" 200
+2026-11-23 13:20:31,615 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/campaigns/2/viewer-status HTTP/1.1" 200
+2026-11-23 13:20:31,630 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/maps/2/image?boot=1795436431615 HTTP/1.1" 200
+2026-11-23 13:20:31,632 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /api/campaigns/2/wall-sources HTTP/1.1" 200
+2026-11-23 13:20:31,634 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/campaigns/2/transitions HTTP/1.1" 200
+2026-11-23 13:20:31,635 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/maps/2 HTTP/1.1" 200
+2026-11-23 13:20:31,637 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/maps/2/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:31,659 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/maps/2/fog.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-3-1 HTTP/1.1" 200
+2026-11-23 13:20:31,661 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /api/maps/2/door-arrows.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-3-1 HTTP/1.1" 200
+2026-11-23 13:20:31,664 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/maps/2/image?v=2%2F88dd90c66f6342a9b30c1797b44e9124.png-original HTTP/1.1" 200
+2026-11-23 13:20:31,671 INFO    uvicorn.access: 127.0.0.1:47036 - "GET /api/maps/2/room-notes HTTP/1.1" 200
+2026-11-23 13:20:31,671 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/maps/2/double-reveal HTTP/1.1" 200
+2026-11-23 13:20:31,675 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/maps/2/door-arrows.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-3-1 HTTP/1.1" 200
+2026-11-23 13:20:31,679 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/maps/2/room-note-library HTTP/1.1" 200
+2026-11-23 13:20:31,689 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/maps/2 HTTP/1.1" 200
+2026-11-23 13:20:32,174 INFO    uvicorn.access: 127.0.0.1:47028 - "POST /api/maps/2/reveal HTTP/1.1" 200
+2026-11-23 13:20:32,196 INFO    uvicorn.access: 127.0.0.1:47028 - "GET /api/maps/2/room-notes HTTP/1.1" 200
+2026-11-23 13:20:32,198 INFO    uvicorn.access: 127.0.0.1:47012 - "GET /api/maps/2/fog.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-4-1 HTTP/1.1" 200
+2026-11-23 13:20:32,199 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/maps/2/door-arrows.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-4-1 HTTP/1.1" 200
+2026-11-23 13:20:32,202 INFO    uvicorn.access: 127.0.0.1:47036 - "POST /api/maps/2/room-at HTTP/1.1" 200
+2026-11-23 13:20:32,208 INFO    uvicorn.access: 127.0.0.1:47022 - "GET /api/maps/2/double-reveal HTTP/1.1" 200
+2026-11-23 13:20:32,209 INFO    uvicorn.access: 127.0.0.1:47704 - "GET /api/c/2/state HTTP/1.1" 200
+2026-11-23 13:20:32,213 INFO    uvicorn.access: 127.0.0.1:47004 - "GET /api/maps/2/door-arrows.png?v=af5af2d2a4fe8e58e3d2b254276c10e5-2-4-1 HTTP/1.1" 200
+2026-11-23 13:20:32,221 INFO    uvicorn.access: 127.0.0.1:47704 - "GET /api/c/2/image?v=2:af5af2d2a4fe8e58e3d2b254276c10e5-2-4 HTTP/1.1" 200
+2026-11-23 13:20:32,239 INFO    uvicorn.access: 127.0.0.1:47704 - "GET /api/c/2/image?v=2:af5af2d2a4fe8e58e3d2b254276c10e5-2-4 HTTP/1.1" 200
+2026-11-23 13:24:01,832 INFO    looking_glass: Shutting down...
+2026-11-23 13:24:01,884 INFO    uvicorn.error: Shutting down
+2026-11-23 13:24:01,884 INFO    uvicorn.error: Shutting down
+2026-11-23 13:24:01,985 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-23 13:24:01,985 INFO    uvicorn.error: Waiting for application shutdown.
+2026-11-23 13:24:01,985 INFO    uvicorn.error: Application shutdown complete.
+2026-11-23 13:24:01,985 INFO    uvicorn.error: Finished server process [9114]
+2026-11-23 13:24:01,985 INFO    uvicorn.error: Application shutdown complete.
+2026-11-23 13:24:01,985 INFO    uvicorn.error: Finished server process [9114]
