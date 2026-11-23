@@ -9,7 +9,7 @@ are not summarized here.
 
 ### Added
 
-- **End-to-end suite in Chromium and Firefox (I3).** `tools/run_e2e.sh` runs
+- **End-to-end suite in Chromium and Firefox (I3, accepted).** `tools/run_e2e.sh` runs
   Playwright journeys from `e2e/` against a real local server, stores the
   results in `e2e-results/<timestamp>/`, keeps only the latest set and commits
   and pushes it with `[skip ci]`. See docs/testing.md, "End-to-end suite".
