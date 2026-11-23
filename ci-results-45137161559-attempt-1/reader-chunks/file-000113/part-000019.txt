@@ -1,0 +1,27 @@
+ocal --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.8600633Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.8837376Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.8843978Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.8888657Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9134433Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-20db9714-6e6e-4fc7-80be-37e5d6a76017.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9183811Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-20db9714-6e6e-4fc7-80be-37e5d6a76017.config
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9226454Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-20db9714-6e6e-4fc7-80be-37e5d6a76017.config
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9270653Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-20db9714-6e6e-4fc7-80be-37e5d6a76017.config
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9385760Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-20db9714-6e6e-4fc7-80be-37e5d6a76017.config
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9390530Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9391839Z ##[group]Fetching the repository
+Live Uvicorn	Check out repository	2026-11-23T08:15:40.9394494Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +70494957601ee33cf11333712683eb29a5421b6a:refs/remotes/origin/features/claude
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.2988961Z From https://github.com/dajomas/Looking-Glass
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.2990869Z  * [new ref]         70494957601ee33cf11333712683eb29a5421b6a -> origin/features/claude
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3003769Z [command]/usr/bin/git branch --list --remote origin/features/claude
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3047279Z   origin/features/claude
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3059001Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/claude
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3090728Z 70494957601ee33cf11333712683eb29a5421b6a
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3098229Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3100290Z ##[group]Determining the checkout info
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3102803Z ##[endgroup]
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3104836Z [command]/usr/bin/git sparse-checkout disable
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3170341Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3208392Z ##[group]Checking out the ref
+Live Uvicorn	Check out repository	2026-11-23T08:15:41.3214828Z [command]/usr/bin/git checkout --progress --force -B features/claude refs/remotes/origin/features/claude
+Live Uvicorn	Check out repository	2026-11

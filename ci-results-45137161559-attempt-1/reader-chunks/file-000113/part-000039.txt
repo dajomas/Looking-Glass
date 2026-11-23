@@ -1,0 +1,24 @@
+d types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:23.8964390Z 2026-11-23T08:16:23.885Z pw:browser [pid=3206][err] [1123/081623.885078:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:23.9157137Z 2026-11-23T08:16:23.913Z pw:browser [pid=3206][err] [1123/081623.913271:WARNING:media/gpu/vaapi/vaapi_wrapper.cc:1651] drmGetDevices2() has not found any devices
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:23.9166018Z 2026-11-23T08:16:23.915Z pw:browser [pid=3206][err] [1123/081623.915020:WARNING:sandbox/policy/linux/sandbox_linux.cc:406] InitializeSandbox() called with multiple threads in process gpu-process.
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.0702652Z 2026-11-23T08:16:24.069Z pw:browser [pid=3206][err] [1123/081624.069667:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.0711938Z 2026-11-23T08:16:24.070Z pw:browser [pid=3206][err] [1123/081624.070276:ERROR:dbus/bus.cc:405] Failed to connect to the bus: Could not parse server address: Unknown address type (examples of valid types are "tcp" and on UNIX "unix")
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.0763373Z 2026-11-23T08:16:24.076Z pw:browser [pid=3206][err] [1123/081624.076087:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.0785614Z Chromium version: 159.0.8154.6
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.1604387Z 2026-11-23T08:16:24.159Z pw:browser [pid=3206][err] [1123/081624.159827:INFO:CONSOLE:3] "--playwright--set--content--6da054cc1ce51d11f19309c91fb16628--", source:  (3)
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.1933887Z DOM diagnostic: text_content='Ready', inner_text='Ready'
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.1953869Z PASS: launch, local HTTP navigation and DOM check
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.1989863Z 2026-11-23T08:16:24.193Z pw:browser [pid=3206] <gracefully close start>
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.2157256Z 2026-11-23T08:16:24.215Z pw:browser [pid=3206] <process did exit: exitCode=0, signal=null>
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.2158699Z 2026-11-23T08:16:24.215Z pw:browser [pid=3206] starting temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.2200278Z 2026-11-23T08:16:24.219Z pw:browser [pid=3206] finished temporary directories cleanup
+Live Uvicorn	Verify browser environment	2026-11-23T08:16:24.2201155Z 2026-11-23T08:16:24.219Z pw:browser [pid=3206] <gracefully close end>
+Live Uvicorn	Run live Uvicorn integration tests	﻿2026-11-23T08:16:24.7075472Z ##[group]Run set -o pipefail
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-23T08:16:24.7075807Z ^[[36;1mset -o pipefail^[[0m
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-23T08:16:24.7076444Z ^[[36;1mpython -m pytest -v -ra python/tests/live_e2e --basetemp=ci-live-tmp --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-23T08:16:24.7096606Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-23T08:16:24.7096940Z env:
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-23T08:16:24.7097243Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Live Uvicorn	Run live Uvicorn integration tests	2026-11-23T08:16:24.7097607Z   PYTHONUNBUFFERED: 1
+Live Uvicorn	Run live Uvicorn integration tests	2

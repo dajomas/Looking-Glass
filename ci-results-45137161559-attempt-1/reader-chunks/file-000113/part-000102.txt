@@ -1,0 +1,28 @@
+-name-only --get-regexp core\.sshCommand
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:46.6397402Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0406330Z Removing HTTP extra header
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0412428Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0438603Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0583918Z Removing includeIf entries pointing to credentials config files
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0589166Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0616279Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0773317Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-e8b2dbaf-6268-4245-88bd-535241af054d.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0794781Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-e8b2dbaf-6268-4245-88bd-535241af054d.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0815339Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-e8b2dbaf-6268-4245-88bd-535241af054d.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0838422Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-e8b2dbaf-6268-4245-88bd-535241af054d.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0862355Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-e8b2dbaf-6268-4245-88bd-535241af054d.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0879092Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0879726Z ##[group]Fetching the repository
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.0885036Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +70494957601ee33cf11333712683eb29a5421b6a:refs/remotes/origin/features/claude
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9302794Z From https://github.com/dajomas/Looking-Glass
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9303284Z  * [new ref]         70494957601ee33cf11333712683eb29a5421b6a -> origin/features/claude
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9318328Z [command]/usr/bin/git branch --list --remote origin/features/claude
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9352794Z   origin/features/claude
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9364172Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/claude
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9376757Z 70494957601ee33cf11333712683eb29a5421b6a
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9381292Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9381955Z ##[group]Determining the checkout info
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9382691Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9383670Z [command]/usr/bin/git sparse-checkout disable
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:15:47.9433092Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Python / HTTP	U
