@@ -63,3 +63,6 @@ wall. Fix: with Alt, the joined wall whose line is nearest the pointer is
 detached, so pressing slightly along a wall picks it. The browser test now
 covers both walls of a corner. Help text, usage doc and the script's cache tag
 (`endpoint-drag-2`) were updated. E3 needs to be re-checked.
+CI run 45142306112 tested `1b6012d` and succeeded with no failures, errors or
+skips (published in `b8da3a1`, without reader chunks): Python/HTTP 1,993,
+browser 185 (both Alt cases passed), JavaScript 36, live 18, recovery 6.
