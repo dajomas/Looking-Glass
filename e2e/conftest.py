@@ -74,7 +74,7 @@ def server(tmp_path_factory):
     config = base / "config.yaml"
     # Small work resolution, no feathering and PNG keep pixel checks exact.
     config.write_text(f"""\
-server: {{host: 127.0.0.1, admin_port: {admin_port}, viewer_port: {viewer_port}, log_level: info}}
+server: {{host: 127.0.0.1, admin_port: {admin_port}, viewer_port: {viewer_port}, log_level: info, access_log_success: true}}
 storage: {{data_dir: "{(base / 'data').as_posix()}"}}
 security: {{secure_cookies: false, initial_superadmin: {SUPERADMIN}}}
 fog: {{work_max_dim: 400, feather_px: 0}}
@@ -118,7 +118,8 @@ viewer: {{image_format: png}}
 
 
 def _slug(nodeid):
-    return re.sub(r"[^A-Za-z0-9._-]+", "-", nodeid).strip("-")[:150]
+    # Same folder as pytest-playwright's screenshots and trace for this test.
+    return re.sub(r"[^a-z0-9]+", "-", nodeid.lower()).strip("-")
 
 
 @pytest.fixture

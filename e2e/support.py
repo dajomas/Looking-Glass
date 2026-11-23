@@ -91,11 +91,13 @@ class Admin:
         form.locator('button[type="submit"]').click()
         flash_ok(self.page)
 
-    def show_map(self, cid, name):
+    def show_map(self, cid, mid):
         self.page.goto(f"{self.url}/campaigns/{cid}")
-        row = self.page.locator("tr", has=self.page.locator(f'form[data-map-name="{name}"]'))
-        row.get_by_role("button", name="Show").click()
-        expect(self.page.locator("tr", has_text=name).locator(".pill-live")).to_be_visible()
+        # Map names sit in rename inputs (values, not text), so find rows by map id.
+        row = lambda: self.page.locator("tr", has=self.page.locator(f'form[action="/maps/{mid}/rename"]'))
+        row().locator("form[data-map-display]").get_by_role("button", name="Show").click()
+        expect(self.page.locator(".flash-ok")).to_contain_text("Viewer screen updated")
+        expect(row().locator(".pill-live")).to_be_visible()
 
     def open_map(self, mid):
         self.page.goto(f"{self.url}/maps/{mid}")
@@ -170,7 +172,7 @@ class Table:
         self.cid = self.dm.create_campaign(self.campaign)
         self.mid = self.dm.import_map(self.cid, self.map_name)
         self.dm.create_viewer(self.cid, self.username, "temporary-pass-1")
-        self.dm.show_map(self.cid, self.map_name)
+        self.dm.show_map(self.cid, self.mid)
         self.player = Player(actors("player"), server.viewer, self.cid)
         self.player.first_login(self.username, "temporary-pass-1", self.password)
         self.player.expect_pixels(self.map_name, [((100, 100), BLACK), ((300, 100), BLACK)])
