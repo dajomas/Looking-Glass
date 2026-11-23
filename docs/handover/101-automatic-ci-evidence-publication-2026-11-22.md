@@ -41,3 +41,11 @@ The user copied `.github/workflows/publish-ci-results.yml` and
   already published.
 - Not executed: a real GitHub Actions run, real `gh` API responses, artifact
   downloads or `GITHUB_TOKEN` push permissions.
+
+## Update 2026-11-23: chunking removed
+
+At the user's request, `tools/publish_ci_results.sh` no longer creates or
+verifies `reader-chunks/`; published evidence contains the raw files only. The
+chunker is no longer needed on `main` for publication. `getworkflow.sh` and
+`tools/chunk_ci_evidence.py` are unchanged. Validation: `bash -n` and a local end-to-end run with a stubbed `gh` and a local remote (evidence published, no `reader-chunks/`); the
+user will push the change to `main`, which is where the collector runs from.

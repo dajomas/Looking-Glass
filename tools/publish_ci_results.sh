@@ -42,13 +42,8 @@ else
 fi
 (cd "$OUT" && find artifacts -type f -print | LC_ALL=C sort) > "$OUT/artifact-files.txt"
 [[ -s "$OUT/artifact-files.txt" ]] || echo 'WARNING: No artifact files collected.' >> "$OUT/collection.txt"
-# Downloaded evidence is never executed. Reject links before chunking/copying.
+# Downloaded evidence is never executed. Reject links before copying.
 [[ -z "$(find "$OUT" -type l -print -quit)" ]]
-# Lossless bounded reading copies, as getworkflow.sh creates; use the trusted
-# collector's chunker, never one from the publication branch.
-CHUNKER="$(cd "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/chunk_ci_evidence.py"
-python3 "$CHUNKER" "$OUT"
-python3 "$CHUNKER" --verify "$OUT"
 cd "$PUBLICATION"
 git config user.name 'github-actions[bot]'
 git config user.email '41898282+github-actions[bot]@users.noreply.github.com'

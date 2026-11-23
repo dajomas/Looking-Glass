@@ -41,13 +41,14 @@ against a separate checkout of the tested branch. The collector:
   branch and SHA, event push and path `.github/workflows/integration-tests.yml`;
 - writes `run.json`, `jobs.json`, `collection.txt`, the full log and all run
   artifacts to `ci-results-<run>-attempt-<n>/`, rejecting symbolic links;
-- creates and verifies lossless `reader-chunks/` with the collector's
-  `tools/chunk_ci_evidence.py`, matching `getworkflow.sh`;
+- does not create `reader-chunks/`; run `tools/chunk_ci_evidence.py` on a
+  published directory when bounded reading copies are needed (`getworkflow.sh`
+  still creates them for manual collections);
 - replaces older root `ci-results-*` directories in one non-force
   `[skip ci]` commit (three fetch/reset/push attempts), leaves newer evidence
   untouched, and uploads the evidence as an artifact if publication fails.
 
-Prerequisites: both the workflow and the two tools must be on `main`, because
+Prerequisites: the workflow and `tools/publish_ci_results.sh` must be on `main`, because
 GitHub runs `workflow_run` workflows from the default branch and the job uses
 main's collector. `features/claude` must accept pushes from `GITHUB_TOKEN`.
 Publication is automatic, with no manual sensitive-data review; `getworkflow.sh`
