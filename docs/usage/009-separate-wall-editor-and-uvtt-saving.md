@@ -12,7 +12,8 @@ opening it does not activate the map or change fog.
 4. **Move an endpoint** in any tool: press the left mouse button within 10 screen
    pixels of an endpoint (the cursor becomes a hand) and drag. Walls that meet at
    that corner (endpoints within 0.5 image pixels) move together, so rooms stay
-   closed; hold **Alt** when you press to move only the nearest wall's end.
+   closed; hold **Alt** when you press to move one wall only: the one whose line
+   is nearest the pointer, so press slightly along the wall you want.
    Snapping to other endpoints and the image edge apply while you drag. Escape
    cancels; each drag is one Undo step. A plain click on an endpoint still does
    what the selected tool does, a drag away from endpoints still pans, and paired

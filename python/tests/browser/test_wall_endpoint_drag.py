@@ -103,16 +103,19 @@ def test_corner_drag_moves_all_joined_walls_and_saves(walls):
     assert result[2] == WALLS[2]
 
 
-def test_alt_drag_detaches_one_wall_from_the_corner(walls):
+@pytest.mark.parametrize("press,moved,still", [((197, 50), 0, 1),   # just along wall 0 (runs left)
+                                                 ((200, 53), 1, 0)])  # just along wall 1 (runs down)
+def test_alt_drag_detaches_the_wall_nearest_the_pointer(walls, press, moved, still):
     page, writes, _ = walls
     no_snap(page)
     page.keyboard.down("Alt")
-    drag(page, (200, 50), (230, 20))
+    drag(page, press, (240, 20))
     page.keyboard.up("Alt")
     pw.expect(page.locator("#wall-status")).to_contain_text("Moved an endpoint")
     result = saved(page, writes)
-    moved = [w for w in result[:2] if [200, 50] not in (w[0:2], w[2:4])]
-    assert len(moved) == 1, result
+    corner = [200, 50]
+    assert corner not in (result[moved][0:2], result[moved][2:4]), result
+    assert corner in (result[still][0:2], result[still][2:4]), result
     assert result[2] == WALLS[2]
 
 

@@ -53,3 +53,13 @@ tool, and paired portals can be dragged and keep their pairing. Delivered on
   evidence published in `6ed80da`: Python/HTTP 1,993, browser 184 (previously
   172; all 12 endpoint-drag tests passed), JavaScript 36 (including
   `test_pan_zoom_drag.js`), live 18, recovery 6. Manual acceptance is pending.
+
+## Manual acceptance and Alt fix (2026-11-23)
+
+The user ran Runbook E (Claude doc): nine checks passed; E3 was partial because
+Alt always detached the same wall wherever the pointer was. Cause: joined ends
+share one point, so the "nearest endpoint" tie always resolved to the same
+wall. Fix: with Alt, the joined wall whose line is nearest the pointer is
+detached, so pressing slightly along a wall picks it. The browser test now
+covers both walls of a corner. Help text, usage doc and the script's cache tag
+(`endpoint-drag-2`) were updated. E3 needs to be re-checked.

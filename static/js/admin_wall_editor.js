@@ -138,6 +138,11 @@
     }
     return pt;
   }
+  function segmentDistance(x, y, [ax, ay, bx, by]) {
+    const dx = bx - ax, dy = by - ay;
+    const t = Math.max(0, Math.min(1, ((x - ax) * dx + (y - ay) * dy) / (dx * dx + dy * dy || 1)));
+    return Math.hypot(x - ax - t * dx, y - ay - t * dy);
+  }
   // Endpoints within 10 screen px; all joined ends move together unless detached.
   function endpointsNear(x, y, detach) {
     let best = 10 / pz.scale, hit = null;
@@ -146,14 +151,21 @@
       if (dist <= best) { best = dist; hit = { i, end, x: w[end * 2], y: w[end * 2 + 1] }; }
     }));
     if (!hit) return [];
-    if (detach) return [[hit.i, hit.end]];
     const ends = [];
     walls.forEach((w, i) => {
       const d = [0, 1].map((end) => Math.hypot(w[end * 2] - hit.x, w[end * 2 + 1] - hit.y));
       const end = i === hit.i ? hit.end : d[0] <= d[1] ? 0 : 1;  // at most one end per wall
       if (d[end] <= JOIN) ends.push([i, end]);
     });
-    return ends;
+    if (!detach) return ends;
+    // Joined ends share one point, so detach the wall whose line is nearest the
+    // pointer: pressing slightly along a wall picks that wall.
+    let pick = ends[0], nearest = Infinity;
+    for (const candidate of ends) {
+      const dist = segmentDistance(x, y, walls[candidate[0]]);
+      if (dist < nearest) { nearest = dist; pick = candidate; }
+    }
+    return [pick];
   }
   function onDragStart(x, y, event) {
     if (busy || dragging || editDialog.open || $("portal-dialog").open || !state) return null;
