@@ -1,0 +1,50 @@
+dit.py::test_right_drag_pans_without_opening_or_mutating[add] PASSED [ 90%]
+python/tests/browser/test_wall_right_click_edit.py::test_right_drag_pans_without_opening_or_mutating[remove] PASSED [ 90%]
+python/tests/browser/test_wall_right_click_edit.py::test_right_drag_pans_without_opening_or_mutating[type] PASSED [ 91%]
+python/tests/browser/test_wall_right_click_edit.py::test_right_drag_pans_without_opening_or_mutating[edit] PASSED [ 91%]
+python/tests/browser/test_wall_right_click_edit.py::test_right_click_apply_undo_redo_uses_existing_draft_workflow PASSED [ 92%]
+python/tests/browser/test_wall_right_click_edit.py::test_right_click_cancels_pending_start_only_when_wall_hit PASSED [ 92%]
+python/tests/browser/test_wall_right_click_edit.py::test_hit_tolerance_is_screen_pixels_after_zoom PASSED [ 93%]
+python/tests/browser/test_wall_right_click_edit.py::test_small_pointer_jitter_opens_dialog_but_cancelled_pointer_does_not PASSED [ 94%]
+python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[add] PASSED [ 94%]
+python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[remove] PASSED [ 95%]
+python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[type] PASSED [ 95%]
+python/tests/browser/test_wall_right_click_edit.py::test_primary_click_keeps_selected_tool_behavior[edit] PASSED [ 96%]
+python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[400] PASSED [ 96%]
+python/tests/browser/test_wall_width_consistency.py::test_widths_match_between_editors_at_every_zoom[4000] PASSED [ 97%]
+python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[battle] PASSED [ 97%]
+python/tests/browser/test_wall_width_followup.py::test_native_drag_changes_label_and_painted_stroke_before_any_edit[wall] PASSED [ 98%]
+python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[battle] PASSED [ 98%]
+python/tests/browser/test_wall_width_followup.py::test_keyboard_width_zoom_and_reload[wall] PASSED [ 99%]
+python/tests/browser/test_wall_width_followup.py::test_sources_and_legend_are_independent_siblings PASSED [100%]
+
+=================================== FAILURES ===================================
+______________ test_corner_drag_moves_all_joined_walls_and_saves _______________
+
+walls = (<Page url='http://looking-glass.test/maps/1/walls'>, [], {'ok': True, 'id': 1, 'name': 'M', 'campaign_id': 4, ...})
+
+    def test_corner_drag_moves_all_joined_walls_and_saves(walls):
+        page, writes, _ = walls
+>       no_snap(page)
+
+python/tests/browser/test_wall_endpoint_drag.py:91: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/tests/browser/test_wall_endpoint_drag.py:65: in no_snap
+    page.uncheck("#snap-ends")
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/sync_api/_generated.py:20883: in uncheck
+    self._sync(
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/page.py:1564: in uncheck
+    return await self._main_frame.uncheck(
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/frame.py:1150: in uncheck
+    await self._channel.uncheck(
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <playwright._impl.utils.zones.Zone object at 0x7f1ef7280aa0>
+func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x7f1ef5df2560>
+
+    async def run_async(self, func: Callable[[]

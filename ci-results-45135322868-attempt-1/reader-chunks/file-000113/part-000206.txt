@@ -1,0 +1,33 @@
+mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6544855Z     page.uncheck("#snap-ends")
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6545218Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/sync_api/_generated.py:20883: in uncheck
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6545594Z     self._sync(
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6545900Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/page.py:1564: in uncheck
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6546260Z     return await self._main_frame.uncheck(
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6546611Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/frame.py:1150: in uncheck
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6546960Z     await self._channel.uncheck(
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6547464Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:387: in finish
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6547845Z     raise e from None
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6548162Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:352: in finish
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6548676Z     result = await zone.run_async(lambda: awaitable)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6548909Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6549143Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6549312Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6549456Z self = <playwright._impl.utils.zones.Zone object at 0x7f1ef76df070>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6549958Z func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x7f1ef5dba140>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6550212Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6550343Z     async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6550680Z         # Python: run() of an async function. The coroutine runs when it is awaited,
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6551028Z         # so the zone must be current while it is awaited, not while it is created.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6551312Z         token = _async_local_storage.set(self)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6551517Z         try:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6551680Z >           return await func()
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6551875Z                    ^^^^^^^^^^^^
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6552140Z E           playwright._impl._errors.TimeoutError: Page.uncheck: Timeout 4000ms exceeded.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6552435Z E           Call log:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6552615Z E             - waiting for locator("#snap-ends")
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6552925Z E               - locator resolved to <input checked id="snap-ends" type="checkbox"/>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6553282Z E             - attempting click action
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6553592Z E               2 × waiting for element to be visible, enabled and stable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6553850Z E                 - element is not visible
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6554062Z E               - retrying click action
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6554261Z E        

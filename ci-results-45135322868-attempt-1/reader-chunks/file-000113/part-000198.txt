@@ -1,0 +1,36 @@
+ambda> at 0x7f1f168a97a0>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6355155Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6355311Z     async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6355718Z         # Python: run() of an async function. The coroutine runs when it is awaited,
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6356121Z         # so the zone must be current while it is awaited, not while it is created.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6356551Z         token = _async_local_storage.set(self)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6356833Z         try:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6357089Z >           return await func()
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6357474Z                    ^^^^^^^^^^^^
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6357822Z E           playwright._impl._errors.TimeoutError: Page.uncheck: Timeout 4000ms exceeded.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6358214Z E           Call log:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6358471Z E             - waiting for locator("#snap-ends")
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6358838Z E               - locator resolved to <input checked id="snap-ends" type="checkbox"/>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6359189Z E             - attempting click action
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6359611Z E               2 × waiting for element to be visible, enabled and stable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6359943Z E                 - element is not visible
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6360200Z E               - retrying click action
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6360482Z E               - waiting 20ms
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6360839Z E               2 × waiting for element to be visible, enabled and stable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6361230Z E                 - element is not visible
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6361513Z E               - retrying click action
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6361759Z E                 - waiting 100ms
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6362146Z E               8 × waiting for element to be visible, enabled and stable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6362460Z E                 - element is not visible
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6362730Z E               - retrying click action
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6362996Z E                 - waiting 500ms
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6363160Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6363446Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6363959Z __________ test_drag_works_in_every_tool_without_the_tool_action[add] __________
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6364210Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6364466Z walls = (<Page url='http://looking-glass.test/maps/1/walls'>, [], {'ok': True, 'id': 1, 'name': 'M', 'campaign_id': 4, ...})
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6364944Z tool = 'add'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6365058Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6365244Z     @pytest.mark.parametrize("tool", ["add", "remove", "type", "edit"])
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6365632Z     def test_drag_works_in_every_tool_without_the_tool_action(walls, tool):
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6365999Z         page, writes,

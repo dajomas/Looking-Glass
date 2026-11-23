@@ -1,0 +1,33 @@
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6527196Z     def test_drag_works_in_every_tool_without_the_tool_action(walls, tool):
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6527633Z         page, writes, _ = walls
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6527841Z         page.select_option("#wall-tool", tool)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6528048Z >       no_snap(page)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6528152Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6528257Z python/tests/browser/test_wall_endpoint_drag.py:144: 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6528534Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6528822Z python/tests/browser/test_wall_endpoint_drag.py:65: in no_snap
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6529081Z     page.uncheck("#snap-ends")
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6529629Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/sync_api/_generated.py:20883: in uncheck
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6530008Z     self._sync(
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6530312Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/page.py:1564: in uncheck
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6530732Z     return await self._main_frame.uncheck(
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6531083Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/frame.py:1150: in uncheck
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6531441Z     await self._channel.uncheck(
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6531784Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:387: in finish
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6532125Z     raise e from None
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6532446Z /opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:352: in finish
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6532829Z     result = await zone.run_async(lambda: awaitable)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6533047Z              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6533270Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6533435Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6533577Z self = <playwright._impl.utils.zones.Zone object at 0x7f1ef4cc8190>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6533954Z func = <function ChannelOwner._wrap_api_call.<locals>.finish.<locals>.<lambda> at 0x7f1ef72f4510>
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6534206Z 
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6534328Z     async def run_async(self, func: Callable[[], Awaitable[R]]) -> R:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6534636Z         # Python: run() of an async function. The coroutine runs when it is awaited,
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6534974Z         # so the zone must be current while it is awaited, not while it is created.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6535251Z         token = _async_local_storage.set(self)
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6535442Z         try:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6535591Z >           return await func()
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6535765Z                    ^^^^^^^^^^^^
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6536030Z E           playwright._impl._errors.TimeoutError: Page.uncheck: Time

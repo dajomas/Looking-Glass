@@ -1,0 +1,85 @@
+rlay2/z76xtjy3c9nuuw1afiucczbby/diff:/var/lib/docker/overlay2/oc81ignp87n9kh0td21k8t371/diff:/var/lib/docker/overlay2/jwnxn90v0a1yewr74ltlzibaf/diff:/var/lib/docker/overlay2/7q68o4y8kkk4u5khloifdirqh/diff:/var/lib/docker/overlay2/hsec87hj7iblvtqekvl6mjpm1/diff:/var/lib/docker/overlay2/oujh12vlhqqea5lzvd66b11k8/diff:/var/lib/docker/overlay2/df54823729f5bf49053850918b95f2a2ffccddb1c7d5ae4db2fa337d46bb9b8d/diff:/var/lib/docker/overlay2/fdc96f965d210ae00d4f4807931228e8fc5db53817824008e88367aa80b5c038/diff:/var/lib/docker/overlay2/e838a3252e57e68888f60eac6fe4aa3be973272ad1a75d8ff067e319635e39a5/diff:/var/lib/docker/overlay2/3418da9ac33446df930a91a8020c971bbec6fee21769528cd95e1d3a4d8511c0/diff",
+                "MergedDir": "/var/lib/docker/overlay2/3e0f01cab0855d7fecb5336db9d77fe8f21e70c3148d6bf48c41425bb239c813/merged",
+                "UpperDir": "/var/lib/docker/overlay2/3e0f01cab0855d7fecb5336db9d77fe8f21e70c3148d6bf48c41425bb239c813/diff",
+                "WorkDir": "/var/lib/docker/overlay2/3e0f01cab0855d7fecb5336db9d77fe8f21e70c3148d6bf48c41425bb239c813/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            },
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-622ba77ce3ec4675a6e30dfeed79e9ae",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-622ba77ce3ec4675a6e30dfeed79e9ae/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            }
+        ],
+        "Config": {
+            "Hostname": "e9394990eff9",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:95ac820c301a4a62aea90f56cfcd8fc7",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "415a0b8e3b6872191df2e08d4a006021e2edcd6aa0615ee3e6581b5e8f565d94",
+            "SandboxKey": "/var/run/docker/netns/415a0b8e3b68",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32772"
+                    }
+                ],
+                "5100/tc

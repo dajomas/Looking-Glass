@@ -1,0 +1,104 @@
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:95ac820c301a4a62aea90f56cfcd8fc7",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "bb1313e55c373bda97905af884f89c9c63d4389bd8fa4a815102a5550bb77cee",
+            "SandboxKey": "/var/run/docker/netns/bb1313e55c37",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32768"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32769"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "159101b1e9a17e2700073300ceec0c568e95a7c08f0854f67fe4b05f8f308318",
+            "Gateway": "172.17.0.1",
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+            "MacAddress": "b6:bf:b3:2e:f0:9a",
+            "Networks": {
+                "bridge": {
+                    "IPAMConfig": null,
+                    "Links": null,
+                    "Aliases": null,
+                    "MacAddress": "b6:bf:b3:2e:f0:9a",
+                    "DriverOpts": null,
+                    "GwPriority": 0,
+                    "NetworkID": "c5d42b6cd1f616fb6464399ef0c1a8715adbec5334ae1a9eb25f084a182a64de",
+                    "EndpointID": "159101b1e9a17e2700073300ceec0c568e95a7c08f0854f67fe4b05f8f308318",
+                    "Gateway": "172.17.0.1",
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+                    "DNSNames": null
+                }
+            }
+        }
+    }
+]
+
+
+['/usr/bin/docker', 'inspect', 'looking-glass-test-d3e22de560b84c9fa9d411bfb86dfbcb']
+exit=0
+[
+    {
+        "Id": "620e6514ef2eb73223e2af376de7378c389d01e18788dc430a7339ed6204bb0b",
+        "Created": "2026-11-23T08:02:10.535713781Z",
+        "Path": "python",
+        "Args": [
+            "python/main.py",
+            "--config",
+            "/app/ci-config.json",
+            "serve"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 2596,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2026-11-23T08:02:10.549135896Z",
+            "FinishedAt": "0001-01-01T00:00:00Z",
+            "Health": {
+                "Status": "starting",
+                "FailingStreak": 0,
+                "Log": []
+            }
+        },
+        "Image": "sha256:a3166f2a256f86f26bae51c77653e7126085b20a2767cc7ea8219c44de97b067",
+        "ResolvConfPath": "/var/lib/docker/containers/620e6514ef2eb73223e2af376de7378c389d01e18788dc430a7339ed6204bb0b/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/620e6514ef2eb73223e2af376de7378c389d01e18788dc430a7339ed6204bb0b/hostname",
+        "HostsPath": "/var/lib/docker/containers/620e6514ef2eb73223e2af376de7378c389d01e18788dc430a7339ed6204bb0b/hosts",
+        "LogPath": "/var/lib/docker/containers/620e6514ef2eb73223e2af376de7378c389d01e18788dc430

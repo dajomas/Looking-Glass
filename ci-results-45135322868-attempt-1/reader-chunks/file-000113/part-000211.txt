@@ -1,0 +1,35 @@
+    8 × waiting for element to be visible, enabled and stable
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6591565Z       - element is not visible
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6591749Z     - retrying click action
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6591921Z       - waiting 500ms
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.6592145Z =================== 8 failed, 176 passed in 90.87s (0:01:30) ===================
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8821460Z ##[error]Process completed with exit code 1.
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8871491Z ##[group]Run python - <<'PY'
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8871746Z ^[[36;1mpython - <<'PY'^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8871932Z ^[[36;1mfrom pathlib import Path^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8872152Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8872408Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8872637Z ^[[36;1mif not report.is_file():^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8872889Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8873163Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8873405Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8873612Z ^[[36;1mif not cases:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8873830Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8874159Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8874608Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8875053Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8875366Z ^[[36;1mfor case in skipped:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8875591Z ^[[36;1m    reason = case.find("skipped").get("message", "")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8875928Z ^[[36;1m    print(f"SKIPPED: {case.get('classname', '')}::{case.get('name', '')}: {reason}")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8876226Z ^[[36;1mif skipped or failed:^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8876485Z ^[[36;1m    raise SystemExit("FAIL: required tests must pass without skips")^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8876840Z ^[[36;1mPY^[[0m
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8903615Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8903872Z env:
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8904106Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8904381Z   PYTHONUNBUFFERED: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8904553Z   LG_RUN_LIVE_E2E: 1
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8904770Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8905075Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8905388Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Browser / mocked HTTP	UNKNOWN STEP	2026-11-23T08:04:19.8905666Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10

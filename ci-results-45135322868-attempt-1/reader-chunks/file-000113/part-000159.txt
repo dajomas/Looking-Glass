@@ -1,0 +1,33 @@
+s_repository.py::test_source_delete_keeps_map_walls_and_ids_not_reused PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:54.2906903Z python/tests/test_wall_sources_repository.py::test_transaction_rollback PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.2036622Z python/tests/test_wall_sources_web.py::test_saved_source_reused_on_independent_maps PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.2320341Z python/tests/test_wall_types.py::test_upgrade_v2_preserves_map PASSED    [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.2326464Z python/tests/test_wall_types.py::test_filters_non_destructive_all_types PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.2352704Z python/tests/test_wall_types.py::test_disabled_wall_merges_rooms PASSED  [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.2458507Z python/tests/test_wall_types.py::test_admin_base_matches_fully_revealed_viewer PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.2465191Z python/tests/test_wall_types.py::test_each_type_can_be_disabled_independently PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.5131950Z python/tests/test_web.py::test_viewer_cannot_use_admin_port PASSED       [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:55.8773477Z python/tests/test_web.py::test_unauthenticated_redirects PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:56.1441182Z python/tests/test_web.py::test_admin_cookie_not_valid_on_viewer_port PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:56.5565339Z python/tests/test_web.py::test_user_management_is_superadmin_only PASSED [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:56.8792875Z python/tests/test_web.py::test_last_superadmin_protected PASSED          [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:57.5680937Z python/tests/test_web.py::test_full_campaign_flow PASSED                 [ 99%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:58.1551312Z python/tests/test_web.py::test_admin_creates_viewer_who_must_change_password PASSED [100%]
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:58.1551835Z 
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:58.1552206Z - generated xml file: /home/runner/work/Looking-Glass/Looking-Glass/test-results/results.xml -
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:58.1557492Z ============= 1993 passed, 29 subtests passed in 191.63s (0:03:11) =============
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1985818Z ##[group]Run python - <<'PY'
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1986105Z ^[[36;1mpython - <<'PY'^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1986309Z ^[[36;1mfrom pathlib import Path^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1986551Z ^[[36;1mimport xml.etree.ElementTree as ET^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1986828Z ^[[36;1mreport = Path("test-results/results.xml")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1987077Z ^[[36;1mif not report.is_file():^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1987370Z ^[[36;1m    raise SystemExit("FAIL: no JUnit report was produced")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1987662Z ^[[36;1mroot = ET.parse(report).getroot()^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1987913Z ^[[36;1mcases = list(root.iter("testcase"))^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1988141Z ^[[36;1mif not cases:^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1988384Z ^[[36;1m    raise SystemExit("FAIL: no test cases were reported")^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1988748Z ^[[36;1mskipped = [case for case in cases if case.find("skipped") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1989236Z ^[[36;1mfailed = [case for case in cases if case.find("failure") is not None or case.find("error") is not None]^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T08:04:59.1989733Z ^[[36;1mprint(f"Reported: {len(cases)}; failed/error: {len(failed)}; skipped: {len(skipped)}")^[[0m
+Python / 

@@ -1,0 +1,32 @@
+dentials-98ef66ea-f1de-48be-9197-4ea5924919b0.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Recovery	Check out repository	2026-11-23T08:01:32.0131526Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-98ef66ea-f1de-48be-9197-4ea5924919b0.config
+Recovery	Check out repository	2026-11-23T08:01:32.0153338Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-98ef66ea-f1de-48be-9197-4ea5924919b0.config
+Recovery	Check out repository	2026-11-23T08:01:32.0175396Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-98ef66ea-f1de-48be-9197-4ea5924919b0.config
+Recovery	Check out repository	2026-11-23T08:01:32.0198569Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-98ef66ea-f1de-48be-9197-4ea5924919b0.config
+Recovery	Check out repository	2026-11-23T08:01:32.0217563Z ##[endgroup]
+Recovery	Check out repository	2026-11-23T08:01:32.0217957Z ##[group]Fetching the repository
+Recovery	Check out repository	2026-11-23T08:01:32.0223409Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +9b2c2b66c50f142d1a32f8bb7d4cae78d6773421:refs/remotes/origin/features/claude
+Recovery	Check out repository	2026-11-23T08:01:32.5086046Z From https://github.com/dajomas/Looking-Glass
+Recovery	Check out repository	2026-11-23T08:01:32.5086593Z  * [new ref]         9b2c2b66c50f142d1a32f8bb7d4cae78d6773421 -> origin/features/claude
+Recovery	Check out repository	2026-11-23T08:01:32.5097151Z [command]/usr/bin/git branch --list --remote origin/features/claude
+Recovery	Check out repository	2026-11-23T08:01:32.5135383Z   origin/features/claude
+Recovery	Check out repository	2026-11-23T08:01:32.5143059Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/claude
+Recovery	Check out repository	2026-11-23T08:01:32.5162836Z 9b2c2b66c50f142d1a32f8bb7d4cae78d6773421
+Recovery	Check out repository	2026-11-23T08:01:32.5165761Z ##[endgroup]
+Recovery	Check out repository	2026-11-23T08:01:32.5166423Z ##[group]Determining the checkout info
+Recovery	Check out repository	2026-11-23T08:01:32.5167273Z ##[endgroup]
+Recovery	Check out repository	2026-11-23T08:01:32.5171327Z [command]/usr/bin/git sparse-checkout disable
+Recovery	Check out repository	2026-11-23T08:01:32.5223448Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Recovery	Check out repository	2026-11-23T08:01:32.5244317Z ##[group]Checking out the ref
+Recovery	Check out repository	2026-11-23T08:01:32.5247215Z [command]/usr/bin/git checkout --progress --force -B features/claude refs/remotes/origin/features/claude
+Recovery	Check out repository	2026-11-23T08:01:32.5769915Z Switched to a new branch 'features/claude'
+Recovery	Check out repository	2026-11-23T08:01:32.5777082Z branch 'features/claude' set up to track 'origin/features/claude'.
+Recovery	Check out repository	2026-11-23T08:01:32.5783076Z ##[endgroup]
+Recovery	Check out repository	2026-11-23T08:01:32.5820119Z [command]/usr/bin/git log -1 --format=%H
+Recovery	Check out repository	2026-11-23T08:01:32.5839827Z 9b2c2b66c50f142d1a32f8bb7d4cae78d6773421
+Recovery	Initialize evidence	﻿2026-11-23T08:01:32.6000401Z ##[group]Run mkdir -p test-results
+Recovery	Initialize evidence	2026-11-23T08:01:32.6000797Z ^[[36;1mmkdir -p test-results^[[0m
+Recovery	Initialize evidence	2026-11-23T08:01:32.6001153Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Recovery	Initialize evidence	2026-11-23T08:01:32.6001497Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Recovery	Initialize evidence	2026-11-23T08:01:32.8831398Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Initialize evidence	2026-11-23T

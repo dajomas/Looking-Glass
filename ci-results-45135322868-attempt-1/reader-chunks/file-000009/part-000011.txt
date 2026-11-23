@@ -1,0 +1,59 @@
+ed and stable
+E                 - element is not visible
+E               - retrying click action
+E               - waiting 20ms
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E                 - waiting 100ms
+E               8 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E                 - waiting 500ms
+
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/utils/zones.py:58: TimeoutError</failure></testcase><testcase classname="python.tests.browser.test_wall_endpoint_drag" name="test_drag_works_in_every_tool_without_the_tool_action[type]" time="4.089"><failure message="playwright._impl._errors.TimeoutError: Page.uncheck: Timeout 4000ms exceeded.&#10;Call log:&#10;  - waiting for locator(&quot;#snap-ends&quot;)&#10;    - locator resolved to &lt;input checked id=&quot;snap-ends&quot; type=&quot;checkbox&quot;/&gt;&#10;  - attempting click action&#10;    2 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;    - waiting 20ms&#10;    2 × waiting for element to be visible, enabled and stable&#10;      - element is not visible&#10;    - retrying click action&#10;[+5 more lines; full report in element text]">walls = (&lt;Page url='http://looking-glass.test/maps/1/walls'&gt;, [], {'ok': True, 'id': 1, 'name': 'M', 'campaign_id': 4, ...})
+tool = 'type'
+
+    @pytest.mark.parametrize("tool", ["add", "remove", "type", "edit"])
+    def test_drag_works_in_every_tool_without_the_tool_action(walls, tool):
+        page, writes, _ = walls
+        page.select_option("#wall-tool", tool)
+&gt;       no_snap(page)
+
+python/tests/browser/test_wall_endpoint_drag.py:144: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+python/tests/browser/test_wall_endpoint_drag.py:65: in no_snap
+    page.uncheck("#snap-ends")
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/sync_api/_generated.py:20883: in uncheck
+    self._sync(
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/page.py:1564: in uncheck
+    return await self._main_frame.uncheck(
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/frame.py:1150: in uncheck
+    await self._channel.uncheck(
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:387: in finish
+    raise e from None
+/opt/hostedtoolcache/Python/3.14.10/x64/lib/python3.14/site-packages/playwright/_impl/channel_owner.py:352: in finish
+    result = await zone.run_async(lambda: awaitable)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;playwright._impl.utils.zones.Zone object at 0x7f1ef4c7e080&gt;
+func = &lt;function ChannelOwner._wrap_api_call.&lt;locals&gt;.finish.&lt;locals&gt;.&lt;lambda&gt; at 0x7f1ef4e89e80&gt;
+
+    async def run_async(self, func: Callable[[], Awaitable[R]]) -&gt; R:
+        # Python: run() of an async function. The coroutine runs when it is awaited,
+        # so the zone must be current while it is awaited, not while it is created.
+        token = _async_local_storage.set(self)
+        try:
+&gt;           return await func()
+                   ^^^^^^^^^^^^
+E           playwright._impl._errors.TimeoutError: Page.uncheck: Timeout 4000ms exceeded.
+E           Call log:
+E             - waiting for locator("#snap-ends")
+E               - locator resolved to &lt;input checked id="snap-ends" type="checkbox"/&gt;
+E             - attempting click action
+E               2 × waiting for element to be visible, enabled and stable
+E                 - element is not visible
+E               - retrying click action
+E               - waiting 20ms
+E   
