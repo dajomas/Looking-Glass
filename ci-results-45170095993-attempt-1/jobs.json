@@ -1,0 +1,990 @@
+[
+  {
+    "check_run_url": "https://api.github.com/repos/dajomas/Looking-Glass/check-runs/137677095146",
+    "completed_at": "2026-11-23T12:00:43Z",
+    "conclusion": "success",
+    "created_at": "2026-11-23T11:59:34Z",
+    "head_branch": "features/claude",
+    "head_sha": "711a3be12d211199fa45890f6801efe21ec17c54",
+    "html_url": "https://github.com/dajomas/Looking-Glass/actions/runs/45170095993/job/137677095146",
+    "id": 137677095146,
+    "labels": [
+      "ubuntu-24.04"
+    ],
+    "name": "Recovery",
+    "node_id": "CR_kwDOVNjYxM8AAAAgDjHA6g",
+    "run_attempt": 1,
+    "run_id": 45170095993,
+    "run_url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/runs/45170095993",
+    "runner_group_id": 0,
+    "runner_group_name": "GitHub Actions",
+    "runner_id": 1000001034,
+    "runner_name": "GitHub Actions 1000001034",
+    "started_at": "2026-11-23T11:59:36Z",
+    "status": "completed",
+    "steps": [
+      {
+        "completed_at": "2026-11-23T11:59:38Z",
+        "conclusion": "success",
+        "name": "Set up job",
+        "number": 1,
+        "started_at": "2026-11-23T11:59:37Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:39Z",
+        "conclusion": "success",
+        "name": "Check out repository",
+        "number": 2,
+        "started_at": "2026-11-23T11:59:38Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:39Z",
+        "conclusion": "success",
+        "name": "Initialize evidence",
+        "number": 3,
+        "started_at": "2026-11-23T11:59:39Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:41Z",
+        "conclusion": "success",
+        "name": "Set up Python",
+        "number": 4,
+        "started_at": "2026-11-23T11:59:39Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:41Z",
+        "conclusion": "skipped",
+        "name": "Set up Node.js",
+        "number": 5,
+        "started_at": "2026-11-23T11:59:41Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:58Z",
+        "conclusion": "success",
+        "name": "Install application and test dependencies",
+        "number": 6,
+        "started_at": "2026-11-23T11:59:41Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:58Z",
+        "conclusion": "skipped",
+        "name": "Install browser dependencies",
+        "number": 7,
+        "started_at": "2026-11-23T11:59:58Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:59Z",
+        "conclusion": "success",
+        "name": "Verify dependencies and record environment",
+        "number": 8,
+        "started_at": "2026-11-23T11:59:58Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:59Z",
+        "conclusion": "skipped",
+        "name": "Record Node.js environment",
+        "number": 9,
+        "started_at": "2026-11-23T11:59:59Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:59Z",
+        "conclusion": "skipped",
+        "name": "Verify browser environment",
+        "number": 10,
+        "started_at": "2026-11-23T11:59:59Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:59Z",
+        "conclusion": "skipped",
+        "name": "Run Python and HTTP tests",
+        "number": 11,
+        "started_at": "2026-11-23T11:59:59Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:59Z",
+        "conclusion": "skipped",
+        "name": "Run JavaScript regressions",
+        "number": 12,
+        "started_at": "2026-11-23T11:59:59Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:59Z",
+        "conclusion": "skipped",
+        "name": "Run mocked HTTP browser tests",
+        "number": 13,
+        "started_at": "2026-11-23T11:59:59Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:59Z",
+        "conclusion": "skipped",
+        "name": "Run live Uvicorn integration tests",
+        "number": 14,
+        "started_at": "2026-11-23T11:59:59Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:40Z",
+        "conclusion": "success",
+        "name": "Run recovery and container tests",
+        "number": 15,
+        "started_at": "2026-11-23T11:59:59Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:40Z",
+        "conclusion": "skipped",
+        "name": "Collect live failure diagnostics",
+        "number": 16,
+        "started_at": "2026-11-23T12:00:40Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:40Z",
+        "conclusion": "success",
+        "name": "Reject skipped tests or empty results",
+        "number": 17,
+        "started_at": "2026-11-23T12:00:40Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:42Z",
+        "conclusion": "success",
+        "name": "Upload validation evidence",
+        "number": 18,
+        "started_at": "2026-11-23T12:00:40Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:42Z",
+        "conclusion": "success",
+        "name": "Post Set up Python",
+        "number": 35,
+        "started_at": "2026-11-23T12:00:42Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:42Z",
+        "conclusion": "success",
+        "name": "Post Check out repository",
+        "number": 36,
+        "started_at": "2026-11-23T12:00:42Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:42Z",
+        "conclusion": "success",
+        "name": "Complete job",
+        "number": 37,
+        "started_at": "2026-11-23T12:00:42Z",
+        "status": "completed"
+      }
+    ],
+    "url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/jobs/137677095146",
+    "workflow_name": "Looking Glass integration tests"
+  },
+  {
+    "check_run_url": "https://api.github.com/repos/dajomas/Looking-Glass/check-runs/137677095511",
+    "completed_at": "2026-11-23T12:02:28Z",
+    "conclusion": "success",
+    "created_at": "2026-11-23T11:59:34Z",
+    "head_branch": "features/claude",
+    "head_sha": "711a3be12d211199fa45890f6801efe21ec17c54",
+    "html_url": "https://github.com/dajomas/Looking-Glass/actions/runs/45170095993/job/137677095511",
+    "id": 137677095511,
+    "labels": [
+      "ubuntu-24.04"
+    ],
+    "name": "Python / HTTP",
+    "node_id": "CR_kwDOVNjYxM8AAAAgDjHCVw",
+    "run_attempt": 1,
+    "run_id": 45170095993,
+    "run_url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/runs/45170095993",
+    "runner_group_id": 0,
+    "runner_group_name": "GitHub Actions",
+    "runner_id": 1000001035,
+    "runner_name": "GitHub Actions 1000001035",
+    "started_at": "2026-11-23T11:59:37Z",
+    "status": "completed",
+    "steps": [
+      {
+        "completed_at": "2026-11-23T11:59:40Z",
+        "conclusion": "success",
+        "name": "Set up job",
+        "number": 1,
+        "started_at": "2026-11-23T11:59:38Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:43Z",
+        "conclusion": "success",
+        "name": "Check out repository",
+        "number": 2,
+        "started_at": "2026-11-23T11:59:40Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:43Z",
+        "conclusion": "success",
+        "name": "Initialize evidence",
+        "number": 3,
+        "started_at": "2026-11-23T11:59:43Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:49Z",
+        "conclusion": "success",
+        "name": "Set up Python",
+        "number": 4,
+        "started_at": "2026-11-23T11:59:43Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:49Z",
+        "conclusion": "skipped",
+        "name": "Set up Node.js",
+        "number": 5,
+        "started_at": "2026-11-23T11:59:49Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:01Z",
+        "conclusion": "success",
+        "name": "Install application and test dependencies",
+        "number": 6,
+        "started_at": "2026-11-23T11:59:49Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:01Z",
+        "conclusion": "skipped",
+        "name": "Install browser dependencies",
+        "number": 7,
+        "started_at": "2026-11-23T12:00:01Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:02Z",
+        "conclusion": "success",
+        "name": "Verify dependencies and record environment",
+        "number": 8,
+        "started_at": "2026-11-23T12:00:01Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:02Z",
+        "conclusion": "skipped",
+        "name": "Record Node.js environment",
+        "number": 9,
+        "started_at": "2026-11-23T12:00:02Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:02Z",
+        "conclusion": "skipped",
+        "name": "Verify browser environment",
+        "number": 10,
+        "started_at": "2026-11-23T12:00:02Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:23Z",
+        "conclusion": "success",
+        "name": "Run Python and HTTP tests",
+        "number": 11,
+        "started_at": "2026-11-23T12:00:02Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:23Z",
+        "conclusion": "skipped",
+        "name": "Run JavaScript regressions",
+        "number": 12,
+        "started_at": "2026-11-23T12:02:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:23Z",
+        "conclusion": "skipped",
+        "name": "Run mocked HTTP browser tests",
+        "number": 13,
+        "started_at": "2026-11-23T12:02:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:23Z",
+        "conclusion": "skipped",
+        "name": "Run live Uvicorn integration tests",
+        "number": 14,
+        "started_at": "2026-11-23T12:02:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:23Z",
+        "conclusion": "skipped",
+        "name": "Run recovery and container tests",
+        "number": 15,
+        "started_at": "2026-11-23T12:02:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:23Z",
+        "conclusion": "skipped",
+        "name": "Collect live failure diagnostics",
+        "number": 16,
+        "started_at": "2026-11-23T12:02:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:23Z",
+        "conclusion": "success",
+        "name": "Reject skipped tests or empty results",
+        "number": 17,
+        "started_at": "2026-11-23T12:02:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:25Z",
+        "conclusion": "success",
+        "name": "Upload validation evidence",
+        "number": 18,
+        "started_at": "2026-11-23T12:02:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:25Z",
+        "conclusion": "success",
+        "name": "Post Set up Python",
+        "number": 35,
+        "started_at": "2026-11-23T12:02:25Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:25Z",
+        "conclusion": "success",
+        "name": "Post Check out repository",
+        "number": 36,
+        "started_at": "2026-11-23T12:02:25Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:25Z",
+        "conclusion": "success",
+        "name": "Complete job",
+        "number": 37,
+        "started_at": "2026-11-23T12:02:25Z",
+        "status": "completed"
+      }
+    ],
+    "url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/jobs/137677095511",
+    "workflow_name": "Looking Glass integration tests"
+  },
+  {
+    "check_run_url": "https://api.github.com/repos/dajomas/Looking-Glass/check-runs/137677095545",
+    "completed_at": "2026-11-23T12:00:18Z",
+    "conclusion": "success",
+    "created_at": "2026-11-23T11:59:34Z",
+    "head_branch": "features/claude",
+    "head_sha": "711a3be12d211199fa45890f6801efe21ec17c54",
+    "html_url": "https://github.com/dajomas/Looking-Glass/actions/runs/45170095993/job/137677095545",
+    "id": 137677095545,
+    "labels": [
+      "ubuntu-24.04"
+    ],
+    "name": "JavaScript regressions",
+    "node_id": "CR_kwDOVNjYxM8AAAAgDjHCeQ",
+    "run_attempt": 1,
+    "run_id": 45170095993,
+    "run_url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/runs/45170095993",
+    "runner_group_id": 0,
+    "runner_group_name": "GitHub Actions",
+    "runner_id": 1000001036,
+    "runner_name": "GitHub Actions 1000001036",
+    "started_at": "2026-11-23T11:59:37Z",
+    "status": "completed",
+    "steps": [
+      {
+        "completed_at": "2026-11-23T11:59:41Z",
+        "conclusion": "success",
+        "name": "Set up job",
+        "number": 1,
+        "started_at": "2026-11-23T11:59:38Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:44Z",
+        "conclusion": "success",
+        "name": "Check out repository",
+        "number": 2,
+        "started_at": "2026-11-23T11:59:41Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:45Z",
+        "conclusion": "success",
+        "name": "Initialize evidence",
+        "number": 3,
+        "started_at": "2026-11-23T11:59:44Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:51Z",
+        "conclusion": "success",
+        "name": "Set up Python",
+        "number": 4,
+        "started_at": "2026-11-23T11:59:45Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:56Z",
+        "conclusion": "success",
+        "name": "Set up Node.js",
+        "number": 5,
+        "started_at": "2026-11-23T11:59:51Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:09Z",
+        "conclusion": "success",
+        "name": "Install application and test dependencies",
+        "number": 6,
+        "started_at": "2026-11-23T11:59:56Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:09Z",
+        "conclusion": "skipped",
+        "name": "Install browser dependencies",
+        "number": 7,
+        "started_at": "2026-11-23T12:00:09Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:10Z",
+        "conclusion": "success",
+        "name": "Verify dependencies and record environment",
+        "number": 8,
+        "started_at": "2026-11-23T12:00:09Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:10Z",
+        "conclusion": "success",
+        "name": "Record Node.js environment",
+        "number": 9,
+        "started_at": "2026-11-23T12:00:10Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:10Z",
+        "conclusion": "skipped",
+        "name": "Verify browser environment",
+        "number": 10,
+        "started_at": "2026-11-23T12:00:10Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:10Z",
+        "conclusion": "skipped",
+        "name": "Run Python and HTTP tests",
+        "number": 11,
+        "started_at": "2026-11-23T12:00:10Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:12Z",
+        "conclusion": "success",
+        "name": "Run JavaScript regressions",
+        "number": 12,
+        "started_at": "2026-11-23T12:00:10Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:12Z",
+        "conclusion": "skipped",
+        "name": "Run mocked HTTP browser tests",
+        "number": 13,
+        "started_at": "2026-11-23T12:00:12Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:12Z",
+        "conclusion": "skipped",
+        "name": "Run live Uvicorn integration tests",
+        "number": 14,
+        "started_at": "2026-11-23T12:00:12Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:12Z",
+        "conclusion": "skipped",
+        "name": "Run recovery and container tests",
+        "number": 15,
+        "started_at": "2026-11-23T12:00:12Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:12Z",
+        "conclusion": "skipped",
+        "name": "Collect live failure diagnostics",
+        "number": 16,
+        "started_at": "2026-11-23T12:00:12Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:12Z",
+        "conclusion": "success",
+        "name": "Reject skipped tests or empty results",
+        "number": 17,
+        "started_at": "2026-11-23T12:00:12Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:14Z",
+        "conclusion": "success",
+        "name": "Upload validation evidence",
+        "number": 18,
+        "started_at": "2026-11-23T12:00:12Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:14Z",
+        "conclusion": "success",
+        "name": "Post Set up Node.js",
+        "number": 34,
+        "started_at": "2026-11-23T12:00:14Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:14Z",
+        "conclusion": "success",
+        "name": "Post Set up Python",
+        "number": 35,
+        "started_at": "2026-11-23T12:00:14Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:14Z",
+        "conclusion": "success",
+        "name": "Post Check out repository",
+        "number": 36,
+        "started_at": "2026-11-23T12:00:14Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:14Z",
+        "conclusion": "success",
+        "name": "Complete job",
+        "number": 37,
+        "started_at": "2026-11-23T12:00:14Z",
+        "status": "completed"
+      }
+    ],
+    "url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/jobs/137677095545",
+    "workflow_name": "Looking Glass integration tests"
+  },
+  {
+    "check_run_url": "https://api.github.com/repos/dajomas/Looking-Glass/check-runs/137677095572",
+    "completed_at": "2026-11-23T12:02:36Z",
+    "conclusion": "success",
+    "created_at": "2026-11-23T11:59:34Z",
+    "head_branch": "features/claude",
+    "head_sha": "711a3be12d211199fa45890f6801efe21ec17c54",
+    "html_url": "https://github.com/dajomas/Looking-Glass/actions/runs/45170095993/job/137677095572",
+    "id": 137677095572,
+    "labels": [
+      "ubuntu-24.04"
+    ],
+    "name": "Browser / mocked HTTP",
+    "node_id": "CR_kwDOVNjYxM8AAAAgDjHClA",
+    "run_attempt": 1,
+    "run_id": 45170095993,
+    "run_url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/runs/45170095993",
+    "runner_group_id": 0,
+    "runner_group_name": "GitHub Actions",
+    "runner_id": 1000001037,
+    "runner_name": "GitHub Actions 1000001037",
+    "started_at": "2026-11-23T11:59:36Z",
+    "status": "completed",
+    "steps": [
+      {
+        "completed_at": "2026-11-23T11:59:39Z",
+        "conclusion": "success",
+        "name": "Set up job",
+        "number": 1,
+        "started_at": "2026-11-23T11:59:37Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:43Z",
+        "conclusion": "success",
+        "name": "Check out repository",
+        "number": 2,
+        "started_at": "2026-11-23T11:59:39Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:43Z",
+        "conclusion": "success",
+        "name": "Initialize evidence",
+        "number": 3,
+        "started_at": "2026-11-23T11:59:43Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:45Z",
+        "conclusion": "success",
+        "name": "Set up Python",
+        "number": 4,
+        "started_at": "2026-11-23T11:59:43Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:45Z",
+        "conclusion": "skipped",
+        "name": "Set up Node.js",
+        "number": 5,
+        "started_at": "2026-11-23T11:59:45Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:57Z",
+        "conclusion": "success",
+        "name": "Install application and test dependencies",
+        "number": 6,
+        "started_at": "2026-11-23T11:59:45Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:28Z",
+        "conclusion": "success",
+        "name": "Install browser dependencies",
+        "number": 7,
+        "started_at": "2026-11-23T11:59:57Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:29Z",
+        "conclusion": "success",
+        "name": "Verify dependencies and record environment",
+        "number": 8,
+        "started_at": "2026-11-23T12:01:28Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:29Z",
+        "conclusion": "skipped",
+        "name": "Record Node.js environment",
+        "number": 9,
+        "started_at": "2026-11-23T12:01:29Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:32Z",
+        "conclusion": "success",
+        "name": "Verify browser environment",
+        "number": 10,
+        "started_at": "2026-11-23T12:01:29Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:32Z",
+        "conclusion": "skipped",
+        "name": "Run Python and HTTP tests",
+        "number": 11,
+        "started_at": "2026-11-23T12:01:32Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:32Z",
+        "conclusion": "skipped",
+        "name": "Run JavaScript regressions",
+        "number": 12,
+        "started_at": "2026-11-23T12:01:32Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:33Z",
+        "conclusion": "success",
+        "name": "Run mocked HTTP browser tests",
+        "number": 13,
+        "started_at": "2026-11-23T12:01:32Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:33Z",
+        "conclusion": "skipped",
+        "name": "Run live Uvicorn integration tests",
+        "number": 14,
+        "started_at": "2026-11-23T12:02:33Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:33Z",
+        "conclusion": "skipped",
+        "name": "Run recovery and container tests",
+        "number": 15,
+        "started_at": "2026-11-23T12:02:33Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:33Z",
+        "conclusion": "skipped",
+        "name": "Collect live failure diagnostics",
+        "number": 16,
+        "started_at": "2026-11-23T12:02:33Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:34Z",
+        "conclusion": "success",
+        "name": "Reject skipped tests or empty results",
+        "number": 17,
+        "started_at": "2026-11-23T12:02:33Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:34Z",
+        "conclusion": "success",
+        "name": "Upload validation evidence",
+        "number": 18,
+        "started_at": "2026-11-23T12:02:34Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:34Z",
+        "conclusion": "success",
+        "name": "Post Set up Python",
+        "number": 35,
+        "started_at": "2026-11-23T12:02:34Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:35Z",
+        "conclusion": "success",
+        "name": "Post Check out repository",
+        "number": 36,
+        "started_at": "2026-11-23T12:02:34Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:02:35Z",
+        "conclusion": "success",
+        "name": "Complete job",
+        "number": 37,
+        "started_at": "2026-11-23T12:02:35Z",
+        "status": "completed"
+      }
+    ],
+    "url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/jobs/137677095572",
+    "workflow_name": "Looking Glass integration tests"
+  },
+  {
+    "check_run_url": "https://api.github.com/repos/dajomas/Looking-Glass/check-runs/137677095589",
+    "completed_at": "2026-11-23T12:01:50Z",
+    "conclusion": "success",
+    "created_at": "2026-11-23T11:59:34Z",
+    "head_branch": "features/claude",
+    "head_sha": "711a3be12d211199fa45890f6801efe21ec17c54",
+    "html_url": "https://github.com/dajomas/Looking-Glass/actions/runs/45170095993/job/137677095589",
+    "id": 137677095589,
+    "labels": [
+      "ubuntu-24.04"
+    ],
+    "name": "Live Uvicorn",
+    "node_id": "CR_kwDOVNjYxM8AAAAgDjHCpQ",
+    "run_attempt": 1,
+    "run_id": 45170095993,
+    "run_url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/runs/45170095993",
+    "runner_group_id": 0,
+    "runner_group_name": "GitHub Actions",
+    "runner_id": 1000001038,
+    "runner_name": "GitHub Actions 1000001038",
+    "started_at": "2026-11-23T11:59:36Z",
+    "status": "completed",
+    "steps": [
+      {
+        "completed_at": "2026-11-23T11:59:38Z",
+        "conclusion": "success",
+        "name": "Set up job",
+        "number": 1,
+        "started_at": "2026-11-23T11:59:37Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:39Z",
+        "conclusion": "success",
+        "name": "Check out repository",
+        "number": 2,
+        "started_at": "2026-11-23T11:59:38Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:39Z",
+        "conclusion": "success",
+        "name": "Initialize evidence",
+        "number": 3,
+        "started_at": "2026-11-23T11:59:39Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:42Z",
+        "conclusion": "success",
+        "name": "Set up Python",
+        "number": 4,
+        "started_at": "2026-11-23T11:59:39Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:42Z",
+        "conclusion": "skipped",
+        "name": "Set up Node.js",
+        "number": 5,
+        "started_at": "2026-11-23T11:59:42Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T11:59:56Z",
+        "conclusion": "success",
+        "name": "Install application and test dependencies",
+        "number": 6,
+        "started_at": "2026-11-23T11:59:42Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:22Z",
+        "conclusion": "success",
+        "name": "Install browser dependencies",
+        "number": 7,
+        "started_at": "2026-11-23T11:59:56Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:23Z",
+        "conclusion": "success",
+        "name": "Verify dependencies and record environment",
+        "number": 8,
+        "started_at": "2026-11-23T12:00:22Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:23Z",
+        "conclusion": "skipped",
+        "name": "Record Node.js environment",
+        "number": 9,
+        "started_at": "2026-11-23T12:00:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:26Z",
+        "conclusion": "success",
+        "name": "Verify browser environment",
+        "number": 10,
+        "started_at": "2026-11-23T12:00:23Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:26Z",
+        "conclusion": "skipped",
+        "name": "Run Python and HTTP tests",
+        "number": 11,
+        "started_at": "2026-11-23T12:00:26Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:26Z",
+        "conclusion": "skipped",
+        "name": "Run JavaScript regressions",
+        "number": 12,
+        "started_at": "2026-11-23T12:00:26Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:00:26Z",
+        "conclusion": "skipped",
+        "name": "Run mocked HTTP browser tests",
+        "number": 13,
+        "started_at": "2026-11-23T12:00:26Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:46Z",
+        "conclusion": "success",
+        "name": "Run live Uvicorn integration tests",
+        "number": 14,
+        "started_at": "2026-11-23T12:00:26Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:46Z",
+        "conclusion": "skipped",
+        "name": "Run recovery and container tests",
+        "number": 15,
+        "started_at": "2026-11-23T12:01:46Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:46Z",
+        "conclusion": "success",
+        "name": "Collect live failure diagnostics",
+        "number": 16,
+        "started_at": "2026-11-23T12:01:46Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:46Z",
+        "conclusion": "success",
+        "name": "Reject skipped tests or empty results",
+        "number": 17,
+        "started_at": "2026-11-23T12:01:46Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:48Z",
+        "conclusion": "success",
+        "name": "Upload validation evidence",
+        "number": 18,
+        "started_at": "2026-11-23T12:01:46Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:48Z",
+        "conclusion": "success",
+        "name": "Post Set up Python",
+        "number": 35,
+        "started_at": "2026-11-23T12:01:48Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:48Z",
+        "conclusion": "success",
+        "name": "Post Check out repository",
+        "number": 36,
+        "started_at": "2026-11-23T12:01:48Z",
+        "status": "completed"
+      },
+      {
+        "completed_at": "2026-11-23T12:01:48Z",
+        "conclusion": "success",
+        "name": "Complete job",
+        "number": 37,
+        "started_at": "2026-11-23T12:01:48Z",
+        "status": "completed"
+      }
+    ],
+    "url": "https://api.github.com/repos/dajomas/Looking-Glass/actions/jobs/137677095589",
+    "workflow_name": "Looking Glass integration tests"
+  }
+]
