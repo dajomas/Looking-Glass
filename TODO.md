@@ -78,7 +78,7 @@ Details, evidence and regressions: [acceptance findings](docs/todo/019-acceptanc
 
 - [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — closed 2026-11-23; see [accepted closure](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
 - [I2. Wall editor: move endpoints by left-button drag](docs/todo/020-wall-editor-endpoint-drag-2026-11-22.md) — closed 2026-11-23; see [accepted closure](docs/handover/104-i2-wall-endpoint-drag-2026-11-23.md)
-- [I3. Playwright end-to-end suite (Chromium and Firefox) with committed results](docs/handover/105-e2e-suite-2026-11-23.md) — delivered 2026-11-23, first real run pending
+- [I3. Playwright end-to-end suite (Chromium and Firefox) with committed results](docs/handover/105-e2e-suite-2026-11-23.md) — delivered 2026-11-23; first full run 14/14 passed, acceptance pending
 
 ## Preservation
 
