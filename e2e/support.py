@@ -151,11 +151,13 @@ class Admin:
     def save_room_note(self, x, name, markdown, y=HEIGHT / 2):
         """Name a room and save Markdown notes through the Room notes panel."""
         self.page.locator("#room-select-mode").check()
-        self.click_map(x, y)
-        form, read = self.page.locator("#room-form"), self.page.locator("#room-read")
         # The panel loads after a server round trip: unnamed rooms open the editor
-        # by themselves, named rooms open in read mode. Wait for either, then act.
-        expect(form.or_(read)).to_be_visible()
+        # by themselves, named rooms open in read mode. Wait for the lookup, then
+        # for exactly one of the two panels, then act on whichever it is.
+        with self.page.expect_response(lambda r: urlsplit(r.url).path.endswith("/room-at")):
+            self.click_map(x, y)
+        form = self.page.locator("#room-form")
+        expect(self.page.locator("#room-form:not([hidden]), #room-read:not([hidden])")).to_have_count(1)
         if not form.is_visible():
             self.page.locator("#room-edit").click()
         expect(form).to_be_visible()
