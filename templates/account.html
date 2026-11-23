@@ -9,6 +9,7 @@
   {% endif %}
   <form method="post" action="/account" class="stack">
     {% include "partials/_csrf.html" %}
+    {% if user.must_change_password and next and next != "/" %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
     <label>Username <input value="{{ user.username }}" disabled></label>
     <label>Display name <input name="display_name" value="{{ user.display_name }}" maxlength="120"></label>
     <fieldset>

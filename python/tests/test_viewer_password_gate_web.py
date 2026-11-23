@@ -122,7 +122,7 @@ def test_account_change_clears_requirement_and_allows_reconnect(campaign):
         response = client.post("/account", data={"csrf_token": csrf, "current_password": "alicepass",
                                "new_password": "alicepass-new", "confirm_password": "alicepass-new"},
                                follow_redirects=False)
-        assert response.status_code == 303 and response.headers["location"].startswith("/account?ok=")
+        assert response.status_code == 303 and response.headers["location"] == "/"  # I1
         with ctx.db.connect() as conn:
             assert not sessions.lookup(conn, token, "viewer")["must_change_password"]
         with client.websocket_connect(f"/ws/c/{cid}") as ws:

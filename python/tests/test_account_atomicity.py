@@ -7,8 +7,10 @@ request/settings/render/redirect boundaries are doubles, not HTTP execution.
 import ast
 from contextlib import contextmanager
 from pathlib import Path
+from posixpath import normpath
 import sqlite3
 from types import SimpleNamespace
+from urllib.parse import unquote
 
 import pytest
 
@@ -42,14 +44,16 @@ class Database:
 def load_route():
     path = Path(__file__).resolve().parents[1] / "looking_glass/web/auth_routes.py"
     functions = [node for node in ast.parse(path.read_text()).body
-                 if isinstance(node, ast.FunctionDef) and node.name == "account_submit"]
-    assert len(functions) == 1
-    functions[0].decorator_list = []
+                 if isinstance(node, ast.FunctionDef) and node.name in ("account_submit", "_safe_next")]
+    assert len(functions) == 2  # I1: the route validates its return destination
+    for function in functions:
+        function.decorator_list = []
     module = ast.Module(body=[ast.ImportFrom(module="__future__",
                         names=[ast.alias(name="annotations")], level=0), *functions], type_ignores=[])
     def render(request, template, status_code=200, **kwargs):
         return SimpleNamespace(status_code=status_code, template=template, **kwargs)
     namespace = dict(users_repo=users, sessions_repo=sessions, verify_password=verify_password,
+                     normpath=normpath, unquote=unquote,
                      cookie_name=lambda request: f"lg_{request.entry}_session", render=render,
                      RedirectResponse=lambda target, status_code: SimpleNamespace(status_code=status_code, location=target))
     exec(compile(ast.fix_missing_locations(module), str(path), "exec"), namespace)
@@ -150,6 +154,7 @@ def test_valid_password_save_commits_all_fields_and_preserves_current_session(se
     _, ctx, req, uid, token = setup
     response = submit(setup, user)
     assert response.status_code == 303
+    assert response.location == ("/" if required else "/account?ok=Account+updated")  # I1
     with ctx.db.connect() as conn:
         row = users.get_with_hash(conn, "account")
         assert row["display_name"] == "Changed" and not row["must_change_password"]

@@ -65,7 +65,9 @@ def install(app: FastAPI) -> None:
     async def _mcp(request: Request, exc: MustChangePassword):
         if _wants_json(request):
             return JSONResponse({"ok": False, "error": "Password change required"}, status_code=403)
-        return RedirectResponse("/account", status_code=303)
+        from .auth_routes import account_url
+        target = request.url.path + (f"?{request.url.query}" if request.url.query else "")
+        return RedirectResponse(account_url(target if request.method == "GET" else "/"), status_code=303)
 
     @app.exception_handler(Forbidden)
     async def _forbidden(request: Request, exc: Forbidden):

@@ -28,7 +28,7 @@ fog:
   wall_thickness: 3        # px at work resolution; closes small gaps between wall ends
   leak_warn_fraction: 0.6  # warn when one click reveals more than 60% of the map
   doors_block: true        # default for new maps (per-map toggle in the editor)
-  fog_color: "#000000"
+  fog_color: "#000000"     # keep the quotes: an unquoted # starts a YAML comment
   feather_px: 2            # soft fog edge on the player image
   admin_fog_opacity: 0.55
 

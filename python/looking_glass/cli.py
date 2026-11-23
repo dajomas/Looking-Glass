@@ -13,7 +13,7 @@ from contextlib import ExitStack
 import logging
 import sys
 
-from .config import load_settings
+from .config import ConfigError, load_settings
 from .db import Database
 from .rbac import Role
 from .repositories import sessions as sessions_repo
@@ -55,7 +55,15 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)-7s %(name)s: %(message)s")
+    try:
+        return _run(args)
+    except ConfigError as exc:
+        # Loading happens before any storage, migration or bootstrap write.
+        print(f"Configuration error: {exc}", file=sys.stderr)
+        return 2
 
+
+def _run(args) -> int:
     match args.cmd:
         case None | "serve":
             settings = load_settings(args.config)

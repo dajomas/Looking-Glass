@@ -27,7 +27,8 @@ Notes
   their sessions and closes their live viewer sockets. So does removing them
   from a campaign.
 - Users created by an admin (and, by default, by a superadmin) must change
-  their password at first login.
+  their password at first login. After the change they continue to the page they were
+  opening, or to the portal's start page.
 - Unassigned viewers get **404** (not 403) for campaigns, so IDs can't be probed.
 - Every state-changing request needs the session's CSRF token (hidden form
   field or `X-CSRF-Token` header). Cookies are `HttpOnly`, `SameSite=Lax`,

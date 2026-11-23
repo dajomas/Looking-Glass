@@ -165,7 +165,7 @@ def test_admin_creates_viewer_who_must_change_password(env):
     r = v.post("/login", data={"username": "newbie", "password": "temp-pass-1"},
                headers={"Origin": "http://testserver"}, follow_redirects=False)
     assert r.headers["location"] == "/account"
-    assert v.get(f"/c/{cid}", follow_redirects=False).headers["location"] == "/account"
+    assert v.get(f"/c/{cid}", follow_redirects=False).headers["location"] == f"/account?next=%2Fc%2F{cid}"
     t = csrf_of(v, "/account")
     v.post("/account", data={"csrf_token": t, "current_password": "temp-pass-1",
                              "new_password": "brand-new-pw", "confirm_password": "brand-new-pw"})

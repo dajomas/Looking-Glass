@@ -9,6 +9,25 @@ are not summarized here.
 
 ### Fixed
 
+- **Door and wall lines no longer show hidden-side artwork (bug 30).** A
+  revealed room used to show the full width of its bounding wall strokes, so
+  2–3 px of the hidden side's artwork appeared across doorways. Only stroke
+  pixels at least one work pixel nearer the revealed room than a hidden one are
+  now shown; a wall line shared with a hidden room stays fogged. The room-side
+  edge of each wall remains visible, about 1–2 px narrower than before. Walls
+  between two revealed rooms are unchanged.
+- **Invalid fog colours fail with a clear message (bug 31).** `fog.fog_color`
+  must be a string like `"#rgb"` or `"#rrggbb"` (the `#` is optional). An
+  unquoted `#808080` is a YAML comment; the loader now reports the file, key
+  and value and suggests quoting. The CLI prints `Configuration error: ...`
+  and exits with status 2, without a traceback and before any storage or
+  bootstrap write. Structure errors from bug 24 use the same clean output.
+- **A completed forced password change continues to the destination (I1).**
+  After a forced change, users go to the page they were heading for (a valid
+  local `next` kept from login or from a direct link) or to the portal's start
+  page, which opens the map when a player has one campaign. Voluntary account
+  changes still return to the account page.
+
 - **Configuration structure is validated before merging (bug 24, accepted).**
   YAML and programmatic overrides must be mappings, and supplied known sections
   must be mappings. Invalid roots/sections produce source-specific errors before

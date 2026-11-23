@@ -44,8 +44,11 @@ def test_dilation_never_reveals_another_open_component(tmp_path,monkeypatch):
     area=AreaMap(labels,2,np.bincount(labels.ravel()),1.0)
     monkeypatch.setattr(engine,"area_map",lambda *args:area)
     mask=engine.mask(spec,[],[FogOp("reveal",1,1)])
-    assert mask[1,4] and mask[1,1]
+    # Bug 30: a one-pixel wall equidistant from a hidden room stays fogged.
+    assert mask[1,1] and not mask[1,4]
     assert not mask[labels==2].any()
+    both=engine.mask(replace(spec,fog_version=2),[],[FogOp("reveal",1,1),FogOp("reveal",7,1)])
+    assert both.all()
 
 
 def test_reveal_all_and_hide_all_keep_their_meaning(tmp_path):

@@ -10,7 +10,8 @@ rendering and needs pixel regressions across formats. I1 is a UX change.
 
 ## 30. Doorway sliver of hidden-side artwork on the player image
 
-- Status: open. Split from bug 1, which is closed.
+- [x] Implementation delivered on `features/claude` on 2026-11-23; see handover record 103. Acceptance pending.
+- Status (original): open. Split from bug 1, which is closed.
 - Evidence: `Runbook results/Runbook A - Point 4.{png,jpg,webp}` (3000×2100).
   With one room revealed, 2–3 px of the hidden corridor's door-edge artwork show
   beyond the top and left door openings (source values 126/109, player 72–97, so
@@ -29,7 +30,8 @@ rendering and needs pixel regressions across formats. I1 is a UX change.
 
 ## 31. Invalid fog colour crashes startup with a raw traceback
 
-- Status: open. Follows bug 24, whose shape validation does not check leaf values.
+- [x] Implementation delivered on `features/claude` on 2026-11-23; see handover record 103. Acceptance pending.
+- Status (original): open. Follows bug 24, whose shape validation does not check leaf values.
 - Evidence: `Runbook results/Runbook A - Point 6.txt`. Unquoted
   `fog_color: #808080` is a YAML comment, so the value is null. `_hex_to_rgb()`
   in `services/fog.py` then raises `ValueError: invalid literal for int() with
@@ -44,7 +46,8 @@ rendering and needs pixel regressions across formats. I1 is a UX change.
 
 ## I1. After a forced password change, continue to the map
 
-- Status: open improvement, agreed by the user on 2026-11-22. Not a bug.
+- [x] Implementation delivered on `features/claude` on 2026-11-23; see handover record 103. Acceptance pending.
+- Status (original): open improvement, agreed by the user on 2026-11-22. Not a bug.
 - Today `POST /account` always redirects to `/account?ok=Account+updated`, so a
   player whose change was forced must open the map from the header themselves.
 - Proposed solution: when the change clears `must_change_password`, redirect to
