@@ -163,3 +163,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bugs 30, 31 and improvement I1: implementation (2026-11-23)](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
 - [Improvement I2: wall endpoint drag (2026-11-23)](docs/handover/104-i2-wall-endpoint-drag-2026-11-23.md)
 - [I3: Playwright end-to-end suite and results publishing (2026-11-23)](docs/handover/105-e2e-suite-2026-11-23.md)
+- [CI: browser and live jobs in the Playwright container image (2026-11-23)](docs/handover/106-ci-playwright-container-2026-11-23.md)

@@ -20,8 +20,13 @@ run five independent matrix jobs on Ubuntu 24.04, with fail-fast disabled and a
 | Recovery | `python/tests/recovery`, with `LG_RUN_CONTAINER_TESTS=1` | Python 3.14, real CLI processes, migration children, HTTP and Docker |
 
 All jobs install development/runtime requirements and hard-import check the web
-stack. Browser/live jobs install Playwright, Chromium and system dependencies,
-then require `check_browser_environment.py`. Its diagnostics include browser and
+stack. Browser/live jobs run inside Microsoft's Playwright image
+(`mcr.microsoft.com/playwright:v1.65.1-noble`, `--ipc=host`), which already holds
+the browsers and their system packages; they install the `playwright` package
+(`>=1.65,<1.66`) and run `playwright install chromium`, which only downloads a
+browser build if the package's revision differs from the image. No `apt`
+downloads run. Keep the image tag and the package range on the same minor
+version when upgrading. They then require `check_browser_environment.py`. Its diagnostics include browser and
 font information. A reported pytest skip fails the JUnit audit. Conditionally
 inapplicable workflow steps are not skipped test cases.
 
