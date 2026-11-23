@@ -62,7 +62,8 @@ def point(page, x, y):
 
 
 def no_snap(page):
-    page.uncheck("#snap-ends")
+    # The option sits in a collapsed panel; the editor reads it on every placement.
+    page.locator("#snap-ends").evaluate("el => { el.checked = false; }")
     page.locator("#wall-viewport").focus()   # keyboard shortcuts ignore focused inputs
 
 
