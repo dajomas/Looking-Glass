@@ -152,7 +152,10 @@ class Admin:
         """Name a room and save Markdown notes through the Room notes panel."""
         self.page.locator("#room-select-mode").check()
         self.click_map(x, y)
-        form = self.page.locator("#room-form")
+        form, read = self.page.locator("#room-form"), self.page.locator("#room-read")
+        # The panel loads after a server round trip: unnamed rooms open the editor
+        # by themselves, named rooms open in read mode. Wait for either, then act.
+        expect(form.or_(read)).to_be_visible()
         if not form.is_visible():
             self.page.locator("#room-edit").click()
         expect(form).to_be_visible()
