@@ -81,3 +81,24 @@ atomicity unit tests 32/32 passed. The CLI path was checked by calling
 `cli.main()` directly. Web, browser, live and recovery suites, and the CLI
 subprocess tests (which require Python 3.14), were not run here; the
 integration workflow on this push is the evidence for them.
+
+## CI evidence
+
+GitHub Actions run 45132662279, attempt 1, tested `4ff1ba8`; evidence was
+published automatically to `ci-results-45132662279-attempt-1/` in `afc6c83`.
+All jobs succeeded with no failures, errors or skips:
+
+| Suite | Result |
+| --- | --- |
+| Python / HTTP (Python 3.14) | 1,993 passed (previous run: 1,907) |
+| Browser / mocked HTTP | 172 passed |
+| JavaScript | 35 passed |
+| Live Uvicorn | 18 passed |
+| Recovery | 6 passed |
+
+New and updated modules, all passed: `test_fog_doorway_privacy` 55,
+`test_config_values` 15, `test_config_values_cli` 4,
+`test_forced_change_continue_web` 12, `test_fog` 10, `test_fog_privacy` 15,
+`test_account_atomicity_web` 26, `test_viewer_password_gate_web` 7,
+`test_web` 7. Manual acceptance (visual doorway check in a browser and the
+forced-change flow) has not been performed.
