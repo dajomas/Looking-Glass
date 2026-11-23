@@ -71,7 +71,7 @@ jobs:
           # pip script keeps the host shebang, so setup-python's pip-cache lookup
           # cannot start. Container jobs skip that cache; every step runs
           # `python -m pip`, which does not use the script.
-          cache: ${{ matrix.container && '' || 'pip' }}
+          cache: ${{ !matrix.container && 'pip' || '' }}
           cache-dependency-path: |
             requirements.txt
             requirements-dev.txt
