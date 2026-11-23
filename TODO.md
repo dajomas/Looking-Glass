@@ -10,7 +10,7 @@ Uncommitted bug-2 candidates are not installed branch changes.
 
 - [Workflow and scope](docs/todo/001-workflow-and-scope.md)
 - [1. Feathered fog exposes hidden artwork](docs/todo/002-bug-01-feathered-fog-exposes-hidden-artwork.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
-- [2. Geometry reconciliation discards custom room notes](docs/todo/003-bug-02-geometry-reconciliation-discards-custom-room-notes.md)
+- [2. Geometry reconciliation discards custom room notes](docs/todo/003-bug-02-geometry-reconciliation-discards-custom-room-notes.md) — closed 2026-10-30; see [accepted closure](docs/handover/066-bug-2-accepted-closure-2026-10-30.md)
 - [3. Viewer stays blank after a transient state error](docs/todo/004-bug-03-viewer-stays-blank-after-a-transient-state-error.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [4. Cache cleanup races with image responses](docs/todo/005-bug-04-cache-cleanup-races-with-image-responses.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [5. Viewer sockets outlive session expiry/logout](docs/todo/006-bug-05-viewer-sockets-outlive-session-expiry-logout.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
@@ -21,9 +21,9 @@ Uncommitted bug-2 candidates are not installed branch changes.
 - [10. NeDB imports resurrect deleted walls/scenes](docs/todo/011-bug-10-nedb-imports-resurrect-deleted-walls-scenes.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [11. Wall imports accept non-finite coordinates](docs/todo/012-bug-11-wall-imports-accept-non-finite-coordinates.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [12. Malformed imports escape as unexpected exceptions](docs/todo/013-bug-12-malformed-imports-escape-as-unexpected-exceptions.md) — closed 2026-11-22; see [accepted closure](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
-- [13. Replacement leaves incompatible alternate artwork](docs/todo/014-bug-13-replacement-leaves-incompatible-alternate-artwork.md)
-- [14. Failed map uploads leave orphan artwork](docs/todo/015-bug-14-failed-map-uploads-leave-orphan-artwork.md)
-- [15. Deletion/restore leaks alternate-image files](docs/todo/016-bug-15-deletion-restore-leaks-alternate-image-files.md)
+- [13. Replacement leaves incompatible alternate artwork](docs/todo/014-bug-13-replacement-leaves-incompatible-alternate-artwork.md) — closed 2026-10-31; see [accepted closure](docs/handover/070-bug-13-accepted-closure-2026-10-31.md)
+- [14. Failed map uploads leave orphan artwork](docs/todo/015-bug-14-failed-map-uploads-leave-orphan-artwork.md) — closed 2026-10-31; see [accepted closure](docs/handover/071-bug-14-accepted-closure-2026-10-31.md)
+- [15. Deletion/restore leaks alternate-image files](docs/todo/016-bug-15-deletion-restore-leaks-alternate-image-files.md) — closed 2026-10-31; see [accepted closure](docs/handover/074-bug-15-accepted-closure-2026-10-31.md)
 - [Validation caveats](docs/todo/017-validation-caveats.md)
 
 ## Second bug hunt: bugs 16–29
