@@ -1,4 +1,5 @@
 ### 11. Wall imports accept non-finite coordinates
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; integration/deployment acceptance pending.
 - Final implementation commit: `c21c0d1a299449eadf93ec8188afe6caf799654d`.
 - Importer, numeric tests and guide: `f03520b8ac76a2155a3af3eef4fc0c878acb71b6`.

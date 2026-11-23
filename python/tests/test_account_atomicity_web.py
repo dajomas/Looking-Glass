@@ -83,7 +83,8 @@ def test_valid_password_update_keeps_current_session_and_revokes_others(account,
     ctx, client, entry, token, user = account
     force(ctx, user, required)
     result = client.post("/account", data=data(user), follow_redirects=False)
-    assert result.status_code == 303 and result.headers["location"] == "/account?ok=Account+updated"
+    # I1: a completed forced change continues to the start page instead.
+    assert result.status_code == 303 and result.headers["location"] == ("/" if required else "/account?ok=Account+updated")
     with ctx.db.connect() as conn:
         saved = users.get_with_hash(conn, "dm")
         assert saved["display_name"] == "Changed" and not saved["must_change_password"]

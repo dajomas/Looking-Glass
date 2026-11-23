@@ -1,4 +1,5 @@
 ### 9. Login throttle retains unlimited keys
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; HTTP/deployment acceptance pending.
 - Fix commit: `a0610c6b6a7af13b7b516a992364b4a38035ccd6`.
 - README commit: `dcd93fcee0d62508c541a13042e5874f5f50e28d`.

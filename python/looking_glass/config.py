@@ -7,6 +7,7 @@ Configuration comes from (in increasing priority):
 """
 
 import copy
+import re
 from collections.abc import Mapping
 import os
 from dataclasses import dataclass, field
@@ -66,13 +67,34 @@ DEFAULTS: dict[str, Any] = {
 }
 
 
+class ConfigError(ValueError):
+    """Invalid configuration; the CLI reports it without a traceback."""
+
+
 def _validate_shape(value: object, source: str) -> None:
     """Validate supplied structure without restricting extension keys or leaf values."""
     if not isinstance(value, Mapping):
-        raise ValueError(f"{source}: configuration must be a mapping.")
+        raise ConfigError(f"{source}: configuration must be a mapping.")
     for name, default in DEFAULTS.items():
         if isinstance(default, dict) and name in value and not isinstance(value[name], Mapping):
-            raise ValueError(f"{source}: section '{name}' must be a mapping.")
+            raise ConfigError(f"{source}: section '{name}' must be a mapping.")
+
+
+_HEX_COLOR = re.compile(r"#?(?:[0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})")
+# Colour leaves checked after merging; per-map colours live in the database.
+_COLOR_KEYS = (("fog", "fog_color"),)
+
+
+def _validate_values(raw: Mapping, source: str) -> None:
+    """Validate typed leaves that would otherwise fail later, inside server startup."""
+    for section, key in _COLOR_KEYS:
+        value = raw[section].get(key)
+        if isinstance(value, str) and _HEX_COLOR.fullmatch(value):
+            continue
+        hint = (' In YAML, quote colours: an unquoted "#" starts a comment, '
+                f'so write {key}: "#808080".') if value is None else ""
+        raise ConfigError(f"{source}: '{section}.{key}' must be a colour like \"#rgb\" or "
+                          f"\"#rrggbb\", not {value!r}.{hint}")
 
 
 def _deep_merge(base: dict, override: Mapping) -> dict:
@@ -173,6 +195,7 @@ def load_settings(path: str | os.PathLike | None = None, overrides: Mapping | No
             raw[sec][key] = cast(os.environ[env])
     if overrides is not None:
         raw = _deep_merge(raw, overrides)
+    _validate_values(raw, f"Configuration file {cfg_path}" if cfg_path is not None else "Configuration")
     from .services.scrying_glass import options
     options(raw["scrying_glass"])
     return Settings(raw=raw, config_path=cfg_path)

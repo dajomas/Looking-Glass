@@ -279,8 +279,42 @@ class FogEngine:
             m = ndimage.binary_dilation(interiors, iterations=self.thickness)
             # Wall coverage must not disclose another hidden open component.
             m &= interiors | (area.labels == 0)
+            # A wall stroke straddles its line. Show only stroke pixels at least one
+            # work pixel nearer a revealed interior than a hidden one: a work pixel
+            # spans several map pixels, so the margin keeps the scaled edge on the
+            # revealed side and a door or wall never discloses hidden-side artwork
+            # (bug 30).
+            hidden = (area.labels > 0) & ~interiors
+            if hidden.any():
+                m = interiors | self._nearer_revealed(m & ~interiors, interiors, hidden)
         self._masks.put(key, m)
         return m
+
+    def _nearer_revealed(self, candidates: np.ndarray, interiors: np.ndarray,
+                         hidden: np.ndarray) -> np.ndarray:
+        """Candidates at least one pixel nearer revealed interiors than hidden ones.
+
+        Distances are chamfer transforms inside a box around the candidates.
+        City-block steps never under-count the Euclidean distance to revealed
+        pixels and chessboard steps never over-count it to hidden ones, so the
+        test is conservative: an uncertain pixel stays fogged.
+        """
+        keep = np.zeros_like(candidates)
+        ys, xs = np.nonzero(candidates)
+        if len(ys) == 0:
+            return keep
+        limit = self.thickness + 2  # beyond the candidates' reach of any seed
+        y0, y1 = max(0, ys.min() - limit), min(candidates.shape[0], ys.max() + limit + 1)
+        x0, x1 = max(0, xs.min() - limit), min(candidates.shape[1], xs.max() + limit + 1)
+        box = (slice(y0, y1), slice(x0, x1))
+
+        if not hidden[box].any():  # no hidden pixel within reach of any candidate
+            return candidates.copy()
+        # Chamfer distances to the nearest seed pixel, inside the box only.
+        to_revealed = ndimage.distance_transform_cdt(~interiors[box], metric="taxicab")
+        to_hidden = ndimage.distance_transform_cdt(~hidden[box], metric="chessboard")
+        keep[box] = candidates[box] & (to_revealed + 1 <= to_hidden)
+        return keep
 
     def admin_mask_png(self, spec: MapSpec, segments: list[WallSegment], ops: list[FogOp]) -> bytes:
         """RGBA PNG at work resolution; alpha 255 where revealed."""

@@ -29,11 +29,6 @@ old tracked deletions together with the new evidence and pushing.
 Failure after cleanup leaves tracked old evidence recoverable from starting HEAD.
 Git history and GitHub Actions artifacts are not deleted.
 Requires Bash, Git, authenticated GitHub CLI, jq and Python 3.
-Creates lossless reader-chunks alongside the unchanged new original evidence.
-To chunk existing evidence without running cleanup or downloading again:
-  python3 tools/chunk_ci_evidence.py ci-results-RUN_ID-attempt-ATTEMPT
-To verify a reading copy:
-  python3 tools/chunk_ci_evidence.py --verify ci-results-RUN_ID-attempt-ATTEMPT
 EOF
 }
 
@@ -58,7 +53,6 @@ done
 gh auth status >/dev/null 2>&1 || die "Authenticate first: gh auth login"
 ROOT="$(git rev-parse --show-toplevel)" || die "Run inside the Looking-Glass checkout."
 cd "$ROOT"
-[[ -f tools/chunk_ci_evidence.py ]] || die "Missing tools/chunk_ci_evidence.py"
 ACTUAL_REPO="$(gh repo view --json nameWithOwner --jq '.nameWithOwner')"
 [[ "${ACTUAL_REPO,,}" == "${REPO,,}" ]] || die "Checkout resolves to $ACTUAL_REPO, expected $REPO."
 [[ "$(git branch --show-current)" == "$BRANCH" ]] || die "Collection cleanup requires branch $BRANCH."
@@ -94,7 +88,7 @@ EXPECTED_WORKFLOW_ID="$(gh api "repos/$REPO/actions/workflows/$WORKFLOW" --jq '.
 [[ "$(jq -r '.workflowDatabaseId' "$TMP/run.json")" == "$EXPECTED_WORKFLOW_ID" ]] || die "Run does not belong to $WORKFLOW."
 
 OUT="ci-results-${RUN_ID}-attempt-${ATTEMPT}"
-[[ ! -e "$OUT" && ! -L "$OUT" ]] || die "$OUT already exists; select a new run/attempt or use the chunk helper for existing evidence."
+[[ ! -e "$OUT" && ! -L "$OUT" ]] || die "$OUT already exists; select a new run/attempt."
 for candidate in ci-results-*; do
     [[ "$candidate" =~ ^ci-results-[0-9]+(-attempt-[0-9]+)?$ ]] || continue
     [[ ! -L "$candidate" && -d "$candidate" ]] || die "Refusing non-directory or symlink collection: $candidate"
@@ -151,8 +145,6 @@ if [[ ! -s "$OUT/artifact-files.txt" ]]; then
     printf 'WARNING: No artifact files were collected.\n' >> "$OUT/collection.txt"
 fi
 
-python3 tools/chunk_ci_evidence.py "$OUT"
-
 printf '\nCollected evidence in %s\n' "$OUT"
 cat "$OUT/collection.txt"
 printf 'Review the collection report and evidence before publishing.\n'
@@ -185,7 +177,6 @@ for index in range(0, len(fields) - 1, 2):
     if status != b"D" or path.split("/", 1)[0] not in allowed:
         raise SystemExit(f"Unexpected tracked change during collection: {status!r} {path}")
 PY
-python3 tools/chunk_ci_evidence.py --verify "$OUT"
 git add -A -- "$OUT" "${OLD_COLLECTIONS[@]}"
 git commit -m "Replace CI evidence with run ${RUN_ID}, attempt ${ATTEMPT} [skip ci]"
 git push origin "HEAD:refs/heads/$BRANCH"

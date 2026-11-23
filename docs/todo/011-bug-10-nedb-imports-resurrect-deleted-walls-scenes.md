@@ -1,4 +1,5 @@
 ### 10. NeDB imports resurrect deleted walls/scenes
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; integration/deployment acceptance pending.
 - Fix commit: `be09fef50ea0a3bd1609b9850eab98b9a0061e41`.
 - HANDOVER commit: `cf5b42d5041958514be5156578aa460f6146e407`.

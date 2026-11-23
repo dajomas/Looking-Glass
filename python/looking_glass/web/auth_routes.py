@@ -2,7 +2,7 @@
 
 from posixpath import normpath
 from typing import Annotated
-from urllib.parse import unquote
+from urllib.parse import quote, unquote
 
 from fastapi import APIRouter, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse
@@ -41,6 +41,12 @@ def _safe_next(target: str | None) -> str:
     return "/"
 
 
+def account_url(target: str | None) -> str:
+    """The forced-change page, carrying a validated local destination for afterwards."""
+    dest = _safe_next(target)
+    return "/account" if dest == "/" else f"/account?next={quote(dest, safe='')}"
+
+
 @router.get("/login")
 def login_page(request: Request, next: str = "/"):
     if optional_user(request):
@@ -77,7 +83,7 @@ def login_submit(request: Request, ctx: CtxDep,
         token, _ = sessions_repo.create(conn, user["id"], entry, ttl)
         sessions_repo.purge_expired(conn)
     ctx.throttle.reset(ip, username)
-    dest = "/account" if user["must_change_password"] else _safe_next(next)
+    dest = account_url(next) if user["must_change_password"] else _safe_next(next)
     resp = RedirectResponse(dest, status_code=303)
     resp.set_cookie(cookie_name(request), token, max_age=ttl, httponly=True, samesite="lax",
                     secure=bool(ctx.settings.section("security")["secure_cookies"]), path="/")
@@ -97,8 +103,8 @@ async def logout(request: Request, ctx: CtxDep, user: CsrfUserDep):
 
 
 @router.get("/account")
-def account_page(request: Request, user: UserDep):
-    return render(request, "account.html")
+def account_page(request: Request, user: UserDep, next: str = "/"):
+    return render(request, "account.html", next=_safe_next(next))
 
 
 @router.post("/account")
@@ -106,21 +112,26 @@ def account_submit(request: Request, ctx: CtxDep, user: CsrfUserDep,
                    display_name: Annotated[str, Form()] = "",
                    current_password: Annotated[str, Form()] = "",
                    new_password: Annotated[str, Form()] = "",
-                   confirm_password: Annotated[str, Form()] = ""):
+                   confirm_password: Annotated[str, Form()] = "",
+                   next: Annotated[str, Form()] = "/"):
     min_len = int(ctx.settings.section("security")["min_password_length"])
+    forced = bool(user["must_change_password"])
     with ctx.db.connect() as conn:
         if new_password or user["must_change_password"]:
             row = users_repo.get_with_hash(conn, user["username"])
             if not verify_password(current_password, row["password_hash"]):
-                return render(request, "account.html", status_code=400, error="Current password is incorrect.")
+                return render(request, "account.html", status_code=400, next=_safe_next(next), error="Current password is incorrect.")
             if len(new_password) < min_len:
-                return render(request, "account.html", status_code=400,
+                return render(request, "account.html", status_code=400, next=_safe_next(next),
                               error=f"New password must be at least {min_len} characters.")
             if new_password != confirm_password:
-                return render(request, "account.html", status_code=400, error="Passwords do not match.")
+                return render(request, "account.html", status_code=400, next=_safe_next(next), error="Passwords do not match.")
             if new_password == current_password:
-                return render(request, "account.html", status_code=400, error="Choose a different password.")
+                return render(request, "account.html", status_code=400, next=_safe_next(next), error="Choose a different password.")
             users_repo.set_password(conn, user["id"], new_password, must_change=False)
             sessions_repo.delete_for_user(conn, user["id"], keep_token=request.cookies.get(cookie_name(request)))
         users_repo.update(conn, user["id"], display_name=display_name)
+    if forced:
+        # I1: a completed forced change continues to where the user was going.
+        return RedirectResponse(_safe_next(next), status_code=303)
     return RedirectResponse("/account?ok=Account+updated", status_code=303)

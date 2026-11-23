@@ -1,0 +1,44 @@
+$ cat accept.yaml
+storage:
+  data_dir: lg-accept-data
+
+viewer:
+  image_format: webp
+
+fog:
+  fog_color: #808080
+
+$ .venv/bin/python python/main.py -c accept.yaml serve
+Traceback (most recent call last):
+  File "/mnt/d/git/lg-accept/python/main.py", line 15, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "/mnt/d/git/lg-accept/python/looking_glass/cli.py", line 71, in main
+    asyncio.run(_serve(settings))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/usr/lib64/python3.14/asyncio/runners.py", line 205, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/usr/lib64/python3.14/asyncio/runners.py", line 128, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/usr/lib64/python3.14/asyncio/base_events.py", line 720, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/mnt/d/git/lg-accept/python/looking_glass/cli.py", line 101, in _serve
+    await serve(settings)
+  File "/mnt/d/git/lg-accept/python/looking_glass/server.py", line 54, in serve
+    _, servers = build(settings)
+                 ~~~~~^^^^^^^^^^
+  File "/mnt/d/git/lg-accept/python/looking_glass/server.py", line 42, in build
+    ctx = AppContext.build(settings)
+  File "/mnt/d/git/lg-accept/python/looking_glass/web/context.py", line 29, in build
+    fog=FogEngine(settings.section("fog"), settings.section("viewer"), settings.cache_dir),
+        ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/git/lg-accept/python/looking_glass/services/fog.py", line 155, in __init__
+    self.fog_rgb = _hex_to_rgb(str(fog_cfg["fog_color"]))
+                   ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/d/git/lg-accept/python/looking_glass/services/fog.py", line 146, in _hex_to_rgb
+    return int(c[0:2], 16), int(c[2:4], 16), int(c[4:6], 16)
+           ~~~^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 16: 'No'

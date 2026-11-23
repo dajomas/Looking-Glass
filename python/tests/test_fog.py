@@ -30,7 +30,8 @@ def test_click_reveals_only_that_room(engine, tmp_path):
     assert m[100, 100] and m[100, 50]
     assert not m[100, 300]            # other room stays fogged
     assert not m[5, 5]                # outside the building stays fogged
-    assert m[10, 100]                 # bounding wall itself becomes visible
+    assert m[11, 100]                 # room side of the bounding wall stays visible
+    assert not m[10, 100] and not m[9, 100]  # bug 30: its line and far side stay fogged
 
 
 def test_hide_and_reveal_all(engine, tmp_path):

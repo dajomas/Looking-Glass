@@ -7,7 +7,38 @@ are not summarized here.
 
 ## Unreleased
 
+### Added
+
+- **End-to-end suite in Chromium and Firefox (I3, accepted).** `tools/run_e2e.sh` runs
+  Playwright journeys from `e2e/` against a real local server, stores the
+  results in `e2e-results/<timestamp>/`, keeps only the latest set and commits
+  and pushes it with `[skip ci]`. See docs/testing.md, "End-to-end suite".
+- **Drag wall endpoints in the wall editor (I2, accepted).** In any tool, press the left
+  mouse button on an endpoint and drag to move it. Walls meeting at that corner
+  move together; hold Alt and press slightly along a wall to move only that wall. Snapping and the image edge
+  apply, Escape cancels, each drag is one Undo step, and paired portals keep
+  their pairing. Clicks on endpoints and drags elsewhere behave as before.
+
 ### Fixed
+
+- **Door and wall lines no longer show hidden-side artwork (bug 30, accepted).** A
+  revealed room used to show the full width of its bounding wall strokes, so
+  2–3 px of the hidden side's artwork appeared across doorways. Only stroke
+  pixels at least one work pixel nearer the revealed room than a hidden one are
+  now shown; a wall line shared with a hidden room stays fogged. The room-side
+  edge of each wall remains visible, about 1–2 px narrower than before. Walls
+  between two revealed rooms are unchanged.
+- **Invalid fog colours fail with a clear message (bug 31, accepted).** `fog.fog_color`
+  must be a string like `"#rgb"` or `"#rrggbb"` (the `#` is optional). An
+  unquoted `#808080` is a YAML comment; the loader now reports the file, key
+  and value and suggests quoting. The CLI prints `Configuration error: ...`
+  and exits with status 2, without a traceback and before any storage or
+  bootstrap write. Structure errors from bug 24 use the same clean output.
+- **A completed forced password change continues to the destination (I1, accepted).**
+  After a forced change, users go to the page they were heading for (a valid
+  local `next` kept from login or from a direct link) or to the portal's start
+  page, which opens the map when a player has one campaign. Voluntary account
+  changes still return to the account page.
 
 - **Configuration structure is validated before merging (bug 24, accepted).**
   YAML and programmatic overrides must be mappings, and supplied known sections

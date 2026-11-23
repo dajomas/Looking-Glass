@@ -1,4 +1,5 @@
 ### 4. Cache cleanup races with image responses
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; HTTP/deployment acceptance pending.
 - Fix commit: `0b0f8f7089d064c9060b15165fbe52aa88d46222`.
 - Baseline: `54cae125d996ceccff6cc61d3942edea88209c4e`; bug 1 privacy rendering

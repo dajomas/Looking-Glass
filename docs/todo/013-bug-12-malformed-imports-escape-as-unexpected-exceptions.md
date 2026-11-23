@@ -1,4 +1,5 @@
 ### 12. Malformed imports escape as unexpected exceptions
+- [x] Accepted and closed on 2026-11-22 by explicit user instruction; see [accepted closure and evidence limits](../handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md). The delivery and pending-acceptance notes below are historical.
 - [x] Implementation delivered on `features/perplexity`; HTTP/DB, full-suite
   and deployment acceptance pending.
 - Fix/parser regression/guide/index commit: `0b8b3189487d373b5fd3613c16c6fa7f694b1136`.
