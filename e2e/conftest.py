@@ -49,6 +49,15 @@ def browser_type_launch_args(browser_type_launch_args, browser_name):
     return args
 
 
+def free_port(taken):
+    while True:
+        with socket.socket() as sock:
+            sock.bind(("127.0.0.1", 0))
+            port = sock.getsockname()[1]
+        if port not in BROWSER_BLOCKED_PORTS and port not in taken:
+            return port
+
+
 class Server:
     """One `python/main.py serve` process with its own config and data; restartable."""
 
