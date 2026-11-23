@@ -1,0 +1,35 @@
+king-Glass/Looking-Glass/python
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0909328Z   PYTHONUNBUFFERED: 1
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0909585Z   LG_RUN_LIVE_E2E: 1
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0909872Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0910300Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0910677Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0911076Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0911430Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0911827Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.0912121Z ##[endgroup]
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.3524617Z No broken requirements found.
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.7983294Z fastapi==0.165.0
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:43.7985512Z starlette==1.10.0
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:44.3541290Z uvicorn==0.54.0
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:44.3541997Z python-multipart==0.0.34
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:44.3700014Z httpx2==2.16.2
+Recovery	Verify dependencies and record environment	2026-11-23T07:39:44.5301586Z pytest==9.2.0
+Recovery	Run recovery and container tests	﻿2026-11-23T07:39:44.6041196Z ##[group]Run set -o pipefail
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6041523Z ^[[36;1mset -o pipefail^[[0m
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6042040Z ^[[36;1mpython -m pytest -v -ra python/tests/recovery --junitxml=test-results/results.xml 2>&1 | tee test-results/pytest.log^[[0m
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6068541Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6068991Z env:
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6069314Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6069655Z   PYTHONUNBUFFERED: 1
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6069885Z   LG_RUN_LIVE_E2E: 1
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6070147Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6070591Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6070967Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6071336Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6071688Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6072146Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6072451Z   LG_RUN_CONTAINER_TESTS: 1
+Recovery	Run recovery and container tests	2026-11-23T07:39:44.6072686Z ##[endgroup]
+Recovery	Run recovery and container tests	2026-11-23T07:39:45.5155473Z ============================= test session starts ==============================
+Recovery	Run recovery and container tests

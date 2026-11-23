@@ -1,0 +1,40 @@
+27-80c5-13b4634a725c.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.9733683Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.9763192Z /github/runner_temp/git-credentials-eb4f37c0-7e13-4227-80c5-13b4634a725c.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.9769244Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-eb4f37c0-7e13-4227-80c5-13b4634a725c.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.9806787Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.9834712Z /github/runner_temp/git-credentials-eb4f37c0-7e13-4227-80c5-13b4634a725c.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.9841753Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-eb4f37c0-7e13-4227-80c5-13b4634a725c.config
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.9880358Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:44.0092602Z Removing credentials config '/home/runner/work/_temp/git-credentials-eb4f37c0-7e13-4227-80c5-13b4634a725c.config'
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:44.0240785Z Cleaning up orphan processes
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:44.0533878Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+Recovery	Set up job	﻿2026-11-23T07:39:16.2777088Z Current runner version: '2.338.2'
+Recovery	Set up job	2026-11-23T07:39:16.2796080Z ##[group]Runner Image Provisioner
+Recovery	Set up job	2026-11-23T07:39:16.2796853Z Hosted Compute Agent
+Recovery	Set up job	2026-11-23T07:39:16.2797275Z Version: 20261111.635
+Recovery	Set up job	2026-11-23T07:39:16.2797749Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+Recovery	Set up job	2026-11-23T07:39:16.2798327Z Build Date: 2026-11-11T01:49:01Z
+Recovery	Set up job	2026-11-23T07:39:16.2798830Z Worker ID: {2efa00f9-83f3-4249-a9c9-8b0125a574a4}
+Recovery	Set up job	2026-11-23T07:39:16.2799378Z Region: us-west-2
+Recovery	Set up job	2026-11-23T07:39:16.2799780Z Cloud: AWS
+Recovery	Set up job	2026-11-23T07:39:16.2800185Z ##[endgroup]
+Recovery	Set up job	2026-11-23T07:39:16.2801101Z ##[group]Operating System
+Recovery	Set up job	2026-11-23T07:39:16.2801543Z Ubuntu
+Recovery	Set up job	2026-11-23T07:39:16.2801923Z 24.04.5
+Recovery	Set up job	2026-11-23T07:39:16.2802287Z LTS
+Recovery	Set up job	2026-11-23T07:39:16.2802642Z ##[endgroup]
+Recovery	Set up job	2026-11-23T07:39:16.2803309Z ##[group]Runner Image
+Recovery	Set up job	2026-11-23T07:39:16.2803774Z Image: ubuntu-24.04
+Recovery	Set up job	2026-11-23T07:39:16.2804189Z Version: 20261116.133.1
+Recovery	Set up job	2026-11-23T07:39:16.2805043Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261116.133/images/ubuntu/Ubuntu2404-Readme.md
+Recovery	Set up job	2026-11-23T07:39:16.2806475Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261116.133
+Recovery	Set up job	2026-11-23T07:39:16.2807261Z ##[endgroup]
+Recovery	Set up job	2026-11-23T07:39:16.2808117Z ##[group]GITHUB_TOKEN Permissions
+Recovery	Set up job	2026-11-23T07:39:16.2809967Z Contents: read
+Recovery	Set up job	2026-11-23T07:39:16.2810489Z Metadata: read
+Recovery	Set up job	2026-11-23T07:39:16.2810893Z ##[endgroup]
+Recovery	Set up job	2026-11-23T07:39:16.2812478Z Secret source: Actions
+Recovery	Set up job	2026-11-23T07:39:16.2813369Z Cache mode: write
+Recovery	Set up job	2026-11-23T07:39:16.2814055Z Prepare workflow directory
+Recovery	Se

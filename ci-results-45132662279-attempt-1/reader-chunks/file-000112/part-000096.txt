@@ -1,0 +1,37 @@
+3T07:42:42.4149826Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4150087Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4433655Z Reported: 1993; failed/error: 0; skipped: 0
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4529050Z ##[group]Run actions/upload-artifact@v4
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4529311Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4529585Z   name: integration-python-4ff1ba80d8127adea11fc16da111d8fecc4ebe30
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4530056Z   path: test-results/
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4530285Z   if-no-files-found: warn
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4530477Z   retention-days: 14
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4530661Z   compression-level: 6
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4530839Z   overwrite: false
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4531020Z   include-hidden-files: false
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4531215Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4531457Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4531743Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4531914Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4532165Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4532532Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib/pkgconfig
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4532871Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4533215Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4533515Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.10/x64
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4533814Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.10/x64/lib
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.4534081Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.5905020Z (node:13152) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.5905615Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.5964751Z With the provided path, there will be 5 files uploaded
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.5969636Z Artifact name is valid!
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.5970487Z Root directory input is valid!
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.9355731Z Beginning upload of artifact content to blob storage
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:42.9615387Z (node:13152) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.2448946Z Uploaded bytes 52657
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.3000197Z Finished uploading artifact content to blob storage!
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.3000962Z SHA256 digest of uploaded artifact zip is 45387ed261277e9f2dd3dba1cf100f18b9252d3bc0722398f97c7c6b07cf5119
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.3001903Z Finalizing artifact upload
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.6824985Z Artifact integration-python-4ff1ba80d8127adea11fc16da111d8fecc4ebe30.zip successfully finalized. Artifact ID 14799045614
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.6826082Z Artifact integration-python-4ff1ba80d8127adea11fc16da111d8fecc4ebe30 has been successfully uploaded! Final size is 52657 bytes. Artifact ID is 14799045614
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:42:43.6830629Z Artifact download

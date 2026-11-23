@@ -1,0 +1,27 @@
+-11-23T07:41:28.2231807Z Finished uploading artifact content to blob storage!
+Live Uvicorn	Upload validation evidence	2026-11-23T07:41:28.2232664Z SHA256 digest of uploaded artifact zip is cea22e72b0c21855b0aecf7c2ef231646a502e75e1d6a15786f8960b87e1d14a
+Live Uvicorn	Upload validation evidence	2026-11-23T07:41:28.2233378Z Finalizing artifact upload
+Live Uvicorn	Upload validation evidence	2026-11-23T07:41:28.6503516Z Artifact integration-live-4ff1ba80d8127adea11fc16da111d8fecc4ebe30.zip successfully finalized. Artifact ID 14798591851
+Live Uvicorn	Upload validation evidence	2026-11-23T07:41:28.6504346Z Artifact integration-live-4ff1ba80d8127adea11fc16da111d8fecc4ebe30 has been successfully uploaded! Final size is 11077 bytes. Artifact ID is 14798591851
+Live Uvicorn	Upload validation evidence	2026-11-23T07:41:28.6506820Z Artifact download URL: https://github.com/dajomas/Looking-Glass/actions/runs/45132662279/artifacts/14798591851
+Live Uvicorn	Post Set up Python	﻿2026-11-23T07:41:28.6742092Z Post job cleanup.
+Live Uvicorn	Post Set up Python	2026-11-23T07:41:28.7613488Z Cache hit occurred on the primary key setup-python-Linux-x64-24.04-Ubuntu-python-3.14.10-pip-650b852b22ae772631bbad52226534dd4c066f52d5a65687f57482e419e48052, not saving cache.
+Live Uvicorn	Post Check out repository	﻿2026-11-23T07:41:28.7687010Z Post job cleanup.
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8284856Z [command]/usr/bin/git version
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8312482Z git version 2.56.1
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8337089Z Temporarily overriding HOME='/home/runner/work/_temp/05d3bd72-20d9-43b8-9613-889a6e058fa3' before making global git config changes
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8337981Z Adding repository directory to the temporary git global config as a safe directory
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8340403Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Looking-Glass/Looking-Glass
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8363514Z Removing SSH command configuration
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8367983Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8393426Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8586261Z Removing HTTP extra header
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8589329Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8613546Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8772883Z Removing includeIf entries pointing to credentials config files
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8778573Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8808356Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8809091Z includeif.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8809649Z includeif.gitdir:/github/workspace/.git.path
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8810050Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+Live Uvicorn	Post Check out repository	2026-11-23T07:41:28.8811599

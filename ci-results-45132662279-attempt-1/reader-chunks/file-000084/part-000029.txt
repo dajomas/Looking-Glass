@@ -1,0 +1,88 @@
+docker/overlay2/v3qjan63d155xyqmew5tx3wb3/diff:/var/lib/docker/overlay2/rk072rag5tk8eaq2dzgshjozf/diff:/var/lib/docker/overlay2/38l2pcapkdudrtj9lfkxieu00/diff:/var/lib/docker/overlay2/qn3jm49imr1ul59rih3ombaw6/diff:/var/lib/docker/overlay2/2d6435244e0f31f69e799a984e378f3780a40cd47ccfc996e4cfa1ed312ff7e0/diff:/var/lib/docker/overlay2/6af53cc8d0851d2e75b0b906796a3364f14ae694c8c97e4f772f16395f0a7ce1/diff:/var/lib/docker/overlay2/e674ff81289018407215af52367ba2c2dadc7053d6f0f5e84575b7cccee0fa8d/diff:/var/lib/docker/overlay2/ecf3ab49e8780cdc05fde92917ba1e334fd29a4d78d6f97c44098ca26116a6d0/diff",
+                "MergedDir": "/var/lib/docker/overlay2/8fc13d80b4675b496ef61dc754f0088598f29b2fc0e6f24d9adc5fec831370c4/merged",
+                "UpperDir": "/var/lib/docker/overlay2/8fc13d80b4675b496ef61dc754f0088598f29b2fc0e6f24d9adc5fec831370c4/diff",
+                "WorkDir": "/var/lib/docker/overlay2/8fc13d80b4675b496ef61dc754f0088598f29b2fc0e6f24d9adc5fec831370c4/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-29b5384fe77241b3b938aefb7a366955",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-29b5384fe77241b3b938aefb7a366955/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_new_instance_pr0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "e1047bdb7b1f",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:33d14727627a4f7889b225835744e2c4",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "4572b4fdbf5980f36b980c1a7dd7e3fec304b6a5d11e6816663eb3dea8493247",
+            "SandboxKey": "/var/run/docker/netns/4572b4fdbf59",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32770"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "Ho

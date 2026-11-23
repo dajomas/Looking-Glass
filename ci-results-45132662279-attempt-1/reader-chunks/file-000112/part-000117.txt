@@ -1,0 +1,29 @@
+-credentials-e1f8c42d-8d9e-4b16-b45a-4964a50242a0.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+JavaScript regressions	Check out repository	2026-11-23T07:39:18.4297939Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git.path /home/runner/work/_temp/git-credentials-e1f8c42d-8d9e-4b16-b45a-4964a50242a0.config
+JavaScript regressions	Check out repository	2026-11-23T07:39:18.4340548Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/Looking-Glass/Looking-Glass/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-e1f8c42d-8d9e-4b16-b45a-4964a50242a0.config
+JavaScript regressions	Check out repository	2026-11-23T07:39:18.4384411Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-e1f8c42d-8d9e-4b16-b45a-4964a50242a0.config
+JavaScript regressions	Check out repository	2026-11-23T07:39:18.4432765Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-e1f8c42d-8d9e-4b16-b45a-4964a50242a0.config
+JavaScript regressions	Check out repository	2026-11-23T07:39:18.4470297Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-23T07:39:18.4471985Z ##[group]Fetching the repository
+JavaScript regressions	Check out repository	2026-11-23T07:39:18.4478587Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +4ff1ba80d8127adea11fc16da111d8fecc4ebe30:refs/remotes/origin/features/claude
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7414285Z From https://github.com/dajomas/Looking-Glass
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7415264Z  * [new ref]         4ff1ba80d8127adea11fc16da111d8fecc4ebe30 -> origin/features/claude
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7427337Z [command]/usr/bin/git branch --list --remote origin/features/claude
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7470780Z   origin/features/claude
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7479547Z [command]/usr/bin/git rev-parse refs/remotes/origin/features/claude
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7511979Z 4ff1ba80d8127adea11fc16da111d8fecc4ebe30
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7517570Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7518264Z ##[group]Determining the checkout info
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7519114Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7523711Z [command]/usr/bin/git sparse-checkout disable
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7584302Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7622445Z ##[group]Checking out the ref
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.7626428Z [command]/usr/bin/git checkout --progress --force -B features/claude refs/remotes/origin/features/claude
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.8554471Z Switched to a new branch 'features/claude'
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.8559741Z branch 'features/claude' set up to track 'origin/features/claude'.
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.8618428Z ##[endgroup]
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.8623051Z [command]/usr/bin/git log -1 --format=%H
+JavaScript regressions	Check out repository	2026-11-23T07:39:19.8658624Z 4ff1ba80d8127adea11fc16da111d8fecc4ebe30
+JavaScript regressions	Initialize evidence	﻿2026-11-23T07:39:19.8882846Z ##[group]Run mkdir -p test-results
+JavaScript regressions	Initialize evidence	2026-11-23T07:39:19.8883359Z ^[[36;1mmkdir -p test-results^[[0m
+JavaScri

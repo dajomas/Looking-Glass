@@ -1,0 +1,97 @@
+53cc8d0851d2e75b0b906796a3364f14ae694c8c97e4f772f16395f0a7ce1/diff:/var/lib/docker/overlay2/e674ff81289018407215af52367ba2c2dadc7053d6f0f5e84575b7cccee0fa8d/diff:/var/lib/docker/overlay2/ecf3ab49e8780cdc05fde92917ba1e334fd29a4d78d6f97c44098ca26116a6d0/diff",
+                "MergedDir": "/var/lib/docker/overlay2/f1c698e8b47120069bd5d2afc3c8623e0059470f60d24ef800e323023bac0c59/merged",
+                "UpperDir": "/var/lib/docker/overlay2/f1c698e8b47120069bd5d2afc3c8623e0059470f60d24ef800e323023bac0c59/diff",
+                "WorkDir": "/var/lib/docker/overlay2/f1c698e8b47120069bd5d2afc3c8623e0059470f60d24ef800e323023bac0c59/work"
+            },
+            "Name": "overlay2"
+        },
+        "Mounts": [
+            {
+                "Type": "volume",
+                "Name": "looking-glass-test-data-48aeb0b6ddc44888b66a40c9b80395f2",
+                "Source": "/var/lib/docker/volumes/looking-glass-test-data-48aeb0b6ddc44888b66a40c9b80395f2/_data",
+                "Destination": "/app/data",
+                "Driver": "local",
+                "Mode": "z",
+                "RW": true,
+                "Propagation": ""
+            },
+            {
+                "Type": "bind",
+                "Source": "/tmp/pytest-of-runner/pytest-0/test_container_nonroot_listene0/container-config.json",
+                "Destination": "/app/ci-config.json",
+                "Mode": "",
+                "RW": false,
+                "Propagation": "rprivate"
+            }
+        ],
+        "Config": {
+            "Hostname": "2c69a7511260",
+            "Domainname": "",
+            "User": "lg",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "ExposedPorts": {
+                "5000/tcp": {},
+                "5100/tcp": {}
+            },
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "LG_SUPERADMIN_PASSWORD=container-bootstrap-password",
+                "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "LANG=C.UTF-8",
+                "PYTHON_VERSION=3.14.10",
+                "PYTHON_SHA256=de414a57119abef52784d8993e341d53aed635fc2b05c2607d9f98a2c5b72032",
+                "PYTHONDONTWRITEBYTECODE=1",
+                "PYTHONUNBUFFERED=1",
+                "LG_DATA_DIR=/app/data"
+            ],
+            "Cmd": [
+                "python",
+                "python/main.py",
+                "--config",
+                "/app/ci-config.json",
+                "serve"
+            ],
+            "Healthcheck": {
+                "Test": [
+                    "CMD-SHELL",
+                    "python -c \"import urllib.request;urllib.request.urlopen('http://127.0.0.1:5000/healthz')\" || exit 1"
+                ]
+            },
+            "Image": "looking-glass-test:33d14727627a4f7889b225835744e2c4",
+            "Volumes": {
+                "/app/data": {}
+            },
+            "WorkingDir": "/app",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {}
+        },
+        "NetworkSettings": {
+            "Bridge": "",
+            "SandboxID": "8a9ce525636b484862e422a39cff5a98d6492a3a1939b72c92d0a0f7e528b90f",
+            "SandboxKey": "/var/run/docker/netns/8a9ce525636b",
+            "Ports": {
+                "5000/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32768"
+                    }
+                ],
+                "5100/tcp": [
+                    {
+                        "HostIp": "127.0.0.1",
+                        "HostPort": "32769"
+                    }
+                ]
+            },
+            "HairpinMode": false,
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "EndpointID": "1ecaac5efb61b09036ca128a95a8692581f672

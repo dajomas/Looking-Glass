@@ -1,0 +1,46 @@
+ [command]/usr/bin/git rev-parse refs/remotes/origin/features/claude
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4780818Z 4ff1ba80d8127adea11fc16da111d8fecc4ebe30
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4791271Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4792365Z ##[group]Determining the checkout info
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4793626Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4794422Z [command]/usr/bin/git sparse-checkout disable
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4853524Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4891803Z ##[group]Checking out the ref
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.4895165Z [command]/usr/bin/git checkout --progress --force -B features/claude refs/remotes/origin/features/claude
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5624737Z Switched to a new branch 'features/claude'
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5644482Z branch 'features/claude' set up to track 'origin/features/claude'.
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5653535Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5701995Z [command]/usr/bin/git log -1 --format=%H
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5734591Z 4ff1ba80d8127adea11fc16da111d8fecc4ebe30
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5979436Z ##[group]Run mkdir -p test-results
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5980564Z ^[[36;1mmkdir -p test-results^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5981723Z ^[[36;1mgit rev-parse HEAD > test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.5983049Z ^[[36;1muname -a >> test-results/environment.txt^[[0m
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6006418Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6007609Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6008890Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6010210Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6011043Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6011836Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6272477Z ##[group]Run actions/setup-python@v6
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6273415Z with:
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6274093Z   python-version: 3.14
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6274866Z   cache: pip
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6275889Z   cache-dependency-path: requirements.txt
+Python / HTTP	UNKNOWN STEP	requirements-dev.txt
+Python / HTTP	UNKNOWN STEP	
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6277102Z   check-latest: false
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6285109Z   token: ***
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6285850Z   update-environment: true
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6286697Z   allow-prereleases: false
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6287535Z   freethreaded: false
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6288367Z env:
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6289291Z   PYTHONPATH: /home/runner/work/Looking-Glass/Looking-Glass/python
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6290529Z   PYTHONUNBUFFERED: 1
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6291276Z   LG_RUN_LIVE_E2E: 1
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.6292004Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.7488653Z ##[group]Installed versions
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.8465200Z Successfully set up CPython (3.14.10)
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.8466824Z ##[endgroup]
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:18.8956325Z [command]/opt/hostedtoolcache/Python/3.14.10/x64/bin/pip cache dir
+Python / HTTP	UNKNOWN STEP	2026-11-23T07:39:20.6387441Z 
