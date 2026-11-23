@@ -67,16 +67,16 @@ for this audit. Three extracted checks are described with their exact limits.
 
 ## Acceptance findings: bugs 30–31 and improvement I1
 
-Found during manual acceptance on 2026-11-22. All three delivered on 2026-11-23; acceptance pending.
+Found during manual acceptance on 2026-11-22. All three accepted and closed on 2026-11-23.
 Details, evidence and regressions: [acceptance findings](docs/todo/019-acceptance-findings-2026-11-22.md).
 
-- [30. Doorway sliver of hidden-side artwork on the player image](docs/todo/019-acceptance-findings-2026-11-22.md#30-doorway-sliver-of-hidden-side-artwork-on-the-player-image) — delivered 2026-11-23, acceptance pending; see [record 103](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
-- [31. Invalid fog colour crashes startup with a raw traceback](docs/todo/019-acceptance-findings-2026-11-22.md#31-invalid-fog-colour-crashes-startup-with-a-raw-traceback) — delivered 2026-11-23, acceptance pending; see [record 103](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
-- [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — delivered 2026-11-23, acceptance pending; see [record 103](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
+- [30. Doorway sliver of hidden-side artwork on the player image](docs/todo/019-acceptance-findings-2026-11-22.md#30-doorway-sliver-of-hidden-side-artwork-on-the-player-image) — closed 2026-11-23; see [accepted closure](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
+- [31. Invalid fog colour crashes startup with a raw traceback](docs/todo/019-acceptance-findings-2026-11-22.md#31-invalid-fog-colour-crashes-startup-with-a-raw-traceback) — closed 2026-11-23; see [accepted closure](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
+- [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — closed 2026-11-23; see [accepted closure](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
 
 ## Improvements
 
-- [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — delivered 2026-11-23, acceptance pending; see [record 103](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
+- [I1. After a forced password change, continue to the map](docs/todo/019-acceptance-findings-2026-11-22.md#i1-after-a-forced-password-change-continue-to-the-map) — closed 2026-11-23; see [accepted closure](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
 - [I2. Wall editor: move endpoints by left-button drag](docs/todo/020-wall-editor-endpoint-drag-2026-11-22.md) — open; three design questions to settle first
 
 ## Preservation

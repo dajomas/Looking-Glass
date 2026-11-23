@@ -2,7 +2,7 @@
 
 The user asked on 2026-11-23 for bugs 31 and 30 and improvement I1 to be done
 together. All three are delivered on `features/claude` in one commit; each
-has its own regression tests. Acceptance is pending.
+has its own regression tests. Accepted and closed on 2026-11-23; see below.
 
 ## Bug 31: invalid fog colour
 
@@ -102,3 +102,14 @@ New and updated modules, all passed: `test_fog_doorway_privacy` 55,
 `test_account_atomicity_web` 26, `test_viewer_password_gate_web` 7,
 `test_web` 7. Manual acceptance (visual doorway check in a browser and the
 forced-change flow) has not been performed.
+
+## Accepted closure (2026-11-23)
+
+The user ran Runbook D of the Manual Acceptance Runbook (a Claude doc, outside
+the repository) against `4ff1ba8` and reported all three checks as PASS:
+doorways stay fogged in WebP and JPEG on the demo-crypt map (bug 30); an
+unquoted `fog_color: #808080` gives a one-line configuration error without a
+traceback or writes (bug 31); a forced password change from a direct `/c/<id>`
+link lands on the map with live updates (I1). The user then explicitly closed
+bugs 30 and 31 and improvement I1. Limits: one map, one browser, the user's own
+environment; no screenshots were recorded for this run.
