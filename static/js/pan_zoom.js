@@ -1,6 +1,9 @@
 // Pan & zoom for a fixed-size "stage" element inside a viewport.
 // Pointer events: drag to pan (mouse, pen, touch), two-finger pinch, wheel zoom.
 // A press/release without movement fires onTap(imageX, imageY, event).
+// Optional onDragStart(imageX, imageY, event) may claim a single-pointer press by
+// returning {move(x, y, e), end(x, y, e), cancel()}; it then receives the drag
+// instead of panning once the pointer leaves the tap tolerance.
 window.PanZoom = class PanZoom {
   constructor(viewport, stage, opts = {}) {
     this.vp = viewport;
@@ -11,6 +14,8 @@ window.PanZoom = class PanZoom {
     this.onTap = opts.onTap || null;
     this.secondaryTap = Boolean(opts.secondaryTap);
     this.onChange = opts.onChange || null;
+    this.onDragStart = opts.onDragStart || null;
+    this.drag = null;
     this.tapTolerance = 5;
     this.pointers = new Map();
     this.spaceDown = false;
@@ -53,6 +58,13 @@ window.PanZoom = class PanZoom {
     this.zoomAt(factor, r.left + r.width / 2, r.top + r.height / 2);
   }
 
+  cancelDrag() {
+    const drag = this.drag;
+    this.drag = null;
+    if (drag) { this.vp.classList.remove("dragging"); drag.handler.cancel(); }
+    return Boolean(drag);
+  }
+
   toImage(clientX, clientY) {
     const r = this.vp.getBoundingClientRect();
     return { x: (clientX - r.left - this.x) / this.scale, y: (clientY - r.top - this.y) / this.scale };
@@ -71,7 +83,12 @@ window.PanZoom = class PanZoom {
       vp.setPointerCapture(e.pointerId);
       this.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY, sx: e.clientX, sy: e.clientY, button: e.button });
       this.moved = this.pointers.size > 1 || (e.button === 2 && !this.secondaryTap) || e.button === 1 || this.spaceDown;
-      if (this.pointers.size === 2) this._pinchStart = this._pinchInfo();
+      if (this.pointers.size === 2) { this.cancelDrag(); this._pinchStart = this._pinchInfo(); }
+      if (this.onDragStart && this.pointers.size === 1 && !this.moved) {
+        const pt = this.toImage(e.clientX, e.clientY);
+        const handler = this.onDragStart(pt.x, pt.y, e);
+        if (handler) this.drag = { pointerId: e.pointerId, handler, active: false };
+      }
     });
     vp.addEventListener("pointermove", (e) => {
       const p = this.pointers.get(e.pointerId);
@@ -91,7 +108,14 @@ window.PanZoom = class PanZoom {
       }
       const dx = e.clientX - p.x, dy = e.clientY - p.y;
       if (Math.hypot(e.clientX - p.sx, e.clientY - p.sy) > this.tapTolerance) this.moved = true;
-      if (this.moved) {
+      if (this.drag?.pointerId === e.pointerId) {
+        if (this.moved) {
+          this.drag.active = true;
+          this.vp.classList.add("dragging");
+          const pt = this.toImage(e.clientX, e.clientY);
+          this.drag.handler.move(pt.x, pt.y, e);
+        }
+      } else if (this.moved) {
         this.x += dx; this.y += dy;
         this.apply();
         vp.classList.add("panning");
@@ -104,6 +128,19 @@ window.PanZoom = class PanZoom {
       this.pointers.delete(e.pointerId);
       vp.classList.remove("panning");
       if (this.pointers.size < 2) this._pinchStart = null;
+      if (this.drag?.pointerId === e.pointerId) {
+        const drag = this.drag;
+        this.drag = null;
+        vp.classList.remove("dragging");
+        if (drag.active) {
+          if (e.type === "pointerup") {
+            const pt = this.toImage(e.clientX, e.clientY);
+            drag.handler.end(pt.x, pt.y, e);
+          } else drag.handler.cancel();
+          return;
+        }
+        drag.handler.cancel();  // a stationary press stays a tap
+      }
       if (e.type === "pointerup" && !this.moved && e.button === p.button && (p.button === 0 || (this.secondaryTap && p.button === 2)) && this.pointers.size === 0 && this.onTap) {
         const pt = this.toImage(e.clientX, e.clientY);
         this.onTap(pt.x, pt.y, e);

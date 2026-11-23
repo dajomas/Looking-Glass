@@ -7,6 +7,14 @@ are not summarized here.
 
 ## Unreleased
 
+### Added
+
+- **Drag wall endpoints in the wall editor (I2).** In any tool, press the left
+  mouse button on an endpoint and drag to move it. Walls meeting at that corner
+  move together; hold Alt to move one wall only. Snapping and the image edge
+  apply, Escape cancels, each drag is one Undo step, and paired portals keep
+  their pairing. Clicks on endpoints and drags elsewhere behave as before.
+
 ### Fixed
 
 - **Door and wall lines no longer show hidden-side artwork (bug 30, accepted).** A

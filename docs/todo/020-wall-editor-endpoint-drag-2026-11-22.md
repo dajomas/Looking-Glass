@@ -1,6 +1,9 @@
 # I2. Wall editor: move endpoints by left-button drag (2026-11-22)
 
-- Status: open improvement, requested by the user on 2026-11-22. Not a bug.
+- [x] Implementation delivered on `features/claude` on 2026-11-23; see handover record 104. Acceptance pending.
+- Decisions (user, 2026-11-23): joined corners move together (Alt detaches one wall);
+  dragging works in every tool; paired portals can be dragged and keep their pairing.
+- Status (original): open improvement, requested by the user on 2026-11-22. Not a bug.
 - Request: in the wall editor, allow moving a wall endpoint by pressing the
   left mouse button on it, dragging, and releasing at the new position.
 

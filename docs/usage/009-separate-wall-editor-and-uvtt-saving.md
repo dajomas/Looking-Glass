@@ -9,10 +9,19 @@ opening it does not activate the map or change fog.
    **Change wall type** applies the selected type to a clicked segment.
 3. Use Undo/Redo, Ctrl/Cmd+Z and Ctrl/Cmd+Shift+Z for draft edits. Drag pans,
    the wheel zooms and F fits. Panning never adds a segment.
-4. **Save wall set** applies the draft to this map and saves an immutable,
+4. **Move an endpoint** in any tool: press the left mouse button within 10 screen
+   pixels of an endpoint (the cursor becomes a hand) and drag. Walls that meet at
+   that corner (endpoints within 0.5 image pixels) move together, so rooms stay
+   closed; hold **Alt** when you press to move only the nearest wall's end.
+   Snapping to other endpoints and the image edge apply while you drag. Escape
+   cancels; each drag is one Undo step. A plain click on an endpoint still does
+   what the selected tool does, a drag away from endpoints still pans, and paired
+   portals keep their pairing. A move that would make a wall's two ends equal is
+   refused. Touch screens keep one-finger panning; use the edit dialog there.
+5. **Save wall set** applies the draft to this map and saves an immutable,
    reusable wall-only UVTT source in this campaign. There is no Apply confirmation.
    Return to the fog editor; refresh saved sources if another tab is already open.
-5. **Download UVTT (current draft)** exports without saving or applying. Tick
+6. **Download UVTT (current draft)** exports without saving or applying. Tick
    **Include map image in download** for a self-contained map; otherwise it is
    a wall-only file. Pixels per grid defaults to 70 and controls export units,
    not the size or position of walls on the artwork.

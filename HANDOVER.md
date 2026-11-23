@@ -161,3 +161,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Automatic CI evidence publication (2026-11-22)](docs/handover/101-automatic-ci-evidence-publication-2026-11-22.md)
 - [Bugs 1 and 3–12: accepted closure and acceptance findings 30, 31, I1 (2026-11-22)](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [Bugs 30, 31 and improvement I1: implementation (2026-11-23)](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
+- [Improvement I2: wall endpoint drag (2026-11-23)](docs/handover/104-i2-wall-endpoint-drag-2026-11-23.md)

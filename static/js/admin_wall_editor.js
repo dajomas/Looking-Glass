@@ -14,8 +14,9 @@
     if (vp.contains(event.target) || editDialog.contains(event.target)) event.preventDefault();
   }, { capture: true });
   let state = null, walls = [], saved = "[]", start = null, undo = [], redo = [], busy = false;
-  let wallWidth = 2;
-  const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onChange: render });
+  let wallWidth = 2, dragging = null;
+  const JOIN = 0.5;  // image px: endpoints this close form one corner
+  const pz = new PanZoom(vp, stage, { secondaryTap: true, onTap, onDragStart, onChange: render });
   LGWallAppearance(id, (width) => {
     wallWidth = width;
     render();
@@ -124,11 +125,12 @@
     const a = imagePoint(coords[0], coords[1]), b = imagePoint(coords[2], coords[3]);
     return [a.x, a.y, b.x, b.y];
   }
-  function snapped(x, y) {
+  function snapped(x, y, exclude = null) {
     const point = imagePoint(x, y);
     let pt = point, best = 10 / pz.scale;
     if ($("snap-ends").checked) {
-      for (const w of walls) for (const [a, b] of [[w[0], w[1]], [w[2], w[3]]]) {
+      for (const [i, w] of walls.entries()) for (const [end, a, b] of [[0, w[0], w[1]], [1, w[2], w[3]]]) {
+        if (exclude?.has(`${i}:${end}`)) continue;  // never snap a dragged endpoint to itself
         const candidate = imagePoint(a, b);
         const dist = Math.hypot(point.x - candidate.x, point.y - candidate.y);
         if (dist <= best) { best = dist; pt = candidate; }
@@ -136,6 +138,66 @@
     }
     return pt;
   }
+  // Endpoints within 10 screen px; all joined ends move together unless detached.
+  function endpointsNear(x, y, detach) {
+    let best = 10 / pz.scale, hit = null;
+    walls.forEach((w, i) => [0, 1].forEach((end) => {
+      const dist = Math.hypot(x - w[end * 2], y - w[end * 2 + 1]);
+      if (dist <= best) { best = dist; hit = { i, end, x: w[end * 2], y: w[end * 2 + 1] }; }
+    }));
+    if (!hit) return [];
+    if (detach) return [[hit.i, hit.end]];
+    const ends = [];
+    walls.forEach((w, i) => {
+      const d = [0, 1].map((end) => Math.hypot(w[end * 2] - hit.x, w[end * 2 + 1] - hit.y));
+      const end = i === hit.i ? hit.end : d[0] <= d[1] ? 0 : 1;  // at most one end per wall
+      if (d[end] <= JOIN) ends.push([i, end]);
+    });
+    return ends;
+  }
+  function onDragStart(x, y, event) {
+    if (busy || dragging || editDialog.open || $("portal-dialog").open || !state) return null;
+    // Left mouse/pen only: Ctrl-click edits, and one-finger touch keeps panning.
+    if (event.button !== 0 || event.ctrlKey || event.metaKey || event.pointerType === "touch") return null;
+    const ends = endpointsNear(x, y, event.altKey);
+    if (!ends.length) return null;
+    const before = structuredClone(walls), moving = new Set(ends.map(([i, end]) => `${i}:${end}`));
+    const [i0, e0] = ends[0], origin = { x: walls[i0][e0 * 2], y: walls[i0][e0 * 2 + 1] };
+    const place = (px, py) => {
+      const pt = snapped(px, py, moving);
+      for (const [i, end] of ends) { walls[i][end * 2] = pt.x; walls[i][end * 2 + 1] = pt.y; }
+      return pt;
+    };
+    const handler = {
+      move(px, py) {
+        place(px, py); render();
+        status(`Moving ${ends.length === 1 ? "an endpoint" : `${ends.length} joined endpoints`}; release to place, Escape cancels.`);
+      },
+      end(px, py) {
+        const pt = place(px, py), after = structuredClone(walls), pending = start;
+        dragging = null; walls = before;
+        if (pt.x === origin.x && pt.y === origin.y) { render(); status("Endpoint not moved."); return; }
+        if (ends.some(([i]) => after[i][0] === after[i][2] && after[i][1] === after[i][3])) {
+          render(); status("The two endpoints of a wall must differ.", true); return;
+        }
+        mutate({ batch: true, before, after });
+        start = pending; render();
+        status(`Moved ${ends.length === 1 ? "an endpoint" : `${ends.length} joined endpoints`} in draft. Save applies the walls; Download does not.`);
+      },
+      cancel() {
+        if (dragging !== handler) return;
+        dragging = null; walls = before; render();
+      },
+    };
+    dragging = handler;
+    return handler;
+  }
+  vp.addEventListener("pointermove", (event) => {
+    if (event.buttons || !state || dragging || event.pointerType === "touch") return;
+    const pt = pz.toImage(event.clientX, event.clientY);
+    vp.classList.toggle("endpoint-hover", !event.ctrlKey && endpointsNear(pt.x, pt.y, true).length > 0);
+  });
+  vp.addEventListener("pointerleave", () => vp.classList.remove("endpoint-hover"));
   function onTap(x, y, event) {
     if (busy || editDialog.open || $("portal-dialog").open || !state || !Number.isFinite(x) || !Number.isFinite(y)) return;
     // Secondary tap or Ctrl-primary tap edits from any tool; PanZoom filters drags.
@@ -255,7 +317,8 @@
     await artwork.decode();
     state = next; walls = next.walls.map((w) => w.slice()); saved = snapshot(); start = null; undo = []; redo = [];
     img.src = artwork.src; pz.setContentSize(next.width, next.height); svg.setAttribute("viewBox", `0 0 ${next.width} ${next.height}`);
-    pz.fit(); render(); $("wall-retry").hidden = true; status("Ready. Click two endpoints to add a wall.");
+    pz.fit(); render(); $("wall-retry").hidden = true;
+    status("Ready. Click two endpoints to add a wall, or drag an endpoint to move it (Alt detaches it from a corner).");
   }
   $("wall-save").onclick = () => run(async () => {
     const next = await LGApi.post(url, body());
@@ -271,8 +334,8 @@
     link.href = objectUrl; link.download = `map-${id}-walls.uvtt`; document.body.appendChild(link); link.click(); link.remove();
     setTimeout(() => URL.revokeObjectURL(objectUrl), 60000); status("UVTT downloaded. Download does not save or apply your edits.");
   });
-  $("wall-undo").onclick = () => { if (busy || !undo.length) return; const c = undo.pop(); apply(c, false); redo.push(c); start = null; render(); };
-  $("wall-redo").onclick = () => { if (busy || !redo.length) return; const c = redo.pop(); apply(c, true); undo.push(c); start = null; render(); };
+  $("wall-undo").onclick = () => { if (busy || dragging || !undo.length) return; const c = undo.pop(); apply(c, false); redo.push(c); start = null; render(); };
+  $("wall-redo").onclick = () => { if (busy || dragging || !redo.length) return; const c = redo.pop(); apply(c, true); undo.push(c); start = null; render(); };
   $("wall-tool").onchange = $("wall-kind").onchange = () => { start = null; render(); };
   $("wall-reload").onclick = () => { if (dirty() && !confirm("Discard unsaved wall edits and reload? Download first to keep a copy.")) return; run(load); };
   $("wall-retry").onclick = () => run(load);
@@ -280,6 +343,11 @@
   window.addEventListener("beforeunload", (e) => { if (dirty()) { e.preventDefault(); e.returnValue = ""; } });
   window.addEventListener("keydown", (e) => {
     if (editDialog.open || $("portal-dialog").open || /INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if (dragging) {
+      if (e.key === "Escape" && pz.cancelDrag()) status("Endpoint move cancelled.");
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") e.preventDefault();
+      return;
+    }
     if (e.key === "Escape") { start = null; render(); }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") { e.preventDefault(); $(e.shiftKey ? "wall-redo" : "wall-undo").click(); }
     if (e.key.toLowerCase() === "f") pz.fit();
