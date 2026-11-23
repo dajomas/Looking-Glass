@@ -33,3 +33,13 @@ move those jobs into the container image.
 
 YAML parse and matrix resolution checked locally. The first push of this change
 runs CI and is the evidence; see the end of this record once recorded.
+
+## First container run and fix
+
+Run 45182485974 (`b9a64e2`): Python, JavaScript and Recovery passed on the
+runner; both container jobs failed in Set up Python with `spawn
+/__t/Python/3.14.10/x64/bin/pip ENOENT`. setup-python reused the runner's tool
+cache, mounted at `/__t` in the container, whose scripts carry host shebangs.
+The step now sets `RUNNER_TOOL_CACHE` and `AGENT_TOOLSDIRECTORY` to
+`/opt/hostedtoolcache` (the runner's default, so unchanged on the runner), which
+makes setup-python install a fresh Python inside the container.
