@@ -1,0 +1,6 @@
+# End-to-end suite: the application plus Playwright for Chromium and Firefox.
+-r ../requirements.txt
+pytest>=8
+playwright>=1.49
+pytest-playwright>=0.6
+pytest-html>=4.1

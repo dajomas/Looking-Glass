@@ -9,6 +9,10 @@ are not summarized here.
 
 ### Added
 
+- **End-to-end suite in Chromium and Firefox (I3).** `tools/run_e2e.sh` runs
+  Playwright journeys from `e2e/` against a real local server, stores the
+  results in `e2e-results/<timestamp>/`, keeps only the latest set and commits
+  and pushes it with `[skip ci]`. See docs/testing.md, "End-to-end suite".
 - **Drag wall endpoints in the wall editor (I2, accepted).** In any tool, press the left
   mouse button on an endpoint and drag to move it. Walls meeting at that corner
   move together; hold Alt and press slightly along a wall to move only that wall. Snapping and the image edge

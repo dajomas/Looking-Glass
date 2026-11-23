@@ -15,3 +15,8 @@ config.yaml
 /**/test-results.*.txt
 /browser-test*.sh
 /local-tests-*/
+# End-to-end suite (tools/run_e2e.sh): its virtualenv and unscripted local runs stay out
+# of git; committed results keep their Playwright trace archives.
+/.venv-e2e/
+/e2e-results/_local/
+!/e2e-results/**/*.zip

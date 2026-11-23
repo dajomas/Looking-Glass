@@ -162,3 +162,4 @@ original manifest are unchanged. Pre-existing index links for records 020 and
 - [Bugs 1 and 3–12: accepted closure and acceptance findings 30, 31, I1 (2026-11-22)](docs/handover/102-bugs-1-3-12-accepted-closure-and-acceptance-findings-2026-11-22.md)
 - [Bugs 30, 31 and improvement I1: implementation (2026-11-23)](docs/handover/103-bugs-30-31-and-i1-implementation-2026-11-23.md)
 - [Improvement I2: wall endpoint drag (2026-11-23)](docs/handover/104-i2-wall-endpoint-drag-2026-11-23.md)
+- [I3: Playwright end-to-end suite and results publishing (2026-11-23)](docs/handover/105-e2e-suite-2026-11-23.md)

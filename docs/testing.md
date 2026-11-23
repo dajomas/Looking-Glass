@@ -89,6 +89,46 @@ Read [viewer synchronization](testing/028-step-5-viewer-synchronization-status.m
 
 Read [browser preflight and font diagnostics](testing/033-rocky-linux-10-wsl-browser-preflight.md#fontconfig-and-rendered-text-failures).
 
+## End-to-end suite
+
+`tools/run_e2e.sh` runs the Playwright end-to-end suite in `e2e/` in Chromium and
+Firefox against a real server started from `python/main.py serve` (free loopback
+ports, throwaway config and data, PNG fog without feathering for exact pixel
+checks). Journeys use the real UI: sign-in rules, a superadmin creating a
+campaign, importing a map with Foundry walls, creating a player and showing the
+map; the player's forced password change from a direct map link; reveal, hide
+and undo reaching the player; dragging a wall endpoint changing room
+boundaries; voluntary password change; the admin portal refusing a player;
+logout; and deactivation ending the player's live view.
+
+```bash
+tools/run_e2e.sh              # run, store, commit and push results ([skip ci])
+tools/run_e2e.sh --no-push    # run and store only; nothing is committed
+tools/run_e2e.sh -k wall      # extra arguments are passed to pytest
+```
+
+- **Requirements:** Python 3.14 (`E2E_PYTHON`, default `python3.14`), network
+  access for the first install, and the browsers' system libraries. The script
+  creates `.venv-e2e` (`E2E_VENV`), installs `e2e/requirements.txt` and the
+  Playwright browsers, and checks that both browsers start before anything
+  runs. On dnf-based systems it checks the rpm equivalents of Firefox's
+  libraries and prints the `dnf install` command.
+- **Results:** `e2e-results/<UTC timestamp>/` holds `summary.md` (tested
+  commit, any uncommitted changes to tracked files, totals per browser),
+  `junit.xml`, `report.html`, `pytest.log` and `server.log`. Failed tests add
+  `failures/<test>/` with screenshots, a Playwright trace (`trace.zip`; open it
+  with `playwright show-trace`), browser console output and the server log
+  lines written during that test.
+- **Publishing:** without `--no-push` the branch (`E2E_BRANCH`, default
+  `features/claude`) must be checked out, have nothing staged and not be behind
+  `E2E_REMOTE` (default `origin`). Older results folders are removed so only
+  the latest set is kept (history keeps the rest), and one `[skip ci]` commit is
+  pushed. If CI publishes evidence meanwhile, the script rebases once per
+  refusal (up to three attempts) as long as the remote did not touch
+  `e2e-results/`. The script exits with pytest's status.
+- `E2E_HEADED=1` shows the browsers. Running `pytest -c e2e/pytest.ini e2e`
+  directly writes failure artifacts to the ignored `e2e-results/_local/`.
+
 ## Commit-scoped local test output
 
 Run from your checkout after installing its test dependencies:
