@@ -43,5 +43,15 @@ cache, mounted at `/__t` in the container, whose scripts carry host shebangs.
 A first fix overriding `RUNNER_TOOL_CACHE`/`AGENT_TOOLSDIRECTORY` for the step
 had no effect (run 45183128048, same error). Only setup-python's pip-cache
 lookup runs the `pip` script; the workflow's own steps use `python -m pip`. The
-container jobs now set `cache: ''` (expression
-`matrix.container && '' || 'pip'`); runner jobs keep the pip cache.
+container jobs now set `cache: ''` via `!matrix.container && 'pip' || ''`; runner
+jobs keep the pip cache. (A first version, `matrix.container && '' || 'pip'`,
+always gave `pip` because `''` is falsy; run 45183741199.)
+
+## Result
+
+Run 45184471664 (`1ad9d6b`) succeeded; all five jobs passed with the usual
+counts (Python/HTTP 1,993, browser 185, JavaScript 36, live 18, recovery 6; no
+skips). `environment.txt` shows the Playwright image for the browser and live
+jobs and "none (runner)" for the others. In the container jobs, Initialize
+containers (image pull) took 27–33 s and Install browser dependencies 3 s
+(was 21–347 s); the browser job took 126 s and the live job 145 s in total.
