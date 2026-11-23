@@ -8,7 +8,7 @@ from urllib.parse import urlsplit
 from PIL import Image
 from playwright.sync_api import expect
 
-RED, BLACK = (200, 30, 30), (0, 0, 0)
+RED, BLUE, BLACK = (200, 30, 30), (30, 60, 200), (0, 0, 0)
 WIDTH, HEIGHT = 400, 200
 # Two rooms split at x=200, as a Foundry scene (image pixels, no padding).
 WALLS = [[10, 10, 390, 10], [390, 10, 390, 190], [390, 190, 10, 190], [10, 190, 10, 10], [200, 10, 200, 190]]
@@ -18,9 +18,9 @@ def unique(prefix):
     return f"{prefix}-{uuid.uuid4().hex[:8]}"
 
 
-def map_png():
+def map_png(colour=RED):
     buffer = io.BytesIO()
-    Image.new("RGB", (WIDTH, HEIGHT), RED).save(buffer, "PNG")
+    Image.new("RGB", (WIDTH, HEIGHT), colour).save(buffer, "PNG")
     return buffer.getvalue()
 
 
@@ -70,11 +70,19 @@ class Admin:
         self.page.wait_for_url(re.compile(r"/campaigns/\d+"))
         return int(re.search(r"/campaigns/(\d+)", self.page.url).group(1))
 
-    def import_map(self, cid, name):
+    def api(self, method, path, body=None):
+        """JSON call with this browser session, as the editors' own scripts make it."""
+        token = self.page.evaluate("document.querySelector('meta[name=csrf-token]').content")
+        response = self.page.request.fetch(f"{self.url}{path}", method=method, data=body,
+                                           headers={"X-CSRF-Token": token, "Origin": self.url})
+        assert response.ok, f"{method} {path}: {response.status} {response.text()}"
+        return response.json()
+
+    def import_map(self, cid, name, colour=RED):
         self.page.goto(f"{self.url}/campaigns/{cid}")
         form = self.page.locator(f'form[action="/campaigns/{cid}/maps"]')
         form.locator('input[name="image"]').set_input_files(
-            {"name": "map.png", "mimeType": "image/png", "buffer": map_png()})
+            {"name": "map.png", "mimeType": "image/png", "buffer": map_png(colour)})
         form.locator('input[name="walls"]').set_input_files(
             {"name": "walls.json", "mimeType": "application/json", "buffer": walls_json()})
         form.locator('input[name="name"]').fill(name)
@@ -104,6 +112,10 @@ class Admin:
         self.page.wait_for_function(f"document.querySelector('#map-img').naturalWidth === {WIDTH}")
         expect(self.page.locator("#busy")).to_be_hidden()
         self.mid = mid
+
+    def click_map(self, x, y=HEIGHT / 2):
+        box = self.page.locator("#map-img").bounding_box()
+        self.page.mouse.click(box["x"] + box["width"] * x / WIDTH, box["y"] + box["height"] * y / HEIGHT)
 
     def fog(self, action, x, y=HEIGHT / 2):
         """Reveal or hide the area at image (x, y) with a real click in the fog editor."""
@@ -142,9 +154,9 @@ class Player:
     def expect_live(self):
         expect(self.page.locator("#conn-dot")).to_have_class(re.compile(r"\bon\b"))
 
-    def expect_pixels(self, name, points):
-        """Wait until the image the viewer installed shows these exact colours."""
-        self.page.wait_for_function("""({name, points, width, height}) => {
+    def expect_pixels(self, name, points, tolerance=0):
+        """Wait until the installed image shows these colours (exactly, or within tolerance)."""
+        self.page.wait_for_function("""({name, points, width, height, tolerance}) => {
           const image = document.querySelector('#map'), stage = document.querySelector('#stage');
           if (stage.hidden || document.querySelector('#map-name').textContent !== name ||
               !image.complete || image.naturalWidth !== width) return false;
@@ -152,9 +164,9 @@ class Player:
           const context = canvas.getContext('2d'); context.drawImage(image, 0, 0);
           return points.every(([x, y, rgb]) => {
             const pixel = context.getImageData(x, y, 1, 1).data;
-            return rgb.every((value, i) => pixel[i] === value);
+            return rgb.every((value, i) => Math.abs(pixel[i] - value) <= tolerance);
           });
-        }""", arg={"name": name, "width": WIDTH, "height": HEIGHT,
+        }""", arg={"name": name, "width": WIDTH, "height": HEIGHT, "tolerance": tolerance,
                    "points": [[x, y, list(rgb)] for (x, y), rgb in points]}, timeout=15_000)
         expect(self.page.locator("#sync-status")).to_have_text("Up to date")
 
@@ -162,7 +174,7 @@ class Player:
 class Table:
     """A campaign with one two-room map shown to one player who has changed their password."""
 
-    def __init__(self, server, actors):
+    def __init__(self, server, actors, tolerance=0):
         self.server = server
         self.campaign, self.map_name = unique("Campaign"), unique("Map")
         self.username, self.password = unique("player"), "player-password-1"
@@ -175,5 +187,5 @@ class Table:
         self.dm.show_map(self.cid, self.mid)
         self.player = Player(actors("player"), server.viewer, self.cid)
         self.player.first_login(self.username, "temporary-pass-1", self.password)
-        self.player.expect_pixels(self.map_name, [((100, 100), BLACK), ((300, 100), BLACK)])
+        self.player.expect_pixels(self.map_name, [((100, 100), BLACK), ((300, 100), BLACK)], tolerance)
         self.dm.open_map(self.mid)

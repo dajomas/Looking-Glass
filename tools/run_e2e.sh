@@ -150,8 +150,8 @@ if dirty:
 lines += [f"- pytest exit status: {status}",
           f"- Total: {counts['tests']}; passed {passed}, failed {counts['failures']}, errors {counts['errors']}, skipped {counts['skipped']}"]
 lines += [f"- {browser}: " + ", ".join(f"{k} {v}" for k, v in sorted(r.items())) for browser, r in sorted(per_browser.items())]
-lines += ["", "Files: `junit.xml`, `report.html`, `pytest.log`, `server.log`; screenshots, traces, console and "
-          "server-log extracts for failed tests under `failures/`."]
+lines += ["", "Files: `junit.xml`, `report.html`, `pytest.log`, `server.log` (and `webp-server.log`); screenshots, "
+          "traces, console and server-log extracts for failed tests under `failures/`."]
 (out / "summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
 (out / "subject.txt").write_text(f"{passed} passed, {counts['failures'] + counts['errors']} failed", encoding="utf-8")
 PY

@@ -99,7 +99,12 @@ campaign, importing a map with Foundry walls, creating a player and showing the
 map; the player's forced password change from a direct map link; reveal, hide
 and undo reaching the player; dragging a wall endpoint changing room
 boundaries; voluntary password change; the admin portal refusing a player;
-logout; and deactivation ending the player's live view.
+logout; deactivation ending the player's live view; cross-map passage travel
+switching the player to the destination map; the player reconnecting after a
+server restart with sessions and fog intact; a campaign backup download,
+inspect and restore reaching the connected player; room notes saved for the DM
+and absent from the player's page and state; an admin account limited to its
+own campaigns; and a second server serving WebP with default feathering.
 
 ```bash
 tools/run_e2e.sh              # run, store, commit and push results ([skip ci])
@@ -115,7 +120,8 @@ tools/run_e2e.sh -k wall      # extra arguments are passed to pytest
   libraries and prints the `dnf install` command.
 - **Results:** `e2e-results/<UTC timestamp>/` holds `summary.md` (tested
   commit, any uncommitted changes to tracked files, totals per browser),
-  `junit.xml`, `report.html`, `pytest.log` and `server.log`. Failed tests add
+  `junit.xml`, `report.html`, `pytest.log`, `server.log` and, when used,
+  `webp-server.log`. Failed tests add
   `failures/<test>/` with screenshots, a Playwright trace (`trace.zip`; open it
   with `playwright show-trace`), browser console output and the server log
   lines written during that test.

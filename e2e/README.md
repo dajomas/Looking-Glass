@@ -16,6 +16,7 @@ results and environment variables.
 
 | File | Contents |
 | --- | --- |
-| `conftest.py` | Server subprocess, Chromium sandbox flag, failure artifacts |
+| `conftest.py` | Restartable server subprocesses (PNG and WebP), Chromium sandbox flag, failure artifacts |
 | `support.py` | UI helpers (DM, player, pixel checks) and the `Table` scenario |
 | `test_journeys.py` | Journeys: login, first-login password change, fog, wall drag, account, revocation |
+| `test_campaign_features.py` | Passage travel, server restart, backup/restore, room notes, admin role, WebP |
